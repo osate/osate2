@@ -45,52 +45,52 @@ public class Issue702Test extends XtextTest {
 			package fgpt
 			public
 			\tfeature group Sense_Whole
-			\t	features
-			\t		D1: in data port;
-			\t		D2: in data port;
-			\t		D3: in data port;
-			\t		D4: in data port;
-			\t		D5: in data port;
+			\t\tfeatures
+			\t\t\tD1: in data port;
+			\t\t\tD2: in data port;
+			\t\t\tD3: in data port;
+			\t\t\tD4: in data port;
+			\t\t\tD5: in data port;
 			\tend Sense_Whole;
 			\t
 			\tsystem sys
 			\tend sys;
 			\t
 			\tsystem implementation sys.root
-			\t	subcomponents
-			\t		External: system Ext.base;
-			\t		Container: system Container.base;
-			\t	connections
-			\t		sense: feature group External.Sense -> Container.Sense;
+			\t\tsubcomponents
+			\t\t\tExternal: system Ext.base;
+			\t\t\tContainer: system Container.base;
+			\t\tconnections
+			\t\t\tsense: feature group External.Sense -> Container.Sense;
 			\tend sys.root;
 			\t
 			\tsystem Container
-			\t	features
-			\t		Sense: feature group Sense_Whole;
+			\t\tfeatures
+			\t\t\tSense: feature group Sense_Whole;
 			\tend Container;
 			\t
 			\tsystem implementation Container.base
-			\t	subcomponents
-			\t		S1: system Sub1.base;
-			\t	connections
-			\t		Sub1_D1: port Sense.D1 -> S1.D1;
-			\t		Sub1_D2: port Sense.D2 -> S1.D2;
-			\t		Sub1_D3: port Sense.D3 -> S1.D3;
+			\t\tsubcomponents
+			\t\t\tS1: system Sub1.base;
+			\t\tconnections
+			\t\t\tSub1_D1: port Sense.D1 -> S1.D1;
+			\t\t\tSub1_D2: port Sense.D2 -> S1.D2;
+			\t\t\tSub1_D3: port Sense.D3 -> S1.D3;
 			\tend Container.base;
 			\t
 			\tsystem Sub1
-			\t	features
-			\t		D1: in data port;
-			\t		D2: in data port;
-			\t		D3: in data port;
+			\t\tfeatures
+			\t\t\tD1: in data port;
+			\t\t\tD2: in data port;
+			\t\t\tD3: in data port;
 			\tend Sub1;
 			\t
 			\tsystem implementation Sub1.base
 			\tend Sub1.base;
 			\t
 			\tsystem Ext
-			\t	features
-			\t		Sense: feature group inverse of Sense_Whole;
+			\t\tfeatures
+			\t\t\tSense: feature group inverse of Sense_Whole;
 			\tend Ext;
 			\t
 			\tsystem implementation Ext.base

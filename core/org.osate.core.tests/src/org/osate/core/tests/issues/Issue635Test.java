@@ -64,43 +64,43 @@ public class Issue635Test extends XtextTest {
 			package issue635
 			public
 			\twith ps635;
-			
+
 			\tfeature group fg
-			\t	features
-			\t		f0: feature {
-			\t			ps635::q0 => true;\t
-			\t		};
-			\t		f1: in data port {
-			\t			ps635::q0 => true;\t
-			\t			ps635::q2 => true;\t
-			\t			ps635::r1 => true;
-			\t		};
-			\t		f2: provides bus access {
-			\t			ps635::q0 => true;\t
-			\t			ps635::q1 => true;\t
-			\t		};
+			\t\tfeatures
+			\t\t\tf0: feature {
+			\t\t\t\tps635::q0 => true;\t
+			\t\t\t};
+			\t\t\tf1: in data port {
+			\t\t\t\tps635::q0 => true;\t
+			\t\t\t\tps635::q2 => true;\t
+			\t\t\t\tps635::r1 => true;
+			\t\t\t};
+			\t\t\tf2: provides bus access {
+			\t\t\t\tps635::q0 => true;\t
+			\t\t\t\tps635::q1 => true;\t
+			\t\t\t};
 			\tend fg;
 			\t
 			\tsystem top
-			\t	features
-			\t		fg: feature group fg;
-			\t	properties
-			\t		ps635::p1 => false;
-			\t		ps635::p2 => false;
-			\t	\t
-			\t		ps635::q0 => true applies to fg;
-			\t		ps635::q3 => false applies to fg;
+			\t\tfeatures
+			\t\t\tfg: feature group fg;
+			\t\tproperties
+			\t\t\tps635::p1 => false;
+			\t\t\tps635::p2 => false;
+			\t\t\t
+			\t\t\tps635::q0 => true applies to fg;
+			\t\t\tps635::q3 => false applies to fg;
 			\tend top;
-			
+
 			\tsystem implementation top.i
-			\t	subcomponents
-			\t		sub: system top;
-			\t		sub1: system;
-			\t	properties
-			\t		ps635::p0 => true;
-			\t		ps635::p2 => true;
-			\t		ps635::p2 => true applies to sub1;
-			\t		ps635::p3 => true applies to sub1;
+			\t\tsubcomponents
+			\t\t\tsub: system top;
+			\t\t\tsub1: system;
+			\t\tproperties
+			\t\t\tps635::p0 => true;
+			\t\t\tps635::p2 => true;
+			\t\t\tps635::p2 => true applies to sub1;
+			\t\t\tps635::p3 => true applies to sub1;
 			\tend top.i;
 			\t
 			end issue635;

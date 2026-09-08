@@ -58,28 +58,28 @@ public class Issue753Test extends XtextTest {
 			   **};
 			  \s
 			 system conn_test
-			 	features
-			 		feat0 : in data port Base_Types::Integer;
-			 		feat1 : out data port Base_Types::Integer;
+			 \tfeatures
+			 \t\tfeat0 : in data port Base_Types::Integer;
+			 \t\tfeat1 : out data port Base_Types::Integer;
 			 end conn_test;
 			\s
 			 system implementation conn_test.i
-			 	subcomponents
-			 		feat_data : data Base_Types::Integer;
-			 		subme: system sub;
-			 	connections
-			 		conn0 : port feat0 -> feat_data;
-			 		conn1: port feat_data -> feat1;
-			 		conn2: port subme.outp -> feat1;
-			 		conn3: port subme.outp -> feat_data;
+			 \tsubcomponents
+			 \t\tfeat_data : data Base_Types::Integer;
+			 \t\tsubme: system sub;
+			 \tconnections
+			 \t\tconn0 : port feat0 -> feat_data;
+			 \t\tconn1: port feat_data -> feat1;
+			 \t\tconn2: port subme.outp -> feat1;
+			 \t\tconn3: port subme.outp -> feat_data;
 			    annex resolute {**
-			    	prove print_conns(this)
+			    \tprove print_conns(this)
 			    **};
 			 end conn_test.i;
 			\s
 			 system sub
-			 	features
-			 		outp: out data port Base_Types::Integer;
+			 \tfeatures
+			 \t\toutp: out data port Base_Types::Integer;
 			 end sub;
 			\t
 			end Issue753;

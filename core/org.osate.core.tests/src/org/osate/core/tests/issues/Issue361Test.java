@@ -47,40 +47,40 @@ public class Issue361Test extends XtextTest {
 			package issue361
 			public
 			\twith Base_Types;
-			
+
 			\tfeature group blk_ins
-			\t	features
-			\t		input: in data port Base_Types::Boolean;
+			\t\tfeatures
+			\t\t\tinput: in data port Base_Types::Boolean;
 			\tend blk_ins;
-			
+
 			\tfeature group blk_outs
-			\t	features
-			\t		output: out data port Base_Types::Boolean;
+			\t\tfeatures
+			\t\t\toutput: out data port Base_Types::Boolean;
 			\tend blk_outs;
-			
+
 			\tsystem Block
-			\t	features\s
-			\t		ins: feature group blk_ins;
-			\t		outs: feature group blk_outs;
+			\t\tfeatures\s
+			\t\t\tins: feature group blk_ins;
+			\t\t\touts: feature group blk_outs;
 			\tend Block;
-			
+
 			\tsystem implementation Block.impl
-			\t	subcomponents
-			\t		blk_process: process BlockProcess.impl;
-			\t	connections
-			\t		pin: port ins.input -> blk_process.input;
-			\t		pout: port blk_process.output -> outs.output;
+			\t\tsubcomponents
+			\t\t\tblk_process: process BlockProcess.impl;
+			\t\tconnections
+			\t\t\tpin: port ins.input -> blk_process.input;
+			\t\t\tpout: port blk_process.output -> outs.output;
 			\tend Block.impl;
-			
+
 			\tprocess BlockProcess
-			\t	features
-			\t		input: in data port Base_Types::Boolean;
-			\t		output: out data port Base_Types::Boolean;
+			\t\tfeatures
+			\t\t\tinput: in data port Base_Types::Boolean;
+			\t\t\toutput: out data port Base_Types::Boolean;
 			\tend BlockProcess;
-			
+
 			\tprocess implementation BlockProcess.impl
 			\tend BlockProcess.impl;
-			
+
 			end issue361;
 			""";
 

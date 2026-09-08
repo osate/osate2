@@ -49,80 +49,80 @@ public class Issue464Test extends XtextTest {
 	private static final String AADL_TEXT = """
 			package issue464
 			public
-			
+
 			\tsystem SensorProcessing
 			\tend SensorProcessing;
-			
+
 			\tsystem implementation SensorProcessing.impl
-			\t	subcomponents
-			\t		datasetProcessing: process processing.completeset;
+			\t\tsubcomponents
+			\t\t\tdatasetProcessing: process processing.completeset;
 			\tend SensorProcessing.impl;
-			
+
 			\tsystem implementation SensorProcessing.impl2
-			\t	subcomponents
-			\t		datasetProcessing: process processing.completeset;
-			\t		datasetProcessing2: process processing.completeset;
+			\t\tsubcomponents
+			\t\t\tdatasetProcessing: process processing.completeset;
+			\t\t\tdatasetProcessing2: process processing.completeset;
 			\tend SensorProcessing.impl2;
-			
+
 			\tdata samples
 			\tend samples;
-			
+
 			\tthread threadA
-			\t	features
-			\t		samplesIn: in event data port samples;
-			\t		samplesOut: out event data port samples;
-			\t	flows
-			\t		flowThruThreadA: flow path samplesIn -> samplesOut;
+			\t\tfeatures
+			\t\t\tsamplesIn: in event data port samples;
+			\t\t\tsamplesOut: out event data port samples;
+			\t\tflows
+			\t\t\tflowThruThreadA: flow path samplesIn -> samplesOut;
 			\tend threadA;
-			
+
 			\tthread group threadGroupA
-			\t	features
-			\t		SamplesIn: in event data port samples;
-			\t		samplesOut: out event data port samples;
-			\t	flows
-			\t		flowThruThreadGroupA: flow path samplesIn -> samplesOut;
+			\t\tfeatures
+			\t\t\tSamplesIn: in event data port samples;
+			\t\t\tsamplesOut: out event data port samples;
+			\t\tflows
+			\t\t\tflowThruThreadGroupA: flow path samplesIn -> samplesOut;
 			\tend threadGroupA;
-			
+
 			\tthread group implementation threadGroupA.signal
-			\t	subcomponents
-			\t		taskA: thread threadA;
-			\t	connections
-			\t		C1: port samplesIn -> taskA.samplesIn;
-			\t		C2: port taskA.samplesOut -> samplesOut;
-			\t	flows
-			\t		flowThruThreadGroupA: flow path samplesIn -> C1 ->
-			\t				taskA.flowThruThreadA -> C2 -> samplesOut;
+			\t\tsubcomponents
+			\t\t\ttaskA: thread threadA;
+			\t\tconnections
+			\t\t\tC1: port samplesIn -> taskA.samplesIn;
+			\t\t\tC2: port taskA.samplesOut -> samplesOut;
+			\t\tflows
+			\t\t\tflowThruThreadGroupA: flow path samplesIn -> C1 ->
+			\t\t\t\t\ttaskA.flowThruThreadA -> C2 -> samplesOut;
 			\tend threadGroupA.signal;
-			
+
 			\tprocess processing
 			\tend processing;
-			
+
 			\tprocess implementation processing.completeset
-			\t	subcomponents
-			\t		dsrc: thread dataSource;
-			\t		dsnk: thread dataSink;
-			\t		tg: thread group threadGroupA.signal;
-			\t	connections
-			\t		incoming: port dsrc.SamplesOut -> tg.SamplesIn;
-			\t		outgoing: port tg.samplesOut -> dsnk.samplesIn;
-			\t	flows
-			\t		processingflow: end to end flow dsrc.fromSource -> incoming -> tg.flowThruThreadGroupA -> outgoing -> dsnk.toSink;
+			\t\tsubcomponents
+			\t\t\tdsrc: thread dataSource;
+			\t\t\tdsnk: thread dataSink;
+			\t\t\ttg: thread group threadGroupA.signal;
+			\t\tconnections
+			\t\t\tincoming: port dsrc.SamplesOut -> tg.SamplesIn;
+			\t\t\toutgoing: port tg.samplesOut -> dsnk.samplesIn;
+			\t\tflows
+			\t\t\tprocessingflow: end to end flow dsrc.fromSource -> incoming -> tg.flowThruThreadGroupA -> outgoing -> dsnk.toSink;
 			\tend processing.completeset;
-			
+
 			\tthread dataSource
-			\t	features
-			\t		samplesOut: out event data port samples;
-			\t	flows
-			\t		fromSource: flow source samplesOut;
+			\t\tfeatures
+			\t\t\tsamplesOut: out event data port samples;
+			\t\tflows
+			\t\t\tfromSource: flow source samplesOut;
 			\tend dataSource;
-			
+
 			\tthread dataSink
-			\t	features
-			\t		samplesIn: in event data port samples;
-			\t	flows
-			\t		toSink: flow sink samplesIn;
+			\t\tfeatures
+			\t\t\tsamplesIn: in event data port samples;
+			\t\tflows
+			\t\t\ttoSink: flow sink samplesIn;
 			\tend dataSink;
-			
+
 			end issue464;
 			""";
 

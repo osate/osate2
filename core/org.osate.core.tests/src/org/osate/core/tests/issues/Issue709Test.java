@@ -49,45 +49,45 @@ public class Issue709Test extends XtextTest {
 			package pkg1
 			public
 			\tabstract a1
-			\t	features
-			\t		fg1: feature group fgt1;
-			\t		fg2: feature group inverse of fgt1;
-			\t		fg3: feature group fgt2;
-			\t		fg4: feature group inverse of fgt3;
-			\t		fg5: feature group fgt4;
+			\t\tfeatures
+			\t\t\tfg1: feature group fgt1;
+			\t\t\tfg2: feature group inverse of fgt1;
+			\t\t\tfg3: feature group fgt2;
+			\t\t\tfg4: feature group inverse of fgt3;
+			\t\t\tfg5: feature group fgt4;
 			\tend a1;
 			\t
 			\tabstract implementation a1.i
-			\t	subcomponents
-			\t		sub1: abstract a1;
-			\t		sub2: abstract a1;
-			\t	connections
-			\t		--Correct
-			\t		conn1: feature group sub1.fg1 -> sub2.fg2;
-			\t		conn2: feature group sub1.fg1 -> sub2.fg3;
-			\t	\t
-			\t		--Same classifier, not inverse
-			\t		conn3: feature group sub1.fg1 -> sub2.fg1;
-			\t		conn4: feature group sub1.fg2 -> sub2.fg2;
-			\t		conn5: feature group sub1.fg3 -> sub2.fg3;
-			\t	\t
-			\t		--Inverses, but not same classifier
-			\t		conn6: feature group sub1.fg1 -> sub2.fg4;
-			\t		conn7: feature group sub1.fg1 -> sub2.fg5;
+			\t\tsubcomponents
+			\t\t\tsub1: abstract a1;
+			\t\t\tsub2: abstract a1;
+			\t\tconnections
+			\t\t\t--Correct
+			\t\t\tconn1: feature group sub1.fg1 -> sub2.fg2;
+			\t\t\tconn2: feature group sub1.fg1 -> sub2.fg3;
+			\t\t\t
+			\t\t\t--Same classifier, not inverse
+			\t\t\tconn3: feature group sub1.fg1 -> sub2.fg1;
+			\t\t\tconn4: feature group sub1.fg2 -> sub2.fg2;
+			\t\t\tconn5: feature group sub1.fg3 -> sub2.fg3;
+			\t\t\t
+			\t\t\t--Inverses, but not same classifier
+			\t\t\tconn6: feature group sub1.fg1 -> sub2.fg4;
+			\t\t\tconn7: feature group sub1.fg1 -> sub2.fg5;
 			\tend a1.i;
 			\t
 			\tfeature group fgt1
 			\tend fgt1;
 			\t
 			\tfeature group fgt2
-			\t	inverse of fgt1
+			\t\tinverse of fgt1
 			\tend fgt2;
 			\t
 			\tfeature group fgt3
 			\tend fgt3;
 			\t
 			\tfeature group fgt4
-			\t	inverse of fgt3
+			\t\tinverse of fgt3
 			\tend fgt4;
 			end pkg1;
 			""";

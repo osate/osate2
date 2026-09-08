@@ -43,15 +43,15 @@ import com.google.inject.Inject;
 public class Subset2Test {
 	private static final String AADL_TEXT = """
 			package subset2
-			
+
 			public
-			
+
 			data mydata
 			end mydata;
-			
+
 			bus genericbus
 			end genericbus;
-			
+
 			-- bi-directional sub feature group
 			feature group fgsub1
 			features
@@ -59,7 +59,7 @@ public class Subset2Test {
 			\tf2 : in data port mydata;\t
 			\tf4 : out data port mydata;\t
 			end fgsub1;
-			
+
 			-- bi-directional subset feature group
 			feature group fgsub2
 			features
@@ -67,8 +67,8 @@ public class Subset2Test {
 			\tf4 : out data port mydata;\t
 			\tb1: provides bus access genericbus;
 			end fgsub2;
-			
-			
+
+
 			-- Here, we have all
 			-- the features within the same feature group.
 			feature group fgfull
@@ -79,32 +79,32 @@ public class Subset2Test {
 			\tf4 : in data port mydata;\t
 			\tb1: requires bus access genericbus;
 			end fgfull;
-			
+
 			--  sfull uses the feature group with
 			--  all the features.
 			system sfull
 			features
 			\tf : feature group fgfull;
 			end sfull;
-			
-			
+
+
 			--  sbus uses the bus feature group
 			system sub2
 			features
 			\tf : feature group fgsub2;
 			end sub2;
-			
-			
+
+
 			--  sport uses the ports feature group.
 			system sub1
 			features
 			\tf : feature group fgsub1;
 			end sub1;
-			
+
 			system main
 			end main;
-			
-			
+
+
 			--  We use Subset matching to allow DDS type of support.
 			system implementation main.subset
 			subcomponents

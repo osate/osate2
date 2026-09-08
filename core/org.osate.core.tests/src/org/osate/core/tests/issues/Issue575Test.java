@@ -45,61 +45,61 @@ public class Issue575Test extends XtextTest {
 	private static final String AADL_TEXT = """
 			package issue575
 			public
-			
+
 			\tfeature group FG
-			\t	features
-			\t		outMsg: out event data port;
-			\t		inMsg: in data port;
-			\t		inoutMsg: in out data port;
+			\t\tfeatures
+			\t\t\toutMsg: out event data port;
+			\t\t\tinMsg: in data port;
+			\t\t\tinoutMsg: in out data port;
 			\tend FG;
-			
+
 			\tsystem Box
-			\t	features
-			\t		ioports: feature group FG;
-			\t	flows
-			\t		outFlow: flow source ioports.outMsg;
-			\t		inFlow: flow sink ioports.inMsg;
+			\t\tfeatures
+			\t\t\tioports: feature group FG;
+			\t\tflows
+			\t\t\toutFlow: flow source ioports.outMsg;
+			\t\t\tinFlow: flow sink ioports.inMsg;
 			\tend Box;
-			
+
 			\tprocess P
-			\t	features
-			\t		ioports: feature group inverse of FG;
-			\t	flows
-			\t		processFlow: flow path ioports.outMsg -> ioports.inMsg;
+			\t\tfeatures
+			\t\t\tioports: feature group inverse of FG;
+			\t\tflows
+			\t\t\tprocessFlow: flow path ioports.outMsg -> ioports.inMsg;
 			\tend P;
-			
+
 			\tprocess implementation P.i
-			\t	subcomponents
-			\t		t1: thread T.i;
-			\t	connections
-			\t		c: feature group ioports <-> t1.ioports;
-			\t	flows
-			\t		processFlow: flow path ioports.outMsg -> c -> t1.threadFlow -> c -> ioports.inMsg;
+			\t\tsubcomponents
+			\t\t\tt1: thread T.i;
+			\t\tconnections
+			\t\t\tc: feature group ioports <-> t1.ioports;
+			\t\tflows
+			\t\t\tprocessFlow: flow path ioports.outMsg -> c -> t1.threadFlow -> c -> ioports.inMsg;
 			\tend P.i;
-			
+
 			\tthread T
-			\t	features
-			\t		ioports: feature group inverse of FG;
-			\t	flows
-			\t		threadFlow: flow path ioports.outMsg -> ioports.inMsg;
+			\t\tfeatures
+			\t\t\tioports: feature group inverse of FG;
+			\t\tflows
+			\t\t\tthreadFlow: flow path ioports.outMsg -> ioports.inMsg;
 			\tend T;
-			
+
 			\tthread implementation T.i
 			\tend T.i;
-			
+
 			\tsystem S
 			\tend S;
-			
+
 			\tsystem implementation S.top
-			\t	subcomponents
-			\t		proc: process P.i;
-			\t		box: system Box;
-			\t	connections
-			\t		c: feature group box.ioports <-> proc.ioports;
-			\t	flows
-			\t		f_bb_proc_bb: end to end flow box.outFlow -> c -> proc.processFlow -> c -> box.inFlow;
+			\t\tsubcomponents
+			\t\t\tproc: process P.i;
+			\t\t\tbox: system Box;
+			\t\tconnections
+			\t\t\tc: feature group box.ioports <-> proc.ioports;
+			\t\tflows
+			\t\t\tf_bb_proc_bb: end to end flow box.outFlow -> c -> proc.processFlow -> c -> box.inFlow;
 			\tend S.top;
-			
+
 			end issue575;
 			""";
 

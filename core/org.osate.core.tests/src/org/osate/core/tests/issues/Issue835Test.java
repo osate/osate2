@@ -61,11 +61,11 @@ public class Issue835Test {
 			\tend C;
 			\t
 			\tabstract implementation C.i
-			\t	properties
-			\t		ps835::rp => [f => ps835::c; f1 => (ps835::c, ps835::c);];
-			\t		compute_execution_time => ps835::c .. ps835::c;
+			\t\tproperties
+			\t\t\tps835::rp => [f => ps835::c; f1 => (ps835::c, ps835::c);];
+			\t\t\tcompute_execution_time => ps835::c .. ps835::c;
 			\tend C.i;
-			
+
 			end issue835;
 			""";
 

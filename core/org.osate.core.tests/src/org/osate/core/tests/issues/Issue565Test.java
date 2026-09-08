@@ -45,48 +45,48 @@ public class Issue565Test extends XtextTest {
 	private static final String AADL_TEXT = """
 			package issue565
 			public
-			
+
 			\tdata MsgType
 			\tend MsgType;
-			
+
 			\tfeature group FGType
-			\t	features
-			\t		inPort: in out data port msgType;
+			\t\tfeatures
+			\t\t\tinPort: in out data port msgType;
 			\tend FGType;
-			
+
 			\tprocess Proc
-			\t	features
-			\t		fgPorts: feature group FGType;
+			\t\tfeatures
+			\t\t\tfgPorts: feature group FGType;
 			\tend Proc;
-			
+
 			\tprocess InverseProc
-			\t	features
-			\t		fgPorts: feature group inverse of FGType;
+			\t\tfeatures
+			\t\t\tfgPorts: feature group inverse of FGType;
 			\tend InverseProc;
-			
+
 			\tsystem Sub
-			\t	features
-			\t		fgPorts: feature group inverse of FGType;
+			\t\tfeatures
+			\t\t\tfgPorts: feature group inverse of FGType;
 			\tend Sub;
-			
+
 			\tsystem implementation Sub.i
-			\t	subcomponents
-			\t		iproc: process InverseProc;
-			\t	connections
-			\t		c2: feature group fgPorts <-> iproc.fgPorts;
+			\t\tsubcomponents
+			\t\t\tiproc: process InverseProc;
+			\t\tconnections
+			\t\t\tc2: feature group fgPorts <-> iproc.fgPorts;
 			\tend Sub.i;
-			
+
 			\tsystem Top
 			\tend Top;
-			
+
 			\tsystem implementation Top.i
-			\t	subcomponents
-			\t		proc: process Proc;
-			\t		sub: system Sub.i;
-			\t	connections
-			\t		c1: feature group proc.fgPorts <-> sub.fgPorts;
+			\t\tsubcomponents
+			\t\t\tproc: process Proc;
+			\t\t\tsub: system Sub.i;
+			\t\tconnections
+			\t\t\tc1: feature group proc.fgPorts <-> sub.fgPorts;
 			\tend Top.i;
-			
+
 			end issue565;
 			""";
 

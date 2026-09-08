@@ -70,61 +70,61 @@ public class Subset1Test {
 			\t
 			 -- containing system\t
 			   system top
-			   	features
-			\t	Sense : feature group Sense_Whole;
-			\t	Senseout : feature group inverse of Sense_Whole;
+			   \tfeatures
+			\t\tSense : feature group Sense_Whole;
+			\t\tSenseout : feature group inverse of Sense_Whole;
 			\tend top;
 			\t
 			\tsystem implementation top.i
-			\t	subcomponents
-			\t		S1: system Sub1.base;
-			\t		S2: system Sub2.base;		\t
-			\t	connections
-			\t	  ---  feature group on containing component split into two feature groups
-			\t	  Sub1_Sensed: feature group Sense -> S2.Sense ;
-			\t	  Sub2Out_Sensed: feature group S2.SenseOut -> Senseout;
+			\t\tsubcomponents
+			\t\t\tS1: system Sub1.base;
+			\t\t\tS2: system Sub2.base;		\t
+			\t\tconnections
+			\t\t  ---  feature group on containing component split into two feature groups
+			\t\t  Sub1_Sensed: feature group Sense -> S2.Sense ;
+			\t\t  Sub2Out_Sensed: feature group S2.SenseOut -> Senseout;
 			\t      Sub2_Sensed: feature group S1.Sense -> S2.Sense;\s
-			\t	properties
-			\t		Classifier_Matching_Rule => Subset ;
+			\t\tproperties
+			\t\t\tClassifier_Matching_Rule => Subset ;
 			\tend top.i;
 			\t
 			\t
 			   -- Sub Components\t
 			\t
 			\tsystem Sub1
-			\t	features
-			\t	-- SSH Sensed
-			\t	Sense : feature group inverse of Sense_Whole;      \s
+			\t\tfeatures
+			\t\t-- SSH Sensed
+			\t\tSense : feature group inverse of Sense_Whole;      \s
 			\tend Sub1;
 			    system implementation Sub1.base
-			    	subcomponents
-			    		s1: system subP;
-			    		s2: system subP;
-			    		s3: system subP;
-			    	connections
-			    		c1: port s1.outp -> Sense.D4;
-			    		c2: port s2.outp -> Sense.D5;
-			    		c3: port s3.outp -> Sense.D3;
+			    \tsubcomponents
+			    \t\ts1: system subP;
+			    \t\ts2: system subP;
+			    \t\ts3: system subP;
+			    \tconnections
+			    \t\tc1: port s1.outp -> Sense.D4;
+			    \t\tc2: port s2.outp -> Sense.D5;
+			    \t\tc3: port s3.outp -> Sense.D3;
 			    end Sub1.base;
 			   \s
 			    system Sub2
-			    	features
-			\t	Sense : feature group Sense_Part_2;      \s
-			\t	SenseOut : feature group inverse of Sense_Part_2;      \s
+			    \tfeatures
+			\t\tSense : feature group Sense_Part_2;      \s
+			\t\tSenseOut : feature group inverse of Sense_Part_2;      \s
 			\tend Sub2;
 			    system implementation Sub2.base
-			    	subcomponents
-			    		s1: system subP;
-			    		s2: system subP;
-			    	connections
-			    		c1: port Sense.D4 -> s1.inp;
-			    		c2: port Sense.D5 -> s2.inp;
+			    \tsubcomponents
+			    \t\ts1: system subP;
+			    \t\ts2: system subP;
+			    \tconnections
+			    \t\tc1: port Sense.D4 -> s1.inp;
+			    \t\tc2: port Sense.D5 -> s2.inp;
 			    end Sub2.base;
 			   \s
 			    system subP
-			    	features
-			    		inp: in data port;
-			    		outp: out data port;
+			    \tfeatures
+			    \t\tinp: in data port;
+			    \t\toutp: out data port;
 			    end subP;
 			\t
 			end subset1;

@@ -59,7 +59,7 @@ public class ScopeTests {
 		AadlPackage pkg = testHelper.parseString("""
 				package scopeInModes
 				public
-				
+
 				  subprogram sb1
 				    modes
 				      m1: initial mode;
@@ -74,7 +74,7 @@ public class ScopeTests {
 				    subcomponents
 				      d: data in modes (m1);
 				  end sb2.i;
-				
+
 				end scopeInModes;
 				""");
 
@@ -91,7 +91,7 @@ public class ScopeTests {
 		AadlPackage pkg = testHelper.parseString("""
 				package scopeInModes
 				public
-				
+
 				  subprogram sb1
 				  end sb1;
 				 \s
@@ -99,16 +99,16 @@ public class ScopeTests {
 				    modes
 				      m1: initial mode;
 				  end sb1.i1;
-				
+
 				  subprogram implementation sb1.i2 extends sb1.i1
 				    calls
 				      cl1: {
-				      	cl11: subprogram sb1;
+				      \tcl11: subprogram sb1;
 				      } in modes (m1, m2);
 				    modes
 				      m2: mode;
 				  end sb1.i2;
-				
+
 				end scopeInModes;
 				""");
 

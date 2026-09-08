@@ -51,34 +51,34 @@ public class Issue727Test extends XtextTest {
 			package pkg1
 			public
 			\tabstract a
-			\t	features
-			\t		p1: in data port;
-			\t		p2: out data port;
-			\t		af1: feature;
-			\t		af2: feature;
-			\t		fg1: feature group;
-			\t		fg2: feature group;
-			\t		da1: provides data access;
-			\t		da2: requires data access;
+			\t\tfeatures
+			\t\t\tp1: in data port;
+			\t\t\tp2: out data port;
+			\t\t\taf1: feature;
+			\t\t\taf2: feature;
+			\t\t\tfg1: feature group;
+			\t\t\tfg2: feature group;
+			\t\t\tda1: provides data access;
+			\t\t\tda2: requires data access;
 			\tend a;
 			\t
 			\tabstract implementation a.i
-			\t	connections
-			\t		conn1: port p1 -> p2;
-			\t		conn2: feature af1 -> af2;
-			\t		conn3: feature group fg1 -> fg2;
-			\t		conn4: data access da1 -> da2;
+			\t\tconnections
+			\t\t\tconn1: port p1 -> p2;
+			\t\t\tconn2: feature af1 -> af2;
+			\t\t\tconn3: feature group fg1 -> fg2;
+			\t\t\tconn4: data access da1 -> da2;
 			\tend a.i;
 			\t
 			\tsubprogram subp
-			\t	features
-			\t		param1: in parameter;
-			\t		param2: out parameter;
+			\t\tfeatures
+			\t\t\tparam1: in parameter;
+			\t\t\tparam2: out parameter;
 			\tend subp;
 			\t
 			\tsubprogram implementation subp.i
-			\t	connections
-			\t		conn5: parameter param1 -> param2;
+			\t\tconnections
+			\t\t\tconn5: parameter param1 -> param2;
 			\tend subp.i;
 			end pkg1;
 			""";

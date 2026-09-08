@@ -49,16 +49,16 @@ public class Issue781Test extends XtextTest {
 			package pkg1
 			public
 			\tabstract a1
-			\t	features
-			\t		af1: feature;
-			\t		fg1: feature group fgt1;
-			\t	flows
-			\t		flow1: flow source af1;
-			\t		flow2: flow sink af1;
-			\t		flow3: flow path af1 -> af1;
-			\t		flow4: flow source fg1;
-			\t		flow5: flow sink fg1;
-			\t		flow6: flow path fg1 -> fg1;
+			\t\tfeatures
+			\t\t\taf1: feature;
+			\t\t\tfg1: feature group fgt1;
+			\t\tflows
+			\t\t\tflow1: flow source af1;
+			\t\t\tflow2: flow sink af1;
+			\t\t\tflow3: flow path af1 -> af1;
+			\t\t\tflow4: flow source fg1;
+			\t\t\tflow5: flow sink fg1;
+			\t\t\tflow6: flow path fg1 -> fg1;
 			\tend a1;
 			\t
 			\tabstract implementation a1.i
@@ -68,17 +68,17 @@ public class Issue781Test extends XtextTest {
 			\t  connections
 			\t    c1: feature s1.af1 -> s2.af1;
 			\tflows
-			\t	flow1: flow source af1;
-			\t	flow2: flow sink af1;
-			\t	flow3: flow path af1 -> af1;
-			\t	flow4: flow source fg1.af2;
-			\t	flow5: flow sink fg1.af2;
-			\t	flow6: flow path fg1.af2 -> fg1.af2;
+			\t\tflow1: flow source af1;
+			\t\tflow2: flow sink af1;
+			\t\tflow3: flow path af1 -> af1;
+			\t\tflow4: flow source fg1.af2;
+			\t\tflow5: flow sink fg1.af2;
+			\t\tflow6: flow path fg1.af2 -> fg1.af2;
 			\tend a1.i;
 			\t
 			\tfeature group fgt1
-			\t	features
-			\t		af2: feature;
+			\t\tfeatures
+			\t\t\taf2: feature;
 			\tend fgt1;
 			end pkg1;
 			""";

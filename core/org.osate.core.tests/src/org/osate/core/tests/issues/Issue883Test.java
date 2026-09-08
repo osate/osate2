@@ -60,7 +60,8 @@ public class Issue883Test {
 				\t\tfeatures
 				\t\t\tf1: feature;
 				\tend a1;
-				end pkg1;""";
+				end pkg1;\
+				""";
 
 		var pkg1 = Aadl2Factory.eINSTANCE.createAadlPackage();
 		pkg1.setName("pkg1");

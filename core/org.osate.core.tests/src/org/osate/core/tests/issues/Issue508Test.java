@@ -48,52 +48,52 @@ public class Issue508Test extends XtextTest {
 			package issue508
 			public
 			\tfeature group fgt
-			\t	features
-			\t		p1: out data port;
-			\t		p2: out data port;
+			\t\tfeatures
+			\t\t\tp1: out data port;
+			\t\t\tp2: out data port;
 			\tend fgt;
-			
+
 			\tsystem top
 			\tend top;
-			
+
 			\tsystem implementation top.impl
-			\t	subcomponents
-			\t		sub1: system s1.impl;
-			\t		sub2: system s2.impl;
+			\t\tsubcomponents
+			\t\t\tsub1: system s1.impl;
+			\t\t\tsub2: system s2.impl;
 			\tend top.impl;
-			
+
 			\tsystem s1
 			\tend s1;
-			
+
 			\tsystem implementation s1.impl
-			\t	subcomponents
-			\t		send: system sender;
-			\t		receive: system receiver;
-			\t	connections
-			\t		c1: feature group send.fg1 -> receive.fg2;
+			\t\tsubcomponents
+			\t\t\tsend: system sender;
+			\t\t\treceive: system receiver;
+			\t\tconnections
+			\t\t\tc1: feature group send.fg1 -> receive.fg2;
 			\tend s1.impl;
-			
+
 			\tsystem s2
 			\tend s2;
-			
+
 			\tsystem implementation s2.impl
-			\t	subcomponents
-			\t		send: system sender;
-			\t		receive: system receiver;
-			\t	connections
-			\t		c2: feature group send.fg1 <-> receive.fg2;
+			\t\tsubcomponents
+			\t\t\tsend: system sender;
+			\t\t\treceive: system receiver;
+			\t\tconnections
+			\t\t\tc2: feature group send.fg1 <-> receive.fg2;
 			\tend s2.impl;
-			
+
 			\tsystem sender
-			\t	features
-			\t		fg1: feature group fgt;
+			\t\tfeatures
+			\t\t\tfg1: feature group fgt;
 			\tend sender;
-			
+
 			\tsystem receiver
-			\t	features
-			\t		fg2: feature group inverse of fgt;
+			\t\tfeatures
+			\t\t\tfg2: feature group inverse of fgt;
 			\tend receiver;
-			
+
 			end issue508;
 			""";
 

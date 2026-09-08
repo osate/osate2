@@ -46,51 +46,51 @@ public class Issue636Test extends XtextTest {
 			package issue636
 			public
 			\tfeature group fg
-			\t	features
-			\t		di: in data port;
-			\t		do: out data port;
+			\t\tfeatures
+			\t\t\tdi: in data port;
+			\t\t\tdo: out data port;
 			\tend fg;
 			\t
 			\tfeature group fgi
-			\t	features
-			\t		do: out data port;
-			\t		di: in data port;
-			\t	inverse of fg
+			\t\tfeatures
+			\t\t\tdo: out data port;
+			\t\t\tdi: in data port;
+			\t\tinverse of fg
 			\tend fgi;
 			\t
 			\tsystem left
-			\t	features
-			\t		fgi: feature group fgi;
+			\t\tfeatures
+			\t\t\tfgi: feature group fgi;
 			\tend left;
 			\t
 			\tsystem rss
-			\t	features
-			\t		si: in data port;
-			\t		so: out data port;
+			\t\tfeatures
+			\t\t\tsi: in data port;
+			\t\t\tso: out data port;
 			\tend rss;
 			\t
 			\tsystem right
-			\t	features
-			\t		fg: feature group fg;
+			\t\tfeatures
+			\t\t\tfg: feature group fg;
 			\tend right;
-			
+
 			\tsystem implementation right.i
-			\t	subcomponents
-			\t		rss: system rss;
-			\t	connections
-			\t		c3: feature fg.di -> rss.si;
-			\t		c4: feature rss.so -> fg.do;
+			\t\tsubcomponents
+			\t\t\trss: system rss;
+			\t\tconnections
+			\t\t\tc3: feature fg.di -> rss.si;
+			\t\t\tc4: feature rss.so -> fg.do;
 			\tend right.i;
 			\t
 			\tsystem top
 			\tend top;
 			\t
 			\tsystem implementation top.i
-			\t	subcomponents
-			\t		left: system left;
-			\t		right: system right.i;
-			\t	connections
-			\t		c1: feature group left.fgi <-> right.fg;
+			\t\tsubcomponents
+			\t\t\tleft: system left;
+			\t\t\tright: system right.i;
+			\t\tconnections
+			\t\t\tc1: feature group left.fgi <-> right.fg;
 			\tend top.i;
 			\t
 			end issue636;

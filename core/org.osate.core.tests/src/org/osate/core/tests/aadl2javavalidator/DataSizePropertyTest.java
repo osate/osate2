@@ -50,100 +50,100 @@ public class DataSizePropertyTest extends XtextTest {
 			\tend d1;
 			\t
 			\tdata implementation d1.i1
-			\t	properties
-			\t		Data_Size => 2 Bytes;
+			\t\tproperties
+			\t\t\tData_Size => 2 Bytes;
 			\tend d1.i1;
 			\t
 			\tdata implementation d1.i2
-			\t	subcomponents
-			\t		sub1: data;
-			\t		sub2: data;
-			\t	properties
-			\t		Data_Size => 2 Bytes;
+			\t\tsubcomponents
+			\t\t\tsub1: data;
+			\t\t\tsub2: data;
+			\t\tproperties
+			\t\t\tData_Size => 2 Bytes;
 			\tend d1.i2;
 			\t
 			\tdata implementation d1.i3
-			\t	subcomponents
-			\t		sub1: data {Data_Size => 1 Bytes;};
-			\t		sub2: data {Data_Size => 3 Bytes;};
-			\t	properties
-			\t		Data_Size => 4 Bytes;
+			\t\tsubcomponents
+			\t\t\tsub1: data {Data_Size => 1 Bytes;};
+			\t\t\tsub2: data {Data_Size => 3 Bytes;};
+			\t\tproperties
+			\t\t\tData_Size => 4 Bytes;
 			\tend d1.i3;
 			\t
 			\tdata implementation d1.i4
-			\t	subcomponents
-			\t		sub1: data {Data_Size => 1 KByte;};
-			\t		sub2: data {Data_Size => 500 Bytes;};
-			\t	properties
-			\t		Data_Size => 1500 Bytes;
+			\t\tsubcomponents
+			\t\t\tsub1: data {Data_Size => 1 KByte;};
+			\t\t\tsub2: data {Data_Size => 500 Bytes;};
+			\t\tproperties
+			\t\t\tData_Size => 1500 Bytes;
 			\tend d1.i4;
 			\t
 			\tdata implementation d1.i5
-			\t	subcomponents
-			\t		sub1: data {Data_Size => 1 Bytes;};
-			\t		sub2: data {Data_Size => 1 Bytes;};
-			\t	properties
-			\t		Data_Size => 4 Bytes;
+			\t\tsubcomponents
+			\t\t\tsub1: data {Data_Size => 1 Bytes;};
+			\t\t\tsub2: data {Data_Size => 1 Bytes;};
+			\t\tproperties
+			\t\t\tData_Size => 4 Bytes;
 			\tend d1.i5;
 			\t
 			\tdata implementation d1.i6
-			\t	subcomponents
-			\t		sub1: data {Data_Size => 1 Bytes;};
-			\t		sub2: data;
-			\t	properties
-			\t		Data_Size => 4 Bytes;
+			\t\tsubcomponents
+			\t\t\tsub1: data {Data_Size => 1 Bytes;};
+			\t\t\tsub2: data;
+			\t\tproperties
+			\t\t\tData_Size => 4 Bytes;
 			\tend d1.i6;
 			\t
 			\tdata implementation d1.i7
-			\t	subcomponents
-			\t		sub1: data {Data_Size => 5 Bytes;};
-			\t		sub2: data;
-			\t	properties
-			\t		Data_Size => 4 Bytes;
+			\t\tsubcomponents
+			\t\t\tsub1: data {Data_Size => 5 Bytes;};
+			\t\t\tsub2: data;
+			\t\tproperties
+			\t\t\tData_Size => 4 Bytes;
 			\tend d1.i7;
 			\t
 			\tdata implementation d1.i8
-			\t	subcomponents
-			\t		sub1: data {Data_Size => 1 Bytes;};
-			\t		sub2: data d1.i9;
-			\t	properties
-			\t		Data_Size => 3 Bytes;
+			\t\tsubcomponents
+			\t\t\tsub1: data {Data_Size => 1 Bytes;};
+			\t\t\tsub2: data d1.i9;
+			\t\tproperties
+			\t\t\tData_Size => 3 Bytes;
 			\tend d1.i8;
 			\t
 			\tdata implementation d1.i9
-			\t	subcomponents
-			\t		sub1: data {Data_Size => 1 Bytes;};
-			\t		sub2: data {Data_Size => 1 Bytes;};
+			\t\tsubcomponents
+			\t\t\tsub1: data {Data_Size => 1 Bytes;};
+			\t\t\tsub2: data {Data_Size => 1 Bytes;};
 			\tend d1.i9;
 			\t
 			\tdata implementation d1.i10
-			\t	subcomponents
-			\t		sub1: data {Data_Size => 1 Bytes;};
-			\t		sub2: data d1.i9;
-			\t	properties
-			\t		Data_Size => 2 Bytes;
+			\t\tsubcomponents
+			\t\t\tsub1: data {Data_Size => 1 Bytes;};
+			\t\t\tsub2: data d1.i9;
+			\t\tproperties
+			\t\t\tData_Size => 2 Bytes;
 			\tend d1.i10;
 			\t
 			\tdata implementation d1.i11
-			\t	subcomponents
-			\t		sub1: data {Data_Size => 1 Bytes;};
-			\t		sub2: data d1.i12;
-			\t	properties
-			\t		Data_Size => 3 Bytes;
+			\t\tsubcomponents
+			\t\t\tsub1: data {Data_Size => 1 Bytes;};
+			\t\t\tsub2: data d1.i12;
+			\t\tproperties
+			\t\t\tData_Size => 3 Bytes;
 			\tend d1.i11;
 			\t
 			\tdata implementation d1.i12
-			\t	subcomponents
-			\t		sub1: data {Data_Size => 1 Bytes;};
-			\t		sub2: data;
+			\t\tsubcomponents
+			\t\t\tsub1: data {Data_Size => 1 Bytes;};
+			\t\t\tsub2: data;
 			\tend d1.i12;
 			\t
 			\tdata implementation d1.i13
-			\t	subcomponents
-			\t		sub1: data {Data_Size => 1 Bytes;};
-			\t		sub2: data d1.i12;
-			\t	properties
-			\t		Data_Size => 1 Bytes;
+			\t\tsubcomponents
+			\t\t\tsub1: data {Data_Size => 1 Bytes;};
+			\t\t\tsub2: data d1.i12;
+			\t\tproperties
+			\t\t\tData_Size => 1 Bytes;
 			\tend d1.i13;
 			end dataTest;
 			""";

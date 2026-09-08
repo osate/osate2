@@ -47,48 +47,48 @@ public class Issue480Test extends XtextTest {
 			public
 			\t
 			\tfeature group ps
-			\t	features
-			\t		p1: in data port;
-			\t		p2: out data port;
+			\t\tfeatures
+			\t\t\tp1: in data port;
+			\t\t\tp2: out data port;
 			\tend ps;
-			
+
 			\tsystem top
-			\t	features
-			\t		fg: feature group;
-			\t		ps: feature group ps;
+			\t\tfeatures
+			\t\t\tfg: feature group;
+			\t\t\tps: feature group ps;
 			\tend top;
 			\t
 			\tsystem implementation top.i
-			\t	subcomponents
-			\t		l: abstract a;
-			\t		r: abstract b;
-			\t	connections
-			\t		c01: feature group l.fg -> fg;
-			\t		c02: feature group l.ps <-> fg;
-			\t		c03: feature group l.fg <-> ps;
-			\t		c04: feature group l.ps <-> ps;
-			
-			\t		c11: feature group fg -> l.fg;
-			\t		c12: feature group ps <-> l.fg;
-			\t		c13: feature group fg <-> l.ps;
-			\t		c14: feature group ps <-> l.ps;
-			\t	\t
-			\t		c21: feature group l.fg -> r.fg;
-			\t		c22: feature group l.ps <-> r.fg;
-			\t		c23: feature group l.fg <-> r.ps;
-			\t		c24: feature group l.ps <-> r.ps;
+			\t\tsubcomponents
+			\t\t\tl: abstract a;
+			\t\t\tr: abstract b;
+			\t\tconnections
+			\t\t\tc01: feature group l.fg -> fg;
+			\t\t\tc02: feature group l.ps <-> fg;
+			\t\t\tc03: feature group l.fg <-> ps;
+			\t\t\tc04: feature group l.ps <-> ps;
+
+			\t\t\tc11: feature group fg -> l.fg;
+			\t\t\tc12: feature group ps <-> l.fg;
+			\t\t\tc13: feature group fg <-> l.ps;
+			\t\t\tc14: feature group ps <-> l.ps;
+			\t\t\t
+			\t\t\tc21: feature group l.fg -> r.fg;
+			\t\t\tc22: feature group l.ps <-> r.fg;
+			\t\t\tc23: feature group l.fg <-> r.ps;
+			\t\t\tc24: feature group l.ps <-> r.ps;
 			\tend top.i;
 			\t
 			\tabstract a
-			\t	features
-			\t		fg: feature group;
-			\t		ps: feature group ps;
+			\t\tfeatures
+			\t\t\tfg: feature group;
+			\t\t\tps: feature group ps;
 			\tend a;
 			\t
 			\tabstract b
-			\t	features
-			\t		fg: feature group;
-			\t		ps: feature group inverse of ps;
+			\t\tfeatures
+			\t\t\tfg: feature group;
+			\t\t\tps: feature group inverse of ps;
 			\tend b;
 			\t
 			end issue480;

@@ -49,51 +49,51 @@ public class Issue815Test {
 				package pkg1
 				public
 				\tfeature group fgt1
-				\t	features
-				\t		in1: in feature;
+				\t\tfeatures
+				\t\t\tin1: in feature;
 				\tend fgt1;
 				\t
 				\tfeature group ifgt1
-				\t	features
-				\t		out1: out feature;
+				\t\tfeatures
+				\t\t\tout1: out feature;
 				\tinverse of fgt1
 				\tend ifgt1;
 				\t
 				\tfeature group efgt1 extends fgt1
-				\t	features
-				\t		in2: in feature;
+				\t\tfeatures
+				\t\t\tin2: in feature;
 				\tend efgt1;
 				\t
 				\tfeature group iefgt1 extends ifgt1
-				\t	features
-				\t		out2: out feature;
+				\t\tfeatures
+				\t\t\tout2: out feature;
 				\tinverse of efgt1
 				\tend iefgt1;
 				\t
 				\tfeature group fgt2
-				\t	features
-				\t		out1: out feature;
-				\t		out2: out feature;
+				\t\tfeatures
+				\t\t\tout1: out feature;
+				\t\t\tout2: out feature;
 				\tend fgt2;
 				\t
 				\tabstract a1
-				\t	features
-				\t		fg1: feature group iefgt1;
+				\t\tfeatures
+				\t\t\tfg1: feature group iefgt1;
 				\tend a1;
 				\t
 				\tabstract implementation a1.i
-				\t	subcomponents
-				\t		sub1: abstract a2;
-				\t	connections
-				\t		conn1: feature sub1.out3 -> fg1.out1;
-				\t		conn2: feature sub1.out3 -> fg1.out2;
-				\t		conn3: feature group sub1.fg2 -> fg1 {Classifier_Matching_Rule => Subset;};
+				\t\tsubcomponents
+				\t\t\tsub1: abstract a2;
+				\t\tconnections
+				\t\t\tconn1: feature sub1.out3 -> fg1.out1;
+				\t\t\tconn2: feature sub1.out3 -> fg1.out2;
+				\t\t\tconn3: feature group sub1.fg2 -> fg1 {Classifier_Matching_Rule => Subset;};
 				\tend a1.i;
 				\t
 				\tabstract a2
-				\t	features
-				\t		out3: out feature;
-				\t		fg2: feature group fgt2;
+				\t\tfeatures
+				\t\t\tout3: out feature;
+				\t\t\tfg2: feature group fgt2;
 				\tend a2;
 				end pkg1;
 				""";

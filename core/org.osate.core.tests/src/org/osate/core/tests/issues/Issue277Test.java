@@ -44,42 +44,42 @@ public class Issue277Test extends XtextTest {
 			package issue277
 			public
 			\tsystem TestSys
-			\t	features
-			\t		fg1: feature group TestExtendedFeatureGroup;
-			\t		fg2: feature group TestInvExtendedFeatureGroup;
+			\t\tfeatures
+			\t\t\tfg1: feature group TestExtendedFeatureGroup;
+			\t\t\tfg2: feature group TestInvExtendedFeatureGroup;
 			\tend TestSys;
-			
+
 			\tsystem TestSubSys
 			\tend TestSubSys;
-			
+
 			\tsystem implementation TestSys.Impl
 			\tend TestSys.Impl;
-			
+
 			  feature group BaseFG
-			  	features
-			  		q: feature;
+			  \tfeatures
+			  \t\tq: feature;
 			  end BaseFG;
 			 \s
 			\tfeature group TestFeatureGroup extends BaseFG
-			\t	features
-			\t		i: in feature;
-			\t		p: in feature;
+			\t\tfeatures
+			\t\t\ti: in feature;
+			\t\t\tp: in feature;
 			\tend TestFeatureGroup;
-			
+
 			\tfeature group TestExtendedFeatureGroup extends TestFeatureGroup
-			\t	features
-			\t		p: refined to in data port;
+			\t\tfeatures
+			\t\t\tp: refined to in data port;
 			\tend TestExtendedFeatureGroup;
-			
+
 			\tfeature group TestInvFeatureGroup
-			\t	features
-			\t		o: out feature;
-			\t		r: out feature;
-			\t	inverse of TestFeatureGroup
+			\t\tfeatures
+			\t\t\to: out feature;
+			\t\t\tr: out feature;
+			\t\tinverse of TestFeatureGroup
 			\tend TestInvFeatureGroup;
-			
+
 			\tfeature group TestInvExtendedFeatureGroup extends TestInvFeatureGroup
-			\t	inverse of TestExtendedFeatureGroup
+			\t\tinverse of TestExtendedFeatureGroup
 			\tend TestInvExtendedFeatureGroup;
 			end issue277;
 			""";

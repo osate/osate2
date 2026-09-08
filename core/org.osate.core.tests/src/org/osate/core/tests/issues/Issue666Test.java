@@ -49,22 +49,22 @@ public class Issue666Test extends XtextTest {
 			package pkg1
 			public
 			\tabstract inner
-			\t	modes
-			\t		m1: initial mode;
-			\t		m2: mode;
+			\t\tmodes
+			\t\t\tm1: initial mode;
+			\t\t\tm2: mode;
 			\tend inner;
 			\t
 			\tabstract outer
 			\tend outer;
 			\t
 			\tabstract implementation outer.ok
-			\t	subcomponents
-			\t		sub1: abstract inner[9];
+			\t\tsubcomponents
+			\t\t\tsub1: abstract inner[9];
 			\tend outer.ok;
 			\t
 			\tabstract implementation outer.tooManySOMs
-			\t	subcomponents
-			\t		sub2: abstract inner[10];
+			\t\tsubcomponents
+			\t\t\tsub2: abstract inner[10];
 			\tend outer.tooManySOMs;
 			end pkg1;
 			""";
