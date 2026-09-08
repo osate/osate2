@@ -93,20 +93,21 @@ public class AadlBaConsistencyRulesChecker {
 		// As D.3.(C4), behavior state that represents a mode is a complete
 		// state and as D.3.(L6) and D.3(L7) legality rules: only dispatch
 		// trigger logical expression is analyzed.
-		if (btOwner.getCondition() instanceof DispatchCondition dispatchCondition) {
-			if (dispatchCondition.getDispatchTriggerCondition() instanceof DispatchTriggerLogicalExpression expression) {
-				dtle = expression;
-			} else {
-				// At least, there is one mode transition trigger in a mode
-				// transition. So this transition is not consistency.
-				reportConsistencyError(srcState,
-						"The behavior transition tries " + "to refine a transition mode but it hasn't got any dispatch "
-								+ "trigger logical expression: Behavior Annex D.3.(C4) " + "consistency rule failed");
-				return false;
-			}
-		} else {
+		if (!(btOwner.getCondition() instanceof DispatchCondition dispatchCondition)) {
 			// D.3.(L6) and D.3(L7) error case. Do not report error but
 			// exit with false result.
+			return false;
+		}
+
+		if (dispatchCondition.getDispatchTriggerCondition() instanceof DispatchTriggerLogicalExpression expression) {
+			dtle = expression;
+		} else {
+			// At least, there is one mode transition trigger in a mode
+			// transition. So this transition is not consistency.
+			// The state declaration is legal; the transition's dispatch condition is what is inconsistent.
+			reportConsistencyError(dispatchCondition,
+					"The behavior transition tries " + "to refine a transition mode but it hasn't got any dispatch "
+							+ "trigger logical expression: Behavior Annex D.3.(C4) " + "consistency rule failed");
 			return false;
 		}
 
@@ -116,7 +117,7 @@ public class AadlBaConsistencyRulesChecker {
 		// Can't be out a state/mode if the parent container doesn't declare
 		// any transition mode.
 		if (lModeTrans.isEmpty()) {
-			reportConsistencyError(srcState,
+			reportConsistencyError(dispatchCondition,
 					"The behavior transition tries to " + "refine a transition mode while "
 							+ _baParentContainer.getQualifiedName() + " component hasn't got any transition mode: "
 							+ "Behavior Annex D.3.(C4) consistency rule failed");
@@ -161,7 +162,9 @@ public class AadlBaConsistencyRulesChecker {
 		// Error case : the given behavior transition which is out of a mode
 		// is not consisting with any transition mode which involves the considered
 		// mode.
-		reportConsistencyError(srcState,
+		// The mismatch is between the dispatch triggers and the mode transition triggers, so mark the trigger
+		// expression rather than the legal source state declaration.
+		reportConsistencyError(dtle,
 				"The behavior transition tries to " + "refine a transition mode but it is not consisting with any "
 						+ "transition mode of " + _baParentContainer.getQualifiedName()
 						+ " component: Behavior Annex D.3.(C4) consistency rule failed");

@@ -22,8 +22,11 @@
 package org.osate.ba.analyzers;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -162,8 +165,11 @@ public class AadlBaRulesCheckersDriver {
 				if (_ba.isSetTransitions()) {
 					otherwiseCheck(_ba);
 
+					// A multi-source transition has copies of its condition and a shared action block. Check each once
+					// per annex traversal, while retaining the state checks for every expanded transition.
+					Set<BehaviorElement> checked = Collections.newSetFromMap(new IdentityHashMap<>());
 					for (BehaviorTransition bt : _ba.getTransitions()) {
-						result &= caseBehaviorTransition(bt);
+						result &= checkBehaviorTransition(bt, checked);
 					}
 				}
 
@@ -216,6 +222,10 @@ public class AadlBaRulesCheckersDriver {
 			}
 
 			public Boolean caseBehaviorTransition(BehaviorTransition tmp) {
+				return checkBehaviorTransition(tmp, Collections.newSetFromMap(new IdentityHashMap<>()));
+			}
+
+			private boolean checkBehaviorTransition(BehaviorTransition tmp, Set<BehaviorElement> checked) {
 				_currentBt = tmp;
 
 				boolean result = true;
@@ -227,14 +237,14 @@ public class AadlBaRulesCheckersDriver {
 				for (BehaviorState srcState : sourceStateList) {
 					result &= _legality.D_3_L6_Check(_currentBt, srcState);
 					result &= _legality.D_3_L7_Check(_currentBt, srcState);
-					result &= _legality.D_3_L8_Check(srcState);
+					result &= _legality.D_3_L8_Check(_currentBt, srcState);
 					result &= _consistency.D_3_C4_Check(_currentBt, srcState);
 				}
 
 				BehaviorCondition bc = _currentBt.getCondition();
 
 				// Check Dispatch condition.
-				if (bc instanceof DispatchCondition) {
+				if (bc instanceof DispatchCondition && checked.add(BehaviorTransitionContext.getOriginalCondition(bc))) {
 					result &= process(bc);
 				}
 				/*
@@ -245,7 +255,7 @@ public class AadlBaRulesCheckersDriver {
 				 * }
 				 */
 
-				if (_currentBt.getActionBlock() != null) {
+				if (_currentBt.getActionBlock() != null && checked.add(_currentBt.getActionBlock())) {
 					result &= _legality.D_6_L3_And_L4_Check(_currentBt.getActionBlock());
 
 					process(_currentBt.getActionBlock());

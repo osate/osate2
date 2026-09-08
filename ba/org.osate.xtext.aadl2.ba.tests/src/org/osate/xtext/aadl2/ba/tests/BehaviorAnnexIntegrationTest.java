@@ -154,11 +154,13 @@ public class BehaviorAnnexIntegrationTest {
 	@Test
 	public void reportsTranslatedCheckerDiagnostic() throws Exception {
 		var result = testHelper.testFile(MODEL_DIRECTORY + "SemanticError.aadl");
-		assertEquals(List.of("ERROR: Phase6_Semantic_Error::Example can't have more than one initial state : "
-				+ "first, second : Behavior Annex D.3.(L3) legality rule failed."), result.getIssues()
-						.stream()
-						.map(issue -> issue.getSeverity() + ": " + issue.getMessage())
-						.toList());
+		// D.3.(L3) marks each of the two initial states its message names.
+		var expected = "ERROR: Phase6_Semantic_Error::Example can't have more than one initial state : "
+				+ "first, second : Behavior Annex D.3.(L3) legality rule failed.";
+		assertEquals(List.of(expected, expected), result.getIssues()
+				.stream()
+				.map(issue -> issue.getSeverity() + ": " + issue.getMessage())
+				.toList());
 	}
 
 	@Test(timeout = 30_000)
@@ -167,13 +169,19 @@ public class BehaviorAnnexIntegrationTest {
 				Path.of("..", "org.osate.ba.tests", "models", "covering_semantic", "lr_D3_L1_L2.aadl"),
 				StandardCharsets.UTF_8);
 		var result = testHelper.testString(source);
+		// D.3.(L1) and D.3.(L2) mark every state their message names, so the two-initial-state and
+		// two-final-state failures each appear once per named state.
 		assertEquals(List.of(
 				"ERROR: exemple_lr_D3_L1_L2::sub.error1 can't have complete state : compState : "
 						+ "Behavior Annex D.3.(L2) legality rule failed.",
 				"ERROR: exemple_lr_D3_L1_L2::sub.error1 can't have more than one initial state : "
 						+ "initState1, initState2 : Behavior Annex D.3.(L1) legality rule failed.",
+				"ERROR: exemple_lr_D3_L1_L2::sub.error1 can't have more than one initial state : "
+						+ "initState1, initState2 : Behavior Annex D.3.(L1) legality rule failed.",
 				"ERROR: exemple_lr_D3_L1_L2::sub.error1 has no final state : "
 						+ "Behavior Annex D.3.(L1) legality rule failed.",
+				"ERROR: exemple_lr_D3_L1_L2::sub.error2 has more than one final state : "
+						+ "uniqueState, finalState1 : Behavior Annex D.3.(L1) legality rule failed.",
 				"ERROR: exemple_lr_D3_L1_L2::sub.error2 has more than one final state : "
 						+ "uniqueState, finalState1 : Behavior Annex D.3.(L1) legality rule failed."),
 				result.getIssues()

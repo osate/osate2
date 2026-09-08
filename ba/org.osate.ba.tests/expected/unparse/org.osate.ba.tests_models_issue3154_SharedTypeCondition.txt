@@ -1,0 +1,12 @@
+===== annex[0] owner=SharedTypeCondition::example.impl =====
+
+states
+\tstart : initial state;
+\tready : complete state;
+\tfirst, second : state;
+\tfinish : final state;
+transitions
+\tstart -[]-> first;
+\tfirst, second -[1]-> finish;
+----- Xtext reparse -----
+reparsed
