@@ -51,8 +51,10 @@ public class Issue3153Test {
 	@Test
 	public void aadlValidationReportsBehaviorAnnexLegalityErrors() throws Exception {
 		var result = testHelper.testFile(MODEL);
-		assertEquals(List.of("ERROR: issue3153::example can't have more than one initial state : first, second : "
-				+ "Behavior Annex D.3.(L3) legality rule failed."), result.getIssues()
+		// D.3.(L3) marks each of the two initial states its message names, so the same failure appears twice.
+		var expected = "ERROR: issue3153::example can't have more than one initial state : first, second : "
+				+ "Behavior Annex D.3.(L3) legality rule failed.";
+		assertEquals(List.of(expected, expected), result.getIssues()
 				.stream()
 				.map(issue -> issue.getSeverity() + ": " + issue.getMessage())
 				.toList());

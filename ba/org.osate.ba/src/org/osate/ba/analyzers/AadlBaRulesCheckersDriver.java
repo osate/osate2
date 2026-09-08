@@ -237,7 +237,7 @@ public class AadlBaRulesCheckersDriver {
 				for (BehaviorState srcState : sourceStateList) {
 					result &= _legality.D_3_L6_Check(_currentBt, srcState);
 					result &= _legality.D_3_L7_Check(_currentBt, srcState);
-					result &= _legality.D_3_L8_Check(srcState);
+					result &= _legality.D_3_L8_Check(_currentBt, srcState);
 					result &= _consistency.D_3_C4_Check(_currentBt, srcState);
 				}
 

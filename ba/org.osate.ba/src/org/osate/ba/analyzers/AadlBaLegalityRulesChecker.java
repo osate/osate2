@@ -114,7 +114,7 @@ public class AadlBaLegalityRulesChecker {
 			if (initialStates.size() > 1) {
 				result = false;
 				reportElements = AadlBaUtils.identifierListToString(initialStates, LIST_SEPARATOR);
-				this.reportLegalityError(_ba,
+				this.reportLegalityError(initialStates,
 						_baParentContainer.getQualifiedName() + " can't have more than one initial state : "
 								+ reportElements + " : Behavior Annex D.3.(L1) legality rule failed");
 			} else if (initialStates.size() == 0) {
@@ -126,14 +126,15 @@ public class AadlBaLegalityRulesChecker {
 			if (completeStates.size() > 0) {
 				result = false;
 				reportElements = AadlBaUtils.identifierListToString(completeStates, LIST_SEPARATOR);
-				this.reportLegalityError(_ba, _baParentContainer.getQualifiedName() + " can't have complete state : "
-						+ reportElements + " : Behavior Annex D.3.(L2) legality rule failed");
+				this.reportLegalityError(completeStates,
+						_baParentContainer.getQualifiedName() + " can't have complete state : " + reportElements
+								+ " : Behavior Annex D.3.(L2) legality rule failed");
 			}
 
 			if (finalStates.size() > 1) {
 				result = false;
 				reportElements = AadlBaUtils.identifierListToString(finalStates, LIST_SEPARATOR);
-				this.reportLegalityError(_ba,
+				this.reportLegalityError(finalStates,
 						_baParentContainer.getQualifiedName() + " has more than one final state : " + reportElements
 								+ " : Behavior Annex D.3.(L1) legality rule failed");
 			} else {
@@ -166,7 +167,7 @@ public class AadlBaLegalityRulesChecker {
 			if (initialStates.size() > 1) {
 				result = false;
 				reportElements = AadlBaUtils.identifierListToString(initialStates, LIST_SEPARATOR);
-				this.reportLegalityError(_ba,
+				this.reportLegalityError(initialStates,
 						_baParentContainer.getQualifiedName() + " can't have more than one initial state : "
 								+ reportElements + " : Behavior Annex D.3.(L3) legality rule failed");
 			} else if (initialStates.size() == 0) {
@@ -404,7 +405,8 @@ public class AadlBaLegalityRulesChecker {
 	public boolean D_3_L6_Check(BehaviorTransition bt, BehaviorState sourceState) {
 		// D.3.(L6) error case.
 		if (bt.getCondition() instanceof DispatchCondition && !sourceState.isComplete()) {
-			this.reportLegalityError(sourceState,
+			// The source state declaration is legal; the dispatch condition is what the rule forbids here.
+			this.reportLegalityError(bt.getCondition(),
 					"Only transition " + "out of complete states may have dispatch condition : Behavior "
 							+ "Annex D.3.(L6) legality rule failed");
 
@@ -426,7 +428,8 @@ public class AadlBaLegalityRulesChecker {
 		// D.3.(L7) error case.
 		if (sourceState.isComplete() && (!(bt.getCondition() instanceof DispatchCondition))
 				&& (sourceState.getBindedMode() == null)) {
-			this.reportLegalityError(sourceState,
+			// The missing dispatch condition has no object of its own, so the transition carries the diagnostic.
+			this.reportLegalityError(bt,
 					"Transitions out " + "of complete states must have dispatch condition : Behavior Annex"
 							+ " D.3.(L7) legality rule failed");
 			return false;
@@ -443,10 +446,11 @@ public class AadlBaLegalityRulesChecker {
 	 * Object : Check legality rule D.3.(L8)
 	 * Keys : transition out final state
 	 */
-	public boolean D_3_L8_Check(BehaviorState sourceState) {
+	public boolean D_3_L8_Check(BehaviorTransition bt, BehaviorState sourceState) {
 		// D.3.(L8) error case.
 		if (sourceState.isFinal() && !(sourceState.isComplete() || sourceState.isInitial())) {
-			this.reportLegalityError(sourceState, "Transitions out "
+			// Declaring a final-only state is legal; leaving it by a transition is not.
+			this.reportLegalityError(bt, "Transitions out "
 					+ "of final states are not allowed : Behavior Annex" + " D.3.(L8) legality rule failed");
 			return false;
 		} else {
@@ -851,6 +855,16 @@ public class AadlBaLegalityRulesChecker {
 	// TODO Provide column number.
 	private void reportLegalityError(BehaviorElement obj, String msg) {
 		_errManager.error(obj, msg + ".");
+	}
+
+	/**
+	 * Reports the same failure on every element the message names, so each offending declaration is marked instead of
+	 * the enclosing subclause.
+	 */
+	private void reportLegalityError(List<? extends BehaviorElement> objs, String msg) {
+		for (BehaviorElement obj : objs) {
+			this.reportLegalityError(obj, msg);
+		}
 	}
 
 	// TODO Provide column number.

@@ -23,13 +23,16 @@
  */
 package org.osate.xtext.aadl2.ba.validation;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
+import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.eclipse.xtext.validation.ValidationMessageAcceptor;
@@ -84,8 +87,12 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 			var validationResource = new ResourceImpl(VALIDATION_RESOURCE_URI);
 			validationResource.getContents().add(strictAnnex);
 			try {
+				// One declarative transition becomes one strict transition per source state, so a rule that constrains
+				// the transition reports once per source state. Those reports collapse onto the same declarative
+				// object with the same message, and repeating them tells the user nothing.
+				var reported = new HashSet<Report>();
 				var errorManager = new AnalysisErrorReporterManager(
-						resource -> new ValidatorErrorReporter(resource, this, translation));
+						resource -> new ValidatorErrorReporter(resource, this, translation, reported));
 				var dataTypeChecker = new AdaLikeDataTypeChecker(errorManager);
 				var typeChecker = new AadlBaTypeChecker(strictAnnex, owner, dataTypeChecker, errorManager);
 				if (typeChecker.checkTypes()) {
@@ -130,19 +137,28 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 		return false;
 	}
 
-	private void reportError(final Element strict, final String message, final TranslationResult translation) {
-		error(message, sourceFor(strict, translation), null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
-				CHECKER_DIAGNOSTIC);
+	private void reportError(final Element strict, final String message, final TranslationResult translation,
+			final Set<Report> reported) {
+		var source = sourceFor(strict, translation);
+		if (reported.add(new Report(source, Severity.ERROR, message))) {
+			error(message, source, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, CHECKER_DIAGNOSTIC);
+		}
 	}
 
-	private void reportWarning(final Element strict, final String message, final TranslationResult translation) {
-		warning(message, sourceFor(strict, translation), null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
-				CHECKER_DIAGNOSTIC);
+	private void reportWarning(final Element strict, final String message, final TranslationResult translation,
+			final Set<Report> reported) {
+		var source = sourceFor(strict, translation);
+		if (reported.add(new Report(source, Severity.WARNING, message))) {
+			warning(message, source, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, CHECKER_DIAGNOSTIC);
+		}
 	}
 
-	private void reportInfo(final Element strict, final String message, final TranslationResult translation) {
-		info(message, sourceFor(strict, translation), null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
-				CHECKER_DIAGNOSTIC);
+	private void reportInfo(final Element strict, final String message, final TranslationResult translation,
+			final Set<Report> reported) {
+		var source = sourceFor(strict, translation);
+		if (reported.add(new Report(source, Severity.INFO, message))) {
+			info(message, source, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, CHECKER_DIAGNOSTIC);
+		}
 	}
 
 	private static EObject sourceFor(final EObject strict, final TranslationResult translation) {
@@ -155,33 +171,39 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 		return translation.getDeclarative(translation.getStrictAnnex());
 	}
 
+	/** A diagnostic already handed to Xtext, so that the same message is not repeated on the same source object. */
+	private record Report(EObject source, Severity severity, String message) {
+	}
+
 	private static final class ValidatorErrorReporter extends AbstractAnalysisErrorReporter {
 		private final BehaviorAnnexValidator validator;
 		private final TranslationResult translation;
+		private final Set<Report> reported;
 
 		private ValidatorErrorReporter(final Resource resource, final BehaviorAnnexValidator validator,
-				final TranslationResult translation) {
+				final TranslationResult translation, final Set<Report> reported) {
 			super(resource);
 			this.validator = validator;
 			this.translation = translation;
+			this.reported = reported;
 		}
 
 		@Override
 		protected void errorImpl(final Element where, final String message, final String[] attributes,
 				final Object[] values) {
-			validator.reportError(where, message, translation);
+			validator.reportError(where, message, translation, reported);
 		}
 
 		@Override
 		protected void warningImpl(final Element where, final String message, final String[] attributes,
 				final Object[] values) {
-			validator.reportWarning(where, message, translation);
+			validator.reportWarning(where, message, translation, reported);
 		}
 
 		@Override
 		protected void infoImpl(final Element where, final String message, final String[] attributes,
 				final Object[] values) {
-			validator.reportInfo(where, message, translation);
+			validator.reportInfo(where, message, translation, reported);
 		}
 
 		@Override
