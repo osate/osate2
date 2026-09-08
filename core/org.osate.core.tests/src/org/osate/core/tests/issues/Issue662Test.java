@@ -24,13 +24,15 @@
 package org.osate.core.tests.issues;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.RealLiteral;
+import org.osate.aadl2.SystemImplementation;
+import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 
@@ -39,34 +41,53 @@ import com.itemis.xtext.testing.XtextTest;
 
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
-public class Issue1653Test extends XtextTest {
+public class Issue662Test extends XtextTest {
+	private static final String AADL_TEXT = """
+			package issue662
+			public
+
+			\tsystem AbstractWorkload
+			\t\tfeatures
+			\t\tgroupOut: feature;
+			\t\t\tgroupIn: feature;
+			\tend AbstractWorkload;
+
+			\tsystem S
+			\tend S;
+
+			\tsystem implementation S.AbstractFeatures
+			\t\tsubcomponents
+			\t\t\twork1: system AbstractWorkload;
+			\t\t\twork2: system AbstractWorkload;
+			\t\tconnections
+			\t\t\tcon1: feature work1.groupOut <-> work2.groupIn;
+			\tend S.AbstractFeatures;
+
+			\tsystem implementation S.top extends S.AbstractFeatures
+			\t\tconnections
+			\t\t\tcon1: refined to feature;
+			\tend S.top;
+
+			end issue662;
+			""";
+
 	@Inject
 	TestHelper<AadlPackage> testHelper;
 
 	@Test
-	public void scope_A() throws Exception {
-		String p = """
-				package issue1653
-				public
-				  with ps;
-				 \s
-				  system S
-				    properties
-				      ps::prop => 1_000.000_1;
-				  end S;
-				 \s
-				end 1653;
-				""";
-		String ps = """
-				property set ps is
-				  prop: aadlreal applies to (system);
-				end ps;
-				""";
-		AadlPackage pkg = testHelper.parseString(p, ps);
-		assertAllCrossReferencesResolvable(pkg);
-		var pas = pkg.getOwnedPublicSection().getOwnedClassifiers().get(0).getOwnedPropertyAssociations();
-		assertEquals("prop", pas.get(0).getProperty().getName());
-		RealLiteral value = (RealLiteral) pas.get(0).getOwnedValues().get(0).getOwnedValue();
-		assertEquals(1000.0001, value.getValue(), 0.00001);
+	public void issue662() throws Exception {
+		AadlPackage pkg = testHelper.parseString(AADL_TEXT);
+		var classifiers = pkg.getOwnedPublicSection().getOwnedClassifiers();
+		assertTrue("System implementation \"S.top\" not found",
+				classifiers.stream().anyMatch(classifier -> "S.top".equals(classifier.getName())));
+		SystemImplementation sysImpl = (SystemImplementation) classifiers.stream()
+				.filter(classifier -> "S.top".equals(classifier.getName()))
+				.findFirst()
+				.get();
+		var instance = InstantiateModel.instantiate(sysImpl);
+		assertEquals("S_top_Instance", instance.getName());
+		var connections = instance.getConnectionInstances();
+		assertTrue("In S_top_instance: Expected 2 connections but found " + connections.size(),
+				connections.size() == 2);
 	}
 }

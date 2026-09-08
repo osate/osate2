@@ -21,58 +21,58 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.core.tests.issues
+package org.osate.core.tests.issues;
 
-import com.google.inject.Inject
-import org.eclipse.xtext.testing.InjectWith
-import org.eclipse.xtext.testing.XtextRunner
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.osate.aadl2.AadlPackage
-import org.osate.testsupport.Aadl2InjectorProvider
-import org.osate.testsupport.TestHelper
+import java.util.ArrayList;
 
-import com.itemis.xtext.testing.XtextTest
-import com.itemis.xtext.testing.FluentIssueCollection
+import org.eclipse.xtext.testing.InjectWith;
+import org.eclipse.xtext.testing.XtextRunner;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.osate.aadl2.AadlPackage;
+import org.osate.testsupport.Aadl2InjectorProvider;
+import org.osate.testsupport.TestHelper;
 
-@RunWith(XtextRunner)
-@InjectWith(Aadl2InjectorProvider)
-class Issue2089Test extends XtextTest {
-	val static PROJECT_LOCATION = "org.osate.core.tests/models/Issue2089/"
-	val static BARNEY = PROJECT_LOCATION + "barney.aadl"
-	val static FRED = PROJECT_LOCATION + "fred.aadl"
-	val static OTHER = PROJECT_LOCATION + "other.aadl"
-	
+import com.google.inject.Inject;
+import com.itemis.xtext.testing.FluentIssueCollection;
+import com.itemis.xtext.testing.XtextTest;
+
+@RunWith(XtextRunner.class)
+@InjectWith(Aadl2InjectorProvider.class)
+public class Issue2089Test extends XtextTest {
+	private static final String PROJECT_LOCATION = "org.osate.core.tests/models/Issue2089/";
+
+	private static final String BARNEY = PROJECT_LOCATION + "barney.aadl";
+
+	private static final String FRED = PROJECT_LOCATION + "fred.aadl";
+
+	private static final String OTHER = PROJECT_LOCATION + "other.aadl";
+
 	@Inject
-	TestHelper<AadlPackage> testHelper
+	TestHelper<AadlPackage> testHelper;
 
 	@Test
-	def void testOther() {
-		val testFileResult = issues = testHelper.testFile(OTHER, FRED, BARNEY)
-		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
-		
-		// There should be no errors or warnings
-		issueCollection.sizeIs(testFileResult.issues.size)
-		assertConstraints(issueCollection)
+	public void testOther() throws Exception {
+		assertNoIssues(OTHER, FRED, BARNEY);
 	}
 
 	@Test
-	def void testBarney() {
-		val testFileResult = issues = testHelper.testFile(BARNEY, OTHER, FRED)
-		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
-		
-		// There should be no errors or warnings
-		issueCollection.sizeIs(testFileResult.issues.size)
-		assertConstraints(issueCollection)
+	public void testBarney() throws Exception {
+		assertNoIssues(BARNEY, OTHER, FRED);
 	}
 
 	@Test
-	def void testFred() {
-		val testFileResult = issues = testHelper.testFile(FRED, OTHER, BARNEY)
-		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
-		
+	public void testFred() throws Exception {
+		assertNoIssues(FRED, OTHER, BARNEY);
+	}
+
+	private void assertNoIssues(String firstFile, String... otherFiles) throws Exception {
+		FluentIssueCollection testFileResult = issues = testHelper.testFile(firstFile, otherFiles);
+		FluentIssueCollection issueCollection = new FluentIssueCollection(testFileResult.getResource(),
+				new ArrayList<>(), new ArrayList<>());
+
 		// There should be no errors or warnings
-		issueCollection.sizeIs(testFileResult.issues.size)
-		assertConstraints(issueCollection)
+		issueCollection.sizeIs(testFileResult.getIssues().size());
+		assertConstraints(issueCollection);
 	}
 }

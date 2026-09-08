@@ -25,48 +25,76 @@ package org.osate.core.tests.issues;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.RealLiteral;
+import org.osate.aadl2.AbstractImplementation;
 import org.osate.testsupport.Aadl2InjectorProvider;
+import org.osate.testsupport.AssertHelper;
 import org.osate.testsupport.TestHelper;
 
 import com.google.inject.Inject;
+import com.itemis.xtext.testing.FluentIssueCollection;
 import com.itemis.xtext.testing.XtextTest;
 
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
-public class Issue1653Test extends XtextTest {
+public class Issue744Test extends XtextTest {
+	private static final String AADL_TEXT = """
+			package pkg1
+			public
+			\tabstract a1
+			\t\tfeatures
+			\t\t\tp1: in data port d1.i;
+			\tend a1;
+			\t
+			\tabstract implementation a1.i
+			\t\tsubcomponents
+			\t\t\tasub1: abstract a2;
+			\t\tconnections
+			\t\t\tconn1: port p1.dsub1 -> asub1.p2;
+			\tend a1.i;
+			\t
+			\tdata d1
+			\tend d1;
+			\t
+			\tdata implementation d1.i
+			\t\tsubcomponents
+			\t\t\tdsub1: data;
+			\tend d1.i;
+			\t
+			\tabstract a2
+			\t\tfeatures
+			\t\t\tp2: in data port;
+			\tend a2;
+			end pkg1;
+			""";
+
 	@Inject
 	TestHelper<AadlPackage> testHelper;
 
 	@Test
-	public void scope_A() throws Exception {
-		String p = """
-				package issue1653
-				public
-				  with ps;
-				 \s
-				  system S
-				    properties
-				      ps::prop => 1_000.000_1;
-				  end S;
-				 \s
-				end 1653;
-				""";
-		String ps = """
-				property set ps is
-				  prop: aadlreal applies to (system);
-				end ps;
-				""";
-		AadlPackage pkg = testHelper.parseString(p, ps);
-		assertAllCrossReferencesResolvable(pkg);
-		var pas = pkg.getOwnedPublicSection().getOwnedClassifiers().get(0).getOwnedPropertyAssociations();
-		assertEquals("prop", pas.get(0).getProperty().getName());
-		RealLiteral value = (RealLiteral) pas.get(0).getOwnedValues().get(0).getOwnedValue();
-		assertEquals(1000.0001, value.getValue(), 0.00001);
+	public void issue744() throws Exception {
+		FluentIssueCollection testFileResult = issues = testHelper.testString(AADL_TEXT);
+		FluentIssueCollection issueCollection = new FluentIssueCollection(testFileResult.getResource(),
+				new ArrayList<>(), new ArrayList<>());
+		AadlPackage pkg = (AadlPackage) testFileResult.getResource().getContents().get(0);
+		assertEquals("pkg1", pkg.getName());
+
+		AbstractImplementation impl = (AbstractImplementation) pkg.getOwnedPublicSection()
+				.getOwnedClassifiers()
+				.get(1);
+		assertEquals("a1.i", impl.getName());
+		var connection = impl.getOwnedPortConnections().get(0);
+		assertEquals("conn1", connection.getName());
+		AssertHelper.assertWarning(connection.getSource(), testFileResult.getIssues(), issueCollection,
+				"Aggregate data ports not supported by instantiator.");
+
+		issueCollection.sizeIs(testFileResult.getIssues().size());
+		assertConstraints(issueCollection);
 	}
 }
