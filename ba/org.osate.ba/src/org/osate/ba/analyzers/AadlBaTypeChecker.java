@@ -21,6 +21,10 @@
 
 package org.osate.ba.analyzers;
 
+import java.util.Collections;
+import java.util.IdentityHashMap;
+import java.util.Set;
+
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.common.util.TreeIterator;
@@ -110,8 +114,10 @@ public class AadlBaTypeChecker {
 		for (BehaviorVariable variable : ba.getVariables()) {
 			result &= checkBehaviorVariable(variable);
 		}
+		// Expanded multi-source transitions have condition copies and a shared action block.
+		Set<BehaviorElement> checked = Collections.newSetFromMap(new IdentityHashMap<>());
 		for (BehaviorTransition transition : ba.getTransitions()) {
-			result &= checkBehaviorTransition(transition);
+			result &= checkBehaviorTransition(transition, checked);
 		}
 		return result;
 	}
@@ -142,13 +148,13 @@ public class AadlBaTypeChecker {
 		return result;
 	}
 
-	private boolean checkBehaviorTransition(BehaviorTransition transition) {
+	private boolean checkBehaviorTransition(BehaviorTransition transition, Set<BehaviorElement> checked) {
 		boolean result = true;
 		BehaviorCondition condition = transition.getCondition();
-		if (condition instanceof ExecuteCondition) {
+		if (condition instanceof ExecuteCondition && checked.add(BehaviorTransitionContext.getOriginalCondition(condition))) {
 			result &= checkExecuteCondition((ExecuteCondition) condition);
 		}
-		if (transition.getActionBlock() != null) {
+		if (transition.getActionBlock() != null && checked.add(transition.getActionBlock())) {
 			result &= checkBehaviorActionBlock(transition.getActionBlock());
 		}
 		return result;

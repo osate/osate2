@@ -19,5 +19,6 @@ annex[0] owner=BehaviorStateTest::myThread
     transitions[9] : BehaviorTransition
       condition : Otherwise
     transitions[10] : BehaviorTransition
+      condition : Otherwise
     transitions[11] : BehaviorTransition
       condition : Otherwise

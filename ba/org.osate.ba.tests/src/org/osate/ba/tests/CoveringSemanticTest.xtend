@@ -55,7 +55,9 @@ class CoveringSemanticTest {
 	@Test
 	def void test_lr_D4_L1_L2() {
 		val result = testHelper.testFile(PATH+"lr_D4_L1_L2.aadl")
-		8.assertEquals(result.issues.size)
+		// Both multi-source timeout transitions retain their condition on the second complete state.
+		6.assertEquals(result.issues.size)
+		0.assertEquals(result.issues.filter[message.contains("D.3.(L7)")].size)
 	}
 	
 	@Test
