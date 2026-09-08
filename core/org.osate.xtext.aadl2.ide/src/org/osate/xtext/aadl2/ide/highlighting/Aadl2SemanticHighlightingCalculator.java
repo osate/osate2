@@ -47,6 +47,12 @@ import org.osate.annexsupport.AnnexHighlighterRegistry;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexUtil;
 
+/**
+ * Colors AADL text and, because the lexer reduces each {@code {** **}} block to a single {@code ANNEXTEXT} token, the
+ * source text of every annex language as well. Bound both for the language server and for the Eclipse AADL editor.
+ *
+ * @since 2.0
+ */
 public class Aadl2SemanticHighlightingCalculator extends DefaultSemanticHighlightingCalculator { // ISemanticHighlightingCalculator {
 	private final String ANNEXTEXTKEYWORD = "annex";
 	private final String SEMICOLONKEYWORD = ";";
