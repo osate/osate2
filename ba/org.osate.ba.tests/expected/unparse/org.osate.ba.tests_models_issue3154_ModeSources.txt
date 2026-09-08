@@ -1,0 +1,12 @@
+===== annex[0] owner=ModeSources::example.impl =====
+
+states
+\tstart : initial state;
+\tready : complete state;
+\tfirst, second : complete state;
+\tfinish : final state;
+transitions
+\tstart -[]-> first;
+\tfirst, second -[on dispatch p]-> finish {computation (1 ms)};
+----- Xtext reparse -----
+reparsed
