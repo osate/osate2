@@ -41,10 +41,15 @@ import org.osate.verify.verify.VerificationMethodRegistry
 import static extension org.junit.Assert.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import org.osate.resolute.ResoluteUtil
+import org.eclipse.xtext.testing.validation.ValidationTestHelper
+import com.google.inject.Inject
 
 @RunWith(XtextRunner)
 @InjectWith(FullAlisaInjectorProvider)
 class AssureResoluteTests extends AssureTests {
+
+	@Inject
+	protected ValidationTestHelper validationTestHelper;
 
 	@Test
 	override void ResoluteRegistrytest() {
@@ -57,7 +62,7 @@ class AssureResoluteTests extends AssureTests {
 			"Resolute".assertEquals(name)
 			13.assertEquals(methods.size)
 		]
-		assertNoIssues(reg)
+		validationTestHelper.assertNoIssues(reg)
 	}
 
 //			, resoluteprefix+"BasicResolute.aadl", resoluteprefix+"BudgetResolute.aadl"
@@ -74,7 +79,7 @@ class AssureResoluteTests extends AssureTests {
 			5.assertEquals(ResoluteUtil.getResolute.getDefinitions((publicSection.ownedAnnexLibraries.get(0) as DefaultAnnexLibrary).
 				parsedAnnexLibrary).size)
 		]
-		assertNoIssues(pkg)
+		validationTestHelper.assertNoIssues(pkg)
 	}
 
 	@Test
@@ -90,7 +95,7 @@ class AssureResoluteTests extends AssureTests {
 			22.assertEquals(ResoluteUtil.getResolute.getDefinitions((publicSection.ownedAnnexLibraries.get(0) as DefaultAnnexLibrary).
 				parsedAnnexLibrary).size)
 		]
-		assertNoIssues(pkg)
+		validationTestHelper.assertNoIssues(pkg)
 	}
 
 	@Test
