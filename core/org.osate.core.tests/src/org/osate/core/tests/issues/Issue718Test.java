@@ -21,61 +21,64 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.core.tests.issues
+package org.osate.core.tests.issues;
 
-import com.google.inject.Inject
-import com.itemis.xtext.testing.FluentIssueCollection
-import com.itemis.xtext.testing.XtextTest
-import org.eclipse.xtext.testing.InjectWith
-import org.eclipse.xtext.testing.XtextRunner
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.osate.aadl2.AadlPackage
-import org.osate.testsupport.Aadl2InjectorProvider
-import org.osate.testsupport.TestHelper
+import static org.junit.Assert.assertTrue;
 
-import static org.junit.Assert.*
+import java.util.ArrayList;
 
-@RunWith(typeof(XtextRunner))
-@InjectWith(typeof(Aadl2InjectorProvider))
-class Issue718Test extends XtextTest {
-	
+import org.eclipse.xtext.testing.InjectWith;
+import org.eclipse.xtext.testing.XtextRunner;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.osate.aadl2.AadlPackage;
+import org.osate.testsupport.Aadl2InjectorProvider;
+import org.osate.testsupport.TestHelper;
+
+import com.google.inject.Inject;
+import com.itemis.xtext.testing.FluentIssueCollection;
+import com.itemis.xtext.testing.XtextTest;
+
+@RunWith(XtextRunner.class)
+@InjectWith(Aadl2InjectorProvider.class)
+public class Issue718Test extends XtextTest {
+	private static final String PS_TEXT = """
+			property set ps718 is
+			\tcltype: type classifier;
+			\treftype: type reference;
+			\tcl: ps718::cltype applies to (all);
+			\tref: ps718::reftype applies to (all);
+			end ps718;
+			""";
+
+	/* "system S" keeps its trailing tab, written as an escape so the text block cannot strip it. */
+	private static final String AADL_TEXT = """
+			package issue718
+			public
+			\twith ps718;
+			\t
+			\tsystem S\t
+			\tend S;
+			\t
+			\tsystem implementation S.i
+			\t\tsubcomponents
+			\t\t\ts: system;
+			\t\tproperties
+			\t\t\tps718::cl => classifier(S);
+			\t\t\tps718::ref => reference(s);
+			\tend S.i;
+
+			end issue718;
+			""";
+
 	@Inject
-	TestHelper<AadlPackage> testHelper
-		
-	@Test
-	def void issue718() {
-		
-		val testFileResult = issues = testHelper.testString(aadlText, psText)
-		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
-					
-		assertTrue('Unexpected error', issueCollection.empty)
-	}
+	TestHelper<AadlPackage> testHelper;
 
-	val psText = '''
-		property set ps718 is
-			cltype: type classifier;
-			reftype: type reference;
-			cl: ps718::cltype applies to (all);
-			ref: ps718::reftype applies to (all);
-		end ps718;
-	'''
-	val aadlText = '''
-		package issue718
-		public
-			with ps718;
-			
-			system S	
-			end S;
-			
-			system implementation S.i
-				subcomponents
-					s: system;
-				properties
-					ps718::cl => classifier(S);
-					ps718::ref => reference(s);
-			end S.i;
-		
-		end issue718;
-	'''
+	@Test
+	public void issue718() throws Exception {
+		FluentIssueCollection testFileResult = issues = testHelper.testString(AADL_TEXT, PS_TEXT);
+		FluentIssueCollection issueCollection = new FluentIssueCollection(testFileResult.getResource(),
+				new ArrayList<>(), new ArrayList<>());
+		assertTrue("Unexpected error", issueCollection.getIssues().isEmpty());
+	}
 }

@@ -21,55 +21,55 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.core.tests.issues
+package org.osate.core.tests.issues;
 
-import com.google.inject.Inject
-import com.google.inject.Provider
-import org.eclipse.emf.common.util.URI
-import org.eclipse.xtext.resource.SaveOptions
-import org.eclipse.xtext.resource.XtextResourceSet
-import org.eclipse.xtext.serializer.ISerializer
-import org.eclipse.xtext.testing.InjectWith
-import org.eclipse.xtext.testing.XtextRunner
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.osate.aadl2.Aadl2Factory
-import org.osate.aadl2.Aadl2Package
-import org.osate.aadl2.ComponentType
-import org.osate.testsupport.Aadl2InjectorProvider
+import static org.junit.Assert.assertEquals;
 
-import static extension org.junit.Assert.assertEquals
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.xtext.resource.SaveOptions;
+import org.eclipse.xtext.resource.XtextResourceSet;
+import org.eclipse.xtext.serializer.ISerializer;
+import org.eclipse.xtext.testing.InjectWith;
+import org.eclipse.xtext.testing.XtextRunner;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.ComponentType;
+import org.osate.testsupport.Aadl2InjectorProvider;
 
-@RunWith(XtextRunner)
-@InjectWith(Aadl2InjectorProvider)
-class Issue883Test {
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+
+@RunWith(XtextRunner.class)
+@InjectWith(Aadl2InjectorProvider.class)
+public class Issue883Test {
 	@Inject
-	extension ISerializer
+	ISerializer serializer;
+
 	@Inject
-	Provider<XtextResourceSet> resourceSetProvider
-	
+	Provider<XtextResourceSet> resourceSetProvider;
+
 	@Test
-	def void issue883() {
-		val expected = '''
-			package pkg1
-			public
-				abstract a1
-					features
-						f1: feature;
-				end a1;
-			end pkg1;'''
-		val pkg1 = Aadl2Factory.eINSTANCE.createAadlPackage => [
-			name = "pkg1"
-			createOwnedPublicSection => [
-				createOwnedClassifier(Aadl2Package.eINSTANCE.abstractType) as ComponentType => [
-					name = "a1"
-					createOwnedAbstractFeature => [
-						name = "f1"
-					]
-				]
-			]
-		]
-		resourceSetProvider.get.createResource(URI.createURI("pkg1.aadl")).contents += pkg1
-		expected.assertEquals(pkg1.serialize(SaveOptions.newBuilder.format.options))
+	public void issue883() {
+		/* No trailing newline: the Xtend template closed on the same line as the last content. */
+		String expected = """
+				package pkg1
+				public
+				\tabstract a1
+				\t\tfeatures
+				\t\t\tf1: feature;
+				\tend a1;
+				end pkg1;""";
+
+		var pkg1 = Aadl2Factory.eINSTANCE.createAadlPackage();
+		pkg1.setName("pkg1");
+		var publicSection = pkg1.createOwnedPublicSection();
+		var a1 = (ComponentType) publicSection.createOwnedClassifier(Aadl2Package.eINSTANCE.getAbstractType());
+		a1.setName("a1");
+		a1.createOwnedAbstractFeature().setName("f1");
+
+		resourceSetProvider.get().createResource(URI.createURI("pkg1.aadl")).getContents().add(pkg1);
+		assertEquals(expected, serializer.serialize(pkg1, SaveOptions.newBuilder().format().getOptions()));
 	}
 }
