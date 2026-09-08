@@ -21,30 +21,55 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.xtext.aadl2.ui.editor.model
+package org.osate.xtext.aadl2.ui.propertyview;
 
-import org.eclipse.core.resources.IStorage
-import org.eclipse.core.runtime.CoreException
-import org.eclipse.xtext.resource.XtextResource
-import org.eclipse.xtext.ui.editor.model.JavaClassPathResourceForIEditorInputFactory
-import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage
+import java.util.Objects;
 
-class Aadl2ResourceForEditorInputFactory extends JavaClassPathResourceForIEditorInputFactory {
-	override protected createResourceFor(IStorage storage) throws CoreException {
-		if (storage instanceof ContributedAadlStorage) {
-			/*
-			 * Mostly copied from ResourceForIEditorInputFactory.createResourceFor(IStorage).
-			 * Ensures that contributed aadl resources have a platform plugin URI and not a platform resource URI.
-			 */
-			val resourceSet = getResourceSet(storage)
-			val uri = storage.uri
-			configureResourceSet(resourceSet, uri)
-			val resource = resourceFactory.createResource(uri) as XtextResource
-			resourceSet.resources += resource
-			resource.validationDisabled = isValidationDisabled(uri, storage)
-			resource
-		} else {
-			super.createResourceFor(storage)
+import org.eclipse.emf.common.util.URI;
+
+class RangeElement {
+	static final String MINIMUM_LABEL = "minimum";
+
+	static final String MAXIMUM_LABEL = "maximum";
+
+	static final String DELTA_LABEL = "delta";
+
+	private final String label;
+
+	private final URI expressionURI;
+
+	RangeElement(String label, URI expressionURI) {
+		this.label = label;
+		this.expressionURI = expressionURI;
+	}
+
+	String getLabel() {
+		return label;
+	}
+
+	URI getExpressionURI() {
+		return expressionURI;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
 		}
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+		var other = (RangeElement) obj;
+		return Objects.equals(label, other.label) && Objects.equals(expressionURI, other.expressionURI);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(label, expressionURI);
+	}
+
+	@Override
+	public String toString() {
+		return "RangeElement [label = " + label + ", expressionURI = " + expressionURI + "]";
 	}
 }

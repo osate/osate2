@@ -21,54 +21,56 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.xtext.aadl2.ui.editor
+package org.osate.xtext.aadl2.ui.editor;
 
-import com.google.inject.Inject
-import org.apache.log4j.Logger
-import org.eclipse.emf.common.util.URI
-import org.eclipse.emf.common.util.WrappedException
-import org.eclipse.emf.ecore.EReference
-import org.eclipse.ui.IWorkbench
-import org.eclipse.ui.PartInitException
-import org.eclipse.ui.ide.IDE
-import org.eclipse.xtext.ui.editor.LanguageSpecificURIEditorOpener
-import org.eclipse.xtext.ui.editor.utils.EditorUtils
-import org.eclipse.xtext.ui.resource.IStorage2UriMapper
-import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage
+import org.apache.log4j.Logger;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.common.util.WrappedException;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.ide.IDE;
+import org.eclipse.xtext.ui.editor.LanguageSpecificURIEditorOpener;
+import org.eclipse.xtext.ui.editor.utils.EditorUtils;
+import org.eclipse.xtext.ui.resource.IStorage2UriMapper;
+import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
 
-class Aadl2LanguageSpecificURIEditorOpener extends LanguageSpecificURIEditorOpener {
-	val static logger = Logger.getLogger(Aadl2LanguageSpecificURIEditorOpener)
-	
+import com.google.inject.Inject;
+
+public class Aadl2LanguageSpecificURIEditorOpener extends LanguageSpecificURIEditorOpener {
+	private static final Logger logger = Logger.getLogger(Aadl2LanguageSpecificURIEditorOpener.class);
+
 	@Inject
-	IStorage2UriMapper mapper
-	
+	private IStorage2UriMapper mapper;
+
 	@Inject(optional = true)
-	IWorkbench workbench
-	
+	private IWorkbench workbench;
+
 	/*
 	 * Mostly copied from the super implementation. The one difference is to construct a
 	 * ContributedAadlEditorInput if the storage is an instance of ContributedAadlStorage.
 	 */
-	override open(URI uri, EReference crossReference, int indexInList, boolean select) {
-		val storages = mapper.getStorages(uri.trimFragment).iterator
-		if (storages !== null && storages.hasNext) {
+	@Override
+	public IEditorPart open(URI uri, EReference crossReference, int indexInList, boolean select) {
+		var storages = mapper.getStorages(uri.trimFragment()).iterator();
+		if (storages != null && storages.hasNext()) {
 			try {
-				val storage = storages.next.first
-				val editorInput = if (storage instanceof ContributedAadlStorage) {
-					new ContributedAadlEditorInput(storage)
-				} else {
-					EditorUtils.createEditorInput(storage)
-				}
-				val activePage = workbench.activeWorkbenchWindow.activePage
-				val editor = IDE.openEditor(activePage, editorInput, editorId)
-				selectAndReveal(editor, uri, crossReference, indexInList, select)
-				return EditorUtils.getXtextEditor(editor)
+				var storage = storages.next().getFirst();
+				IEditorInput editorInput = storage instanceof ContributedAadlStorage contributedStorage
+						? new ContributedAadlEditorInput(contributedStorage)
+						: EditorUtils.createEditorInput(storage);
+				var activePage = workbench.getActiveWorkbenchWindow().getActivePage();
+				var editor = IDE.openEditor(activePage, editorInput, getEditorId());
+				selectAndReveal(editor, uri, crossReference, indexInList, select);
+				return EditorUtils.getXtextEditor(editor);
 			} catch (WrappedException e) {
-				logger.error("Error while opening editor part for EMF URI '" + uri + "'", e.cause)
+				logger.error("Error while opening editor part for EMF URI '" + uri + "'", e.getCause());
 			} catch (PartInitException partInitException) {
-				logger.error("Error while opening editor part for EMF URI '" + uri + "'", partInitException)
+				logger.error("Error while opening editor part for EMF URI '" + uri + "'", partInitException);
 			}
 		}
-		null
+		return null;
 	}
 }

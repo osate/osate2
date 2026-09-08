@@ -21,24 +21,27 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.xtext.aadl2.ui.editor
+package org.osate.xtext.aadl2.ui.editor;
 
-import org.eclipse.ui.IElementFactory
-import org.eclipse.ui.IMemento
-import org.osate.pluginsupport.PluginSupportUtil
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.ui.IElementFactory;
+import org.eclipse.ui.IMemento;
+import org.osate.pluginsupport.PluginSupportUtil;
+import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
 
-import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage
+public class ContributedAadlEditorInputFactory implements IElementFactory {
+	public static final String ID_FACTORY = "org.osate.xtext.aadl2.ui.editor.ContributedAadlEditorInputFactory";
 
-import static extension org.eclipse.emf.common.util.URI.createURI
+	public static final String TAG_URI = "uri";
 
-class ContributedAadlEditorInputFactory implements IElementFactory {
-	val public static ID_FACTORY = "org.osate.xtext.aadl2.ui.editor.ContributedAadlEditorInputFactory"
-	val public static TAG_URI = "uri"
-	
-	override createElement(IMemento memento) {
-		val uri = memento.getString(TAG_URI)?.createURI
-		if (PluginSupportUtil.contributedAadl.contains(uri)) {
-			new ContributedAadlEditorInput(new ContributedAadlStorage(null,uri))
+	@Override
+	public IAdaptable createElement(IMemento memento) {
+		var uriString = memento.getString(TAG_URI);
+		var uri = uriString == null ? null : URI.createURI(uriString);
+		if (PluginSupportUtil.getContributedAadl().contains(uri)) {
+			return new ContributedAadlEditorInput(new ContributedAadlStorage(null, uri));
 		}
+		return null;
 	}
 }

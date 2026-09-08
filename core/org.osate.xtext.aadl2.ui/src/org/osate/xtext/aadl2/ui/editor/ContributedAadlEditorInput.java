@@ -21,30 +21,33 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.xtext.aadl2.ui.editor
+package org.osate.xtext.aadl2.ui.editor;
 
-import org.eclipse.xtext.ui.editor.XtextReadonlyEditorInput
-import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage
-import org.eclipse.ui.IPersistableElement
-import org.eclipse.ui.IMemento
+import org.eclipse.ui.IMemento;
+import org.eclipse.ui.IPersistableElement;
+import org.eclipse.xtext.ui.editor.XtextReadonlyEditorInput;
+import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
 
-class ContributedAadlEditorInput extends XtextReadonlyEditorInput {
-	val ContributedAadlStorage storage
-	
-	new(ContributedAadlStorage storage) {
-		super(storage)
-		this.storage = storage
+public class ContributedAadlEditorInput extends XtextReadonlyEditorInput {
+	private final ContributedAadlStorage storage;
+
+	public ContributedAadlEditorInput(ContributedAadlStorage storage) {
+		super(storage);
+		this.storage = storage;
 	}
-	
-	override getPersistable() {
-		new IPersistableElement {
-			override getFactoryId() {
-				ContributedAadlEditorInputFactory.ID_FACTORY
+
+	@Override
+	public IPersistableElement getPersistable() {
+		return new IPersistableElement() {
+			@Override
+			public String getFactoryId() {
+				return ContributedAadlEditorInputFactory.ID_FACTORY;
 			}
-			
-			override saveState(IMemento memento) {
-				memento.putString(ContributedAadlEditorInputFactory.TAG_URI, storage.uri.toString)
+
+			@Override
+			public void saveState(IMemento memento) {
+				memento.putString(ContributedAadlEditorInputFactory.TAG_URI, storage.getUri().toString());
 			}
-		}
+		};
 	}
 }

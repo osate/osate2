@@ -21,19 +21,31 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.xtext.aadl2.ui.editor.model
+package org.osate.xtext.aadl2.ui.propertyview;
 
-import org.eclipse.core.runtime.CoreException
-import org.eclipse.jface.text.source.AnnotationModel
-import org.eclipse.xtext.ui.editor.model.XtextDocumentProvider
-import org.osate.xtext.aadl2.ui.editor.ContributedAadlEditorInput
+public class CellEditorPartialValue {
+	private final String wholeText;
 
-class Aadl2DocumentProvider extends XtextDocumentProvider {
-	override protected createAnnotationModel(Object element) throws CoreException {
-		if (element instanceof ContributedAadlEditorInput) {
-			new AnnotationModel
-		} else {
-			super.createAnnotationModel(element)
-		}
+	private final int offset;
+
+	private final int length;
+
+	public CellEditorPartialValue(String prefix, String editablePart, String suffix) {
+		var prefixWithLineEnding = prefix + "\n";
+		wholeText = prefixWithLineEnding + editablePart + "\n" + suffix;
+		offset = prefixWithLineEnding.length();
+		length = editablePart.length();
+	}
+
+	public String getWholeText() {
+		return wholeText;
+	}
+
+	public int getOffset() {
+		return offset;
+	}
+
+	public int getLength() {
+		return length;
 	}
 }

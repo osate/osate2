@@ -21,35 +21,49 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.xtext.aadl2.ui.resource
+package org.osate.xtext.aadl2.ui.propertyview;
 
-import org.eclipse.core.resources.IStorage
-import org.eclipse.emf.common.util.URI
-import org.eclipse.xtext.ui.resource.Storage2UriMapperImpl
-import org.eclipse.xtext.util.Tuples
-import org.osate.pluginsupport.PluginSupportUtil
+import java.util.Objects;
 
-class Aadl2Storage2UriMapper extends Storage2UriMapperImpl {
-	/* Here we still use PluginSupportUtil.getContributedAadl() and not PredeclaredProperties.getVisibleContributedResources().
-	 * We are just determining which items need a special Storage object, and it's only going to be those are 
-	 * contributed by a plug-in.  Items that are contributed by the workspace are already resources in the workspace 
-	 * and should open just fine.
-	 */
-	val CONTRIBUTED_AADL = PluginSupportUtil.contributedAadl.toInvertedMap[new ContributedAadlStorage(null, it)]
-	
-	override getStorages(URI uri) {
-		if (CONTRIBUTED_AADL.containsKey(uri)) {
-			#[Tuples.create(CONTRIBUTED_AADL.get(uri), workspaceRoot.projects.head)]
-		} else {
-			super.getStorages(uri)
-		}
+import org.eclipse.emf.common.util.URI;
+
+class ListElement {
+	private final int index;
+
+	private final URI expressionURI;
+
+	ListElement(int index, URI expressionURI) {
+		this.index = index;
+		this.expressionURI = expressionURI;
 	}
-	
-	override getUri(IStorage storage) {
-		if (storage instanceof ContributedAadlStorage) {
-			storage.uri
-		} else {
-			super.getUri(storage)
+
+	int getIndex() {
+		return index;
+	}
+
+	URI getExpressionURI() {
+		return expressionURI;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
 		}
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+		var other = (ListElement) obj;
+		return index == other.index && Objects.equals(expressionURI, other.expressionURI);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(index, expressionURI);
+	}
+
+	@Override
+	public String toString() {
+		return "ListElement [index = " + index + ", expressionURI = " + expressionURI + "]";
 	}
 }

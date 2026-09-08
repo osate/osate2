@@ -21,16 +21,20 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.xtext.aadl2.ui.propertyview
+package org.osate.xtext.aadl2.ui.editor.model;
 
-import org.eclipse.xtend.lib.annotations.Accessors
-import org.eclipse.xtend.lib.annotations.EqualsHashCode
-import org.eclipse.xtend.lib.annotations.ToString
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jface.text.source.AnnotationModel;
+import org.eclipse.jface.text.source.IAnnotationModel;
+import org.eclipse.xtext.ui.editor.model.XtextDocumentProvider;
+import org.osate.xtext.aadl2.ui.editor.ContributedAadlEditorInput;
 
-@Accessors
-@EqualsHashCode
-@ToString(singleLine = true)
-package class FilterCriterion {
-	val Object parent
-	val Object element
+public class Aadl2DocumentProvider extends XtextDocumentProvider {
+	@Override
+	protected IAnnotationModel createAnnotationModel(Object element) throws CoreException {
+		if (element instanceof ContributedAadlEditorInput) {
+			return new AnnotationModel();
+		}
+		return super.createAnnotationModel(element);
+	}
 }

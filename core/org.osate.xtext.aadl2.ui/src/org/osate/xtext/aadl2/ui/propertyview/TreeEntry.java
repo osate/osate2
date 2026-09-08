@@ -21,43 +21,56 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.xtext.aadl2.ui.propertyview
+package org.osate.xtext.aadl2.ui.propertyview;
 
-import org.eclipse.emf.common.util.URI
-import org.eclipse.jface.viewers.ColumnLabelProvider
-import org.eclipse.swt.SWT
-import org.osate.aadl2.BasicProperty
-import org.osate.aadl2.BasicPropertyAssociation
-import org.osate.aadl2.Property
-import org.osate.aadl2.PropertyAssociation
+import java.util.Objects;
 
-import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
+/*
+ * Parent and tree element can be
+ * - a URI referencing a property set, property, modal property value, basic property association
+ * or basic property (record field def)
+ * - a range element (something for range values)
+ * - a list element
+ *
+ * the parent of a property set is URI of a model element
+ */
+class TreeEntry {
+	private final Object parent;
 
-package class StatusColumnLabelProvider extends ColumnLabelProvider {
-	val AadlPropertyView propertyView
-	
-	package new(AadlPropertyView propertyView) {
-		this.propertyView = propertyView
+	private final Object treeElement;
+
+	TreeEntry(Object parent, Object treeElement) {
+		this.parent = parent;
+		this.treeElement = treeElement;
 	}
-	
-	override getText(Object element) {
-		val treeElement = (element as TreeEntry).treeElement
-		if (treeElement instanceof URI) {
-			propertyView.safeRead[extension it | switch treeElementEObject : treeElement.getEObject(true) {
-				Property: propertyView.getPropertyStatus(((element as TreeEntry).parent as TreeEntry).treeElement as URI, treeElement)
-				BasicPropertyAssociation: propertyView.getPropertyStatusNeverUndefined(it, treeElementEObject.getContainerOfType(PropertyAssociation))
-				BasicProperty case !(treeElementEObject instanceof Property): PropertyStatus.UNDEFINED
-			}?.toString]
-		}
+
+	Object getParent() {
+		return parent;
 	}
-	
-	override getForeground(Object element) {
-		val treeElement = (element as TreeEntry).treeElement
-		if (treeElement instanceof URI) {
-			propertyView.safeRead[extension it | switch treeElementEObject : treeElement.getEObject(true) {
-				Property case propertyView.getPropertyStatus(((element as TreeEntry).parent as TreeEntry).treeElement as URI, treeElement) == PropertyStatus.UNDEFINED,
-				BasicProperty case !(treeElementEObject instanceof Property): propertyView.site.shell.display.getSystemColor(SWT.COLOR_RED)
-			}]
+
+	Object getTreeElement() {
+		return treeElement;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
 		}
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+		var other = (TreeEntry) obj;
+		return Objects.equals(parent, other.parent) && Objects.equals(treeElement, other.treeElement);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(parent, treeElement);
+	}
+
+	@Override
+	public String toString() {
+		return "TreeEntry [parent = " + parent + ", treeElement = " + treeElement + "]";
 	}
 }

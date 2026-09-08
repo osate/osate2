@@ -21,20 +21,32 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.xtext.aadl2.ui.propertyview
+package org.osate.xtext.aadl2.ui.editor.model;
 
-import org.eclipse.xtend.lib.annotations.Accessors
+import org.eclipse.core.resources.IStorage;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.ui.editor.model.JavaClassPathResourceForIEditorInputFactory;
+import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
 
-@Accessors
-class CellEditorPartialValue {
-	val String wholeText
-	val int offset
-	val int length
-	
-	new(String prefix, String editablePart, String suffix) {
-		val prefixWithLineEnding = prefix + "\n"
-		wholeText = prefixWithLineEnding + editablePart + "\n" + suffix
-		offset = prefixWithLineEnding.length
-		length = editablePart.length
+public class Aadl2ResourceForEditorInputFactory extends JavaClassPathResourceForIEditorInputFactory {
+	@Override
+	protected Resource createResourceFor(IStorage storage) throws CoreException {
+		if (!(storage instanceof ContributedAadlStorage contributedStorage)) {
+			return super.createResourceFor(storage);
+		}
+
+		/*
+		 * Mostly copied from ResourceForIEditorInputFactory.createResourceFor(IStorage).
+		 * Ensures that contributed aadl resources have a platform plugin URI and not a platform resource URI.
+		 */
+		var resourceSet = getResourceSet(storage);
+		var uri = contributedStorage.getUri();
+		configureResourceSet(resourceSet, uri);
+		var resource = (XtextResource) getResourceFactory().createResource(uri);
+		resourceSet.getResources().add(resource);
+		resource.setValidationDisabled(isValidationDisabled(uri, storage));
+		return resource;
 	}
 }

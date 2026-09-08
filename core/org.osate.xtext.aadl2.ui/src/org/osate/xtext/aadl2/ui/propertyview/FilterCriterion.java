@@ -21,77 +21,47 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.xtext.aadl2.ui.resource
+package org.osate.xtext.aadl2.ui.propertyview;
 
-import org.eclipse.core.resources.IStorage
-import org.eclipse.core.runtime.CoreException
-import org.eclipse.core.runtime.Path
-import org.eclipse.core.runtime.PlatformObject
-import org.eclipse.emf.common.util.URI
-import org.eclipse.emf.ecore.resource.URIConverter
-import org.eclipse.xtend.lib.annotations.Accessors
+import java.util.Objects;
 
-class ContributedAadlStorage extends PlatformObject implements IStorage, ProjectMember {
-	val ProjectMember parent
-	
-	@Accessors
-	val URI uri
-	val boolean disabled
-	
-	/**
-	 * @since 5.0
-	 */
-	new(ProjectMember parent, URI uri) {
-		this.parent = parent
-		this.uri = uri
-		this.disabled = false
+class FilterCriterion {
+	private final Object parent;
+
+	private final Object element;
+
+	FilterCriterion(Object parent, Object element) {
+		this.parent = parent;
+		this.element = element;
 	}
 
-	/**
-	 * @since 6.2
-	 */
-	new(ProjectMember parent, URI uri, boolean disabled) {
-		this.parent = parent
-		this.uri = uri
-		this.disabled = disabled
+	Object getParent() {
+		return parent;
 	}
-	
-	/**
-	 * @since 5.0
-	 */
-	def ProjectMember getParent() {
-		parent
+
+	Object getElement() {
+		return element;
 	}
-	
-	override getContents() throws CoreException {
-		URIConverter.INSTANCE.createInputStream(uri)
-	}
-	
-	override getFullPath() {
-		new Path(uri.segments.tail.join("/"))
-	}
-	
-	override getName() {
-		(disabled ? "[Disabled] " : "") + uri.segments.last
-	}
-	
-	override isReadOnly() {
-		true
-	}
-	
-	override getProject() {
-		parent.project
-	}
-	
-	override equals(Object obj) {
-		if (obj instanceof ContributedAadlStorage) {
-			uri == obj.uri
-		} else {
-			false
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
 		}
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+		var other = (FilterCriterion) obj;
+		return Objects.equals(parent, other.parent) && Objects.equals(element, other.element);
 	}
-	
-	override hashCode() {
-		uri.hashCode
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(parent, element);
+	}
+
+	@Override
+	public String toString() {
+		return "FilterCriterion [parent = " + parent + ", element = " + element + "]";
 	}
 }
