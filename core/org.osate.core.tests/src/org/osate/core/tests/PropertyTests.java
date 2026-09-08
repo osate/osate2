@@ -21,89 +21,90 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.core.tests
+package org.osate.core.tests;
 
-import com.google.inject.Inject
-import com.itemis.xtext.testing.XtextTest
-import org.eclipse.xtext.testing.InjectWith
-import org.eclipse.xtext.testing.XtextRunner
-import org.junit.Assert
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.osate.aadl2.AadlPackage
-import org.osate.aadl2.SystemImplementation
-import org.osate.aadl2.instantiation.InstantiateModel
-import org.osate.testsupport.Aadl2InjectorProvider
-import org.osate.testsupport.TestHelper
+import static org.junit.Assert.assertEquals;
 
-@RunWith(XtextRunner)
-@InjectWith(Aadl2InjectorProvider)
-class PropertyTests extends XtextTest {
-	
+import org.eclipse.xtext.testing.InjectWith;
+import org.eclipse.xtext.testing.XtextRunner;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.SystemImplementation;
+import org.osate.aadl2.instantiation.InstantiateModel;
+import org.osate.testsupport.Aadl2InjectorProvider;
+import org.osate.testsupport.TestHelper;
+
+import com.google.inject.Inject;
+import com.itemis.xtext.testing.XtextTest;
+
+@RunWith(XtextRunner.class)
+@InjectWith(Aadl2InjectorProvider.class)
+public class PropertyTests extends XtextTest {
 	@Inject
-	TestHelper<AadlPackage> testHelper
-	
-	@Test
-	def void scope_A() {
+	TestHelper<AadlPackage> testHelper;
 
-		val p1 = '''
+	@Test
+	public void scope_A() throws Exception {
+		String p1 = """
 				package p1
 				public
 				  with p, ps1, ps;
-				  
+				 \s
 				  system s1 extends p::s
 				    properties
 				      ps::prop => 10cm;
 				      ps1::prop1 => 10cm;
 				      period => 1sec;
 				  end s1;
-				  
+				 \s
 				  system implementation s1.i
 				  subcomponents
 				    d: data;
 				  end s1.i;
-				  
+				 \s
 				end p1;
-			'''
-		val ps1 = '''
+				""";
+		String ps1 = """
 				property set ps1 is
 				  len_units1: type units (cm, m => cm * 100);
 				  prop1: aadlinteger units ps1::len_units1 applies to (system);
 				end ps;
-			'''
-		val ps = '''
+				""";
+		String ps = """
 				property set ps is
 				  len_units: type units (cm, m => cm * 100);
 				  prop: aadlinteger units ps::len_units applies to (system);
 				end ps;
-			'''
-		val p = '''
+				""";
+		String p = """
 				package p
 				public
 				  with ps;
-				  
+				 \s
 				  system s
 				    properties
 				      ps::prop => 10cm;
 				  end s;
-				  
+				 \s
 				end p;
-			'''
+				""";
 
-		val pkg = testHelper.parseString(p1, ps1, ps, p)
+		AadlPackage pkg = testHelper.parseString(p1, ps1, ps, p);
 
-		assertAllCrossReferencesResolvable(pkg)
-		
-		val pas = pkg.ownedPublicSection.ownedClassifiers.head.ownedPropertyAssociations
-		Assert.assertEquals("prop", pas.head.property.name)
-		Assert.assertEquals("Period", pas.last.property.name)
-		
+		assertAllCrossReferencesResolvable(pkg);
+
+		var pas = pkg.getOwnedPublicSection().getOwnedClassifiers().get(0).getOwnedPropertyAssociations();
+		assertEquals("prop", pas.get(0).getProperty().getName());
+		assertEquals("Period", pas.getLast().getProperty().getName());
+
 		// instantiate
-		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.last as SystemImplementation
-		val instance = InstantiateModel.instantiate(sysImpl)
-		Assert.assertEquals("s1_i_Instance", instance.name)
-		Assert.assertEquals(1, instance.componentInstances.size)
-		Assert.assertEquals("d", instance.componentInstances.head.name)
+		SystemImplementation sysImpl = (SystemImplementation) pkg.getOwnedPublicSection()
+				.getOwnedClassifiers()
+				.getLast();
+		var instance = InstantiateModel.instantiate(sysImpl);
+		assertEquals("s1_i_Instance", instance.getName());
+		assertEquals(1, instance.getComponentInstances().size());
+		assertEquals("d", instance.getComponentInstances().get(0).getName());
 	}
-
 }
