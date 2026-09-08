@@ -21,46 +21,52 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.core.tests.issues
+package org.osate.core.tests.issues;
 
-import com.google.inject.Inject
-import com.itemis.xtext.testing.FluentIssueCollection
-import com.itemis.xtext.testing.XtextTest
-import org.eclipse.xtext.testing.InjectWith
-import org.eclipse.xtext.testing.XtextRunner
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.osate.aadl2.AadlPackage
-import org.osate.aadl2.SystemImplementation
-import org.osate.testsupport.Aadl2InjectorProvider
-import org.osate.testsupport.TestHelper
+import static org.junit.Assert.assertEquals;
 
-import static extension org.junit.Assert.assertEquals
-import static extension org.osate.testsupport.AssertHelper.assertError
+import org.eclipse.xtext.testing.InjectWith;
+import org.eclipse.xtext.testing.XtextRunner;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.RealLiteral;
+import org.osate.testsupport.Aadl2InjectorProvider;
+import org.osate.testsupport.TestHelper;
 
-@RunWith(XtextRunner)
-@InjectWith(Aadl2InjectorProvider)
-class Issue1841Test extends XtextTest {
+import com.google.inject.Inject;
+import com.itemis.xtext.testing.XtextTest;
+
+@RunWith(XtextRunner.class)
+@InjectWith(Aadl2InjectorProvider.class)
+public class Issue1653Test extends XtextTest {
 	@Inject
-	TestHelper<AadlPackage> testHelper
-	
+	TestHelper<AadlPackage> testHelper;
+
 	@Test
-	def void testIssue1841() {
-		val testFileResult = issues = testHelper.testFile("org.osate.core.tests/models/issue1841/issue1841.aadl")
-		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
-		testFileResult.resource.contents.head as AadlPackage => [
-			"issue1841".assertEquals(name)
-			publicSection.ownedClassifiers.get(2) as SystemImplementation => [
-				"s.i2".assertEquals(name)
-				ownedSubcomponents.head => [
-					"sub".assertEquals(name)
-					assertError(testFileResult.issues, issueCollection,
-						"SystemSubcomponent identifier 'sub' previously defined in s.i1. Maybe you forgot 'refined to'"
-					)
-				]
-			]
-		]
-		issueCollection.sizeIs(testFileResult.issues.size)
-		assertConstraints(issueCollection)
+	public void scope_A() throws Exception {
+		String p = """
+				package issue1653
+				public
+				  with ps;
+
+				  system S
+				    properties
+				      ps::prop => 1_000.000_1;
+				  end S;
+
+				end 1653;
+				""";
+		String ps = """
+				property set ps is
+				  prop: aadlreal applies to (system);
+				end ps;
+				""";
+		AadlPackage pkg = testHelper.parseString(p, ps);
+		assertAllCrossReferencesResolvable(pkg);
+		var pas = pkg.getOwnedPublicSection().getOwnedClassifiers().get(0).getOwnedPropertyAssociations();
+		assertEquals("prop", pas.get(0).getProperty().getName());
+		RealLiteral value = (RealLiteral) pas.get(0).getOwnedValues().get(0).getOwnedValue();
+		assertEquals(1000.0001, value.getValue(), 0.00001);
 	}
 }
