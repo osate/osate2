@@ -31,13 +31,16 @@ class CoveringSemanticTest {
 	@Test
 	def void test_lr_D3_L1_L2() {
 		val result = testHelper.testFile(PATH+"lr_D3_L1_L2.aadl")
-		4.assertEquals(result.issues.size)
+		// D.3.(L1) and D.3.(L2) mark every state their message names: two initial states, one complete state, the
+		// missing final state, and two final states.
+		6.assertEquals(result.issues.size)
 	}
 	
 	@Test
 	def void test_lr_D3_L3_L4() {
 		val result = testHelper.testFile(PATH+"lr_D3_L3_L4.aadl")
-		2.assertEquals(result.issues.size)
+		// D.3.(L3) marks both initial states it names, and the missing complete state marks the subclause.
+		3.assertEquals(result.issues.size)
 	}
 	
 	@Test
