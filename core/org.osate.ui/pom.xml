@@ -22,7 +22,12 @@
 				<artifactId>maven-clean-plugin</artifactId>
 				<version>2.5</version>
 				<configuration>
-					<filesets>
+					<!--
+						combine.children="append" keeps the inherited xtend-gen and xsemantics-gen filesets. Without it
+						this fileset replaces them and a deleted .xtend leaves a stale generated class behind, which
+						then collides with the maintained Java of the same name.
+					-->
+					<filesets combine.children="append">
 						<fileset>
 							<directory>html</directory>
 							<excludes>
