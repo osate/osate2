@@ -21,45 +21,46 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.core.tests.issues
+package org.osate.core.tests.issues;
 
-import com.google.inject.Inject
-import com.itemis.xtext.testing.FluentIssueCollection
-import com.itemis.xtext.testing.XtextTest
-import org.eclipse.xtext.testing.InjectWith
-import org.eclipse.xtext.testing.XtextRunner
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.osate.aadl2.AadlPackage
-import org.osate.testsupport.Aadl2InjectorProvider
-import org.osate.testsupport.TestHelper
+import org.eclipse.xtext.testing.InjectWith;
+import org.eclipse.xtext.testing.XtextRunner;
+import org.eclipse.xtext.testing.validation.ValidationTestHelper;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.osate.aadl2.AadlPackage;
+import org.osate.testsupport.Aadl2InjectorProvider;
+import org.osate.testsupport.TestHelper;
 
-import static extension org.junit.Assert.assertEquals
-import static extension org.osate.testsupport.AssertHelper.assertError
+import com.google.inject.Inject;
 
-@RunWith(XtextRunner)
-@InjectWith(Aadl2InjectorProvider)
-class Issue1465Test extends XtextTest {
-	val static PROJECT_LOCATION = "org.osate.core.tests/models/issue1465/"
-	
+@RunWith(XtextRunner.class)
+@InjectWith(Aadl2InjectorProvider.class)
+public class Issue833Test {
 	@Inject
-	TestHelper<AadlPackage> testHelper
+	ValidationTestHelper validationTestHelper;
+
+	@Inject
+	TestHelper<AadlPackage> testHelper;
 
 	@Test
-	def void testOverridingConstantProperty() {
-		val testFileResult = issues = testHelper.testFile(PROJECT_LOCATION + "Issue1465.aadl")
-		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
-		
-		testFileResult.resource.contents.head as AadlPackage => [
-			"Issue1465".assertEquals(name)
-			publicSection.ownedClassifiers.findFirst[name == "main_memory"] => [
-				ownedPropertyAssociations.get(0) => [
-					assertError(testFileResult.issues, issueCollection, "Property association overrides constant property value from Issue1465::main_memory")
-				]
-			]			
-		]
-		issueCollection.sizeIs(testFileResult.issues.size)
-		assertConstraints(issueCollection)
+	public void issue833() throws Exception {
+		String bindingProperties = """
+				package binding_properties
+				public
+				\tprocessor cpu1
+				\tend cpu1;
+				\t
+				\tprocessor cpu2
+				\tend cpu2;
+				\t
+				\tprocess a
+				\t\tproperties
+				\t\t\tPeriod => 10ms in binding(cpu1);
+				\t\t\tPeriod => 20ms in binding(cpu2);
+				\tend a;
+				end binding_properties;
+				""";
+		validationTestHelper.assertNoIssues(testHelper.parseString(bindingProperties));
 	}
-
 }

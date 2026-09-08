@@ -21,51 +21,51 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.core.tests.issues
+package org.osate.core.tests.issues;
 
-import com.google.inject.Inject
-import org.eclipse.xtext.testing.InjectWith
-import org.eclipse.xtext.testing.XtextRunner
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.osate.aadl2.AadlPackage
-import org.osate.testsupport.Aadl2InjectorProvider
-import org.osate.testsupport.TestHelper
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import static org.junit.Assert.*
+import org.eclipse.xtext.testing.InjectWith;
+import org.eclipse.xtext.testing.XtextRunner;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.osate.aadl2.AadlPackage;
+import org.osate.testsupport.Aadl2InjectorProvider;
+import org.osate.testsupport.TestHelper;
 
-@RunWith(XtextRunner)
-@InjectWith(Aadl2InjectorProvider)
-class Issue1842Test {
-	val static PROJECT_LOCATION = "org.osate.core.tests/models/Issue1842/"
-	val static TEST_PS = "test_ps.aadl"
-	val static CYCLE_EXAMPLE = "cycle_example.aadl"
-		
+import com.google.inject.Inject;
+
+@RunWith(XtextRunner.class)
+@InjectWith(Aadl2InjectorProvider.class)
+public class Issue1842Test {
+	private static final String PROJECT_LOCATION = "org.osate.core.tests/models/Issue1842/";
+
+	private static final String TEST_PS = "test_ps.aadl";
+
+	private static final String CYCLE_EXAMPLE = "cycle_example.aadl";
+
 	@Inject
-	TestHelper<AadlPackage> testHelper
-	
-	@Test
-	def void testForCycles() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + CYCLE_EXAMPLE, PROJECT_LOCATION + TEST_PS)
-		
-		// get the property reference
-		val dummyProperty = pkg.ownedPublicSection.ownedClassifiers.get(0).ownedPropertyAssociations.get(0).property
-		assertEquals("dummy", dummyProperty.name);
-		
-		// get the first type
-		val system_a = pkg.ownedPublicSection.ownedClassifiers.get(1)
-		assertEquals("A", system_a.name)
-		
-		// get the first implementation
-		val system_c_i = pkg.ownedPublicSection.ownedClassifiers.get(4)
-		assertEquals("C.i", system_c_i.name)
-		
-		system_a.getPropertyValue(dummyProperty)
-		assertTrue(true) // won't get here if we get stuck in a cycle
-		
-		system_c_i.getPropertyValue(dummyProperty)
-		assertTrue(true) // won't get here if we get stuck in a cycle
-	}
-	
-}
+	TestHelper<AadlPackage> testHelper;
 
+	@Test
+	public void testForCycles() {
+		AadlPackage pkg = testHelper.parseFile(PROJECT_LOCATION + CYCLE_EXAMPLE, PROJECT_LOCATION + TEST_PS);
+		var dummyProperty = pkg.getOwnedPublicSection()
+				.getOwnedClassifiers()
+				.get(0)
+				.getOwnedPropertyAssociations()
+				.get(0)
+				.getProperty();
+		assertEquals("dummy", dummyProperty.getName());
+		var system_a = pkg.getOwnedPublicSection().getOwnedClassifiers().get(1);
+		assertEquals("A", system_a.getName());
+		var system_c_i = pkg.getOwnedPublicSection().getOwnedClassifiers().get(4);
+		assertEquals("C.i", system_c_i.getName());
+		/* The point of the test is that these lookups terminate instead of cycling. */
+		system_a.getPropertyValue(dummyProperty);
+		assertTrue(true);
+		system_c_i.getPropertyValue(dummyProperty);
+		assertTrue(true);
+	}
+}

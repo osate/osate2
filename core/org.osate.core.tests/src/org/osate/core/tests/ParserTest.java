@@ -21,49 +21,43 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.core.tests.issues
+package org.osate.core.tests;
 
-import com.google.inject.Inject
-import org.eclipse.xtext.testing.InjectWith
-import org.eclipse.xtext.testing.XtextRunner
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.osate.aadl2.AadlPackage
-import org.osate.aadl2.ComponentImplementation
-import org.osate.aadl2.instantiation.InstantiateModel
-import org.osate.testsupport.Aadl2InjectorProvider
-import org.osate.testsupport.TestHelper
+import static org.junit.Assert.assertEquals;
 
-import static org.junit.Assert.*
+import org.eclipse.xtext.testing.InjectWith;
+import org.eclipse.xtext.testing.XtextRunner;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.SystemType;
+import org.osate.testsupport.Aadl2InjectorProvider;
+import org.osate.testsupport.TestHelper;
 
-@RunWith(XtextRunner)
-@InjectWith(Aadl2InjectorProvider)
-class Issue109Test {
-	val static FILE = "org.osate.core.tests/models/issue109/issue109.aadl"
+import com.google.inject.Inject;
+import com.itemis.xtext.testing.XtextTest;
 
+@RunWith(XtextRunner.class)
+@InjectWith(Aadl2InjectorProvider.class)
+public class ParserTest extends XtextTest {
 	@Inject
-	TestHelper<AadlPackage> testHelper
-	
-	@Test
-	def void testInstantiation() {
-		val pkg = testHelper.parseFile(FILE)
-		val impl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == 'T.i'] as ComponentImplementation
-		
-		val instance = InstantiateModel.instantiate(impl)
-		assertEquals('T_i_Instance', instance.name)
-		
-		val mt1 = instance.modeTransitionInstances.get(0)
-		val compB = instance.componentInstances.findFirst[name == 'b']
-		val mt2 = compB.modeTransitionInstances.get(0)
-		val mt3 = compB.modeTransitionInstances.get(1)
+	TestHelper<AadlPackage> testHelper;
 
-		assertTrue(mt1.triggers.size == 1)
-		assertTrue(mt1.triggers.get(0) == compB.featureInstances.findFirst[name == 'e'])
-		
-		assertTrue(mt2.triggers.size == 1)
-		assertTrue(mt2.triggers.get(0) == compB.featureInstances.findFirst[name == 'e'])
-		
-		assertTrue(mt3.triggers.size == 1)
-		assertTrue(mt3.triggers.get(0) == compB.featureInstances.findFirst[name == 'fg'].featureInstances.findFirst[name =='f'])
+	@Test
+	public void testParsing() throws Exception {
+		String model = """
+				package example
+				public
+				  system sys
+				    subcomponents
+				      none;
+				    properties
+				      none;
+				end example;
+				""";
+		AadlPackage pack = testHelper.parseString(model);
+		assertEquals("example", pack.getName());
+		SystemType sys = (SystemType) pack.getPublicSection().getOwnedClassifiers().get(0);
+		assertEquals("sys", sys.getName());
 	}
 }

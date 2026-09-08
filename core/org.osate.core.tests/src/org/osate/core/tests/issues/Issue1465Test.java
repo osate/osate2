@@ -21,45 +21,49 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.core.tests.issues
+package org.osate.core.tests.issues;
 
-import com.google.inject.Inject
-import com.itemis.xtext.testing.FluentIssueCollection
-import com.itemis.xtext.testing.XtextTest
-import org.eclipse.xtext.testing.InjectWith
-import org.eclipse.xtext.testing.XtextRunner
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.osate.aadl2.AadlPackage
-import org.osate.aadl2.AbstractType
-import org.osate.testsupport.Aadl2InjectorProvider
-import org.osate.testsupport.TestHelper
+import static org.junit.Assert.assertEquals;
 
-import static extension org.junit.Assert.assertEquals
-import static extension org.osate.testsupport.AssertHelper.assertError
+import java.util.ArrayList;
 
-@RunWith(XtextRunner)
-@InjectWith(Aadl2InjectorProvider)
-class Issue1620Test extends XtextTest {
+import org.eclipse.xtext.testing.InjectWith;
+import org.eclipse.xtext.testing.XtextRunner;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.osate.aadl2.AadlPackage;
+import org.osate.testsupport.Aadl2InjectorProvider;
+import org.osate.testsupport.AssertHelper;
+import org.osate.testsupport.TestHelper;
+
+import com.google.inject.Inject;
+import com.itemis.xtext.testing.FluentIssueCollection;
+import com.itemis.xtext.testing.XtextTest;
+
+@RunWith(XtextRunner.class)
+@InjectWith(Aadl2InjectorProvider.class)
+public class Issue1465Test extends XtextTest {
+	private static final String PROJECT_LOCATION = "org.osate.core.tests/models/issue1465/";
+
 	@Inject
-	TestHelper<AadlPackage> testHelper
-	
-	@Test(timeout = 30_000)
-	def void issue1620() {
-		val testFileResult = issues = testHelper.testFile("org.osate.core.tests/models/issue1620/pkg.aadl")
-		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
-		testFileResult.resource.contents.head as AadlPackage => [
-			"pkg".assertEquals(name)
-			publicSection.ownedClassifiers.get(0) as AbstractType => [
-				"a1".assertEquals(name)
-				ownedExtension.assertError(testFileResult.issues, issueCollection, "The extends hierarchy of a1 has a cycle.")
-			]
-			publicSection.ownedClassifiers.get(1) as AbstractType => [
-				"a2".assertEquals(name)
-				ownedExtension.assertError(testFileResult.issues, issueCollection, "The extends hierarchy of a2 has a cycle.")
-			]
-		]
-		issueCollection.sizeIs(testFileResult.issues.size)
-		assertConstraints(issueCollection)
+	TestHelper<AadlPackage> testHelper;
+
+	@Test
+	public void testOverridingConstantProperty() throws Exception {
+		FluentIssueCollection testFileResult = issues = testHelper.testFile(PROJECT_LOCATION + "Issue1465.aadl");
+		FluentIssueCollection issueCollection = new FluentIssueCollection(testFileResult.getResource(),
+				new ArrayList<>(), new ArrayList<>());
+		AadlPackage pkg = (AadlPackage) testFileResult.getResource().getContents().get(0);
+		assertEquals("Issue1465", pkg.getName());
+		var classifier = pkg.getPublicSection()
+				.getOwnedClassifiers()
+				.stream()
+				.filter(candidate -> "main_memory".equals(candidate.getName()))
+				.findFirst()
+				.get();
+		AssertHelper.assertError(classifier.getOwnedPropertyAssociations().get(0), testFileResult.getIssues(),
+				issueCollection, "Property association overrides constant property value from Issue1465::main_memory");
+		issueCollection.sizeIs(testFileResult.getIssues().size());
+		assertConstraints(issueCollection);
 	}
 }

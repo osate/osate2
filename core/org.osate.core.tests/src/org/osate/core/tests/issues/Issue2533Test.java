@@ -21,35 +21,36 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.core.tests.issues
+package org.osate.core.tests.issues;
 
-import com.google.inject.Inject
-import org.eclipse.xtext.testing.InjectWith
-import org.eclipse.xtext.testing.XtextRunner
-import org.eclipse.xtext.testing.validation.ValidationTestHelper
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.osate.aadl2.AadlPackage
-import org.osate.testsupport.Aadl2InjectorProvider
-import org.osate.testsupport.TestHelper
+import java.util.ArrayList;
 
-@RunWith(XtextRunner)
-@InjectWith(Aadl2InjectorProvider)
-class Issue1909Test {
-	val static PROJECT_LOCATION = "org.osate.core.tests/models/issue1909/"
-	val static FILE = "issue1909.aadl"
-		
+import org.eclipse.xtext.testing.InjectWith;
+import org.eclipse.xtext.testing.XtextRunner;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.osate.aadl2.AadlPackage;
+import org.osate.testsupport.Aadl2InjectorProvider;
+import org.osate.testsupport.TestHelper;
+
+import com.google.inject.Inject;
+import com.itemis.xtext.testing.FluentIssueCollection;
+
+@RunWith(XtextRunner.class)
+@InjectWith(Aadl2InjectorProvider.class)
+public class Issue2533Test {
+	private static final String FILE_LOCATION = "org.osate.core.tests/models/issue2533/";
+
+	private static final String FILE_NAME = "flow_order_test.aadl";
+
 	@Inject
-	TestHelper<AadlPackage> testHelper
-	
-	@Inject
-	ValidationTestHelper validationHelper;
-	
+	TestHelper<AadlPackage> testHelper;
+
 	@Test
-	def void testIssue1909() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + FILE)
-		validationHelper.assertNoIssues(pkg)
+	public void test() throws Exception {
+		FluentIssueCollection testFileResult = testHelper.testFile(FILE_LOCATION + FILE_NAME);
+		FluentIssueCollection issueCollection = new FluentIssueCollection(testFileResult.getResource(),
+				new ArrayList<>(), new ArrayList<>());
+		issueCollection.sizeIs(0);
 	}
-	
 }
-

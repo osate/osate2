@@ -21,43 +21,49 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.core.tests.issues
+package org.osate.core.tests.issues;
 
-import com.google.inject.Inject
-import org.eclipse.xtext.testing.InjectWith
-import org.eclipse.xtext.testing.XtextRunner
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.osate.aadl2.AadlPackage
-import org.osate.aadl2.SystemImplementation
-import org.osate.aadl2.instantiation.InstantiateModel
-import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager
-import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter
-import org.osate.testsupport.Aadl2InjectorProvider
-import org.osate.testsupport.TestHelper
+import static org.junit.Assert.assertEquals;
 
-import static extension org.junit.Assert.*
+import java.util.ArrayList;
 
-@RunWith(XtextRunner)
-@InjectWith(Aadl2InjectorProvider)
-class Issue2287Test {
-	val static PROJECT_LOCATION = "org.osate.core.tests/models/Issue2287/"
-	val static FILE1 = "Refinement.aadl"
-		
+import org.eclipse.xtext.testing.InjectWith;
+import org.eclipse.xtext.testing.XtextRunner;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.osate.aadl2.AadlPackage;
+import org.osate.testsupport.Aadl2InjectorProvider;
+import org.osate.testsupport.AssertHelper;
+import org.osate.testsupport.TestHelper;
+
+import com.google.inject.Inject;
+import com.itemis.xtext.testing.FluentIssueCollection;
+import com.itemis.xtext.testing.XtextTest;
+
+@RunWith(XtextRunner.class)
+@InjectWith(Aadl2InjectorProvider.class)
+public class Issue935Test extends XtextTest {
+	private static final String PROJECT_LOCATION = "org.osate.core.tests/models/issue935/";
+
 	@Inject
-	TestHelper<AadlPackage> testHelper
-	
+	TestHelper<AadlPackage> testHelper;
+
 	@Test
-	def void testInstantiationWorks() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + FILE1)
-		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Example.Low"] as SystemImplementation
-		
-		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
-		
-		/* Original problem was that instantiation would crash.  So simply completing this step 
-		 * indicates success.
-		 */
-		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
-		assertEquals("Example_Low_Instance", instance.name)
+	public void testOverridingConstantProperty() throws Exception {
+		FluentIssueCollection testFileResult = issues = testHelper.testFile(PROJECT_LOCATION + "issue935.aadl");
+		FluentIssueCollection issueCollection = new FluentIssueCollection(testFileResult.getResource(),
+				new ArrayList<>(), new ArrayList<>());
+		AadlPackage pkg = (AadlPackage) testFileResult.getResource().getContents().get(0);
+		assertEquals("issue935", pkg.getName());
+		var classifier = pkg.getPublicSection()
+				.getOwnedClassifiers()
+				.stream()
+				.filter(candidate -> "S.i".equals(candidate.getName()))
+				.findFirst()
+				.get();
+		AssertHelper.assertError(classifier.getOwnedPropertyAssociations().get(0), testFileResult.getIssues(),
+				issueCollection, "Property association overrides constant property value from issue935::S");
+		issueCollection.sizeIs(testFileResult.getIssues().size());
+		assertConstraints(issueCollection);
 	}
 }

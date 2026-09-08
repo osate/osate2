@@ -21,45 +21,35 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.core.tests.issues
+package org.osate.core.tests.issues;
 
-import com.google.inject.Inject
-import com.itemis.xtext.testing.FluentIssueCollection
-import com.itemis.xtext.testing.XtextTest
-import org.eclipse.xtext.testing.InjectWith
-import org.eclipse.xtext.testing.XtextRunner
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.osate.aadl2.AadlPackage
-import org.osate.testsupport.Aadl2InjectorProvider
-import org.osate.testsupport.TestHelper
+import static org.junit.Assert.assertEquals;
 
-import static extension org.junit.Assert.assertEquals
-import static extension org.osate.testsupport.AssertHelper.assertError
+import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.serializer.ISerializer;
+import org.eclipse.xtext.testing.InjectWith;
+import org.eclipse.xtext.testing.XtextRunner;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.osate.aadl2.Aadl2Factory;
+import org.osate.testsupport.Aadl2InjectorProvider;
 
-@RunWith(XtextRunner)
-@InjectWith(Aadl2InjectorProvider)
-class Issue935Test extends XtextTest {
-	val static PROJECT_LOCATION = "org.osate.core.tests/models/issue935/"
-	
+import com.google.inject.Inject;
+
+@RunWith(XtextRunner.class)
+@InjectWith(Aadl2InjectorProvider.class)
+public class Issue1972Test {
 	@Inject
-	TestHelper<AadlPackage> testHelper
+	ISerializer serializer;
 
 	@Test
-	def void testOverridingConstantProperty() {
-		val testFileResult = issues = testHelper.testFile(PROJECT_LOCATION + "issue935.aadl")
-		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
-		
-		testFileResult.resource.contents.head as AadlPackage => [
-			"issue935".assertEquals(name)
-			publicSection.ownedClassifiers.findFirst[name == "S.i"] => [
-				ownedPropertyAssociations.get(0) => [
-					assertError(testFileResult.issues, issueCollection, "Property association overrides constant property value from issue935::S")
-				]
-			]			
-		]
-		issueCollection.sizeIs(testFileResult.issues.size)
-		assertConstraints(issueCollection)
+	public void testIssue1972() {
+		XtextResource resource = new XtextResource();
+		var propertySet = Aadl2Factory.eINSTANCE.createPropertySet();
+		propertySet.setName("test_ps");
+		resource.getContents().add(propertySet);
+		/* No trailing newline: the Xtend template closed on the same line as the last content. */
+		String expected = "property set test_ps is\nend test_ps;";
+		assertEquals(expected, serializer.serialize(propertySet));
 	}
-
 }

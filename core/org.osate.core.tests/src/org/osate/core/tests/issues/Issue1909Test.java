@@ -21,32 +21,35 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.core.tests.issues
+package org.osate.core.tests.issues;
 
-import com.google.inject.Inject
-import com.itemis.xtext.testing.FluentIssueCollection
-import org.eclipse.xtext.testing.InjectWith
-import org.eclipse.xtext.testing.XtextRunner
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.osate.aadl2.AadlPackage
-import org.osate.testsupport.Aadl2InjectorProvider
-import org.osate.testsupport.TestHelper
+import org.eclipse.xtext.testing.InjectWith;
+import org.eclipse.xtext.testing.XtextRunner;
+import org.eclipse.xtext.testing.validation.ValidationTestHelper;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.osate.aadl2.AadlPackage;
+import org.osate.testsupport.Aadl2InjectorProvider;
+import org.osate.testsupport.TestHelper;
 
-@RunWith(XtextRunner)
-@InjectWith(Aadl2InjectorProvider)
-class Issue2533Test {
-	val static FILE_LOCATION = "org.osate.core.tests/models/issue2533/"
-	val static FILE_NAME = "flow_order_test.aadl"
-	
+import com.google.inject.Inject;
+
+@RunWith(XtextRunner.class)
+@InjectWith(Aadl2InjectorProvider.class)
+public class Issue1909Test {
+	private static final String PROJECT_LOCATION = "org.osate.core.tests/models/issue1909/";
+
+	private static final String FILE = "issue1909.aadl";
+
 	@Inject
-	TestHelper<AadlPackage> testHelper
-	
+	TestHelper<AadlPackage> testHelper;
+
+	@Inject
+	ValidationTestHelper validationHelper;
+
 	@Test
-	def void test(){
-		val testFileResult = testHelper.testFile(FILE_LOCATION + FILE_NAME)
-		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
-		
-		issueCollection.sizeIs(0)
-	}	
+	public void testIssue1909() {
+		AadlPackage pkg = testHelper.parseFile(PROJECT_LOCATION + FILE);
+		validationHelper.assertNoIssues(pkg);
+	}
 }

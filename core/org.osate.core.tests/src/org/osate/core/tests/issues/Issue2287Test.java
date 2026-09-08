@@ -21,44 +21,46 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.core.tests.issues
+package org.osate.core.tests.issues;
 
-import com.google.inject.Inject
-import org.eclipse.xtext.testing.InjectWith
-import org.eclipse.xtext.testing.XtextRunner
-import org.eclipse.xtext.testing.validation.ValidationTestHelper
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.osate.aadl2.AadlPackage
-import org.osate.testsupport.Aadl2InjectorProvider
-import org.osate.testsupport.TestHelper
+import static org.junit.Assert.assertEquals;
 
-@RunWith(XtextRunner)
-@InjectWith(Aadl2InjectorProvider)
-class Issue833Test {
-	@Inject extension ValidationTestHelper
-	
+import org.eclipse.xtext.testing.InjectWith;
+import org.eclipse.xtext.testing.XtextRunner;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.SystemImplementation;
+import org.osate.aadl2.instantiation.InstantiateModel;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter;
+import org.osate.testsupport.Aadl2InjectorProvider;
+import org.osate.testsupport.TestHelper;
+
+import com.google.inject.Inject;
+
+@RunWith(XtextRunner.class)
+@InjectWith(Aadl2InjectorProvider.class)
+public class Issue2287Test {
+	private static final String PROJECT_LOCATION = "org.osate.core.tests/models/Issue2287/";
+
+	private static final String FILE1 = "Refinement.aadl";
+
 	@Inject
-	TestHelper<AadlPackage> testHelper
-	
+	TestHelper<AadlPackage> testHelper;
+
 	@Test
-	def void issue833() {
-		val bindingProperties = '''
-			package binding_properties
-			public
-				processor cpu1
-				end cpu1;
-				
-				processor cpu2
-				end cpu2;
-				
-				process a
-					properties
-						Period => 10ms in binding(cpu1);
-						Period => 20ms in binding(cpu2);
-				end a;
-			end binding_properties;
-		'''
-		testHelper.parseString(bindingProperties).assertNoIssues
+	public void testInstantiationWorks() throws Exception {
+		AadlPackage pkg = testHelper.parseFile(PROJECT_LOCATION + FILE1);
+		SystemImplementation sysImpl = (SystemImplementation) pkg.getOwnedPublicSection()
+				.getOwnedClassifiers()
+				.stream()
+				.filter(classifier -> "Example.Low".equals(classifier.getName()))
+				.findFirst()
+				.get();
+		AnalysisErrorReporterManager errorManager = new AnalysisErrorReporterManager(
+				QueuingAnalysisErrorReporter.factory);
+		var instance = InstantiateModel.instantiate(sysImpl, errorManager);
+		assertEquals("Example_Low_Instance", instance.getName());
 	}
 }

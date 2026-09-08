@@ -87,14 +87,14 @@ public class Issue2417Test extends XtextTest {
 		SystemImplementation systemImpl = (SystemImplementation) pkg.getPublicSection()
 				.getOwnedClassifiers()
 				.stream()
-				.filter(classifier -> classifier.getName().equals("s.i"))
+				.filter(classifier -> "s.i".equals(classifier.getName()))
 				.findFirst()
 				.get();
 		assertEquals("s.i", systemImpl.getName());
 
 		var connection = systemImpl.getOwnedPortConnections()
 				.stream()
-				.filter(portConnection -> portConnection.getName().equals("conn1"))
+				.filter(portConnection -> "conn1".equals(portConnection.getName()))
 				.findFirst()
 				.get();
 		assertEquals("conn1", connection.getName());
@@ -146,7 +146,7 @@ public class Issue2417Test extends XtextTest {
 		SystemImplementation systemImpl = (SystemImplementation) pkg.getPublicSection()
 				.getOwnedClassifiers()
 				.stream()
-				.filter(classifier -> classifier.getName().equals("s.i"))
+				.filter(classifier -> "s.i".equals(classifier.getName()))
 				.findFirst()
 				.get();
 		assertEquals("s.i", systemImpl.getName());

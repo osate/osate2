@@ -21,44 +21,54 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.core.tests
+package org.osate.core.tests.issues;
 
-import com.google.inject.Inject
-import com.itemis.xtext.testing.XtextTest
-import org.eclipse.xtext.testing.InjectWith
-import org.eclipse.xtext.testing.XtextRunner
-import org.junit.Assert
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.osate.aadl2.AadlPackage
-import org.osate.aadl2.SystemType
-import org.osate.testsupport.Aadl2InjectorProvider
-import org.osate.testsupport.TestHelper
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-@RunWith(XtextRunner)
-@InjectWith(Aadl2InjectorProvider)
-class ParserTest extends XtextTest {
+import java.util.List;
 
-	@Inject 
-	TestHelper<AadlPackage> testHelper
+import org.eclipse.xtext.testing.InjectWith;
+import org.eclipse.xtext.testing.XtextRunner;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instantiation.InstantiateModel;
+import org.osate.testsupport.Aadl2InjectorProvider;
+import org.osate.testsupport.TestHelper;
+
+import com.google.inject.Inject;
+
+@RunWith(XtextRunner.class)
+@InjectWith(Aadl2InjectorProvider.class)
+public class Issue1977Test {
+	private static final String FILE = "org.osate.core.tests/models/issue1977/Issue1977.aadl";
+
+	@Inject
+	TestHelper<AadlPackage> testHelper;
 
 	@Test
-	def void testParsing() {
-		val model = '''
-			package example
-			public
-			  system sys
-			    subcomponents
-			      none;
-			    properties
-			      none;
-			end example;
-		'''
+	public void testInstantiation() throws Exception {
+		AadlPackage pkg = testHelper.parseFile(FILE);
+		ComponentImplementation impl = (ComponentImplementation) pkg.getOwnedPublicSection()
+				.getOwnedClassifiers()
+				.stream()
+				.filter(classifier -> "s.i".equals(classifier.getName()))
+				.findFirst()
+				.get();
+		var instance = InstantiateModel.instantiate(impl);
+		assertEquals("s_i_Instance", instance.getName());
+		List<ConnectionInstance> conns = instance.getConnectionInstances();
+		assertTrue(conns.size() == 4);
+		assertTrue(hasConnection(conns, "a1.da -> d1"));
+		assertTrue(hasConnection(conns, "a2.da -> d2"));
+		assertTrue(hasConnection(conns, "d1 -> a1.da"));
+		assertTrue(hasConnection(conns, "d2 -> a2.da"));
+	}
 
-		val pack = testHelper.parseString(model)
-		Assert::assertEquals("example", pack.name)
-
-		val sys = pack.publicSection.ownedClassifiers.get(0) as SystemType
-		Assert::assertEquals("sys", sys.name)
+	private static boolean hasConnection(List<ConnectionInstance> conns, String name) {
+		return conns.stream().anyMatch(conn -> name.equals(conn.getName()));
 	}
 }
