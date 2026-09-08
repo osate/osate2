@@ -21,24 +21,24 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ui.wizards
+package org.osate.ui.wizards;
 
-import java.util.Map
-import org.osate.xtext.aadl2.ui.util.Aadl2NameValidators
+import java.util.Map;
 
-final class NewPropertySetWizard extends AbstractNewModelUnitWizard {
-	val static PROPERTY_SET_LABEL = "AADL property set name"
-	
-	new() {
-		super("AADL Property Set", "AADL property set")
-		addField(PROPERTY_SET_LABEL, Aadl2NameValidators.ID_VALIDATOR)
+import org.osate.xtext.aadl2.ui.util.Aadl2NameValidators;
+
+public final class NewPropertySetWizard extends AbstractNewModelUnitWizard {
+	private static final String PROPERTY_SET_LABEL = "AADL property set name";
+
+	public NewPropertySetWizard() {
+		super("AADL Property Set", "AADL property set");
+		addField(PROPERTY_SET_LABEL, Aadl2NameValidators.ID_VALIDATOR);
 	}
-	
-	override fileContents(Map<String, String> fieldValues) {
-		val propertySetName = fieldValues.get(PROPERTY_SET_LABEL)
-		'''
-			property set «propertySetName» is
-				
-			end «propertySetName»;'''
+
+	@Override
+	public String fileContents(Map<String, String> fieldValues) {
+		var propertySetName = fieldValues.get(PROPERTY_SET_LABEL);
+		/* The lone tab is the indented empty line where the first declaration goes. */
+		return "property set " + propertySetName + " is\n\t\nend " + propertySetName + ";";
 	}
 }

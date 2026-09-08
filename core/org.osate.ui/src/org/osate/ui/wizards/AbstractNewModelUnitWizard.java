@@ -21,22 +21,33 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ui.handlers
+package org.osate.ui.wizards;
 
-import org.eclipse.core.expressions.PropertyTester
-import org.osate.ui.handlers.AadlFileTypePropertyTester.AadlFileType
-import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage
+import org.eclipse.core.resources.IContainer;
+import org.osate.ui.OsateUiPlugin;
+import org.osate.xtext.aadl2.services.Aadl2GrammarAccess;
+import org.osate.xtext.aadl2.ui.MyAadl2Activator;
+import org.osate.xtext.aadl2.ui.util.Aadl2NameValidators;
 
-class ContributedAadlStoragePropertyTester extends PropertyTester {
-	override test(Object receiver, String property, Object[] args, Object expectedValue) {
-		if (receiver instanceof ContributedAadlStorage) {
-			switch property {
-				case "name": receiver.name == expectedValue
-				case "aadlPropertySet": AadlFileTypePropertyTester.getAadlFileType(receiver) == AadlFileType.PROPERTY_SET
-				default: false
-			}
-		} else {
-			false
-		}
+import com.google.inject.Inject;
+
+public abstract class AbstractNewModelUnitWizard extends AbstractNewFileWizard {
+	@Inject
+	protected Aadl2GrammarAccess grammarAccess;
+
+	public AbstractNewModelUnitWizard(String titleFileType, String descriptionFileType) {
+		super(titleFileType, descriptionFileType, "aadl", 1, OsateUiPlugin.getDefault().getLog(),
+				OsateUiPlugin.PLUGIN_ID);
+		MyAadl2Activator.getInstance()
+				.getInjector(MyAadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2)
+				.injectMembers(this);
+	}
+
+	/**
+	 * Not going to get here if no project is selected, so parent will never be null
+	 */
+	@Override
+	public String validateFileName(IContainer parent, String modelUnitName) {
+		return Aadl2NameValidators.validateFileNameInScope(parent, modelUnitName);
 	}
 }
