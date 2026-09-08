@@ -119,6 +119,7 @@ import org.osate.ba.aadlba.UnaryNumericOperator;
 import org.osate.ba.aadlba.Value;
 import org.osate.ba.aadlba.ValueConstant;
 import org.osate.ba.aadlba.ValueExpression;
+import org.osate.ba.analyzers.BehaviorTransitionContext;
 import org.osate.ba.utils.AadlBaUtils;
 import org.osate.utils.internal.Aadl2Visitors;
 import org.osate.utils.internal.Aadl2Utils;
@@ -350,27 +351,33 @@ public final class DeclarativeToStrictTranslator {
 
 		private void translateTransitions(final BehaviorAnnex strict) {
 			for (final BehaviorTransition transition : source.getTransitions()) {
-				for (int sourceIndex = 0; sourceIndex < transition.getSourceStates().size(); sourceIndex++) {
-					final var sourceState = transition.getSourceStates().get(sourceIndex);
+				// Actions are shared, but each transition must contain its own condition copy.
+				final var condition = transition.getCondition() == null ? null : toCondition(transition.getCondition());
+				final var actionBlock = transition.getActionBlock() == null ? null
+						: toActionBlock(transition.getActionBlock());
+				if (actionBlock != null) {
+					strict.getActions().add(actionBlock);
+				}
+				for (final var sourceState : transition.getSourceStates()) {
 					final org.osate.ba.aadlba.BehaviorTransition result = trace(FACTORY.createBehaviorTransition(),
 							transition);
 					result.setName(transition.getName());
 					result.setPriority(parseInteger(transition.getPriority(), -1));
 					result.setSourceState(states.get(sourceState));
 					result.setDestinationState(states.get(transition.getDestinationState()));
-					if (sourceIndex == 0 && transition.getCondition() != null) {
-						final org.osate.ba.aadlba.BehaviorCondition condition = toCondition(transition.getCondition());
-						if (condition != null) {
-							strict.getConditions().add(condition);
+					if (condition != null) {
+						if (condition.eContainer() == null) {
 							result.setCondition(condition);
+						} else {
+							var copier = new EcoreUtil.Copier();
+							var copy = (org.osate.ba.aadlba.BehaviorCondition) copier.copy(condition);
+							copier.copyReferences();
+							copier.forEach((original, duplicate) -> trace(duplicate, strictToDeclarative.get(original)));
+							BehaviorTransitionContext.registerConditionCopy(copy, condition);
+							result.setCondition(copy);
 						}
 					}
-					if (sourceIndex == 0 && transition.getActionBlock() != null) {
-						final org.osate.ba.aadlba.BehaviorActionBlock actionBlock = toActionBlock(
-								transition.getActionBlock());
-						strict.getActions().add(actionBlock);
-						result.setActionBlock(actionBlock);
-					}
+					result.setActionBlock(actionBlock);
 					strict.getTransitions().add(result);
 				}
 			}

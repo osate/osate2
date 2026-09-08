@@ -42,6 +42,8 @@ annex[3] owner=exemple_lr_D4_L1_L2::th.error2
       condition : DispatchCondition
         dispatchTriggerCondition : DispatchRelativeTimeout
     transitions[1] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchRelativeTimeout
     transitions[2] : BehaviorTransition
       condition : DispatchCondition
         dispatchTriggerCondition : DispatchRelativeTimeout
@@ -57,6 +59,9 @@ annex[4] owner=exemple_lr_D4_L1_L2::th.error3
         dispatchTriggerCondition : CompletionRelativeTimeout
           integerValue : BehaviorIntegerLiteral
     transitions[1] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : CompletionRelativeTimeout
+          integerValue : BehaviorIntegerLiteral
     transitions[2] : BehaviorTransition
       condition : DispatchCondition
         dispatchTriggerCondition : CompletionRelativeTimeout
