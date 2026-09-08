@@ -50,9 +50,11 @@ import org.osate.xtext.aadl2.ba.util.BehaviorAnnexUtil;
 import com.google.inject.Inject;
 
 /**
- * Exercises multi-source transitions through ordinary AADL validation: source-state rules apply to every source,
- * while shared condition and action diagnostics occur once. Also checks that strict transitions retain the shared
- * behavior so downstream consumers see the complete transition, with properly contained condition copies.
+ * Exercises multi-source transitions through ordinary AADL validation: source-state rules are checked for every
+ * source, while shared condition and action diagnostics occur once. A source-state rule that marks the shared
+ * condition therefore yields a single marker, since identical reports on one declarative element collapse. Also
+ * checks that strict transitions retain the shared behavior so downstream consumers see the complete transition,
+ * with properly contained condition copies.
  */
 @RunWith(XtextRunner.class)
 @InjectWith(BehaviorAnnexInjectorProvider.class)
@@ -85,10 +87,12 @@ public class Issue3154Test {
 	}
 
 	@Test
-	public void executionSourcesEachReportDispatchError() throws Exception {
+	public void executionSourcesReportDispatchErrorOnce() throws Exception {
+		// D.3.(L6) is checked for every source state, but it marks the shared dispatch condition, so the two reports
+		// collapse onto one marker. See Issue3155Test for the attachment this relies on.
 		var error = "ERROR: Only transition out of complete states may have dispatch condition : "
 				+ "Behavior Annex D.3.(L6) legality rule failed.";
-		assertEquals(List.of(error, error), diagnostics("ExecutionSources"));
+		assertEquals(List.of(error), diagnostics("ExecutionSources"));
 	}
 
 	@Test
@@ -126,18 +130,21 @@ public class Issue3154Test {
 		var strict = EcoreUtil.copy(BehaviorAnnexUtil.getStrictModel(annex));
 		var resource = new ResourceImpl();
 		resource.getContents().add(strict);
-		var first = strict.getTransitions().get(1).getSourceState();
-		var second = strict.getTransitions().get(2).getSourceState();
+		var first = strict.getTransitions().get(1);
+		var second = strict.getTransitions().get(2);
 		// Mode binding is not populated by the translator yet. Supply bindings through the public strict API
 		// to isolate C4's per-source checks from that independent limitation.
-		first.setBindedMode(owner.getOwnedModes().get(0));
-		second.setBindedMode(owner.getOwnedModes().get(1));
+		first.getSourceState().setBindedMode(owner.getOwnedModes().get(0));
+		second.getSourceState().setBindedMode(owner.getOwnedModes().get(1));
 		var manager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory);
 		new AadlBaRulesCheckersDriver(strict, owner, manager).process(strict);
 		var errors = ((QueuingAnalysisErrorReporter) manager.getReporter(resource)).getErrors();
 		assertEquals(errors.toString(), 2, errors.size());
 		assertTrue(errors.stream().allMatch(error -> error.message.contains("D.3.(C4)")));
-		assertEquals(List.of(first, second), errors.stream().map(error -> error.where).toList());
+		// One report per bound source, each attached to that transition's own condition copy. C4 constrains the
+		// transition, so it marks the condition rather than the source state, which is legal on its own.
+		assertEquals(List.of(first.getCondition(), second.getCondition()),
+				errors.stream().map(error -> error.where).toList());
 	}
 
 	private List<String> diagnostics(String model) throws Exception {
