@@ -34,11 +34,12 @@ import java.util.List;
 import org.junit.Test;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.verify.internal.util.VerificationMethodDispatchers;
+import org.osate.verify.internal.util.VerifyJavaUtil;
 import org.osate.verify.internal.util.VerifyUtilExtension;
 import org.osate.verify.verify.VerifyFactory;
 
 /**
- * Protects null dispatch and ordinal exception behavior established by the frozen Xtend implementation.
+ * Protects dispatch, exception, and collection behavior established by the frozen Xtend implementation.
  */
 public class XtendMigrationCompatibilityTests {
 	@Test
@@ -77,5 +78,25 @@ public class XtendMigrationCompatibilityTests {
 		VerifyUtilExtension.unsetHasRun("analysis", target);
 		assertFalse(VerifyUtilExtension.getHasRun("analysis", target));
 		VerifyUtilExtension.unsetHasRun("analysis", target);
+	}
+
+	@Test
+	public void verifyJavaUtilPreservesUndeclaredClassNotFoundException() {
+		var verificationMethod = VerifyFactory.eINSTANCE.createVerificationMethod();
+		var javaMethod = VerifyFactory.eINSTANCE.createJavaMethod();
+		verificationMethod.setMethodKind(javaMethod);
+
+		var formalParameter = VerifyFactory.eINSTANCE.createFormalParameter();
+		formalParameter.setName("value");
+		verificationMethod.getFormals().add(formalParameter);
+
+		var javaParameter = VerifyFactory.eINSTANCE.createJavaParameter();
+		javaParameter.setName("value");
+		javaParameter.setParameterType("org.osate.missing.ParameterType");
+		javaMethod.getParams().add(javaParameter);
+
+		var exception = assertThrows(ClassNotFoundException.class,
+				() -> VerifyJavaUtil.getParameterClasses(javaMethod));
+		assertTrue(exception.getMessage().startsWith("org.osate.missing.ParameterType"));
 	}
 }
