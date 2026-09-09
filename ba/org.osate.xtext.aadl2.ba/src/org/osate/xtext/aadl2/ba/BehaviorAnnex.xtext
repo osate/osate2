@@ -89,8 +89,9 @@ ExecuteCondition:
     | otherwise?='otherwise'
 ;
 
+// Both the trigger and the frozen port list are optional, so the action creates the object for a bare 'on dispatch'.
 DispatchCondition:
-    'dispatch' trigger=DispatchTriggerCondition?
+    {DispatchCondition} 'dispatch' trigger=DispatchTriggerCondition?
     ('frozen' '(' frozenPorts+=Reference (',' frozenPorts+=Reference)* ')')?
 ;
 

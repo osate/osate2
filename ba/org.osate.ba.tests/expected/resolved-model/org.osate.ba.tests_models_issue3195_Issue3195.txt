@@ -4,5 +4,8 @@ annex[0] owner=Issue3195::worker.i
     transitions[0] : BehaviorTransition name=single_space
       condition : DispatchCondition
     transitions[1] : BehaviorTransition name=extra_space
+      condition : DispatchCondition
     transitions[2] : BehaviorTransition name=line_break
+      condition : DispatchCondition
     transitions[3] : BehaviorTransition name=with_comment
+      condition : DispatchCondition

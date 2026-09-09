@@ -395,10 +395,8 @@ public final class DeclarativeToStrictTranslator {
 			if (condition.getModeSwitch() != null) {
 				return toModeSwitchCondition(condition.getModeSwitch(), condition);
 			}
-			final var node = NodeModelUtils.findActualNodeFor(condition);
-			return node != null && node.getText().stripLeading().toLowerCase(java.util.Locale.ROOT).startsWith("on dispatch")
-					? trace(FACTORY.createDispatchCondition(), condition)
-					: null;
+			// The transition declared no condition at all; a bare 'on dispatch' carries a DispatchCondition object.
+			return null;
 		}
 
 		private org.osate.ba.aadlba.BehaviorCondition toExecuteCondition(final ExecuteCondition execute,

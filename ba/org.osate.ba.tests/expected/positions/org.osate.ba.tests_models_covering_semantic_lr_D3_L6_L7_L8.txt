@@ -4,6 +4,7 @@ annex[0] owner=exemple_lr_D3_L6_L7_L8::th.good
   (BehaviorState, uniqueState, 978, 11)
   (BehaviorStateGroup, <null>, 978, 44)
   (BehaviorTransition, <null>, 1037, 42)
+  (DispatchCondition, <null>, 1054, 8)
 annex[1] owner=exemple_lr_D3_L6_L7_L8::th.error
   (BehaviorAnnex, behavior_specification, 1170, 573)
   (BehaviorCondition, <null>, 1716, 11)
@@ -15,3 +16,4 @@ annex[1] owner=exemple_lr_D3_L6_L7_L8::th.error
   (BehaviorStateGroup, <null>, 1236, 26)
   (BehaviorTransition, <null>, 1503, 28)
   (BehaviorTransition, <null>, 1703, 40)
+  (DispatchCondition, <null>, 1719, 8)

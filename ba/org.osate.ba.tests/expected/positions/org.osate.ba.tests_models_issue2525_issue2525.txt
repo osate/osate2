@@ -10,6 +10,7 @@ annex[0] owner=issue2525::t
   (BehaviorVariableGroup, <null>, 126, 5)
   (CommunicationAction, <null>, 226, 8)
   (CommunicationAction, <null>, 241, 5)
+  (DispatchCondition, <null>, 202, 8)
   (Reference, <null>, 226, 4)
   (Reference, <null>, 232, 1)
   (Reference, <null>, 241, 4)

@@ -10,3 +10,7 @@ annex[0] owner=Issue3195::worker.i
   (BehaviorTransition, line_break, 678, 51)
   (BehaviorTransition, single_space, 572, 49)
   (BehaviorTransition, with_comment, 733, 100)
+  (DispatchCondition, <null>, 600, 8)
+  (DispatchCondition, <null>, 653, 8)
+  (DispatchCondition, <null>, 708, 8)
+  (DispatchCondition, <null>, 812, 8)

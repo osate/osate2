@@ -13,6 +13,7 @@ annex[0] owner=BA_example7::a_client
   (BehaviorVariableGroup, <null>, 1251, 17)
   (CommunicationAction, <null>, 1495, 9)
   (CommunicationAction, <null>, 1621, 10)
+  (DispatchCondition, <null>, 1342, 8)
   (Reference, <null>, 1495, 3)
   (Reference, <null>, 1500, 1)
   (Reference, <null>, 1502, 1)

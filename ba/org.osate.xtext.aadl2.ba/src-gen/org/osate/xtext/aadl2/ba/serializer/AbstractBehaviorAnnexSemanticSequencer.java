@@ -852,7 +852,7 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
      *     DispatchCondition returns DispatchCondition
      *
      * Constraint:
-     *     (trigger=DispatchTriggerCondition | (trigger=DispatchTriggerCondition frozenPorts+=Reference frozenPorts+=Reference*))?
+     *     (trigger=DispatchTriggerCondition? (frozenPorts+=Reference frozenPorts+=Reference*)?)
      * </pre>
      */
     protected void sequence_DispatchCondition(ISerializationContext context, DispatchCondition semanticObject) {

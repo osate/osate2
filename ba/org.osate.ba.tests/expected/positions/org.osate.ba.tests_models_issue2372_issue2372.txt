@@ -20,6 +20,7 @@ annex[0] owner=test_lock_actions::th
   (BehaviorTransition, <null>, 190, 147)
   (CommunicationAction, <null>, 256, 3)
   (CommunicationAction, <null>, 297, 3)
+  (DispatchCondition, <null>, 198, 8)
   (Reference, <null>, 256, 1)
   (Reference, <null>, 297, 1)
   (ReferenceSegment, d, 256, 1)
