@@ -54,7 +54,8 @@ class CoveringSyntaxTest {
 	@Test
 	def void aadlBaTest006() {
 		val result = testHelper.testFile(PATH+"aadlBaTest006.aadl", PROPERTY_SET_PATH, SUBPROGRAM_PATH, TYPES_PATH)
-		107.assertEquals(result.issues.size)
+		// Recovery from the missing frozen-port separators also reports the closing parenthesis.
+		108.assertEquals(result.issues.size)
 	}
 	
 	@Test

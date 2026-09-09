@@ -106,7 +106,7 @@ public class BehaviorAnnexParser extends AbstractContentAssistParser {
             builder.put(grammarAccess.getBehaviorConditionAccess().getGroup_0(), "rule__BehaviorCondition__Group_0__0");
             builder.put(grammarAccess.getDispatchConditionAccess().getGroup(), "rule__DispatchCondition__Group__0");
             builder.put(grammarAccess.getDispatchConditionAccess().getGroup_2(), "rule__DispatchCondition__Group_2__0");
-            builder.put(grammarAccess.getDispatchConditionAccess().getGroup_2_2(), "rule__DispatchCondition__Group_2_2__0");
+            builder.put(grammarAccess.getDispatchConditionAccess().getGroup_2_3(), "rule__DispatchCondition__Group_2_3__0");
             builder.put(grammarAccess.getDispatchTriggerConditionAccess().getGroup_1(), "rule__DispatchTriggerCondition__Group_1__0");
             builder.put(grammarAccess.getDispatchTriggerLogicalExpressionAccess().getGroup(), "rule__DispatchTriggerLogicalExpression__Group__0");
             builder.put(grammarAccess.getDispatchTriggerLogicalExpressionAccess().getGroup_1(), "rule__DispatchTriggerLogicalExpression__Group_1__0");
@@ -254,8 +254,8 @@ public class BehaviorAnnexParser extends AbstractContentAssistParser {
             builder.put(grammarAccess.getExecuteConditionAccess().getTimeoutAssignment_1(), "rule__ExecuteCondition__TimeoutAssignment_1");
             builder.put(grammarAccess.getExecuteConditionAccess().getOtherwiseAssignment_2(), "rule__ExecuteCondition__OtherwiseAssignment_2");
             builder.put(grammarAccess.getDispatchConditionAccess().getTriggerAssignment_1(), "rule__DispatchCondition__TriggerAssignment_1");
-            builder.put(grammarAccess.getDispatchConditionAccess().getFrozenPortsAssignment_2_1(), "rule__DispatchCondition__FrozenPortsAssignment_2_1");
-            builder.put(grammarAccess.getDispatchConditionAccess().getFrozenPortsAssignment_2_2_1(), "rule__DispatchCondition__FrozenPortsAssignment_2_2_1");
+            builder.put(grammarAccess.getDispatchConditionAccess().getFrozenPortsAssignment_2_2(), "rule__DispatchCondition__FrozenPortsAssignment_2_2");
+            builder.put(grammarAccess.getDispatchConditionAccess().getFrozenPortsAssignment_2_3_1(), "rule__DispatchCondition__FrozenPortsAssignment_2_3_1");
             builder.put(grammarAccess.getDispatchTriggerConditionAccess().getExpressionAssignment_0(), "rule__DispatchTriggerCondition__ExpressionAssignment_0");
             builder.put(grammarAccess.getDispatchTriggerConditionAccess().getTimeoutAssignment_1_0(), "rule__DispatchTriggerCondition__TimeoutAssignment_1_0");
             builder.put(grammarAccess.getDispatchTriggerConditionAccess().getTimeAssignment_1_1(), "rule__DispatchTriggerCondition__TimeAssignment_1_1");

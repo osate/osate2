@@ -640,21 +640,23 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
         private final RuleCall cTriggerDispatchTriggerConditionParserRuleCall_1_0 = (RuleCall)cTriggerAssignment_1.eContents().get(0);
         private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
         private final Keyword cFrozenKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-        private final Assignment cFrozenPortsAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-        private final RuleCall cFrozenPortsReferenceParserRuleCall_2_1_0 = (RuleCall)cFrozenPortsAssignment_2_1.eContents().get(0);
-        private final Group cGroup_2_2 = (Group)cGroup_2.eContents().get(2);
-        private final Keyword cCommaKeyword_2_2_0 = (Keyword)cGroup_2_2.eContents().get(0);
-        private final Assignment cFrozenPortsAssignment_2_2_1 = (Assignment)cGroup_2_2.eContents().get(1);
-        private final RuleCall cFrozenPortsReferenceParserRuleCall_2_2_1_0 = (RuleCall)cFrozenPortsAssignment_2_2_1.eContents().get(0);
+        private final Keyword cLeftParenthesisKeyword_2_1 = (Keyword)cGroup_2.eContents().get(1);
+        private final Assignment cFrozenPortsAssignment_2_2 = (Assignment)cGroup_2.eContents().get(2);
+        private final RuleCall cFrozenPortsReferenceParserRuleCall_2_2_0 = (RuleCall)cFrozenPortsAssignment_2_2.eContents().get(0);
+        private final Group cGroup_2_3 = (Group)cGroup_2.eContents().get(3);
+        private final Keyword cCommaKeyword_2_3_0 = (Keyword)cGroup_2_3.eContents().get(0);
+        private final Assignment cFrozenPortsAssignment_2_3_1 = (Assignment)cGroup_2_3.eContents().get(1);
+        private final RuleCall cFrozenPortsReferenceParserRuleCall_2_3_1_0 = (RuleCall)cFrozenPortsAssignment_2_3_1.eContents().get(0);
+        private final Keyword cRightParenthesisKeyword_2_4 = (Keyword)cGroup_2.eContents().get(4);
 
         //DispatchCondition:
         //    'dispatch' trigger=DispatchTriggerCondition?
-        //    ('frozen' frozenPorts+=Reference (',' frozenPorts+=Reference)*)?
+        //    ('frozen' '(' frozenPorts+=Reference (',' frozenPorts+=Reference)* ')')?
         //;
         @Override public ParserRule getRule() { return rule; }
 
         //'dispatch' trigger=DispatchTriggerCondition?
-        //('frozen' frozenPorts+=Reference (',' frozenPorts+=Reference)*)?
+        //('frozen' '(' frozenPorts+=Reference (',' frozenPorts+=Reference)* ')')?
         public Group getGroup() { return cGroup; }
 
         //'dispatch'
@@ -666,29 +668,35 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
         //DispatchTriggerCondition
         public RuleCall getTriggerDispatchTriggerConditionParserRuleCall_1_0() { return cTriggerDispatchTriggerConditionParserRuleCall_1_0; }
 
-        //('frozen' frozenPorts+=Reference (',' frozenPorts+=Reference)*)?
+        //('frozen' '(' frozenPorts+=Reference (',' frozenPorts+=Reference)* ')')?
         public Group getGroup_2() { return cGroup_2; }
 
         //'frozen'
         public Keyword getFrozenKeyword_2_0() { return cFrozenKeyword_2_0; }
 
+        //'('
+        public Keyword getLeftParenthesisKeyword_2_1() { return cLeftParenthesisKeyword_2_1; }
+
         //frozenPorts+=Reference
-        public Assignment getFrozenPortsAssignment_2_1() { return cFrozenPortsAssignment_2_1; }
+        public Assignment getFrozenPortsAssignment_2_2() { return cFrozenPortsAssignment_2_2; }
 
         //Reference
-        public RuleCall getFrozenPortsReferenceParserRuleCall_2_1_0() { return cFrozenPortsReferenceParserRuleCall_2_1_0; }
+        public RuleCall getFrozenPortsReferenceParserRuleCall_2_2_0() { return cFrozenPortsReferenceParserRuleCall_2_2_0; }
 
         //(',' frozenPorts+=Reference)*
-        public Group getGroup_2_2() { return cGroup_2_2; }
+        public Group getGroup_2_3() { return cGroup_2_3; }
 
         //','
-        public Keyword getCommaKeyword_2_2_0() { return cCommaKeyword_2_2_0; }
+        public Keyword getCommaKeyword_2_3_0() { return cCommaKeyword_2_3_0; }
 
         //frozenPorts+=Reference
-        public Assignment getFrozenPortsAssignment_2_2_1() { return cFrozenPortsAssignment_2_2_1; }
+        public Assignment getFrozenPortsAssignment_2_3_1() { return cFrozenPortsAssignment_2_3_1; }
 
         //Reference
-        public RuleCall getFrozenPortsReferenceParserRuleCall_2_2_1_0() { return cFrozenPortsReferenceParserRuleCall_2_2_1_0; }
+        public RuleCall getFrozenPortsReferenceParserRuleCall_2_3_1_0() { return cFrozenPortsReferenceParserRuleCall_2_3_1_0; }
+
+        //')'
+        public Keyword getRightParenthesisKeyword_2_4() { return cRightParenthesisKeyword_2_4; }
     }
     public class DispatchTriggerConditionElements extends AbstractParserRuleElementFinder {
         private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.DispatchTriggerCondition");
@@ -3270,7 +3278,7 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 
     //DispatchCondition:
     //    'dispatch' trigger=DispatchTriggerCondition?
-    //    ('frozen' frozenPorts+=Reference (',' frozenPorts+=Reference)*)?
+    //    ('frozen' '(' frozenPorts+=Reference (',' frozenPorts+=Reference)* ')')?
     //;
     public DispatchConditionElements getDispatchConditionAccess() {
         return pDispatchCondition;

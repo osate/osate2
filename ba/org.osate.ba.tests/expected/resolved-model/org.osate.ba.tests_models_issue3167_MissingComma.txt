@@ -1,0 +1,6 @@
+annex[0] owner=MissingComma::worker.i
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=waiting
+    transitions[0] : BehaviorTransition
+      condition : DispatchCondition
+        frozenPorts[0] : DataPortHolder element=MissingComma::worker.sampled_input [DataPort]

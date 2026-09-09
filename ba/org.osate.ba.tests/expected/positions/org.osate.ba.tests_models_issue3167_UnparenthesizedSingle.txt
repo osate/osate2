@@ -1,0 +1,9 @@
+annex[0] owner=UnparenthesizedSingle::worker.i
+  (BehaviorAnnex, behavior_specification, 430, 122)
+  (BehaviorCondition, <null>, 507, 32)
+  (BehaviorState, waiting, 440, 7)
+  (BehaviorStateGroup, <null>, 440, 38)
+  (BehaviorTransition, <null>, 496, 56)
+  (DispatchCondition, <null>, 510, 29)
+  (Reference, <null>, 526, 13)
+  (ReferenceSegment, sampled_input, 526, 13)

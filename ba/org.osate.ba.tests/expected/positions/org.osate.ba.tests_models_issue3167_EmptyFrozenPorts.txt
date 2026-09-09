@@ -1,0 +1,9 @@
+annex[0] owner=EmptyFrozenPorts::worker.i
+  (BehaviorAnnex, behavior_specification, 425, 111)
+  (BehaviorCondition, <null>, 502, 21)
+  (BehaviorState, waiting, 435, 7)
+  (BehaviorStateGroup, <null>, 435, 38)
+  (BehaviorTransition, <null>, 491, 45)
+  (DispatchCondition, <null>, 505, 18)
+  (Reference, <null>, 522, 0)
+  (ReferenceSegment, <null>, 522, 0)

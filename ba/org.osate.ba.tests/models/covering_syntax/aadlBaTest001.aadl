@@ -183,11 +183,11 @@ transitions
  -- Dispatch condition tests -- 
 
  a2 -[on dispatch]-> a ;     
- a2 -[on dispatch frozen inPortA]-> a ; 
- a2 -[on dispatch frozen inPortA, inPortB]-> a ;
+ a2 -[on dispatch frozen (inPortA)]-> a ;
+ a2 -[on dispatch frozen (inPortA, inPortB)]-> a ;
  a2 -[on dispatch stop]-> a4 ;
  a2 -[on dispatch inPortA]-> a ;
- a2 -[on dispatch inPortA frozen inPortB]-> a ;
+ a2 -[on dispatch inPortA frozen (inPortB)]-> a ;
  a2 -[on dispatch mulProvided]-> a ;
  a2 -[on dispatch abstractPort]-> a ;
 

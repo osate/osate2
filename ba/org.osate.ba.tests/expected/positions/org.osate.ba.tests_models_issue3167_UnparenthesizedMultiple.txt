@@ -1,0 +1,11 @@
+annex[0] owner=UnparenthesizedMultiple::worker.i
+  (BehaviorAnnex, behavior_specification, 432, 136)
+  (BehaviorCondition, <null>, 509, 46)
+  (BehaviorState, waiting, 442, 7)
+  (BehaviorStateGroup, <null>, 442, 38)
+  (BehaviorTransition, <null>, 498, 70)
+  (DispatchCondition, <null>, 512, 43)
+  (Reference, <null>, 528, 13)
+  (Reference, <null>, 543, 12)
+  (ReferenceSegment, sampled_input, 528, 13)
+  (ReferenceSegment, second_input, 543, 12)
