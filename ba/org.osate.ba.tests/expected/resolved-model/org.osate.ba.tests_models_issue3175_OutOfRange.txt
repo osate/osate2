@@ -1,0 +1,11 @@
+annex[0] owner=OutOfRange::unrepresentable.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=tooLarge
+      ownedValueConstant : BehaviorIntegerLiteral
+    variables[1] : BehaviorVariable name=unsupportedBase
+      ownedValueConstant : BehaviorIntegerLiteral
+    variables[2] : BehaviorVariable name=notAnExtendedDigit
+      ownedValueConstant : BehaviorIntegerLiteral
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition name=finish

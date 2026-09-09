@@ -1,0 +1,23 @@
+===== annex[0] owner=issue3175::literalForms.impl =====
+
+\t\t\tvariables
+\t\t\t\tdecimalValue : Base_Types::Integer := 42;
+\t\t\t\tunderscoredValue : Base_Types::Integer := 1_000_000;
+\t\t\t\texponentValue : Base_Types::Integer := 2e3;
+\t\t\t\tbasedValue : Base_Types::Integer := 16#ff#;
+\t\t\t\tbasedExponentValue : Base_Types::Integer := 2#1010#e4;
+\t\t\t\trealValue : Base_Types::Float := 1.25;
+\t\t\t\trealExponentValue : Base_Types::Float := 1_0.5e2;
+\t\t\tstates
+\t\t\t\tstart : initial state;
+\t\t\t\tready : complete state;
+\t\t\t\tdone : final state;
+\t\t\ttransitions
+\t\t\t\tstart -[]-> ready {
+\t\t\t\t\tdecimalValue := 8#17#;
+\t\t\t\t\trealValue := 2.5e-1
+\t\t\t\t};
+\t\t\t\tprioritized [16#10#] : ready -[on dispatch trigger]-> done;
+\t\t
+----- Xtext reparse -----
+reparsed
