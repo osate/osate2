@@ -1,0 +1,13 @@
+===== annex[0] owner=Issue3174::internal_ports.actions =====
+
+\t\tstates
+\t\t\tstart : initial state;
+\t\t\tdone : final state;
+\t\ttransitions
+\t\t\tassign_data : start -[ ]-> done { raised_data := 1 };
+\t\t\tsend_data_with_value : start -[ ]-> done { raised_data!(2) };
+\t\t\tsend_data : start -[ ]-> done { raised_data! };
+\t\t\tsend_event : start -[ ]-> done { raised_event! };
+\t
+----- Xtext reparse -----
+reparsed
