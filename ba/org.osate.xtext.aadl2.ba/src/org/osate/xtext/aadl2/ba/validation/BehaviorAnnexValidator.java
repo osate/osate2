@@ -30,6 +30,7 @@ import java.util.Set;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.xtext.diagnostics.Severity;
@@ -40,12 +41,15 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.modelsupport.errorreporting.AbstractAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.aadl2.parsesupport.ParseUtil;
 import org.osate.ba.analyzers.AadlBaRulesCheckersDriver;
 import org.osate.ba.analyzers.AadlBaTypeChecker;
 import org.osate.ba.analyzers.AdaLikeDataTypeChecker;
 import org.osate.annexsupport.ParseResultHolder;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorIntegerLiteral;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTransition;
 import org.osate.xtext.aadl2.ba.translation.DeclarativeToStrictTranslator;
 import org.osate.xtext.aadl2.ba.translation.DeclarativeToStrictTranslator.TranslationResult;
 
@@ -54,10 +58,12 @@ import com.google.inject.Inject;
 /**
  * Runs the existing strict-model Behavior Annex checkers over the translated Xtext model and retargets their
  * diagnostics to the declarative source objects. Syntax and linking failures gate this adapter so semantic checking
- * does not cascade over an incomplete model.
+ * does not cascade over an incomplete model. Literal spellings that the grammar accepts but translation cannot
+ * represent are reported directly, since no strict object carries them.
  */
 public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator {
 	public static final String CHECKER_DIAGNOSTIC = "org.osate.xtext.aadl2.ba.checker";
+	public static final String UNREPRESENTABLE_LITERAL = "org.osate.xtext.aadl2.ba.unrepresentableLiteral";
 	private static final URI VALIDATION_RESOURCE_URI = URI.createURI("validation:/behavior-annex.aadlba");
 
 	@Inject
@@ -101,6 +107,35 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 			} finally {
 				validationResource.getContents().clear();
 			}
+		}
+	}
+
+	/**
+	 * The integer literal terminal admits based, exponent, and long decimal spellings whose value the AADL integer
+	 * reader cannot represent. Translation cannot carry such a literal into the strict model, so name the offending
+	 * spelling on the literal itself rather than letting it become zero.
+	 */
+	@Check(CheckType.FAST)
+	public void checkIntegerLiteral(final BehaviorIntegerLiteral literal) {
+		checkIntegerLiteral(literal.getValue(), literal,
+				BehaviorAnnexPackage.eINSTANCE.getBehaviorIntegerLiteral_Value());
+	}
+
+	@Check(CheckType.FAST)
+	public void checkTransitionPriority(final BehaviorTransition transition) {
+		checkIntegerLiteral(transition.getPriority(), transition,
+				BehaviorAnnexPackage.eINSTANCE.getBehaviorTransition_Priority());
+	}
+
+	private void checkIntegerLiteral(final String value, final EObject owner, final EStructuralFeature feature) {
+		if (value == null) {
+			return;
+		}
+		try {
+			ParseUtil.parseAadlInteger(value);
+		} catch (final IllegalArgumentException exception) {
+			error("Cannot represent integer literal " + value + ": " + exception.getMessage(), owner, feature,
+					UNREPRESENTABLE_LITERAL);
 		}
 	}
 

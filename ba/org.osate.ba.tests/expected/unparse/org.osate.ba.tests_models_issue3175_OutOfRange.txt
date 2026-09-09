@@ -1,0 +1,14 @@
+===== annex[0] owner=OutOfRange::unrepresentable.impl =====
+
+\t\t\tvariables
+\t\t\t\ttooLarge : Base_Types::Integer := 99999999999999999999;
+\t\t\t\tunsupportedBase : Base_Types::Integer := 20#5#;
+\t\t\t\tnotAnExtendedDigit : Base_Types::Integer := 2#9#;
+\t\t\tstates
+\t\t\t\tstart : initial state;
+\t\t\t\tdone : final state;
+\t\t\ttransitions
+\t\t\t\tfinish [99999999999999999999] : start -[]-> done;
+\t\t
+----- Xtext reparse -----
+reparsed

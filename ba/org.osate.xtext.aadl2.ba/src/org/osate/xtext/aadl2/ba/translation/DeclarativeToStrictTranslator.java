@@ -61,6 +61,7 @@ import org.osate.aadl2.FeaturePrototypeBinding;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.PortSpecification;
@@ -80,6 +81,7 @@ import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.aadl2.SubprogramType;
 import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.parsesupport.ParseUtil;
 import org.osate.ba.aadlba.AadlBaFactory;
 import org.osate.ba.aadlba.ActualPortHolder;
 import org.osate.ba.aadlba.BehaviorAction;
@@ -898,9 +900,9 @@ public final class DeclarativeToStrictTranslator {
 			if (constant instanceof BehaviorIntegerLiteral literal) {
 				return toIntegerLiteral(literal);
 			}
-			if (constant instanceof BehaviorRealLiteral) {
+			if (constant instanceof BehaviorRealLiteral literal) {
 				final var result = trace(FACTORY.createBehaviorRealLiteral(), constant);
-				result.setValue(0.0);
+				setNumericValue(result, literal.getValue());
 				return result;
 			}
 			if (constant instanceof BehaviorStringLiteral literal) {
@@ -918,7 +920,7 @@ public final class DeclarativeToStrictTranslator {
 
 		private org.osate.ba.aadlba.BehaviorIntegerLiteral toIntegerLiteral(final BehaviorIntegerLiteral literal) {
 			final var result = trace(FACTORY.createBehaviorIntegerLiteral(), literal);
-			result.setValue(parseInteger(literal.getValue(), 0));
+			setNumericValue(result, literal.getValue());
 			return result;
 		}
 
@@ -1446,13 +1448,30 @@ public final class DeclarativeToStrictTranslator {
 			strictRoot.eAllContents().forEachRemaining(object -> trace(object, declarative));
 		}
 
+		/**
+		 * Copies a numeric literal into the strict model with the core AADL literal reader, so decimal, based,
+		 * exponent, and underscored spellings all keep their value, and an integer keeps its base. A spelling the
+		 * grammar accepts but the reader cannot represent leaves the model default in place;
+		 * {@code BehaviorAnnexValidator} reports that on the literal itself.
+		 */
+		private static void setNumericValue(final NumberValue result, final String value) {
+			if (value == null) {
+				return;
+			}
+			try {
+				result.setValue(value);
+			} catch (final IllegalArgumentException exception) {
+				// Out of range: reported as an error on the offending literal.
+			}
+		}
+
 		private static long parseInteger(final String value, final long fallback) {
 			if (value == null) {
 				return fallback;
 			}
 			try {
-				return Long.parseLong(value.replace("_", ""));
-			} catch (final NumberFormatException exception) {
+				return ParseUtil.parseAadlInteger(value)[1];
+			} catch (final IllegalArgumentException exception) {
 				return fallback;
 			}
 		}
