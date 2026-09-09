@@ -12,3 +12,4 @@ annex[0] owner=SharedCondition::example.impl
   (BehaviorStateGroup, <null>, 1993, 21)
   (BehaviorTransition, <null>, 2028, 18)
   (BehaviorTransition, <null>, 2048, 38)
+  (DispatchCondition, <null>, 2067, 8)

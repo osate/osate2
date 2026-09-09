@@ -6,6 +6,7 @@ annex[0] owner=BA_example2::speed.i
   (BehaviorState, s0, 940, 2)
   (BehaviorStateGroup, <null>, 940, 33)
   (BehaviorTransition, <null>, 996, 46)
+  (DispatchCondition, <null>, 1005, 8)
   (Reference, <null>, 1023, 2)
   (Reference, <null>, 1029, 4)
   (ReferenceExpression, <null>, 1029, 10)

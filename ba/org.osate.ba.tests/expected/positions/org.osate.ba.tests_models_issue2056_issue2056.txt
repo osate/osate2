@@ -32,6 +32,7 @@ annex[1] owner=issue2056::threadB.impl
   (BehaviorStateGroup, <null>, 734, 16)
   (BehaviorTransition, <null>, 771, 38)
   (BehaviorTransition, <null>, 814, 30)
+  (DispatchCondition, <null>, 780, 8)
   (DispatchCondition, <null>, 823, 15)
   (DispatchConjunction, <null>, 832, 6)
   (DispatchTriggerCondition, <null>, 832, 6)

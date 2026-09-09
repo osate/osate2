@@ -12,6 +12,7 @@ annex[1] owner=issue1884::resolver_error
   (BehaviorStateGroup, <null>, 247, 33)
   (BehaviorStateGroup, <null>, 285, 10)
   (BehaviorTransition, <null>, 315, 36)
+  (DispatchCondition, <null>, 324, 8)
 annex[2] owner=issue1884::legality_error
   (BehaviorAnnex, behavior_specification, 445, 112)
   (BehaviorCondition, <null>, 530, 19)

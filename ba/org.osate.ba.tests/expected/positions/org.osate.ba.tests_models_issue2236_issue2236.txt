@@ -14,6 +14,7 @@ annex[0] owner=issue2236::function1
   (BehaviorTransition, <null>, 194, 79)
   (BehaviorVariable, d, 115, 1)
   (BehaviorVariableGroup, <null>, 115, 17)
+  (DispatchCondition, <null>, 201, 8)
   (Reference, <null>, 222, 1)
   (Reference, <null>, 235, 1)
   (Reference, <null>, 250, 1)

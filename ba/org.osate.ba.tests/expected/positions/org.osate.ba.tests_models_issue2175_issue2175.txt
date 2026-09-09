@@ -6,5 +6,6 @@ annex[0] owner=issue2175::function1
   (BehaviorStateGroup, <null>, 267, 33)
   (BehaviorTransition, <null>, 316, 33)
   (CommunicationAction, <null>, 337, 10)
+  (DispatchCondition, <null>, 323, 8)
   (Reference, <null>, 337, 9)
   (ReferenceSegment, function2, 337, 9)

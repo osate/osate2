@@ -10,6 +10,7 @@ annex[0] owner=issue3155::transitionLegality.impl
   (BehaviorTransition, <null>, 2135, 26)
   (BehaviorTransition, <null>, 2166, 38)
   (BehaviorTransition, <null>, 2209, 27)
+  (DispatchCondition, <null>, 2182, 8)
 annex[1] owner=issue3155::subprogramLegality.impl
   (BehaviorAnnex, behavior_specification, 2421, 130)
   (BehaviorState, firstFinal, 2513, 10)
@@ -36,3 +37,4 @@ annex[3] owner=issue3155::sharedTransition.impl
   (BehaviorStateGroup, <null>, 3111, 39)
   (BehaviorTransition, <null>, 3170, 38)
   (BehaviorTransition, <null>, 3213, 39)
+  (DispatchCondition, <null>, 3186, 8)

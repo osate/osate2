@@ -897,6 +897,7 @@ annex[1] owner=NamesResolutionTest::thread1.impl
   (CommunicationAction, <null>, 9084, 17)
   (CommunicationAction, <null>, 9160, 18)
   (CommunicationAction, <null>, 9181, 17)
+  (DispatchCondition, <null>, 4584, 8)
   (DispatchCondition, <null>, 4614, 25)
   (DispatchCondition, <null>, 4656, 34)
   (DispatchCondition, <null>, 4707, 13)

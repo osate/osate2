@@ -11,6 +11,7 @@ annex[0] owner=Issue2445_Holder_Coverage::holder_source
   (BehaviorVariable, value, 685, 5)
   (BehaviorVariableGroup, <null>, 685, 27)
   (BinaryExpression, <null>, 874, 103)
+  (DispatchCondition, <null>, 782, 8)
   (HashPropertyReference, <null>, 811, 53)
   (HashPropertyReference, <null>, 874, 47)
   (HashPropertyReference, <null>, 930, 47)

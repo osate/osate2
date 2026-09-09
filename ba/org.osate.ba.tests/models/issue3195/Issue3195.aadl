@@ -1,0 +1,27 @@
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others.
+-- SPDX-License-Identifier: EPL-2.0
+package Issue3195
+public
+
+	thread worker
+	properties
+		Dispatch_Protocol => Periodic;
+		Period => 10 ms;
+	end worker;
+
+	-- A bare 'on dispatch' carries no trigger and no frozen port list, so nothing but the two keywords separates
+	-- these transitions. Each spelling below differs only in the hidden tokens between 'on' and 'dispatch'.
+	thread implementation worker.i
+	annex behavior_specification {**
+		states
+			waiting: initial complete final state;
+		transitions
+			single_space: waiting -[ on dispatch ]-> waiting;
+			extra_space: waiting -[ on  dispatch ]-> waiting;
+			line_break: waiting -[ on
+				dispatch ]-> waiting;
+			with_comment: waiting -[ on -- the dispatch condition of a periodic thread
+				dispatch ]-> waiting;
+	**};
+	end worker.i;
+end Issue3195;

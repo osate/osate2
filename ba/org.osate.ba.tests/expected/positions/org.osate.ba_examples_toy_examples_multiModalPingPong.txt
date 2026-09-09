@@ -58,6 +58,8 @@ annex[0] owner=MultiModalPingPong::Cping_t.impl
   (CommunicationAction, <null>, 3567, 19)
   (CommunicationAction, <null>, 3666, 8)
   (CommunicationAction, <null>, 3724, 22)
+  (DispatchCondition, <null>, 3240, 8)
+  (DispatchCondition, <null>, 3301, 8)
   (DispatchCondition, <null>, 3636, 16)
   (DispatchCondition, <null>, 3692, 16)
   (DispatchCondition, <null>, 4024, 22)
