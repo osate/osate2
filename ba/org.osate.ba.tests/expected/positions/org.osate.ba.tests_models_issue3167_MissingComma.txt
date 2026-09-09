@@ -1,0 +1,9 @@
+annex[0] owner=MissingComma::worker.i
+  (BehaviorAnnex, behavior_specification, 421, 137)
+  (BehaviorCondition, <null>, 498, 47)
+  (BehaviorState, waiting, 431, 7)
+  (BehaviorStateGroup, <null>, 431, 38)
+  (BehaviorTransition, <null>, 487, 71)
+  (DispatchCondition, <null>, 501, 44)
+  (Reference, <null>, 518, 13)
+  (ReferenceSegment, sampled_input, 518, 13)

@@ -1,0 +1,10 @@
+annex[0] owner=Issue3167::worker.i
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=waiting
+    transitions[0] : BehaviorTransition name=single
+      condition : DispatchCondition
+        frozenPorts[0] : DataPortHolder element=Issue3167::worker.sampled_input [DataPort]
+    transitions[1] : BehaviorTransition name=multiple
+      condition : DispatchCondition
+        frozenPorts[0] : DataPortHolder element=Issue3167::worker.sampled_input [DataPort]
+        frozenPorts[1] : DataPortHolder element=Issue3167::worker.second_input [DataPort]

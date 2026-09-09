@@ -91,7 +91,7 @@ ExecuteCondition:
 
 DispatchCondition:
     'dispatch' trigger=DispatchTriggerCondition?
-    ('frozen' frozenPorts+=Reference (',' frozenPorts+=Reference)*)?
+    ('frozen' '(' frozenPorts+=Reference (',' frozenPorts+=Reference)* ')')?
 ;
 
 DispatchTriggerCondition:

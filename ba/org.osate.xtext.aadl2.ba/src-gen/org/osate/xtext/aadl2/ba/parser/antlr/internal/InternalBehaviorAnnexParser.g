@@ -1020,12 +1020,16 @@ ruleDispatchCondition returns [EObject current=null]
             {
                 newLeafNode(otherlv_2, grammarAccess.getDispatchConditionAccess().getFrozenKeyword_2_0());
             }
+            otherlv_3=LeftParenthesis
+            {
+                newLeafNode(otherlv_3, grammarAccess.getDispatchConditionAccess().getLeftParenthesisKeyword_2_1());
+            }
             (
                 (
                     {
-                        newCompositeNode(grammarAccess.getDispatchConditionAccess().getFrozenPortsReferenceParserRuleCall_2_1_0());
+                        newCompositeNode(grammarAccess.getDispatchConditionAccess().getFrozenPortsReferenceParserRuleCall_2_2_0());
                     }
-                    lv_frozenPorts_3_0=ruleReference
+                    lv_frozenPorts_4_0=ruleReference
                     {
                         if ($current==null) {
                             $current = createModelElementForParent(grammarAccess.getDispatchConditionRule());
@@ -1033,23 +1037,23 @@ ruleDispatchCondition returns [EObject current=null]
                         add(
                             $current,
                             "frozenPorts",
-                            lv_frozenPorts_3_0,
+                            lv_frozenPorts_4_0,
                             "org.osate.xtext.aadl2.ba.BehaviorAnnex.Reference");
                         afterParserOrEnumRuleCall();
                     }
                 )
             )
             (
-                otherlv_4=Comma
+                otherlv_5=Comma
                 {
-                    newLeafNode(otherlv_4, grammarAccess.getDispatchConditionAccess().getCommaKeyword_2_2_0());
+                    newLeafNode(otherlv_5, grammarAccess.getDispatchConditionAccess().getCommaKeyword_2_3_0());
                 }
                 (
                     (
                         {
-                            newCompositeNode(grammarAccess.getDispatchConditionAccess().getFrozenPortsReferenceParserRuleCall_2_2_1_0());
+                            newCompositeNode(grammarAccess.getDispatchConditionAccess().getFrozenPortsReferenceParserRuleCall_2_3_1_0());
                         }
-                        lv_frozenPorts_5_0=ruleReference
+                        lv_frozenPorts_6_0=ruleReference
                         {
                             if ($current==null) {
                                 $current = createModelElementForParent(grammarAccess.getDispatchConditionRule());
@@ -1057,13 +1061,17 @@ ruleDispatchCondition returns [EObject current=null]
                             add(
                                 $current,
                                 "frozenPorts",
-                                lv_frozenPorts_5_0,
+                                lv_frozenPorts_6_0,
                                 "org.osate.xtext.aadl2.ba.BehaviorAnnex.Reference");
                             afterParserOrEnumRuleCall();
                         }
                     )
                 )
             )*
+            otherlv_7=RightParenthesis
+            {
+                newLeafNode(otherlv_7, grammarAccess.getDispatchConditionAccess().getRightParenthesisKeyword_2_4());
+            }
         )?
     )
 ;

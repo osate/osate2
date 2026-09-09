@@ -8,7 +8,7 @@ public
 		q: in event port;
 	annex behavior_specification {**
 		states s: initial complete final state;
-		transitions s -[on dispatch frozen p q]-> s;
+		transitions s -[on dispatch frozen (p q)]-> s;
 	**};
 	end t;
 end MissingFrozenPortSeparator;

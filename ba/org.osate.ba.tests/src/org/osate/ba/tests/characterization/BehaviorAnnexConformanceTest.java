@@ -85,14 +85,6 @@ public class BehaviorAnnexConformanceTest {
 	}
 
 	@Test
-	public void frozenPortParenthesesCurrentFailure() throws Exception {
-		assertDiagnostics("FrozenPortParentheses.aadl",
-				List.of("syntax | extraneous input '(' expecting IDENT",
-						"syntax | extraneous input ')' expecting {'[', ',', ']->', '.', IDENT}"));
-	}
-
-	@Ignore("Issue #2445: conform frozen-port syntax to AS5506/3 Rev A")
-	@Test
 	public void frozenPortParenthesesAreAcceptedByTheStandard() throws Exception {
 		assertNoIssues("FrozenPortParentheses.aadl");
 	}

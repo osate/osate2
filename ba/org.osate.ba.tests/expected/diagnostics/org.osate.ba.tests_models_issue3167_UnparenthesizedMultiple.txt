@@ -1,0 +1,2 @@
+error | syntax | 21 | 34 | 13 | missing '(' at 'sampled_input'
+error | syntax | 21 | 62 | 3 | missing ')' at ']->'

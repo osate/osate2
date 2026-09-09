@@ -27,9 +27,9 @@
 \s\s\s\s\s\s
     transitions
 \s\s\s\s
-      all -[on dispatch p1 frozen p2, p3
+      all -[on dispatch p1 frozen (p2, p3
                                   p4,
-                                  p5 p6]-> all ;
+                                  p5 p6)]-> all ;
 \s\s\s\s\s\s
       all -[]-> all ;
       all -[]->\s

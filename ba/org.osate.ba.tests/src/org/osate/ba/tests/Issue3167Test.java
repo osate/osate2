@@ -1,0 +1,124 @@
+/**
+ * Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
+ * All Rights Reserved.
+ *
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ *
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ *
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+ */
+package org.osate.ba.tests;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
+import org.eclipse.xtext.testing.InjectWith;
+import org.eclipse.xtext.testing.XtextRunner;
+import org.eclipse.xtext.testing.validation.ValidationTestHelper;
+import org.eclipse.xtext.validation.Issue;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.DefaultAnnexSubclause;
+import org.osate.aadl2.ThreadImplementation;
+import org.osate.annexsupport.AnnexRegistry;
+import org.osate.annexsupport.AnnexUnparserRegistry;
+import org.osate.testsupport.Aadl2InjectorProvider;
+import org.osate.testsupport.TestHelper;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
+
+import com.google.inject.Inject;
+import com.itemis.xtext.testing.XtextTest;
+
+/** Verifies D.4 frozen-port syntax and serialization through the registered embedded BA services. */
+@RunWith(XtextRunner.class)
+@InjectWith(Aadl2InjectorProvider.class)
+public class Issue3167Test extends XtextTest {
+	private static final String PATH = "org.osate.ba.tests/models/issue3167/";
+
+	@Inject
+	private TestHelper<AadlPackage> testHelper;
+
+	@Inject
+	private ValidationTestHelper validationHelper;
+
+	@Test
+	public void parenthesizedFrozenPortsRoundTrip() throws Exception {
+		var pkg = testHelper.parseFile(PATH + "Issue3167.aadl");
+		validationHelper.assertNoIssues(pkg);
+		var annex = annex(pkg);
+		assertFrozenPorts(annex);
+
+		// Copy away the node model so the registered unparser must serialize instead of returning source text.
+		var unparser = ((AnnexUnparserRegistry) AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_UNPARSER_EXT_ID))
+				.getAnnexUnparser("behavior_specification");
+		var serialized = unparser.unparseAnnexSubclause(EcoreUtil.copy(annex), "");
+		var compact = serialized.replaceAll("\\s+", "");
+		assertTrue(serialized, compact.contains("frozen(sampled_input)"));
+		assertTrue(serialized, compact.contains("frozen(sampled_input,second_input)"));
+		var source = NodeModelUtils.getNode(pkg).getText();
+		var roundTrip = testHelper.parseString(source.substring(0, source.indexOf("{**") + 3)
+				+ serialized + source.substring(source.indexOf("**}")));
+		validationHelper.assertNoIssues(roundTrip);
+		assertFrozenPorts(annex(roundTrip));
+	}
+
+	@Test
+	public void unparenthesizedSinglePortIsRejected() throws Exception {
+		assertSyntaxError("UnparenthesizedSingle.aadl");
+	}
+
+	@Test
+	public void unparenthesizedMultiplePortsAreRejected() throws Exception {
+		assertSyntaxError("UnparenthesizedMultiple.aadl");
+	}
+
+	@Test
+	public void emptyFrozenPortListIsRejected() throws Exception {
+		assertSyntaxError("EmptyFrozenPorts.aadl");
+	}
+
+	@Test
+	public void missingCommaIsRejected() throws Exception {
+		assertSyntaxError("MissingComma.aadl");
+	}
+
+	private void assertSyntaxError(String model) throws Exception {
+		var result = testHelper.testFile(PATH + model);
+		assertTrue(result.getSummary(), result.getIssues().stream().anyMatch(Issue::isSyntaxError));
+	}
+
+	private static BehaviorAnnex annex(AadlPackage pkg) {
+		var implementation = (ThreadImplementation) pkg.getOwnedPublicSection().getOwnedClassifiers().get(1);
+		return (BehaviorAnnex) ((DefaultAnnexSubclause) implementation.getOwnedAnnexSubclauses().getFirst())
+				.getParsedAnnexSubclause();
+	}
+
+	private static void assertFrozenPorts(BehaviorAnnex annex) {
+		assertEquals(2, annex.getTransitions().size());
+		var expected = List.of(List.of("sampled_input"), List.of("sampled_input", "second_input"));
+		for (var i = 0; i < expected.size(); i++) {
+			var dispatch = annex.getTransitions().get(i).getCondition().getDispatch();
+			assertEquals(expected.get(i), dispatch.getFrozenPorts().stream()
+					.map(port -> port.getSegments().getFirst().getName()).toList());
+		}
+	}
+}

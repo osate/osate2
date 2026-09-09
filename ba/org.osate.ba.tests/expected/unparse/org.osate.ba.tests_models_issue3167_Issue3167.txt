@@ -1,0 +1,10 @@
+===== annex[0] owner=Issue3167::worker.i =====
+
+\t\tstates
+\t\t\twaiting: initial complete final state;
+\t\ttransitions
+\t\t\tsingle: waiting -[ on dispatch frozen (sampled_input) ]-> waiting;
+\t\t\tmultiple: waiting -[ on dispatch frozen (sampled_input, second_input) ]-> waiting;
+\t
+----- Xtext reparse -----
+reparsed

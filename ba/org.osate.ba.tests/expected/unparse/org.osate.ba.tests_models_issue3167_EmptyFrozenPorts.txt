@@ -1,0 +1,9 @@
+===== annex[0] owner=EmptyFrozenPorts::worker.i =====
+
+\t\tstates
+\t\t\twaiting: initial complete final state;
+\t\ttransitions
+\t\t\twaiting -[ on dispatch frozen () ]-> waiting;
+\t
+----- Xtext reparse -----
+reparsed
