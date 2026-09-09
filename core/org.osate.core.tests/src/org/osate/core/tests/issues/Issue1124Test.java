@@ -23,10 +23,6 @@
  */
 package org.osate.core.tests.issues;
 
-import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
-
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.junit.Test;
@@ -46,13 +42,10 @@ public class Issue1124Test extends XtextTest {
 	TestHelper<AadlPackage> testHelper;
 
 	@Test
-	public void testIssue1770() throws Exception {
+	public void testIssue1124() throws Exception {
 		FluentIssueCollection testFileResult = issues = testHelper
 				.testFile("org.osate.core.tests/models/Issue1124/connect_to_subcomponent.aadl");
-		FluentIssueCollection issueCollection = new FluentIssueCollection(testFileResult.getResource(),
-				new ArrayList<>(), new ArrayList<>());
-		assertTrue("Unexpected error", issueCollection.getIssues().isEmpty());
-		issueCollection.sizeIs(0);
-		assertConstraints(issueCollection);
+		testFileResult.sizeIs(0);
+		assertConstraints(testFileResult);
 	}
 }

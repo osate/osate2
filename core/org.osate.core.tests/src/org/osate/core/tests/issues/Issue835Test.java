@@ -92,8 +92,7 @@ public class Issue835Test {
 		ListValue f1 = (ListValue) exp0.getOwnedFieldValues().get(1).getOwnedValue();
 		IntegerLiteral e0 = (IntegerLiteral) f1.getOwnedListElements().get(0);
 		assertTrue("Expected value 2 for ps835::rp.f1#0", e0.getValue() == 2);
-		/* The original reads element 0 again here; kept as is. */
-		IntegerLiteral e1 = (IntegerLiteral) f1.getOwnedListElements().get(0);
+		IntegerLiteral e1 = (IntegerLiteral) f1.getOwnedListElements().get(1);
 		assertTrue("Expected value 2 for ps835::rp.f1#1", e1.getValue() == 2);
 
 		RangeValue exp1 = (RangeValue) pas.get(1).getOwnedValues().get(0).getOwnedValue();
