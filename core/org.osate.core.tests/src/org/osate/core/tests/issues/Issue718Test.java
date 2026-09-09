@@ -23,10 +23,6 @@
  */
 package org.osate.core.tests.issues;
 
-import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
-
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.junit.Test;
@@ -77,8 +73,7 @@ public class Issue718Test extends XtextTest {
 	@Test
 	public void issue718() throws Exception {
 		FluentIssueCollection testFileResult = issues = testHelper.testString(AADL_TEXT, PS_TEXT);
-		FluentIssueCollection issueCollection = new FluentIssueCollection(testFileResult.getResource(),
-				new ArrayList<>(), new ArrayList<>());
-		assertTrue("Unexpected error", issueCollection.getIssues().isEmpty());
+		testFileResult.sizeIs(0);
+		assertConstraints(testFileResult);
 	}
 }

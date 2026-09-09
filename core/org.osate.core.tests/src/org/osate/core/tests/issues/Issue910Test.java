@@ -73,7 +73,7 @@ public class Issue910Test extends XtextTest {
 		assertNameAndError(testFileResult, issueCollection, eventDataPorts.get(1), "ed2", false);
 		assertNameAndError(testFileResult, issueCollection, eventDataPorts.get(2), "ed3", true);
 
-		issueCollection.sizeIs(4);
+		issueCollection.sizeIs(testFileResult.getIssues().size());
 		assertConstraints(issueCollection);
 	}
 

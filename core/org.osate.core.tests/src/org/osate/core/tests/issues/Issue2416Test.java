@@ -82,7 +82,7 @@ public class Issue2416Test extends XtextTest {
 		assertSegmentErrors(flows.get(11).getOwnedFlowSegments().get(0),
 				"The source of connection 'cmm' does not match the in flow feature 'i'");
 
-		issueCollection.sizeIs(17);
+		issueCollection.sizeIs(testFileResult.getIssues().size());
 		assertConstraints(issueCollection);
 	}
 

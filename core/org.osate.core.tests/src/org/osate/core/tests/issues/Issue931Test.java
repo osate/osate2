@@ -25,8 +25,6 @@ package org.osate.core.tests.issues;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.junit.Test;
@@ -51,9 +49,7 @@ public class Issue931Test {
 	public void issue931() throws Exception {
 		String pkg1FileName = "issue931.aadl";
 		FluentIssueCollection testFileResult = testHelper.testFile(PROJECT_LOCATION + pkg1FileName);
-		FluentIssueCollection issueCollection = new FluentIssueCollection(testFileResult.getResource(),
-				new ArrayList<>(), new ArrayList<>());
-		assertEquals(issueCollection.getIssues().isEmpty(), true);
+		assertEquals(testFileResult.getSummary(), 0, testFileResult.getIssues().size());
 		AadlPackage pkg = (AadlPackage) testFileResult.getResource().getContents().get(0);
 		assertEquals("issue931", pkg.getName());
 		NamedElement system = pkg.getPublicSection().getOwnedClassifiers().get(0);

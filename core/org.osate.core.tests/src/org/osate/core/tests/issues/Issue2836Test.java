@@ -69,7 +69,7 @@ public class Issue2836Test extends XtextTest {
 		AssertHelper.assertError(fs.get(0), testFileResult.getIssues(),
 				issueCollection,
 				"Feature group directly or indirectly contains itself");
-		issueCollection.sizeIs(3);
+		issueCollection.sizeIs(testFileResult.getIssues().size());
 		assertConstraints(issueCollection);
 	}
 

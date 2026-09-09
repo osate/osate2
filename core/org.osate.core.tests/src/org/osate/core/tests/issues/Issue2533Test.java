@@ -23,7 +23,9 @@
  */
 package org.osate.core.tests.issues;
 
-import java.util.ArrayList;
+import static org.junit.Assert.assertEquals;
+
+import java.util.List;
 
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
@@ -49,8 +51,14 @@ public class Issue2533Test {
 	@Test
 	public void test() throws Exception {
 		FluentIssueCollection testFileResult = testHelper.testFile(FILE_LOCATION + FILE_NAME);
-		FluentIssueCollection issueCollection = new FluentIssueCollection(testFileResult.getResource(),
-				new ArrayList<>(), new ArrayList<>());
-		issueCollection.sizeIs(0);
+		// s.impl3 deliberately refines 'f_pa' to f_path3, a rewrite with the same features and flows rather than an
+		// extension of f_path, so that warning is inherent to the model. The point of issue 2533 is that no error is
+		// reported on connection C2, and listing every issue keeps that specific.
+		assertEquals(
+				List.of("WARNING: Classifier f_path refined to f_path3 does not satisfy 'Type Extension'"),
+				testFileResult.getIssues()
+						.stream()
+						.map(issue -> issue.getSeverity() + ": " + issue.getMessage())
+						.toList());
 	}
 }

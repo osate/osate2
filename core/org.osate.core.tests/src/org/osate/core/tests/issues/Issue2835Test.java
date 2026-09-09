@@ -72,7 +72,7 @@ public class Issue2835Test extends XtextTest {
 		AssertHelper.assertError(flows.get(5).getOwnedFlowSegments().get(1), testFileResult.getIssues(),
 				issueCollection,
 				"A flow sink implementation may not end in a flow path");
-		issueCollection.sizeIs(4);
+		issueCollection.sizeIs(testFileResult.getIssues().size());
 		assertConstraints(issueCollection);
 	}
 
