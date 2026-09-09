@@ -1,0 +1,14 @@
+===== annex[0] owner=Issue3195::worker.i =====
+
+\t\tstates
+\t\t\twaiting: initial complete final state;
+\t\ttransitions
+\t\t\tsingle_space: waiting -[ on dispatch ]-> waiting;
+\t\t\textra_space: waiting -[ on  dispatch ]-> waiting;
+\t\t\tline_break: waiting -[ on
+\t\t\t\tdispatch ]-> waiting;
+\t\t\twith_comment: waiting -[ on -- the dispatch condition of a periodic thread
+\t\t\t\tdispatch ]-> waiting;
+\t
+----- Xtext reparse -----
+reparsed

@@ -1,0 +1,12 @@
+annex[0] owner=Issue3195::worker.i
+  (BehaviorAnnex, behavior_specification, 506, 327)
+  (BehaviorCondition, <null>, 597, 11)
+  (BehaviorCondition, <null>, 649, 12)
+  (BehaviorCondition, <null>, 701, 15)
+  (BehaviorCondition, <null>, 758, 62)
+  (BehaviorState, waiting, 516, 7)
+  (BehaviorStateGroup, <null>, 516, 38)
+  (BehaviorTransition, extra_space, 625, 49)
+  (BehaviorTransition, line_break, 678, 51)
+  (BehaviorTransition, single_space, 572, 49)
+  (BehaviorTransition, with_comment, 733, 100)

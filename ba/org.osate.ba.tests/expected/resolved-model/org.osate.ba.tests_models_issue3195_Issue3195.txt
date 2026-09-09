@@ -1,0 +1,8 @@
+annex[0] owner=Issue3195::worker.i
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=waiting
+    transitions[0] : BehaviorTransition name=single_space
+      condition : DispatchCondition
+    transitions[1] : BehaviorTransition name=extra_space
+    transitions[2] : BehaviorTransition name=line_break
+    transitions[3] : BehaviorTransition name=with_comment
