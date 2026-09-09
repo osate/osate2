@@ -436,11 +436,6 @@ censes only apply to the Third Party Software and not any other portion of this 
     			id="org.osate.ui.perspective.AadlPerspective"/>
     	</perspectiveExtension>
     	<perspectiveExtension
-    		targetID="org.eclipse.team.cvs.ui.cvsPerspective">
-    		<perspectiveShortcut
-    			id="org.osate.ui.perspective.AadlPerspective"/>
-    	</perspectiveExtension>
-    	<perspectiveExtension
     		targetID="org.eclipse.team.ui.TeamSynchronizingPerspective">
     		<perspectiveShortcut
     			id="org.osate.ui.perspective.AadlPerspective"/>
