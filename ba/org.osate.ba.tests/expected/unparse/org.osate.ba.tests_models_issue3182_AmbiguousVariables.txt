@@ -1,0 +1,13 @@
+===== annex[0] owner=AmbiguousVariables::example.impl =====
+
+variables
+    value, VALUE : Base_Types::Integer;
+    Value : Base_Types::Integer;
+states
+    start : initial state;
+    ready : complete state;
+    finish : final state;
+transitions
+    start -[]-> ready {value := 1};
+----- Xtext reparse -----
+reparsed

@@ -1,0 +1,11 @@
+annex[0] owner=TypeNames::derived
+  (BehaviorAnnex, behavior_specification, 1936, 173)
+  (BehaviorState, finish, 2045, 6)
+  (BehaviorState, ready, 2017, 5)
+  (BehaviorState, start, 1990, 5)
+  (BehaviorStateGroup, <null>, 1990, 22)
+  (BehaviorStateGroup, <null>, 2017, 23)
+  (BehaviorStateGroup, <null>, 2045, 21)
+  (BehaviorTransition, ACTIVE, 2083, 26)
+  (BehaviorVariable, INPUT, 1950, 5)
+  (BehaviorVariableGroup, <null>, 1950, 28)

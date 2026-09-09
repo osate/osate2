@@ -1,0 +1,12 @@
+annex[0] owner=UnlinkedNames::example.impl
+  (BehaviorAnnex, behavior_specification, 1867, 164)
+  (BehaviorState, finish, 1975, 6)
+  (BehaviorState, ready, 1947, 5)
+  (BehaviorState, start, 1920, 5)
+  (BehaviorStateGroup, <null>, 1920, 22)
+  (BehaviorStateGroup, <null>, 1947, 23)
+  (BehaviorStateGroup, <null>, 1975, 21)
+  (BehaviorTransition, <null>, 2013, 18)
+  (BehaviorVariable, VALUE, 1888, 5)
+  (BehaviorVariable, value, 1881, 5)
+  (BehaviorVariableGroup, <null>, 1881, 27)
