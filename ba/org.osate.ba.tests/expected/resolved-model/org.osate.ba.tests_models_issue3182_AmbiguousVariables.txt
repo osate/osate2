@@ -9,7 +9,7 @@ annex[0] owner=AmbiguousVariables::example.impl
     transitions[0] : BehaviorTransition
     actions[0] : BehaviorActionBlock
       content : AssignmentAction
-        target : BehaviorVariableHolder element=Value [BehaviorVariable]
+        target : BehaviorVariableHolder element=<null>
         valueExpression : ValueExpression
           relations[0] : Relation
             firstExpression : SimpleExpression
