@@ -146,6 +146,8 @@ The AST precedence error and the strict-model flattening error must be assessed 
 
 **Impact:** The test's name and fixture comment describe a standard violation, but its expectation does not require detection. Add an exact diagnostic assertion on that assignment and a positive control for ordinary mutable targets. Also cover iterator-name conflicts and nested scopes under D.6's naming rule.
 
+**Addressed by [#3180](https://github.com/osate/osate2/issues/3180):** The validator now rejects an assignment whose target names the current or an enclosing `for`/`forall` iterator, including an assignment of `any` and a write into a data element of an iterator, `i.field := ...`. The check runs before strict-model checking because neither shape reaches a strict checker that could reject it: an iterator holder does not implement `Target`, so translation drops the target of `i := ...` entirely, while `i.field := ...` becomes an ordinary `DataComponentReference` target that type checks. `Issue3180Test` verifies exact diagnostics and source ranges, iterator reads, and ordinary mutable targets and their data elements before, within, and after nested loops. The named covering test now requires its diagnostic.
+
 ### G17 — Call signatures and communication categories lack complete enforcement
 
 **Standard:** D.5–D.6 constrain communication targets and require actual call parameters to match the called subprogram's features/signature.

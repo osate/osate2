@@ -63,6 +63,7 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorIntegerLiteral;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTransition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.CommunicationAction;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchTriggerCondition;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ForStatement;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.InternalCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.Reference;
 import org.osate.xtext.aadl2.ba.translation.DeclarativeToStrictTranslator;
@@ -84,6 +85,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	public static final String INTERNAL_CONDITION_PORT = "org.osate.xtext.aadl2.ba.internalConditionPort";
 	public static final String TIMEOUT_RESET_PORT = "org.osate.xtext.aadl2.ba.timeoutResetPort";
 	public static final String TIMEOUT_RESET_PORT_TIME = "org.osate.xtext.aadl2.ba.timeoutResetPortTime";
+	public static final String ITERATIVE_VARIABLE_TARGET = "org.osate.xtext.aadl2.ba.iterativeVariableTarget";
 	private static final URI VALIDATION_RESOURCE_URI = URI.createURI("validation:/behavior-annex.aadlba");
 
 	@Inject
@@ -108,11 +110,12 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 		}
 
 		var translation = translator.translate(source, owner);
-		// Each check describes a name the strict model cannot carry, and a model can get each one wrong independently,
+		// Each check describes a use no strict checker can reject, and a model can get each one wrong independently,
 		// so report them all before deciding whether the strict checkers have a model to work on.
 		var representable = checkInternalPortUses(source, translation);
 		representable &= checkInternalConditionPorts(source, translation);
 		representable &= checkTimeoutResetPorts(source, translation);
+		representable &= checkIteratorAssignmentTargets(source, translation);
 		if (!representable) {
 			return;
 		}
@@ -232,6 +235,34 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 							TIMEOUT_RESET_PORT);
 					accepted = false;
 				}
+			}
+		}
+		return accepted;
+	}
+
+	/**
+	 * D.6 admits an assignment target that names a behavior variable, a feature, or a data component, and forbids
+	 * naming the element variable of an enclosing {@code for} or {@code forall}. No strict checker can see either shape
+	 * of that violation: an iterator holder does not implement strict {@code Target}, so '{@code i := ...}' reaches the
+	 * checkers with no target at all, while '{@code i.field := ...}' becomes an ordinary data component reference that
+	 * type checks. Only the first segment of a target can name an iterator, and it is the segment the rule constrains,
+	 * since writing one data element of the iterator writes part of the iterator.
+	 *
+	 * @return {@code true} when no assignment in the annex targets an iterator
+	 */
+	private boolean checkIteratorAssignmentTargets(final BehaviorAnnex source, final TranslationResult translation) {
+		var accepted = true;
+		for (var contents = source.eAllContents(); contents.hasNext();) {
+			if (!(contents.next() instanceof AssignmentAction assignment) || assignment.getTarget() == null
+					|| assignment.getTarget().getSegments().isEmpty()) {
+				continue;
+			}
+			var name = assignment.getTarget().getSegments().get(0);
+			if (translation.getResolvedReference(name) instanceof ForStatement loop) {
+				error("Iterative variable '" + loop.getVariable()
+						+ "' cannot be an assignment target: Behavior Annex D.6.(L2) legality rule failed.", name, null,
+						ValidationMessageAcceptor.INSIGNIFICANT_INDEX, ITERATIVE_VARIABLE_TARGET);
+				accepted = false;
 			}
 		}
 		return accepted;

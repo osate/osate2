@@ -1,0 +1,1 @@
+error | semantic | 112 | 33 | 1 | Iterative variable 'i' cannot be an assignment target: Behavior Annex D.6.(L2) legality rule failed.
