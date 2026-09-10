@@ -1,0 +1,16 @@
+annex[0] owner=InternalConditionNames::names.not_internal_ports
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=progress
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=working
+    states[2] : BehaviorState name=done
+    transitions[0] : BehaviorTransition name=enter_working
+    transitions[1] : BehaviorTransition name=on_incoming_port
+      condition : ModeSwitchTriggerLogicalExpression
+        modeSwitchConjunctions[0] : ModeSwitchConjunction
+    transitions[2] : BehaviorTransition name=on_variable
+      condition : ModeSwitchTriggerLogicalExpression
+        modeSwitchConjunctions[0] : ModeSwitchConjunction
+    transitions[3] : BehaviorTransition name=on_data_subcomponent
+      condition : ModeSwitchTriggerLogicalExpression
+        modeSwitchConjunctions[0] : ModeSwitchConjunction

@@ -1,0 +1,12 @@
+===== annex[0] owner=InternalConditionSources::sources.qualified_states =====
+
+\t\tstates
+\t\t\tstart: initial state;
+\t\t\twaiting: complete state;
+\t\t\tdone: final state;
+\t\ttransitions
+\t\t\tfrom_initial: start -[ on internal raised ]-> done;
+\t\t\tfrom_complete: waiting -[ on internal raised ]-> done;
+\t
+----- Xtext reparse -----
+reparsed
