@@ -1,0 +1,2 @@
+error | semantic | 36 | 5 | 5 | Behavior Annex identifier 'INPUT' conflicts with an enclosing feature identifier
+error | semantic | 42 | 5 | 6 | Behavior Annex identifier 'ACTIVE' conflicts with an enclosing mode identifier

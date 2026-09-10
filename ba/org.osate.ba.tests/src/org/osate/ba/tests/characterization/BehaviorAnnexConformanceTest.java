@@ -66,7 +66,8 @@ public class BehaviorAnnexConformanceTest {
 
 	/**
 	 * The standard expectations that are still skipped, each with the issue that tracks the missing implementation.
-	 * G03 (#3167) is absent because {@link #frozenPortParenthesesAreAcceptedByTheStandard()} passes.
+	 * G03 (#3167) and G10 (#3174) are absent because {@link #frozenPortParenthesesAreAcceptedByTheStandard()} and
+	 * {@link #internalPortActionsAreAcceptedByTheStandard()} pass.
 	 */
 	private static final List<String> TRACKED_SKIPS = List.of(
 			"internalConditionIsAcceptedByTheStandard -> #3165",
@@ -76,8 +77,7 @@ public class BehaviorAnnexConformanceTest {
 			"unaryPlusIsRejectedByTheStandard -> #3170",
 			"portUpdatedIsAcceptedByTheStandard -> #3171",
 			"selfPropertyReferenceIsAcceptedByTheStandard -> #3172",
-			"optionalLoopClassifierIsAcceptedByTheStandard -> #3173",
-			"internalPortActionsAreAcceptedByTheStandard -> #3174");
+			"optionalLoopClassifierIsAcceptedByTheStandard -> #3173");
 
 	/** The fixtures a standard expectation in this class asserts about. */
 	private static final List<String> ASSERTED_FIXTURES = List.of("InternalCondition.aadl",
