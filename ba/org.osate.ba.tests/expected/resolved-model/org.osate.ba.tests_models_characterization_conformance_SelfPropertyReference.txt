@@ -12,7 +12,6 @@ annex[0] owner=SelfPropertyReference::worker
             firstExpression : SimpleExpression
               terms[0] : Term
                 factors[0] : Factor
-                  firstValue : ClassifierFeaturePropertyReference
+                  firstValue : ClassifierPropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=Thread_Properties::Priority [Property]
-                    component : BehaviorVariableHolder element=<null>
+                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]

@@ -1,0 +1,11 @@
+===== annex[0] owner=SelfNotAValue::misuse =====
+
+\t\tvariables
+\t\t\tvalue: Base_Types::Integer;
+\t\tstates
+\t\t\twaiting: initial complete final state;
+\t\ttransitions
+\t\t\twaiting -[ on dispatch ]-> waiting { value := self; self := 1 };
+\t
+----- Xtext reparse -----
+reparsed
