@@ -819,6 +819,34 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass internalPortHolderEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass eventSourceHolderEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass eventDataSourceHolderEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass internalPortSendActionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass propertySetPropertyReferenceEClass = null;
 
 	/**
@@ -3008,6 +3036,66 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * @generated
 	 */
 	@Override
+	public EClass getInternalPortHolder() {
+		return internalPortHolderEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getEventSourceHolder() {
+		return eventSourceHolderEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getEventDataSourceHolder() {
+		return eventDataSourceHolderEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getInternalPortSendAction() {
+		return internalPortSendActionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getInternalPortSendAction_InternalPort() {
+		return (EReference) internalPortSendActionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getInternalPortSendAction_ValueExpression() {
+		return (EReference) internalPortSendActionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getPropertySetPropertyReference() {
 		return propertySetPropertyReferenceEClass;
 	}
@@ -3620,6 +3708,16 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		modeSwitchTriggerEClass = createEClass(MODE_SWITCH_TRIGGER);
 
+		internalPortHolderEClass = createEClass(INTERNAL_PORT_HOLDER);
+
+		eventSourceHolderEClass = createEClass(EVENT_SOURCE_HOLDER);
+
+		eventDataSourceHolderEClass = createEClass(EVENT_DATA_SOURCE_HOLDER);
+
+		internalPortSendActionEClass = createEClass(INTERNAL_PORT_SEND_ACTION);
+		createEReference(internalPortSendActionEClass, INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT);
+		createEReference(internalPortSendActionEClass, INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION);
+
 		// Create enums
 		behaviorFeatureTypeEEnum = createEEnum(BEHAVIOR_FEATURE_TYPE);
 		binaryAddingOperatorEEnum = createEEnum(BINARY_ADDING_OPERATOR);
@@ -3868,6 +3966,11 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		modeSwitchTriggerConditionEClass.getESuperTypes().add(this.getBehaviorCondition());
 		modeSwitchConjunctionEClass.getESuperTypes().add(this.getBehaviorElement());
 		modeSwitchTriggerEClass.getESuperTypes().add(this.getBehaviorElement());
+		internalPortHolderEClass.getESuperTypes().add(this.getClassifierFeatureHolder());
+		internalPortHolderEClass.getESuperTypes().add(this.getTarget());
+		eventSourceHolderEClass.getESuperTypes().add(this.getInternalPortHolder());
+		eventDataSourceHolderEClass.getESuperTypes().add(this.getInternalPortHolder());
+		internalPortSendActionEClass.getESuperTypes().add(this.getCommunicationAction());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(actualPortHolderEClass, ActualPortHolder.class, "ActualPortHolder", IS_ABSTRACT, !IS_INTERFACE,
@@ -4623,6 +4726,42 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		initEClass(modeSwitchTriggerEClass, ModeSwitchTrigger.class, "ModeSwitchTrigger", IS_ABSTRACT, IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(internalPortHolderEClass, InternalPortHolder.class, "InternalPortHolder", IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+
+		op = addEOperation(internalPortHolderEClass, null, "setInternalPort", 1, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theAadl2Package.getInternalFeature(), "internalPort", 1, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(internalPortHolderEClass, theAadl2Package.getInternalFeature(), "getInternalPort", 1, 1, IS_UNIQUE,
+				IS_ORDERED);
+
+		initEClass(eventSourceHolderEClass, EventSourceHolder.class, "EventSourceHolder", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+
+		op = addEOperation(eventSourceHolderEClass, null, "setEventSource", 1, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theAadl2Package.getEventSource(), "eventSource", 1, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(eventSourceHolderEClass, theAadl2Package.getEventSource(), "getEventSource", 1, 1, IS_UNIQUE,
+				IS_ORDERED);
+
+		initEClass(eventDataSourceHolderEClass, EventDataSourceHolder.class, "EventDataSourceHolder", !IS_ABSTRACT,
+				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		op = addEOperation(eventDataSourceHolderEClass, null, "setEventDataSource", 1, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theAadl2Package.getEventDataSource(), "eventDataSource", 1, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(eventDataSourceHolderEClass, theAadl2Package.getEventDataSource(), "getEventDataSource", 1, 1,
+				IS_UNIQUE, IS_ORDERED);
+
+		initEClass(internalPortSendActionEClass, InternalPortSendAction.class, "InternalPortSendAction", !IS_ABSTRACT,
+				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getInternalPortSendAction_InternalPort(), this.getInternalPortHolder(), null, "internalPort",
+				null, 0, 1, InternalPortSendAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getInternalPortSendAction_ValueExpression(), this.getValueExpression(), null, "valueExpression",
+				null, 0, 1, InternalPortSendAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(behaviorFeatureTypeEEnum, BehaviorFeatureType.class, "BehaviorFeatureType");

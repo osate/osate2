@@ -53,7 +53,9 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.EnumerationType;
 import org.osate.aadl2.EventDataPort;
+import org.osate.aadl2.EventDataSource;
 import org.osate.aadl2.EventPort;
+import org.osate.aadl2.EventSource;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeaturePrototype;
@@ -105,6 +107,7 @@ import org.osate.ba.aadlba.Factor;
 import org.osate.ba.aadlba.GroupHolder;
 import org.osate.ba.aadlba.GroupableElement;
 import org.osate.ba.aadlba.IndexableElement;
+import org.osate.ba.aadlba.InternalPortHolder;
 import org.osate.ba.aadlba.LogicalOperator;
 import org.osate.ba.aadlba.MultiplyingOperator;
 import org.osate.ba.aadlba.ParameterLabel;
@@ -665,6 +668,17 @@ public final class DeclarativeToStrictTranslator {
 				}
 				return result;
 			}
+			if (referenced instanceof InternalPortHolder internalPort) {
+				// AS5506/3 Rev A D.6 gives an internal port its own communication action: it is neither a port send
+				// nor a subprogram call.
+				final org.osate.ba.aadlba.InternalPortSendAction result = trace(
+						FACTORY.createInternalPortSendAction(), action);
+				result.setInternalPort(internalPort);
+				if (!action.getParameters().isEmpty()) {
+					result.setValueExpression(toValueExpression(action.getParameters().get(0)));
+				}
+				return result;
+			}
 			if (referenced instanceof ActualPortHolder port) {
 				final org.osate.ba.aadlba.PortSendAction result = trace(FACTORY.createPortSendAction(), action);
 				result.setPort(port);
@@ -938,7 +952,12 @@ public final class DeclarativeToStrictTranslator {
 				}
 				return (Value) portValue;
 			}
-			return (Value) referenced;
+			if (referenced instanceof Value value) {
+				return value;
+			}
+			// An internal port is not a value variable, so it cannot be read. The validator reports that misuse on the
+			// reference; stand in an unresolved holder here to keep the translated model well formed.
+			return trace(FACTORY.createBehaviorVariableHolder(), expression);
 		}
 
 		private ValueConstant toPropertyReference(final HashPropertyReference reference) {
@@ -1266,6 +1285,10 @@ public final class DeclarativeToStrictTranslator {
 				type = "EventDataPortHolder";
 			} else if (element instanceof EventPort) {
 				type = "EventPortHolder";
+			} else if (element instanceof EventSource) {
+				type = "EventSourceHolder";
+			} else if (element instanceof EventDataSource) {
+				type = "EventDataSourceHolder";
 			} else if (element instanceof DataAccess) {
 				type = "DataAccessHolder";
 			} else if (element instanceof DataSubcomponent) {

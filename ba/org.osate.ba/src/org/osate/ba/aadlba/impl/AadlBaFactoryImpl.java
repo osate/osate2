@@ -65,7 +65,9 @@ import org.osate.ba.aadlba.DispatchTriggerLogicalExpression;
 import org.osate.ba.aadlba.ElseStatement;
 import org.osate.ba.aadlba.EnumLiteralHolder;
 import org.osate.ba.aadlba.EventDataPortHolder;
+import org.osate.ba.aadlba.EventDataSourceHolder;
 import org.osate.ba.aadlba.EventPortHolder;
+import org.osate.ba.aadlba.EventSourceHolder;
 import org.osate.ba.aadlba.ExecutionTimeoutCatch;
 import org.osate.ba.aadlba.Factor;
 import org.osate.ba.aadlba.FeatureHolder;
@@ -76,6 +78,7 @@ import org.osate.ba.aadlba.GroupHolder;
 import org.osate.ba.aadlba.GroupPrototypeHolder;
 import org.osate.ba.aadlba.IfStatement;
 import org.osate.ba.aadlba.IntegerRange;
+import org.osate.ba.aadlba.InternalPortSendAction;
 import org.osate.ba.aadlba.IterativeVariable;
 import org.osate.ba.aadlba.IterativeVariableHolder;
 import org.osate.ba.aadlba.LockAction;
@@ -329,6 +332,12 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 			return (EObject) createModeSwitchTriggerLogicalExpression();
 		case AadlBaPackage.MODE_SWITCH_CONJUNCTION:
 			return (EObject) createModeSwitchConjunction();
+		case AadlBaPackage.EVENT_SOURCE_HOLDER:
+			return (EObject) createEventSourceHolder();
+		case AadlBaPackage.EVENT_DATA_SOURCE_HOLDER:
+			return (EObject) createEventDataSourceHolder();
+		case AadlBaPackage.INTERNAL_PORT_SEND_ACTION:
+			return (EObject) createInternalPortSendAction();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -1634,6 +1643,39 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	 */
 	public String convertStringToString(EDataType eDataType, Object instanceValue) {
 		return super.convertToString(eDataType, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EventSourceHolder createEventSourceHolder() {
+		EventSourceHolderImpl eventSourceHolder = new EventSourceHolderImpl();
+		return eventSourceHolder;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EventDataSourceHolder createEventDataSourceHolder() {
+		EventDataSourceHolderImpl eventDataSourceHolder = new EventDataSourceHolderImpl();
+		return eventDataSourceHolder;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public InternalPortSendAction createInternalPortSendAction() {
+		InternalPortSendActionImpl internalPortSendAction = new InternalPortSendActionImpl();
+		return internalPortSendAction;
 	}
 
 	/**

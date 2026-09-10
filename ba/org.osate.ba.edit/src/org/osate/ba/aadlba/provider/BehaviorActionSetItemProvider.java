@@ -183,6 +183,9 @@ public class BehaviorActionSetItemProvider extends BehaviorElementItemProvider {
 
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_ACTION_COLLECTION__ACTIONS,
 				AadlBaFactory.eINSTANCE.createWhileOrDoUntilStatement()));
+
+		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_ACTION_COLLECTION__ACTIONS,
+				AadlBaFactory.eINSTANCE.createInternalPortSendAction()));
 	}
 
 }

@@ -777,6 +777,33 @@ public interface AadlBaFactory extends EFactory {
 	LowerBound createLowerBound();
 
 	/**
+	 * Returns a new object of class '<em>Event Source Holder</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Event Source Holder</em>'.
+	 * @generated
+	 */
+	EventSourceHolder createEventSourceHolder();
+
+	/**
+	 * Returns a new object of class '<em>Event Data Source Holder</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Event Data Source Holder</em>'.
+	 * @generated
+	 */
+	EventDataSourceHolder createEventDataSourceHolder();
+
+	/**
+	 * Returns a new object of class '<em>Internal Port Send Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Internal Port Send Action</em>'.
+	 * @generated
+	 */
+	InternalPortSendAction createInternalPortSendAction();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

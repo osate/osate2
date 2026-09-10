@@ -183,6 +183,9 @@ public class BehaviorActionSequenceItemProvider extends BehaviorElementItemProvi
 
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_ACTION_COLLECTION__ACTIONS,
 				AadlBaFactory.eINSTANCE.createWhileOrDoUntilStatement()));
+
+		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_ACTION_COLLECTION__ACTIONS,
+				AadlBaFactory.eINSTANCE.createInternalPortSendAction()));
 	}
 
 }

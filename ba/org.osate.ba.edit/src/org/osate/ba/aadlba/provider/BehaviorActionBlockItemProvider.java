@@ -192,6 +192,9 @@ public class BehaviorActionBlockItemProvider extends BehaviorElementItemProvider
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_ACTION_BLOCK__CONTENT,
 				AadlBaFactory.eINSTANCE.createWhileOrDoUntilStatement()));
 
+		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_ACTION_BLOCK__CONTENT,
+				AadlBaFactory.eINSTANCE.createInternalPortSendAction()));
+
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_ACTION_BLOCK__TIMEOUT,
 				AadlBaFactory.eINSTANCE.createBehaviorTime()));
 

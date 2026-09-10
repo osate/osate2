@@ -178,6 +178,9 @@ public class LoopStatementItemProvider extends BehaviorElementItemProvider {
 
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.COND_STATEMENT__BEHAVIOR_ACTIONS,
 				AadlBaFactory.eINSTANCE.createWhileOrDoUntilStatement()));
+
+		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.COND_STATEMENT__BEHAVIOR_ACTIONS,
+				AadlBaFactory.eINSTANCE.createInternalPortSendAction()));
 	}
 
 }

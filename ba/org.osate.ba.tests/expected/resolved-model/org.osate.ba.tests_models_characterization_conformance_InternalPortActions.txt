@@ -6,8 +6,8 @@ annex[0] owner=InternalPortActions::component.i
     transitions[1] : BehaviorTransition name=send
     actions[0] : BehaviorActionBlock
       content : AssignmentAction
-        target : DataSubcomponentHolder element=InternalPortActions::component.i.internal_target [EventDataSource]
+        target : EventDataSourceHolder element=InternalPortActions::component.i.internal_target [EventDataSource]
         valueExpression : Any
     actions[1] : BehaviorActionBlock
-      content : SubprogramCallAction
-        proxy : DataSubcomponentHolder element=InternalPortActions::component.i.internal_action [EventSource]
+      content : InternalPortSendAction
+        internalPort : EventSourceHolder element=InternalPortActions::component.i.internal_action [EventSource]

@@ -1,0 +1,15 @@
+===== annex[0] owner=InternalPortMisuse::internal_ports.misuse =====
+
+\t\tvariables
+\t\t\tvalue : Base_Types::Integer;
+\t\tstates
+\t\t\tstart : initial state;
+\t\t\tdone : final state;
+\t\ttransitions
+\t\t\tfreeze_internal : start -[ ]-> done { raised_data >> };
+\t\t\tdequeue_internal : start -[ ]-> done { raised_data? };
+\t\t\tread_internal : start -[ ]-> done { value := raised_data };
+\t\t\tcount_internal : start -[ ]-> done { value := raised_event'count };
+\t
+----- Xtext reparse -----
+reparsed

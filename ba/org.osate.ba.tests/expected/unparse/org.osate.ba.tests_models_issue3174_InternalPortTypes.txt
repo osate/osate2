@@ -1,0 +1,15 @@
+===== annex[0] owner=InternalPortTypes::internal_ports.types =====
+
+\t\tstates
+\t\t\tstart : initial state;
+\t\t\tdone : final state;
+\t\ttransitions
+\t\t\t-- An internal event carries no data, so it has no value to hold and none to send.
+\t\t\tassign_event : start -[ ]-> done { raised_event := 1 };
+\t\t\tsend_event_value : start -[ ]-> done { raised_event!(1) };
+\t\t\t-- An internal event data feature is typed, so an assigned or sent value must match its data classifier.
+\t\t\tassign_wrong_type : start -[ ]-> done { raised_data := "text" };
+\t\t\tsend_wrong_type : start -[ ]-> done { raised_data!("text") };
+\t
+----- Xtext reparse -----
+reparsed

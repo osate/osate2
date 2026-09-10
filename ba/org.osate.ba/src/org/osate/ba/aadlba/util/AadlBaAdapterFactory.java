@@ -689,6 +689,26 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseInternalPortHolder(InternalPortHolder object) {
+			return createInternalPortHolderAdapter();
+		}
+
+		@Override
+		public Adapter caseEventSourceHolder(EventSourceHolder object) {
+			return createEventSourceHolderAdapter();
+		}
+
+		@Override
+		public Adapter caseEventDataSourceHolder(EventDataSourceHolder object) {
+			return createEventDataSourceHolderAdapter();
+		}
+
+		@Override
+		public Adapter caseInternalPortSendAction(InternalPortSendAction object) {
+			return createInternalPortSendActionAdapter();
+		}
+
+		@Override
 		public Adapter caseElement(Element object) {
 			return createElementAdapter();
 		}
@@ -2617,6 +2637,62 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createDataAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.InternalPortHolder <em>Internal Port Holder</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.ba.aadlba.InternalPortHolder
+	 * @generated
+	 */
+	public Adapter createInternalPortHolderAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.EventSourceHolder <em>Event Source Holder</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.ba.aadlba.EventSourceHolder
+	 * @generated
+	 */
+	public Adapter createEventSourceHolderAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.EventDataSourceHolder <em>Event Data Source Holder</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.ba.aadlba.EventDataSourceHolder
+	 * @generated
+	 */
+	public Adapter createEventDataSourceHolderAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.InternalPortSendAction <em>Internal Port Send Action</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.ba.aadlba.InternalPortSendAction
+	 * @generated
+	 */
+	public Adapter createInternalPortSendActionAdapter() {
 		return null;
 	}
 

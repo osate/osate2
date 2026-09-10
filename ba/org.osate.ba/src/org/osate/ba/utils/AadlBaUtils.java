@@ -60,6 +60,7 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.EnumerationType;
 import org.osate.aadl2.EventDataPort;
+import org.osate.aadl2.EventDataSource;
 import org.osate.aadl2.EventPort;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
@@ -71,6 +72,7 @@ import org.osate.aadl2.FeaturePrototype;
 import org.osate.aadl2.FeaturePrototypeActual;
 import org.osate.aadl2.FeaturePrototypeBinding;
 import org.osate.aadl2.IntegerLiteral;
+import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.ModeTransitionTrigger;
@@ -123,6 +125,7 @@ import org.osate.ba.aadlba.FeatureType;
 import org.osate.ba.aadlba.ForOrForAllStatement;
 import org.osate.ba.aadlba.IndexableElement;
 import org.osate.ba.aadlba.IntegerValue;
+import org.osate.ba.aadlba.InternalPortHolder;
 import org.osate.ba.aadlba.IterativeVariable;
 import org.osate.ba.aadlba.Otherwise;
 import org.osate.ba.aadlba.PortCountValue;
@@ -561,6 +564,9 @@ public class AadlBaUtils {
 			result = value.getClassifier();
 		} else if (el instanceof StructUnionElement member) {
 			return member.getDataClassifier();
+		} else if (el instanceof InternalFeature) {
+			// An internal event carries no data. An internal event data feature is typed by its data classifier.
+			result = el instanceof EventDataSource source ? source.getDataClassifier() : null;
 		} else {
 			// Reports error.
 			var errorMsg = "getClassifier : " + el.getClass().getSimpleName() + " is not supported yet.";
@@ -721,6 +727,8 @@ public class AadlBaUtils {
 
 		if (t instanceof DataHolder holder) {
 			result = holder.getElement();
+		} else if (t instanceof InternalPortHolder holder) {
+			result = holder.getElement();
 		} else if (t instanceof DataComponentReference reference) {
 			result = reference.getData().getLast().getElement();
 		} else {
@@ -746,6 +754,8 @@ public class AadlBaUtils {
 			} else if (access.getDataFeatureClassifier() instanceof Prototype) {
 				return (DataClassifier) getClassifier(access.getDataFeatureClassifier(), (Classifier) parentContainer);
 			}
+		} else if (result instanceof EventDataSource source) {
+			return source.getDataClassifier();
 		} else if (result instanceof Parameter parameter) {
 			if (parameter.getDataFeatureClassifier() instanceof DataClassifier classifier) {
 				return classifier;
@@ -994,6 +1004,12 @@ public class AadlBaUtils {
 			return result;
 		} else if (el instanceof ValueConstant) {
 			return result = getTypeHolder((ValueConstant) el, parentContainer);
+		} else if (el instanceof InternalPortHolder holder) {
+			// An internal port is a target but not a value variable, and the core standard gives it no array
+			// dimension. Its type is the data classifier of an internal event data feature, and nothing at all for a
+			// data-less internal event.
+			return getTypeHolder(
+					holder.getElement() instanceof EventDataSource source ? source.getDataClassifier() : null);
 		} else if (el instanceof Target || el instanceof ValueVariable) {
 			result = getTypeHolder((Value) el, parentContainer);
 
@@ -1610,6 +1626,8 @@ public class AadlBaUtils {
 	 */
 	public static DirectionType getDirectionType(Element el) {
 		if (el instanceof DirectedFeature feature) {
+			return feature.getDirection();
+		} else if (el instanceof InternalFeature feature) {
 			return feature.getDirection();
 		} else if (el instanceof DataSubcomponent) {
 			return DirectionType.IN_OUT;

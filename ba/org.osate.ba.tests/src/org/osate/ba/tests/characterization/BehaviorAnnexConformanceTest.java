@@ -144,12 +144,6 @@ public class BehaviorAnnexConformanceTest {
 		assertNoIssues("OptionalForallClassifier.aadl");
 	}
 
-	/**
-	 * Stays skipped even though the fixture already parses without a diagnostic: G10 is a representation defect, and
-	 * {@code expected/resolved-model} shows the generic data-subcomponent holder the translator falls back to. Closing
-	 * #3174 needs a strict-model assertion, so enabling this test alone would report success for the wrong reason.
-	 */
-	@Ignore("Issue #3174: represent internal ports with internal-feature holders, which acceptance alone cannot show")
 	@Test
 	public void internalPortActionsAreAcceptedByTheStandard() throws Exception {
 		assertNoIssues("InternalPortActions.aadl");

@@ -1,0 +1,44 @@
+annex[0] owner=InternalPortTypes::internal_ports.types
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition name=assign_event
+    transitions[1] : BehaviorTransition name=send_event_value
+    transitions[2] : BehaviorTransition name=assign_wrong_type
+    transitions[3] : BehaviorTransition name=send_wrong_type
+    actions[0] : BehaviorActionBlock
+      content : AssignmentAction
+        target : EventSourceHolder element=InternalPortTypes::internal_ports.types.raised_event [EventSource]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[1] : BehaviorActionBlock
+      content : InternalPortSendAction
+        internalPort : EventSourceHolder element=InternalPortTypes::internal_ports.types.raised_event [EventSource]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[2] : BehaviorActionBlock
+      content : AssignmentAction
+        target : EventDataSourceHolder element=InternalPortTypes::internal_ports.types.raised_data [EventDataSource]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorStringLiteral
+    actions[3] : BehaviorActionBlock
+      content : InternalPortSendAction
+        internalPort : EventDataSourceHolder element=InternalPortTypes::internal_ports.types.raised_data [EventDataSource]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorStringLiteral

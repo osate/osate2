@@ -45,6 +45,7 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.modelsupport.errorreporting.AbstractAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.parsesupport.ParseUtil;
@@ -52,10 +53,13 @@ import org.osate.ba.analyzers.AadlBaRulesCheckersDriver;
 import org.osate.ba.analyzers.AadlBaTypeChecker;
 import org.osate.ba.analyzers.AdaLikeDataTypeChecker;
 import org.osate.annexsupport.ParseResultHolder;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.AssignmentAction;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorIntegerLiteral;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTransition;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.CommunicationAction;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.Reference;
 import org.osate.xtext.aadl2.ba.translation.DeclarativeToStrictTranslator;
 import org.osate.xtext.aadl2.ba.translation.DeclarativeToStrictTranslator.TranslationResult;
 
@@ -71,6 +75,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	public static final String DECLARATION_NAME = "org.osate.xtext.aadl2.ba.declarationName";
 	public static final String CHECKER_DIAGNOSTIC = "org.osate.xtext.aadl2.ba.checker";
 	public static final String UNREPRESENTABLE_LITERAL = "org.osate.xtext.aadl2.ba.unrepresentableLiteral";
+	public static final String INTERNAL_PORT_USE = "org.osate.xtext.aadl2.ba.internalPortUse";
 	private static final URI VALIDATION_RESOURCE_URI = URI.createURI("validation:/behavior-annex.aadlba");
 
 	@Inject
@@ -95,6 +100,9 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 		}
 
 		var translation = translator.translate(source, owner);
+		if (!checkInternalPortUses(source, translation)) {
+			return;
+		}
 		var strictAnnex = translation.getStrictAnnex();
 		synchronized (strictAnnex) {
 			var validationResource = new ResourceImpl(VALIDATION_RESOURCE_URI);
@@ -118,6 +126,38 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	}
 
 	/**
+	 * AS5506/3 Rev A names an internal port in the D.6 target and communication_action productions only. The grammar
+	 * accepts a generic reference everywhere else, so an internal port can be written where the standard admits an
+	 * incoming port and where the strict model has nothing to carry it. Report each such reference and leave the
+	 * strict-model checkers out of it, the way a linking failure already gates them.
+	 *
+	 * @return {@code true} when the annex uses every internal port it names as the standard admits
+	 */
+	private boolean checkInternalPortUses(final BehaviorAnnex source, final TranslationResult translation) {
+		var accepted = true;
+		for (var contents = source.eAllContents(); contents.hasNext();) {
+			if (contents.next() instanceof Reference reference
+					&& translation.getResolvedReference(reference) instanceof InternalFeature internalPort
+					&& !isInternalPortTargetOrSend(reference)) {
+				error("'" + internalPort.getName() + "' is an internal port: it can only be an assignment or dequeue"
+						+ " target, or the port of a send action", reference, null,
+						ValidationMessageAcceptor.INSIGNIFICANT_INDEX, INTERNAL_PORT_USE);
+				accepted = false;
+			}
+		}
+		return accepted;
+	}
+
+	private static boolean isInternalPortTargetOrSend(final Reference reference) {
+		if (reference.eContainer() instanceof AssignmentAction assignment) {
+			return assignment.getTarget() == reference;
+		}
+		if (reference.eContainer() instanceof CommunicationAction action) {
+			return action.getTarget() == reference || action.isSend() && action.getReference() == reference;
+		}
+		return false;
+  }
+  
 	 * D.3 names share one namespace, including inherited features, data subcomponents, and modes of the owner.
 	 * Check the declarations before resolving references so missing classifiers cannot hide duplicate names, and
 	 * skip the strict checkers when names are ambiguous instead of validating an arbitrary resolution.

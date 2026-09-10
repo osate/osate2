@@ -52,11 +52,13 @@ import org.osate.ba.aadlba.DataRepresentation;
 import org.osate.ba.aadlba.ElementHolder;
 import org.osate.ba.aadlba.ElementValues;
 import org.osate.ba.aadlba.ElseStatement;
+import org.osate.ba.aadlba.EventSourceHolder;
 import org.osate.ba.aadlba.ExecuteCondition;
 import org.osate.ba.aadlba.Factor;
 import org.osate.ba.aadlba.ForOrForAllStatement;
 import org.osate.ba.aadlba.IfStatement;
 import org.osate.ba.aadlba.IntegerRange;
+import org.osate.ba.aadlba.InternalPortSendAction;
 import org.osate.ba.aadlba.IterativeVariable;
 import org.osate.ba.aadlba.PortDequeueAction;
 import org.osate.ba.aadlba.PortSendAction;
@@ -203,6 +205,8 @@ public class AadlBaTypeChecker {
 			return checkAssignment((AssignmentAction) action);
 		} else if (action instanceof PortSendAction) {
 			return checkPortSend((PortSendAction) action);
+		} else if (action instanceof InternalPortSendAction) {
+			return checkInternalPortSend((InternalPortSendAction) action);
 		} else if (action instanceof PortDequeueAction) {
 			return checkPortDequeue((PortDequeueAction) action);
 		}
@@ -210,6 +214,13 @@ public class AadlBaTypeChecker {
 	}
 
 	private boolean checkAssignment(AssignmentAction action) {
+		// AS5506/3 Rev A admits an internal port as an assignment target, but an internal event has no data, so it has
+		// no value to hold. Only an internal event data feature does.
+		if (action.getTarget() instanceof EventSourceHolder holder) {
+			reportError(holder, "internal event " + quotedName(holder) + " has no data: it cannot be an assignment"
+					+ " target");
+			return false;
+		}
 		if (action.getValueExpression() instanceof Any) {
 			return true;
 		}
@@ -237,6 +248,32 @@ public class AadlBaTypeChecker {
 		}
 		if (!dataChecker.conformsTo(portType, valueType, true)) {
 			reportTypeError(action, "port send action", portType.toString(), valueType.toString());
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * An internal event send transmits the occurrence alone, while an internal event data send transmits a value of the
+	 * feature's data classifier.
+	 */
+	private boolean checkInternalPortSend(InternalPortSendAction action) {
+		if (action.getInternalPort() == null || action.getValueExpression() == null) {
+			return true;
+		}
+		if (action.getInternalPort() instanceof EventSourceHolder holder) {
+			reportError(action.getValueExpression(), "internal event " + quotedName(holder) + " has no data: its send"
+					+ " action cannot carry a value");
+			return false;
+		}
+		TypeHolder portType = getType(action.getInternalPort());
+		TypeHolder valueType = checkValueExpression(action.getValueExpression());
+		if (portType == null || valueType == null) {
+			return false;
+		}
+		if (!dataChecker.conformsTo(portType, valueType, true)) {
+			reportTypeError(action.getValueExpression(), "internal port send action", portType.toString(),
+					valueType.toString());
 			return false;
 		}
 		return true;
@@ -436,6 +473,10 @@ public class AadlBaTypeChecker {
 	private void reportTypeError(BehaviorElement element, String name, String expectedTypes, String typeFound) {
 		reportError(element,
 				"type error for '" + name + "', '" + expectedTypes + "' expected, found '" + typeFound + "'.");
+	}
+
+	private static String quotedName(ElementHolder holder) {
+		return holder.getElement() == null ? "<unresolved>" : "'" + holder.getElement().getName() + "'";
 	}
 
 	private void reportError(Element element, String message) {
