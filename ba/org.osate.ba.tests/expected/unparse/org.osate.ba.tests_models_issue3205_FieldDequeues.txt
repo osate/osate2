@@ -1,0 +1,39 @@
+===== annex[0] owner=FieldDequeues::worker.i =====
+
+        variables
+            pairs : Pairs;
+            here : Pair;
+        states
+            start : initial state;
+            done : complete final state;
+        transitions
+            start -[]-> done {
+                for (p : Pair in pairs) {
+                    feed?(p.left);
+                    forall (q : Pair in pairs) {
+                        feed?(p.right)
+                    }
+                }
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[1] owner=FieldDequeues::worker.j =====
+
+        variables
+            pairs : Pairs;
+            here : Pair;
+        states
+            start : initial state;
+            done : complete final state;
+        transitions
+            start -[]-> done {
+                for (p : Pair in pairs) {
+                    feed?(here.left);
+                    feed?(here.right);
+                    here.left := p.left
+                }
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
