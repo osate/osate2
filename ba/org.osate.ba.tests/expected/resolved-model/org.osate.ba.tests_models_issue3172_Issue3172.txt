@@ -1,0 +1,76 @@
+annex[0] owner=Issue3172::reader
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=value
+    states[0] : BehaviorState name=waiting
+    transitions[0] : BehaviorTransition
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : BehaviorVariableHolder element=value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : ClassifierFeaturePropertyReference
+                      properties[0] : PropertyNameHolder
+                        property : BasicPropertyHolder element=Thread_Properties::Priority [Property]
+                      component : BehaviorVariableHolder element=<null>
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : ClassifierFeaturePropertyReference
+                      properties[0] : PropertyNameHolder
+                        property : BasicPropertyHolder element=Thread_Properties::Priority [Property]
+                      component : BehaviorVariableHolder element=<null>
+        actions[2] : AssignmentAction
+          target : BehaviorVariableHolder element=value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : ClassifierFeaturePropertyReference
+                      properties[0] : PropertyNameHolder
+                        property : BasicPropertyHolder element=Timing_Properties::Deadline [Property]
+                      component : BehaviorVariableHolder element=<null>
+        actions[3] : AssignmentAction
+          target : BehaviorVariableHolder element=value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataPortHolder element=Issue3172::reader.input [DataPort]
+annex[1] owner=Issue3172::writer.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=value
+    states[0] : BehaviorState name=waiting
+    transitions[0] : BehaviorTransition
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : BehaviorVariableHolder element=value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : ClassifierFeaturePropertyReference
+                      properties[0] : PropertyNameHolder
+                        property : BasicPropertyHolder element=Thread_Properties::Priority [Property]
+                      component : BehaviorVariableHolder element=<null>
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataSubcomponentHolder element=Issue3172::writer.impl.storage [DataSubcomponent]

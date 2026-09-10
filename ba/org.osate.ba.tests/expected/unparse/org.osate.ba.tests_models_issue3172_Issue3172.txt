@@ -1,0 +1,32 @@
+===== annex[0] owner=Issue3172::reader =====
+
+\t\tvariables
+\t\t\tvalue: Base_Types::Integer;
+\t\tstates
+\t\t\twaiting: initial complete final state;
+\t\ttransitions
+\t\t\t-- The property is associated with the containing type, named locally and by its unique name, and the
+\t\t\t-- last reference names a property the type leaves unset.
+\t\t\twaiting -[ on dispatch ]-> waiting {
+\t\t\t\tvalue := self#Priority;
+\t\t\t\tvalue := self#Thread_Properties::Priority;
+\t\t\t\tvalue := self#Deadline;
+\t\t\t\tvalue := self.input
+\t\t\t};
+\t
+----- Xtext reparse -----
+reparsed
+===== annex[1] owner=Issue3172::writer.impl =====
+
+\t\tvariables
+\t\t\tvalue: Base_Types::Integer;
+\t\tstates
+\t\t\twaiting: initial complete final state;
+\t\ttransitions
+\t\t\twaiting -[ on dispatch ]-> waiting {
+\t\t\t\tvalue := self#Priority;
+\t\t\t\tvalue := self.storage
+\t\t\t};
+\t
+----- Xtext reparse -----
+reparsed
