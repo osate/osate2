@@ -1,9 +1,7 @@
-===== annex[0] owner=Issue3210::sizer.impl =====
+===== annex[0] owner=BareProperty::sizer.impl =====
 
 \t\t\tvariables
-\t\t\t\tbyLiteral[8] : Base_Types::Integer;
-\t\t\t\tbyConstant[# AADL_Project::Max_Queue_Size] : Base_Types::Integer;
-\t\t\t\tbyPrefixed[input#Queue_Size] : Base_Types::Integer;
+\t\t\t\tbyProperty[# Communication_Properties::Queue_Size] : Base_Types::Integer;
 \t\t\tstates
 \t\t\t\tstart : initial state;
 \t\t\t\tready : complete state;

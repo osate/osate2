@@ -1,0 +1,1 @@
+error | semantic | 37 | 16 | 38 | Array size property reference '# Communication_Properties::Queue_Size' does not have an unambiguous integer value
