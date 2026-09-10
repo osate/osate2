@@ -1,0 +1,3 @@
+error | linking | 17 | 32 | 12 | Couldn't resolve reference to BehaviorState 'second_event'.
+error | syntax | 17 | 28 | 3 | mismatched input 'xor' expecting ']->'
+error | syntax | 17 | 45 | 3 | missing '-[' at ']->'

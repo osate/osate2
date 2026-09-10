@@ -1,0 +1,3 @@
+warning | semantic | 46 | 2 | 29 | unreachable transition
+warning | semantic | 47 | 2 | 29 | unreachable transition
+warning | semantic | 53 | 2 | 20 | unreachable transition

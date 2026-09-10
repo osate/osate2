@@ -1,0 +1,1 @@
+error | syntax | 10 | 44 | 1 | mismatched input '}' expecting 'end'

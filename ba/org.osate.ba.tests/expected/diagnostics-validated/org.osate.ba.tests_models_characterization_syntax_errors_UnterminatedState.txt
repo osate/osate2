@@ -1,0 +1,1 @@
+error | syntax | 8 | 3 | 11 | missing ';' at 'transitions'

@@ -58,6 +58,10 @@ import com.itemis.xtext.testing.FluentIssueCollection;
  * Verifies the phase 2b checker boundary required by the future declarative-to-strict translator: classifier context
  * must be supplied without relying on annex containment, and checking an already resolved detached strict model must
  * not mutate it.
+ *
+ * <p>
+ * The plain AADL injector is deliberate here: this test drives the type checker and the rules driver itself, so the BA
+ * validator must not be registered, and the empty issue list below is therefore the core-AADL result alone.
  */
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)

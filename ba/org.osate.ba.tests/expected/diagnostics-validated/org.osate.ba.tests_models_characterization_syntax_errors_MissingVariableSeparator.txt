@@ -1,0 +1,1 @@
+error | syntax | 8 | 15 | 1 | extraneous input 'b' expecting ':'
