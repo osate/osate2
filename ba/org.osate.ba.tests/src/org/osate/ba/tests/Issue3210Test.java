@@ -37,7 +37,10 @@ import org.eclipse.xtext.validation.Issue;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.annexsupport.AnnexUtil;
 import org.osate.testsupport.TestHelper;
+import org.osate.xtext.aadl2.ba.util.BehaviorAnnexUtil;
 
 import com.google.inject.Inject;
 
@@ -45,7 +48,7 @@ import com.google.inject.Inject;
 @RunWith(XtextRunner.class)
 @InjectWith(BehaviorAnnexInjectorProvider.class)
 public class Issue3210Test {
-	private static final String MODEL = "org.osate.ba.tests/models/issue3210/Issue3210.aadl";
+	private static final String MODELS = "org.osate.ba.tests/models/issue3210/";
 
 	@Inject
 	private TestHelper<AadlPackage> testHelper;
@@ -54,18 +57,27 @@ public class Issue3210Test {
 	private ValidationTestHelper validationHelper;
 
 	@Test
-	public void arraySizePropertyReferencesMustNameConstants() throws Exception {
-		var root = testHelper.parseFile(MODEL);
+	public void prefixedPropertyWithOneValueSuppliesTheExtent() throws Exception {
+		var root = testHelper.parseFile(MODELS + "Issue3210.aadl");
+		validationHelper.assertNoIssues(root);
+		var annex = BehaviorAnnexUtil.getStrictModel(AnnexUtil.getAllDefaultAnnexSubclauses(root).getFirst());
+		assertEquals(List.of(8L, 512L, 8L), annex.getVariables()
+				.stream()
+				.map(variable -> AadlUtil.getElementCount(variable.getArrayDimensions().getFirst().getSize()))
+				.toList());
+	}
+
+	@Test
+	public void barePropertyDefinitionHasNoUnambiguousValue() throws Exception {
+		var root = testHelper.parseFile(MODELS + "BareProperty.aadl");
 		var source = NodeModelUtils.getNode(root).getRootNode().getText();
 		var issues = validationHelper.validate(root).stream().sorted(Comparator.comparing(Issue::getOffset)).toList();
-		var expected = List.of("# Communication_Properties::Queue_Size", "input#Queue_Size");
-		assertEquals(issues.toString(), expected.size(), issues.size());
-		assertEquals(expected, issues.stream().map(issue -> {
-			var written = source.substring(issue.getOffset(), issue.getOffset() + issue.getLength());
-			assertEquals(Severity.ERROR, issue.getSeverity());
-			assertEquals("Array size property reference '" + written + "' must name a property constant",
-					issue.getMessage());
-			return written;
-		}).toList());
+		assertEquals(issues.toString(), 1, issues.size());
+		var issue = issues.getFirst();
+		var written = source.substring(issue.getOffset(), issue.getOffset() + issue.getLength());
+		assertEquals(Severity.ERROR, issue.getSeverity());
+		assertEquals("# Communication_Properties::Queue_Size", written);
+		assertEquals("Array size property reference '" + written + "' does not have an unambiguous integer value",
+				issue.getMessage());
 	}
 }

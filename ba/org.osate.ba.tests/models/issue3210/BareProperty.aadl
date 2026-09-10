@@ -20,13 +20,12 @@
 -- aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
 -- censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
 
-package Issue3210
+package BareProperty
 public
 	with Base_Types;
 
 	thread sizer
 	features
-		input : in event data port Base_Types::Integer { Queue_Size => 8; };
 		trigger : in event port;
 	properties
 		Dispatch_Protocol => Sporadic;
@@ -35,9 +34,7 @@ public
 	thread implementation sizer.impl
 		annex behavior_specification {**
 			variables
-				byLiteral[8] : Base_Types::Integer;
-				byConstant[# AADL_Project::Max_Queue_Size] : Base_Types::Integer;
-				byPrefixed[input#Queue_Size] : Base_Types::Integer;
+				byProperty[# Communication_Properties::Queue_Size] : Base_Types::Integer;
 			states
 				start : initial state;
 				ready : complete state;
@@ -47,4 +44,4 @@ public
 				ready -[on dispatch trigger]-> done;
 		**};
 	end sizer.impl;
-end Issue3210;
+end BareProperty;
