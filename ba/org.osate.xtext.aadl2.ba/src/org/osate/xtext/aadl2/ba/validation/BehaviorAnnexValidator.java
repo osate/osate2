@@ -57,6 +57,7 @@ import org.osate.ba.analyzers.AadlBaRulesCheckersDriver;
 import org.osate.ba.analyzers.AadlBaTypeChecker;
 import org.osate.ba.analyzers.AdaLikeDataTypeChecker;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.AssignmentAction;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ArrayDimension;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorIntegerLiteral;
@@ -66,6 +67,7 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchTriggerCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ForStatement;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.InternalCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.Reference;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceExpression;
 import org.osate.xtext.aadl2.ba.translation.DeclarativeToStrictTranslator;
 import org.osate.xtext.aadl2.ba.translation.DeclarativeToStrictTranslator.TranslationResult;
 
@@ -86,6 +88,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	public static final String TIMEOUT_RESET_PORT = "org.osate.xtext.aadl2.ba.timeoutResetPort";
 	public static final String TIMEOUT_RESET_PORT_TIME = "org.osate.xtext.aadl2.ba.timeoutResetPortTime";
 	public static final String ITERATIVE_VARIABLE_TARGET = "org.osate.xtext.aadl2.ba.iterativeVariableTarget";
+	public static final String ARRAY_SIZE = "org.osate.xtext.aadl2.ba.arraySize";
 	private static final URI VALIDATION_RESOURCE_URI = URI.createURI("validation:/behavior-annex.aadlba");
 
 	@Inject
@@ -112,7 +115,8 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 		var translation = translator.translate(source, owner);
 		// Each check describes a use no strict checker can reject, and a model can get each one wrong independently,
 		// so report them all before deciding whether the strict checkers have a model to work on.
-		var representable = checkInternalPortUses(source, translation);
+		var representable = checkArraySizes(source);
+		representable &= checkInternalPortUses(source, translation);
 		representable &= checkInternalConditionPorts(source, translation);
 		representable &= checkTimeoutResetPorts(source, translation);
 		representable &= checkIteratorTargets(source, translation);
@@ -139,6 +143,28 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 				validationResource.getContents().clear();
 			}
 		}
+	}
+
+	/**
+	 * AS5506/3 Rev A D.3 requires each behavior-variable array size to be the integer value constant of D.7: an integer
+	 * literal or a property reference. The shared integer-value grammar also accepts an ordinary reference expression,
+	 * which the strict array dimension cannot carry and translation would otherwise turn into a zero extent. A reference
+	 * expression with a property tail is the standard property-reference form and remains admissible.
+	 *
+	 * @return {@code true} when every declared array size is an integer literal or property reference
+	 */
+	private boolean checkArraySizes(final BehaviorAnnex source) {
+		var accepted = true;
+		for (var contents = source.eAllContents(); contents.hasNext();) {
+			if (contents.next() instanceof ArrayDimension dimension
+					&& dimension.getSize() instanceof ReferenceExpression reference && reference.getProperty() == null) {
+				var written = NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(reference));
+				error("Array size '" + written + "' must be an integer literal or a property reference", reference, null,
+						ValidationMessageAcceptor.INSIGNIFICANT_INDEX, ARRAY_SIZE);
+				accepted = false;
+			}
+		}
+		return accepted;
 	}
 
 	/**
