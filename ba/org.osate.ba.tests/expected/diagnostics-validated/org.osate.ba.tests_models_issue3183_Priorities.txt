@@ -1,0 +1,2 @@
+warning | semantic | 36 | 2 | 38 | An otherwise transition should not have an explicit priority: Behavior Annex D.3.
+warning | semantic | 37 | 2 | 51 | An otherwise transition should not have an explicit priority: Behavior Annex D.3.

@@ -60,8 +60,7 @@ public class Issue3183Test extends XtextTest {
 
 	@Test
 	public void allDuplicateOtherwiseTransitionsAreErrors() throws Exception {
-		assertEquals(List.of(duplicate("first"), duplicate("first"), duplicate("first")),
-				diagnostics("Duplicates"));
+		assertEquals(List.of(duplicate("first"), duplicate("first"), duplicate("first")), diagnostics("Duplicates"));
 	}
 
 	@Test
@@ -87,7 +86,10 @@ public class Issue3183Test extends XtextTest {
 
 	private List<String> diagnostics(String model) throws Exception {
 		var root = testHelper.parseFile(MODELS + model + ".aadl");
-		return validationHelper.validate(root).stream()
-				.map(issue -> issue.getSeverity() + ": " + issue.getMessage()).sorted().toList();
+		return validationHelper.validate(root)
+				.stream()
+				.map(issue -> issue.getSeverity() + ": " + issue.getMessage())
+				.sorted()
+				.toList();
 	}
 }

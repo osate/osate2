@@ -1,0 +1,12 @@
+annex[0] owner=Priorities::example.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=first
+    states[2] : BehaviorState name=second
+    states[3] : BehaviorState name=finish
+    transitions[0] : BehaviorTransition name=zero
+      condition : Otherwise
+    transitions[1] : BehaviorTransition name=positive
+      condition : Otherwise
+    transitions[2] : BehaviorTransition name=positive
+      condition : Otherwise
