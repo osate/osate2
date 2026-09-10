@@ -6,17 +6,17 @@ annex[0] owner=Issue3168::monitor.watching
     states[3] : BehaviorState name=stopped
     transitions[0] : BehaviorTransition name=single_reset
       condition : DispatchCondition
-        dispatchTriggerCondition : DispatchRelativeTimeout
-    transitions[1] : BehaviorTransition
-    transitions[2] : BehaviorTransition
-    transitions[3] : BehaviorTransition name=several_resets
+        dispatchTriggerCondition : CompletionRelativeTimeout
+          integerValue : BehaviorIntegerLiteral
+          resetPorts[0] : EventPortHolder element=Issue3168::monitor.heartbeat [EventPort]
+    transitions[1] : BehaviorTransition name=several_resets
       condition : DispatchCondition
-        dispatchTriggerCondition : DispatchRelativeTimeout
-    transitions[4] : BehaviorTransition
-    transitions[5] : BehaviorTransition
-    transitions[6] : BehaviorTransition
-    transitions[7] : BehaviorTransition
-    transitions[8] : BehaviorTransition name=no_reset
+        dispatchTriggerCondition : CompletionRelativeTimeout
+          integerValue : BehaviorIntegerLiteral
+          resetPorts[0] : EventDataPortHolder element=Issue3168::monitor.reading [EventDataPort]
+          resetPorts[1] : EventPortHolder element=Issue3168::monitor.alarm [EventPort]
+          resetPorts[2] : EventPortHolder element=Issue3168::monitor.heartbeat [EventPort]
+    transitions[2] : BehaviorTransition name=no_reset
       condition : DispatchCondition
         dispatchTriggerCondition : CompletionRelativeTimeout
           integerValue : BehaviorIntegerLiteral

@@ -1067,7 +1067,7 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
    * @generated
    */
   @Override
-  public EReference getDispatchTriggerCondition_Time()
+  public EReference getDispatchTriggerCondition_ResetPorts()
   {
     return (EReference)dispatchTriggerConditionEClass.getEStructuralFeatures().get(2);
   }
@@ -1078,9 +1078,20 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
    * @generated
    */
   @Override
+  public EReference getDispatchTriggerCondition_Time()
+  {
+    return (EReference)dispatchTriggerConditionEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EAttribute getDispatchTriggerCondition_Stop()
   {
-    return (EAttribute)dispatchTriggerConditionEClass.getEStructuralFeatures().get(3);
+    return (EAttribute)dispatchTriggerConditionEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -2601,6 +2612,7 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
     dispatchTriggerConditionEClass = createEClass(DISPATCH_TRIGGER_CONDITION);
     createEReference(dispatchTriggerConditionEClass, DISPATCH_TRIGGER_CONDITION__EXPRESSION);
     createEAttribute(dispatchTriggerConditionEClass, DISPATCH_TRIGGER_CONDITION__TIMEOUT);
+    createEReference(dispatchTriggerConditionEClass, DISPATCH_TRIGGER_CONDITION__RESET_PORTS);
     createEReference(dispatchTriggerConditionEClass, DISPATCH_TRIGGER_CONDITION__TIME);
     createEAttribute(dispatchTriggerConditionEClass, DISPATCH_TRIGGER_CONDITION__STOP);
 
@@ -2898,6 +2910,7 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
     initEClass(dispatchTriggerConditionEClass, DispatchTriggerCondition.class, "DispatchTriggerCondition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getDispatchTriggerCondition_Expression(), this.getDispatchTriggerLogicalExpression(), null, "expression", null, 0, 1, DispatchTriggerCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getDispatchTriggerCondition_Timeout(), theEcorePackage.getEBoolean(), "timeout", null, 0, 1, DispatchTriggerCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getDispatchTriggerCondition_ResetPorts(), this.getReference(), null, "resetPorts", null, 0, -1, DispatchTriggerCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getDispatchTriggerCondition_Time(), this.getBehaviorTime(), null, "time", null, 0, 1, DispatchTriggerCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getDispatchTriggerCondition_Stop(), theEcorePackage.getEBoolean(), "stop", null, 0, 1, DispatchTriggerCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

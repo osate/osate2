@@ -3,6 +3,6 @@ annex[0] owner=TimeoutResetPorts::worker.i
     states[0] : BehaviorState name=waiting
     transitions[0] : BehaviorTransition
       condition : DispatchCondition
-        dispatchTriggerCondition : DispatchRelativeTimeout
-    transitions[1] : BehaviorTransition
-    transitions[2] : BehaviorTransition
+        dispatchTriggerCondition : CompletionRelativeTimeout
+          integerValue : BehaviorIntegerLiteral
+          resetPorts[0] : EventPortHolder element=TimeoutResetPorts::worker.reset_event [EventPort]

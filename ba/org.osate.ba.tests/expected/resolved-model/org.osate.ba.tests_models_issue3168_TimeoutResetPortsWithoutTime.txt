@@ -5,5 +5,3 @@ annex[0] owner=TimeoutResetPortsWithoutTime::gauge.watching
     transitions[0] : BehaviorTransition name=missing_time
       condition : DispatchCondition
         dispatchTriggerCondition : DispatchRelativeTimeout
-    transitions[1] : BehaviorTransition
-    transitions[2] : BehaviorTransition

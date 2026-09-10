@@ -32,7 +32,7 @@ import org.osate.aadl2.EventDataPort;
  * @generated
  */
 public interface EventDataPortHolder
-		extends ActualPortHolder, ElementValues, DispatchTrigger, ModeSwitchTrigger, Target {
+		extends ActualPortHolder, ElementValues, DispatchTrigger, ModeSwitchTrigger, Target, TimeoutResetPort {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

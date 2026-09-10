@@ -23,6 +23,8 @@
  */
 package org.osate.xtext.aadl2.ba.behaviorAnnex;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -36,6 +38,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchTriggerCondition#getExpression <em>Expression</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchTriggerCondition#isTimeout <em>Timeout</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchTriggerCondition#getResetPorts <em>Reset Ports</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchTriggerCondition#getTime <em>Time</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchTriggerCondition#isStop <em>Stop</em>}</li>
  * </ul>
@@ -89,6 +92,18 @@ public interface DispatchTriggerCondition extends EObject
    * @generated
    */
   void setTimeout(boolean value);
+
+  /**
+   * Returns the value of the '<em><b>Reset Ports</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.xtext.aadl2.ba.behaviorAnnex.Reference}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Reset Ports</em>' containment reference list.
+   * @see org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage#getDispatchTriggerCondition_ResetPorts()
+   * @model containment="true"
+   * @generated
+   */
+  EList<Reference> getResetPorts();
 
   /**
    * Returns the value of the '<em><b>Time</b></em>' containment reference.

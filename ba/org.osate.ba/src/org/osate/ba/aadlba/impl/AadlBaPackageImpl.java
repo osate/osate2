@@ -854,6 +854,13 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass timeoutResetPortEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass propertySetPropertyReferenceEClass = null;
 
 	/**
@@ -1656,6 +1663,16 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	@Override
 	public EClass getCompletionRelativeTimeout() {
 		return completionRelativeTimeoutEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getCompletionRelativeTimeout_ResetPorts() {
+		return (EReference) completionRelativeTimeoutEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3124,6 +3141,16 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * @generated
 	 */
 	@Override
+	public EClass getTimeoutResetPort() {
+		return timeoutResetPortEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getPropertySetPropertyReference() {
 		return propertySetPropertyReferenceEClass;
 	}
@@ -3501,6 +3528,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		communicationActionEClass = createEClass(COMMUNICATION_ACTION);
 
 		completionRelativeTimeoutEClass = createEClass(COMPLETION_RELATIVE_TIMEOUT);
+		createEReference(completionRelativeTimeoutEClass, COMPLETION_RELATIVE_TIMEOUT__RESET_PORTS);
 
 		condStatementEClass = createEClass(COND_STATEMENT);
 		createEReference(condStatementEClass, COND_STATEMENT__BEHAVIOR_ACTIONS);
@@ -3750,6 +3778,8 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		internalConditionEClass = createEClass(INTERNAL_CONDITION);
 		createEReference(internalConditionEClass, INTERNAL_CONDITION__INTERNAL_PORTS);
 
+		timeoutResetPortEClass = createEClass(TIMEOUT_RESET_PORT);
+
 		// Create enums
 		behaviorFeatureTypeEEnum = createEEnum(BEHAVIOR_FEATURE_TYPE);
 		binaryAddingOperatorEEnum = createEEnum(BINARY_ADDING_OPERATOR);
@@ -3892,10 +3922,12 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		eventDataPortHolderEClass.getESuperTypes().add(getDispatchTrigger());
 		eventDataPortHolderEClass.getESuperTypes().add(getModeSwitchTrigger());
 		eventDataPortHolderEClass.getESuperTypes().add(getTarget());
+		eventDataPortHolderEClass.getESuperTypes().add(getTimeoutResetPort());
 		eventPortHolderEClass.getESuperTypes().add(getActualPortHolder());
 		eventPortHolderEClass.getESuperTypes().add(getDispatchTrigger());
 		eventPortHolderEClass.getESuperTypes().add(getModeSwitchTrigger());
 		eventPortHolderEClass.getESuperTypes().add(getTarget());
+		eventPortHolderEClass.getESuperTypes().add(getTimeoutResetPort());
 		executeConditionEClass.getESuperTypes().add(getBehaviorCondition());
 		executionTimeoutCatchEClass.getESuperTypes().add(getExecuteCondition());
 		factorEClass.getESuperTypes().add(getBehaviorElement());
@@ -4005,6 +4037,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		eventDataSourceHolderEClass.getESuperTypes().add(getInternalPortHolder());
 		internalPortSendActionEClass.getESuperTypes().add(getCommunicationAction());
 		internalConditionEClass.getESuperTypes().add(getBehaviorCondition());
+		timeoutResetPortEClass.getESuperTypes().add(getBehaviorElement());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(actualPortHolderEClass, ActualPortHolder.class, "ActualPortHolder", IS_ABSTRACT, !IS_INTERFACE,
@@ -4214,6 +4247,9 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		initEClass(completionRelativeTimeoutEClass, CompletionRelativeTimeout.class, "CompletionRelativeTimeout",
 				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getCompletionRelativeTimeout_ResetPorts(), getTimeoutResetPort(), null, "resetPorts", null, 0,
+				-1, CompletionRelativeTimeout.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(condStatementEClass, CondStatement.class, "CondStatement", IS_ABSTRACT, IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -4801,6 +4837,9 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		initEReference(getInternalCondition_InternalPorts(), getInternalPortHolder(), null, "internalPorts", null, 1,
 				-1, InternalCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(timeoutResetPortEClass, TimeoutResetPort.class, "TimeoutResetPort", IS_ABSTRACT, IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals
 		initEEnum(behaviorFeatureTypeEEnum, BehaviorFeatureType.class, "BehaviorFeatureType");

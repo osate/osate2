@@ -23,16 +23,22 @@
  */
 package org.osate.xtext.aadl2.ba.behaviorAnnex.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTime;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchTriggerCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchTriggerLogicalExpression;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.Reference;
 
 /**
  * <!-- begin-user-doc -->
@@ -44,6 +50,7 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchTriggerLogicalExpression;
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.DispatchTriggerConditionImpl#getExpression <em>Expression</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.DispatchTriggerConditionImpl#isTimeout <em>Timeout</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.DispatchTriggerConditionImpl#getResetPorts <em>Reset Ports</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.DispatchTriggerConditionImpl#getTime <em>Time</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.DispatchTriggerConditionImpl#isStop <em>Stop</em>}</li>
  * </ul>
@@ -81,6 +88,16 @@ public class DispatchTriggerConditionImpl extends MinimalEObjectImpl.Container i
    * @ordered
    */
   protected boolean timeout = TIMEOUT_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getResetPorts() <em>Reset Ports</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getResetPorts()
+   * @generated
+   * @ordered
+   */
+  protected EList<Reference> resetPorts;
 
   /**
    * The cached value of the '{@link #getTime() <em>Time</em>}' containment reference.
@@ -214,6 +231,21 @@ public class DispatchTriggerConditionImpl extends MinimalEObjectImpl.Container i
    * @generated
    */
   @Override
+  public EList<Reference> getResetPorts()
+  {
+    if (resetPorts == null)
+    {
+      resetPorts = new EObjectContainmentEList<Reference>(Reference.class, this, BehaviorAnnexPackage.DISPATCH_TRIGGER_CONDITION__RESET_PORTS);
+    }
+    return resetPorts;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public BehaviorTime getTime()
   {
     return time;
@@ -295,6 +327,8 @@ public class DispatchTriggerConditionImpl extends MinimalEObjectImpl.Container i
     {
       case BehaviorAnnexPackage.DISPATCH_TRIGGER_CONDITION__EXPRESSION:
         return basicSetExpression(null, msgs);
+      case BehaviorAnnexPackage.DISPATCH_TRIGGER_CONDITION__RESET_PORTS:
+        return ((InternalEList<?>)getResetPorts()).basicRemove(otherEnd, msgs);
       case BehaviorAnnexPackage.DISPATCH_TRIGGER_CONDITION__TIME:
         return basicSetTime(null, msgs);
     }
@@ -315,6 +349,8 @@ public class DispatchTriggerConditionImpl extends MinimalEObjectImpl.Container i
         return getExpression();
       case BehaviorAnnexPackage.DISPATCH_TRIGGER_CONDITION__TIMEOUT:
         return isTimeout();
+      case BehaviorAnnexPackage.DISPATCH_TRIGGER_CONDITION__RESET_PORTS:
+        return getResetPorts();
       case BehaviorAnnexPackage.DISPATCH_TRIGGER_CONDITION__TIME:
         return getTime();
       case BehaviorAnnexPackage.DISPATCH_TRIGGER_CONDITION__STOP:
@@ -328,6 +364,7 @@ public class DispatchTriggerConditionImpl extends MinimalEObjectImpl.Container i
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -338,6 +375,10 @@ public class DispatchTriggerConditionImpl extends MinimalEObjectImpl.Container i
         return;
       case BehaviorAnnexPackage.DISPATCH_TRIGGER_CONDITION__TIMEOUT:
         setTimeout((Boolean)newValue);
+        return;
+      case BehaviorAnnexPackage.DISPATCH_TRIGGER_CONDITION__RESET_PORTS:
+        getResetPorts().clear();
+        getResetPorts().addAll((Collection<? extends Reference>)newValue);
         return;
       case BehaviorAnnexPackage.DISPATCH_TRIGGER_CONDITION__TIME:
         setTime((BehaviorTime)newValue);
@@ -365,6 +406,9 @@ public class DispatchTriggerConditionImpl extends MinimalEObjectImpl.Container i
       case BehaviorAnnexPackage.DISPATCH_TRIGGER_CONDITION__TIMEOUT:
         setTimeout(TIMEOUT_EDEFAULT);
         return;
+      case BehaviorAnnexPackage.DISPATCH_TRIGGER_CONDITION__RESET_PORTS:
+        getResetPorts().clear();
+        return;
       case BehaviorAnnexPackage.DISPATCH_TRIGGER_CONDITION__TIME:
         setTime((BehaviorTime)null);
         return;
@@ -389,6 +433,8 @@ public class DispatchTriggerConditionImpl extends MinimalEObjectImpl.Container i
         return expression != null;
       case BehaviorAnnexPackage.DISPATCH_TRIGGER_CONDITION__TIMEOUT:
         return timeout != TIMEOUT_EDEFAULT;
+      case BehaviorAnnexPackage.DISPATCH_TRIGGER_CONDITION__RESET_PORTS:
+        return resetPorts != null && !resetPorts.isEmpty();
       case BehaviorAnnexPackage.DISPATCH_TRIGGER_CONDITION__TIME:
         return time != null;
       case BehaviorAnnexPackage.DISPATCH_TRIGGER_CONDITION__STOP:

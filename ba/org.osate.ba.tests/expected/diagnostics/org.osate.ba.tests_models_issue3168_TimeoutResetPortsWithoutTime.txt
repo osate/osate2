@@ -1,4 +1,0 @@
-error | linking | 43 | 48 | 9 | Couldn't resolve reference to BehaviorState 'heartbeat'.
-error | syntax | 43 | 47 | 1 | mismatched input '(' expecting ']->'
-error | syntax | 43 | 57 | 1 | mismatched input ')' expecting '-['
-error | syntax | 43 | 70 | 1 | mismatched input ';' expecting '-['

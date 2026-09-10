@@ -65,6 +65,7 @@
     <genClasses ecoreClass="BehaviorAnnex.ecore#//DispatchTriggerCondition">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference BehaviorAnnex.ecore#//DispatchTriggerCondition/expression"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute BehaviorAnnex.ecore#//DispatchTriggerCondition/timeout"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference BehaviorAnnex.ecore#//DispatchTriggerCondition/resetPorts"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference BehaviorAnnex.ecore#//DispatchTriggerCondition/time"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute BehaviorAnnex.ecore#//DispatchTriggerCondition/stop"/>
     </genClasses>

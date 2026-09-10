@@ -721,20 +721,31 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
         private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
         private final Assignment cTimeoutAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
         private final Keyword cTimeoutTimeoutKeyword_1_0_0 = (Keyword)cTimeoutAssignment_1_0.eContents().get(0);
-        private final Assignment cTimeAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-        private final RuleCall cTimeBehaviorTimeParserRuleCall_1_1_0 = (RuleCall)cTimeAssignment_1_1.eContents().get(0);
+        private final Group cGroup_1_1 = (Group)cGroup_1.eContents().get(1);
+        private final Keyword cLeftParenthesisKeyword_1_1_0 = (Keyword)cGroup_1_1.eContents().get(0);
+        private final Assignment cResetPortsAssignment_1_1_1 = (Assignment)cGroup_1_1.eContents().get(1);
+        private final RuleCall cResetPortsReferenceParserRuleCall_1_1_1_0 = (RuleCall)cResetPortsAssignment_1_1_1.eContents().get(0);
+        private final Group cGroup_1_1_2 = (Group)cGroup_1_1.eContents().get(2);
+        private final Keyword cOrKeyword_1_1_2_0 = (Keyword)cGroup_1_1_2.eContents().get(0);
+        private final Assignment cResetPortsAssignment_1_1_2_1 = (Assignment)cGroup_1_1_2.eContents().get(1);
+        private final RuleCall cResetPortsReferenceParserRuleCall_1_1_2_1_0 = (RuleCall)cResetPortsAssignment_1_1_2_1.eContents().get(0);
+        private final Keyword cRightParenthesisKeyword_1_1_3 = (Keyword)cGroup_1_1.eContents().get(3);
+        private final Assignment cTimeAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
+        private final RuleCall cTimeBehaviorTimeParserRuleCall_1_2_0 = (RuleCall)cTimeAssignment_1_2.eContents().get(0);
         private final Assignment cStopAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
         private final Keyword cStopStopKeyword_2_0 = (Keyword)cStopAssignment_2.eContents().get(0);
 
+        //// The reset ports of a completion relative timeout. D.4 requires the time when they are listed, but a reset-port list
+        //// without one is worth a diagnostic of its own rather than a syntax error, so the time stays optional here.
         //DispatchTriggerCondition:
         //    expression=DispatchTriggerLogicalExpression
-        //    | timeout?='timeout' time=BehaviorTime?
+        //    | timeout?='timeout' ('(' resetPorts+=Reference ('or' resetPorts+=Reference)* ')')? time=BehaviorTime?
         //    | stop?='stop'
         //;
         @Override public ParserRule getRule() { return rule; }
 
         //expression=DispatchTriggerLogicalExpression
-        //| timeout?='timeout' time=BehaviorTime?
+        //| timeout?='timeout' ('(' resetPorts+=Reference ('or' resetPorts+=Reference)* ')')? time=BehaviorTime?
         //| stop?='stop'
         public Alternatives getAlternatives() { return cAlternatives; }
 
@@ -744,7 +755,7 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
         //DispatchTriggerLogicalExpression
         public RuleCall getExpressionDispatchTriggerLogicalExpressionParserRuleCall_0_0() { return cExpressionDispatchTriggerLogicalExpressionParserRuleCall_0_0; }
 
-        //timeout?='timeout' time=BehaviorTime?
+        //timeout?='timeout' ('(' resetPorts+=Reference ('or' resetPorts+=Reference)* ')')? time=BehaviorTime?
         public Group getGroup_1() { return cGroup_1; }
 
         //timeout?='timeout'
@@ -753,11 +764,38 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
         //'timeout'
         public Keyword getTimeoutTimeoutKeyword_1_0_0() { return cTimeoutTimeoutKeyword_1_0_0; }
 
+        //('(' resetPorts+=Reference ('or' resetPorts+=Reference)* ')')?
+        public Group getGroup_1_1() { return cGroup_1_1; }
+
+        //'('
+        public Keyword getLeftParenthesisKeyword_1_1_0() { return cLeftParenthesisKeyword_1_1_0; }
+
+        //resetPorts+=Reference
+        public Assignment getResetPortsAssignment_1_1_1() { return cResetPortsAssignment_1_1_1; }
+
+        //Reference
+        public RuleCall getResetPortsReferenceParserRuleCall_1_1_1_0() { return cResetPortsReferenceParserRuleCall_1_1_1_0; }
+
+        //('or' resetPorts+=Reference)*
+        public Group getGroup_1_1_2() { return cGroup_1_1_2; }
+
+        //'or'
+        public Keyword getOrKeyword_1_1_2_0() { return cOrKeyword_1_1_2_0; }
+
+        //resetPorts+=Reference
+        public Assignment getResetPortsAssignment_1_1_2_1() { return cResetPortsAssignment_1_1_2_1; }
+
+        //Reference
+        public RuleCall getResetPortsReferenceParserRuleCall_1_1_2_1_0() { return cResetPortsReferenceParserRuleCall_1_1_2_1_0; }
+
+        //')'
+        public Keyword getRightParenthesisKeyword_1_1_3() { return cRightParenthesisKeyword_1_1_3; }
+
         //time=BehaviorTime?
-        public Assignment getTimeAssignment_1_1() { return cTimeAssignment_1_1; }
+        public Assignment getTimeAssignment_1_2() { return cTimeAssignment_1_2; }
 
         //BehaviorTime
-        public RuleCall getTimeBehaviorTimeParserRuleCall_1_1_0() { return cTimeBehaviorTimeParserRuleCall_1_1_0; }
+        public RuleCall getTimeBehaviorTimeParserRuleCall_1_2_0() { return cTimeBehaviorTimeParserRuleCall_1_2_0; }
 
         //stop?='stop'
         public Assignment getStopAssignment_2() { return cStopAssignment_2; }
@@ -3348,9 +3386,11 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
         return getDispatchConditionAccess().getRule();
     }
 
+    //// The reset ports of a completion relative timeout. D.4 requires the time when they are listed, but a reset-port list
+    //// without one is worth a diagnostic of its own rather than a syntax error, so the time stays optional here.
     //DispatchTriggerCondition:
     //    expression=DispatchTriggerLogicalExpression
-    //    | timeout?='timeout' time=BehaviorTime?
+    //    | timeout?='timeout' ('(' resetPorts+=Reference ('or' resetPorts+=Reference)* ')')? time=BehaviorTime?
     //    | stop?='stop'
     //;
     public DispatchTriggerConditionElements getDispatchTriggerConditionAccess() {

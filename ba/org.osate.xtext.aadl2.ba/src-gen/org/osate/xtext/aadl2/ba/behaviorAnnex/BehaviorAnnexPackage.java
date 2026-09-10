@@ -658,13 +658,22 @@ public interface BehaviorAnnexPackage extends EPackage
   int DISPATCH_TRIGGER_CONDITION__TIMEOUT = 1;
 
   /**
+   * The feature id for the '<em><b>Reset Ports</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DISPATCH_TRIGGER_CONDITION__RESET_PORTS = 2;
+
+  /**
    * The feature id for the '<em><b>Time</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DISPATCH_TRIGGER_CONDITION__TIME = 2;
+  int DISPATCH_TRIGGER_CONDITION__TIME = 3;
 
   /**
    * The feature id for the '<em><b>Stop</b></em>' attribute.
@@ -673,7 +682,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DISPATCH_TRIGGER_CONDITION__STOP = 3;
+  int DISPATCH_TRIGGER_CONDITION__STOP = 4;
 
   /**
    * The number of structural features of the '<em>Dispatch Trigger Condition</em>' class.
@@ -682,7 +691,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DISPATCH_TRIGGER_CONDITION_FEATURE_COUNT = 4;
+  int DISPATCH_TRIGGER_CONDITION_FEATURE_COUNT = 5;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.DispatchTriggerLogicalExpressionImpl <em>Dispatch Trigger Logical Expression</em>}' class.
@@ -2790,6 +2799,17 @@ public interface BehaviorAnnexPackage extends EPackage
   EAttribute getDispatchTriggerCondition_Timeout();
 
   /**
+   * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchTriggerCondition#getResetPorts <em>Reset Ports</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Reset Ports</em>'.
+   * @see org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchTriggerCondition#getResetPorts()
+   * @see #getDispatchTriggerCondition()
+   * @generated
+   */
+  EReference getDispatchTriggerCondition_ResetPorts();
+
+  /**
    * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchTriggerCondition#getTime <em>Time</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -4611,6 +4631,14 @@ public interface BehaviorAnnexPackage extends EPackage
      * @generated
      */
     EAttribute DISPATCH_TRIGGER_CONDITION__TIMEOUT = eINSTANCE.getDispatchTriggerCondition_Timeout();
+
+    /**
+     * The meta object literal for the '<em><b>Reset Ports</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DISPATCH_TRIGGER_CONDITION__RESET_PORTS = eINSTANCE.getDispatchTriggerCondition_ResetPorts();
 
     /**
      * The meta object literal for the '<em><b>Time</b></em>' containment reference feature.

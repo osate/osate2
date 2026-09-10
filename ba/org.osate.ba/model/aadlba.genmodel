@@ -244,7 +244,9 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//ClassifierPropertyReference/classifier"/>
     </genClasses>
     <genClasses image="false" ecoreClass="aadlba.ecore#//CommunicationAction"/>
-    <genClasses ecoreClass="aadlba.ecore#//CompletionRelativeTimeout"/>
+    <genClasses ecoreClass="aadlba.ecore#//CompletionRelativeTimeout">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//CompletionRelativeTimeout/resetPorts"/>
+    </genClasses>
     <genClasses image="false" ecoreClass="aadlba.ecore#//CondStatement">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//CondStatement/behaviorActions"/>
     </genClasses>
@@ -579,5 +581,6 @@
     <genClasses ecoreClass="aadlba.ecore#//InternalCondition">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//InternalCondition/internalPorts"/>
     </genClasses>
+    <genClasses image="false" ecoreClass="aadlba.ecore#//TimeoutResetPort"/>
   </genPackages>
 </genmodel:GenModel>

@@ -1369,6 +1369,9 @@ public class AadlBaSwitch<T> extends Switch<T> {
 				result = caseTarget(eventDataPortHolder);
 			}
 			if (result == null) {
+				result = caseTimeoutResetPort(eventDataPortHolder);
+			}
+			if (result == null) {
 				result = casePortHolder(eventDataPortHolder);
 			}
 			if (result == null) {
@@ -1426,6 +1429,9 @@ public class AadlBaSwitch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseTarget(eventPortHolder);
+			}
+			if (result == null) {
+				result = caseTimeoutResetPort(eventPortHolder);
 			}
 			if (result == null) {
 				result = casePortHolder(eventPortHolder);
@@ -3300,6 +3306,20 @@ public class AadlBaSwitch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(internalCondition);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case AadlBaPackage.TIMEOUT_RESET_PORT: {
+			TimeoutResetPort timeoutResetPort = (TimeoutResetPort) theEObject;
+			T result = caseTimeoutResetPort(timeoutResetPort);
+			if (result == null) {
+				result = caseBehaviorElement(timeoutResetPort);
+			}
+			if (result == null) {
+				result = caseElement(timeoutResetPort);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -5363,6 +5383,21 @@ public class AadlBaSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseInternalCondition(InternalCondition object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Timeout Reset Port</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Timeout Reset Port</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTimeoutResetPort(TimeoutResetPort object) {
 		return null;
 	}
 

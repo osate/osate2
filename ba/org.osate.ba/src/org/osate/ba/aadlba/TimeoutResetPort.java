@@ -1,12 +1,12 @@
 /**
  * AADL-BA-FrontEnd
- * 
+ *
  * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
  * version 2.0 of the License, or (at your option) any later version. This
@@ -19,34 +19,15 @@
  */
 package org.osate.ba.aadlba;
 
-import org.osate.aadl2.EventPort;
-
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Event Port Holder</b></em>'.
+ * A representation of the model object '<em><b>Timeout Reset Port</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see org.osate.ba.aadlba.AadlBaPackage#getEventPortHolder()
- * @model
+ * @see org.osate.ba.aadlba.AadlBaPackage#getTimeoutResetPort()
+ * @model interface="true" abstract="true"
  * @generated
  */
-public interface EventPortHolder
-		extends ActualPortHolder, DispatchTrigger, ModeSwitchTrigger, Target, TimeoutResetPort {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model eventPortRequired="true"
-	 * @generated
-	 */
-	void setEventPort(EventPort eventPort);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model kind="operation" required="true"
-	 * @generated
-	 */
-	EventPort getEventPort();
-
-} // EventPortHolder
+public interface TimeoutResetPort extends BehaviorElement {
+} // TimeoutResetPort

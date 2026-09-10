@@ -5,8 +5,5 @@ annex[0] owner=TimeoutResetPortNames::sensor.polling
     states[1] : BehaviorState name=stopped
     transitions[0] : BehaviorTransition name=bad_resets
       condition : DispatchCondition
-        dispatchTriggerCondition : DispatchRelativeTimeout
-    transitions[1] : BehaviorTransition
-    transitions[2] : BehaviorTransition
-    transitions[3] : BehaviorTransition
-    transitions[4] : BehaviorTransition
+        dispatchTriggerCondition : CompletionRelativeTimeout
+          integerValue : BehaviorIntegerLiteral

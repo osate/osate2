@@ -46,6 +46,8 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.EventDataPort;
+import org.osate.aadl2.EventPort;
 import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.modelsupport.errorreporting.AbstractAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
@@ -60,6 +62,7 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorIntegerLiteral;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTransition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.CommunicationAction;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchTriggerCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.InternalCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.Reference;
 import org.osate.xtext.aadl2.ba.translation.DeclarativeToStrictTranslator;
@@ -79,6 +82,8 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	public static final String UNREPRESENTABLE_LITERAL = "org.osate.xtext.aadl2.ba.unrepresentableLiteral";
 	public static final String INTERNAL_PORT_USE = "org.osate.xtext.aadl2.ba.internalPortUse";
 	public static final String INTERNAL_CONDITION_PORT = "org.osate.xtext.aadl2.ba.internalConditionPort";
+	public static final String TIMEOUT_RESET_PORT = "org.osate.xtext.aadl2.ba.timeoutResetPort";
+	public static final String TIMEOUT_RESET_PORT_TIME = "org.osate.xtext.aadl2.ba.timeoutResetPortTime";
 	private static final URI VALIDATION_RESOURCE_URI = URI.createURI("validation:/behavior-annex.aadlba");
 
 	@Inject
@@ -103,10 +108,11 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 		}
 
 		var translation = translator.translate(source, owner);
-		// Both checks describe a name the strict model cannot carry, and a model can get each one wrong independently,
-		// so report them both before deciding whether the strict checkers have a model to work on.
+		// Each check describes a name the strict model cannot carry, and a model can get each one wrong independently,
+		// so report them all before deciding whether the strict checkers have a model to work on.
 		var representable = checkInternalPortUses(source, translation);
 		representable &= checkInternalConditionPorts(source, translation);
+		representable &= checkTimeoutResetPorts(source, translation);
 		if (!representable) {
 			return;
 		}
@@ -188,6 +194,42 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 							+ " internal port: an internal condition can only list internal event or internal event data"
 							+ " features", port, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
 							INTERNAL_CONDITION_PORT);
+					accepted = false;
+				}
+			}
+		}
+		return accepted;
+	}
+
+	/**
+	 * The AS5506/3 Rev A D.4 timeout_reset_port production names an event port or an event data port, and the
+	 * production that takes the list, completion_relative_timeout_catch, requires a behavior time; the bare
+	 * {@code timeout} is the dispatch relative catch and takes no list. The grammar accepts a generic reference here and
+	 * leaves the time optional, so a timeout can list a name the strict model has no reset port for, and can list ports
+	 * with no time to keep them beside. Report either, and leave the strict-model checkers out of a timeout short of the
+	 * ports the user wrote. Report a name as written, since an unresolved one has no element to name.
+	 *
+	 * @return {@code true} when every reset-port list in the annex belongs to a completion relative timeout and lists
+	 *         event or event data ports only
+	 */
+	private boolean checkTimeoutResetPorts(final BehaviorAnnex source, final TranslationResult translation) {
+		var accepted = true;
+		for (var contents = source.eAllContents(); contents.hasNext();) {
+			if (!(contents.next() instanceof DispatchTriggerCondition timeout) || timeout.getResetPorts().isEmpty()) {
+				continue;
+			}
+			if (timeout.getTime() == null) {
+				error("A timeout with reset ports is a completion relative timeout, which must specify a behavior time",
+						timeout, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, TIMEOUT_RESET_PORT_TIME);
+				accepted = false;
+			}
+			for (var port : timeout.getResetPorts()) {
+				var resolved = translation.getResolvedReference(port);
+				if (!(resolved instanceof EventPort) && !(resolved instanceof EventDataPort)) {
+					error("'" + NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(port)) + "' is not a"
+							+ " timeout reset port: a completion relative timeout can only list event or event data"
+							+ " ports", port, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
+							TIMEOUT_RESET_PORT);
 					accepted = false;
 				}
 			}

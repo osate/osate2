@@ -1,9 +1,3 @@
-error | linking | 49 | 46 | 6 | Couldn't resolve reference to BehaviorState 'sample'.
-error | linking | 49 | 56 | 5 | Couldn't resolve reference to BehaviorState 'tally'.
-error | linking | 49 | 65 | 5 | Couldn't resolve reference to BehaviorState 'cache'.
-error | linking | 49 | 75 | 2 | Couldn't resolve reference to BehaviorState 'ms'.
-error | syntax | 49 | 45 | 1 | mismatched input '(' expecting ']->'
-error | syntax | 49 | 53 | 2 | mismatched input 'or' expecting '-['
-error | syntax | 49 | 62 | 2 | mismatched input 'or' expecting '-['
-error | syntax | 49 | 70 | 1 | mismatched input ')' expecting '-['
-error | syntax | 49 | 78 | 3 | missing '-[' at ']->'
+error | semantic | 49 | 46 | 6 | 'sample' is not a timeout reset port: a completion relative timeout can only list event or event data ports
+error | semantic | 49 | 56 | 5 | 'tally' is not a timeout reset port: a completion relative timeout can only list event or event data ports
+error | semantic | 49 | 65 | 5 | 'cache' is not a timeout reset port: a completion relative timeout can only list event or event data ports

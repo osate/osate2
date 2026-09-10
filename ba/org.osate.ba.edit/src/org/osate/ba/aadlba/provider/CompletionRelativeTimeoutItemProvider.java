@@ -24,7 +24,12 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ViewerNotification;
+import org.osate.ba.aadlba.AadlBaFactory;
+import org.osate.ba.aadlba.AadlBaPackage;
+import org.osate.ba.aadlba.CompletionRelativeTimeout;
 
 /**
  * This is the item provider adapter for a {@link org.osate.ba.aadlba.CompletionRelativeTimeout} object.
@@ -59,6 +64,36 @@ public class CompletionRelativeTimeoutItemProvider extends BehaviorTimeItemProvi
 	}
 
 	/**
+	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+		if (childrenFeatures == null) {
+			super.getChildrenFeatures(object);
+			childrenFeatures.add(AadlBaPackage.Literals.COMPLETION_RELATIVE_TIMEOUT__RESET_PORTS);
+		}
+		return childrenFeatures;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EStructuralFeature getChildFeature(Object object, Object child) {
+		// Check the type of the specified child object and return the proper feature to use for
+		// adding (see {@link AddCommand}) it as a child.
+
+		return super.getChildFeature(object, child);
+	}
+
+	/**
 	 * This returns CompletionRelativeTimeout.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -90,6 +125,12 @@ public class CompletionRelativeTimeoutItemProvider extends BehaviorTimeItemProvi
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
+
+		switch (notification.getFeatureID(CompletionRelativeTimeout.class)) {
+		case AadlBaPackage.COMPLETION_RELATIVE_TIMEOUT__RESET_PORTS:
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+			return;
+		}
 		super.notifyChanged(notification);
 	}
 
@@ -103,6 +144,33 @@ public class CompletionRelativeTimeoutItemProvider extends BehaviorTimeItemProvi
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.COMPLETION_RELATIVE_TIMEOUT__RESET_PORTS,
+				AadlBaFactory.eINSTANCE.createEventDataPortHolder()));
+
+		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.COMPLETION_RELATIVE_TIMEOUT__RESET_PORTS,
+				AadlBaFactory.eINSTANCE.createEventPortHolder()));
+	}
+
+	/**
+	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
+		Object childFeature = feature;
+		Object childObject = child;
+
+		boolean qualify = childFeature == AadlBaPackage.Literals.BEHAVIOR_TIME__INTEGER_VALUE
+				|| childFeature == AadlBaPackage.Literals.COMPLETION_RELATIVE_TIMEOUT__RESET_PORTS;
+
+		if (qualify) {
+			return getString("_UI_CreateChild_text2",
+					new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
+		}
+		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 }

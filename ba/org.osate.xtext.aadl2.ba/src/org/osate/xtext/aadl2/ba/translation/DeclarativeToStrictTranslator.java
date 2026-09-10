@@ -114,6 +114,7 @@ import org.osate.ba.aadlba.RelationalOperator;
 import org.osate.ba.aadlba.SimpleExpression;
 import org.osate.ba.aadlba.Target;
 import org.osate.ba.aadlba.Term;
+import org.osate.ba.aadlba.TimeoutResetPort;
 import org.osate.ba.aadlba.UnaryAddingOperator;
 import org.osate.ba.aadlba.UnaryBooleanOperator;
 import org.osate.ba.aadlba.UnaryNumericOperator;
@@ -445,13 +446,28 @@ public final class DeclarativeToStrictTranslator {
 					result.setDispatchTriggerCondition(expression);
 				} else if (trigger.isStop()) {
 					result.setDispatchTriggerCondition(trace(FACTORY.createDispatchTriggerConditionStop(), trigger));
-				} else if (trigger.isTimeout() && trigger.getTime() != null) {
-					final org.osate.ba.aadlba.CompletionRelativeTimeout timeout = trace(
-							FACTORY.createCompletionRelativeTimeout(), trigger);
-					copyTime(trigger.getTime(), timeout);
-					result.setDispatchTriggerCondition(timeout);
 				} else if (trigger.isTimeout()) {
-					result.setDispatchTriggerCondition(trace(FACTORY.createDispatchRelativeTimeout(), trigger));
+					// AS5506/3 Rev A D.4 lists event or event data ports, and only the completion relative form, which
+					// carries a behavior time, takes the list at all. Resolve every listed name whichever form was
+					// written, so that each one is a hyperlink and BehaviorAnnexValidator can name the ones the strict
+					// model has no reset port for. A name that denotes anything else has no reset port to become, and a
+					// bare timeout has nowhere to keep one: the validator reports both and keeps the strict-model
+					// checkers out of a timeout it cannot represent.
+					final List<TimeoutResetPort> resetPorts = new ArrayList<>();
+					for (final Reference resetPort : trigger.getResetPorts()) {
+						if (toReferenceValue(resetPort) instanceof TimeoutResetPort port) {
+							resetPorts.add(port);
+						}
+					}
+					if (trigger.getTime() != null) {
+						final org.osate.ba.aadlba.CompletionRelativeTimeout timeout = trace(
+								FACTORY.createCompletionRelativeTimeout(), trigger);
+						copyTime(trigger.getTime(), timeout);
+						timeout.getResetPorts().addAll(resetPorts);
+						result.setDispatchTriggerCondition(timeout);
+					} else {
+						result.setDispatchTriggerCondition(trace(FACTORY.createDispatchRelativeTimeout(), trigger));
+					}
 				}
 			}
 			for (final Reference frozen : dispatch.getFrozenPorts()) {

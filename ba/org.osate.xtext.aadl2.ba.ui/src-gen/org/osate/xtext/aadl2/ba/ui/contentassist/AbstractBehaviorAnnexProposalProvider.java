@@ -140,6 +140,9 @@ public abstract class AbstractBehaviorAnnexProposalProvider extends PropertiesPr
     public void completeDispatchTriggerCondition_Timeout(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
         // subclasses may override
     }
+    public void completeDispatchTriggerCondition_ResetPorts(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        completeRuleCall(((RuleCall)assignment.getTerminal()), context, acceptor);
+    }
     public void completeDispatchTriggerCondition_Time(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
         completeRuleCall(((RuleCall)assignment.getTerminal()), context, acceptor);
     }

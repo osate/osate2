@@ -19,15 +19,58 @@
  */
 package org.osate.ba.aadlba;
 
+import org.eclipse.emf.common.util.EList;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Completion Relative Timeout</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * </p>
+ * <ul>
+ *   <li>{@link org.osate.ba.aadlba.CompletionRelativeTimeout#getResetPorts <em>Reset Ports</em>}</li>
+ * </ul>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getCompletionRelativeTimeout()
  * @model
  * @generated
  */
 public interface CompletionRelativeTimeout extends BehaviorTime, DispatchRelativeTimeout {
+
+	/**
+	 * Returns the value of the '<em><b>Reset Ports</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.ba.aadlba.TimeoutResetPort}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Reset Ports</em>' containment reference list.
+	 * @see #isSetResetPorts()
+	 * @see #unsetResetPorts()
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getCompletionRelativeTimeout_ResetPorts()
+	 * @model containment="true" unsettable="true"
+	 * @generated
+	 */
+	EList<TimeoutResetPort> getResetPorts();
+
+	/**
+	 * Unsets the value of the '{@link org.osate.ba.aadlba.CompletionRelativeTimeout#getResetPorts <em>Reset Ports</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetResetPorts()
+	 * @see #getResetPorts()
+	 * @generated
+	 */
+	void unsetResetPorts();
+
+	/**
+	 * Returns whether the value of the '{@link org.osate.ba.aadlba.CompletionRelativeTimeout#getResetPorts <em>Reset Ports</em>}' containment reference list is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Reset Ports</em>' containment reference list is set.
+	 * @see #unsetResetPorts()
+	 * @see #getResetPorts()
+	 * @generated
+	 */
+	boolean isSetResetPorts();
 } // CompletionRelativeTimeout
