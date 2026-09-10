@@ -57,7 +57,6 @@ public final class BehaviorAnnexFormatter extends PropertiesFormatter {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	protected void _format(final BehaviorAnnex annex, final IFormattableDocument document) {
 		var regions = textRegionExtensions.allSemanticRegions(annex);
 		var semanticRegions = regions instanceof List<?> ? (List<ISemanticRegion>) regions

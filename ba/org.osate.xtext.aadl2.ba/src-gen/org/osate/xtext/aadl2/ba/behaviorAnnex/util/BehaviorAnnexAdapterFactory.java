@@ -25,17 +25,69 @@ package org.osate.xtext.aadl2.ba.behaviorAnnex.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EObject;
-
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.NamedElement;
-
-import org.osate.xtext.aadl2.ba.behaviorAnnex.*;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ArrayDimension;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ArrayIndex;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.AssignmentAction;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAction;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorActionBlock;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorActionSequence;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorActionSet;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorActions;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorBooleanLiteral;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorCondition;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorIntegerLiteral;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorPropertyAssociation;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorRealLiteral;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorState;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorStateGroup;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorStringLiteral;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTime;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTransition;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorVariable;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorVariableGroup;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BinaryExpression;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.CommunicationAction;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchCondition;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchConjunction;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchTriggerCondition;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchTriggerLogicalExpression;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.DoUntilStatement;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ElementValues;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ElseIfClause;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ExecuteCondition;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ForStatement;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.HashPropertyReference;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.IfStatement;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.IntegerValue;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.InternalCondition;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchCondition;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchConjunction;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.NamedPropertyField;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyArrayIndex;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyIndexPropertyReference;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyIndexValue;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyReferenceTail;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.Reference;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceExpression;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceSegment;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceTail;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.TimedAction;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.UnaryExpression;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReference;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReferenceExpression;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReferenceSegment;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReferenceTail;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ValueConstant;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ValueExpression;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.WhileStatement;
 
 /**
  * <!-- begin-user-doc -->

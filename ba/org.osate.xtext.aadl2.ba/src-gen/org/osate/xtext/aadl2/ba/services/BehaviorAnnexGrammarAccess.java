@@ -23,9 +23,8 @@
  */
 package org.osate.xtext.aadl2.ba.services;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import java.util.List;
+
 import org.eclipse.xtext.Action;
 import org.eclipse.xtext.Alternatives;
 import org.eclipse.xtext.Assignment;
@@ -40,6 +39,9 @@ import org.eclipse.xtext.TerminalRule;
 import org.eclipse.xtext.service.AbstractElementFinder;
 import org.eclipse.xtext.service.GrammarProvider;
 import org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess;
+
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 @Singleton
 public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGrammarElementFinder {

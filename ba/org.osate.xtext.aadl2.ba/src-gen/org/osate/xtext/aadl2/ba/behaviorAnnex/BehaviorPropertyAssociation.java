@@ -24,7 +24,6 @@
 package org.osate.xtext.aadl2.ba.behaviorAnnex;
 
 import org.eclipse.emf.ecore.EObject;
-
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyExpression;
 

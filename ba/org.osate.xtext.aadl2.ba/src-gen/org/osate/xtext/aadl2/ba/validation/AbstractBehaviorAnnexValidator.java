@@ -25,6 +25,7 @@ package org.osate.xtext.aadl2.ba.validation;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.eclipse.emf.ecore.EPackage;
 import org.osate.xtext.aadl2.properties.validation.PropertiesValidator;
 

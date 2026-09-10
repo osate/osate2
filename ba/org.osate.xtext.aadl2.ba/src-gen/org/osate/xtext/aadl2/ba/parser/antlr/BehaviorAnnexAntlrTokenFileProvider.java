@@ -24,6 +24,7 @@
 package org.osate.xtext.aadl2.ba.parser.antlr;
 
 import java.io.InputStream;
+
 import org.eclipse.xtext.parser.antlr.IAntlrTokenFileProvider;
 
 public class BehaviorAnnexAntlrTokenFileProvider implements IAntlrTokenFileProvider {

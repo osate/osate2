@@ -23,11 +23,12 @@
  */
 package org.osate.xtext.aadl2.ba.ui;
 
-import com.google.inject.Injector;
 import org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory;
 import org.osate.xtext.aadl2.ba.ui.internal.BaActivator;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
+
+import com.google.inject.Injector;
 
 /**
  * This class was generated. Customizations should only happen in a newly

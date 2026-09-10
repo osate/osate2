@@ -22,24 +22,17 @@
 package org.osate.utils.internal;
 
 import java.io.File;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.xtext.nodemodel.ICompositeNode;
-import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.AbstractFeature;
-import org.osate.aadl2.AccessConnection;
 import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ComponentPrototypeActual;
 import org.osate.aadl2.ComponentPrototypeBinding;
-import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DataClassifier;
@@ -51,19 +44,13 @@ import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.EventPort;
 import org.osate.aadl2.Feature;
-import org.osate.aadl2.FeatureClassifier;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.Parameter;
-import org.osate.aadl2.ParameterConnection;
-import org.osate.aadl2.Property;
-import org.osate.aadl2.Prototype;
 import org.osate.aadl2.PrototypeBinding;
-import org.osate.aadl2.SubcomponentType;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.parsesupport.LocationReference;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
-import org.osgi.framework.Bundle;
 
 /**
  * @since 2.0

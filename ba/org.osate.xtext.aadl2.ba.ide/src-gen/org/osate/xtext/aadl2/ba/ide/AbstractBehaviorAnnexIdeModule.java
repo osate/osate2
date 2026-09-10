@@ -23,8 +23,6 @@
  */
 package org.osate.xtext.aadl2.ba.ide;
 
-import com.google.inject.Binder;
-import com.google.inject.name.Names;
 import org.eclipse.xtext.ide.DefaultIdeModule;
 import org.eclipse.xtext.ide.LexerIdeBindings;
 import org.eclipse.xtext.ide.editor.contentassist.FQNPrefixMatcher;
@@ -38,6 +36,9 @@ import org.eclipse.xtext.ide.server.rename.IRenameService2;
 import org.eclipse.xtext.ide.server.rename.RenameService2;
 import org.osate.xtext.aadl2.ba.ide.contentassist.antlr.BehaviorAnnexParser;
 import org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer;
+
+import com.google.inject.Binder;
+import com.google.inject.name.Names;
 
 /**
  * Manual modifications go to {@link BehaviorAnnexIdeModule}.

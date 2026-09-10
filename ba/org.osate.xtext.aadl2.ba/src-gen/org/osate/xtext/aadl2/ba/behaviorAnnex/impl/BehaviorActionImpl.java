@@ -24,7 +24,6 @@
 package org.osate.xtext.aadl2.ba.behaviorAnnex.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAction;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage;
 

@@ -38,8 +38,6 @@ import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.AccessSpecification;
-import org.osate.aadl2.ArrayDimension;
-import org.osate.aadl2.ArraySize;
 import org.osate.aadl2.BasicProperty;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierValue;
@@ -61,11 +59,9 @@ import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeaturePrototype;
 import org.osate.aadl2.FeaturePrototypeBinding;
 import org.osate.aadl2.ListValue;
-import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.Parameter;
-import org.osate.aadl2.Port;
 import org.osate.aadl2.PortSpecification;
 import org.osate.aadl2.ProcessorClassifier;
 import org.osate.aadl2.Property;
@@ -76,12 +72,12 @@ import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.RecordType;
+import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramImplementation;
 import org.osate.aadl2.SubprogramPrototype;
 import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.aadl2.SubprogramType;
-import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.parsesupport.ParseUtil;
 import org.osate.ba.aadlba.AadlBaFactory;
@@ -126,8 +122,8 @@ import org.osate.ba.aadlba.ValueConstant;
 import org.osate.ba.aadlba.ValueExpression;
 import org.osate.ba.analyzers.BehaviorTransitionContext;
 import org.osate.ba.utils.AadlBaUtils;
-import org.osate.utils.internal.Aadl2Visitors;
 import org.osate.utils.internal.Aadl2Utils;
+import org.osate.utils.internal.Aadl2Visitors;
 import org.osate.utils.internal.PropertyUtils;
 import org.osate.utils.internal.names.DataModelProperties;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ArrayIndex;
@@ -140,11 +136,9 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorIntegerLiteral;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorPropertyAssociation;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorRealLiteral;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorStateGroup;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorStringLiteral;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTime;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTransition;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorVariableGroup;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BinaryExpression;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.CommunicationAction;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchCondition;
@@ -163,7 +157,6 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyIndexValue;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyReferenceTail;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.Reference;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceExpression;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceSegment;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.TimedAction;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.UnaryExpression;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.WhileStatement;
@@ -949,7 +942,7 @@ public final class DeclarativeToStrictTranslator {
 				result.setValue(literal.isValue());
 				return result;
 			}
-			return (ValueConstant) toPropertyReference((HashPropertyReference) constant);
+			return toPropertyReference((HashPropertyReference) constant);
 		}
 
 		private org.osate.ba.aadlba.BehaviorIntegerLiteral toIntegerLiteral(final BehaviorIntegerLiteral literal) {
@@ -1217,7 +1210,7 @@ public final class DeclarativeToStrictTranslator {
 			}
 			final var prototypeBinding = Aadl2Visitors.findPrototypeBindingInComponent(owner, name);
 			if (prototypeBinding != null) {
-				return (NamedElement) prototypeBinding.getFormal();
+				return prototypeBinding.getFormal();
 			}
 			final NamedElement ownedElement = owner.findNamedElement(name);
 			return ownedElement == null ? resolveQualified(name, false) : ownedElement;
@@ -1245,7 +1238,7 @@ public final class DeclarativeToStrictTranslator {
 				}
 				final var prototypeBinding = Aadl2Visitors.findPrototypeBindingInComponent(classifier, name);
 				if (prototypeBinding != null) {
-					return (NamedElement) prototypeBinding.getFormal();
+					return prototypeBinding.getFormal();
 				}
 				final var nested = classifier.findNamedElement(name);
 				return nested == null && classifier instanceof DataClassifier dataClassifier

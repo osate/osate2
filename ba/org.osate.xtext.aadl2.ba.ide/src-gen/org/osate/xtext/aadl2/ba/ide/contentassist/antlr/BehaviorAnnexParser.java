@@ -23,14 +23,16 @@
  */
 package org.osate.xtext.aadl2.ba.ide.contentassist.antlr;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import java.util.Map;
+
 import org.eclipse.xtext.AbstractElement;
 import org.eclipse.xtext.ide.editor.contentassist.antlr.AbstractContentAssistParser;
 import org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser;
 import org.osate.xtext.aadl2.ba.services.BehaviorAnnexGrammarAccess;
+
+import com.google.common.collect.ImmutableMap;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 public class BehaviorAnnexParser extends AbstractContentAssistParser {
 

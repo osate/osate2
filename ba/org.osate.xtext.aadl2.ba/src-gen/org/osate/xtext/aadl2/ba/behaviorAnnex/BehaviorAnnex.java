@@ -24,9 +24,7 @@
 package org.osate.xtext.aadl2.ba.behaviorAnnex;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
-
 import org.osate.aadl2.AnnexSubclause;
 
 /**

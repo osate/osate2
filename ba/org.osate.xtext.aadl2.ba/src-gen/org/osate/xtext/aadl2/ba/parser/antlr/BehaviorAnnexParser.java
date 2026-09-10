@@ -23,11 +23,12 @@
  */
 package org.osate.xtext.aadl2.ba.parser.antlr;
 
-import com.google.inject.Inject;
 import org.eclipse.xtext.parser.antlr.AbstractAntlrParser;
 import org.eclipse.xtext.parser.antlr.XtextTokenStream;
 import org.osate.xtext.aadl2.ba.parser.antlr.internal.InternalBehaviorAnnexParser;
 import org.osate.xtext.aadl2.ba.services.BehaviorAnnexGrammarAccess;
+
+import com.google.inject.Inject;
 
 public class BehaviorAnnexParser extends AbstractAntlrParser {
 

@@ -25,15 +25,11 @@ package org.osate.xtext.aadl2.ba.behaviorAnnex.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.osate.aadl2.ComponentClassifier;
-
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorActions;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ElementValues;
@@ -253,7 +249,7 @@ public class ForStatementImpl extends BehaviorActionImpl implements ForStatement
   @Override
   public ComponentClassifier getDataClassifier()
   {
-    if (dataClassifier != null && ((EObject)dataClassifier).eIsProxy())
+    if (dataClassifier != null && dataClassifier.eIsProxy())
     {
       InternalEObject oldDataClassifier = (InternalEObject)dataClassifier;
       dataClassifier = (ComponentClassifier)eResolveProxy(oldDataClassifier);

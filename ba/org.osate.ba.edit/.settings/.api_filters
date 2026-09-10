@@ -11,6 +11,11 @@
                 <message_argument value="eventSourceHolderItemProvider"/>
             </message_arguments>
         </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="internalConditionItemProvider"/>
+            </message_arguments>
+        </filter>
         <filter comment="emf generated" id="1143996420">
             <message_arguments>
                 <message_argument value="internalPortSendActionItemProvider"/>
@@ -50,6 +55,13 @@
         <filter comment="emf generated" id="1110441988">
             <message_arguments>
                 <message_argument value="org.osate.ba.aadlba.provider.EventSourceHolderItemProvider"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/provider/InternalConditionItemProvider.java" type="org.osate.ba.aadlba.provider.InternalConditionItemProvider">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.ba.aadlba.provider.InternalConditionItemProvider"/>
             </message_arguments>
         </filter>
     </resource>

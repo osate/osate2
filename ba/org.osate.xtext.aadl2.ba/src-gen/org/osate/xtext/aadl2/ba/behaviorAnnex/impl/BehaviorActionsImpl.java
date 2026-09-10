@@ -24,9 +24,7 @@
 package org.osate.xtext.aadl2.ba.behaviorAnnex.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorActions;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage;
 

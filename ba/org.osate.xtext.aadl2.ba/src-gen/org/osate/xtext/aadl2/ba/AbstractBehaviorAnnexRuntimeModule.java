@@ -23,10 +23,8 @@
  */
 package org.osate.xtext.aadl2.ba;
 
-import com.google.inject.Binder;
-import com.google.inject.Provider;
-import com.google.inject.name.Names;
 import java.util.Properties;
+
 import org.eclipse.xtext.Constants;
 import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.conversion.impl.AbstractIDValueConverter;
@@ -77,6 +75,10 @@ import org.osate.xtext.aadl2.ba.serializer.BehaviorAnnexSemanticSequencer;
 import org.osate.xtext.aadl2.ba.serializer.BehaviorAnnexSyntacticSequencer;
 import org.osate.xtext.aadl2.ba.services.BehaviorAnnexGrammarAccess;
 import org.osate.xtext.aadl2.ba.validation.BehaviorAnnexValidator;
+
+import com.google.inject.Binder;
+import com.google.inject.Provider;
+import com.google.inject.name.Names;
 
 /**
  * Manual modifications go to {@link BehaviorAnnexRuntimeModule}.

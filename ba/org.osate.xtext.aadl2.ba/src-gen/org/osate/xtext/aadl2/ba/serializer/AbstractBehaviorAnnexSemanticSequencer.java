@@ -23,8 +23,8 @@
  */
 package org.osate.xtext.aadl2.ba.serializer;
 
-import com.google.inject.Inject;
 import java.util.Set;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.xtext.Action;
@@ -105,6 +105,8 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReferenceTail;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.WhileStatement;
 import org.osate.xtext.aadl2.ba.services.BehaviorAnnexGrammarAccess;
 import org.osate.xtext.aadl2.properties.serializer.PropertiesSemanticSequencer;
+
+import com.google.inject.Inject;
 
 @SuppressWarnings("all")
 public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesSemanticSequencer {

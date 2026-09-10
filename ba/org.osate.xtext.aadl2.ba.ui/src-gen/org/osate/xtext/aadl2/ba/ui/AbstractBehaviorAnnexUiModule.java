@@ -23,9 +23,6 @@
  */
 package org.osate.xtext.aadl2.ba.ui;
 
-import com.google.inject.Binder;
-import com.google.inject.Provider;
-import com.google.inject.name.Names;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.builder.EclipseOutputConfigurationProvider;
@@ -79,6 +76,10 @@ import org.osate.xtext.aadl2.ba.ui.labeling.BehaviorAnnexDescriptionLabelProvide
 import org.osate.xtext.aadl2.ba.ui.labeling.BehaviorAnnexLabelProvider;
 import org.osate.xtext.aadl2.ba.ui.outline.BehaviorAnnexOutlineTreeProvider;
 import org.osate.xtext.aadl2.ba.ui.quickfix.BehaviorAnnexQuickfixProvider;
+
+import com.google.inject.Binder;
+import com.google.inject.Provider;
+import com.google.inject.name.Names;
 
 /**
  * Manual modifications go to {@link BehaviorAnnexUiModule}.

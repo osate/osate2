@@ -27,16 +27,12 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.QueuingAnalysisErrorReporter;
@@ -52,7 +48,6 @@ import org.osate.testsupport.TestHelper;
 import org.osate.xtext.aadl2.ba.util.BehaviorAnnexUtil;
 
 import com.google.inject.Inject;
-import com.itemis.xtext.testing.FluentIssueCollection;
 
 /**
  * Verifies the phase 2b checker boundary required by the future declarative-to-strict translator: classifier context

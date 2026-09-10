@@ -24,9 +24,9 @@
 package org.osate.xtext.aadl2.ba.parsing;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.serializer.ISerializer;
-import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.annexsupport.AnnexUnparser;

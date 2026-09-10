@@ -25,16 +25,12 @@ package org.osate.xtext.aadl2.ba.behaviorAnnex.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import org.osate.aadl2.UnitLiteral;
-
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTime;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.IntegerValue;
@@ -154,7 +150,7 @@ public class BehaviorTimeImpl extends MinimalEObjectImpl.Container implements Be
   @Override
   public UnitLiteral getUnit()
   {
-    if (unit != null && ((EObject)unit).eIsProxy())
+    if (unit != null && unit.eIsProxy())
     {
       InternalEObject oldUnit = (InternalEObject)unit;
       unit = (UnitLiteral)eResolveProxy(oldUnit);

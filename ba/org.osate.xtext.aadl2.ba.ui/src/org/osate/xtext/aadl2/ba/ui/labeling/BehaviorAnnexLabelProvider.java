@@ -23,12 +23,13 @@
  */
 package org.osate.xtext.aadl2.ba.ui.labeling;
 
-import com.google.inject.Inject;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorState;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTransition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorVariable;
+
+import com.google.inject.Inject;
 
 /**
  * Provides labels for EObjects.
