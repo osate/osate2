@@ -42,15 +42,15 @@ states
  t2 [2] : a -[]-> b ;
  t1 [3] : a -[]-> a ;
  t3 [1] : a -[]-> c ;
- t6 [4] : a -[otherwise]-> c ;
- t7 [4] : a -[otherwise]-> c ; -- Should raise a warning.
- t8 [4] : a -[otherwise]-> c ; -- Should raise a warning.
+ t6 [4] : a -[otherwise]-> c ; -- Duplicate otherwise transition and explicit priority.
+ t7 [4] : a -[otherwise]-> c ; -- Duplicate otherwise transition and explicit priority.
+ t8 [4] : a -[otherwise]-> c ; -- Duplicate otherwise transition and explicit priority.
  t5 : a -[]-> c ;
 
  b -[]-> c ;
- b,c -[otherwise]-> c ;
+ b,c -[otherwise]-> c ; -- Duplicate otherwise transition from c.
  
- c -[otherwise]-> c ; -- Should raise a warning.
+ c -[otherwise]-> c ; -- Duplicate otherwise transition from c.
  
 **};  
 end myThread ;

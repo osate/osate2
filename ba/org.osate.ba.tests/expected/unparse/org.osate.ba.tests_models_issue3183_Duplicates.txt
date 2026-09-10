@@ -1,0 +1,14 @@
+===== annex[0] owner=Duplicates::example.impl =====
+
+states
+\tstart : initial state;
+\tfirst, second : state;
+\tfinish : final state;
+transitions
+\tstart -[]-> first;
+\tone : first -[otherwise]-> finish;
+\ttwo : first -[otherwise]-> finish;
+\tthree : first -[otherwise]-> finish;
+\tsecond -[otherwise]-> finish;
+----- Xtext reparse -----
+reparsed
