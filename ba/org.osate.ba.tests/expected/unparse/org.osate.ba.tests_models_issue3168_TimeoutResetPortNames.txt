@@ -1,0 +1,12 @@
+===== annex[0] owner=TimeoutResetPortNames::sensor.polling =====
+
+\t\tvariables
+\t\t\ttally: Base_Types::Integer;
+\t\tstates
+\t\t\tready: initial complete state;
+\t\t\tstopped: final state;
+\t\ttransitions
+\t\t\tbad_resets: ready -[ on dispatch timeout (sample or tally or cache) 20 ms ]-> stopped;
+\t
+----- Xtext reparse -----
+reparsed

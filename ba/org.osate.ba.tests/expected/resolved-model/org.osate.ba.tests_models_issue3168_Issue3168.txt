@@ -1,0 +1,22 @@
+annex[0] owner=Issue3168::monitor.watching
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=waiting
+    states[1] : BehaviorState name=degraded
+    states[2] : BehaviorState name=probing
+    states[3] : BehaviorState name=stopped
+    transitions[0] : BehaviorTransition name=single_reset
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchRelativeTimeout
+    transitions[1] : BehaviorTransition
+    transitions[2] : BehaviorTransition
+    transitions[3] : BehaviorTransition name=several_resets
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchRelativeTimeout
+    transitions[4] : BehaviorTransition
+    transitions[5] : BehaviorTransition
+    transitions[6] : BehaviorTransition
+    transitions[7] : BehaviorTransition
+    transitions[8] : BehaviorTransition name=no_reset
+      condition : DispatchCondition
+        dispatchTriggerCondition : CompletionRelativeTimeout
+          integerValue : BehaviorIntegerLiteral
