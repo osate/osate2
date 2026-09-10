@@ -1,0 +1,12 @@
+===== annex[0] owner=TypeNames::derived =====
+
+variables
+    INPUT : Base_Types::Integer;
+states
+    start : initial state;
+    ready : complete state;
+    finish : final state;
+transitions
+    ACTIVE: start -[]-> ready;
+----- Xtext reparse -----
+reparsed
