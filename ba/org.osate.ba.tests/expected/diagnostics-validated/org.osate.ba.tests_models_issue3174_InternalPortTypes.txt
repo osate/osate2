@@ -1,0 +1,2 @@
+error | semantic | 40 | 39 | 12 | internal event 'raised_event' has no data: it cannot be an assignment target
+error | semantic | 41 | 57 | 1 | internal event 'raised_event' has no data: its send action cannot carry a value

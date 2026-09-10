@@ -76,8 +76,7 @@ public class BehaviorAnnexConformanceTest {
 			"unaryPlusIsRejectedByTheStandard -> #3170",
 			"portUpdatedIsAcceptedByTheStandard -> #3171",
 			"selfPropertyReferenceIsAcceptedByTheStandard -> #3172",
-			"optionalLoopClassifierIsAcceptedByTheStandard -> #3173",
-			"internalPortActionsAreAcceptedByTheStandard -> #3174");
+			"optionalLoopClassifierIsAcceptedByTheStandard -> #3173");
 
 	/** The fixtures a standard expectation in this class asserts about. */
 	private static final List<String> ASSERTED_FIXTURES = List.of("InternalCondition.aadl",

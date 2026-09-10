@@ -1,0 +1,6 @@
+error | semantic | 34 | 12 | 5 | Behavior Annex identifier 'VALUE' conflicts with an enclosing feature identifier
+error | semantic | 34 | 12 | 5 | Duplicate Behavior Annex identifier 'VALUE'
+error | semantic | 34 | 5 | 5 | Behavior Annex identifier 'value' conflicts with an enclosing feature identifier
+error | semantic | 34 | 5 | 5 | Duplicate Behavior Annex identifier 'value'
+error | semantic | 35 | 5 | 5 | Behavior Annex identifier 'Value' conflicts with an enclosing feature identifier
+error | semantic | 35 | 5 | 5 | Duplicate Behavior Annex identifier 'Value'
