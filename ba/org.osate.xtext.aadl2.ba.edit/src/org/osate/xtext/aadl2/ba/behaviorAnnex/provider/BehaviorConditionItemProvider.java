@@ -105,6 +105,7 @@ public class BehaviorConditionItemProvider
     {
       super.getChildrenFeatures(object);
       childrenFeatures.add(BehaviorAnnexPackage.Literals.BEHAVIOR_CONDITION__DISPATCH);
+      childrenFeatures.add(BehaviorAnnexPackage.Literals.BEHAVIOR_CONDITION__INTERNAL);
       childrenFeatures.add(BehaviorAnnexPackage.Literals.BEHAVIOR_CONDITION__MODE_SWITCH);
       childrenFeatures.add(BehaviorAnnexPackage.Literals.BEHAVIOR_CONDITION__EXECUTE);
     }
@@ -165,6 +166,7 @@ public class BehaviorConditionItemProvider
     switch (notification.getFeatureID(BehaviorCondition.class))
     {
       case BehaviorAnnexPackage.BEHAVIOR_CONDITION__DISPATCH:
+      case BehaviorAnnexPackage.BEHAVIOR_CONDITION__INTERNAL:
       case BehaviorAnnexPackage.BEHAVIOR_CONDITION__MODE_SWITCH:
       case BehaviorAnnexPackage.BEHAVIOR_CONDITION__EXECUTE:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
@@ -189,6 +191,11 @@ public class BehaviorConditionItemProvider
       (createChildParameter
         (BehaviorAnnexPackage.Literals.BEHAVIOR_CONDITION__DISPATCH,
          BehaviorAnnexFactory.eINSTANCE.createDispatchCondition()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (BehaviorAnnexPackage.Literals.BEHAVIOR_CONDITION__INTERNAL,
+         BehaviorAnnexFactory.eINSTANCE.createInternalCondition()));
 
     newChildDescriptors.add
       (createChildParameter

@@ -66,10 +66,11 @@ public class BehaviorAnnexConformanceTest {
 
 	/**
 	 * The standard expectations that are still skipped, each with the issue that tracks the missing implementation.
-	 * G03 (#3167) is absent because {@link #frozenPortParenthesesAreAcceptedByTheStandard()} passes.
+	 * G01 (#3165), G03 (#3167), and G10 (#3174) are absent because
+	 * {@link #internalConditionIsAcceptedByTheStandard()}, {@link #frozenPortParenthesesAreAcceptedByTheStandard()},
+	 * and {@link #internalPortActionsAreAcceptedByTheStandard()} pass.
 	 */
 	private static final List<String> TRACKED_SKIPS = List.of(
-			"internalConditionIsAcceptedByTheStandard -> #3165",
 			"externalConditionOperatorsAreAcceptedByTheStandard -> #3166",
 			"timeoutResetPortsAreAcceptedByTheStandard -> #3168",
 			"shortCircuitOperatorsAreAcceptedByTheStandard -> #3169",
@@ -88,7 +89,6 @@ public class BehaviorAnnexConformanceTest {
 	@Inject
 	private TestHelper<?> testHelper;
 
-	@Ignore("Issue #3165: implement internal conditions")
 	@Test
 	public void internalConditionIsAcceptedByTheStandard() throws Exception {
 		assertNoIssues("InternalCondition.aadl");

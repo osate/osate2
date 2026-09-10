@@ -5,6 +5,8 @@ public
 	abstract component
 	end component;
 
+	-- D.3 admits an internal condition on transitions out of execution states only, and a state without a qualifier is
+	-- the only execution state, so the automaton reaches 'working' before it can react to an internal event.
 	abstract implementation component.i
 	internal features
 		first_event: event;
@@ -12,9 +14,11 @@ public
 	annex behavior_specification {**
 		states
 			start: initial state;
+			working: state;
 			finish: final state;
 		transitions
-			start -[ on internal first_event or second_event ]-> finish;
+			start -[ ]-> working;
+			working -[ on internal first_event or second_event ]-> finish;
 	**};
 	end component.i;
 end InternalCondition;

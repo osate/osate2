@@ -1,0 +1,3 @@
+error | semantic | 40 | 27 | 18 | Only transitions out of execution states may have an internal condition, and a state qualified as initial, complete, or final is not an execution state : Behavior Annex D.3 legality rule failed.
+error | semantic | 41 | 30 | 18 | Only transitions out of execution states may have an internal condition, and a state qualified as initial, complete, or final is not an execution state : Behavior Annex D.3 legality rule failed.
+error | semantic | 41 | 4 | 54 | Transitions out of complete states must have dispatch condition : Behavior Annex D.3.(L7) legality rule failed.

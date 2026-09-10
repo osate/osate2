@@ -6743,6 +6743,52 @@ public interface AadlBaPackage extends EPackage {
 	int INTERNAL_PORT_SEND_ACTION_FEATURE_COUNT = COMMUNICATION_ACTION_FEATURE_COUNT + 2;
 
 	/**
+	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.InternalConditionImpl <em>Internal Condition</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.ba.aadlba.impl.InternalConditionImpl
+	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getInternalCondition()
+	 * @generated
+	 */
+	int INTERNAL_CONDITION = 123;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERNAL_CONDITION__OWNED_ELEMENT = BEHAVIOR_CONDITION__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERNAL_CONDITION__OWNED_COMMENT = BEHAVIOR_CONDITION__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Internal Ports</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERNAL_CONDITION__INTERNAL_PORTS = BEHAVIOR_CONDITION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Internal Condition</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERNAL_CONDITION_FEATURE_COUNT = BEHAVIOR_CONDITION_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.BehaviorFeatureType <em>Behavior Feature Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6750,7 +6796,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBehaviorFeatureType()
 	 * @generated
 	 */
-	int BEHAVIOR_FEATURE_TYPE = 123;
+	int BEHAVIOR_FEATURE_TYPE = 124;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.BinaryAddingOperator <em>Binary Adding Operator</em>}' enum.
@@ -6760,7 +6806,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBinaryAddingOperator()
 	 * @generated
 	 */
-	int BINARY_ADDING_OPERATOR = 124;
+	int BINARY_ADDING_OPERATOR = 125;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.BinaryNumericOperator <em>Binary Numeric Operator</em>}' enum.
@@ -6770,7 +6816,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBinaryNumericOperator()
 	 * @generated
 	 */
-	int BINARY_NUMERIC_OPERATOR = 125;
+	int BINARY_NUMERIC_OPERATOR = 126;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.DataRepresentation <em>Data Representation</em>}' enum.
@@ -6780,7 +6826,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getDataRepresentation()
 	 * @generated
 	 */
-	int DATA_REPRESENTATION = 126;
+	int DATA_REPRESENTATION = 127;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.FeatureType <em>Feature Type</em>}' enum.
@@ -6790,7 +6836,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getFeatureType()
 	 * @generated
 	 */
-	int FEATURE_TYPE = 127;
+	int FEATURE_TYPE = 128;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.LogicalOperator <em>Logical Operator</em>}' enum.
@@ -6800,7 +6846,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getLogicalOperator()
 	 * @generated
 	 */
-	int LOGICAL_OPERATOR = 128;
+	int LOGICAL_OPERATOR = 129;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.MultiplyingOperator <em>Multiplying Operator</em>}' enum.
@@ -6810,7 +6856,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getMultiplyingOperator()
 	 * @generated
 	 */
-	int MULTIPLYING_OPERATOR = 129;
+	int MULTIPLYING_OPERATOR = 130;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.RelationalOperator <em>Relational Operator</em>}' enum.
@@ -6820,7 +6866,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getRelationalOperator()
 	 * @generated
 	 */
-	int RELATIONAL_OPERATOR = 130;
+	int RELATIONAL_OPERATOR = 131;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.UnaryAddingOperator <em>Unary Adding Operator</em>}' enum.
@@ -6830,7 +6876,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getUnaryAddingOperator()
 	 * @generated
 	 */
-	int UNARY_ADDING_OPERATOR = 131;
+	int UNARY_ADDING_OPERATOR = 132;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.UnaryBooleanOperator <em>Unary Boolean Operator</em>}' enum.
@@ -6840,7 +6886,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getUnaryBooleanOperator()
 	 * @generated
 	 */
-	int UNARY_BOOLEAN_OPERATOR = 132;
+	int UNARY_BOOLEAN_OPERATOR = 133;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.UnaryNumericOperator <em>Unary Numeric Operator</em>}' enum.
@@ -6850,7 +6896,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getUnaryNumericOperator()
 	 * @generated
 	 */
-	int UNARY_NUMERIC_OPERATOR = 133;
+	int UNARY_NUMERIC_OPERATOR = 134;
 
 	/**
 	 * The meta object id for the '<em>Boolean</em>' data type.
@@ -6859,7 +6905,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBoolean()
 	 * @generated
 	 */
-	int BOOLEAN = 134;
+	int BOOLEAN = 135;
 
 	/**
 	 * The meta object id for the '<em>Integer</em>' data type.
@@ -6868,7 +6914,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getInteger()
 	 * @generated
 	 */
-	int INTEGER = 135;
+	int INTEGER = 136;
 
 	/**
 	 * The meta object id for the '<em>Real</em>' data type.
@@ -6877,7 +6923,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getReal()
 	 * @generated
 	 */
-	int REAL = 136;
+	int REAL = 137;
 
 	/**
 	 * The meta object id for the '<em>String</em>' data type.
@@ -6887,7 +6933,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getString()
 	 * @generated
 	 */
-	int STRING = 137;
+	int STRING = 138;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.ba.aadlba.ActualPortHolder <em>Actual Port Holder</em>}'.
@@ -9265,6 +9311,27 @@ public interface AadlBaPackage extends EPackage {
 	EReference getInternalPortSendAction_ValueExpression();
 
 	/**
+	 * Returns the meta object for class '{@link org.osate.ba.aadlba.InternalCondition <em>Internal Condition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Internal Condition</em>'.
+	 * @see org.osate.ba.aadlba.InternalCondition
+	 * @generated
+	 */
+	EClass getInternalCondition();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.osate.ba.aadlba.InternalCondition#getInternalPorts <em>Internal Ports</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Internal Ports</em>'.
+	 * @see org.osate.ba.aadlba.InternalCondition#getInternalPorts()
+	 * @see #getInternalCondition()
+	 * @generated
+	 */
+	EReference getInternalCondition_InternalPorts();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -11391,6 +11458,24 @@ public interface AadlBaPackage extends EPackage {
 		 * @generated
 		 */
 		EReference INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION = eINSTANCE.getInternalPortSendAction_ValueExpression();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.ba.aadlba.impl.InternalConditionImpl <em>Internal Condition</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.ba.aadlba.impl.InternalConditionImpl
+		 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getInternalCondition()
+		 * @generated
+		 */
+		EClass INTERNAL_CONDITION = eINSTANCE.getInternalCondition();
+
+		/**
+		 * The meta object literal for the '<em><b>Internal Ports</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INTERNAL_CONDITION__INTERNAL_PORTS = eINSTANCE.getInternalCondition_InternalPorts();
 
 	}
 

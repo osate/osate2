@@ -79,7 +79,7 @@ BehaviorTransition:
 ;
 
 BehaviorCondition:
-    'on' (dispatch=DispatchCondition | modeSwitch=ModeSwitchCondition)
+    'on' (dispatch=DispatchCondition | internal=InternalCondition | modeSwitch=ModeSwitchCondition)
     | execute=ExecuteCondition
 ;
 
@@ -115,6 +115,12 @@ ModeSwitchCondition:
 
 ModeSwitchConjunction:
     triggers+=Reference ('and' triggers+=Reference)*
+;
+
+// The listed names are internal event or event data features of the containing component. Like every other name in
+// the annex they stay symbolic here; the translator resolves them against the owner.
+InternalCondition:
+    'internal' internalPorts+=Reference ('or' internalPorts+=Reference)*
 ;
 
 BehaviorActionBlock:

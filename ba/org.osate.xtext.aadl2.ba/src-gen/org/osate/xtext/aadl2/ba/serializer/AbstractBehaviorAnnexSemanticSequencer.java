@@ -85,6 +85,7 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.ExecuteCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ForStatement;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.HashPropertyReference;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.IfStatement;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.InternalCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchConjunction;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.NamedPropertyField;
@@ -311,6 +312,9 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
                 return;
             case BehaviorAnnexPackage.IF_STATEMENT:
                 sequence_IfStatement(context, (IfStatement) semanticObject);
+                return;
+            case BehaviorAnnexPackage.INTERNAL_CONDITION:
+                sequence_InternalCondition(context, (InternalCondition) semanticObject);
                 return;
             case BehaviorAnnexPackage.MODE_SWITCH_CONDITION:
                 sequence_ModeSwitchCondition(context, (ModeSwitchCondition) semanticObject);
@@ -569,7 +573,7 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
      *     BehaviorCondition returns BehaviorCondition
      *
      * Constraint:
-     *     (dispatch=DispatchCondition | modeSwitch=ModeSwitchCondition | execute=ExecuteCondition)
+     *     (dispatch=DispatchCondition | internal=InternalCondition | modeSwitch=ModeSwitchCondition | execute=ExecuteCondition)
      * </pre>
      */
     protected void sequence_BehaviorCondition(ISerializationContext context, BehaviorCondition semanticObject) {
@@ -1043,6 +1047,20 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
      * </pre>
      */
     protected void sequence_IfStatement(ISerializationContext context, IfStatement semanticObject) {
+        genericSequencer.createSequence(context, semanticObject);
+    }
+
+
+    /**
+     * <pre>
+     * Contexts:
+     *     InternalCondition returns InternalCondition
+     *
+     * Constraint:
+     *     (internalPorts+=Reference internalPorts+=Reference*)
+     * </pre>
+     */
+    protected void sequence_InternalCondition(ISerializationContext context, InternalCondition semanticObject) {
         genericSequencer.createSequence(context, semanticObject);
     }
 

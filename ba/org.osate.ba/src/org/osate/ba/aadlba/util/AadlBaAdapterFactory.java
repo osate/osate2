@@ -1,12 +1,12 @@
 /**
  * AADL-BA-FrontEnd
- * 
+ *
  * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
  * version 2.0 of the License, or (at your option) any later version. This
@@ -92,7 +92,7 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected AadlBaSwitch<Adapter> modelSwitch = new AadlBaSwitch<Adapter>() {
+	protected AadlBaSwitch<Adapter> modelSwitch = new AadlBaSwitch<>() {
 		@Override
 		public Adapter caseActualPortHolder(ActualPortHolder object) {
 			return createActualPortHolderAdapter();
@@ -706,6 +706,11 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseInternalPortSendAction(InternalPortSendAction object) {
 			return createInternalPortSendActionAdapter();
+		}
+
+		@Override
+		public Adapter caseInternalCondition(InternalCondition object) {
+			return createInternalConditionAdapter();
 		}
 
 		@Override
@@ -2693,6 +2698,20 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createInternalPortSendActionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.InternalCondition <em>Internal Condition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.ba.aadlba.InternalCondition
+	 * @generated
+	 */
+	public Adapter createInternalConditionAdapter() {
 		return null;
 	}
 

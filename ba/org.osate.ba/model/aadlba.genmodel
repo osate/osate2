@@ -576,5 +576,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//InternalPortSendAction/internalPort"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//InternalPortSendAction/valueExpression"/>
     </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//InternalCondition">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//InternalCondition/internalPorts"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

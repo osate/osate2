@@ -1,0 +1,11 @@
+annex[0] owner=InternalConditionSources::sources.qualified_states
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=waiting
+    states[2] : BehaviorState name=done
+    transitions[0] : BehaviorTransition name=from_initial
+      condition : InternalCondition
+        internalPorts[0] : EventSourceHolder element=InternalConditionSources::sources.qualified_states.raised [EventSource]
+    transitions[1] : BehaviorTransition name=from_complete
+      condition : InternalCondition
+        internalPorts[0] : EventSourceHolder element=InternalConditionSources::sources.qualified_states.raised [EventSource]

@@ -860,4 +860,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="valueExpression" eType="#//ValueExpression"
         containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InternalCondition" eSuperTypes="#//BehaviorCondition">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="internalPorts" lowerBound="1"
+        upperBound="-1" eType="#//InternalPortHolder" unsettable="true" containment="true"/>
+  </eClassifiers>
 </ecore:EPackage>

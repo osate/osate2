@@ -867,9 +867,29 @@ ruleBehaviorCondition returns [EObject current=null]
                 (
                     (
                         {
-                            newCompositeNode(grammarAccess.getBehaviorConditionAccess().getModeSwitchModeSwitchConditionParserRuleCall_0_1_1_0());
+                            newCompositeNode(grammarAccess.getBehaviorConditionAccess().getInternalInternalConditionParserRuleCall_0_1_1_0());
                         }
-                        lv_modeSwitch_2_0=ruleModeSwitchCondition
+                        lv_internal_2_0=ruleInternalCondition
+                        {
+                            if ($current==null) {
+                                $current = createModelElementForParent(grammarAccess.getBehaviorConditionRule());
+                            }
+                            set(
+                                $current,
+                                "internal",
+                                lv_internal_2_0,
+                                "org.osate.xtext.aadl2.ba.BehaviorAnnex.InternalCondition");
+                            afterParserOrEnumRuleCall();
+                        }
+                    )
+                )
+                    |
+                (
+                    (
+                        {
+                            newCompositeNode(grammarAccess.getBehaviorConditionAccess().getModeSwitchModeSwitchConditionParserRuleCall_0_1_2_0());
+                        }
+                        lv_modeSwitch_3_0=ruleModeSwitchCondition
                         {
                             if ($current==null) {
                                 $current = createModelElementForParent(grammarAccess.getBehaviorConditionRule());
@@ -877,7 +897,7 @@ ruleBehaviorCondition returns [EObject current=null]
                             set(
                                 $current,
                                 "modeSwitch",
-                                lv_modeSwitch_2_0,
+                                lv_modeSwitch_3_0,
                                 "org.osate.xtext.aadl2.ba.BehaviorAnnex.ModeSwitchCondition");
                             afterParserOrEnumRuleCall();
                         }
@@ -891,7 +911,7 @@ ruleBehaviorCondition returns [EObject current=null]
                 {
                     newCompositeNode(grammarAccess.getBehaviorConditionAccess().getExecuteExecuteConditionParserRuleCall_1_0());
                 }
-                lv_execute_3_0=ruleExecuteCondition
+                lv_execute_4_0=ruleExecuteCondition
                 {
                     if ($current==null) {
                         $current = createModelElementForParent(grammarAccess.getBehaviorConditionRule());
@@ -899,7 +919,7 @@ ruleBehaviorCondition returns [EObject current=null]
                     set(
                         $current,
                         "execute",
-                        lv_execute_3_0,
+                        lv_execute_4_0,
                         "org.osate.xtext.aadl2.ba.BehaviorAnnex.ExecuteCondition");
                     afterParserOrEnumRuleCall();
                 }
@@ -1415,6 +1435,73 @@ ruleModeSwitchConjunction returns [EObject current=null]
                             $current,
                             "triggers",
                             lv_triggers_2_0,
+                            "org.osate.xtext.aadl2.ba.BehaviorAnnex.Reference");
+                        afterParserOrEnumRuleCall();
+                    }
+                )
+            )
+        )*
+    )
+;
+
+// Entry rule entryRuleInternalCondition
+entryRuleInternalCondition returns [EObject current=null]:
+    { newCompositeNode(grammarAccess.getInternalConditionRule()); }
+    iv_ruleInternalCondition=ruleInternalCondition
+    { $current=$iv_ruleInternalCondition.current; }
+    EOF;
+
+// Rule InternalCondition
+ruleInternalCondition returns [EObject current=null]
+@init {
+    enterRule();
+}
+@after {
+    leaveRule();
+}:
+    (
+        otherlv_0=Internal
+        {
+            newLeafNode(otherlv_0, grammarAccess.getInternalConditionAccess().getInternalKeyword_0());
+        }
+        (
+            (
+                {
+                    newCompositeNode(grammarAccess.getInternalConditionAccess().getInternalPortsReferenceParserRuleCall_1_0());
+                }
+                lv_internalPorts_1_0=ruleReference
+                {
+                    if ($current==null) {
+                        $current = createModelElementForParent(grammarAccess.getInternalConditionRule());
+                    }
+                    add(
+                        $current,
+                        "internalPorts",
+                        lv_internalPorts_1_0,
+                        "org.osate.xtext.aadl2.ba.BehaviorAnnex.Reference");
+                    afterParserOrEnumRuleCall();
+                }
+            )
+        )
+        (
+            otherlv_2=Or
+            {
+                newLeafNode(otherlv_2, grammarAccess.getInternalConditionAccess().getOrKeyword_2_0());
+            }
+            (
+                (
+                    {
+                        newCompositeNode(grammarAccess.getInternalConditionAccess().getInternalPortsReferenceParserRuleCall_2_1_0());
+                    }
+                    lv_internalPorts_3_0=ruleReference
+                    {
+                        if ($current==null) {
+                            $current = createModelElementForParent(grammarAccess.getInternalConditionRule());
+                        }
+                        add(
+                            $current,
+                            "internalPorts",
+                            lv_internalPorts_3_0,
                             "org.osate.xtext.aadl2.ba.BehaviorAnnex.Reference");
                         afterParserOrEnumRuleCall();
                     }

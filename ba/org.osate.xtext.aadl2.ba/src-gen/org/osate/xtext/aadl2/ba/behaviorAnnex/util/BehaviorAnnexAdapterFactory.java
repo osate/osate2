@@ -181,6 +181,11 @@ public class BehaviorAnnexAdapterFactory extends AdapterFactoryImpl
         return createModeSwitchConjunctionAdapter();
       }
       @Override
+      public Adapter caseInternalCondition(InternalCondition object)
+      {
+        return createInternalConditionAdapter();
+      }
+      @Override
       public Adapter caseBehaviorActionBlock(BehaviorActionBlock object)
       {
         return createBehaviorActionBlockAdapter();
@@ -653,6 +658,21 @@ public class BehaviorAnnexAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createModeSwitchConjunctionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.InternalCondition <em>Internal Condition</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.xtext.aadl2.ba.behaviorAnnex.InternalCondition
+   * @generated
+   */
+  public Adapter createInternalConditionAdapter()
   {
     return null;
   }

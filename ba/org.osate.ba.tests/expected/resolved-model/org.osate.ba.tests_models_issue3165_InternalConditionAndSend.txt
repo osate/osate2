@@ -1,0 +1,12 @@
+annex[0] owner=InternalConditionAndSend::mixed.condition_and_send
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=working
+    states[2] : BehaviorState name=done
+    transitions[0] : BehaviorTransition name=enter_working
+    transitions[1] : BehaviorTransition name=react
+      condition : InternalCondition
+        internalPorts[0] : EventSourceHolder element=InternalConditionAndSend::mixed.condition_and_send.raised [EventSource]
+    actions[0] : BehaviorActionBlock
+      content : InternalPortSendAction
+        internalPort : EventSourceHolder element=InternalConditionAndSend::mixed.condition_and_send.raised [EventSource]

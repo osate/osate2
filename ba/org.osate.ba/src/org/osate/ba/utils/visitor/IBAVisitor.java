@@ -140,6 +140,8 @@ public interface IBAVisitor {
 
 	void visit(IntegerValueVariable ivv);
 
+	void visit(InternalCondition ic);
+
 	void visit(InternalPortHolder iph);
 
 	void visit(InternalPortSendAction ipsa);

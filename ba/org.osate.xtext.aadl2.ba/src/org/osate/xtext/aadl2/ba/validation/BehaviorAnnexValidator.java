@@ -38,6 +38,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.xtext.diagnostics.Severity;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.eclipse.xtext.validation.ValidationMessageAcceptor;
@@ -59,6 +60,7 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorIntegerLiteral;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTransition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.CommunicationAction;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.InternalCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.Reference;
 import org.osate.xtext.aadl2.ba.translation.DeclarativeToStrictTranslator;
 import org.osate.xtext.aadl2.ba.translation.DeclarativeToStrictTranslator.TranslationResult;
@@ -76,6 +78,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	public static final String CHECKER_DIAGNOSTIC = "org.osate.xtext.aadl2.ba.checker";
 	public static final String UNREPRESENTABLE_LITERAL = "org.osate.xtext.aadl2.ba.unrepresentableLiteral";
 	public static final String INTERNAL_PORT_USE = "org.osate.xtext.aadl2.ba.internalPortUse";
+	public static final String INTERNAL_CONDITION_PORT = "org.osate.xtext.aadl2.ba.internalConditionPort";
 	private static final URI VALIDATION_RESOURCE_URI = URI.createURI("validation:/behavior-annex.aadlba");
 
 	@Inject
@@ -100,7 +103,11 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 		}
 
 		var translation = translator.translate(source, owner);
-		if (!checkInternalPortUses(source, translation)) {
+		// Both checks describe a name the strict model cannot carry, and a model can get each one wrong independently,
+		// so report them both before deciding whether the strict checkers have a model to work on.
+		var representable = checkInternalPortUses(source, translation);
+		representable &= checkInternalConditionPorts(source, translation);
+		if (!representable) {
 			return;
 		}
 		var strictAnnex = translation.getStrictAnnex();
@@ -126,10 +133,11 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	}
 
 	/**
-	 * AS5506/3 Rev A names an internal port in the D.6 target and communication_action productions only. The grammar
-	 * accepts a generic reference everywhere else, so an internal port can be written where the standard admits an
-	 * incoming port and where the strict model has nothing to carry it. Report each such reference and leave the
-	 * strict-model checkers out of it, the way a linking failure already gates them.
+	 * AS5506/3 Rev A names an internal port in the D.3 internal_condition production and in the D.6 target and
+	 * communication_action productions only. The grammar accepts a generic reference everywhere else, so an internal
+	 * port can be written where the standard admits an incoming port and where the strict model has nothing to carry
+	 * it. Report each such reference and leave the strict-model checkers out of it, the way a linking failure already
+	 * gates them.
 	 *
 	 * @return {@code true} when the annex uses every internal port it names as the standard admits
 	 */
@@ -138,9 +146,9 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 		for (var contents = source.eAllContents(); contents.hasNext();) {
 			if (contents.next() instanceof Reference reference
 					&& translation.getResolvedReference(reference) instanceof InternalFeature internalPort
-					&& !isInternalPortTargetOrSend(reference)) {
+					&& !isStandardInternalPortUse(reference)) {
 				error("'" + internalPort.getName() + "' is an internal port: it can only be an assignment or dequeue"
-						+ " target, or the port of a send action", reference, null,
+						+ " target, the port of a send action, or a port of an internal condition", reference, null,
 						ValidationMessageAcceptor.INSIGNIFICANT_INDEX, INTERNAL_PORT_USE);
 				accepted = false;
 			}
@@ -148,14 +156,43 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 		return accepted;
 	}
 
-	private static boolean isInternalPortTargetOrSend(final Reference reference) {
+	private static boolean isStandardInternalPortUse(final Reference reference) {
 		if (reference.eContainer() instanceof AssignmentAction assignment) {
 			return assignment.getTarget() == reference;
 		}
 		if (reference.eContainer() instanceof CommunicationAction action) {
 			return action.getTarget() == reference || action.isSend() && action.getReference() == reference;
 		}
-		return false;
+		return reference.eContainer() instanceof InternalCondition condition
+				&& condition.getInternalPorts().contains(reference);
+	}
+
+	/**
+	 * The AS5506/3 Rev A D.3 internal_condition production lists internal_port_names, so every name in an internal
+	 * condition must denote an internal event or internal event data feature of the owner. Any other name the annex can
+	 * see, and any name it cannot resolve at all, has no internal port holder to become: translation drops it, and the
+	 * condition would otherwise reach the strict checkers silently short of the ports the user wrote. Report the name
+	 * as written, since an unresolved one has no element to name.
+	 *
+	 * @return {@code true} when every internal condition in the annex lists internal ports only
+	 */
+	private boolean checkInternalConditionPorts(final BehaviorAnnex source, final TranslationResult translation) {
+		var accepted = true;
+		for (var contents = source.eAllContents(); contents.hasNext();) {
+			if (!(contents.next() instanceof InternalCondition condition)) {
+				continue;
+			}
+			for (var port : condition.getInternalPorts()) {
+				if (!(translation.getResolvedReference(port) instanceof InternalFeature)) {
+					error("'" + NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(port)) + "' is not an"
+							+ " internal port: an internal condition can only list internal event or internal event data"
+							+ " features", port, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
+							INTERNAL_CONDITION_PORT);
+					accepted = false;
+				}
+			}
+		}
+		return accepted;
 	}
 
 	/**

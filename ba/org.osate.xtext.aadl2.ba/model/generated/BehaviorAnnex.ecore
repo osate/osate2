@@ -57,6 +57,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="BehaviorCondition">
     <eStructuralFeatures xsi:type="ecore:EReference" name="dispatch" eType="#//DispatchCondition"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="internal" eType="#//InternalCondition"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modeSwitch" eType="#//ModeSwitchCondition"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="execute" eType="#//ExecuteCondition"
@@ -96,6 +98,10 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModeSwitchConjunction">
     <eStructuralFeatures xsi:type="ecore:EReference" name="triggers" upperBound="-1"
+        eType="#//Reference" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InternalCondition">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="internalPorts" upperBound="-1"
         eType="#//Reference" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BehaviorActionBlock" eSuperTypes="#//BehaviorAction">

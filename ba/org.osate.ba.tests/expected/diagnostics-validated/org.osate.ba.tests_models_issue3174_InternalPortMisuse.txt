@@ -1,4 +1,4 @@
-error | semantic | 43 | 42 | 11 | 'raised_data' is an internal port: it can only be an assignment or dequeue target, or the port of a send action
-error | semantic | 44 | 43 | 11 | 'raised_data' is an internal port: it can only be an assignment or dequeue target, or the port of a send action
-error | semantic | 45 | 49 | 11 | 'raised_data' is an internal port: it can only be an assignment or dequeue target, or the port of a send action
-error | semantic | 46 | 50 | 12 | 'raised_event' is an internal port: it can only be an assignment or dequeue target, or the port of a send action
+error | semantic | 43 | 42 | 11 | 'raised_data' is an internal port: it can only be an assignment or dequeue target, the port of a send action, or a port of an internal condition
+error | semantic | 44 | 43 | 11 | 'raised_data' is an internal port: it can only be an assignment or dequeue target, the port of a send action, or a port of an internal condition
+error | semantic | 45 | 49 | 11 | 'raised_data' is an internal port: it can only be an assignment or dequeue target, the port of a send action, or a port of an internal condition
+error | semantic | 46 | 50 | 12 | 'raised_event' is an internal port: it can only be an assignment or dequeue target, the port of a send action, or a port of an internal condition

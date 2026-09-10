@@ -49,6 +49,7 @@
     </genClasses>
     <genClasses ecoreClass="BehaviorAnnex.ecore#//BehaviorCondition">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference BehaviorAnnex.ecore#//BehaviorCondition/dispatch"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference BehaviorAnnex.ecore#//BehaviorCondition/internal"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference BehaviorAnnex.ecore#//BehaviorCondition/modeSwitch"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference BehaviorAnnex.ecore#//BehaviorCondition/execute"/>
     </genClasses>
@@ -78,6 +79,9 @@
     </genClasses>
     <genClasses ecoreClass="BehaviorAnnex.ecore#//ModeSwitchConjunction">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference BehaviorAnnex.ecore#//ModeSwitchConjunction/triggers"/>
+    </genClasses>
+    <genClasses ecoreClass="BehaviorAnnex.ecore#//InternalCondition">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference BehaviorAnnex.ecore#//InternalCondition/internalPorts"/>
     </genClasses>
     <genClasses ecoreClass="BehaviorAnnex.ecore#//BehaviorActionBlock">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference BehaviorAnnex.ecore#//BehaviorActionBlock/content"/>

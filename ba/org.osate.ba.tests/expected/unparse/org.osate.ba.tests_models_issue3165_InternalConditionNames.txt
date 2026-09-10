@@ -1,0 +1,16 @@
+===== annex[0] owner=InternalConditionNames::names.not_internal_ports =====
+
+\t\tvariables
+\t\t\tprogress: counter;
+\t\tstates
+\t\t\tstart: initial state;
+\t\t\tworking: state;
+\t\t\tdone: final state;
+\t\ttransitions
+\t\t\tenter_working: start -[ ]-> working;
+\t\t\ton_incoming_port: working -[ on internal trigger ]-> done;
+\t\t\ton_variable: working -[ on internal progress ]-> done;
+\t\t\ton_data_subcomponent: working -[ on internal tally ]-> done;
+\t
+----- Xtext reparse -----
+reparsed

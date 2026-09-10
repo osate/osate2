@@ -110,6 +110,9 @@ public abstract class AbstractBehaviorAnnexProposalProvider extends PropertiesPr
     public void completeBehaviorCondition_Dispatch(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
         completeRuleCall(((RuleCall)assignment.getTerminal()), context, acceptor);
     }
+    public void completeBehaviorCondition_Internal(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        completeRuleCall(((RuleCall)assignment.getTerminal()), context, acceptor);
+    }
     public void completeBehaviorCondition_ModeSwitch(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
         completeRuleCall(((RuleCall)assignment.getTerminal()), context, acceptor);
     }
@@ -153,6 +156,9 @@ public abstract class AbstractBehaviorAnnexProposalProvider extends PropertiesPr
         completeRuleCall(((RuleCall)assignment.getTerminal()), context, acceptor);
     }
     public void completeModeSwitchConjunction_Triggers(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        completeRuleCall(((RuleCall)assignment.getTerminal()), context, acceptor);
+    }
+    public void completeInternalCondition_InternalPorts(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
         completeRuleCall(((RuleCall)assignment.getTerminal()), context, acceptor);
     }
     public void completeBehaviorActionBlock_Content(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
@@ -485,6 +491,9 @@ public abstract class AbstractBehaviorAnnexProposalProvider extends PropertiesPr
         // subclasses may override
     }
     public void complete_ModeSwitchConjunction(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        // subclasses may override
+    }
+    public void complete_InternalCondition(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
         // subclasses may override
     }
     public void complete_BehaviorActionBlock(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
