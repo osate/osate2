@@ -1,0 +1,5 @@
+error | semantic | 40 | 21 | 1 | Iterative variable 'i' cannot be an assignment target: Behavior Annex D.6.(L2) legality rule failed.
+error | semantic | 41 | 21 | 1 | Iterative variable 'i' cannot be an assignment target: Behavior Annex D.6.(L2) legality rule failed.
+error | semantic | 43 | 25 | 1 | Iterative variable 'j' cannot be an assignment target: Behavior Annex D.6.(L2) legality rule failed.
+error | semantic | 44 | 40 | 1 | Iterative variable 'i' cannot be an assignment target: Behavior Annex D.6.(L2) legality rule failed.
+error | semantic | 47 | 21 | 1 | Iterative variable 'i' cannot be an assignment target: Behavior Annex D.6.(L2) legality rule failed.

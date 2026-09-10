@@ -1,0 +1,89 @@
+annex[0] owner=ForAssignments::worker.i
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=a
+    variables[1] : BehaviorVariable name=i
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : ForOrForAllStatement
+          behaviorActions : BehaviorActionSequence
+            actions[0] : AssignmentAction
+              valueExpression : ValueExpression
+                relations[0] : Relation
+                  firstExpression : SimpleExpression
+                    terms[0] : Term
+                      factors[0] : Factor
+                        firstValue : BehaviorIntegerLiteral
+            actions[1] : AssignmentAction
+              valueExpression : Any
+            actions[2] : ForOrForAllStatement
+              behaviorActions : BehaviorActionSequence
+                actions[0] : AssignmentAction
+                  valueExpression : ValueExpression
+                    relations[0] : Relation
+                      firstExpression : SimpleExpression
+                        terms[0] : Term
+                          factors[0] : Factor
+                            firstValue : IterativeVariableHolder element=i [IterativeVariable]
+                actions[1] : IfStatement
+                  behaviorActions : BehaviorActionBlock
+                    content : WhileOrDoUntilStatement
+                      behaviorActions : BehaviorActionBlock
+                        content : AssignmentAction
+                          valueExpression : ValueExpression
+                            relations[0] : Relation
+                              firstExpression : SimpleExpression
+                                terms[0] : Term
+                                  factors[0] : Factor
+                                    firstValue : BehaviorVariableHolder element=a [BehaviorVariable]
+                                terms[1] : Term
+                                  factors[0] : Factor
+                                    firstValue : IterativeVariableHolder element=j [IterativeVariable]
+                      logicalValueExpression : ValueExpression
+                        relations[0] : Relation
+                          firstExpression : SimpleExpression
+                            terms[0] : Term
+                              factors[0] : Factor
+                                firstValue : BehaviorBooleanLiteral
+                  logicalValueExpression : ValueExpression
+                    relations[0] : Relation
+                      firstExpression : SimpleExpression
+                        terms[0] : Term
+                          factors[0] : Factor
+                            firstValue : BehaviorBooleanLiteral
+                actions[2] : AssignmentAction
+                  target : BehaviorVariableHolder element=a [BehaviorVariable]
+                  valueExpression : ValueExpression
+                    relations[0] : Relation
+                      firstExpression : SimpleExpression
+                        terms[0] : Term
+                          factors[0] : Factor
+                            firstValue : IterativeVariableHolder element=i [IterativeVariable]
+                        terms[1] : Term
+                          factors[0] : Factor
+                            firstValue : IterativeVariableHolder element=j [IterativeVariable]
+              iteratedValues : IntegerRange
+                lowerIntegerValue : BehaviorIntegerLiteral
+                upperIntegerValue : BehaviorIntegerLiteral
+              iterativeVariable : IterativeVariable name=j
+            actions[3] : AssignmentAction
+              valueExpression : ValueExpression
+                relations[0] : Relation
+                  firstExpression : SimpleExpression
+                    terms[0] : Term
+                      factors[0] : Factor
+                        firstValue : BehaviorIntegerLiteral
+          iteratedValues : IntegerRange
+            lowerIntegerValue : BehaviorIntegerLiteral
+            upperIntegerValue : BehaviorIntegerLiteral
+          iterativeVariable : IterativeVariable name=i
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=i [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
