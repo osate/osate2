@@ -1,0 +1,20 @@
+===== annex[0] owner=Issue3176::collector.impl =====
+
+\t\t\tvariables
+\t\t\t\tsamples[10] : Base_Types::Integer;
+\t\t\t\twindow[16#10#] : Base_Types::Integer;
+\t\t\t\thistory[1_0_0] : Base_Types::Integer;
+\t\t\t\tgrid[3][4] : Base_Types::Integer;
+\t\t\t\tleft[2], right[3] : Base_Types::Integer;
+\t\t\t\ttotal : Base_Types::Integer;
+\t\t\t\tbuffer[# AADL_Project::Max_Queue_Size] : Base_Types::Integer;
+\t\t\tstates
+\t\t\t\tstart : initial state;
+\t\t\t\tready : complete state;
+\t\t\t\tdone : final state;
+\t\t\ttransitions
+\t\t\t\tstart -[]-> ready;
+\t\t\t\tready -[on dispatch trigger]-> done;
+\t\t
+----- Xtext reparse -----
+reparsed

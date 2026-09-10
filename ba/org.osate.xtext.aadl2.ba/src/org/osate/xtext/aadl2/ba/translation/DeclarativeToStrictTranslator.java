@@ -38,6 +38,7 @@ import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.AccessSpecification;
+import org.osate.aadl2.ArraySize;
 import org.osate.aadl2.BasicProperty;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierValue;
@@ -127,6 +128,7 @@ import org.osate.utils.internal.Aadl2Utils;
 import org.osate.utils.internal.Aadl2Visitors;
 import org.osate.utils.internal.PropertyUtils;
 import org.osate.utils.internal.names.DataModelProperties;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ArrayDimension;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ArrayIndex;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.AssignmentAction;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorActionBlock;
@@ -302,10 +304,7 @@ public final class DeclarativeToStrictTranslator {
 					}
 					for (final var dimension : variable.getArrayDimensions()) {
 						final var arrayDimension = trace(Aadl2Factory.eINSTANCE.createArrayDimension(), dimension);
-						final var size = Aadl2Factory.eINSTANCE.createArraySize();
-						trace(size, dimension);
-						size.setSize(0);
-						arrayDimension.setSize(size);
+						arrayDimension.setSize(toArraySize(dimension));
 						result.getArrayDimensions().add(arrayDimension);
 					}
 					if (group.getInitialValue() != null) {
@@ -320,6 +319,26 @@ public final class DeclarativeToStrictTranslator {
 					variables.put(result.getName(), variables.containsKey(result.getName()) ? null : result);
 				}
 			}
+		}
+
+		/**
+		 * Translates the extent of one declared array dimension. AS5506/3 Rev A D.3 writes an array size as an integer
+		 * value constant, and {@code aadl2::ArraySize} carries either a literal extent or the property constant that
+		 * supplies one, so both of those forms keep the declared extent. Any other size the grammar accepts has
+		 * nothing to carry it and keeps the model default; the size still traces to the syntax that was written.
+		 */
+		private ArraySize toArraySize(final ArrayDimension dimension) {
+			final var declaredSize = dimension.getSize();
+			final var result = trace(Aadl2Factory.eINSTANCE.createArraySize(),
+					declaredSize == null ? dimension : declaredSize);
+			if (declaredSize instanceof BehaviorIntegerLiteral literal) {
+				result.setSize(parseInteger(literal.getValue(), 0));
+			} else if (declaredSize instanceof HashPropertyReference reference && reference.getIndexes().isEmpty()
+					&& reference.getFields().isEmpty()
+					&& resolveQualified(reference.getProperty(), true) instanceof PropertyConstant constant) {
+				result.setSizeProperty(constant);
+			}
+			return result;
 		}
 
 		private PropertyAssociation toPropertyAssociation(final BehaviorPropertyAssociation sourceAssociation) {
