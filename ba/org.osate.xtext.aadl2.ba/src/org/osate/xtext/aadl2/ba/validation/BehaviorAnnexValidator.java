@@ -115,7 +115,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 		var representable = checkInternalPortUses(source, translation);
 		representable &= checkInternalConditionPorts(source, translation);
 		representable &= checkTimeoutResetPorts(source, translation);
-		representable &= checkIteratorAssignmentTargets(source, translation);
+		representable &= checkIteratorTargets(source, translation);
 		if (!representable) {
 			return;
 		}
@@ -241,23 +241,24 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	}
 
 	/**
-	 * D.6 admits an assignment target that names a behavior variable, a feature, or a data component, and forbids
-	 * naming the element variable of an enclosing {@code for} or {@code forall}. No strict checker can see either shape
-	 * of that violation: an iterator holder does not implement strict {@code Target}, so '{@code i := ...}' reaches the
-	 * checkers with no target at all, while '{@code i.field := ...}' becomes an ordinary data component reference that
-	 * type checks. Only the first segment of a target can name an iterator, and it is the segment the rule constrains,
-	 * since writing one data element of the iterator writes part of the iterator.
+	 * D.6 admits a target that names a behavior variable, a feature, or a data component, and forbids naming the
+	 * element variable of an enclosing {@code for} or {@code forall}. The assignment action and the port dequeue action
+	 * share that target production, and no strict checker can see either shape of the violation in either action: an
+	 * iterator holder does not implement strict {@code Target}, so '{@code i := ...}' and '{@code p?(i)}' reach the
+	 * checkers with no target at all, while '{@code i.field := ...}' and '{@code p?(i.field)}' become ordinary data
+	 * component references that type check. Only the first segment of a target can name an iterator, and it is the
+	 * segment the rule constrains, since writing one data element of the iterator writes part of the iterator.
 	 *
-	 * @return {@code true} when no assignment in the annex targets an iterator
+	 * @return {@code true} when no assignment or dequeue in the annex targets an iterator
 	 */
-	private boolean checkIteratorAssignmentTargets(final BehaviorAnnex source, final TranslationResult translation) {
+	private boolean checkIteratorTargets(final BehaviorAnnex source, final TranslationResult translation) {
 		var accepted = true;
 		for (var contents = source.eAllContents(); contents.hasNext();) {
-			if (!(contents.next() instanceof AssignmentAction assignment) || assignment.getTarget() == null
-					|| assignment.getTarget().getSegments().isEmpty()) {
+			var target = writtenTarget(contents.next());
+			if (target == null || target.getSegments().isEmpty()) {
 				continue;
 			}
-			var name = assignment.getTarget().getSegments().get(0);
+			var name = target.getSegments().get(0);
 			if (translation.getResolvedReference(name) instanceof ForStatement loop) {
 				error("Iterative variable '" + loop.getVariable()
 						+ "' cannot be an assignment target: Behavior Annex D.6.(L2) legality rule failed.", name, null,
@@ -266,6 +267,16 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 			}
 		}
 		return accepted;
+	}
+
+	/** The target an action writes, which the assignment action and the dequeue action spell the same way. */
+	private static Reference writtenTarget(final EObject action) {
+		if (action instanceof AssignmentAction assignment) {
+			return assignment.getTarget();
+		}
+		return action instanceof CommunicationAction communication && communication.isDequeue()
+				? communication.getTarget()
+				: null;
 	}
 
 	/**
