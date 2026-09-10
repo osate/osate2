@@ -65,6 +65,7 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTransition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.CommunicationAction;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchTriggerCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ForStatement;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.HashPropertyReference;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.InternalCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.Reference;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceExpression;
@@ -115,7 +116,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 		var translation = translator.translate(source, owner);
 		// Each check describes a use no strict checker can reject, and a model can get each one wrong independently,
 		// so report them all before deciding whether the strict checkers have a model to work on.
-		var representable = checkArraySizes(source);
+		var representable = checkArraySizes(source, translation);
 		representable &= checkInternalPortUses(source, translation);
 		representable &= checkInternalConditionPorts(source, translation);
 		representable &= checkTimeoutResetPorts(source, translation);
@@ -149,22 +150,39 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	 * AS5506/3 Rev A D.3 requires each behavior-variable array size to be the integer value constant of D.7: an integer
 	 * literal or a property reference. The shared integer-value grammar also accepts an ordinary reference expression,
 	 * which the strict array dimension cannot carry and translation would otherwise turn into a zero extent. A reference
-	 * expression with a property tail is the standard property-reference form and remains admissible.
+	 * expression with a property tail is a property reference, but only an unindexed property constant supplies the
+	 * context-free static extent that the strict array dimension can represent. A bare or element-prefixed property
+	 * definition would otherwise become a zero extent, so reject it before running the strict-model checkers.
 	 *
-	 * @return {@code true} when every declared array size is an integer literal or property reference
+	 * @return {@code true} when every declared array size is an integer literal or an unindexed property constant
 	 */
-	private boolean checkArraySizes(final BehaviorAnnex source) {
+	private boolean checkArraySizes(final BehaviorAnnex source, final TranslationResult translation) {
 		var accepted = true;
 		for (var contents = source.eAllContents(); contents.hasNext();) {
-			if (contents.next() instanceof ArrayDimension dimension
-					&& dimension.getSize() instanceof ReferenceExpression reference && reference.getProperty() == null) {
-				var written = NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(reference));
-				error("Array size '" + written + "' must be an integer literal or a property reference", reference, null,
+			if (!(contents.next() instanceof ArrayDimension dimension)) {
+				continue;
+			}
+			var size = dimension.getSize();
+			if (size instanceof ReferenceExpression reference && reference.getProperty() == null) {
+				var written = NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(size));
+				error("Array size '" + written + "' must be an integer literal or a property reference", size, null,
+						ValidationMessageAcceptor.INSIGNIFICANT_INDEX, ARRAY_SIZE);
+				accepted = false;
+			} else if ((size instanceof HashPropertyReference || size instanceof ReferenceExpression)
+					&& !hasRepresentablePropertyConstant(dimension, translation)) {
+				var written = NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(size));
+				error("Array size property reference '" + written + "' must name a property constant", size, null,
 						ValidationMessageAcceptor.INSIGNIFICANT_INDEX, ARRAY_SIZE);
 				accepted = false;
 			}
 		}
 		return accepted;
+	}
+
+	private static boolean hasRepresentablePropertyConstant(final ArrayDimension dimension,
+			final TranslationResult translation) {
+		var strictDimension = (org.osate.aadl2.ArrayDimension) translation.getStrict(dimension);
+		return strictDimension.getSize().getSizeProperty() != null;
 	}
 
 	/**
