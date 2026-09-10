@@ -151,6 +151,7 @@ public class DispatchTriggerConditionItemProvider
     {
       super.getChildrenFeatures(object);
       childrenFeatures.add(BehaviorAnnexPackage.Literals.DISPATCH_TRIGGER_CONDITION__EXPRESSION);
+      childrenFeatures.add(BehaviorAnnexPackage.Literals.DISPATCH_TRIGGER_CONDITION__RESET_PORTS);
       childrenFeatures.add(BehaviorAnnexPackage.Literals.DISPATCH_TRIGGER_CONDITION__TIME);
     }
     return childrenFeatures;
@@ -215,6 +216,7 @@ public class DispatchTriggerConditionItemProvider
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
       case BehaviorAnnexPackage.DISPATCH_TRIGGER_CONDITION__EXPRESSION:
+      case BehaviorAnnexPackage.DISPATCH_TRIGGER_CONDITION__RESET_PORTS:
       case BehaviorAnnexPackage.DISPATCH_TRIGGER_CONDITION__TIME:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
         return;
@@ -238,6 +240,11 @@ public class DispatchTriggerConditionItemProvider
       (createChildParameter
         (BehaviorAnnexPackage.Literals.DISPATCH_TRIGGER_CONDITION__EXPRESSION,
          BehaviorAnnexFactory.eINSTANCE.createDispatchTriggerLogicalExpression()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (BehaviorAnnexPackage.Literals.DISPATCH_TRIGGER_CONDITION__RESET_PORTS,
+         BehaviorAnnexFactory.eINSTANCE.createReference()));
 
     newChildDescriptors.add
       (createChildParameter

@@ -886,7 +886,11 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
      *     DispatchTriggerCondition returns DispatchTriggerCondition
      *
      * Constraint:
-     *     (expression=DispatchTriggerLogicalExpression | (timeout?='timeout' time=BehaviorTime?) | stop?='stop')
+     *     (
+     *         expression=DispatchTriggerLogicalExpression |
+     *         (timeout?='timeout' (resetPorts+=Reference resetPorts+=Reference*)? time=BehaviorTime?) |
+     *         stop?='stop'
+     *     )
      * </pre>
      */
     protected void sequence_DispatchTriggerCondition(ISerializationContext context, DispatchTriggerCondition semanticObject) {

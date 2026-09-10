@@ -80,6 +80,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="#//DispatchTriggerLogicalExpression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeout" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="resetPorts" upperBound="-1"
+        eType="#//Reference" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="time" eType="#//BehaviorTime"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="stop" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>

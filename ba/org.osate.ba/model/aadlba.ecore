@@ -190,7 +190,10 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CommunicationAction" abstract="true"
       interface="true" eSuperTypes="#//BasicAction"/>
-  <eClassifiers xsi:type="ecore:EClass" name="CompletionRelativeTimeout" eSuperTypes="#//BehaviorTime #//DispatchRelativeTimeout"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CompletionRelativeTimeout" eSuperTypes="#//BehaviorTime #//DispatchRelativeTimeout">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="resetPorts" upperBound="-1"
+        eType="#//TimeoutResetPort" unsettable="true" containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CondStatement" abstract="true" interface="true"
       eSuperTypes="#//BehaviorAction">
     <eStructuralFeatures xsi:type="ecore:EReference" name="behaviorActions" lowerBound="1"
@@ -296,7 +299,7 @@
       </eAnnotations>
     </eOperations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EventDataPortHolder" eSuperTypes="#//ActualPortHolder #//ElementValues #//DispatchTrigger #//ModeSwitchTrigger #//Target">
+  <eClassifiers xsi:type="ecore:EClass" name="EventDataPortHolder" eSuperTypes="#//ActualPortHolder #//ElementValues #//DispatchTrigger #//ModeSwitchTrigger #//Target #//TimeoutResetPort">
     <eOperations name="setEventDataPort" lowerBound="1">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="element = eventDataPort ;"/>
@@ -309,7 +312,7 @@
       </eAnnotations>
     </eOperations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EventPortHolder" eSuperTypes="#//ActualPortHolder #//DispatchTrigger #//ModeSwitchTrigger #//Target">
+  <eClassifiers xsi:type="ecore:EClass" name="EventPortHolder" eSuperTypes="#//ActualPortHolder #//DispatchTrigger #//ModeSwitchTrigger #//Target #//TimeoutResetPort">
     <eOperations name="setEventPort" lowerBound="1">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="element = eventPort ;"/>
@@ -864,4 +867,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="internalPorts" lowerBound="1"
         upperBound="-1" eType="#//InternalPortHolder" unsettable="true" containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TimeoutResetPort" abstract="true" interface="true"
+      eSuperTypes="#//BehaviorElement"/>
 </ecore:EPackage>

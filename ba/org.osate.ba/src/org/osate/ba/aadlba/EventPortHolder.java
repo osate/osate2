@@ -31,7 +31,8 @@ import org.osate.aadl2.EventPort;
  * @model
  * @generated
  */
-public interface EventPortHolder extends ActualPortHolder, DispatchTrigger, ModeSwitchTrigger, Target {
+public interface EventPortHolder
+		extends ActualPortHolder, DispatchTrigger, ModeSwitchTrigger, Target, TimeoutResetPort {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

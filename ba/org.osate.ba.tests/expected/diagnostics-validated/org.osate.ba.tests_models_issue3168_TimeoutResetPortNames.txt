@@ -1,0 +1,3 @@
+error | semantic | 49 | 46 | 6 | 'sample' is not a timeout reset port: a completion relative timeout can only list event or event data ports
+error | semantic | 49 | 56 | 5 | 'tally' is not a timeout reset port: a completion relative timeout can only list event or event data ports
+error | semantic | 49 | 65 | 5 | 'cache' is not a timeout reset port: a completion relative timeout can only list event or event data ports

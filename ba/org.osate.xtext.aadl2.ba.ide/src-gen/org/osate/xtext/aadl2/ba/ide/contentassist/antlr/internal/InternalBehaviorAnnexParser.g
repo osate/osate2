@@ -5453,6 +5453,7 @@ rule__DispatchTriggerCondition__Group_1__1
     }
 :
     rule__DispatchTriggerCondition__Group_1__1__Impl
+    rule__DispatchTriggerCondition__Group_1__2
 ;
 finally {
     restoreStackSize(stackSize);
@@ -5464,9 +5465,197 @@ rule__DispatchTriggerCondition__Group_1__1__Impl
     }
 :
 (
-    { before(grammarAccess.getDispatchTriggerConditionAccess().getTimeAssignment_1_1()); }
-    (rule__DispatchTriggerCondition__TimeAssignment_1_1)?
-    { after(grammarAccess.getDispatchTriggerConditionAccess().getTimeAssignment_1_1()); }
+    { before(grammarAccess.getDispatchTriggerConditionAccess().getGroup_1_1()); }
+    (rule__DispatchTriggerCondition__Group_1_1__0)?
+    { after(grammarAccess.getDispatchTriggerConditionAccess().getGroup_1_1()); }
+)
+;
+finally {
+    restoreStackSize(stackSize);
+}
+
+rule__DispatchTriggerCondition__Group_1__2
+    @init {
+        int stackSize = keepStackSize();
+    }
+:
+    rule__DispatchTriggerCondition__Group_1__2__Impl
+;
+finally {
+    restoreStackSize(stackSize);
+}
+
+rule__DispatchTriggerCondition__Group_1__2__Impl
+    @init {
+        int stackSize = keepStackSize();
+    }
+:
+(
+    { before(grammarAccess.getDispatchTriggerConditionAccess().getTimeAssignment_1_2()); }
+    (rule__DispatchTriggerCondition__TimeAssignment_1_2)?
+    { after(grammarAccess.getDispatchTriggerConditionAccess().getTimeAssignment_1_2()); }
+)
+;
+finally {
+    restoreStackSize(stackSize);
+}
+
+
+rule__DispatchTriggerCondition__Group_1_1__0
+    @init {
+        int stackSize = keepStackSize();
+    }
+:
+    rule__DispatchTriggerCondition__Group_1_1__0__Impl
+    rule__DispatchTriggerCondition__Group_1_1__1
+;
+finally {
+    restoreStackSize(stackSize);
+}
+
+rule__DispatchTriggerCondition__Group_1_1__0__Impl
+    @init {
+        int stackSize = keepStackSize();
+    }
+:
+(
+    { before(grammarAccess.getDispatchTriggerConditionAccess().getLeftParenthesisKeyword_1_1_0()); }
+    LeftParenthesis
+    { after(grammarAccess.getDispatchTriggerConditionAccess().getLeftParenthesisKeyword_1_1_0()); }
+)
+;
+finally {
+    restoreStackSize(stackSize);
+}
+
+rule__DispatchTriggerCondition__Group_1_1__1
+    @init {
+        int stackSize = keepStackSize();
+    }
+:
+    rule__DispatchTriggerCondition__Group_1_1__1__Impl
+    rule__DispatchTriggerCondition__Group_1_1__2
+;
+finally {
+    restoreStackSize(stackSize);
+}
+
+rule__DispatchTriggerCondition__Group_1_1__1__Impl
+    @init {
+        int stackSize = keepStackSize();
+    }
+:
+(
+    { before(grammarAccess.getDispatchTriggerConditionAccess().getResetPortsAssignment_1_1_1()); }
+    (rule__DispatchTriggerCondition__ResetPortsAssignment_1_1_1)
+    { after(grammarAccess.getDispatchTriggerConditionAccess().getResetPortsAssignment_1_1_1()); }
+)
+;
+finally {
+    restoreStackSize(stackSize);
+}
+
+rule__DispatchTriggerCondition__Group_1_1__2
+    @init {
+        int stackSize = keepStackSize();
+    }
+:
+    rule__DispatchTriggerCondition__Group_1_1__2__Impl
+    rule__DispatchTriggerCondition__Group_1_1__3
+;
+finally {
+    restoreStackSize(stackSize);
+}
+
+rule__DispatchTriggerCondition__Group_1_1__2__Impl
+    @init {
+        int stackSize = keepStackSize();
+    }
+:
+(
+    { before(grammarAccess.getDispatchTriggerConditionAccess().getGroup_1_1_2()); }
+    (rule__DispatchTriggerCondition__Group_1_1_2__0)*
+    { after(grammarAccess.getDispatchTriggerConditionAccess().getGroup_1_1_2()); }
+)
+;
+finally {
+    restoreStackSize(stackSize);
+}
+
+rule__DispatchTriggerCondition__Group_1_1__3
+    @init {
+        int stackSize = keepStackSize();
+    }
+:
+    rule__DispatchTriggerCondition__Group_1_1__3__Impl
+;
+finally {
+    restoreStackSize(stackSize);
+}
+
+rule__DispatchTriggerCondition__Group_1_1__3__Impl
+    @init {
+        int stackSize = keepStackSize();
+    }
+:
+(
+    { before(grammarAccess.getDispatchTriggerConditionAccess().getRightParenthesisKeyword_1_1_3()); }
+    RightParenthesis
+    { after(grammarAccess.getDispatchTriggerConditionAccess().getRightParenthesisKeyword_1_1_3()); }
+)
+;
+finally {
+    restoreStackSize(stackSize);
+}
+
+
+rule__DispatchTriggerCondition__Group_1_1_2__0
+    @init {
+        int stackSize = keepStackSize();
+    }
+:
+    rule__DispatchTriggerCondition__Group_1_1_2__0__Impl
+    rule__DispatchTriggerCondition__Group_1_1_2__1
+;
+finally {
+    restoreStackSize(stackSize);
+}
+
+rule__DispatchTriggerCondition__Group_1_1_2__0__Impl
+    @init {
+        int stackSize = keepStackSize();
+    }
+:
+(
+    { before(grammarAccess.getDispatchTriggerConditionAccess().getOrKeyword_1_1_2_0()); }
+    Or
+    { after(grammarAccess.getDispatchTriggerConditionAccess().getOrKeyword_1_1_2_0()); }
+)
+;
+finally {
+    restoreStackSize(stackSize);
+}
+
+rule__DispatchTriggerCondition__Group_1_1_2__1
+    @init {
+        int stackSize = keepStackSize();
+    }
+:
+    rule__DispatchTriggerCondition__Group_1_1_2__1__Impl
+;
+finally {
+    restoreStackSize(stackSize);
+}
+
+rule__DispatchTriggerCondition__Group_1_1_2__1__Impl
+    @init {
+        int stackSize = keepStackSize();
+    }
+:
+(
+    { before(grammarAccess.getDispatchTriggerConditionAccess().getResetPortsAssignment_1_1_2_1()); }
+    (rule__DispatchTriggerCondition__ResetPortsAssignment_1_1_2_1)
+    { after(grammarAccess.getDispatchTriggerConditionAccess().getResetPortsAssignment_1_1_2_1()); }
 )
 ;
 finally {
@@ -14276,15 +14465,45 @@ finally {
     restoreStackSize(stackSize);
 }
 
-rule__DispatchTriggerCondition__TimeAssignment_1_1
+rule__DispatchTriggerCondition__ResetPortsAssignment_1_1_1
     @init {
         int stackSize = keepStackSize();
     }
 :
     (
-        { before(grammarAccess.getDispatchTriggerConditionAccess().getTimeBehaviorTimeParserRuleCall_1_1_0()); }
+        { before(grammarAccess.getDispatchTriggerConditionAccess().getResetPortsReferenceParserRuleCall_1_1_1_0()); }
+        ruleReference
+        { after(grammarAccess.getDispatchTriggerConditionAccess().getResetPortsReferenceParserRuleCall_1_1_1_0()); }
+    )
+;
+finally {
+    restoreStackSize(stackSize);
+}
+
+rule__DispatchTriggerCondition__ResetPortsAssignment_1_1_2_1
+    @init {
+        int stackSize = keepStackSize();
+    }
+:
+    (
+        { before(grammarAccess.getDispatchTriggerConditionAccess().getResetPortsReferenceParserRuleCall_1_1_2_1_0()); }
+        ruleReference
+        { after(grammarAccess.getDispatchTriggerConditionAccess().getResetPortsReferenceParserRuleCall_1_1_2_1_0()); }
+    )
+;
+finally {
+    restoreStackSize(stackSize);
+}
+
+rule__DispatchTriggerCondition__TimeAssignment_1_2
+    @init {
+        int stackSize = keepStackSize();
+    }
+:
+    (
+        { before(grammarAccess.getDispatchTriggerConditionAccess().getTimeBehaviorTimeParserRuleCall_1_2_0()); }
         ruleBehaviorTime
-        { after(grammarAccess.getDispatchTriggerConditionAccess().getTimeBehaviorTimeParserRuleCall_1_1_0()); }
+        { after(grammarAccess.getDispatchTriggerConditionAccess().getTimeBehaviorTimeParserRuleCall_1_2_0()); }
     )
 ;
 finally {

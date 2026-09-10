@@ -2973,13 +2973,22 @@ public interface AadlBaPackage extends EPackage {
 	int COMPLETION_RELATIVE_TIMEOUT__UNIT = BEHAVIOR_TIME__UNIT;
 
 	/**
+	 * The feature id for the '<em><b>Reset Ports</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPLETION_RELATIVE_TIMEOUT__RESET_PORTS = BEHAVIOR_TIME_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Completion Relative Timeout</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPLETION_RELATIVE_TIMEOUT_FEATURE_COUNT = BEHAVIOR_TIME_FEATURE_COUNT + 0;
+	int COMPLETION_RELATIVE_TIMEOUT_FEATURE_COUNT = BEHAVIOR_TIME_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -6789,6 +6798,43 @@ public interface AadlBaPackage extends EPackage {
 	int INTERNAL_CONDITION_FEATURE_COUNT = BEHAVIOR_CONDITION_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link org.osate.ba.aadlba.TimeoutResetPort <em>Timeout Reset Port</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.ba.aadlba.TimeoutResetPort
+	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getTimeoutResetPort()
+	 * @generated
+	 */
+	int TIMEOUT_RESET_PORT = 124;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMEOUT_RESET_PORT__OWNED_ELEMENT = BEHAVIOR_ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMEOUT_RESET_PORT__OWNED_COMMENT = BEHAVIOR_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The number of structural features of the '<em>Timeout Reset Port</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMEOUT_RESET_PORT_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.BehaviorFeatureType <em>Behavior Feature Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6796,7 +6842,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBehaviorFeatureType()
 	 * @generated
 	 */
-	int BEHAVIOR_FEATURE_TYPE = 124;
+	int BEHAVIOR_FEATURE_TYPE = 125;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.BinaryAddingOperator <em>Binary Adding Operator</em>}' enum.
@@ -6806,7 +6852,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBinaryAddingOperator()
 	 * @generated
 	 */
-	int BINARY_ADDING_OPERATOR = 125;
+	int BINARY_ADDING_OPERATOR = 126;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.BinaryNumericOperator <em>Binary Numeric Operator</em>}' enum.
@@ -6816,7 +6862,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBinaryNumericOperator()
 	 * @generated
 	 */
-	int BINARY_NUMERIC_OPERATOR = 126;
+	int BINARY_NUMERIC_OPERATOR = 127;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.DataRepresentation <em>Data Representation</em>}' enum.
@@ -6826,7 +6872,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getDataRepresentation()
 	 * @generated
 	 */
-	int DATA_REPRESENTATION = 127;
+	int DATA_REPRESENTATION = 128;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.FeatureType <em>Feature Type</em>}' enum.
@@ -6836,7 +6882,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getFeatureType()
 	 * @generated
 	 */
-	int FEATURE_TYPE = 128;
+	int FEATURE_TYPE = 129;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.LogicalOperator <em>Logical Operator</em>}' enum.
@@ -6846,7 +6892,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getLogicalOperator()
 	 * @generated
 	 */
-	int LOGICAL_OPERATOR = 129;
+	int LOGICAL_OPERATOR = 130;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.MultiplyingOperator <em>Multiplying Operator</em>}' enum.
@@ -6856,7 +6902,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getMultiplyingOperator()
 	 * @generated
 	 */
-	int MULTIPLYING_OPERATOR = 130;
+	int MULTIPLYING_OPERATOR = 131;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.RelationalOperator <em>Relational Operator</em>}' enum.
@@ -6866,7 +6912,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getRelationalOperator()
 	 * @generated
 	 */
-	int RELATIONAL_OPERATOR = 131;
+	int RELATIONAL_OPERATOR = 132;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.UnaryAddingOperator <em>Unary Adding Operator</em>}' enum.
@@ -6876,7 +6922,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getUnaryAddingOperator()
 	 * @generated
 	 */
-	int UNARY_ADDING_OPERATOR = 132;
+	int UNARY_ADDING_OPERATOR = 133;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.UnaryBooleanOperator <em>Unary Boolean Operator</em>}' enum.
@@ -6886,7 +6932,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getUnaryBooleanOperator()
 	 * @generated
 	 */
-	int UNARY_BOOLEAN_OPERATOR = 133;
+	int UNARY_BOOLEAN_OPERATOR = 134;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.UnaryNumericOperator <em>Unary Numeric Operator</em>}' enum.
@@ -6896,7 +6942,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getUnaryNumericOperator()
 	 * @generated
 	 */
-	int UNARY_NUMERIC_OPERATOR = 134;
+	int UNARY_NUMERIC_OPERATOR = 135;
 
 	/**
 	 * The meta object id for the '<em>Boolean</em>' data type.
@@ -6905,7 +6951,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBoolean()
 	 * @generated
 	 */
-	int BOOLEAN = 135;
+	int BOOLEAN = 136;
 
 	/**
 	 * The meta object id for the '<em>Integer</em>' data type.
@@ -6914,7 +6960,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getInteger()
 	 * @generated
 	 */
-	int INTEGER = 136;
+	int INTEGER = 137;
 
 	/**
 	 * The meta object id for the '<em>Real</em>' data type.
@@ -6923,7 +6969,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getReal()
 	 * @generated
 	 */
-	int REAL = 137;
+	int REAL = 138;
 
 	/**
 	 * The meta object id for the '<em>String</em>' data type.
@@ -6933,7 +6979,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getString()
 	 * @generated
 	 */
-	int STRING = 138;
+	int STRING = 139;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.ba.aadlba.ActualPortHolder <em>Actual Port Holder</em>}'.
@@ -7543,6 +7589,17 @@ public interface AadlBaPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getCompletionRelativeTimeout();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.osate.ba.aadlba.CompletionRelativeTimeout#getResetPorts <em>Reset Ports</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Reset Ports</em>'.
+	 * @see org.osate.ba.aadlba.CompletionRelativeTimeout#getResetPorts()
+	 * @see #getCompletionRelativeTimeout()
+	 * @generated
+	 */
+	EReference getCompletionRelativeTimeout_ResetPorts();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.ba.aadlba.ClassifierFeaturePropertyReference <em>Classifier Feature Property Reference</em>}'.
@@ -9332,6 +9389,16 @@ public interface AadlBaPackage extends EPackage {
 	EReference getInternalCondition_InternalPorts();
 
 	/**
+	 * Returns the meta object for class '{@link org.osate.ba.aadlba.TimeoutResetPort <em>Timeout Reset Port</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Timeout Reset Port</em>'.
+	 * @see org.osate.ba.aadlba.TimeoutResetPort
+	 * @generated
+	 */
+	EClass getTimeoutResetPort();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9875,6 +9942,14 @@ public interface AadlBaPackage extends EPackage {
 		 * @generated
 		 */
 		EClass COMPLETION_RELATIVE_TIMEOUT = eINSTANCE.getCompletionRelativeTimeout();
+
+		/**
+		 * The meta object literal for the '<em><b>Reset Ports</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COMPLETION_RELATIVE_TIMEOUT__RESET_PORTS = eINSTANCE.getCompletionRelativeTimeout_ResetPorts();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.ba.aadlba.impl.ClassifierFeaturePropertyReferenceImpl <em>Classifier Feature Property Reference</em>}' class.
@@ -11476,6 +11551,16 @@ public interface AadlBaPackage extends EPackage {
 		 * @generated
 		 */
 		EReference INTERNAL_CONDITION__INTERNAL_PORTS = eINSTANCE.getInternalCondition_InternalPorts();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.ba.aadlba.TimeoutResetPort <em>Timeout Reset Port</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.ba.aadlba.TimeoutResetPort
+		 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getTimeoutResetPort()
+		 * @generated
+		 */
+		EClass TIMEOUT_RESET_PORT = eINSTANCE.getTimeoutResetPort();
 
 	}
 

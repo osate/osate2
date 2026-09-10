@@ -95,9 +95,11 @@ DispatchCondition:
     ('frozen' '(' frozenPorts+=Reference (',' frozenPorts+=Reference)* ')')?
 ;
 
+// The reset ports of a completion relative timeout. D.4 requires the time when they are listed, but a reset-port list
+// without one is worth a diagnostic of its own rather than a syntax error, so the time stays optional here.
 DispatchTriggerCondition:
     expression=DispatchTriggerLogicalExpression
-    | timeout?='timeout' time=BehaviorTime?
+    | timeout?='timeout' ('(' resetPorts+=Reference ('or' resetPorts+=Reference)* ')')? time=BehaviorTime?
     | stop?='stop'
 ;
 

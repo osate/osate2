@@ -230,6 +230,8 @@ public interface IBAVisitor {
 
 	void visit(TimedAction ta);
 
+	void visit(TimeoutResetPort trp);
+
 	void visit(UnlockAction ua);
 
 	void visit(UpperBound ub);

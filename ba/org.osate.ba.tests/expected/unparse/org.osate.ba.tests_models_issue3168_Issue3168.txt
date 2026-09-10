@@ -1,0 +1,14 @@
+===== annex[0] owner=Issue3168::monitor.watching =====
+
+\t\tstates
+\t\t\twaiting: initial complete state;
+\t\t\tdegraded: complete state;
+\t\t\tprobing: complete state;
+\t\t\tstopped: final state;
+\t\ttransitions
+\t\t\tsingle_reset: waiting -[ on dispatch timeout (heartbeat) 20 ms ]-> degraded;
+\t\t\tseveral_resets: degraded -[ on dispatch timeout (reading or alarm or heartbeat) 30 ms ]-> probing;
+\t\t\tno_reset: probing -[ on dispatch timeout 40 ms ]-> stopped;
+\t
+----- Xtext reparse -----
+reparsed

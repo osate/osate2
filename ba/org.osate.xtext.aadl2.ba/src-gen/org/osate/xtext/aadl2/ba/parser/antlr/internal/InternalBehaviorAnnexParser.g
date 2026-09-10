@@ -1155,11 +1155,65 @@ ruleDispatchTriggerCondition returns [EObject current=null]
                 )
             )
             (
+                otherlv_2=LeftParenthesis
+                {
+                    newLeafNode(otherlv_2, grammarAccess.getDispatchTriggerConditionAccess().getLeftParenthesisKeyword_1_1_0());
+                }
+                (
+                    (
+                        {
+                            newCompositeNode(grammarAccess.getDispatchTriggerConditionAccess().getResetPortsReferenceParserRuleCall_1_1_1_0());
+                        }
+                        lv_resetPorts_3_0=ruleReference
+                        {
+                            if ($current==null) {
+                                $current = createModelElementForParent(grammarAccess.getDispatchTriggerConditionRule());
+                            }
+                            add(
+                                $current,
+                                "resetPorts",
+                                lv_resetPorts_3_0,
+                                "org.osate.xtext.aadl2.ba.BehaviorAnnex.Reference");
+                            afterParserOrEnumRuleCall();
+                        }
+                    )
+                )
+                (
+                    otherlv_4=Or
+                    {
+                        newLeafNode(otherlv_4, grammarAccess.getDispatchTriggerConditionAccess().getOrKeyword_1_1_2_0());
+                    }
+                    (
+                        (
+                            {
+                                newCompositeNode(grammarAccess.getDispatchTriggerConditionAccess().getResetPortsReferenceParserRuleCall_1_1_2_1_0());
+                            }
+                            lv_resetPorts_5_0=ruleReference
+                            {
+                                if ($current==null) {
+                                    $current = createModelElementForParent(grammarAccess.getDispatchTriggerConditionRule());
+                                }
+                                add(
+                                    $current,
+                                    "resetPorts",
+                                    lv_resetPorts_5_0,
+                                    "org.osate.xtext.aadl2.ba.BehaviorAnnex.Reference");
+                                afterParserOrEnumRuleCall();
+                            }
+                        )
+                    )
+                )*
+                otherlv_6=RightParenthesis
+                {
+                    newLeafNode(otherlv_6, grammarAccess.getDispatchTriggerConditionAccess().getRightParenthesisKeyword_1_1_3());
+                }
+            )?
+            (
                 (
                     {
-                        newCompositeNode(grammarAccess.getDispatchTriggerConditionAccess().getTimeBehaviorTimeParserRuleCall_1_1_0());
+                        newCompositeNode(grammarAccess.getDispatchTriggerConditionAccess().getTimeBehaviorTimeParserRuleCall_1_2_0());
                     }
-                    lv_time_2_0=ruleBehaviorTime
+                    lv_time_7_0=ruleBehaviorTime
                     {
                         if ($current==null) {
                             $current = createModelElementForParent(grammarAccess.getDispatchTriggerConditionRule());
@@ -1167,7 +1221,7 @@ ruleDispatchTriggerCondition returns [EObject current=null]
                         set(
                             $current,
                             "time",
-                            lv_time_2_0,
+                            lv_time_7_0,
                             "org.osate.xtext.aadl2.ba.BehaviorAnnex.BehaviorTime");
                         afterParserOrEnumRuleCall();
                     }
@@ -1177,15 +1231,15 @@ ruleDispatchTriggerCondition returns [EObject current=null]
             |
         (
             (
-                lv_stop_3_0=Stop
+                lv_stop_8_0=Stop
                 {
-                    newLeafNode(lv_stop_3_0, grammarAccess.getDispatchTriggerConditionAccess().getStopStopKeyword_2_0());
+                    newLeafNode(lv_stop_8_0, grammarAccess.getDispatchTriggerConditionAccess().getStopStopKeyword_2_0());
                 }
                 {
                     if ($current==null) {
                         $current = createModelElement(grammarAccess.getDispatchTriggerConditionRule());
                     }
-                    setWithLastConsumed($current, "stop", lv_stop_3_0 != null, "stop");
+                    setWithLastConsumed($current, "stop", lv_stop_8_0 != null, "stop");
                 }
             )
         )
