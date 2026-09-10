@@ -1,12 +1,12 @@
 /**
  * AADL-BA-FrontEnd
- * 
+ *
  * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
  * version 2.0 of the License, or (at your option) any later version. This
@@ -181,10 +181,10 @@ public class BehaviorTimeItemProvider extends BehaviorElementItemProvider {
 				AadlBaFactory.eINSTANCE.createBehaviorVariableHolder()));
 
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_TIME__INTEGER_VALUE,
-				AadlBaFactory.eINSTANCE.createClassifierPropertyReference()));
+				AadlBaFactory.eINSTANCE.createClassifierFeaturePropertyReference()));
 
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_TIME__INTEGER_VALUE,
-				AadlBaFactory.eINSTANCE.createClassifierFeaturePropertyReference()));
+				AadlBaFactory.eINSTANCE.createClassifierPropertyReference()));
 
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_TIME__INTEGER_VALUE,
 				AadlBaFactory.eINSTANCE.createDataAccessHolder()));

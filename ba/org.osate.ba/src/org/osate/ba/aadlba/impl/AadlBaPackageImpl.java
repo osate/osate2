@@ -1,12 +1,12 @@
 /**
  * AADL-BA-FrontEnd
- * 
+ *
  * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
  * version 2.0 of the License, or (at your option) any later version. This
@@ -1042,8 +1042,9 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * @generated
 	 */
 	public static AadlBaPackage init() {
-		if (isInited)
+		if (isInited) {
 			return (AadlBaPackage) EPackage.Registry.INSTANCE.getEPackage(AadlBaPackage.eNS_URI);
+		}
 
 		// Obtain or create and register package
 		Object registeredAadlBaPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
@@ -3375,8 +3376,9 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * @generated
 	 */
 	public void createPackageContents() {
-		if (isCreated)
+		if (isCreated) {
 			return;
+		}
 		isCreated = true;
 
 		// Create classes and their features
@@ -3753,8 +3755,9 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * @generated
 	 */
 	public void initializePackageContents() {
-		if (isInitialized)
+		if (isInitialized) {
 			return;
+		}
 		isInitialized = true;
 
 		// Initialize package
@@ -3770,207 +3773,207 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		actualPortHolderEClass.getESuperTypes().add(this.getPortHolder());
-		assignmentActionEClass.getESuperTypes().add(this.getBasicAction());
-		anyEClass.getESuperTypes().add(this.getValueExpression());
-		basicActionEClass.getESuperTypes().add(this.getBehaviorAction());
-		basicPropertyHolderEClass.getESuperTypes().add(this.getPropertyElementHolder());
-		behaviorActionEClass.getESuperTypes().add(this.getBehaviorActions());
-		behaviorActionBlockEClass.getESuperTypes().add(this.getBehaviorAction());
-		behaviorActionBlockEClass.getESuperTypes().add(this.getBehaviorElement());
-		behaviorActionCollectionEClass.getESuperTypes().add(this.getBehaviorActions());
-		behaviorActionsEClass.getESuperTypes().add(this.getBehaviorElement());
-		behaviorActionSequenceEClass.getESuperTypes().add(this.getBehaviorActionCollection());
-		behaviorActionSetEClass.getESuperTypes().add(this.getBehaviorActionCollection());
+		actualPortHolderEClass.getESuperTypes().add(getPortHolder());
+		assignmentActionEClass.getESuperTypes().add(getBasicAction());
+		anyEClass.getESuperTypes().add(getValueExpression());
+		basicActionEClass.getESuperTypes().add(getBehaviorAction());
+		basicPropertyHolderEClass.getESuperTypes().add(getPropertyElementHolder());
+		behaviorActionEClass.getESuperTypes().add(getBehaviorActions());
+		behaviorActionBlockEClass.getESuperTypes().add(getBehaviorAction());
+		behaviorActionBlockEClass.getESuperTypes().add(getBehaviorElement());
+		behaviorActionCollectionEClass.getESuperTypes().add(getBehaviorActions());
+		behaviorActionsEClass.getESuperTypes().add(getBehaviorElement());
+		behaviorActionSequenceEClass.getESuperTypes().add(getBehaviorActionCollection());
+		behaviorActionSetEClass.getESuperTypes().add(getBehaviorActionCollection());
 		behaviorAnnexEClass.getESuperTypes().add(theAadl2Package.getAnnexSubclause());
-		behaviorAnnexEClass.getESuperTypes().add(this.getBehaviorElement());
+		behaviorAnnexEClass.getESuperTypes().add(getBehaviorElement());
 		behaviorBooleanLiteralEClass.getESuperTypes().add(theAadl2Package.getBooleanLiteral());
-		behaviorBooleanLiteralEClass.getESuperTypes().add(this.getLiteral());
-		behaviorConditionEClass.getESuperTypes().add(this.getBehaviorElement());
+		behaviorBooleanLiteralEClass.getESuperTypes().add(getLiteral());
+		behaviorConditionEClass.getESuperTypes().add(getBehaviorElement());
 		behaviorElementEClass.getESuperTypes().add(theAadl2Package.getElement());
 		behaviorIntegerLiteralEClass.getESuperTypes().add(theAadl2Package.getIntegerLiteral());
-		behaviorIntegerLiteralEClass.getESuperTypes().add(this.getNumericLiteral());
+		behaviorIntegerLiteralEClass.getESuperTypes().add(getNumericLiteral());
 		behaviorNamedElementEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
-		behaviorNamedElementEClass.getESuperTypes().add(this.getBehaviorElement());
-		behaviorPropertyConstantEClass.getESuperTypes().add(this.getValueConstant());
-		behaviorPropertyConstantEClass.getESuperTypes().add(this.getIntegerValueConstant());
+		behaviorNamedElementEClass.getESuperTypes().add(getBehaviorElement());
+		behaviorPropertyConstantEClass.getESuperTypes().add(getValueConstant());
+		behaviorPropertyConstantEClass.getESuperTypes().add(getIntegerValueConstant());
 		behaviorRealLiteralEClass.getESuperTypes().add(theAadl2Package.getRealLiteral());
-		behaviorRealLiteralEClass.getESuperTypes().add(this.getNumericLiteral());
-		behaviorStateEClass.getESuperTypes().add(this.getBehaviorNamedElement());
+		behaviorRealLiteralEClass.getESuperTypes().add(getNumericLiteral());
+		behaviorStateEClass.getESuperTypes().add(getBehaviorNamedElement());
 		behaviorStringLiteralEClass.getESuperTypes().add(theAadl2Package.getStringLiteral());
-		behaviorStringLiteralEClass.getESuperTypes().add(this.getLiteral());
-		behaviorTimeEClass.getESuperTypes().add(this.getBehaviorElement());
-		behaviorTransitionEClass.getESuperTypes().add(this.getBehaviorNamedElement());
-		behaviorVariableEClass.getESuperTypes().add(this.getBehaviorNamedElement());
+		behaviorStringLiteralEClass.getESuperTypes().add(getLiteral());
+		behaviorTimeEClass.getESuperTypes().add(getBehaviorElement());
+		behaviorTransitionEClass.getESuperTypes().add(getBehaviorNamedElement());
+		behaviorVariableEClass.getESuperTypes().add(getBehaviorNamedElement());
 		behaviorVariableEClass.getESuperTypes().add(theAadl2Package.getArrayableElement());
 		behaviorVariableEClass.getESuperTypes().add(theAadl2Package.getData());
-		behaviorVariableHolderEClass.getESuperTypes().add(this.getDataHolder());
-		behaviorVariableHolderEClass.getESuperTypes().add(this.getIndexableElement());
-		behaviorVariableHolderEClass.getESuperTypes().add(this.getTarget());
-		behaviorVariableHolderEClass.getESuperTypes().add(this.getElementValues());
-		behaviorVariableHolderEClass.getESuperTypes().add(this.getSubprogramHolderProxy());
-		behaviorVariableHolderEClass.getESuperTypes().add(this.getClassifierFeatureHolder());
-		calledSubprogramHolderEClass.getESuperTypes().add(this.getElementHolder());
-		calledSubprogramHolderEClass.getESuperTypes().add(this.getIndexableElement());
-		calledSubprogramHolderEClass.getESuperTypes().add(this.getGroupableElement());
-		classifierFeatureHolderEClass.getESuperTypes().add(this.getElementHolder());
-		classifierFeaturePropertyReferenceEClass.getESuperTypes().add(this.getPropertyReference());
-		classifierPropertyReferenceEClass.getESuperTypes().add(this.getPropertyReference());
-		communicationActionEClass.getESuperTypes().add(this.getBasicAction());
-		completionRelativeTimeoutEClass.getESuperTypes().add(this.getBehaviorTime());
-		completionRelativeTimeoutEClass.getESuperTypes().add(this.getDispatchRelativeTimeout());
-		condStatementEClass.getESuperTypes().add(this.getBehaviorAction());
-		dataAccessHolderEClass.getESuperTypes().add(this.getDataHolder());
-		dataAccessHolderEClass.getESuperTypes().add(this.getTarget());
-		dataAccessHolderEClass.getESuperTypes().add(this.getElementValues());
-		dataAccessHolderEClass.getESuperTypes().add(this.getSubprogramHolderProxy());
-		dataAccessHolderEClass.getESuperTypes().add(this.getFeatureHolder());
-		dataAccessPrototypeHolderEClass.getESuperTypes().add(this.getDataHolder());
-		dataAccessPrototypeHolderEClass.getESuperTypes().add(this.getPrototypeHolder());
-		dataAccessPrototypeHolderEClass.getESuperTypes().add(this.getTarget());
-		dataAccessPrototypeHolderEClass.getESuperTypes().add(this.getElementValues());
-		dataComponentReferenceEClass.getESuperTypes().add(this.getElementValues());
-		dataComponentReferenceEClass.getESuperTypes().add(this.getTarget());
-		dataComponentReferenceEClass.getESuperTypes().add(this.getValueVariable());
-		dataComponentReferenceEClass.getESuperTypes().add(this.getIntegerValueVariable());
-		dataHolderEClass.getESuperTypes().add(this.getElementHolder());
-		dataHolderEClass.getESuperTypes().add(this.getIntegerValueVariable());
-		dataHolderEClass.getESuperTypes().add(this.getValueVariable());
-		dataPortHolderEClass.getESuperTypes().add(this.getActualPortHolder());
-		dataPortHolderEClass.getESuperTypes().add(this.getTarget());
-		dataSubcomponentHolderEClass.getESuperTypes().add(this.getDataHolder());
-		dataSubcomponentHolderEClass.getESuperTypes().add(this.getTarget());
-		dataSubcomponentHolderEClass.getESuperTypes().add(this.getElementValues());
-		dataSubcomponentHolderEClass.getESuperTypes().add(this.getSubprogramHolderProxy());
-		dataSubcomponentHolderEClass.getESuperTypes().add(this.getSubcomponentHolder());
-		dispatchConditionEClass.getESuperTypes().add(this.getBehaviorCondition());
-		dispatchConjunctionEClass.getESuperTypes().add(this.getBehaviorElement());
-		dispatchRelativeTimeoutEClass.getESuperTypes().add(this.getDispatchTriggerCondition());
-		dispatchTriggerEClass.getESuperTypes().add(this.getBehaviorElement());
-		dispatchTriggerConditionEClass.getESuperTypes().add(this.getBehaviorElement());
-		dispatchTriggerConditionStopEClass.getESuperTypes().add(this.getDispatchTriggerCondition());
-		dispatchTriggerLogicalExpressionEClass.getESuperTypes().add(this.getDispatchTriggerCondition());
-		elementHolderEClass.getESuperTypes().add(this.getBehaviorElement());
-		elementValuesEClass.getESuperTypes().add(this.getBehaviorElement());
-		elseStatementEClass.getESuperTypes().add(this.getCondStatement());
-		enumLiteralHolderEClass.getESuperTypes().add(this.getPropertyElementHolder());
-		eventDataPortHolderEClass.getESuperTypes().add(this.getActualPortHolder());
-		eventDataPortHolderEClass.getESuperTypes().add(this.getElementValues());
-		eventDataPortHolderEClass.getESuperTypes().add(this.getDispatchTrigger());
-		eventDataPortHolderEClass.getESuperTypes().add(this.getModeSwitchTrigger());
-		eventDataPortHolderEClass.getESuperTypes().add(this.getTarget());
-		eventPortHolderEClass.getESuperTypes().add(this.getActualPortHolder());
-		eventPortHolderEClass.getESuperTypes().add(this.getDispatchTrigger());
-		eventPortHolderEClass.getESuperTypes().add(this.getModeSwitchTrigger());
-		eventPortHolderEClass.getESuperTypes().add(this.getTarget());
-		executeConditionEClass.getESuperTypes().add(this.getBehaviorCondition());
-		executionTimeoutCatchEClass.getESuperTypes().add(this.getExecuteCondition());
-		factorEClass.getESuperTypes().add(this.getBehaviorElement());
-		featureHolderEClass.getESuperTypes().add(this.getClassifierFeatureHolder());
-		featureHolderEClass.getESuperTypes().add(this.getIndexableElement());
-		featureHolderEClass.getESuperTypes().add(this.getGroupableElement());
-		featurePrototypeHolderEClass.getESuperTypes().add(this.getDataHolder());
-		featurePrototypeHolderEClass.getESuperTypes().add(this.getPrototypeHolder());
-		featurePrototypeHolderEClass.getESuperTypes().add(this.getTarget());
-		featurePrototypeHolderEClass.getESuperTypes().add(this.getElementValues());
-		forOrForAllStatementEClass.getESuperTypes().add(this.getLoopStatement());
-		groupableElementEClass.getESuperTypes().add(this.getBehaviorElement());
-		groupHolderEClass.getESuperTypes().add(this.getElementHolder());
-		groupHolderEClass.getESuperTypes().add(this.getIndexableElement());
-		groupPrototypeHolderEClass.getESuperTypes().add(this.getGroupHolder());
-		ifStatementEClass.getESuperTypes().add(this.getCondStatement());
-		ifStatementEClass.getESuperTypes().add(this.getElseStatement());
-		indexableElementEClass.getESuperTypes().add(this.getBehaviorElement());
-		integerRangeEClass.getESuperTypes().add(this.getElementValues());
-		integerValueEClass.getESuperTypes().add(this.getBehaviorElement());
-		integerValueConstantEClass.getESuperTypes().add(this.getIntegerValue());
-		integerValueConstantEClass.getESuperTypes().add(this.getValueConstant());
-		integerValueVariableEClass.getESuperTypes().add(this.getIntegerValue());
-		integerValueVariableEClass.getESuperTypes().add(this.getValueVariable());
-		iterativeVariableEClass.getESuperTypes().add(this.getBehaviorNamedElement());
-		iterativeVariableHolderEClass.getESuperTypes().add(this.getDataHolder());
-		literalEClass.getESuperTypes().add(this.getValueConstant());
-		literalEClass.getESuperTypes().add(this.getIntegerValueConstant());
-		lockActionEClass.getESuperTypes().add(this.getSharedDataAction());
-		loopStatementEClass.getESuperTypes().add(this.getCondStatement());
-		lowerBoundEClass.getESuperTypes().add(this.getPropertyNameField());
+		behaviorVariableHolderEClass.getESuperTypes().add(getDataHolder());
+		behaviorVariableHolderEClass.getESuperTypes().add(getIndexableElement());
+		behaviorVariableHolderEClass.getESuperTypes().add(getTarget());
+		behaviorVariableHolderEClass.getESuperTypes().add(getElementValues());
+		behaviorVariableHolderEClass.getESuperTypes().add(getSubprogramHolderProxy());
+		behaviorVariableHolderEClass.getESuperTypes().add(getClassifierFeatureHolder());
+		calledSubprogramHolderEClass.getESuperTypes().add(getElementHolder());
+		calledSubprogramHolderEClass.getESuperTypes().add(getIndexableElement());
+		calledSubprogramHolderEClass.getESuperTypes().add(getGroupableElement());
+		classifierFeatureHolderEClass.getESuperTypes().add(getElementHolder());
+		classifierFeaturePropertyReferenceEClass.getESuperTypes().add(getPropertyReference());
+		classifierPropertyReferenceEClass.getESuperTypes().add(getPropertyReference());
+		communicationActionEClass.getESuperTypes().add(getBasicAction());
+		completionRelativeTimeoutEClass.getESuperTypes().add(getBehaviorTime());
+		completionRelativeTimeoutEClass.getESuperTypes().add(getDispatchRelativeTimeout());
+		condStatementEClass.getESuperTypes().add(getBehaviorAction());
+		dataAccessHolderEClass.getESuperTypes().add(getDataHolder());
+		dataAccessHolderEClass.getESuperTypes().add(getTarget());
+		dataAccessHolderEClass.getESuperTypes().add(getElementValues());
+		dataAccessHolderEClass.getESuperTypes().add(getSubprogramHolderProxy());
+		dataAccessHolderEClass.getESuperTypes().add(getFeatureHolder());
+		dataAccessPrototypeHolderEClass.getESuperTypes().add(getDataHolder());
+		dataAccessPrototypeHolderEClass.getESuperTypes().add(getPrototypeHolder());
+		dataAccessPrototypeHolderEClass.getESuperTypes().add(getTarget());
+		dataAccessPrototypeHolderEClass.getESuperTypes().add(getElementValues());
+		dataComponentReferenceEClass.getESuperTypes().add(getElementValues());
+		dataComponentReferenceEClass.getESuperTypes().add(getTarget());
+		dataComponentReferenceEClass.getESuperTypes().add(getValueVariable());
+		dataComponentReferenceEClass.getESuperTypes().add(getIntegerValueVariable());
+		dataHolderEClass.getESuperTypes().add(getElementHolder());
+		dataHolderEClass.getESuperTypes().add(getIntegerValueVariable());
+		dataHolderEClass.getESuperTypes().add(getValueVariable());
+		dataPortHolderEClass.getESuperTypes().add(getActualPortHolder());
+		dataPortHolderEClass.getESuperTypes().add(getTarget());
+		dataSubcomponentHolderEClass.getESuperTypes().add(getDataHolder());
+		dataSubcomponentHolderEClass.getESuperTypes().add(getTarget());
+		dataSubcomponentHolderEClass.getESuperTypes().add(getElementValues());
+		dataSubcomponentHolderEClass.getESuperTypes().add(getSubprogramHolderProxy());
+		dataSubcomponentHolderEClass.getESuperTypes().add(getSubcomponentHolder());
+		dispatchConditionEClass.getESuperTypes().add(getBehaviorCondition());
+		dispatchConjunctionEClass.getESuperTypes().add(getBehaviorElement());
+		dispatchRelativeTimeoutEClass.getESuperTypes().add(getDispatchTriggerCondition());
+		dispatchTriggerEClass.getESuperTypes().add(getBehaviorElement());
+		dispatchTriggerConditionEClass.getESuperTypes().add(getBehaviorElement());
+		dispatchTriggerConditionStopEClass.getESuperTypes().add(getDispatchTriggerCondition());
+		dispatchTriggerLogicalExpressionEClass.getESuperTypes().add(getDispatchTriggerCondition());
+		elementHolderEClass.getESuperTypes().add(getBehaviorElement());
+		elementValuesEClass.getESuperTypes().add(getBehaviorElement());
+		elseStatementEClass.getESuperTypes().add(getCondStatement());
+		enumLiteralHolderEClass.getESuperTypes().add(getPropertyElementHolder());
+		eventDataPortHolderEClass.getESuperTypes().add(getActualPortHolder());
+		eventDataPortHolderEClass.getESuperTypes().add(getElementValues());
+		eventDataPortHolderEClass.getESuperTypes().add(getDispatchTrigger());
+		eventDataPortHolderEClass.getESuperTypes().add(getModeSwitchTrigger());
+		eventDataPortHolderEClass.getESuperTypes().add(getTarget());
+		eventPortHolderEClass.getESuperTypes().add(getActualPortHolder());
+		eventPortHolderEClass.getESuperTypes().add(getDispatchTrigger());
+		eventPortHolderEClass.getESuperTypes().add(getModeSwitchTrigger());
+		eventPortHolderEClass.getESuperTypes().add(getTarget());
+		executeConditionEClass.getESuperTypes().add(getBehaviorCondition());
+		executionTimeoutCatchEClass.getESuperTypes().add(getExecuteCondition());
+		factorEClass.getESuperTypes().add(getBehaviorElement());
+		featureHolderEClass.getESuperTypes().add(getClassifierFeatureHolder());
+		featureHolderEClass.getESuperTypes().add(getIndexableElement());
+		featureHolderEClass.getESuperTypes().add(getGroupableElement());
+		featurePrototypeHolderEClass.getESuperTypes().add(getDataHolder());
+		featurePrototypeHolderEClass.getESuperTypes().add(getPrototypeHolder());
+		featurePrototypeHolderEClass.getESuperTypes().add(getTarget());
+		featurePrototypeHolderEClass.getESuperTypes().add(getElementValues());
+		forOrForAllStatementEClass.getESuperTypes().add(getLoopStatement());
+		groupableElementEClass.getESuperTypes().add(getBehaviorElement());
+		groupHolderEClass.getESuperTypes().add(getElementHolder());
+		groupHolderEClass.getESuperTypes().add(getIndexableElement());
+		groupPrototypeHolderEClass.getESuperTypes().add(getGroupHolder());
+		ifStatementEClass.getESuperTypes().add(getCondStatement());
+		ifStatementEClass.getESuperTypes().add(getElseStatement());
+		indexableElementEClass.getESuperTypes().add(getBehaviorElement());
+		integerRangeEClass.getESuperTypes().add(getElementValues());
+		integerValueEClass.getESuperTypes().add(getBehaviorElement());
+		integerValueConstantEClass.getESuperTypes().add(getIntegerValue());
+		integerValueConstantEClass.getESuperTypes().add(getValueConstant());
+		integerValueVariableEClass.getESuperTypes().add(getIntegerValue());
+		integerValueVariableEClass.getESuperTypes().add(getValueVariable());
+		iterativeVariableEClass.getESuperTypes().add(getBehaviorNamedElement());
+		iterativeVariableHolderEClass.getESuperTypes().add(getDataHolder());
+		literalEClass.getESuperTypes().add(getValueConstant());
+		literalEClass.getESuperTypes().add(getIntegerValueConstant());
+		lockActionEClass.getESuperTypes().add(getSharedDataAction());
+		loopStatementEClass.getESuperTypes().add(getCondStatement());
+		lowerBoundEClass.getESuperTypes().add(getPropertyNameField());
 		numericLiteralEClass.getESuperTypes().add(theAadl2Package.getNumberValue());
-		numericLiteralEClass.getESuperTypes().add(this.getLiteral());
-		otherwiseEClass.getESuperTypes().add(this.getExecuteCondition());
-		parameterHolderEClass.getESuperTypes().add(this.getDataHolder());
-		parameterHolderEClass.getESuperTypes().add(this.getTarget());
-		parameterHolderEClass.getESuperTypes().add(this.getElementValues());
-		parameterHolderEClass.getESuperTypes().add(this.getFeatureHolder());
-		parameterLabelEClass.getESuperTypes().add(this.getBehaviorElement());
-		portCountValueEClass.getESuperTypes().add(this.getActualPortHolder());
-		portDequeueActionEClass.getESuperTypes().add(this.getCommunicationAction());
-		portDequeueValueEClass.getESuperTypes().add(this.getActualPortHolder());
-		portFreezeActionEClass.getESuperTypes().add(this.getActualPortHolder());
-		portFreezeActionEClass.getESuperTypes().add(this.getCommunicationAction());
-		portFreshValueEClass.getESuperTypes().add(this.getActualPortHolder());
-		portHolderEClass.getESuperTypes().add(this.getValueVariable());
-		portHolderEClass.getESuperTypes().add(this.getIntegerValueVariable());
-		portHolderEClass.getESuperTypes().add(this.getFeatureHolder());
-		portPrototypeHolderEClass.getESuperTypes().add(this.getPortHolder());
-		portPrototypeHolderEClass.getESuperTypes().add(this.getPrototypeHolder());
-		portPrototypeHolderEClass.getESuperTypes().add(this.getTarget());
-		portSendActionEClass.getESuperTypes().add(this.getCommunicationAction());
-		propertyAssociationHolderEClass.getESuperTypes().add(this.getPropertyElementHolder());
-		propertyElementHolderEClass.getESuperTypes().add(this.getBehaviorElement());
-		propertyElementHolderEClass.getESuperTypes().add(this.getIndexableElement());
-		propertyExpressionHolderEClass.getESuperTypes().add(this.getPropertyElementHolder());
-		propertyNameFieldEClass.getESuperTypes().add(this.getBehaviorElement());
-		propertyNameHolderEClass.getESuperTypes().add(this.getBehaviorElement());
-		propertyReferenceEClass.getESuperTypes().add(this.getValueConstant());
-		propertyReferenceEClass.getESuperTypes().add(this.getIntegerValueConstant());
-		propertySetPropertyReferenceEClass.getESuperTypes().add(this.getPropertyReference());
-		propertyTypeHolderEClass.getESuperTypes().add(this.getPropertyElementHolder());
-		prototypeHolderEClass.getESuperTypes().add(this.getIndexableElement());
-		prototypeHolderEClass.getESuperTypes().add(this.getGroupableElement());
-		prototypeHolderEClass.getESuperTypes().add(this.getClassifierFeatureHolder());
-		relationEClass.getESuperTypes().add(this.getBehaviorElement());
-		sharedDataActionEClass.getESuperTypes().add(this.getCommunicationAction());
-		simpleExpressionEClass.getESuperTypes().add(this.getBehaviorElement());
-		structUnionElementEClass.getESuperTypes().add(this.getBehaviorNamedElement());
-		structUnionElementHolderEClass.getESuperTypes().add(this.getDataHolder());
-		structUnionElementHolderEClass.getESuperTypes().add(this.getIndexableElement());
-		structUnionElementHolderEClass.getESuperTypes().add(this.getTarget());
-		structUnionElementHolderEClass.getESuperTypes().add(this.getElementValues());
-		subcomponentHolderEClass.getESuperTypes().add(this.getClassifierFeatureHolder());
-		subcomponentHolderEClass.getESuperTypes().add(this.getIndexableElement());
-		subcomponentHolderEClass.getESuperTypes().add(this.getGroupableElement());
-		subprogramAccessHolderEClass.getESuperTypes().add(this.getDispatchTriggerCondition());
-		subprogramAccessHolderEClass.getESuperTypes().add(this.getCalledSubprogramHolder());
-		subprogramAccessHolderEClass.getESuperTypes().add(this.getFeatureHolder());
-		subprogramCallActionEClass.getESuperTypes().add(this.getCommunicationAction());
-		subprogramHolderEClass.getESuperTypes().add(this.getCalledSubprogramHolder());
-		subprogramHolderProxyEClass.getESuperTypes().add(this.getBehaviorElement());
-		subprogramPrototypeHolderEClass.getESuperTypes().add(this.getCalledSubprogramHolder());
-		subprogramPrototypeHolderEClass.getESuperTypes().add(this.getPrototypeHolder());
-		subprogramSubcomponentHolderEClass.getESuperTypes().add(this.getSubcomponentHolder());
-		subprogramSubcomponentHolderEClass.getESuperTypes().add(this.getCalledSubprogramHolder());
-		targetEClass.getESuperTypes().add(this.getParameterLabel());
-		targetEClass.getESuperTypes().add(this.getBehaviorElement());
-		termEClass.getESuperTypes().add(this.getBehaviorElement());
-		timedActionEClass.getESuperTypes().add(this.getBasicAction());
-		unlockActionEClass.getESuperTypes().add(this.getSharedDataAction());
-		upperBoundEClass.getESuperTypes().add(this.getPropertyNameField());
-		valueEClass.getESuperTypes().add(this.getBehaviorElement());
-		valueConstantEClass.getESuperTypes().add(this.getValue());
-		valueExpressionEClass.getESuperTypes().add(this.getValue());
-		valueExpressionEClass.getESuperTypes().add(this.getParameterLabel());
-		valueExpressionEClass.getESuperTypes().add(this.getExecuteCondition());
-		valueVariableEClass.getESuperTypes().add(this.getValue());
-		whileOrDoUntilStatementEClass.getESuperTypes().add(this.getLoopStatement());
-		modeSwitchTriggerLogicalExpressionEClass.getESuperTypes().add(this.getModeSwitchTriggerCondition());
-		modeSwitchTriggerConditionEClass.getESuperTypes().add(this.getBehaviorCondition());
-		modeSwitchConjunctionEClass.getESuperTypes().add(this.getBehaviorElement());
-		modeSwitchTriggerEClass.getESuperTypes().add(this.getBehaviorElement());
-		internalPortHolderEClass.getESuperTypes().add(this.getClassifierFeatureHolder());
-		internalPortHolderEClass.getESuperTypes().add(this.getTarget());
-		eventSourceHolderEClass.getESuperTypes().add(this.getInternalPortHolder());
-		eventDataSourceHolderEClass.getESuperTypes().add(this.getInternalPortHolder());
-		internalPortSendActionEClass.getESuperTypes().add(this.getCommunicationAction());
+		numericLiteralEClass.getESuperTypes().add(getLiteral());
+		otherwiseEClass.getESuperTypes().add(getExecuteCondition());
+		parameterHolderEClass.getESuperTypes().add(getDataHolder());
+		parameterHolderEClass.getESuperTypes().add(getTarget());
+		parameterHolderEClass.getESuperTypes().add(getElementValues());
+		parameterHolderEClass.getESuperTypes().add(getFeatureHolder());
+		parameterLabelEClass.getESuperTypes().add(getBehaviorElement());
+		portCountValueEClass.getESuperTypes().add(getActualPortHolder());
+		portDequeueActionEClass.getESuperTypes().add(getCommunicationAction());
+		portDequeueValueEClass.getESuperTypes().add(getActualPortHolder());
+		portFreezeActionEClass.getESuperTypes().add(getActualPortHolder());
+		portFreezeActionEClass.getESuperTypes().add(getCommunicationAction());
+		portFreshValueEClass.getESuperTypes().add(getActualPortHolder());
+		portHolderEClass.getESuperTypes().add(getValueVariable());
+		portHolderEClass.getESuperTypes().add(getIntegerValueVariable());
+		portHolderEClass.getESuperTypes().add(getFeatureHolder());
+		portPrototypeHolderEClass.getESuperTypes().add(getPortHolder());
+		portPrototypeHolderEClass.getESuperTypes().add(getPrototypeHolder());
+		portPrototypeHolderEClass.getESuperTypes().add(getTarget());
+		portSendActionEClass.getESuperTypes().add(getCommunicationAction());
+		propertyAssociationHolderEClass.getESuperTypes().add(getPropertyElementHolder());
+		propertyElementHolderEClass.getESuperTypes().add(getBehaviorElement());
+		propertyElementHolderEClass.getESuperTypes().add(getIndexableElement());
+		propertyExpressionHolderEClass.getESuperTypes().add(getPropertyElementHolder());
+		propertyNameFieldEClass.getESuperTypes().add(getBehaviorElement());
+		propertyNameHolderEClass.getESuperTypes().add(getBehaviorElement());
+		propertyReferenceEClass.getESuperTypes().add(getValueConstant());
+		propertyReferenceEClass.getESuperTypes().add(getIntegerValueConstant());
+		propertySetPropertyReferenceEClass.getESuperTypes().add(getPropertyReference());
+		propertyTypeHolderEClass.getESuperTypes().add(getPropertyElementHolder());
+		prototypeHolderEClass.getESuperTypes().add(getIndexableElement());
+		prototypeHolderEClass.getESuperTypes().add(getGroupableElement());
+		prototypeHolderEClass.getESuperTypes().add(getClassifierFeatureHolder());
+		relationEClass.getESuperTypes().add(getBehaviorElement());
+		sharedDataActionEClass.getESuperTypes().add(getCommunicationAction());
+		simpleExpressionEClass.getESuperTypes().add(getBehaviorElement());
+		structUnionElementEClass.getESuperTypes().add(getBehaviorNamedElement());
+		structUnionElementHolderEClass.getESuperTypes().add(getDataHolder());
+		structUnionElementHolderEClass.getESuperTypes().add(getIndexableElement());
+		structUnionElementHolderEClass.getESuperTypes().add(getTarget());
+		structUnionElementHolderEClass.getESuperTypes().add(getElementValues());
+		subcomponentHolderEClass.getESuperTypes().add(getClassifierFeatureHolder());
+		subcomponentHolderEClass.getESuperTypes().add(getIndexableElement());
+		subcomponentHolderEClass.getESuperTypes().add(getGroupableElement());
+		subprogramAccessHolderEClass.getESuperTypes().add(getDispatchTriggerCondition());
+		subprogramAccessHolderEClass.getESuperTypes().add(getCalledSubprogramHolder());
+		subprogramAccessHolderEClass.getESuperTypes().add(getFeatureHolder());
+		subprogramCallActionEClass.getESuperTypes().add(getCommunicationAction());
+		subprogramHolderEClass.getESuperTypes().add(getCalledSubprogramHolder());
+		subprogramHolderProxyEClass.getESuperTypes().add(getBehaviorElement());
+		subprogramPrototypeHolderEClass.getESuperTypes().add(getCalledSubprogramHolder());
+		subprogramPrototypeHolderEClass.getESuperTypes().add(getPrototypeHolder());
+		subprogramSubcomponentHolderEClass.getESuperTypes().add(getSubcomponentHolder());
+		subprogramSubcomponentHolderEClass.getESuperTypes().add(getCalledSubprogramHolder());
+		targetEClass.getESuperTypes().add(getParameterLabel());
+		targetEClass.getESuperTypes().add(getBehaviorElement());
+		termEClass.getESuperTypes().add(getBehaviorElement());
+		timedActionEClass.getESuperTypes().add(getBasicAction());
+		unlockActionEClass.getESuperTypes().add(getSharedDataAction());
+		upperBoundEClass.getESuperTypes().add(getPropertyNameField());
+		valueEClass.getESuperTypes().add(getBehaviorElement());
+		valueConstantEClass.getESuperTypes().add(getValue());
+		valueExpressionEClass.getESuperTypes().add(getValue());
+		valueExpressionEClass.getESuperTypes().add(getParameterLabel());
+		valueExpressionEClass.getESuperTypes().add(getExecuteCondition());
+		valueVariableEClass.getESuperTypes().add(getValue());
+		whileOrDoUntilStatementEClass.getESuperTypes().add(getLoopStatement());
+		modeSwitchTriggerLogicalExpressionEClass.getESuperTypes().add(getModeSwitchTriggerCondition());
+		modeSwitchTriggerConditionEClass.getESuperTypes().add(getBehaviorCondition());
+		modeSwitchConjunctionEClass.getESuperTypes().add(getBehaviorElement());
+		modeSwitchTriggerEClass.getESuperTypes().add(getBehaviorElement());
+		internalPortHolderEClass.getESuperTypes().add(getClassifierFeatureHolder());
+		internalPortHolderEClass.getESuperTypes().add(getTarget());
+		eventSourceHolderEClass.getESuperTypes().add(getInternalPortHolder());
+		eventDataSourceHolderEClass.getESuperTypes().add(getInternalPortHolder());
+		internalPortSendActionEClass.getESuperTypes().add(getCommunicationAction());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(actualPortHolderEClass, ActualPortHolder.class, "ActualPortHolder", IS_ABSTRACT, !IS_INTERFACE,
@@ -3983,12 +3986,12 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		initEClass(assignmentActionEClass, AssignmentAction.class, "AssignmentAction", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getAssignmentAction_Target(), this.getTarget(), null, "target", null, 1, 1,
+		initEReference(getAssignmentAction_Target(), getTarget(), null, "target", null, 1, 1, AssignmentAction.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAssignmentAction_ValueExpression(), getValueExpression(), null, "valueExpression", null, 1, 1,
 				AssignmentAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAssignmentAction_ValueExpression(), this.getValueExpression(), null, "valueExpression", null,
-				1, 1, AssignmentAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(anyEClass, Any.class, "Any", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -4009,16 +4012,16 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		initEClass(behaviorActionBlockEClass, BehaviorActionBlock.class, "BehaviorActionBlock", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getBehaviorActionBlock_Content(), this.getBehaviorActions(), null, "content", null, 1, 1,
+		initEReference(getBehaviorActionBlock_Content(), getBehaviorActions(), null, "content", null, 1, 1,
 				BehaviorActionBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBehaviorActionBlock_Timeout(), this.getBehaviorTime(), null, "timeout", null, 0, 1,
+		initEReference(getBehaviorActionBlock_Timeout(), getBehaviorTime(), null, "timeout", null, 0, 1,
 				BehaviorActionBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(behaviorActionCollectionEClass, BehaviorActionCollection.class, "BehaviorActionCollection",
 				IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getBehaviorActionCollection_Actions(), this.getBehaviorAction(), null, "actions", null, 2, -1,
+		initEReference(getBehaviorActionCollection_Actions(), getBehaviorAction(), null, "actions", null, 2, -1,
 				BehaviorActionCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -4033,22 +4036,22 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		initEClass(behaviorAnnexEClass, BehaviorAnnex.class, "BehaviorAnnex", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getBehaviorAnnex_Variables(), this.getBehaviorVariable(), null, "variables", null, 0, -1,
+		initEReference(getBehaviorAnnex_Variables(), getBehaviorVariable(), null, "variables", null, 0, -1,
 				BehaviorAnnex.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBehaviorAnnex_States(), this.getBehaviorState(), null, "states", null, 0, -1,
+		initEReference(getBehaviorAnnex_States(), getBehaviorState(), null, "states", null, 0, -1, BehaviorAnnex.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
+		initEReference(getBehaviorAnnex_Transitions(), getBehaviorTransition(), null, "transitions", null, 0, -1,
 				BehaviorAnnex.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBehaviorAnnex_Transitions(), this.getBehaviorTransition(), null, "transitions", null, 0, -1,
-				BehaviorAnnex.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBehaviorAnnex_Actions(), this.getBehaviorActionBlock(), null, "actions", null, 0, -1,
+		initEReference(getBehaviorAnnex_Actions(), getBehaviorActionBlock(), null, "actions", null, 0, -1,
 				BehaviorAnnex.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBehaviorAnnex_Conditions(), this.getBehaviorCondition(), null, "conditions", null, 0, -1,
+		initEReference(getBehaviorAnnex_Conditions(), getBehaviorCondition(), null, "conditions", null, 0, -1,
 				BehaviorAnnex.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBehaviorAnnex_InitialState(), this.getBehaviorState(), null, "initialState", null, 1, 1,
+		initEReference(getBehaviorAnnex_InitialState(), getBehaviorState(), null, "initialState", null, 1, 1,
 				BehaviorAnnex.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -4081,21 +4084,21 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		initEClass(behaviorStateEClass, BehaviorState.class, "BehaviorState", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getBehaviorState_Initial(), this.getBoolean(), "initial", "false", 1, 1, BehaviorState.class,
+		initEAttribute(getBehaviorState_Initial(), getBoolean(), "initial", "false", 1, 1, BehaviorState.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBehaviorState_Complete(), this.getBoolean(), "complete", "false", 1, 1, BehaviorState.class,
+		initEAttribute(getBehaviorState_Complete(), getBoolean(), "complete", "false", 1, 1, BehaviorState.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBehaviorState_Final(), this.getBoolean(), "final", "false", 1, 1, BehaviorState.class,
+		initEAttribute(getBehaviorState_Final(), getBoolean(), "final", "false", 1, 1, BehaviorState.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBehaviorState_BindedMode(), theAadl2Package.getMode(), null, "bindedMode", null, 0, 1,
 				BehaviorState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBehaviorState_IncomingTransitions(), this.getBehaviorTransition(),
-				this.getBehaviorTransition_DestinationState(), "incomingTransitions", null, 0, -1, BehaviorState.class,
+		initEReference(getBehaviorState_IncomingTransitions(), getBehaviorTransition(),
+				getBehaviorTransition_DestinationState(), "incomingTransitions", null, 0, -1, BehaviorState.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBehaviorState_OutgoingTransitions(), this.getBehaviorTransition(),
-				this.getBehaviorTransition_SourceState(), "outgoingTransitions", null, 0, -1, BehaviorState.class,
+		initEReference(getBehaviorState_OutgoingTransitions(), getBehaviorTransition(),
+				getBehaviorTransition_SourceState(), "outgoingTransitions", null, 0, -1, BehaviorState.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -4104,7 +4107,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		initEClass(behaviorTimeEClass, BehaviorTime.class, "BehaviorTime", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getBehaviorTime_IntegerValue(), this.getIntegerValue(), null, "integerValue", null, 1, 1,
+		initEReference(getBehaviorTime_IntegerValue(), getIntegerValue(), null, "integerValue", null, 1, 1,
 				BehaviorTime.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBehaviorTime_Unit(), theAadl2Package.getUnitLiteral(), null, "unit", null, 0, 1,
@@ -4113,20 +4116,19 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		initEClass(behaviorTransitionEClass, BehaviorTransition.class, "BehaviorTransition", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getBehaviorTransition_SourceState(), this.getBehaviorState(),
-				this.getBehaviorState_OutgoingTransitions(), "sourceState", null, 0, 1, BehaviorTransition.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
-				!IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBehaviorTransition_Condition(), this.getBehaviorCondition(), null, "condition", null, 0, 1,
+		initEReference(getBehaviorTransition_SourceState(), getBehaviorState(), getBehaviorState_OutgoingTransitions(),
+				"sourceState", null, 0, 1, BehaviorTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBehaviorTransition_Condition(), getBehaviorCondition(), null, "condition", null, 0, 1,
 				BehaviorTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBehaviorTransition_DestinationState(), this.getBehaviorState(),
-				this.getBehaviorState_IncomingTransitions(), "destinationState", null, 0, 1, BehaviorTransition.class,
+		initEReference(getBehaviorTransition_DestinationState(), getBehaviorState(),
+				getBehaviorState_IncomingTransitions(), "destinationState", null, 0, 1, BehaviorTransition.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				!IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBehaviorTransition_ActionBlock(), this.getBehaviorActionBlock(), null, "actionBlock", null, 0,
-				1, BehaviorTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBehaviorTransition_ActionBlock(), getBehaviorActionBlock(), null, "actionBlock", null, 0, 1,
+				BehaviorTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBehaviorTransition_Priority(), theAadl2Package.getInteger(), "priority", "-1", 0, 1,
 				BehaviorTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
 				!IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4139,17 +4141,17 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		initEReference(getBehaviorVariable_OwnedPropertyAssociations(), theAadl2Package.getPropertyAssociation(), null,
 				"ownedPropertyAssociations", null, 0, -1, BehaviorVariable.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBehaviorVariable_OwnedValueConstant(), this.getValueConstant(), null, "ownedValueConstant",
-				null, 0, 1, BehaviorVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+		initEReference(getBehaviorVariable_OwnedValueConstant(), getValueConstant(), null, "ownedValueConstant", null,
+				0, 1, BehaviorVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(behaviorVariableHolderEClass, BehaviorVariableHolder.class, "BehaviorVariableHolder", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		op = addEOperation(behaviorVariableHolderEClass, null, "setVariable", 1, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getBehaviorVariable(), "variable", 1, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, getBehaviorVariable(), "variable", 1, 1, IS_UNIQUE, IS_ORDERED);
 
-		addEOperation(behaviorVariableHolderEClass, this.getBehaviorVariable(), "getBehaviorVariable", 1, 1, IS_UNIQUE,
+		addEOperation(behaviorVariableHolderEClass, getBehaviorVariable(), "getBehaviorVariable", 1, 1, IS_UNIQUE,
 				IS_ORDERED);
 
 		initEClass(calledSubprogramHolderEClass, CalledSubprogramHolder.class, "CalledSubprogramHolder", !IS_ABSTRACT,
@@ -4166,7 +4168,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		initEClass(classifierFeaturePropertyReferenceEClass, ClassifierFeaturePropertyReference.class,
 				"ClassifierFeaturePropertyReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getClassifierFeaturePropertyReference_Component(), this.getClassifierFeatureHolder(), null,
+		initEReference(getClassifierFeaturePropertyReference_Component(), getClassifierFeatureHolder(), null,
 				"component", null, 1, 1, ClassifierFeaturePropertyReference.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -4184,8 +4186,8 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		initEClass(condStatementEClass, CondStatement.class, "CondStatement", IS_ABSTRACT, IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getCondStatement_BehaviorActions(), this.getBehaviorActions(), null, "behaviorActions", null, 1,
-				1, CondStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+		initEReference(getCondStatement_BehaviorActions(), getBehaviorActions(), null, "behaviorActions", null, 1, 1,
+				CondStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(dataAccessHolderEClass, DataAccessHolder.class, "DataAccessHolder", !IS_ABSTRACT, !IS_INTERFACE,
@@ -4202,7 +4204,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		initEClass(dataComponentReferenceEClass, DataComponentReference.class, "DataComponentReference", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getDataComponentReference_Data(), this.getDataHolder(), null, "data", null, 2, -1,
+		initEReference(getDataComponentReference_Data(), getDataHolder(), null, "data", null, 2, -1,
 				DataComponentReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -4228,17 +4230,17 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		initEClass(dispatchConditionEClass, DispatchCondition.class, "DispatchCondition", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getDispatchCondition_DispatchTriggerCondition(), this.getDispatchTriggerCondition(), null,
+		initEReference(getDispatchCondition_DispatchTriggerCondition(), getDispatchTriggerCondition(), null,
 				"dispatchTriggerCondition", null, 0, 1, DispatchCondition.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDispatchCondition_FrozenPorts(), this.getActualPortHolder(), null, "frozenPorts", null, 0, -1,
+		initEReference(getDispatchCondition_FrozenPorts(), getActualPortHolder(), null, "frozenPorts", null, 0, -1,
 				DispatchCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(dispatchConjunctionEClass, DispatchConjunction.class, "DispatchConjunction", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getDispatchConjunction_DispatchTriggers(), this.getDispatchTrigger(), null, "dispatchTriggers",
-				null, 1, -1, DispatchConjunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+		initEReference(getDispatchConjunction_DispatchTriggers(), getDispatchTrigger(), null, "dispatchTriggers", null,
+				1, -1, DispatchConjunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(dispatchRelativeTimeoutEClass, DispatchRelativeTimeout.class, "DispatchRelativeTimeout",
@@ -4255,7 +4257,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		initEClass(dispatchTriggerLogicalExpressionEClass, DispatchTriggerLogicalExpression.class,
 				"DispatchTriggerLogicalExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getDispatchTriggerLogicalExpression_DispatchConjunctions(), this.getDispatchConjunction(), null,
+		initEReference(getDispatchTriggerLogicalExpression_DispatchConjunctions(), getDispatchConjunction(), null,
 				"dispatchConjunctions", null, 1, -1, DispatchTriggerLogicalExpression.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
 				IS_ORDERED);
@@ -4306,20 +4308,20 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(factorEClass, Factor.class, "Factor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getFactor_FirstValue(), this.getValue(), null, "firstValue", null, 1, 1, Factor.class,
+		initEReference(getFactor_FirstValue(), getValue(), null, "firstValue", null, 1, 1, Factor.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+				IS_ORDERED);
+		initEReference(getFactor_SecondValue(), getValue(), null, "secondValue", null, 0, 1, Factor.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFactor_SecondValue(), this.getValue(), null, "secondValue", null, 0, 1, Factor.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
-				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFactor_BinaryNumericOperator(), this.getBinaryNumericOperator(), "binaryNumericOperator",
-				null, 0, 1, Factor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE,
+		initEAttribute(getFactor_BinaryNumericOperator(), getBinaryNumericOperator(), "binaryNumericOperator", null, 0,
+				1, Factor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFactor_UnaryNumericOperator(), this.getUnaryNumericOperator(), "unaryNumericOperator", null,
-				0, 1, Factor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE,
+		initEAttribute(getFactor_UnaryNumericOperator(), getUnaryNumericOperator(), "unaryNumericOperator", null, 0, 1,
+				Factor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFactor_UnaryBooleanOperator(), this.getUnaryBooleanOperator(), "unaryBooleanOperator", null,
-				0, 1, Factor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE,
+		initEAttribute(getFactor_UnaryBooleanOperator(), getUnaryBooleanOperator(), "unaryBooleanOperator", null, 0, 1,
+				Factor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
 
 		initEClass(featureHolderEClass, FeatureHolder.class, "FeatureHolder", !IS_ABSTRACT, !IS_INTERFACE,
@@ -4335,19 +4337,19 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		initEClass(forOrForAllStatementEClass, ForOrForAllStatement.class, "ForOrForAllStatement", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getForOrForAllStatement_IteratedValues(), this.getElementValues(), null, "iteratedValues", null,
-				1, 1, ForOrForAllStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+		initEReference(getForOrForAllStatement_IteratedValues(), getElementValues(), null, "iteratedValues", null, 1, 1,
+				ForOrForAllStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getForOrForAllStatement_ForAll(), this.getBoolean(), "forAll", "false", 0, 1,
+		initEAttribute(getForOrForAllStatement_ForAll(), getBoolean(), "forAll", "false", 0, 1,
 				ForOrForAllStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getForOrForAllStatement_IterativeVariable(), this.getIterativeVariable(), null,
-				"iterativeVariable", null, 1, 1, ForOrForAllStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getForOrForAllStatement_IterativeVariable(), getIterativeVariable(), null, "iterativeVariable",
+				null, 1, 1, ForOrForAllStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(groupableElementEClass, GroupableElement.class, "GroupableElement", IS_ABSTRACT, IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGroupableElement_GroupHolders(), this.getGroupHolder(), null, "groupHolders", null, 0, -1,
+		initEReference(getGroupableElement_GroupHolders(), getGroupHolder(), null, "groupHolders", null, 0, -1,
 				GroupableElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -4373,28 +4375,28 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		initEClass(ifStatementEClass, IfStatement.class, "IfStatement", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getIfStatement_LogicalValueExpression(), this.getValueExpression(), null,
-				"logicalValueExpression", null, 1, 1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getIfStatement_Elif(), this.getBoolean(), "elif", "false", 0, 1, IfStatement.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getIfStatement_ElseStatement(), this.getElseStatement(), null, "elseStatement", null, 0, 1,
+		initEReference(getIfStatement_LogicalValueExpression(), getValueExpression(), null, "logicalValueExpression",
+				null, 1, 1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getIfStatement_Elif(), getBoolean(), "elif", "false", 0, 1, IfStatement.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getIfStatement_ElseStatement(), getElseStatement(), null, "elseStatement", null, 0, 1,
 				IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(indexableElementEClass, IndexableElement.class, "IndexableElement", IS_ABSTRACT, IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getIndexableElement_ArrayIndexes(), this.getIntegerValue(), null, "arrayIndexes", null, 0, -1,
+		initEReference(getIndexableElement_ArrayIndexes(), getIntegerValue(), null, "arrayIndexes", null, 0, -1,
 				IndexableElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(integerRangeEClass, IntegerRange.class, "IntegerRange", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getIntegerRange_LowerIntegerValue(), this.getIntegerValue(), null, "lowerIntegerValue", null, 1,
-				1, IntegerRange.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+		initEReference(getIntegerRange_LowerIntegerValue(), getIntegerValue(), null, "lowerIntegerValue", null, 1, 1,
+				IntegerRange.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getIntegerRange_UpperIntegerValue(), this.getIntegerValue(), null, "upperIntegerValue", null, 1,
-				1, IntegerRange.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+		initEReference(getIntegerRange_UpperIntegerValue(), getIntegerValue(), null, "upperIntegerValue", null, 1, 1,
+				IntegerRange.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(integerValueEClass, IntegerValue.class, "IntegerValue", IS_ABSTRACT, IS_INTERFACE,
@@ -4416,10 +4418,10 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		op = addEOperation(iterativeVariableHolderEClass, null, "setIterativeVariable", 1, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getIterativeVariable(), "itV", 1, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, getIterativeVariable(), "itV", 1, 1, IS_UNIQUE, IS_ORDERED);
 
-		addEOperation(iterativeVariableHolderEClass, this.getIterativeVariable(), "getIterativeVariable", 1, 1,
-				IS_UNIQUE, IS_ORDERED);
+		addEOperation(iterativeVariableHolderEClass, getIterativeVariable(), "getIterativeVariable", 1, 1, IS_UNIQUE,
+				IS_ORDERED);
 
 		initEClass(literalEClass, Literal.class, "Literal", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -4455,12 +4457,12 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		initEClass(portDequeueActionEClass, PortDequeueAction.class, "PortDequeueAction", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getPortDequeueAction_Port(), this.getActualPortHolder(), null, "port", null, 1, 1,
+		initEReference(getPortDequeueAction_Port(), getActualPortHolder(), null, "port", null, 1, 1,
 				PortDequeueAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getPortDequeueAction_Target(), this.getTarget(), null, "target", null, 0, 1,
-				PortDequeueAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPortDequeueAction_Target(), getTarget(), null, "target", null, 0, 1, PortDequeueAction.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(portDequeueValueEClass, PortDequeueValue.class, "PortDequeueValue", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -4479,11 +4481,11 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		initEClass(portSendActionEClass, PortSendAction.class, "PortSendAction", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getPortSendAction_Port(), this.getActualPortHolder(), null, "port", null, 0, 1,
+		initEReference(getPortSendAction_Port(), getActualPortHolder(), null, "port", null, 0, 1, PortSendAction.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPortSendAction_ValueExpression(), getValueExpression(), null, "valueExpression", null, 0, 1,
 				PortSendAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getPortSendAction_ValueExpression(), this.getValueExpression(), null, "valueExpression", null, 0,
-				1, PortSendAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(propertyAssociationHolderEClass, PropertyAssociationHolder.class, "PropertyAssociationHolder",
@@ -4516,16 +4518,16 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		initEClass(propertyNameHolderEClass, PropertyNameHolder.class, "PropertyNameHolder", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getPropertyNameHolder_Property(), this.getPropertyElementHolder(), null, "property", null, 1, 1,
+		initEReference(getPropertyNameHolder_Property(), getPropertyElementHolder(), null, "property", null, 1, 1,
 				PropertyNameHolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getPropertyNameHolder_Field(), this.getPropertyNameField(), null, "field", null, 0, 1,
+		initEReference(getPropertyNameHolder_Field(), getPropertyNameField(), null, "field", null, 0, 1,
 				PropertyNameHolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(propertyReferenceEClass, PropertyReference.class, "PropertyReference", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getPropertyReference_Properties(), this.getPropertyNameHolder(), null, "properties", null, 1, -1,
+		initEReference(getPropertyReference_Properties(), getPropertyNameHolder(), null, "properties", null, 1, -1,
 				PropertyReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -4558,33 +4560,33 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		initEClass(relationEClass, Relation.class, "Relation", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getRelation_FirstExpression(), this.getSimpleExpression(), null, "firstExpression", null, 1, 1,
+		initEReference(getRelation_FirstExpression(), getSimpleExpression(), null, "firstExpression", null, 1, 1,
 				Relation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getRelation_SecondExpression(), this.getSimpleExpression(), null, "secondExpression", null, 0, 1,
+		initEReference(getRelation_SecondExpression(), getSimpleExpression(), null, "secondExpression", null, 0, 1,
 				Relation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getRelation_RelationalOperator(), this.getRelationalOperator(), "relationalOperator", null, 0, 1,
+		initEAttribute(getRelation_RelationalOperator(), getRelationalOperator(), "relationalOperator", null, 0, 1,
 				Relation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
 
 		initEClass(sharedDataActionEClass, SharedDataAction.class, "SharedDataAction", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getSharedDataAction_DataAccess(), this.getDataAccessHolder(), null, "dataAccess", null, 0, 1,
+		initEReference(getSharedDataAction_DataAccess(), getDataAccessHolder(), null, "dataAccess", null, 0, 1,
 				SharedDataAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(simpleExpressionEClass, SimpleExpression.class, "SimpleExpression", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getSimpleExpression_UnaryAddingOperator(), this.getUnaryAddingOperator(), "unaryAddingOperator",
-				null, 0, 1, SimpleExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID,
+		initEAttribute(getSimpleExpression_UnaryAddingOperator(), getUnaryAddingOperator(), "unaryAddingOperator", null,
+				0, 1, SimpleExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSimpleExpression_Terms(), this.getTerm(), null, "terms", null, 1, -1, SimpleExpression.class,
+		initEReference(getSimpleExpression_Terms(), getTerm(), null, "terms", null, 1, -1, SimpleExpression.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getSimpleExpression_BinaryAddingOperators(), this.getBinaryAddingOperator(),
-				"binaryAddingOperators", null, 0, -1, SimpleExpression.class, !IS_TRANSIENT, !IS_VOLATILE,
-				IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSimpleExpression_BinaryAddingOperators(), getBinaryAddingOperator(), "binaryAddingOperators",
+				null, 0, -1, SimpleExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID,
+				!IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(structUnionElementEClass, StructUnionElement.class, "StructUnionElement", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -4594,7 +4596,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		initEClass(structUnionElementHolderEClass, StructUnionElementHolder.class, "StructUnionElementHolder",
 				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getStructUnionElementHolder_StructUnionElement(), this.getStructUnionElement(), null,
+		initEReference(getStructUnionElementHolder_StructUnionElement(), getStructUnionElement(), null,
 				"structUnionElement", null, 1, 1, StructUnionElementHolder.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -4618,13 +4620,13 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		initEClass(subprogramCallActionEClass, SubprogramCallAction.class, "SubprogramCallAction", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getSubprogramCallAction_Subprogram(), this.getCalledSubprogramHolder(), null, "subprogram", null,
-				1, 1, SubprogramCallAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+		initEReference(getSubprogramCallAction_Subprogram(), getCalledSubprogramHolder(), null, "subprogram", null, 1,
+				1, SubprogramCallAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSubprogramCallAction_ParameterLabels(), this.getParameterLabel(), null, "parameterLabels",
-				null, 0, -1, SubprogramCallAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+		initEReference(getSubprogramCallAction_ParameterLabels(), getParameterLabel(), null, "parameterLabels", null, 0,
+				-1, SubprogramCallAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSubprogramCallAction_Proxy(), this.getSubprogramHolderProxy(), null, "proxy", null, 0, 1,
+		initEReference(getSubprogramCallAction_Proxy(), getSubprogramHolderProxy(), null, "proxy", null, 0, 1,
 				SubprogramCallAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -4657,21 +4659,21 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		initEClass(targetEClass, Target.class, "Target", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(termEClass, Term.class, "Term", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTerm_Factors(), this.getFactor(), null, "factors", null, 1, -1, Term.class, !IS_TRANSIENT,
+		initEReference(getTerm_Factors(), getFactor(), null, "factors", null, 1, -1, Term.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
 				IS_ORDERED);
-		initEAttribute(getTerm_MultiplyingOperators(), this.getMultiplyingOperator(), "multiplyingOperators", null, 0,
-				-1, Term.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE,
-				!IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTerm_MultiplyingOperators(), getMultiplyingOperator(), "multiplyingOperators", null, 0, -1,
+				Term.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED,
+				IS_ORDERED);
 
 		initEClass(timedActionEClass, TimedAction.class, "TimedAction", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTimedAction_LowerTime(), this.getBehaviorTime(), null, "lowerTime", null, 1, 1,
-				TimedAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTimedAction_UpperTime(), this.getBehaviorTime(), null, "upperTime", null, 0, 1,
-				TimedAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTimedAction_LowerTime(), getBehaviorTime(), null, "lowerTime", null, 1, 1, TimedAction.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTimedAction_UpperTime(), getBehaviorTime(), null, "upperTime", null, 0, 1, TimedAction.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTimedAction_ProcessorClassifier(), theAadl2Package.getProcessorClassifier(), null,
 				"processorClassifier", null, 0, -1, TimedAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				!IS_COMPOSITE, IS_RESOLVE_PROXIES, IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4689,29 +4691,29 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		initEClass(valueExpressionEClass, ValueExpression.class, "ValueExpression", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getValueExpression_Relations(), this.getRelation(), null, "relations", null, 0, -1,
+		initEReference(getValueExpression_Relations(), getRelation(), null, "relations", null, 0, -1,
 				ValueExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getValueExpression_LogicalOperators(), this.getLogicalOperator(), "logicalOperators", null, 0,
-				-1, ValueExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID,
-				!IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getValueExpression_LogicalOperators(), getLogicalOperator(), "logicalOperators", null, 0, -1,
+				ValueExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
 
 		initEClass(valueVariableEClass, ValueVariable.class, "ValueVariable", IS_ABSTRACT, IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(whileOrDoUntilStatementEClass, WhileOrDoUntilStatement.class, "WhileOrDoUntilStatement",
 				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getWhileOrDoUntilStatement_LogicalValueExpression(), this.getValueExpression(), null,
+		initEReference(getWhileOrDoUntilStatement_LogicalValueExpression(), getValueExpression(), null,
 				"logicalValueExpression", null, 1, 1, WhileOrDoUntilStatement.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getWhileOrDoUntilStatement_DoUntil(), this.getBoolean(), "doUntil", "false", 0, 1,
+		initEAttribute(getWhileOrDoUntilStatement_DoUntil(), getBoolean(), "doUntil", "false", 0, 1,
 				WhileOrDoUntilStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(modeSwitchTriggerLogicalExpressionEClass, ModeSwitchTriggerLogicalExpression.class,
 				"ModeSwitchTriggerLogicalExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getModeSwitchTriggerLogicalExpression_ModeSwitchConjunctions(), this.getModeSwitchConjunction(),
-				null, "modeSwitchConjunctions", null, 1, -1, ModeSwitchTriggerLogicalExpression.class, !IS_TRANSIENT,
+		initEReference(getModeSwitchTriggerLogicalExpression_ModeSwitchConjunctions(), getModeSwitchConjunction(), null,
+				"modeSwitchConjunctions", null, 1, -1, ModeSwitchTriggerLogicalExpression.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
 				IS_ORDERED);
 
@@ -4720,7 +4722,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		initEClass(modeSwitchConjunctionEClass, ModeSwitchConjunction.class, "ModeSwitchConjunction", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getModeSwitchConjunction_ModeSwitchTriggers(), this.getModeSwitchTrigger(), null,
+		initEReference(getModeSwitchConjunction_ModeSwitchTriggers(), getModeSwitchTrigger(), null,
 				"modeSwitchTriggers", null, 1, -1, ModeSwitchConjunction.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -4733,8 +4735,8 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		op = addEOperation(internalPortHolderEClass, null, "setInternalPort", 1, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, theAadl2Package.getInternalFeature(), "internalPort", 1, 1, IS_UNIQUE, IS_ORDERED);
 
-		addEOperation(internalPortHolderEClass, theAadl2Package.getInternalFeature(), "getInternalPort", 1, 1, IS_UNIQUE,
-				IS_ORDERED);
+		addEOperation(internalPortHolderEClass, theAadl2Package.getInternalFeature(), "getInternalPort", 1, 1,
+				IS_UNIQUE, IS_ORDERED);
 
 		initEClass(eventSourceHolderEClass, EventSourceHolder.class, "EventSourceHolder", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -4756,11 +4758,11 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		initEClass(internalPortSendActionEClass, InternalPortSendAction.class, "InternalPortSendAction", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getInternalPortSendAction_InternalPort(), this.getInternalPortHolder(), null, "internalPort",
-				null, 0, 1, InternalPortSendAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+		initEReference(getInternalPortSendAction_InternalPort(), getInternalPortHolder(), null, "internalPort", null, 0,
+				1, InternalPortSendAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getInternalPortSendAction_ValueExpression(), this.getValueExpression(), null, "valueExpression",
-				null, 0, 1, InternalPortSendAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+		initEReference(getInternalPortSendAction_ValueExpression(), getValueExpression(), null, "valueExpression", null,
+				0, 1, InternalPortSendAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals

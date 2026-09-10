@@ -1,12 +1,12 @@
 /**
  * AADL-BA-FrontEnd
- * 
+ *
  * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
  * version 2.0 of the License, or (at your option) any later version. This
@@ -659,31 +659,31 @@ public enum FeatureType implements Enumerator {
 	 */
 	REQUIRES_BUS_ACCESS_PROTOTYPE(61, "REQUIRES_BUS_ACCESS_PROTOTYPE", "requires bus access prototype"),
 	/**
-	* The '<em><b>SYSTEM SUBCOMPONENT</b></em>' literal object.
-	* <!-- begin-user-doc -->
+	 * The '<em><b>SYSTEM SUBCOMPONENT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
 	* <!-- end-user-doc -->
-	* @see #SYSTEM_SUBCOMPONENT_VALUE
-	* @generated
-	* @ordered
-	*/
+	 * @see #SYSTEM_SUBCOMPONENT_VALUE
+	 * @generated
+	 * @ordered
+	 */
 	SYSTEM_SUBCOMPONENT(62, "SYSTEM_SUBCOMPONENT", "system subcomponent"),
 	/**
-	* The '<em><b>PROCESSOR CLASSIFIER</b></em>' literal object.
-	* <!-- begin-user-doc -->
+	 * The '<em><b>PROCESSOR CLASSIFIER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
 	* <!-- end-user-doc -->
-	* @see #PROCESSOR_CLASSIFIER_VALUE
-	* @generated
-	* @ordered
-	*/
+	 * @see #PROCESSOR_CLASSIFIER_VALUE
+	 * @generated
+	 * @ordered
+	 */
 	PROCESSOR_CLASSIFIER(63, "PROCESSOR_CLASSIFIER", "processor classifier"),
 	/**
-	* The '<em><b>PROCESS CLASSIFIER</b></em>' literal object.
-	* <!-- begin-user-doc -->
+	 * The '<em><b>PROCESS CLASSIFIER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
 	* <!-- end-user-doc -->
-	* @see #PROCESS_CLASSIFIER_VALUE
-	* @generated
-	* @ordered
-	*/
+	 * @see #PROCESS_CLASSIFIER_VALUE
+	 * @generated
+	 * @ordered
+	 */
 	PROCESS_CLASSIFIER(64, "PROCESS_CLASSIFIER", "process classifier");
 
 	/**

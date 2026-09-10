@@ -1,12 +1,12 @@
 /**
  * AADL-BA-FrontEnd
- * 
+ *
  * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
  * version 2.0 of the License, or (at your option) any later version. This
@@ -19,16 +19,13 @@
  */
 package org.osate.ba.aadlba.provider;
 
-
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-
 import org.osate.ba.aadlba.AadlBaPackage;
 
 /**
@@ -71,19 +68,12 @@ public class InternalPortHolderItemProvider extends BehaviorElementItemProvider 
 	 * @generated
 	 */
 	protected void addElementPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ElementHolder_element_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ElementHolder_element_feature", "_UI_ElementHolder_type"),
-				 AadlBaPackage.Literals.ELEMENT_HOLDER__ELEMENT,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ElementHolder_element_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_ElementHolder_element_feature",
+								"_UI_ElementHolder_type"),
+						AadlBaPackage.Literals.ELEMENT_HOLDER__ELEMENT, true, false, true, null, null, null));
 	}
 
 	/**
@@ -107,7 +97,6 @@ public class InternalPortHolderItemProvider extends BehaviorElementItemProvider 
 	public String getText(Object object) {
 		return getString("_UI_InternalPortHolder_type");
 	}
-
 
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached

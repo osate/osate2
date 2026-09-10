@@ -1,0 +1,221 @@
+# Behavior Annex conformance and gap report
+
+Review date: 2026-09-09. Repository: `osate/osate2`, local `master`, commit `01911d359378a4481ae2109ec2c61ac3a42537b7`.
+
+The current implementation provides substantial Behavior Annex syntax, model construction, and selected semantic checks, but **does not fully conform to the supplied AS5506/3 Rev. A document**. Gaps include required syntax, preservation of expression and literal meaning, internal features, mode binding, and enforcement of several legality and consistency rules. Existing tests document some of these limitations, but their passing expectations do not establish conformance.
+
+The most urgent findings are loss of information during translation to the strict BA model, type conformance being disabled outright (G18), absent mode bindings, and weaknesses in the conformance tests themselves. Fixing only the missing grammar productions would leave significant semantic gaps.
+
+## GitHub tracking
+
+The user directed that the report findings be treated as valid and filed without additional reproduction or test work. The 28 numbered conformance findings of the review, and G18 added afterwards with its own reproduction, are tracked as follows. G18 is also the one thing this report originally got wrong: its D.6 assessment credited the implementation with type checks that are disabled.
+
+| Finding | Issue | Finding | Issue |
+| --- | --- | --- | --- |
+| G01 | [#3165](https://github.com/osate/osate2/issues/3165) | G15 | [#3179](https://github.com/osate/osate2/issues/3179) |
+| G02 | [#3166](https://github.com/osate/osate2/issues/3166) | G16 | [#3180](https://github.com/osate/osate2/issues/3180) |
+| G03 | [#3167](https://github.com/osate/osate2/issues/3167) | G17 | [#3181](https://github.com/osate/osate2/issues/3181) |
+| G04 | [#3168](https://github.com/osate/osate2/issues/3168) | V01 | [#3182](https://github.com/osate/osate2/issues/3182) |
+| G05 | [#3169](https://github.com/osate/osate2/issues/3169) | V02 | [#3183](https://github.com/osate/osate2/issues/3183) |
+| G06 | [#3170](https://github.com/osate/osate2/issues/3170) | V03 | [#3184](https://github.com/osate/osate2/issues/3184) |
+| G07 | [#3171](https://github.com/osate/osate2/issues/3171) | V04 | [#3185](https://github.com/osate/osate2/issues/3185) |
+| G08 | [#3172](https://github.com/osate/osate2/issues/3172) | V05 | [#3186](https://github.com/osate/osate2/issues/3186) |
+| G09 | [#3173](https://github.com/osate/osate2/issues/3173) | V06 | [#3187](https://github.com/osate/osate2/issues/3187) |
+| G10 | [#3174](https://github.com/osate/osate2/issues/3174) | V07 | [#3188](https://github.com/osate/osate2/issues/3188) |
+| G11 | [#3175](https://github.com/osate/osate2/issues/3175) | V08 | [#3189](https://github.com/osate/osate2/issues/3189) |
+| G12 | [#3176](https://github.com/osate/osate2/issues/3176) | V09 | [#3190](https://github.com/osate/osate2/issues/3190) |
+| G13 | [#3177](https://github.com/osate/osate2/issues/3177) | V10 | [#3191](https://github.com/osate/osate2/issues/3191) |
+| G14 | [#3178](https://github.com/osate/osate2/issues/3178) | V11 | [#3192](https://github.com/osate/osate2/issues/3192) |
+| G18 | [#3199](https://github.com/osate/osate2/issues/3199) | | |
+
+Resolved since the review: G03 ([#3167](https://github.com/osate/osate2/issues/3167), frozen-port parentheses), G11 ([#3175](https://github.com/osate/osate2/issues/3175), numeric literals), and V01 ([#3182](https://github.com/osate/osate2/issues/3182), declaration naming rules) are closed. G10 ([#3174](https://github.com/osate/osate2/issues/3174), internal port actions) has an open pull request, [#3198](https://github.com/osate/osate2/pull/3198). Each row's assessment below still describes the state at the review date unless it says otherwise.
+
+## Reference and review method
+
+The reference is the supplied **AS5506/3 Rev. A, approved 2017-07, Annex D: Behavior Model Annex**, at:
+
+`/Users/lwrage/Library/CloudStorage/OneDrive-SharedLibraries-SoftwareEngineeringInstitute/M365-AADL Standard - Documents/Documents/AADL Standard documents/AS5506_3_BA/AS5506_3RevA_2017_Jul copy.doc`
+
+SHA-256: `88da0a3157a47a265fc1f2ba0bdfdcd243457df7e136484bb9625792f0701868`.
+
+The document was read using a `textutil -convert txt` extraction. References below use Annex D section numbers, production names, and the wording/topic of rules. Word automatic numbering and table layout are not fully retained in that extraction, so this report does not infer individual rule numbers from extracted paragraph positions. The document's contents identify AS5506C as its core-language reference. No later edition or errata was substituted.
+
+The review follows the registered implementation: [BA plug-in registrations](../../ba/org.osate.xtext.aadl2.ba/plugin.xml), the [Xtext grammar](../../ba/org.osate.xtext.aadl2.ba/src/org/osate/xtext/aadl2/ba/BehaviorAnnex.xtext), the [declarative-to-strict translator](../../ba/org.osate.xtext.aadl2.ba/src/org/osate/xtext/aadl2/ba/translation/DeclarativeToStrictTranslator.java), and the [validator](../../ba/org.osate.xtext.aadl2.ba/src/org/osate/xtext/aadl2/ba/validation/BehaviorAnnexValidator.java). The validator translates the embedded annex, runs `AadlBaTypeChecker`, then runs `AadlBaRulesCheckersDriver` if type checking succeeds. Retained strict-model classes and old comments are not, by themselves, evidence that the current front end supports a construct.
+
+Evidence is distinguished as follows:
+
+- **Source-confirmed:** an explicit grammar production, translation assignment, or checker branch establishes the implementation limitation. This is source evidence, not a new execution result.
+- **Recorded test evidence:** checked-in fixtures, assertions, and expected-output files demonstrate what the test suite specifies or records. They were inspected, not regenerated or rerun.
+- **Coverage gap / needs reproduction:** no applicable check was found in the inspected path, or the end-to-end consequence requires a focused external AADL model. These findings should be reproduced before creating defect issues or changing production behavior.
+
+The review itself was a source and test-artifact audit. No Maven tests, simulator, code generator, or downstream analysis were run for it; no fresh pass/fail totals or conformance percentage are claimed, and only this report was added at that time. Findings added or revised after the review date say so, and G18 is the one whose evidence is an executed reproduction rather than source inspection.
+
+## Assessment by standard section
+
+| Section | Implemented capability and evidence | Assessment |
+| --- | --- | --- |
+| D.1–D.2: scope and concepts | Embedded `behavior_specification` parser, linker, serializer, and strict-model translation are registered. | Supports the language-tooling role; execution semantics require separate consumer evidence. |
+| D.3: behavior specification | Variables, grouped states, state kinds, named/prioritized and multiple-source transitions, execute conditions, and a subset of dispatch/external conditions. State and transition legality checks have dedicated tests. | Partial. Internal conditions are absent; mode binding is explicitly missing; multiple subprogram final states are rejected unconditionally; several consistency obligations lack demonstrated enforcement. |
+| D.4: thread dispatch | Dispatch conjunction/disjunction, `stop`, bare timeout, timeout with a duration, and an unparenthesized frozen-port list. Selected timeout/stop checks exist. | Partial. Required frozen-list parentheses and timeout reset ports are missing. Full protocol/trigger compatibility and core-property consistency are not demonstrated. |
+| D.5: component interactions | Port send/dequeue/freeze, count/fresh, shared-data lock/unlock syntax, and subprogram-call syntax/model classes. | Partial. `updated` is absent; internal events are represented incorrectly; call-signature and direction/category checks need additional coverage. Input/output timing consistency is not established. |
+| D.6: action language | Assignment/`any`, sequences and sets, blocks, conditionals, explicit-type loops, timed actions and processor bindings. Conflicting assignments in action sets and static minimum/maximum computation-time checks exist. | Partial. Type conformance is disabled outright, so no assignment, send, dequeue, range, or parameter type mismatch is reported (G18). Optional loop classifiers are missing; loop-variable assignment rejection is not enforced by the existing covering-test expectation; timeout, resource-release, and signature obligations are incomplete or unverified. |
+| D.7: expressions | Boolean/numeric/string syntax, arithmetic/relational/logical operators, property references, indexing, and operator applicability checks per operand data representation. | Partial, with semantic preservation defects. Operand consistency between the two operands is not checked, only applicability of the operator to the first one (G18). Short circuits and `updated` are missing; expression grouping/precedence and numeric translation differ from the document; initialization analysis is not demonstrated. |
+| D.8: synchronization | `Behavior_Properties::Subprogram_Call_Protocol` declares HSER/LSER/ASER and defaults to HSER, matching the supplied document. A client/server example exists. | Property definition conforms. Enforcement of the two LSER/ASER legality rules and execution of the protocols are not established. |
+
+Useful positive evidence includes [CoveringSyntaxTest](../../ba/org.osate.ba.tests/src/org/osate/ba/tests/CoveringSyntaxTest.xtend), [CoveringSemanticTest](../../ba/org.osate.ba.tests/src/org/osate/ba/tests/CoveringSemanticTest.xtend), [GrammarHazards.aadl](../../ba/org.osate.ba.tests/models/characterization/GrammarHazards.aadl), [BehaviorAnnexIntegrationTest](../../ba/org.osate.xtext.aadl2.ba.tests/src/org/osate/xtext/aadl2/ba/tests/BehaviorAnnexIntegrationTest.java), and [Issue3153Test](../../ba/org.osate.ba.tests/src/org/osate/ba/tests/Issue3153Test.java), [Issue3154Test](../../ba/org.osate.ba.tests/src/org/osate/ba/tests/Issue3154Test.java), and [Issue3155Test](../../ba/org.osate.ba.tests/src/org/osate/ba/tests/Issue3155Test.java). The latter tests establish specific diagnostic behavior and source locations, rather than general standard coverage.
+
+## Ten gaps already identified by the conformance tests
+
+All ten categories appear in [BehaviorAnnexConformanceTest](../../ba/org.osate.ba.tests/src/org/osate/ba/tests/characterization/BehaviorAnnexConformanceTest.java). At the review date its ten standard-outcome tests were all `@Ignore("Issue #2445: ...")`. After step 1 the class holds standard outcomes only: G03 is active, the other nine are skipped against their own tracking issue instead of the umbrella #2445, and the paired "current failure" tests are gone because the golden suites compare the same diagnostics exactly. Twelve AADL fixtures are under [models/characterization/conformance](../../ba/org.osate.ba.tests/models/characterization/conformance).
+
+| ID | Standard requirement | Current implementation and test evidence | Status |
+| --- | --- | --- | --- |
+| G01 | D.3 `internal_condition`: `on internal` followed by internal ports separated by `or`. | `BehaviorCondition` has dispatch, mode-switch/external, and execute alternatives only. `InternalCondition.aadl` has recorded syntax errors. | Source-confirmed missing syntax. |
+| G02 | D.3 `trigger_logical_expression` permits the D.7 logical operators and parenthesized event triggers. | `ModeSwitchCondition` only represents ORs of AND conjunctions, with reference leaves. `ExternalConditionXor.aadl` and `ExternalConditionGrouping.aadl` record syntax errors. | Source-confirmed incomplete syntax; also lacks short-circuit forms in external conditions. |
+| G03 | D.4 `dispatch_condition` spells the optional list `frozen ( frozen_ports )`. | `DispatchCondition` requires references directly after `frozen`. `FrozenPortParentheses.aadl` records an error at `(`. | Source-confirmed rejection of standard syntax and acceptance of a nonstandard spelling. |
+| G04 | D.4 completion-relative timeout permits `timeout (p or q) behavior_time`. | `DispatchTriggerCondition` permits `timeout` and an optional time, without reset-port storage or syntax. `TimeoutResetPorts.aadl` records syntax errors. | Source-confirmed missing syntax and representation. |
+| G05 | D.7 logical operators include `and then` and `or else`, with short-circuit meaning. | Expression grammar and translator recognize only `and`, `or`, and `xor`. `ShortCircuitOperators.aadl` records syntax errors. | Source-confirmed missing operators; both parsing and semantic representation need work. |
+| G06 | D.7 `unary_adding_operator` contains only minus. | `UnaryExpression` explicitly accepts plus. `UnaryPlus.aadl` has an empty diagnostics golden, and the active test expects acceptance. | Source-confirmed overacceptance. |
+| G07 | D.5 port-service table and D.7 `value_variable` include `p'updated`. | `ReferenceExpression` and `UnindexedReferenceExpression` permit only count/fresh suffixes. `PortUpdated.aadl` records a syntax error. | Source-confirmed missing operation. |
+| G08 | D.7 component-element property references include `self`. | The translator now recognizes the text `self`, so the old expected “not found” diagnosis is stale. However, the strict golden for `SelfPropertyReference.aadl` contains `ClassifierFeaturePropertyReference.component : BehaviorVariableHolder element=<null>`. The source returns an empty holder before recording the owner against the complete prefix reference. | Partial syntactic/name recognition, still a source-confirmed translation gap. **Step 1 made it visible:** with the validator registered the fixture reports `resolved behavior annex holder has no element`, so the finding is now asserted rather than hidden behind an empty golden. |
+| G09 | D.6 `for` and `forall` make `: data_unique_component_classifier_reference` optional. | `ForStatement` requires the colon and classifier. Both optional-classifier fixtures record syntax errors. | Source-confirmed missing syntax; inferred iterator types also need semantic support. |
+| G10 | D.5–D.6 allow internal ports as assignment targets and internal-event send actions. | The internal-action diagnostics golden is now empty, but its strict golden maps the event-data target to `DataSubcomponentHolder [EventDataSource]` and the event send to `SubprogramCallAction` with an `EventSource` proxy. `createHolder` has no internal-feature specialization and falls back to a data-subcomponent holder. | Source-confirmed incorrect representation; acceptance is not correct internal-event support. Step 1 confirmed that on `master` the fixture is accepted with zero diagnostics even with the validator registered, so `internalPortActionsAreAcceptedByTheStandard` stays skipped and says why: it would pass for the wrong reason, and closing #3174 needs a strict-model assertion. **Addressed by [#3198](https://github.com/osate/osate2/pull/3198):** `InternalPortHolder`, `EventSourceHolder`, `EventDataSourceHolder`, and `InternalPortSendAction` were added. Running the checkers over the fixture on that branch also showed that this row understated the defect: with the validator registered, the resolver rejected the legal actions with `getClassifier : EventDataSourceImpl is not supported yet`. |
+
+Current output evidence is in [expected/diagnostics](../../ba/org.osate.ba.tests/expected/diagnostics) and [expected/resolved-model](../../ba/org.osate.ba.tests/expected/resolved-model), using filenames beginning `org.osate.ba.tests_models_characterization_conformance_`.
+
+For G08, the fixture was also unsuitable as an isolated positive acceptance test: its thread declared initial and final states but no complete state, which D.3.(L3) rejects for a thread. Step 1 corrected the fixture to a single `initial complete final` state with a dispatch transition, so its only remaining finding is the one about `self`. The conformance class now uses the [BA-specific injector provider](../../ba/org.osate.ba.tests/src/org/osate/ba/tests/BehaviorAnnexInjectorProvider.java), which explains the initialization order needed to register BA validation.
+
+## Additional source-confirmed gaps
+
+### G11 — Real literals and nondecimal integer syntax lose their values
+
+**Standard:** D.7 defines numeric constant values and adopts the core AADL literal syntax. A parsed numeric constant must retain its value.
+
+**Evidence:** In [DeclarativeToStrictTranslator](../../ba/org.osate.xtext.aadl2.ba/src/org/osate/xtext/aadl2/ba/translation/DeclarativeToStrictTranslator.java), `toValueConstant` at line 901 constructs every real literal with `setValue(0.0)`. `parseInteger` at line 1449 removes underscores and calls decimal `Long.parseLong`, returning a fallback on failure. The inherited [Properties grammar](../../core/org.osate.xtext.aadl2.properties/src/org/osate/xtext/aadl2/properties/Properties.xtext) accepts based and exponent integer forms that this method cannot decode.
+
+Consequently, source inspection establishes that a real such as `1.25` becomes zero, and integer forms such as `16#A#` or `1e3` reach the zero fallback when translated as literal values. The existing `GrammarHazards.aadl` even contains `2#1010#e4`, but syntax acceptance does not check its translated value. Overflow also falls back silently rather than producing a targeted diagnostic.
+
+**Impact:** Strict-model consumers and checks can receive a different constant from the one written by the user. Actual downstream execution was not tested. Add exact-value assertions for decimal, based, exponent, underscored, and real literals, plus explicit boundary/error behavior.
+
+### G12 — Declared behavior-variable array sizes become zero
+
+**Standard:** D.3 local-variable declarators include array sizes; D.6–D.7 references and iteration depend on the declared arrays.
+
+**Evidence:** `translateVariables`, translator line 295, creates an `ArraySize` for every declared dimension and unconditionally calls `size.setSize(0)`. It does not translate the dimension's source size or property reference.
+
+**Impact:** Rank is retained but extent is lost. A declaration of a ten-element behavior variable is not represented as a ten-element strict variable. Add direct extent and referenced-size assertions; tree-shape goldens cannot catch this.
+
+### G13 — Expression precedence, admissible forms, and grouping are inconsistent
+
+**Standard:** D.7 gives all logical operators one precedence level and requires left-to-right association at the same level. Unary adding operators bind below multiplying and numeric operators. Its `factor` production does not permit an unparenthesized chain of exponentiations.
+
+**Evidence and distinctions:**
+
+- Grammar lines 213–222 give `and` a higher precedence than `or`/`xor`. Thus `a or b and c` has an AST shaped as `a or (b and c)`, while the supplied rules specify `(a or b) and c`.
+- `PowerExpression` consumes `UnaryExpression` on the left. Consequently `-2 ** 2` is parsed with the minus inside the power operand; the standard gives the power priority over unary minus.
+- The recursive power rule accepts `a ** b ** c` and groups it to the right; the standard grammar requires explicit parentheses for such a chain. The recursive unary rule also accepts forms beyond the standard's factor/simple-expression productions.
+- Separately, translator `appendLogical` at line 780 recursively flattens logical expressions without respecting a parenthesized logical subtree. For example, the strict relation/operator sequence for `a and (b or c)` loses that grouping. The parentheses handling later in `toSimpleExpression`/`toFactor` cannot restore a subtree already flattened there.
+
+The AST precedence error and the strict-model flattening error must be assessed separately: flattening can accidentally give an unparenthesized expression the standard's order while destroying explicitly requested parentheses. These findings are source-confirmed structural differences; no evaluation result from a BA runtime is claimed.
+
+**Required coverage:** Assert AST and strict-model grouping for mixed logical operators, nested logical parentheses, unary minus with exponentiation, and permitted/rejected power forms. Compare meaning, not only serialized text.
+
+### G14 — Complete states are not bound to their corresponding AADL modes
+
+**Standard:** D.3 allows complete states to represent same-named modes and requires consistency with the corresponding mode transitions. It also constrains mixtures of complete states that do and do not represent modes.
+
+**Evidence:** `translateStates`, translator line 335, copies names and initial/complete/final flags but never sets `bindedMode`. [Issue3154Test.eachBoundSourceChecksModeConsistency](../../ba/org.osate.ba.tests/src/org/osate/ba/tests/Issue3154Test.java) explicitly documents this at line 135 and supplies bindings through the strict API before invoking the checker. [AadlBaConsistencyRulesChecker.D_3_C4_Check](../../ba/org.osate.ba/src/org/osate/ba/analyzers/AadlBaConsistencyRulesChecker.java) returns immediately when a source state has no bound mode.
+
+**Impact:** The C4 unit-level regression exercises a checker that ordinary translated source does not activate through that binding path. This is an explicitly documented implementation gap, not merely missing test coverage.
+
+**Required coverage:** Parse and validate an external model with matching state/mode names without manually editing the strict model; verify positive and negative trigger cases, destination modes, multiple source states, and the all-or-none mode-state rule. The checker itself currently compares flattened trigger-name lists against transitions from the source mode; destination and Boolean structure also warrant focused tests.
+
+### G15 — Multiple final states in subprogram behavior are always rejected
+
+**Standard:** D.3's description explicitly allows several final states when specifying intended behavior; a deterministic implementation representation is distinguished as requiring one final state.
+
+**Evidence:** [AadlBaLegalityRulesChecker.D_3_L1_And_L2_Check](../../ba/org.osate.ba/src/org/osate/ba/analyzers/AadlBaLegalityRulesChecker.java), lines 133–145, reports an error whenever a subprogram has more than one final state. No specification-versus-deterministic-implementation distinction gates that branch. `CoveringSemanticTest.test_lr_D3_L1_L2` and the diagnostic regression tests preserve the multiple-final-state rejection.
+
+**Impact:** A documented standard-conforming specification style is rejected. Add a valid subprogram specification with alternative final states before deciding how any deterministic-profile restriction should be expressed.
+
+### G16 — Loop-variable target legality is not enforced by its named covering test
+
+**Standard:** D.6 forbids assigning to a `for` element variable.
+
+**Evidence:** [lr_D6_L2_nr_D6_N1.aadl](../../ba/org.osate.ba.tests/models/covering_semantic/lr_D6_L2_nr_D6_N1.aadl) contains a `th.error` implementation, an explicit comment identifying the invalid assignment, and `i := a + j` inside a loop. Nevertheless, `CoveringSemanticTest.test_lr_D6_L2_nr_D6_N1` asserts **zero issues**, and the corresponding diagnostics golden is empty. The current assignment check compares types; it does not reject an iterative-variable target.
+
+**Impact:** The test's name and fixture comment describe a standard violation, but its expectation does not require detection. Add an exact diagnostic assertion on that assignment and a positive control for ordinary mutable targets. Also cover iterator-name conflicts and nested scopes under D.6's naming rule.
+
+### G17 — Call signatures and communication categories lack complete enforcement
+
+**Standard:** D.5–D.6 constrain communication targets and require actual call parameters to match the called subprogram's features/signature.
+
+**Evidence:** The grammar's `CommunicationAction` accepts a generic reference and a list of expressions. Translator `toCommunicationAction` distinguishes an ordinary port send from a subprogram call, but a port send takes only the first expression from that list. `getFormalParameters` selects parameters and data accesses. [AadlBaTypeChecker.checkBasicAction](../../ba/org.osate.ba/src/org/osate/ba/analyzers/AadlBaTypeChecker.java) checks assignment, port send, and dequeue actions, then returns true for other basic actions; it does not validate a `SubprogramCallAction` signature. The rules driver does not add that signature check.
+
+**Assessment:** Source-confirmed incomplete checking and a source-confirmed extra-argument discard path for port sends. The exact user-visible acceptance/diagnostics of each invalid call needs external-model reproduction. Required cases include missing/extra parameters, wrong parameter type or direction, calls involving supported non-parameter features, sends on input ports, and attempts to call non-callable elements. G10 illustrates why a generic holder fallback must not be treated as proof of a valid communication action.
+
+### G18 — Type conformance is disabled, so no type mismatch is reported
+
+Added after the review date, with a reproduction. It corrects this report: the D.6 row above originally credited the implementation with type checks, and the D.7 row with operand-type checks.
+
+**Standard:** D.6 states the assignment rule directly — "In an assignment action, the type of the value expression must match the type of the target" — and D.5 imposes the same obligation on a port send and a dequeue target. D.7 requires operand consistency for the arithmetic and relational operators, and D.6 requires call parameters to match the called signature.
+
+**Evidence:** [AdaLikeDataTypeChecker.conformsTo](../../ba/org.osate.ba/src/org/osate/ba/analyzers/AdaLikeDataTypeChecker.java) returns `true` unconditionally; its whole body is commented out behind the note "As type checking is not mature, we disable it". Its own comment names the affected checks, and each is reachable from `AadlBaTypeChecker`: assignment, port send, port dequeue, `for`/`forall`, integer range, and subprogram parameters. Two consequences are not in that comment: `getTopLevelType` can never return `null`, and the operand-consistency guard at the top of `checkDefinition` never fires.
+
+**Reproduction:** an external model that assigns a string to an integer-typed behavior variable, sends an integer on a string-classified out event data port, adds a string to an integer, and compares an integer with a string is accepted with zero diagnostics under the registered BA validator. This was executed, not inferred; see [#3199](https://github.com/osate/osate2/issues/3199) for the model.
+
+**What remains active:** operator applicability per operand data representation. `checkDefinition` still rejects `and` on a non-boolean, `<` on a non-alphanumeric, and `mod` on a non-integer after the disabled guard passes. So the gap is agreement between two types, not type checking as a whole.
+
+**Impact and required work:** re-enabling the comparison is a one-line change whose consequences are the actual work. Diagnostics will appear across `models/covering_semantic`, `models/covering_syntax`, and the standard examples, and each has to be triaged into a wrong fixture, a wrong message or location, or a rule in the commented-out body that is itself wrong for Rev. A — the fixed-point/universal-real and dimension clauses are the likely candidates. The diagnostics goldens make that triage measurable. Until then, no assertion anywhere in the suite may be read as evidence that BA types are checked.
+
+## Further rule coverage and implementation gaps
+
+These are bounded findings from the inspected grammar/translator/checker path. Except where an explicit branch or comment is identified, they are **coverage gaps requiring reproduction**, not claims of a newly executed failing model.
+
+| ID | Standard obligation | Evidence, limitation, and next check |
+| --- | --- | --- |
+| V01 | D.3 naming: variables, states, and transitions share uniqueness restrictions and must not conflict with relevant enclosing declarations, with the mode exception. | The Xtext validator has no explicit BA naming check; the translator's case-insensitive variable map overwrites duplicate keys. Its superclass validates properties, not the complete BA namespace rule. Verify ordinary AADL/core checks before assigning ownership of the missing diagnostics. Add duplicates across declaration kinds and enclosing feature/data/mode conflicts. |
+| V02 | D.3 otherwise rules: no assigned priority and at most one otherwise transition per source state. | `AadlBaRulesCheckersDriver.otherwiseCheck` reports later otherwise transitions as warnings (`unreachable transition`); it does not check assigned priority. Distinguish the document's “should” wording about priority from its legality restriction on multiplicity when choosing diagnostic severity. |
+| V03 | D.3 and D.6 action timeouts: a matching simple timeout transition from the same source; restrictions on combining an action timeout with timeout conditions. | Timeouts are stored by the translator, but `caseBehaviorActionBlock` processes only its content. No corresponding timeout/catch-pair analysis was found in the current driver/type checker. Test positive and negative pairs and dispatch-timeout/action-timeout combinations. |
+| V04 | D.3 nonblocking execution-state behavior. | The only consistency-checker method is the mode-related C4 check; no guard-exhaustiveness analysis is present there. The driver also comments out the call to the older `D_3_18_Checker`; that method's existence does not establish coverage. Distinguish general symbolic proof from simple detectable dead ends and clearly document any analysis limit. |
+| V05 | D.3 component-category/mode restrictions on external/internal conditions; behavior inheritance and replacement. | Conditions can be parsed generically, while type checking dispatches only execute conditions and the rules driver primarily dispatch conditions. Mode bindings are absent (G14), and the builder does not copy an in-modes context into the strict annex. Core AADL may retain mode applicability on the enclosing annex. Verify the complete consumer path before declaring inheritance or mode-specific selection unsupported. Cover thread/subprogram external-condition rejection and device condition mixing. |
+| V06 | D.4 protocol/trigger compatibility, legal trigger/frozen-port categories, and consistency with core dispatch/freeze properties. | The checker has dedicated timeout branches and a stop check, but no complete implementation of the document's protocol/trigger table was found. Dispatch references use generic `Reference` syntax. A rule implementing one timeout form is not evidence for all rows of the table. Test the matrix and invalid trigger direction/category through embedded source. |
+| V07 | D.5 C1/C2: BA freeze/send operations agree with `Input_Time`/`Output_Time`, or are absent where required. | No BA check referring to these properties was found in the active BA checker/translator/validator code. Core property validation alone does not establish agreement with BA actions. Use models that are individually legal on each side but inconsistent together. |
+| V08 | D.6: a complete state cannot be reached while shared data remains locked. | Lock/unlock syntax and holders exist; `Issue2372Test` checks resolved lock references. No path-sensitive lock-balance check was found. Cover a balanced path, an unreleased resource, alternative branches, loops, and wildcard lock/unlock. Parsing a lock operation does not establish this rule. |
+| V09 | D.7: right-hand-side variables/data must be initialized; declaration initialization overrides the Data Modeling `Initial_Value` property. | Variable initialization is copied, but `checkBehaviorVariable` does not check the initializer's value/type, and no definite-initialization flow analysis was found. Verify declaration precedence, read-before-write, and branch-dependent initialization separately from basic expression type compatibility. |
+| V10 | D.7 property references are restricted to unitless properties or properties with time units. | Property reference machinery exists, but no explicit end-to-end check of this BA-specific restriction was identified. Add positive unitless/time cases and a property with another units type. Do not infer compliance merely because a property name resolves. |
+| V11 | D.8 LSER/ASER prohibits synchronous called-subprogram type and out/in-out parameters. | The [property set](../../ba/org.osate.ba.contrib/resources/properties/behavior_properties.aadl) matches the standard. Searches of BA and the core AADL validator found no checks consuming `Subprogram_Call_Protocol`; [ba_example_007.aadl](../../ba/org.osate.ba/examples/standard_examples/ba_example_007.aadl) describes the rules in comments but is not negative legality coverage. Add both prohibited combinations for both protocols. |
+
+Some checker comments identify their source as **AADL Behavior Annex draft 0.94**. This matters: names such as `D_3_L1_And_L2_Check` and diagnostics labelled `D.3.(L3)` cannot be assumed to correspond one-for-one to the supplied Rev. A rule ordering. `D_3_L4_Check` is explicitly suspended and returns true with its body commented out. The Rev. A text makes explicit initialization/finalization modeling optional, so suspension of an older check is not automatically a Rev. A defect. Update the traceability by rule meaning before reviving old checks.
+
+## What the existing tests do and do not prove
+
+1. ~~**The conformance diagnostic assertions are ineffective.**~~ `BehaviorAnnexConformanceTest.assertDiagnostics` took an `expected` list but never used it; it checked only `result.getIssues() != null`, so nine active diagnostic-based tests could not fail, and their expected strings had drifted to messages the current parser no longer produces. **Repaired in step 1** (see below): that method is gone, the class states standard outcomes only, and exact diagnostics are compared by the golden suites.
+
+2. **Characterization still compares actual goldens.** `BehaviorAnnexCharacterizationTest.characterizeCurrentImplementation` uses `GoldenFile.assertMatches` for diagnostics, model shape, positions, and unparse results. This remains useful regression evidence. However, a golden preserving a known failure or malformed strict model is not a standard-conformance oracle.
+
+3. **The complete-corpus tests exclude the known gap fixtures.** `BehaviorAnnexGrammarTest.parseAcceptedBehaviorAnnexCorpus` and `BehaviorAnnexTranslationTest.translatedModelsMatchResolvedModelGoldens` skip the conformance directory and fixtures with syntax-error goldens. A successful accepted-corpus test therefore cannot resolve G01–G10. The serializer round-trip test also skips models with issues. The two diagnostics golden suites do cover the conformance directory, so after step 1 each gap fixture has an exact recorded outcome in both registration states, but that records the gap; it does not close it.
+
+4. **Model goldens omit the attributes most relevant to G11–G13.** `BehaviorAnnexCharacterizationTest.appendModel`, line 260, records EClass, names, holder targets, and containment structure, but not general scalar attributes such as literal values, array sizes, or operator enum values. The translator test uses this representation and adds selected checks for property associations and freeze actions. It does not establish numeric or operator-value preservation.
+
+5. **The mode-consistency test deliberately supplies missing production state.** `Issue3154Test.eachBoundSourceChecksModeConsistency` is valuable per-source checker coverage, but its manual mode bindings are an explicit qualification on the end-to-end coverage claim.
+
+6. **Some legacy fixtures retain errors while tests now expect no diagnostics.** The loop-variable assignment example in G16 is a concrete instance. Other issue tests frequently assert only issue counts and successful parse. Counts should not substitute for the intended rule, severity, location, and positive control.
+
+7. **Validator registration and gating matter.** At the review date the conformance and characterization classes used the generic AADL injector, unlike `CoveringSemanticTest` and the recent diagnostic regressions, so their goldens showed core-AADL findings only. **Step 1 made both states explicit** rather than choosing one: `BehaviorAnnexValidatedDiagnosticsTest` records the corpus with the validator registered under `expected/diagnostics-validated`, `BehaviorAnnexCharacterizationTest` keeps the plain-AADL baseline, and each asserts the presence or absence of BA rule diagnostics so the two cannot be confused. 29 of the 100 corpus models report findings only the validated run sees. `BehaviorAnnexValidator` still skips all later rule checking when the type checker fails, so an absent secondary diagnostic remains uninformative — G08 is the case in point: its validated golden contains the null-element holder error and therefore no D.3 rule result at all.
+
+8. **No test establishes that BA types are checked.** Every type-mismatch expectation in the suite passes because `conformsTo` accepts every pair (G18), not because the compared types agree. `Issue3174Test.internalEventWithoutDataCarriesNoValue` documents that for one construct.
+
+## Recommended order and acceptance evidence
+
+These are proposed follow-up changes, not changes made by this review.
+
+| Order | Work | Concrete evidence needed to close it |
+| --- | --- | --- |
+| 1 | ~~Repair the conformance test oracle and ensure deterministic BA validator registration. Separate legacy characterization from standard expectations.~~ **Done**, branch `repair_conformance_test_oracle` (commit `Repair the Behavior Annex conformance test oracle`). | Exact diagnostics are compared, by `expected/diagnostics` and the new `expected/diagnostics-validated`; registration is proved end to end by requiring at least one BA rule diagnostic in the validated suite and none in the plain baseline; both suites and the conformance class assert nonzero executed cases; the nine skips are listed in `TRACKED_SKIPS` against their own issues and enforced by reflection; `SelfPropertyReference.aadl` no longer carries an unrelated D.3 error. Each repaired expectation was confirmed to fail for its intended reason by temporarily removing its `@Ignore`. |
+| 2 | Preserve strict-model meaning: numeric literals, array extents, logical grouping, `self`, internal events, and mode bindings (G08, G10–G14). | External AADL input produces correct literal values, extents, references, operation kinds, and mode links; no test-only model mutation is needed. Assert attributes and semantic structure directly. |
+| 3 | Implement the missing standard syntax and remove unwanted overacceptance (G01–G07, G09, G13). | Each standard form parses and translates; nonstandard forms have deliberate rejection/extension policy. Enable corrected standard acceptance tests and add AST/strict-model expression tests. |
+| 4 | Correct the explicit validation mismatches and add the remaining static legality checks (G15–G18, V01–V03, V06–V07, V10–V11). G18 belongs first in this step: with type conformance disabled, several of the others cannot be demonstrated. | Each negative model has an exact rule diagnostic and a nearby positive control. For G18, every diagnostic that appears in the existing corpus is triaged and its golden updated deliberately. Reproduce independently before opening an issue; use one independently reviewable defect per issue/fix. |
+| 5 | Establish behavioral/dataflow coverage and consumer boundaries (V04–V05, V08–V09, D.5 and D.8 runtime semantics). | State which obligations the front end can prove, which are warnings/approximations, and which belong to a simulator, analyzer, or generator. Validate queue behavior, timeouts, lock lifetimes, initialization, and call synchronization in the responsible consumer. |
+
+There is no basis here for a numerical conformance percentage: the suite is not a clause-complete standard test suite, some assertions are ineffective, and operational semantics were outside the executed scope. A defensible future claim should distinguish syntax acceptance, valid strict-model construction, legality/consistency enforcement, and downstream execution semantics.

@@ -25,28 +25,26 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.osate.aadl2.Aadl2Factory;
-import org.osate.aadl2.Aadl2Package;
+import org.osate.ba.aadlba.AadlBaFactory;
 import org.osate.ba.aadlba.AadlBaPackage;
-import org.osate.ba.aadlba.BehaviorVariable;
+import org.osate.ba.aadlba.ModeSwitchTriggerLogicalExpression;
 
 /**
- * This is the item provider adapter for a {@link org.osate.ba.aadlba.BehaviorVariable} object.
+ * This is the item provider adapter for a {@link org.osate.ba.aadlba.ModeSwitchTriggerLogicalExpression} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class BehaviorVariableItemProvider extends BehaviorNamedElementItemProvider {
+public class ModeSwitchTriggerLogicalExpressionItemProvider extends BehaviorElementItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public BehaviorVariableItemProvider(AdapterFactory adapterFactory) {
+	public ModeSwitchTriggerLogicalExpressionItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -61,58 +59,8 @@ public class BehaviorVariableItemProvider extends BehaviorNamedElementItemProvid
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addDataClassifierPropertyDescriptor(object);
-			addOwnedPropertyAssociationsPropertyDescriptor(object);
-			addOwnedValueConstantPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Data Classifier feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addDataClassifierPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_BehaviorVariable_dataClassifier_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_BehaviorVariable_dataClassifier_feature",
-								"_UI_BehaviorVariable_type"),
-						AadlBaPackage.Literals.BEHAVIOR_VARIABLE__DATA_CLASSIFIER, true, false, true, null, null,
-						null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Owned Property Associations feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addOwnedPropertyAssociationsPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_BehaviorVariable_ownedPropertyAssociations_feature"),
-						getString("_UI_PropertyDescriptor_description",
-								"_UI_BehaviorVariable_ownedPropertyAssociations_feature", "_UI_BehaviorVariable_type"),
-						AadlBaPackage.Literals.BEHAVIOR_VARIABLE__OWNED_PROPERTY_ASSOCIATIONS, true, false, true, null,
-						null, null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Owned Value Constant feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addOwnedValueConstantPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_BehaviorVariable_ownedValueConstant_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_BehaviorVariable_ownedValueConstant_feature",
-						"_UI_BehaviorVariable_type"),
-				AadlBaPackage.Literals.BEHAVIOR_VARIABLE__OWNED_VALUE_CONSTANT, true, false, true, null, null, null));
 	}
 
 	/**
@@ -127,7 +75,8 @@ public class BehaviorVariableItemProvider extends BehaviorNamedElementItemProvid
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getArrayableElement_ArrayDimension());
+			childrenFeatures
+					.add(AadlBaPackage.Literals.MODE_SWITCH_TRIGGER_LOGICAL_EXPRESSION__MODE_SWITCH_CONJUNCTIONS);
 		}
 		return childrenFeatures;
 	}
@@ -146,14 +95,14 @@ public class BehaviorVariableItemProvider extends BehaviorNamedElementItemProvid
 	}
 
 	/**
-	 * This returns BehaviorVariable.gif.
+	 * This returns ModeSwitchTriggerLogicalExpression.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		String imgFile = BehaviorElementItemProvider.IMG_PATH + "variable_16";
-		return overlayImage(object, getResourceLocator().getImage(imgFile));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ModeSwitchTriggerLogicalExpression"));
 	}
 
 	/**
@@ -164,9 +113,7 @@ public class BehaviorVariableItemProvider extends BehaviorNamedElementItemProvid
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((BehaviorVariable) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_BehaviorVariable_type")
-				: getString("_UI_BehaviorVariable_type") + " " + label;
+		return getString("_UI_ModeSwitchTriggerLogicalExpression_type");
 	}
 
 	/**
@@ -180,8 +127,8 @@ public class BehaviorVariableItemProvider extends BehaviorNamedElementItemProvid
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(BehaviorVariable.class)) {
-		case AadlBaPackage.BEHAVIOR_VARIABLE__ARRAY_DIMENSION:
+		switch (notification.getFeatureID(ModeSwitchTriggerLogicalExpression.class)) {
+		case AadlBaPackage.MODE_SWITCH_TRIGGER_LOGICAL_EXPRESSION__MODE_SWITCH_CONJUNCTIONS:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -199,8 +146,9 @@ public class BehaviorVariableItemProvider extends BehaviorNamedElementItemProvid
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getArrayableElement_ArrayDimension(),
-				Aadl2Factory.eINSTANCE.createArrayDimension()));
+		newChildDescriptors.add(createChildParameter(
+				AadlBaPackage.Literals.MODE_SWITCH_TRIGGER_LOGICAL_EXPRESSION__MODE_SWITCH_CONJUNCTIONS,
+				AadlBaFactory.eINSTANCE.createModeSwitchConjunction()));
 	}
 
 }

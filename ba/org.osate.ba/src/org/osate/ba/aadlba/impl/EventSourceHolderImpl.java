@@ -1,12 +1,12 @@
 /**
  * AADL-BA-FrontEnd
- * 
+ *
  * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
  * version 2.0 of the License, or (at your option) any later version. This
@@ -20,9 +20,7 @@
 package org.osate.ba.aadlba.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.osate.aadl2.EventSource;
-
 import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.EventSourceHolder;
 
@@ -60,7 +58,7 @@ public class EventSourceHolderImpl extends InternalPortHolderImpl implements Eve
 	 */
 	@Override
 	public void setEventSource(final EventSource eventSource) {
-		element = eventSource ;
+		element = eventSource;
 	}
 
 	/**
@@ -73,4 +71,4 @@ public class EventSourceHolderImpl extends InternalPortHolderImpl implements Eve
 		return (EventSource) element;
 	}
 
-} //EventSourceHolderImpl
+} // EventSourceHolderImpl

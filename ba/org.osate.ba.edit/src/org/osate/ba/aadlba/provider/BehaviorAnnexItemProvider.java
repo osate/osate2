@@ -1,12 +1,12 @@
 /**
  * AADL-BA-FrontEnd
- * 
+ *
  * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
  * version 2.0 of the License, or (at your option) any later version. This
@@ -200,6 +200,9 @@ public class BehaviorAnnexItemProvider extends AnnexSubclauseItemProvider {
 
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_ANNEX__CONDITIONS,
 				AadlBaFactory.eINSTANCE.createOtherwise()));
+
+		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_ANNEX__CONDITIONS,
+				AadlBaFactory.eINSTANCE.createModeSwitchTriggerLogicalExpression()));
 	}
 
 	/**

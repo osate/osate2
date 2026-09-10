@@ -1,12 +1,12 @@
 /**
  * AADL-BA-FrontEnd
- * 
+ *
  * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
  * version 2.0 of the License, or (at your option) any later version. This
@@ -6550,10 +6550,10 @@ public interface AadlBaPackage extends EPackage {
 	int MODE_SWITCH_TRIGGER_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.ba.aadlba.InternalPortHolder <em>Internal Port Holder</em>}' class.
+	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.InternalPortHolderImpl <em>Internal Port Holder</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.ba.aadlba.InternalPortHolder
+	 * @see org.osate.ba.aadlba.impl.InternalPortHolderImpl
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getInternalPortHolder()
 	 * @generated
 	 */
@@ -6596,10 +6596,10 @@ public interface AadlBaPackage extends EPackage {
 	int INTERNAL_PORT_HOLDER_FEATURE_COUNT = CLASSIFIER_FEATURE_HOLDER_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.ba.aadlba.EventSourceHolder <em>Event Source Holder</em>}' class.
+	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.EventSourceHolderImpl <em>Event Source Holder</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.ba.aadlba.EventSourceHolder
+	 * @see org.osate.ba.aadlba.impl.EventSourceHolderImpl
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getEventSourceHolder()
 	 * @generated
 	 */
@@ -6642,10 +6642,10 @@ public interface AadlBaPackage extends EPackage {
 	int EVENT_SOURCE_HOLDER_FEATURE_COUNT = INTERNAL_PORT_HOLDER_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.ba.aadlba.EventDataSourceHolder <em>Event Data Source Holder</em>}' class.
+	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.EventDataSourceHolderImpl <em>Event Data Source Holder</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.ba.aadlba.EventDataSourceHolder
+	 * @see org.osate.ba.aadlba.impl.EventDataSourceHolderImpl
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getEventDataSourceHolder()
 	 * @generated
 	 */
@@ -6688,10 +6688,10 @@ public interface AadlBaPackage extends EPackage {
 	int EVENT_DATA_SOURCE_HOLDER_FEATURE_COUNT = INTERNAL_PORT_HOLDER_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.ba.aadlba.InternalPortSendAction <em>Internal Port Send Action</em>}' class.
+	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.InternalPortSendActionImpl <em>Internal Port Send Action</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.ba.aadlba.InternalPortSendAction
+	 * @see org.osate.ba.aadlba.impl.InternalPortSendActionImpl
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getInternalPortSendAction()
 	 * @generated
 	 */
@@ -11390,8 +11390,7 @@ public interface AadlBaPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION = eINSTANCE
-				.getInternalPortSendAction_ValueExpression();
+		EReference INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION = eINSTANCE.getInternalPortSendAction_ValueExpression();
 
 	}
 

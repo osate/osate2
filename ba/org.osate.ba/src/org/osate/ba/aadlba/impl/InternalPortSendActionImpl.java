@@ -1,12 +1,12 @@
 /**
  * AADL-BA-FrontEnd
- * 
+ *
  * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
  * version 2.0 of the License, or (at your option) any later version. This
@@ -21,12 +21,9 @@ package org.osate.ba.aadlba.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.InternalPortHolder;
 import org.osate.ba.aadlba.InternalPortSendAction;
@@ -105,8 +102,13 @@ public class InternalPortSendActionImpl extends BehaviorElementImpl implements I
 		InternalPortHolder oldInternalPort = internalPort;
 		internalPort = newInternalPort;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT, oldInternalPort, newInternalPort);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					AadlBaPackage.INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT, oldInternalPort, newInternalPort);
+			if (msgs == null) {
+				msgs = notification;
+			} else {
+				msgs.add(notification);
+			}
 		}
 		return msgs;
 	}
@@ -120,15 +122,22 @@ public class InternalPortSendActionImpl extends BehaviorElementImpl implements I
 	public void setInternalPort(InternalPortHolder newInternalPort) {
 		if (newInternalPort != internalPort) {
 			NotificationChain msgs = null;
-			if (internalPort != null)
-				msgs = ((InternalEObject)internalPort).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT, null, msgs);
-			if (newInternalPort != null)
-				msgs = ((InternalEObject)newInternalPort).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT, null, msgs);
+			if (internalPort != null) {
+				msgs = ((InternalEObject) internalPort).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - AadlBaPackage.INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT, null, msgs);
+			}
+			if (newInternalPort != null) {
+				msgs = ((InternalEObject) newInternalPort).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - AadlBaPackage.INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT, null, msgs);
+			}
 			msgs = basicSetInternalPort(newInternalPort, msgs);
-			if (msgs != null) msgs.dispatch();
+			if (msgs != null) {
+				msgs.dispatch();
+			}
+		} else if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					AadlBaPackage.INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT, newInternalPort, newInternalPort));
 		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT, newInternalPort, newInternalPort));
 	}
 
 	/**
@@ -150,8 +159,13 @@ public class InternalPortSendActionImpl extends BehaviorElementImpl implements I
 		ValueExpression oldValueExpression = valueExpression;
 		valueExpression = newValueExpression;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION, oldValueExpression, newValueExpression);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					AadlBaPackage.INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION, oldValueExpression, newValueExpression);
+			if (msgs == null) {
+				msgs = notification;
+			} else {
+				msgs.add(notification);
+			}
 		}
 		return msgs;
 	}
@@ -165,15 +179,22 @@ public class InternalPortSendActionImpl extends BehaviorElementImpl implements I
 	public void setValueExpression(ValueExpression newValueExpression) {
 		if (newValueExpression != valueExpression) {
 			NotificationChain msgs = null;
-			if (valueExpression != null)
-				msgs = ((InternalEObject)valueExpression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION, null, msgs);
-			if (newValueExpression != null)
-				msgs = ((InternalEObject)newValueExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION, null, msgs);
+			if (valueExpression != null) {
+				msgs = ((InternalEObject) valueExpression).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - AadlBaPackage.INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION, null, msgs);
+			}
+			if (newValueExpression != null) {
+				msgs = ((InternalEObject) newValueExpression).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - AadlBaPackage.INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION, null, msgs);
+			}
 			msgs = basicSetValueExpression(newValueExpression, msgs);
-			if (msgs != null) msgs.dispatch();
+			if (msgs != null) {
+				msgs.dispatch();
+			}
+		} else if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					AadlBaPackage.INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION, newValueExpression, newValueExpression));
 		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION, newValueExpression, newValueExpression));
 	}
 
 	/**
@@ -184,10 +205,10 @@ public class InternalPortSendActionImpl extends BehaviorElementImpl implements I
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case AadlBaPackage.INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT:
-				return basicSetInternalPort(null, msgs);
-			case AadlBaPackage.INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION:
-				return basicSetValueExpression(null, msgs);
+		case AadlBaPackage.INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT:
+			return basicSetInternalPort(null, msgs);
+		case AadlBaPackage.INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION:
+			return basicSetValueExpression(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -200,10 +221,10 @@ public class InternalPortSendActionImpl extends BehaviorElementImpl implements I
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case AadlBaPackage.INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT:
-				return getInternalPort();
-			case AadlBaPackage.INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION:
-				return getValueExpression();
+		case AadlBaPackage.INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT:
+			return getInternalPort();
+		case AadlBaPackage.INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION:
+			return getValueExpression();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -216,12 +237,12 @@ public class InternalPortSendActionImpl extends BehaviorElementImpl implements I
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case AadlBaPackage.INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT:
-				setInternalPort((InternalPortHolder)newValue);
-				return;
-			case AadlBaPackage.INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION:
-				setValueExpression((ValueExpression)newValue);
-				return;
+		case AadlBaPackage.INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT:
+			setInternalPort((InternalPortHolder) newValue);
+			return;
+		case AadlBaPackage.INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION:
+			setValueExpression((ValueExpression) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -234,12 +255,12 @@ public class InternalPortSendActionImpl extends BehaviorElementImpl implements I
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case AadlBaPackage.INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT:
-				setInternalPort((InternalPortHolder)null);
-				return;
-			case AadlBaPackage.INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION:
-				setValueExpression((ValueExpression)null);
-				return;
+		case AadlBaPackage.INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT:
+			setInternalPort((InternalPortHolder) null);
+			return;
+		case AadlBaPackage.INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION:
+			setValueExpression((ValueExpression) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -252,12 +273,12 @@ public class InternalPortSendActionImpl extends BehaviorElementImpl implements I
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case AadlBaPackage.INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT:
-				return internalPort != null;
-			case AadlBaPackage.INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION:
-				return valueExpression != null;
+		case AadlBaPackage.INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT:
+			return internalPort != null;
+		case AadlBaPackage.INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION:
+			return valueExpression != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //InternalPortSendActionImpl
+} // InternalPortSendActionImpl

@@ -1,12 +1,12 @@
 /**
  * AADL-BA-FrontEnd
- * 
+ *
  * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
  * version 2.0 of the License, or (at your option) any later version. This
@@ -27,7 +27,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -150,7 +149,7 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
 	@Override
 	public EList<BehaviorVariable> getVariables() {
 		if (variables == null) {
-			variables = new EObjectContainmentEList.Unsettable<BehaviorVariable>(BehaviorVariable.class, this,
+			variables = new EObjectContainmentEList.Unsettable<>(BehaviorVariable.class, this,
 					AadlBaPackage.BEHAVIOR_ANNEX__VARIABLES);
 		}
 		return variables;
@@ -186,7 +185,7 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
 	@Override
 	public EList<BehaviorState> getStates() {
 		if (states == null) {
-			states = new EObjectContainmentEList.Unsettable<BehaviorState>(BehaviorState.class, this,
+			states = new EObjectContainmentEList.Unsettable<>(BehaviorState.class, this,
 					AadlBaPackage.BEHAVIOR_ANNEX__STATES);
 		}
 		return states;
@@ -222,7 +221,7 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
 	@Override
 	public EList<BehaviorTransition> getTransitions() {
 		if (transitions == null) {
-			transitions = new EObjectContainmentEList.Unsettable<BehaviorTransition>(BehaviorTransition.class, this,
+			transitions = new EObjectContainmentEList.Unsettable<>(BehaviorTransition.class, this,
 					AadlBaPackage.BEHAVIOR_ANNEX__TRANSITIONS);
 		}
 		return transitions;
@@ -258,7 +257,7 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
 	@Override
 	public EList<BehaviorActionBlock> getActions() {
 		if (actions == null) {
-			actions = new EObjectContainmentEList<BehaviorActionBlock>(BehaviorActionBlock.class, this,
+			actions = new EObjectContainmentEList<>(BehaviorActionBlock.class, this,
 					AadlBaPackage.BEHAVIOR_ANNEX__ACTIONS);
 		}
 		return actions;
@@ -272,7 +271,7 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
 	@Override
 	public EList<BehaviorCondition> getConditions() {
 		if (conditions == null) {
-			conditions = new EObjectContainmentEList<BehaviorCondition>(BehaviorCondition.class, this,
+			conditions = new EObjectContainmentEList<>(BehaviorCondition.class, this,
 					AadlBaPackage.BEHAVIOR_ANNEX__CONDITIONS);
 		}
 		return conditions;
@@ -285,7 +284,7 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
 	 */
 	@Override
 	public BehaviorState getInitialState() {
-		if (initialState != null && ((EObject) initialState).eIsProxy()) {
+		if (initialState != null && initialState.eIsProxy()) {
 			InternalEObject oldInitialState = (InternalEObject) initialState;
 			initialState = (BehaviorState) eResolveProxy(oldInitialState);
 			if (initialState != oldInitialState) {
@@ -463,14 +462,14 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
 
 	@Override
 	public AadlBaLocationReference getAadlBaLocationReference() {
-		return (AadlBaLocationReference) this.getLocationReference();
+		return (AadlBaLocationReference) getLocationReference();
 	}
 
 	/**
 	 * @generated NOT
 	 */
 
-	private Map<AadlBaLocationReference, Element> _links = new WeakHashMap<AadlBaLocationReference, Element>();
+	private Map<AadlBaLocationReference, Element> _links = new WeakHashMap<>();
 
 	@Override
 	public Map<AadlBaLocationReference, Element> getLinks() {

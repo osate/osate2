@@ -1,12 +1,12 @@
 /**
  * AADL-BA-FrontEnd
- * 
+ *
  * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
  * version 2.0 of the License, or (at your option) any later version. This
@@ -76,6 +76,7 @@ public class StructUnionElementHolderItemProvider extends DataHolderItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(AadlBaPackage.Literals.INDEXABLE_ELEMENT__ARRAY_INDEXES);
+			childrenFeatures.add(AadlBaPackage.Literals.STRUCT_UNION_ELEMENT_HOLDER__STRUCT_UNION_ELEMENT);
 		}
 		return childrenFeatures;
 	}
@@ -128,6 +129,7 @@ public class StructUnionElementHolderItemProvider extends DataHolderItemProvider
 
 		switch (notification.getFeatureID(StructUnionElementHolder.class)) {
 		case AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__ARRAY_INDEXES:
+		case AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__STRUCT_UNION_ELEMENT:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -164,10 +166,10 @@ public class StructUnionElementHolderItemProvider extends DataHolderItemProvider
 				AadlBaFactory.eINSTANCE.createBehaviorVariableHolder()));
 
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.INDEXABLE_ELEMENT__ARRAY_INDEXES,
-				AadlBaFactory.eINSTANCE.createClassifierPropertyReference()));
+				AadlBaFactory.eINSTANCE.createClassifierFeaturePropertyReference()));
 
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.INDEXABLE_ELEMENT__ARRAY_INDEXES,
-				AadlBaFactory.eINSTANCE.createClassifierFeaturePropertyReference()));
+				AadlBaFactory.eINSTANCE.createClassifierPropertyReference()));
 
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.INDEXABLE_ELEMENT__ARRAY_INDEXES,
 				AadlBaFactory.eINSTANCE.createDataAccessHolder()));
@@ -219,6 +221,10 @@ public class StructUnionElementHolderItemProvider extends DataHolderItemProvider
 
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.INDEXABLE_ELEMENT__ARRAY_INDEXES,
 				AadlBaFactory.eINSTANCE.createStructUnionElementHolder()));
+
+		newChildDescriptors
+				.add(createChildParameter(AadlBaPackage.Literals.STRUCT_UNION_ELEMENT_HOLDER__STRUCT_UNION_ELEMENT,
+						AadlBaFactory.eINSTANCE.createStructUnionElement()));
 	}
 
 }

@@ -1,12 +1,12 @@
 /**
  * AADL-BA-FrontEnd
- * 
+ *
  * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
  * version 2.0 of the License, or (at your option) any later version. This
@@ -19,18 +19,14 @@
  */
 package org.osate.ba.aadlba.provider;
 
-
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-
 import org.osate.ba.aadlba.AadlBaFactory;
 import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.InternalPortSendAction;
@@ -120,7 +116,6 @@ public class InternalPortSendActionItemProvider extends BehaviorElementItemProvi
 		return getString("_UI_InternalPortSendAction_type");
 	}
 
-
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached
 	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
@@ -133,10 +128,10 @@ public class InternalPortSendActionItemProvider extends BehaviorElementItemProvi
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(InternalPortSendAction.class)) {
-			case AadlBaPackage.INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT:
-			case AadlBaPackage.INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
-				return;
+		case AadlBaPackage.INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT:
+		case AadlBaPackage.INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION:
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+			return;
 		}
 		super.notifyChanged(notification);
 	}
@@ -152,25 +147,17 @@ public class InternalPortSendActionItemProvider extends BehaviorElementItemProvi
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add
-			(createChildParameter
-				(AadlBaPackage.Literals.INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT,
-				 AadlBaFactory.eINSTANCE.createEventSourceHolder()));
+		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT,
+				AadlBaFactory.eINSTANCE.createEventSourceHolder()));
 
-		newChildDescriptors.add
-			(createChildParameter
-				(AadlBaPackage.Literals.INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT,
-				 AadlBaFactory.eINSTANCE.createEventDataSourceHolder()));
+		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT,
+				AadlBaFactory.eINSTANCE.createEventDataSourceHolder()));
 
-		newChildDescriptors.add
-			(createChildParameter
-				(AadlBaPackage.Literals.INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION,
-				 AadlBaFactory.eINSTANCE.createValueExpression()));
+		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION,
+				AadlBaFactory.eINSTANCE.createValueExpression()));
 
-		newChildDescriptors.add
-			(createChildParameter
-				(AadlBaPackage.Literals.INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION,
-				 AadlBaFactory.eINSTANCE.createAny()));
+		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION,
+				AadlBaFactory.eINSTANCE.createAny()));
 	}
 
 }

@@ -49,10 +49,10 @@ import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.modelsupport.errorreporting.AbstractAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.parsesupport.ParseUtil;
+import org.osate.annexsupport.ParseResultHolder;
 import org.osate.ba.analyzers.AadlBaRulesCheckersDriver;
 import org.osate.ba.analyzers.AadlBaTypeChecker;
 import org.osate.ba.analyzers.AdaLikeDataTypeChecker;
-import org.osate.annexsupport.ParseResultHolder;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.AssignmentAction;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage;
@@ -156,8 +156,9 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 			return action.getTarget() == reference || action.isSend() && action.getReference() == reference;
 		}
 		return false;
-  }
-  
+	}
+
+	/**
 	 * D.3 names share one namespace, including inherited features, data subcomponents, and modes of the owner.
 	 * Check the declarations before resolving references so missing classifiers cannot hide duplicate names, and
 	 * skip the strict checkers when names are ambiguous instead of validating an arbitrary resolution.

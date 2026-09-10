@@ -1,12 +1,12 @@
 /**
  * AADL-BA-FrontEnd
- * 
+ *
  * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
  * version 2.0 of the License, or (at your option) any later version. This
@@ -145,13 +145,13 @@ public enum DataRepresentation implements Enumerator {
 	 */
 	UNION(10, "Union", "union"),
 	/**
-	* The '<em><b>ENUM LITERAL</b></em>' literal object.
-	* <!-- begin-user-doc -->
+	 * The '<em><b>ENUM LITERAL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
 	* <!-- end-user-doc -->
-	* @see #ENUM_LITERAL_VALUE
-	* @generated
-	* @ordered
-	*/
+	 * @see #ENUM_LITERAL_VALUE
+	 * @generated
+	 * @ordered
+	 */
 	ENUM_LITERAL(11, "ENUM_LITERAL", "enumeration literal");
 
 	/**

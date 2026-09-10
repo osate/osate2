@@ -1,12 +1,12 @@
 /**
  * AADL-BA-FrontEnd
- * 
+ *
  * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
  * version 2.0 of the License, or (at your option) any later version. This
@@ -20,17 +20,12 @@
 package org.osate.ba.aadlba.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.osate.aadl2.ClassifierFeature;
 import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.NamedElement;
-
 import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.InternalPortHolder;
 
@@ -84,12 +79,14 @@ public abstract class InternalPortHolderImpl extends BehaviorElementImpl impleme
 	 */
 	@Override
 	public NamedElement getElement() {
-		if (element != null && ((EObject)element).eIsProxy()) {
-			InternalEObject oldElement = (InternalEObject)element;
-			element = (NamedElement)eResolveProxy(oldElement);
+		if (element != null && element.eIsProxy()) {
+			InternalEObject oldElement = (InternalEObject) element;
+			element = (NamedElement) eResolveProxy(oldElement);
 			if (element != oldElement) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.INTERNAL_PORT_HOLDER__ELEMENT, oldElement, element));
+				if (eNotificationRequired()) {
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							AadlBaPackage.INTERNAL_PORT_HOLDER__ELEMENT, oldElement, element));
+				}
 			}
 		}
 		return element;
@@ -113,8 +110,10 @@ public abstract class InternalPortHolderImpl extends BehaviorElementImpl impleme
 	public void setElement(NamedElement newElement) {
 		NamedElement oldElement = element;
 		element = newElement;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.INTERNAL_PORT_HOLDER__ELEMENT, oldElement, element));
+		if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.INTERNAL_PORT_HOLDER__ELEMENT,
+					oldElement, element));
+		}
 	}
 
 	/**
@@ -124,7 +123,7 @@ public abstract class InternalPortHolderImpl extends BehaviorElementImpl impleme
 	 */
 	@Override
 	public void setInternalPort(final InternalFeature internalPort) {
-		element = internalPort ;
+		element = internalPort;
 	}
 
 	/**
@@ -144,7 +143,7 @@ public abstract class InternalPortHolderImpl extends BehaviorElementImpl impleme
 	 */
 	@Override
 	public void setClassifierFeature(final ClassifierFeature classifierFeature) {
-		element = classifierFeature ;
+		element = classifierFeature;
 	}
 
 	/**
@@ -165,9 +164,11 @@ public abstract class InternalPortHolderImpl extends BehaviorElementImpl impleme
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case AadlBaPackage.INTERNAL_PORT_HOLDER__ELEMENT:
-				if (resolve) return getElement();
-				return basicGetElement();
+		case AadlBaPackage.INTERNAL_PORT_HOLDER__ELEMENT:
+			if (resolve) {
+				return getElement();
+			}
+			return basicGetElement();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -180,9 +181,9 @@ public abstract class InternalPortHolderImpl extends BehaviorElementImpl impleme
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case AadlBaPackage.INTERNAL_PORT_HOLDER__ELEMENT:
-				setElement((NamedElement)newValue);
-				return;
+		case AadlBaPackage.INTERNAL_PORT_HOLDER__ELEMENT:
+			setElement((NamedElement) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -195,9 +196,9 @@ public abstract class InternalPortHolderImpl extends BehaviorElementImpl impleme
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case AadlBaPackage.INTERNAL_PORT_HOLDER__ELEMENT:
-				setElement((NamedElement)null);
-				return;
+		case AadlBaPackage.INTERNAL_PORT_HOLDER__ELEMENT:
+			setElement((NamedElement) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -210,10 +211,10 @@ public abstract class InternalPortHolderImpl extends BehaviorElementImpl impleme
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case AadlBaPackage.INTERNAL_PORT_HOLDER__ELEMENT:
-				return element != null;
+		case AadlBaPackage.INTERNAL_PORT_HOLDER__ELEMENT:
+			return element != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //InternalPortHolderImpl
+} // InternalPortHolderImpl

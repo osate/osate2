@@ -1,12 +1,12 @@
 /**
  * AADL-BA-FrontEnd
- * 
+ *
  * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
  * version 2.0 of the License, or (at your option) any later version. This
@@ -169,175 +169,175 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 		case AadlBaPackage.ASSIGNMENT_ACTION:
-			return (EObject) createAssignmentAction();
+			return createAssignmentAction();
 		case AadlBaPackage.ANY:
-			return (EObject) createAny();
+			return createAny();
 		case AadlBaPackage.BASIC_PROPERTY_HOLDER:
-			return (EObject) createBasicPropertyHolder();
+			return createBasicPropertyHolder();
 		case AadlBaPackage.BEHAVIOR_ACTION_BLOCK:
-			return (EObject) createBehaviorActionBlock();
+			return createBehaviorActionBlock();
 		case AadlBaPackage.BEHAVIOR_ACTION_SEQUENCE:
-			return (EObject) createBehaviorActionSequence();
+			return createBehaviorActionSequence();
 		case AadlBaPackage.BEHAVIOR_ACTION_SET:
-			return (EObject) createBehaviorActionSet();
+			return createBehaviorActionSet();
 		case AadlBaPackage.BEHAVIOR_ANNEX:
-			return (EObject) createBehaviorAnnex();
+			return createBehaviorAnnex();
 		case AadlBaPackage.BEHAVIOR_BOOLEAN_LITERAL:
-			return (EObject) createBehaviorBooleanLiteral();
+			return createBehaviorBooleanLiteral();
 		case AadlBaPackage.BEHAVIOR_INTEGER_LITERAL:
-			return (EObject) createBehaviorIntegerLiteral();
+			return createBehaviorIntegerLiteral();
 		case AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT:
-			return (EObject) createBehaviorPropertyConstant();
+			return createBehaviorPropertyConstant();
 		case AadlBaPackage.BEHAVIOR_REAL_LITERAL:
-			return (EObject) createBehaviorRealLiteral();
+			return createBehaviorRealLiteral();
 		case AadlBaPackage.BEHAVIOR_STATE:
-			return (EObject) createBehaviorState();
+			return createBehaviorState();
 		case AadlBaPackage.BEHAVIOR_STRING_LITERAL:
-			return (EObject) createBehaviorStringLiteral();
+			return createBehaviorStringLiteral();
 		case AadlBaPackage.BEHAVIOR_TIME:
-			return (EObject) createBehaviorTime();
+			return createBehaviorTime();
 		case AadlBaPackage.BEHAVIOR_TRANSITION:
-			return (EObject) createBehaviorTransition();
+			return createBehaviorTransition();
 		case AadlBaPackage.BEHAVIOR_VARIABLE:
-			return (EObject) createBehaviorVariable();
+			return createBehaviorVariable();
 		case AadlBaPackage.BEHAVIOR_VARIABLE_HOLDER:
-			return (EObject) createBehaviorVariableHolder();
+			return createBehaviorVariableHolder();
 		case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER:
-			return (EObject) createCalledSubprogramHolder();
+			return createCalledSubprogramHolder();
 		case AadlBaPackage.CLASSIFIER_FEATURE_PROPERTY_REFERENCE:
-			return (EObject) createClassifierFeaturePropertyReference();
+			return createClassifierFeaturePropertyReference();
 		case AadlBaPackage.CLASSIFIER_PROPERTY_REFERENCE:
-			return (EObject) createClassifierPropertyReference();
+			return createClassifierPropertyReference();
 		case AadlBaPackage.COMPLETION_RELATIVE_TIMEOUT:
-			return (EObject) createCompletionRelativeTimeout();
+			return createCompletionRelativeTimeout();
 		case AadlBaPackage.DATA_ACCESS_HOLDER:
-			return (EObject) createDataAccessHolder();
+			return createDataAccessHolder();
 		case AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER:
-			return (EObject) createDataAccessPrototypeHolder();
+			return createDataAccessPrototypeHolder();
 		case AadlBaPackage.DATA_COMPONENT_REFERENCE:
-			return (EObject) createDataComponentReference();
+			return createDataComponentReference();
 		case AadlBaPackage.DATA_PORT_HOLDER:
-			return (EObject) createDataPortHolder();
+			return createDataPortHolder();
 		case AadlBaPackage.DATA_SUBCOMPONENT_HOLDER:
-			return (EObject) createDataSubcomponentHolder();
+			return createDataSubcomponentHolder();
 		case AadlBaPackage.DISPATCH_CONDITION:
-			return (EObject) createDispatchCondition();
+			return createDispatchCondition();
 		case AadlBaPackage.DISPATCH_CONJUNCTION:
-			return (EObject) createDispatchConjunction();
+			return createDispatchConjunction();
 		case AadlBaPackage.DISPATCH_RELATIVE_TIMEOUT:
-			return (EObject) createDispatchRelativeTimeout();
+			return createDispatchRelativeTimeout();
 		case AadlBaPackage.DISPATCH_TRIGGER_CONDITION_STOP:
-			return (EObject) createDispatchTriggerConditionStop();
+			return createDispatchTriggerConditionStop();
 		case AadlBaPackage.DISPATCH_TRIGGER_LOGICAL_EXPRESSION:
-			return (EObject) createDispatchTriggerLogicalExpression();
+			return createDispatchTriggerLogicalExpression();
 		case AadlBaPackage.ELSE_STATEMENT:
-			return (EObject) createElseStatement();
+			return createElseStatement();
 		case AadlBaPackage.ENUM_LITERAL_HOLDER:
-			return (EObject) createEnumLiteralHolder();
+			return createEnumLiteralHolder();
 		case AadlBaPackage.EVENT_DATA_PORT_HOLDER:
-			return (EObject) createEventDataPortHolder();
+			return createEventDataPortHolder();
 		case AadlBaPackage.EVENT_PORT_HOLDER:
-			return (EObject) createEventPortHolder();
+			return createEventPortHolder();
 		case AadlBaPackage.EXECUTION_TIMEOUT_CATCH:
-			return (EObject) createExecutionTimeoutCatch();
+			return createExecutionTimeoutCatch();
 		case AadlBaPackage.FACTOR:
-			return (EObject) createFactor();
+			return createFactor();
 		case AadlBaPackage.FEATURE_HOLDER:
-			return (EObject) createFeatureHolder();
+			return createFeatureHolder();
 		case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER:
-			return (EObject) createFeaturePrototypeHolder();
+			return createFeaturePrototypeHolder();
 		case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT:
-			return (EObject) createForOrForAllStatement();
+			return createForOrForAllStatement();
 		case AadlBaPackage.GROUP_HOLDER:
-			return (EObject) createGroupHolder();
+			return createGroupHolder();
 		case AadlBaPackage.GROUP_PROTOTYPE_HOLDER:
-			return (EObject) createGroupPrototypeHolder();
+			return createGroupPrototypeHolder();
 		case AadlBaPackage.IF_STATEMENT:
-			return (EObject) createIfStatement();
+			return createIfStatement();
 		case AadlBaPackage.INTEGER_RANGE:
-			return (EObject) createIntegerRange();
+			return createIntegerRange();
 		case AadlBaPackage.ITERATIVE_VARIABLE:
-			return (EObject) createIterativeVariable();
+			return createIterativeVariable();
 		case AadlBaPackage.ITERATIVE_VARIABLE_HOLDER:
-			return (EObject) createIterativeVariableHolder();
+			return createIterativeVariableHolder();
 		case AadlBaPackage.LOCK_ACTION:
-			return (EObject) createLockAction();
+			return createLockAction();
 		case AadlBaPackage.LOWER_BOUND:
-			return (EObject) createLowerBound();
+			return createLowerBound();
 		case AadlBaPackage.OTHERWISE:
-			return (EObject) createOtherwise();
+			return createOtherwise();
 		case AadlBaPackage.PARAMETER_HOLDER:
-			return (EObject) createParameterHolder();
+			return createParameterHolder();
 		case AadlBaPackage.PORT_COUNT_VALUE:
-			return (EObject) createPortCountValue();
+			return createPortCountValue();
 		case AadlBaPackage.PORT_DEQUEUE_ACTION:
-			return (EObject) createPortDequeueAction();
+			return createPortDequeueAction();
 		case AadlBaPackage.PORT_DEQUEUE_VALUE:
-			return (EObject) createPortDequeueValue();
+			return createPortDequeueValue();
 		case AadlBaPackage.PORT_FREEZE_ACTION:
-			return (EObject) createPortFreezeAction();
+			return createPortFreezeAction();
 		case AadlBaPackage.PORT_FRESH_VALUE:
-			return (EObject) createPortFreshValue();
+			return createPortFreshValue();
 		case AadlBaPackage.PORT_PROTOTYPE_HOLDER:
-			return (EObject) createPortPrototypeHolder();
+			return createPortPrototypeHolder();
 		case AadlBaPackage.PORT_SEND_ACTION:
-			return (EObject) createPortSendAction();
+			return createPortSendAction();
 		case AadlBaPackage.PROPERTY_ASSOCIATION_HOLDER:
-			return (EObject) createPropertyAssociationHolder();
+			return createPropertyAssociationHolder();
 		case AadlBaPackage.PROPERTY_EXPRESSION_HOLDER:
-			return (EObject) createPropertyExpressionHolder();
+			return createPropertyExpressionHolder();
 		case AadlBaPackage.PROPERTY_NAME_HOLDER:
-			return (EObject) createPropertyNameHolder();
+			return createPropertyNameHolder();
 		case AadlBaPackage.PROPERTY_SET_PROPERTY_REFERENCE:
-			return (EObject) createPropertySetPropertyReference();
+			return createPropertySetPropertyReference();
 		case AadlBaPackage.PROPERTY_TYPE_HOLDER:
-			return (EObject) createPropertyTypeHolder();
+			return createPropertyTypeHolder();
 		case AadlBaPackage.RELATION:
-			return (EObject) createRelation();
+			return createRelation();
 		case AadlBaPackage.SIMPLE_EXPRESSION:
-			return (EObject) createSimpleExpression();
+			return createSimpleExpression();
 		case AadlBaPackage.STRUCT_UNION_ELEMENT:
-			return (EObject) createStructUnionElement();
+			return createStructUnionElement();
 		case AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER:
-			return (EObject) createStructUnionElementHolder();
+			return createStructUnionElementHolder();
 		case AadlBaPackage.SUBCOMPONENT_HOLDER:
-			return (EObject) createSubcomponentHolder();
+			return createSubcomponentHolder();
 		case AadlBaPackage.SUBPROGRAM_ACCESS_HOLDER:
-			return (EObject) createSubprogramAccessHolder();
+			return createSubprogramAccessHolder();
 		case AadlBaPackage.SUBPROGRAM_CALL_ACTION:
-			return (EObject) createSubprogramCallAction();
+			return createSubprogramCallAction();
 		case AadlBaPackage.SUBPROGRAM_HOLDER:
-			return (EObject) createSubprogramHolder();
+			return createSubprogramHolder();
 		case AadlBaPackage.SUBPROGRAM_HOLDER_PROXY:
-			return (EObject) createSubprogramHolderProxy();
+			return createSubprogramHolderProxy();
 		case AadlBaPackage.SUBPROGRAM_PROTOTYPE_HOLDER:
-			return (EObject) createSubprogramPrototypeHolder();
+			return createSubprogramPrototypeHolder();
 		case AadlBaPackage.SUBPROGRAM_SUBCOMPONENT_HOLDER:
-			return (EObject) createSubprogramSubcomponentHolder();
+			return createSubprogramSubcomponentHolder();
 		case AadlBaPackage.TARGET:
-			return (EObject) createTarget();
+			return createTarget();
 		case AadlBaPackage.TERM:
-			return (EObject) createTerm();
+			return createTerm();
 		case AadlBaPackage.TIMED_ACTION:
-			return (EObject) createTimedAction();
+			return createTimedAction();
 		case AadlBaPackage.UNLOCK_ACTION:
-			return (EObject) createUnlockAction();
+			return createUnlockAction();
 		case AadlBaPackage.UPPER_BOUND:
-			return (EObject) createUpperBound();
+			return createUpperBound();
 		case AadlBaPackage.VALUE_EXPRESSION:
-			return (EObject) createValueExpression();
+			return createValueExpression();
 		case AadlBaPackage.WHILE_OR_DO_UNTIL_STATEMENT:
-			return (EObject) createWhileOrDoUntilStatement();
+			return createWhileOrDoUntilStatement();
 		case AadlBaPackage.MODE_SWITCH_TRIGGER_LOGICAL_EXPRESSION:
-			return (EObject) createModeSwitchTriggerLogicalExpression();
+			return createModeSwitchTriggerLogicalExpression();
 		case AadlBaPackage.MODE_SWITCH_CONJUNCTION:
-			return (EObject) createModeSwitchConjunction();
+			return createModeSwitchConjunction();
 		case AadlBaPackage.EVENT_SOURCE_HOLDER:
-			return (EObject) createEventSourceHolder();
+			return createEventSourceHolder();
 		case AadlBaPackage.EVENT_DATA_SOURCE_HOLDER:
-			return (EObject) createEventDataSourceHolder();
+			return createEventDataSourceHolder();
 		case AadlBaPackage.INTERNAL_PORT_SEND_ACTION:
-			return (EObject) createInternalPortSendAction();
+			return createInternalPortSendAction();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -1338,9 +1338,10 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	 */
 	public BehaviorFeatureType createBehaviorFeatureTypeFromString(EDataType eDataType, String initialValue) {
 		BehaviorFeatureType result = BehaviorFeatureType.get(initialValue);
-		if (result == null)
+		if (result == null) {
 			throw new IllegalArgumentException(
 					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		}
 		return result;
 	}
 
@@ -1360,9 +1361,10 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	 */
 	public BinaryAddingOperator createBinaryAddingOperatorFromString(EDataType eDataType, String initialValue) {
 		BinaryAddingOperator result = BinaryAddingOperator.get(initialValue);
-		if (result == null)
+		if (result == null) {
 			throw new IllegalArgumentException(
 					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		}
 		return result;
 	}
 
@@ -1382,9 +1384,10 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	 */
 	public BinaryNumericOperator createBinaryNumericOperatorFromString(EDataType eDataType, String initialValue) {
 		BinaryNumericOperator result = BinaryNumericOperator.get(initialValue);
-		if (result == null)
+		if (result == null) {
 			throw new IllegalArgumentException(
 					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		}
 		return result;
 	}
 
@@ -1404,9 +1407,10 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	 */
 	public DataRepresentation createDataRepresentationFromString(EDataType eDataType, String initialValue) {
 		DataRepresentation result = DataRepresentation.get(initialValue);
-		if (result == null)
+		if (result == null) {
 			throw new IllegalArgumentException(
 					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		}
 		return result;
 	}
 
@@ -1426,9 +1430,10 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	 */
 	public FeatureType createFeatureTypeFromString(EDataType eDataType, String initialValue) {
 		FeatureType result = FeatureType.get(initialValue);
-		if (result == null)
+		if (result == null) {
 			throw new IllegalArgumentException(
 					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		}
 		return result;
 	}
 
@@ -1448,9 +1453,10 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	 */
 	public LogicalOperator createLogicalOperatorFromString(EDataType eDataType, String initialValue) {
 		LogicalOperator result = LogicalOperator.get(initialValue);
-		if (result == null)
+		if (result == null) {
 			throw new IllegalArgumentException(
 					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		}
 		return result;
 	}
 
@@ -1470,9 +1476,10 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	 */
 	public MultiplyingOperator createMultiplyingOperatorFromString(EDataType eDataType, String initialValue) {
 		MultiplyingOperator result = MultiplyingOperator.get(initialValue);
-		if (result == null)
+		if (result == null) {
 			throw new IllegalArgumentException(
 					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		}
 		return result;
 	}
 
@@ -1492,9 +1499,10 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	 */
 	public RelationalOperator createRelationalOperatorFromString(EDataType eDataType, String initialValue) {
 		RelationalOperator result = RelationalOperator.get(initialValue);
-		if (result == null)
+		if (result == null) {
 			throw new IllegalArgumentException(
 					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		}
 		return result;
 	}
 
@@ -1514,9 +1522,10 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	 */
 	public UnaryAddingOperator createUnaryAddingOperatorFromString(EDataType eDataType, String initialValue) {
 		UnaryAddingOperator result = UnaryAddingOperator.get(initialValue);
-		if (result == null)
+		if (result == null) {
 			throw new IllegalArgumentException(
 					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		}
 		return result;
 	}
 
@@ -1536,9 +1545,10 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	 */
 	public UnaryBooleanOperator createUnaryBooleanOperatorFromString(EDataType eDataType, String initialValue) {
 		UnaryBooleanOperator result = UnaryBooleanOperator.get(initialValue);
-		if (result == null)
+		if (result == null) {
 			throw new IllegalArgumentException(
 					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		}
 		return result;
 	}
 
@@ -1558,9 +1568,10 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	 */
 	public UnaryNumericOperator createUnaryNumericOperatorFromString(EDataType eDataType, String initialValue) {
 		UnaryNumericOperator result = UnaryNumericOperator.get(initialValue);
-		if (result == null)
+		if (result == null) {
 			throw new IllegalArgumentException(
 					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		}
 		return result;
 	}
 

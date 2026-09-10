@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.osate.ba.edit" version="2">
+    <resource path="src/org/osate/ba/aadlba/provider/AadlBaItemProviderAdapterFactory.java" type="org.osate.ba.aadlba.provider.AadlBaItemProviderAdapterFactory">
+        <filter comment="emf generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="eventDataSourceHolderItemProvider"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="eventSourceHolderItemProvider"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="internalPortSendActionItemProvider"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="modeSwitchConjunctionItemProvider"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="modeSwitchTriggerLogicalExpressionItemProvider"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/provider/BehaviorVariableItemProvider.java" type="org.osate.ba.aadlba.provider.BehaviorVariableItemProvider">
+        <filter comment="emf generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="addOwnedPropertyAssociationsPropertyDescriptor(Object)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="addOwnedValueConstantPropertyDescriptor(Object)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/provider/EventDataSourceHolderItemProvider.java" type="org.osate.ba.aadlba.provider.EventDataSourceHolderItemProvider">
+        <filter comment="emf generated" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.ba.aadlba.provider.EventDataSourceHolderItemProvider"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/provider/EventSourceHolderItemProvider.java" type="org.osate.ba.aadlba.provider.EventSourceHolderItemProvider">
+        <filter comment="emf generated" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.ba.aadlba.provider.EventSourceHolderItemProvider"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/provider/InternalPortHolderItemProvider.java" type="org.osate.ba.aadlba.provider.InternalPortHolderItemProvider">
+        <filter comment="emf generated" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.ba.aadlba.provider.InternalPortHolderItemProvider"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/provider/InternalPortSendActionItemProvider.java" type="org.osate.ba.aadlba.provider.InternalPortSendActionItemProvider">
+        <filter comment="emf generated" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.ba.aadlba.provider.InternalPortSendActionItemProvider"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/provider/ModeSwitchConjunctionItemProvider.java" type="org.osate.ba.aadlba.provider.ModeSwitchConjunctionItemProvider">
+        <filter comment="emf generated" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.ba.aadlba.provider.ModeSwitchConjunctionItemProvider"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/provider/ModeSwitchTriggerLogicalExpressionItemProvider.java" type="org.osate.ba.aadlba.provider.ModeSwitchTriggerLogicalExpressionItemProvider">
+        <filter comment="emf generated" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.ba.aadlba.provider.ModeSwitchTriggerLogicalExpressionItemProvider"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>

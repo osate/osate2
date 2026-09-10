@@ -1,12 +1,12 @@
 /**
  * AADL-BA-FrontEnd
- * 
+ *
  * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
  * version 2.0 of the License, or (at your option) any later version. This
@@ -126,11 +126,11 @@ public class GroupHolderItemProvider extends BehaviorElementItemProvider {
 
 		NamedElement group = holder.getGroup();
 
-		if (group instanceof ThreadGroup)
+		if (group instanceof ThreadGroup) {
 			imgFile += "ThreadGroup";
-		else if (group instanceof FeatureGroup)
+		} else if (group instanceof FeatureGroup) {
 			imgFile += "FeatureGroup";
-		else // SubprogramGroup and SubprogramGroupAccess cases.
+		} else // SubprogramGroup and SubprogramGroupAccess cases.
 		{
 			imgFile += "Subprogram";
 		}
@@ -198,10 +198,10 @@ public class GroupHolderItemProvider extends BehaviorElementItemProvider {
 				AadlBaFactory.eINSTANCE.createBehaviorVariableHolder()));
 
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.INDEXABLE_ELEMENT__ARRAY_INDEXES,
-				AadlBaFactory.eINSTANCE.createClassifierPropertyReference()));
+				AadlBaFactory.eINSTANCE.createClassifierFeaturePropertyReference()));
 
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.INDEXABLE_ELEMENT__ARRAY_INDEXES,
-				AadlBaFactory.eINSTANCE.createClassifierFeaturePropertyReference()));
+				AadlBaFactory.eINSTANCE.createClassifierPropertyReference()));
 
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.INDEXABLE_ELEMENT__ARRAY_INDEXES,
 				AadlBaFactory.eINSTANCE.createDataAccessHolder()));
