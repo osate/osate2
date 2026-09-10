@@ -1,0 +1,2 @@
+error | semantic | 166 | 44 | 10 | The same port variable must not be assigned to in different actions of an action set: Behavior Annex D.6.(L4) legality rules failed.
+error | semantic | 196 | 18 | 10 | The same port variable must not be assigned to in different actions of an action set: Behavior Annex D.6.(L4) legality rules failed.

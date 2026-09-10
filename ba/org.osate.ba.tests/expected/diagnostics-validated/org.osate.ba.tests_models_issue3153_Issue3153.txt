@@ -1,0 +1,2 @@
+error | semantic | 28 | 12 | 6 | issue3153::example can't have more than one initial state : first, second : Behavior Annex D.3.(L3) legality rule failed.
+error | semantic | 28 | 5 | 5 | issue3153::example can't have more than one initial state : first, second : Behavior Annex D.3.(L3) legality rule failed.

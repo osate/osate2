@@ -4,17 +4,21 @@ package SelfPropertyReference
 public
 	with Base_Types;
 
+	-- D.7 permits self as the component element of a property reference. Apart from that reference the thread is
+	-- deliberately legal: it declares the complete state D.3.(L3) requires of a thread and dispatches out of it, so
+	-- the only finding this fixture may produce is the one about self.
 	thread worker
 	properties
 		Priority => 1;
+		Dispatch_Protocol => Periodic;
+		Period => 10 ms;
 	annex behavior_specification {**
 		variables
 			value: Base_Types::Integer;
 		states
-			start: initial state;
-			finish: final state;
+			waiting: initial complete final state;
 		transitions
-			start -[ ]-> finish { value := self#Priority };
+			waiting -[ on dispatch ]-> waiting { value := self#Priority };
 	**};
 	end worker;
 end SelfPropertyReference;

@@ -1,0 +1,4 @@
+error | semantic | 35 | 39 | 20 | Cannot represent integer literal 99999999999999999999: Integer value is not representable
+error | semantic | 36 | 46 | 5 | Cannot represent integer literal 20#5#: Base not between 2 and 16: 20
+error | semantic | 37 | 49 | 4 | Cannot represent integer literal 2#9#: '9' at string index 2 is not an extended digit in base 2
+error | semantic | 42 | 13 | 20 | Cannot represent integer literal 99999999999999999999: Integer value is not representable

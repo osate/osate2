@@ -320,7 +320,9 @@ public final class DeclarativeToStrictTranslator {
 						result.getOwnedPropertyAssociations().add(toPropertyAssociation(association));
 					}
 					strict.getVariables().add(result);
-					variables.put(result.getName(), result);
+					// Retain every declaration, but leave an ambiguous name unresolved. A null value also
+					// prevents a later duplicate or an enclosing feature from becoming the selected target.
+					variables.put(result.getName(), variables.containsKey(result.getName()) ? null : result);
 				}
 			}
 		}
@@ -1190,9 +1192,8 @@ public final class DeclarativeToStrictTranslator {
 					return variable;
 				}
 			}
-			final BehaviorVariable variable = variables.get(name);
-			if (variable != null) {
-				return variable;
+			if (variables.containsKey(name)) {
+				return variables.get(name);
 			}
 			final var prototypeBinding = Aadl2Visitors.findPrototypeBindingInComponent(owner, name);
 			if (prototypeBinding != null) {

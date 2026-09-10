@@ -1,0 +1,21 @@
+===== annex[0] owner=Duplicates::example.impl =====
+
+variables
+    same, SAME : Base_Types::Integer;
+    Same : Base_Types::Integer;
+    varState, varTransition : Base_Types::Integer;
+states
+    start : initial state;
+    ready : complete state;
+    finish : final state;
+    dupState, DUPSTATE : state;
+    DupState : state;
+    VARSTATE, stateTransition : state;
+transitions
+    dupTransition: start -[]-> ready;
+    DUPTRANSITION: start -[]-> ready;
+    DupTransition: start -[]-> ready;
+    VARTRANSITION: start -[]-> ready;
+    STATETRANSITION: start -[]-> ready;
+----- Xtext reparse -----
+reparsed

@@ -57,6 +57,7 @@ import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.GroupableElement;
 import org.osate.ba.aadlba.IndexableElement;
 import org.osate.ba.aadlba.PortFreezeAction;
+import org.osate.ba.tests.BehaviorAnnexInjectorProvider;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.testsupport.TestHelper;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.CommunicationAction;
@@ -71,7 +72,7 @@ import com.google.inject.Injector;
  * identity, and construct containment-correct models without detached children.
  */
 @RunWith(XtextRunner.class)
-@InjectWith(BehaviorAnnexTranslationInjectorProvider.class)
+@InjectWith(BehaviorAnnexInjectorProvider.class)
 public class BehaviorAnnexTranslationTest {
 	@Inject
 	private TestHelper<Element> testHelper;

@@ -1,0 +1,4 @@
+error | semantic | 367 | 23 | 35 | resolved behavior annex holder has no element
+error | semantic | 411 | 23 | 30 | resolved behavior annex holder has no element
+warning | semantic | 105 | 56 | 17 | AadlBaTest::Types in 'with' clause of public package section is not used.
+warning | semantic | 105 | 75 | 20 | AadlBaTestSubprogram in 'with' clause of public package section is not used.

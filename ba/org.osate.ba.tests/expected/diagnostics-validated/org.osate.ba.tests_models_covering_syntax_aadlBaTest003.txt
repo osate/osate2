@@ -1,0 +1,9 @@
+error | semantic | 415 | 46 | 19 | iterated values are not an array
+error | semantic | 425 | 14 | 33 | must be an array but is resolved as DataStructPrototypeTest::MyIntegerArray_A
+error | semantic | 426 | 14 | 39 | must be an array but is resolved as DataStructPrototypeTest::MyIntegerArray_A
+error | semantic | 427 | 14 | 45 | mixs up AADL standard array and data model array
+error | semantic | 428 | 14 | 36 | mixs up AADL standard array and data model array
+error | semantic | 429 | 14 | 29 | mixs up AADL standard array and data model array
+error | semantic | 430 | 46 | 35 | iterated values are not an array
+warning | semantic | 25 | 33 | 21 | AadlBaTestPropertySet in 'with' clause of public package section is not used.
+warning | semantic | 25 | 75 | 20 | AadlBaTestSubprogram in 'with' clause of public package section is not used.

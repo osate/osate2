@@ -1,0 +1,40 @@
+===== annex[0] owner=Issue3182::derived =====
+
+variables
+    local : Base_Types::Integer;
+states
+    start : initial state;
+    ACTIVE : complete state;
+    finish : final state;
+transitions
+    begin: start -[]-> active {local := 1};
+    active -[on dispatch input]-> active;
+    active -[on dispatch input]-> finish;
+----- Xtext reparse -----
+reparsed
+===== annex[1] owner=Issue3182::derived.impl =====
+
+variables
+    local, TASK : Base_Types::Integer;
+states
+    start : initial state;
+    ACTIVE : complete state;
+    finish : final state;
+transitions
+    begin: start -[]-> active {local := 1};
+    active -[on dispatch input]-> active;
+    active -[on dispatch input]-> finish;
+----- Xtext reparse -----
+reparsed
+===== annex[2] owner=Issue3182::typed =====
+
+variables
+    implementationData : Base_Types::Integer;
+states
+    start : initial state;
+    ready : complete state;
+    finish : final state;
+transitions
+    begin: start -[]-> ready;
+----- Xtext reparse -----
+reparsed

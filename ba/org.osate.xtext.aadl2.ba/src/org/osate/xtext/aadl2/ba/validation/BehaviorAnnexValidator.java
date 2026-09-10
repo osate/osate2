@@ -23,9 +23,13 @@
  */
 package org.osate.xtext.aadl2.ba.validation;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -38,6 +42,8 @@ import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.eclipse.xtext.validation.ValidationMessageAcceptor;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.modelsupport.errorreporting.AbstractAnalysisErrorReporter;
@@ -61,11 +67,12 @@ import com.google.inject.Inject;
 
 /**
  * Runs the existing strict-model Behavior Annex checkers over the translated Xtext model and retargets their
- * diagnostics to the declarative source objects. Syntax and linking failures gate this adapter so semantic checking
- * does not cascade over an incomplete model. Literal spellings that the grammar accepts but translation cannot
- * represent are reported directly, since no strict object carries them.
+ * diagnostics to the declarative source objects. Naming, syntax, and linking failures gate this adapter so semantic
+ * checking does not cascade over an incomplete model. Literal spellings that the grammar accepts but translation
+ * cannot represent are reported directly, since no strict object carries them.
  */
 public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator {
+	public static final String DECLARATION_NAME = "org.osate.xtext.aadl2.ba.declarationName";
 	public static final String CHECKER_DIAGNOSTIC = "org.osate.xtext.aadl2.ba.checker";
 	public static final String UNREPRESENTABLE_LITERAL = "org.osate.xtext.aadl2.ba.unrepresentableLiteral";
 	public static final String INTERNAL_PORT_USE = "org.osate.xtext.aadl2.ba.internalPortUse";
@@ -88,7 +95,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	@Check(CheckType.NORMAL)
 	public void checkBehaviorAnnex(final BehaviorAnnex source) {
 		if (!(source.getContainingClassifier() instanceof ComponentClassifier owner)
-				|| hasSyntaxOrLinkingErrors(source)) {
+				|| !checkDeclarationNames(source, owner) || hasSyntaxOrLinkingErrors(source)) {
 			return;
 		}
 
@@ -149,6 +156,82 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 			return action.getTarget() == reference || action.isSend() && action.getReference() == reference;
 		}
 		return false;
+  }
+  
+	 * D.3 names share one namespace, including inherited features, data subcomponents, and modes of the owner.
+	 * Check the declarations before resolving references so missing classifiers cannot hide duplicate names, and
+	 * skip the strict checkers when names are ambiguous instead of validating an arbitrary resolution.
+	 */
+	private boolean checkDeclarationNames(final BehaviorAnnex source, final ComponentClassifier owner) {
+		var declarations = new ArrayList<Declaration>();
+		for (var group : source.getVariableGroups()) {
+			for (var variable : group.getVariables()) {
+				declarations.add(new Declaration(variable.getName(), variable,
+						BehaviorAnnexPackage.eINSTANCE.getBehaviorVariable_Name(), false));
+			}
+		}
+		for (var group : source.getStateGroups()) {
+			for (var state : group.getStates()) {
+				declarations.add(new Declaration(state.getName(), state,
+						BehaviorAnnexPackage.eINSTANCE.getBehaviorState_Name(), group.isComplete()));
+			}
+		}
+		for (var transition : source.getTransitions()) {
+			declarations.add(new Declaration(transition.getName(), transition,
+					BehaviorAnnexPackage.eINSTANCE.getBehaviorTransition_Name(), false));
+		}
+
+		Map<String, List<Declaration>> byName = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+		for (var declaration : declarations) {
+			// Transitions need not have a label; partially edited declarations may also lack a name.
+			if (declaration.name() != null && !declaration.name().isEmpty()) {
+				byName.computeIfAbsent(declaration.name(), key -> new ArrayList<>()).add(declaration);
+			}
+		}
+		Map<String, String> enclosingNames = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+		for (var feature : owner.getAllFeatures()) {
+			if (feature.getName() != null) {
+				enclosingNames.put(feature.getName(), "feature");
+			}
+		}
+		if (owner instanceof ComponentImplementation implementation) {
+			for (var subcomponent : implementation.getAllSubcomponents()) {
+				if (subcomponent instanceof DataSubcomponent && subcomponent.getName() != null) {
+					enclosingNames.put(subcomponent.getName(), "data subcomponent");
+				}
+			}
+		}
+		var modeNames = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+		for (var mode : owner.getAllModes()) {
+			if (mode.getName() != null) {
+				modeNames.add(mode.getName());
+			}
+		}
+
+		var valid = true;
+		for (var sameName : byName.values()) {
+			for (var declaration : sameName) {
+				if (sameName.size() > 1) {
+					error("Duplicate Behavior Annex identifier '" + declaration.name() + "'",
+							declaration.source(), declaration.feature(), DECLARATION_NAME);
+					valid = false;
+				}
+				// A complete state may represent a same-named mode, but cannot reuse a feature or data name.
+				var enclosingKind = enclosingNames.get(declaration.name());
+				if (enclosingKind == null && modeNames.contains(declaration.name()) && !declaration.complete()) {
+					enclosingKind = "mode";
+				}
+				if (enclosingKind != null) {
+					error("Behavior Annex identifier '" + declaration.name() + "' conflicts with an enclosing "
+							+ enclosingKind + " identifier", declaration.source(), declaration.feature(), DECLARATION_NAME);
+					valid = false;
+				}
+			}
+		}
+		return valid;
+	}
+
+	private record Declaration(String name, EObject source, EStructuralFeature feature, boolean complete) {
 	}
 
 	/**

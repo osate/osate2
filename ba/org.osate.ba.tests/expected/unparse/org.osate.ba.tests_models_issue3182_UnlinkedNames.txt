@@ -1,0 +1,12 @@
+===== annex[0] owner=UnlinkedNames::example.impl =====
+
+variables
+    value, VALUE : MissingType;
+states
+    start : initial state;
+    ready : complete state;
+    finish : final state;
+transitions
+    start -[]-> ready;
+----- Xtext reparse -----
+reparsed

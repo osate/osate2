@@ -1,0 +1,16 @@
+===== annex[0] owner=EnclosingNames::derived.impl =====
+
+variables
+    VFEATURE, VDATA, VMODE : Base_Types::Integer;
+states
+    start : initial state;
+    ready : complete state;
+    finish : final state;
+    SFEATURE, SDATA, SMODE : state;
+    COMPLETEFEATURE, COMPLETEDATA : complete state;
+transitions
+    TFEATURE: start -[]-> ready;
+    TDATA: start -[]-> ready;
+    TMODE: start -[]-> ready;
+----- Xtext reparse -----
+reparsed

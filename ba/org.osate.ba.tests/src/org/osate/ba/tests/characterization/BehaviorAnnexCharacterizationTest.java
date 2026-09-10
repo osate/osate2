@@ -74,12 +74,19 @@ import com.itemis.xtext.testing.FluentIssueCollection;
  * Pins the current hand-written Behavior Annex implementation before the Xtext port. The test records diagnostics,
  * resolved strict-model shape, unparse/round-trip behavior, and source-position resolution for every checked-in BA
  * model, and verifies that the corpus instantiates every concrete holder class needed by the future translator.
+ *
+ * <p>
+ * This suite runs with the plain AADL injector on purpose, so its {@code expected/diagnostics} goldens are the
+ * core-AADL baseline and an empty golden means a fixture has no unrelated AADL error.
+ * {@link BehaviorAnnexValidatedDiagnosticsTest} records the same corpus with the BA validator registered. Neither set
+ * may be read as the other: what a model reaches depends on that registration.
  */
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
 public class BehaviorAnnexCharacterizationTest {
 	private static final String ANNEX_NAME = BehaviorAnnexStandaloneSetup.ANNEX_NAME;
 	private static final String GRAMMAR_HAZARDS_MODEL = "org.osate.ba.tests/models/characterization/GrammarHazards.aadl";
+	private static final String BEHAVIOR_ANNEX_RULE_MARKER = "Behavior Annex D.";
 	private static final Set<String> UNREACHABLE_HOLDER_BASES = new HashSet<>();
 	static {
 		// No production parser, resolver, or type-checker path creates these concrete Ecore base classes. Production
@@ -104,6 +111,8 @@ public class BehaviorAnnexCharacterizationTest {
 	@Test
 	public void characterizeCurrentImplementation() throws Exception {
 		final var instantiatedHolderClasses = new HashSet<String>();
+		var caseCount = 0;
+		var behaviorAnnexRuleDiagnostics = 0;
 		for (final var corpusCase : BehaviorAnnexCorpus.discover()) {
 			final var root = testHelper.parseFile(corpusCase.getPath(), corpusCase.getReferencedPaths());
 			assertNotNull("Could not load " + corpusCase.getPath(), root);
@@ -111,13 +120,20 @@ public class BehaviorAnnexCharacterizationTest {
 			final var issueCollection = testHelper.testResource(root.eResource());
 			GoldenFile.assertMatches("diagnostics", corpusCase.getId(),
 					formatDiagnostics(issueCollection.getIssues()));
+			behaviorAnnexRuleDiagnostics += countBehaviorAnnexRuleDiagnostics(issueCollection.getIssues());
 
 			final var annexes = AnnexUtil.getAllDefaultAnnexSubclauses(root);
 			GoldenFile.assertMatches("resolved-model", corpusCase.getId(),
 					formatResolvedModels(annexes, instantiatedHolderClasses));
 			GoldenFile.assertMatches("positions", corpusCase.getId(), formatPositions(annexes));
 			GoldenFile.assertMatches("unparse", corpusCase.getId(), formatUnparseAndCheckRoundTrip(annexes));
+			caseCount++;
 		}
+
+		assertTrue("The Behavior Annex corpus contributed no models, so this suite proved nothing", caseCount > 0);
+		assertEquals("This suite pins the plain-AADL baseline, so no BA rule diagnostic may appear here. Reported "
+				+ "rule diagnostics belong in BehaviorAnnexValidatedDiagnosticsTest.", 0,
+				behaviorAnnexRuleDiagnostics);
 
 		final var expectedHolderClasses = new TreeSet<String>();
 		for (final var classifier : AadlBaPackage.eINSTANCE.getEClassifiers()) {
@@ -206,7 +222,23 @@ public class BehaviorAnnexCharacterizationTest {
 		}
 	}
 
-	private static String formatDiagnostics(final List<Issue> issues) {
+	/**
+	 * Counts the diagnostics that only the Behavior Annex checkers produce. Every legality, consistency, and naming
+	 * message they report names its rule as {@code Behavior Annex D.<section>.(<rule>)}, so a nonzero count is
+	 * end-to-end evidence that the BA validator was registered for the validated resource.
+	 */
+	static int countBehaviorAnnexRuleDiagnostics(final List<Issue> issues) {
+		var result = 0;
+		for (final Issue issue : issues) {
+			final var message = issue.getMessage();
+			if (message != null && message.contains(BEHAVIOR_ANNEX_RULE_MARKER)) {
+				result++;
+			}
+		}
+		return result;
+	}
+
+	static String formatDiagnostics(final List<Issue> issues) {
 		final List<String> lines = new ArrayList<>();
 		for (final Issue issue : issues) {
 			final String origin = Diagnostic.LINKING_DIAGNOSTIC.equals(issue.getCode())

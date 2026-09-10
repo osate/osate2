@@ -1,0 +1,16 @@
+annex[0] owner=EnclosingNames::derived.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=VFEATURE
+    variables[1] : BehaviorVariable name=VDATA
+    variables[2] : BehaviorVariable name=VMODE
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=ready
+    states[2] : BehaviorState name=finish
+    states[3] : BehaviorState name=SFEATURE
+    states[4] : BehaviorState name=SDATA
+    states[5] : BehaviorState name=SMODE
+    states[6] : BehaviorState name=COMPLETEFEATURE
+    states[7] : BehaviorState name=COMPLETEDATA
+    transitions[0] : BehaviorTransition name=TFEATURE
+    transitions[1] : BehaviorTransition name=TDATA
+    transitions[2] : BehaviorTransition name=TMODE

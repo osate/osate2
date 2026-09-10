@@ -1,0 +1,8 @@
+annex[0] owner=UnlinkedNames::example.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=value
+    variables[1] : BehaviorVariable name=VALUE
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=ready
+    states[2] : BehaviorState name=finish
+    transitions[0] : BehaviorTransition

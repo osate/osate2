@@ -1,0 +1,3 @@
+error | semantic | 50 | 1 | 66 | exemple_lr_D3_L3_L4::th.error has no complete state : Behavior Annex D.3.(L3) legality rule failed.
+error | semantic | 51 | 2 | 10 | exemple_lr_D3_L3_L4::th.error can't have more than one initial state : initState1, initState2 : Behavior Annex D.3.(L3) legality rule failed.
+error | semantic | 52 | 2 | 10 | exemple_lr_D3_L3_L4::th.error can't have more than one initial state : initState1, initState2 : Behavior Annex D.3.(L3) legality rule failed.
