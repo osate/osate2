@@ -1,0 +1,35 @@
+annex[0] owner=Issue3176::collector.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=samples
+      arrayDimension[0] : ArrayDimension
+        size : ArraySize
+    variables[1] : BehaviorVariable name=window
+      arrayDimension[0] : ArrayDimension
+        size : ArraySize
+    variables[2] : BehaviorVariable name=history
+      arrayDimension[0] : ArrayDimension
+        size : ArraySize
+    variables[3] : BehaviorVariable name=grid
+      arrayDimension[0] : ArrayDimension
+        size : ArraySize
+      arrayDimension[1] : ArrayDimension
+        size : ArraySize
+    variables[4] : BehaviorVariable name=left
+      arrayDimension[0] : ArrayDimension
+        size : ArraySize
+    variables[5] : BehaviorVariable name=right
+      arrayDimension[0] : ArrayDimension
+        size : ArraySize
+    variables[6] : BehaviorVariable name=total
+    variables[7] : BehaviorVariable name=buffer
+      arrayDimension[0] : ArrayDimension
+        size : ArraySize
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=ready
+    states[2] : BehaviorState name=done
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchTriggerLogicalExpression
+          dispatchConjunctions[0] : DispatchConjunction
+            dispatchTriggers[0] : EventPortHolder element=Issue3176::collector.trigger [EventPort]
