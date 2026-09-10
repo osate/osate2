@@ -1,0 +1,75 @@
+annex[0] owner=Issue3205::worker.i
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=a
+    variables[1] : BehaviorVariable name=i
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : PortDequeueAction
+          port : EventDataPortHolder element=Issue3205::worker.feed [EventDataPort]
+          target : BehaviorVariableHolder element=i [BehaviorVariable]
+        actions[1] : ForOrForAllStatement
+          behaviorActions : BehaviorActionSequence
+            actions[0] : PortDequeueAction
+              port : EventDataPortHolder element=Issue3205::worker.feed [EventDataPort]
+              target : BehaviorVariableHolder element=a [BehaviorVariable]
+            actions[1] : ForOrForAllStatement
+              behaviorActions : AssignmentAction
+                target : BehaviorVariableHolder element=a [BehaviorVariable]
+                valueExpression : ValueExpression
+                  relations[0] : Relation
+                    firstExpression : SimpleExpression
+                      terms[0] : Term
+                        factors[0] : Factor
+                          firstValue : IterativeVariableHolder element=i [IterativeVariable]
+                      terms[1] : Term
+                        factors[0] : Factor
+                          firstValue : IterativeVariableHolder element=j [IterativeVariable]
+              iteratedValues : IntegerRange
+                lowerIntegerValue : BehaviorIntegerLiteral
+                upperIntegerValue : BehaviorIntegerLiteral
+              iterativeVariable : IterativeVariable name=j
+            actions[2] : PortDequeueAction
+              port : EventDataPortHolder element=Issue3205::worker.feed [EventDataPort]
+          iteratedValues : IntegerRange
+            lowerIntegerValue : BehaviorIntegerLiteral
+            upperIntegerValue : BehaviorIntegerLiteral
+          iterativeVariable : IterativeVariable name=i
+        actions[2] : PortDequeueAction
+          port : EventDataPortHolder element=Issue3205::worker.feed [EventDataPort]
+          target : BehaviorVariableHolder element=i [BehaviorVariable]
+        actions[3] : ForOrForAllStatement
+          behaviorActions : BehaviorActionSequence
+            actions[0] : AssignmentAction
+              target : BehaviorVariableHolder element=a [BehaviorVariable]
+              valueExpression : ValueExpression
+                relations[0] : Relation
+                  firstExpression : SimpleExpression
+                    terms[0] : Term
+                      factors[0] : Factor
+                        firstValue : IterativeVariableHolder element=i [IterativeVariable]
+            actions[1] : ForOrForAllStatement
+              behaviorActions : PortDequeueAction
+                port : EventDataPortHolder element=Issue3205::worker.feed [EventDataPort]
+                target : BehaviorVariableHolder element=a [BehaviorVariable]
+              iteratedValues : IntegerRange
+                lowerIntegerValue : BehaviorIntegerLiteral
+                upperIntegerValue : BehaviorIntegerLiteral
+              iterativeVariable : IterativeVariable name=j
+            actions[2] : AssignmentAction
+              target : BehaviorVariableHolder element=a [BehaviorVariable]
+              valueExpression : ValueExpression
+                relations[0] : Relation
+                  firstExpression : SimpleExpression
+                    terms[0] : Term
+                      factors[0] : Factor
+                        firstValue : IterativeVariableHolder element=i [IterativeVariable]
+          iteratedValues : IntegerRange
+            lowerIntegerValue : BehaviorIntegerLiteral
+            upperIntegerValue : BehaviorIntegerLiteral
+          iterativeVariable : IterativeVariable name=i
+        actions[4] : PortDequeueAction
+          port : EventDataPortHolder element=Issue3205::worker.feed [EventDataPort]
+          target : BehaviorVariableHolder element=i [BehaviorVariable]
