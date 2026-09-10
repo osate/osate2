@@ -217,6 +217,9 @@ public class IfStatementItemProvider extends BehaviorElementItemProvider {
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.COND_STATEMENT__BEHAVIOR_ACTIONS,
 				AadlBaFactory.eINSTANCE.createWhileOrDoUntilStatement()));
 
+		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.COND_STATEMENT__BEHAVIOR_ACTIONS,
+				AadlBaFactory.eINSTANCE.createInternalPortSendAction()));
+
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.IF_STATEMENT__LOGICAL_VALUE_EXPRESSION,
 				AadlBaFactory.eINSTANCE.createValueExpression()));
 

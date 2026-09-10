@@ -19,32 +19,36 @@
  */
 package org.osate.ba.aadlba.provider;
 
+
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+
 import org.osate.ba.aadlba.AadlBaFactory;
 import org.osate.ba.aadlba.AadlBaPackage;
-import org.osate.ba.aadlba.BehaviorActionSet;
+import org.osate.ba.aadlba.InternalPortSendAction;
 
 /**
- * This is the item provider adapter for a {@link org.osate.ba.aadlba.BehaviorActionSet} object.
+ * This is the item provider adapter for a {@link org.osate.ba.aadlba.InternalPortSendAction} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class BehaviorActionSetItemProvider extends BehaviorElementItemProvider {
+public class InternalPortSendActionItemProvider extends BehaviorElementItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public BehaviorActionSetItemProvider(AdapterFactory adapterFactory) {
+	public InternalPortSendActionItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -75,7 +79,8 @@ public class BehaviorActionSetItemProvider extends BehaviorElementItemProvider {
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(AadlBaPackage.Literals.BEHAVIOR_ACTION_COLLECTION__ACTIONS);
+			childrenFeatures.add(AadlBaPackage.Literals.INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT);
+			childrenFeatures.add(AadlBaPackage.Literals.INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION);
 		}
 		return childrenFeatures;
 	}
@@ -94,14 +99,14 @@ public class BehaviorActionSetItemProvider extends BehaviorElementItemProvider {
 	}
 
 	/**
-	 * This returns BehaviorActionSet.gif.
+	 * This returns InternalPortSendAction.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		String imgFile = BehaviorElementItemProvider.IMG_PATH + "action_16";
-		return overlayImage(object, getResourceLocator().getImage(imgFile));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/InternalPortSendAction"));
 	}
 
 	/**
@@ -112,8 +117,9 @@ public class BehaviorActionSetItemProvider extends BehaviorElementItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_BehaviorActionSet_type");
+		return getString("_UI_InternalPortSendAction_type");
 	}
+
 
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached
@@ -126,10 +132,11 @@ public class BehaviorActionSetItemProvider extends BehaviorElementItemProvider {
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(BehaviorActionSet.class)) {
-		case AadlBaPackage.BEHAVIOR_ACTION_SET__ACTIONS:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
-			return;
+		switch (notification.getFeatureID(InternalPortSendAction.class)) {
+			case AadlBaPackage.INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT:
+			case AadlBaPackage.INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+				return;
 		}
 		super.notifyChanged(notification);
 	}
@@ -145,47 +152,25 @@ public class BehaviorActionSetItemProvider extends BehaviorElementItemProvider {
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_ACTION_COLLECTION__ACTIONS,
-				AadlBaFactory.eINSTANCE.createAssignmentAction()));
+		newChildDescriptors.add
+			(createChildParameter
+				(AadlBaPackage.Literals.INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT,
+				 AadlBaFactory.eINSTANCE.createEventSourceHolder()));
 
-		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_ACTION_COLLECTION__ACTIONS,
-				AadlBaFactory.eINSTANCE.createBehaviorActionBlock()));
+		newChildDescriptors.add
+			(createChildParameter
+				(AadlBaPackage.Literals.INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT,
+				 AadlBaFactory.eINSTANCE.createEventDataSourceHolder()));
 
-		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_ACTION_COLLECTION__ACTIONS,
-				AadlBaFactory.eINSTANCE.createElseStatement()));
+		newChildDescriptors.add
+			(createChildParameter
+				(AadlBaPackage.Literals.INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION,
+				 AadlBaFactory.eINSTANCE.createValueExpression()));
 
-		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_ACTION_COLLECTION__ACTIONS,
-				AadlBaFactory.eINSTANCE.createForOrForAllStatement()));
-
-		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_ACTION_COLLECTION__ACTIONS,
-				AadlBaFactory.eINSTANCE.createIfStatement()));
-
-		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_ACTION_COLLECTION__ACTIONS,
-				AadlBaFactory.eINSTANCE.createLockAction()));
-
-		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_ACTION_COLLECTION__ACTIONS,
-				AadlBaFactory.eINSTANCE.createPortDequeueAction()));
-
-		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_ACTION_COLLECTION__ACTIONS,
-				AadlBaFactory.eINSTANCE.createPortFreezeAction()));
-
-		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_ACTION_COLLECTION__ACTIONS,
-				AadlBaFactory.eINSTANCE.createPortSendAction()));
-
-		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_ACTION_COLLECTION__ACTIONS,
-				AadlBaFactory.eINSTANCE.createSubprogramCallAction()));
-
-		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_ACTION_COLLECTION__ACTIONS,
-				AadlBaFactory.eINSTANCE.createTimedAction()));
-
-		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_ACTION_COLLECTION__ACTIONS,
-				AadlBaFactory.eINSTANCE.createUnlockAction()));
-
-		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_ACTION_COLLECTION__ACTIONS,
-				AadlBaFactory.eINSTANCE.createWhileOrDoUntilStatement()));
-
-		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_ACTION_COLLECTION__ACTIONS,
-				AadlBaFactory.eINSTANCE.createInternalPortSendAction()));
+		newChildDescriptors.add
+			(createChildParameter
+				(AadlBaPackage.Literals.INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION,
+				 AadlBaFactory.eINSTANCE.createAny()));
 	}
 
 }

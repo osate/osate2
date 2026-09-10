@@ -166,13 +166,6 @@ public class BehaviorAnnexConformanceTest {
 	}
 
 	@Test
-	public void internalPortActionsCurrentFailure() throws Exception {
-		assertDiagnostics("InternalPortActions.aadl",
-				List.of("semantic | 'internal_action' is not found", "semantic | 'internal_target' is not found"));
-	}
-
-	@Ignore("Issue #2445: support internal ports as targets and communication actions")
-	@Test
 	public void internalPortActionsAreAcceptedByTheStandard() throws Exception {
 		assertNoIssues("InternalPortActions.aadl");
 	}

@@ -2349,6 +2349,67 @@ public class AadlBaSwitch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
+		case AadlBaPackage.EVENT_SOURCE_HOLDER: {
+			EventSourceHolder eventSourceHolder = (EventSourceHolder) theEObject;
+			T result = caseEventSourceHolder(eventSourceHolder);
+			if (result == null)
+				result = caseInternalPortHolder(eventSourceHolder);
+			if (result == null)
+				result = caseClassifierFeatureHolder(eventSourceHolder);
+			if (result == null)
+				result = caseTarget(eventSourceHolder);
+			if (result == null)
+				result = caseElementHolder(eventSourceHolder);
+			if (result == null)
+				result = caseParameterLabel(eventSourceHolder);
+			if (result == null)
+				result = caseBehaviorElement(eventSourceHolder);
+			if (result == null)
+				result = caseElement(eventSourceHolder);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case AadlBaPackage.EVENT_DATA_SOURCE_HOLDER: {
+			EventDataSourceHolder eventDataSourceHolder = (EventDataSourceHolder) theEObject;
+			T result = caseEventDataSourceHolder(eventDataSourceHolder);
+			if (result == null)
+				result = caseInternalPortHolder(eventDataSourceHolder);
+			if (result == null)
+				result = caseClassifierFeatureHolder(eventDataSourceHolder);
+			if (result == null)
+				result = caseTarget(eventDataSourceHolder);
+			if (result == null)
+				result = caseElementHolder(eventDataSourceHolder);
+			if (result == null)
+				result = caseParameterLabel(eventDataSourceHolder);
+			if (result == null)
+				result = caseBehaviorElement(eventDataSourceHolder);
+			if (result == null)
+				result = caseElement(eventDataSourceHolder);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case AadlBaPackage.INTERNAL_PORT_SEND_ACTION: {
+			InternalPortSendAction internalPortSendAction = (InternalPortSendAction) theEObject;
+			T result = caseInternalPortSendAction(internalPortSendAction);
+			if (result == null)
+				result = caseCommunicationAction(internalPortSendAction);
+			if (result == null)
+				result = caseBasicAction(internalPortSendAction);
+			if (result == null)
+				result = caseBehaviorAction(internalPortSendAction);
+			if (result == null)
+				result = caseBehaviorActions(internalPortSendAction);
+			if (result == null)
+				result = caseBehaviorElement(internalPortSendAction);
+			if (result == null)
+				result = caseElement(internalPortSendAction);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
 		default:
 			return defaultCase(theEObject);
 		}
@@ -4331,6 +4392,66 @@ public class AadlBaSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseData(Data object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Internal Port Holder</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Internal Port Holder</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseInternalPortHolder(InternalPortHolder object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Event Source Holder</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Event Source Holder</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEventSourceHolder(EventSourceHolder object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Event Data Source Holder</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Event Data Source Holder</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEventDataSourceHolder(EventDataSourceHolder object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Internal Port Send Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Internal Port Send Action</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseInternalPortSendAction(InternalPortSendAction object) {
 		return null;
 	}
 

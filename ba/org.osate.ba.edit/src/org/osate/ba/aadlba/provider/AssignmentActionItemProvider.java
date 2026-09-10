@@ -186,6 +186,12 @@ public class AssignmentActionItemProvider extends BehaviorElementItemProvider {
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.ASSIGNMENT_ACTION__TARGET,
 				AadlBaFactory.eINSTANCE.createTarget()));
 
+		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.ASSIGNMENT_ACTION__TARGET,
+				AadlBaFactory.eINSTANCE.createEventSourceHolder()));
+
+		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.ASSIGNMENT_ACTION__TARGET,
+				AadlBaFactory.eINSTANCE.createEventDataSourceHolder()));
+
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.ASSIGNMENT_ACTION__VALUE_EXPRESSION,
 				AadlBaFactory.eINSTANCE.createValueExpression()));
 

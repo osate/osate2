@@ -104,7 +104,11 @@ public interface IBAVisitor {
 
 	void visit(EventDataPortHolder edph);
 
+	void visit(EventDataSourceHolder edsh);
+
 	void visit(EventPortHolder eph);
+
+	void visit(EventSourceHolder esh);
 
 	void visit(ExecuteCondition ec);
 
@@ -135,6 +139,10 @@ public interface IBAVisitor {
 	void visit(IntegerValueConstant ivc);
 
 	void visit(IntegerValueVariable ivv);
+
+	void visit(InternalPortHolder iph);
+
+	void visit(InternalPortSendAction ipsa);
 
 	void visit(IterativeVariable iv);
 

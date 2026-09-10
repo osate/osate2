@@ -1928,6 +1928,75 @@ public class AadlBaItemProviderAdapterFactory extends AadlBaAdapterFactory
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.ba.aadlba.EventSourceHolder} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EventSourceHolderItemProvider eventSourceHolderItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.ba.aadlba.EventSourceHolder}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createEventSourceHolderAdapter() {
+		if (eventSourceHolderItemProvider == null) {
+			eventSourceHolderItemProvider = new EventSourceHolderItemProvider(this);
+		}
+
+		return eventSourceHolderItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.ba.aadlba.EventDataSourceHolder} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EventDataSourceHolderItemProvider eventDataSourceHolderItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.ba.aadlba.EventDataSourceHolder}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createEventDataSourceHolderAdapter() {
+		if (eventDataSourceHolderItemProvider == null) {
+			eventDataSourceHolderItemProvider = new EventDataSourceHolderItemProvider(this);
+		}
+
+		return eventDataSourceHolderItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.ba.aadlba.InternalPortSendAction} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected InternalPortSendActionItemProvider internalPortSendActionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.ba.aadlba.InternalPortSendAction}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createInternalPortSendActionAdapter() {
+		if (internalPortSendActionItemProvider == null) {
+			internalPortSendActionItemProvider = new InternalPortSendActionItemProvider(this);
+		}
+
+		return internalPortSendActionItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2186,6 +2255,12 @@ public class AadlBaItemProviderAdapterFactory extends AadlBaAdapterFactory
 			valueExpressionItemProvider.dispose();
 		if (whileOrDoUntilStatementItemProvider != null)
 			whileOrDoUntilStatementItemProvider.dispose();
+		if (eventSourceHolderItemProvider != null)
+			eventSourceHolderItemProvider.dispose();
+		if (eventDataSourceHolderItemProvider != null)
+			eventDataSourceHolderItemProvider.dispose();
+		if (internalPortSendActionItemProvider != null)
+			internalPortSendActionItemProvider.dispose();
 	}
 
 }

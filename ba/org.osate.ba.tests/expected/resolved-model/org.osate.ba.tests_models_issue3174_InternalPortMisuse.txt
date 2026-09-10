@@ -19,7 +19,7 @@ annex[0] owner=InternalPortMisuse::internal_ports.misuse
             firstExpression : SimpleExpression
               terms[0] : Term
                 factors[0] : Factor
-                  firstValue : DataSubcomponentHolder element=InternalPortMisuse::internal_ports.misuse.raised_data [EventDataSource]
+                  firstValue : BehaviorVariableHolder element=<null>
     actions[3] : BehaviorActionBlock
       content : AssignmentAction
         target : BehaviorVariableHolder element=value [BehaviorVariable]

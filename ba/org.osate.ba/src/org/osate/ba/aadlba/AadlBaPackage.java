@@ -6550,6 +6550,199 @@ public interface AadlBaPackage extends EPackage {
 	int MODE_SWITCH_TRIGGER_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.osate.ba.aadlba.InternalPortHolder <em>Internal Port Holder</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.ba.aadlba.InternalPortHolder
+	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getInternalPortHolder()
+	 * @generated
+	 */
+	int INTERNAL_PORT_HOLDER = 119;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERNAL_PORT_HOLDER__OWNED_ELEMENT = CLASSIFIER_FEATURE_HOLDER__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERNAL_PORT_HOLDER__OWNED_COMMENT = CLASSIFIER_FEATURE_HOLDER__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERNAL_PORT_HOLDER__ELEMENT = CLASSIFIER_FEATURE_HOLDER__ELEMENT;
+
+	/**
+	 * The number of structural features of the '<em>Internal Port Holder</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERNAL_PORT_HOLDER_FEATURE_COUNT = CLASSIFIER_FEATURE_HOLDER_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.osate.ba.aadlba.EventSourceHolder <em>Event Source Holder</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.ba.aadlba.EventSourceHolder
+	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getEventSourceHolder()
+	 * @generated
+	 */
+	int EVENT_SOURCE_HOLDER = 120;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_SOURCE_HOLDER__OWNED_ELEMENT = INTERNAL_PORT_HOLDER__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_SOURCE_HOLDER__OWNED_COMMENT = INTERNAL_PORT_HOLDER__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_SOURCE_HOLDER__ELEMENT = INTERNAL_PORT_HOLDER__ELEMENT;
+
+	/**
+	 * The number of structural features of the '<em>Event Source Holder</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_SOURCE_HOLDER_FEATURE_COUNT = INTERNAL_PORT_HOLDER_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.osate.ba.aadlba.EventDataSourceHolder <em>Event Data Source Holder</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.ba.aadlba.EventDataSourceHolder
+	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getEventDataSourceHolder()
+	 * @generated
+	 */
+	int EVENT_DATA_SOURCE_HOLDER = 121;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_DATA_SOURCE_HOLDER__OWNED_ELEMENT = INTERNAL_PORT_HOLDER__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_DATA_SOURCE_HOLDER__OWNED_COMMENT = INTERNAL_PORT_HOLDER__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_DATA_SOURCE_HOLDER__ELEMENT = INTERNAL_PORT_HOLDER__ELEMENT;
+
+	/**
+	 * The number of structural features of the '<em>Event Data Source Holder</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_DATA_SOURCE_HOLDER_FEATURE_COUNT = INTERNAL_PORT_HOLDER_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.osate.ba.aadlba.InternalPortSendAction <em>Internal Port Send Action</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.ba.aadlba.InternalPortSendAction
+	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getInternalPortSendAction()
+	 * @generated
+	 */
+	int INTERNAL_PORT_SEND_ACTION = 122;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERNAL_PORT_SEND_ACTION__OWNED_ELEMENT = COMMUNICATION_ACTION__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERNAL_PORT_SEND_ACTION__OWNED_COMMENT = COMMUNICATION_ACTION__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Internal Port</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT = COMMUNICATION_ACTION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Value Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION = COMMUNICATION_ACTION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Internal Port Send Action</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERNAL_PORT_SEND_ACTION_FEATURE_COUNT = COMMUNICATION_ACTION_FEATURE_COUNT + 2;
+
+	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.BehaviorFeatureType <em>Behavior Feature Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6557,7 +6750,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBehaviorFeatureType()
 	 * @generated
 	 */
-	int BEHAVIOR_FEATURE_TYPE = 119;
+	int BEHAVIOR_FEATURE_TYPE = 123;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.BinaryAddingOperator <em>Binary Adding Operator</em>}' enum.
@@ -6567,7 +6760,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBinaryAddingOperator()
 	 * @generated
 	 */
-	int BINARY_ADDING_OPERATOR = 120;
+	int BINARY_ADDING_OPERATOR = 124;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.BinaryNumericOperator <em>Binary Numeric Operator</em>}' enum.
@@ -6577,7 +6770,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBinaryNumericOperator()
 	 * @generated
 	 */
-	int BINARY_NUMERIC_OPERATOR = 121;
+	int BINARY_NUMERIC_OPERATOR = 125;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.DataRepresentation <em>Data Representation</em>}' enum.
@@ -6587,7 +6780,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getDataRepresentation()
 	 * @generated
 	 */
-	int DATA_REPRESENTATION = 122;
+	int DATA_REPRESENTATION = 126;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.FeatureType <em>Feature Type</em>}' enum.
@@ -6597,7 +6790,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getFeatureType()
 	 * @generated
 	 */
-	int FEATURE_TYPE = 123;
+	int FEATURE_TYPE = 127;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.LogicalOperator <em>Logical Operator</em>}' enum.
@@ -6607,7 +6800,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getLogicalOperator()
 	 * @generated
 	 */
-	int LOGICAL_OPERATOR = 124;
+	int LOGICAL_OPERATOR = 128;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.MultiplyingOperator <em>Multiplying Operator</em>}' enum.
@@ -6617,7 +6810,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getMultiplyingOperator()
 	 * @generated
 	 */
-	int MULTIPLYING_OPERATOR = 125;
+	int MULTIPLYING_OPERATOR = 129;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.RelationalOperator <em>Relational Operator</em>}' enum.
@@ -6627,7 +6820,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getRelationalOperator()
 	 * @generated
 	 */
-	int RELATIONAL_OPERATOR = 126;
+	int RELATIONAL_OPERATOR = 130;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.UnaryAddingOperator <em>Unary Adding Operator</em>}' enum.
@@ -6637,7 +6830,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getUnaryAddingOperator()
 	 * @generated
 	 */
-	int UNARY_ADDING_OPERATOR = 127;
+	int UNARY_ADDING_OPERATOR = 131;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.UnaryBooleanOperator <em>Unary Boolean Operator</em>}' enum.
@@ -6647,7 +6840,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getUnaryBooleanOperator()
 	 * @generated
 	 */
-	int UNARY_BOOLEAN_OPERATOR = 128;
+	int UNARY_BOOLEAN_OPERATOR = 132;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.UnaryNumericOperator <em>Unary Numeric Operator</em>}' enum.
@@ -6657,7 +6850,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getUnaryNumericOperator()
 	 * @generated
 	 */
-	int UNARY_NUMERIC_OPERATOR = 129;
+	int UNARY_NUMERIC_OPERATOR = 133;
 
 	/**
 	 * The meta object id for the '<em>Boolean</em>' data type.
@@ -6666,7 +6859,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBoolean()
 	 * @generated
 	 */
-	int BOOLEAN = 130;
+	int BOOLEAN = 134;
 
 	/**
 	 * The meta object id for the '<em>Integer</em>' data type.
@@ -6675,7 +6868,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getInteger()
 	 * @generated
 	 */
-	int INTEGER = 131;
+	int INTEGER = 135;
 
 	/**
 	 * The meta object id for the '<em>Real</em>' data type.
@@ -6684,7 +6877,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getReal()
 	 * @generated
 	 */
-	int REAL = 132;
+	int REAL = 136;
 
 	/**
 	 * The meta object id for the '<em>String</em>' data type.
@@ -6694,7 +6887,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getString()
 	 * @generated
 	 */
-	int STRING = 133;
+	int STRING = 137;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.ba.aadlba.ActualPortHolder <em>Actual Port Holder</em>}'.
@@ -9010,6 +9203,68 @@ public interface AadlBaPackage extends EPackage {
 	EDataType getString();
 
 	/**
+	 * Returns the meta object for class '{@link org.osate.ba.aadlba.InternalPortHolder <em>Internal Port Holder</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Internal Port Holder</em>'.
+	 * @see org.osate.ba.aadlba.InternalPortHolder
+	 * @generated
+	 */
+	EClass getInternalPortHolder();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.ba.aadlba.EventSourceHolder <em>Event Source Holder</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Event Source Holder</em>'.
+	 * @see org.osate.ba.aadlba.EventSourceHolder
+	 * @generated
+	 */
+	EClass getEventSourceHolder();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.ba.aadlba.EventDataSourceHolder <em>Event Data Source Holder</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Event Data Source Holder</em>'.
+	 * @see org.osate.ba.aadlba.EventDataSourceHolder
+	 * @generated
+	 */
+	EClass getEventDataSourceHolder();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.ba.aadlba.InternalPortSendAction <em>Internal Port Send Action</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Internal Port Send Action</em>'.
+	 * @see org.osate.ba.aadlba.InternalPortSendAction
+	 * @generated
+	 */
+	EClass getInternalPortSendAction();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.osate.ba.aadlba.InternalPortSendAction#getInternalPort <em>Internal Port</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Internal Port</em>'.
+	 * @see org.osate.ba.aadlba.InternalPortSendAction#getInternalPort()
+	 * @see #getInternalPortSendAction()
+	 * @generated
+	 */
+	EReference getInternalPortSendAction_InternalPort();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.osate.ba.aadlba.InternalPortSendAction#getValueExpression <em>Value Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Value Expression</em>'.
+	 * @see org.osate.ba.aadlba.InternalPortSendAction#getValueExpression()
+	 * @see #getInternalPortSendAction()
+	 * @generated
+	 */
+	EReference getInternalPortSendAction_ValueExpression();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -11080,6 +11335,63 @@ public interface AadlBaPackage extends EPackage {
 		 * @generated
 		 */
 		EDataType STRING = eINSTANCE.getString();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.ba.aadlba.impl.InternalPortHolderImpl <em>Internal Port Holder</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.ba.aadlba.impl.InternalPortHolderImpl
+		 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getInternalPortHolder()
+		 * @generated
+		 */
+		EClass INTERNAL_PORT_HOLDER = eINSTANCE.getInternalPortHolder();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.ba.aadlba.impl.EventSourceHolderImpl <em>Event Source Holder</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.ba.aadlba.impl.EventSourceHolderImpl
+		 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getEventSourceHolder()
+		 * @generated
+		 */
+		EClass EVENT_SOURCE_HOLDER = eINSTANCE.getEventSourceHolder();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.ba.aadlba.impl.EventDataSourceHolderImpl <em>Event Data Source Holder</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.ba.aadlba.impl.EventDataSourceHolderImpl
+		 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getEventDataSourceHolder()
+		 * @generated
+		 */
+		EClass EVENT_DATA_SOURCE_HOLDER = eINSTANCE.getEventDataSourceHolder();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.ba.aadlba.impl.InternalPortSendActionImpl <em>Internal Port Send Action</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.ba.aadlba.impl.InternalPortSendActionImpl
+		 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getInternalPortSendAction()
+		 * @generated
+		 */
+		EClass INTERNAL_PORT_SEND_ACTION = eINSTANCE.getInternalPortSendAction();
+
+		/**
+		 * The meta object literal for the '<em><b>Internal Port</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT = eINSTANCE.getInternalPortSendAction_InternalPort();
+
+		/**
+		 * The meta object literal for the '<em><b>Value Expression</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION = eINSTANCE
+				.getInternalPortSendAction_ValueExpression();
 
 	}
 

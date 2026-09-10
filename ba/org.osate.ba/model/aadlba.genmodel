@@ -547,5 +547,33 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//ModeSwitchConjunction/modeSwitchTriggers"/>
     </genClasses>
     <genClasses image="false" ecoreClass="aadlba.ecore#//ModeSwitchTrigger"/>
+    <genClasses ecoreClass="aadlba.ecore#//InternalPortHolder">
+      <genOperations ecoreOperation="aadlba.ecore#//InternalPortHolder/setInternalPort"
+          body="element = internalPort ;">
+        <genParameters ecoreParameter="aadlba.ecore#//InternalPortHolder/setInternalPort/internalPort"/>
+      </genOperations>
+      <genOperations ecoreOperation="aadlba.ecore#//InternalPortHolder/getInternalPort"
+          body="return (InternalFeature) element;"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//EventSourceHolder">
+      <genOperations ecoreOperation="aadlba.ecore#//EventSourceHolder/setEventSource"
+          body="element = eventSource ;">
+        <genParameters ecoreParameter="aadlba.ecore#//EventSourceHolder/setEventSource/eventSource"/>
+      </genOperations>
+      <genOperations ecoreOperation="aadlba.ecore#//EventSourceHolder/getEventSource"
+          body="return (EventSource) element;"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//EventDataSourceHolder">
+      <genOperations ecoreOperation="aadlba.ecore#//EventDataSourceHolder/setEventDataSource"
+          body="element = eventDataSource ;">
+        <genParameters ecoreParameter="aadlba.ecore#//EventDataSourceHolder/setEventDataSource/eventDataSource"/>
+      </genOperations>
+      <genOperations ecoreOperation="aadlba.ecore#//EventDataSourceHolder/getEventDataSource"
+          body="return (EventDataSource) element;"/>
+    </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//InternalPortSendAction">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//InternalPortSendAction/internalPort"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//InternalPortSendAction/valueExpression"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

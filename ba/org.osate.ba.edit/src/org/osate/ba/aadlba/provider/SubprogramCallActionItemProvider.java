@@ -209,6 +209,12 @@ public class SubprogramCallActionItemProvider extends BehaviorElementItemProvide
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.SUBPROGRAM_CALL_ACTION__PARAMETER_LABELS,
 				AadlBaFactory.eINSTANCE.createTarget()));
 
+		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.SUBPROGRAM_CALL_ACTION__PARAMETER_LABELS,
+				AadlBaFactory.eINSTANCE.createEventSourceHolder()));
+
+		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.SUBPROGRAM_CALL_ACTION__PARAMETER_LABELS,
+				AadlBaFactory.eINSTANCE.createEventDataSourceHolder()));
+
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.SUBPROGRAM_CALL_ACTION__PROXY,
 				AadlBaFactory.eINSTANCE.createBehaviorVariableHolder()));
 
