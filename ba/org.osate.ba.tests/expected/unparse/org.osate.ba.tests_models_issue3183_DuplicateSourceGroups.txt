@@ -1,0 +1,13 @@
+===== annex[0] owner=DuplicateSourceGroups::example.impl =====
+
+states
+\tstart : initial state;
+\tfirst, second : state;
+\tfinish : final state;
+transitions
+\tstart -[]-> first;
+\tone : first, second -[otherwise]-> finish;
+\ttwo : first, second -[otherwise]-> finish;
+\tthree : first, second -[otherwise]-> finish;
+----- Xtext reparse -----
+reparsed

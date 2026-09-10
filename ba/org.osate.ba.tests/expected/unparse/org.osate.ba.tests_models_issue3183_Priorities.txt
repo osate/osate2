@@ -1,0 +1,11 @@
+===== annex[0] owner=Priorities::example.impl =====
+
+states
+\tstart : initial state;
+\tfirst, second : state;
+\tfinish : final state;
+transitions
+\tzero [0] : start -[otherwise]-> first;
+\tpositive [4] : first, second -[otherwise]-> finish;
+----- Xtext reparse -----
+reparsed

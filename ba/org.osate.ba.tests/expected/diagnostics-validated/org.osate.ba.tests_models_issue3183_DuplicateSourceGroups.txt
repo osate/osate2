@@ -1,0 +1,6 @@
+error | semantic | 37 | 2 | 42 | State 'first' must have at most one outgoing otherwise transition: Behavior Annex D.3.
+error | semantic | 37 | 2 | 42 | State 'second' must have at most one outgoing otherwise transition: Behavior Annex D.3.
+error | semantic | 38 | 2 | 42 | State 'first' must have at most one outgoing otherwise transition: Behavior Annex D.3.
+error | semantic | 38 | 2 | 42 | State 'second' must have at most one outgoing otherwise transition: Behavior Annex D.3.
+error | semantic | 39 | 2 | 44 | State 'first' must have at most one outgoing otherwise transition: Behavior Annex D.3.
+error | semantic | 39 | 2 | 44 | State 'second' must have at most one outgoing otherwise transition: Behavior Annex D.3.

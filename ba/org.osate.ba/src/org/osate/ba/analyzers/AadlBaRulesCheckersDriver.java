@@ -163,7 +163,7 @@ public class AadlBaRulesCheckersDriver {
 				} // End of first if.
 
 				if (_ba.isSetTransitions()) {
-					otherwiseCheck(_ba);
+					result &= otherwiseCheck(_ba);
 
 					// A multi-source transition has copies of its condition and a shared action block. Check each once
 					// per annex traversal, while retaining the state checks for every expanded transition.
@@ -176,49 +176,30 @@ public class AadlBaRulesCheckersDriver {
 				return result;
 			}
 
-			// A warning is raised if there is more than one transition with
-			// an otherwise execute condition.
-			private void otherwiseCheck(BehaviorAnnex ba) {
-				boolean otherwise = false;
-				BehaviorTransition[] dead_trans = new BehaviorTransition[ba.getTransitions().size() - 1];
-
-				int index = 0;
-
-				List<BehaviorTransition> btTmp = new ArrayList<BehaviorTransition>(ba.getTransitions().size() - 1);
-
-				for (BehaviorState s : ba.getStates()) {
-					for (BehaviorTransition bt : ba.getTransitions()) {
-						for (BehaviorState src : BehaviorTransitionContext.getSourceStates(bt)) {
-							if (s == src) {
-								btTmp.add(bt);
-							}
+			// D.3 permits at most one outgoing otherwise transition per source state.
+			private boolean otherwiseCheck(BehaviorAnnex ba) {
+				var outgoing = new IdentityHashMap<BehaviorState, List<BehaviorTransition>>();
+				for (var transition : ba.getTransitions()) {
+					if (transition.getCondition() instanceof Otherwise) {
+						for (var source : BehaviorTransitionContext.getSourceStates(transition)) {
+							outgoing.computeIfAbsent(source, key -> new ArrayList<>()).add(transition);
 						}
 					}
+				}
 
-					for (BehaviorTransition bt : btTmp) {
-						if (bt.getCondition() instanceof Otherwise) {
-							if (otherwise) {
-								dead_trans[index] = bt;
-								index++;
-							} else {
-								otherwise = true;
-							}
+				var result = true;
+				for (var state : ba.getStates()) {
+					var transitions = outgoing.get(state);
+					if (transitions != null && transitions.size() > 1) {
+						result = false;
+						for (var transition : transitions) {
+							// Include the source name so distinct conflicts on a multi-source declaration remain visible.
+							_errManager.error(transition, "State '" + state.getName()
+									+ "' must have at most one outgoing otherwise transition: Behavior Annex D.3.");
 						}
 					}
-
-					btTmp.clear();
-					otherwise = false;
 				}
-
-				// Report a warning.
-				for (--index; index >= 0; index--) {
-					reportWarning(dead_trans[index], "unreachable transition");
-				}
-			}
-
-			// TODO Provide column number.
-			private void reportWarning(BehaviorElement obj, String message) {
-				_errManager.warning(obj, message);
+				return result;
 			}
 
 			public Boolean caseBehaviorTransition(BehaviorTransition tmp) {
@@ -242,6 +223,13 @@ public class AadlBaRulesCheckersDriver {
 				}
 
 				BehaviorCondition bc = _currentBt.getCondition();
+
+				// D.3 says an otherwise transition should not have a priority; warn once for a shared declaration.
+				if (bc instanceof Otherwise && _currentBt.getPriority() != -1
+						&& checked.add(BehaviorTransitionContext.getOriginalCondition(bc))) {
+					_errManager.warning(_currentBt,
+							"An otherwise transition should not have an explicit priority: Behavior Annex D.3.");
+				}
 
 				// Check Dispatch condition.
 				if (bc instanceof DispatchCondition && checked.add(BehaviorTransitionContext.getOriginalCondition(bc))) {
