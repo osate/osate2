@@ -1,0 +1,88 @@
+annex[0] owner=FieldAssignments::worker.i
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=pairs
+    variables[1] : BehaviorVariable name=here
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : ForOrForAllStatement
+        behaviorActions : BehaviorActionSequence
+          actions[0] : AssignmentAction
+            target : DataComponentReference
+              data[0] : IterativeVariableHolder element=p [IterativeVariable]
+              data[1] : StructUnionElementHolder element=left [StructUnionElement]
+                structUnionElement : StructUnionElement name=left
+            valueExpression : ValueExpression
+              relations[0] : Relation
+                firstExpression : SimpleExpression
+                  terms[0] : Term
+                    factors[0] : Factor
+                      firstValue : BehaviorIntegerLiteral
+          actions[1] : ForOrForAllStatement
+            behaviorActions : AssignmentAction
+              target : DataComponentReference
+                data[0] : IterativeVariableHolder element=p [IterativeVariable]
+                data[1] : StructUnionElementHolder element=right [StructUnionElement]
+                  structUnionElement : StructUnionElement name=right
+              valueExpression : ValueExpression
+                relations[0] : Relation
+                  firstExpression : SimpleExpression
+                    terms[0] : Term
+                      factors[0] : Factor
+                        firstValue : DataComponentReference
+                          data[0] : IterativeVariableHolder element=q [IterativeVariable]
+                          data[1] : StructUnionElementHolder element=left [StructUnionElement]
+                            structUnionElement : StructUnionElement name=left
+            iteratedValues : BehaviorVariableHolder element=pairs [BehaviorVariable]
+            iterativeVariable : IterativeVariable name=q
+        iteratedValues : BehaviorVariableHolder element=pairs [BehaviorVariable]
+        iterativeVariable : IterativeVariable name=p
+annex[1] owner=FieldAssignments::worker.j
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=pairs
+    variables[1] : BehaviorVariable name=here
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : ForOrForAllStatement
+        behaviorActions : BehaviorActionSequence
+          actions[0] : AssignmentAction
+            target : DataComponentReference
+              data[0] : BehaviorVariableHolder element=here [BehaviorVariable]
+              data[1] : StructUnionElementHolder element=left [StructUnionElement]
+                structUnionElement : StructUnionElement name=left
+            valueExpression : ValueExpression
+              relations[0] : Relation
+                firstExpression : SimpleExpression
+                  terms[0] : Term
+                    factors[0] : Factor
+                      firstValue : DataComponentReference
+                        data[0] : IterativeVariableHolder element=p [IterativeVariable]
+                        data[1] : StructUnionElementHolder element=left [StructUnionElement]
+                          structUnionElement : StructUnionElement name=left
+          actions[1] : AssignmentAction
+            target : DataComponentReference
+              data[0] : BehaviorVariableHolder element=here [BehaviorVariable]
+              data[1] : StructUnionElementHolder element=right [StructUnionElement]
+                structUnionElement : StructUnionElement name=right
+            valueExpression : ValueExpression
+              relations[0] : Relation
+                firstExpression : SimpleExpression
+                  terms[0] : Term
+                    factors[0] : Factor
+                      firstValue : DataComponentReference
+                        data[0] : IterativeVariableHolder element=p [IterativeVariable]
+                        data[1] : StructUnionElementHolder element=right [StructUnionElement]
+                          structUnionElement : StructUnionElement name=right
+          actions[2] : AssignmentAction
+            target : BehaviorVariableHolder element=here [BehaviorVariable]
+            valueExpression : ValueExpression
+              relations[0] : Relation
+                firstExpression : SimpleExpression
+                  terms[0] : Term
+                    factors[0] : Factor
+                      firstValue : IterativeVariableHolder element=p [IterativeVariable]
+        iteratedValues : BehaviorVariableHolder element=pairs [BehaviorVariable]
+        iterativeVariable : IterativeVariable name=p

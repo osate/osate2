@@ -66,7 +66,9 @@ class CoveringSemanticTest {
 	@Test
 	def void test_lr_D6_L2_nr_D6_N1() {
 		val result = testHelper.testFile(PATH+"lr_D6_L2_nr_D6_N1.aadl")
-		0.assertEquals(result.issues.size)
+		1.assertEquals(result.issues.size)
+		("Iterative variable 'i' cannot be an assignment target: Behavior Annex D.6.(L2) legality rule failed.")
+			.assertEquals(result.issues.head.message)
 	}
 	
 	@Test

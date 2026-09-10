@@ -1,0 +1,39 @@
+===== annex[0] owner=FieldAssignments::worker.i =====
+
+        variables
+            pairs : Pairs;
+            here : Pair;
+        states
+            start : initial state;
+            done : complete final state;
+        transitions
+            start -[]-> done {
+                for (p : Pair in pairs) {
+                    p.left := 1;
+                    forall (q : Pair in pairs) {
+                        p.right := q.left
+                    }
+                }
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[1] owner=FieldAssignments::worker.j =====
+
+        variables
+            pairs : Pairs;
+            here : Pair;
+        states
+            start : initial state;
+            done : complete final state;
+        transitions
+            start -[]-> done {
+                for (p : Pair in pairs) {
+                    here.left := p.left;
+                    here.right := p.right;
+                    here := p
+                }
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed

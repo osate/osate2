@@ -1,0 +1,51 @@
+annex[0] owner=ForDequeues::worker.i
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=a
+    variables[1] : BehaviorVariable name=i
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : ForOrForAllStatement
+          behaviorActions : BehaviorActionSequence
+            actions[0] : PortDequeueAction
+              port : EventDataPortHolder element=ForDequeues::worker.feed [EventDataPort]
+            actions[1] : ForOrForAllStatement
+              behaviorActions : BehaviorActionSequence
+                actions[0] : PortDequeueAction
+                  port : EventDataPortHolder element=ForDequeues::worker.feed [EventDataPort]
+                actions[1] : IfStatement
+                  behaviorActions : BehaviorActionBlock
+                    content : WhileOrDoUntilStatement
+                      behaviorActions : BehaviorActionBlock
+                        content : PortDequeueAction
+                          port : EventDataPortHolder element=ForDequeues::worker.feed [EventDataPort]
+                      logicalValueExpression : ValueExpression
+                        relations[0] : Relation
+                          firstExpression : SimpleExpression
+                            terms[0] : Term
+                              factors[0] : Factor
+                                firstValue : BehaviorBooleanLiteral
+                  logicalValueExpression : ValueExpression
+                    relations[0] : Relation
+                      firstExpression : SimpleExpression
+                        terms[0] : Term
+                          factors[0] : Factor
+                            firstValue : BehaviorBooleanLiteral
+                actions[2] : PortDequeueAction
+                  port : EventDataPortHolder element=ForDequeues::worker.feed [EventDataPort]
+                  target : BehaviorVariableHolder element=a [BehaviorVariable]
+              iteratedValues : IntegerRange
+                lowerIntegerValue : BehaviorIntegerLiteral
+                upperIntegerValue : BehaviorIntegerLiteral
+              iterativeVariable : IterativeVariable name=j
+            actions[2] : PortDequeueAction
+              port : EventDataPortHolder element=ForDequeues::worker.feed [EventDataPort]
+          iteratedValues : IntegerRange
+            lowerIntegerValue : BehaviorIntegerLiteral
+            upperIntegerValue : BehaviorIntegerLiteral
+          iterativeVariable : IterativeVariable name=i
+        actions[1] : PortDequeueAction
+          port : EventDataPortHolder element=ForDequeues::worker.feed [EventDataPort]
+          target : BehaviorVariableHolder element=i [BehaviorVariable]

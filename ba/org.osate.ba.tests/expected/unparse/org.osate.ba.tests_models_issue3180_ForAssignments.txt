@@ -1,0 +1,24 @@
+===== annex[0] owner=ForAssignments::worker.i =====
+
+        variables
+            a, i : Base_Types::Integer;
+        states
+            start : initial state;
+            done : complete final state;
+        transitions
+            start -[]-> done {
+                for (i : Base_Types::Integer in 0 .. 2) {
+                    i := 0;
+                    i := any;
+                    forall (j : Base_Types::Integer in 0 .. 2) {
+                        j := i;
+                        if (true) { do { i := a + j } until (true) } end if;
+                        a := i + j
+                    };
+                    i := 1
+                };
+                i := 2
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
