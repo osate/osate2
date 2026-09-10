@@ -1,0 +1,2 @@
+error | semantic | 40 | 16 | 38 | Array size property reference '# Communication_Properties::Queue_Size' must name a property constant
+error | semantic | 41 | 16 | 16 | Array size property reference 'input#Queue_Size' must name a property constant
