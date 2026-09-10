@@ -26,8 +26,13 @@ package org.osate.ba.tests.characterization;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
@@ -35,49 +40,62 @@ import org.eclipse.xtext.validation.Issue;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.osate.testsupport.Aadl2InjectorProvider;
+import org.osate.ba.tests.BehaviorAnnexInjectorProvider;
 import org.osate.testsupport.TestHelper;
 
 import com.google.inject.Inject;
-import com.itemis.xtext.testing.FluentIssueCollection;
 
 /**
- * Records the Behavior Annex constructs required by AS5506/3 Rev A but not implemented by the current parser,
- * resolver, or type checker. Each active test pins today's legacy-front-end behavior, while the paired ignored test
- * states the standard-conforming outcome that the Xtext implementation may satisfy as part of issue #2445. The Xtext
- * parser is not required to reproduce the legacy rejection.
+ * States what AS5506/3 Rev. A requires of each Behavior Annex construct the current front end does not yet handle.
+ * Every test here is a standard expectation: it passes only when the implementation conforms. A construct that is
+ * still unimplemented is {@link Ignore}d and names the issue that tracks it, and
+ * {@link #everyStandardExpectationNamesItsTrackingIssue()} enforces both that listing and the set of skips, so a skip
+ * cannot be added silently.
+ *
+ * <p>
+ * This class deliberately holds no record of today's nonconforming behavior. The exact diagnostics each fixture
+ * currently produces are compared by {@link BehaviorAnnexValidatedDiagnosticsTest} against
+ * {@code expected/diagnostics-validated}, with the BA validator registered exactly as it is here, and by
+ * {@link BehaviorAnnexCharacterizationTest} against the plain-AADL {@code expected/diagnostics} baseline. Keeping the
+ * message text in those goldens is what lets these expectations state the standard outcome alone.
  */
 @RunWith(XtextRunner.class)
-@InjectWith(Aadl2InjectorProvider.class)
+@InjectWith(BehaviorAnnexInjectorProvider.class)
 public class BehaviorAnnexConformanceTest {
 	private static final String MODEL_DIRECTORY = "org.osate.ba.tests/models/characterization/conformance/";
+
+	/**
+	 * The standard expectations that are still skipped, each with the issue that tracks the missing implementation.
+	 * G03 (#3167) is absent because {@link #frozenPortParenthesesAreAcceptedByTheStandard()} passes.
+	 */
+	private static final List<String> TRACKED_SKIPS = List.of(
+			"internalConditionIsAcceptedByTheStandard -> #3165",
+			"externalConditionOperatorsAreAcceptedByTheStandard -> #3166",
+			"timeoutResetPortsAreAcceptedByTheStandard -> #3168",
+			"shortCircuitOperatorsAreAcceptedByTheStandard -> #3169",
+			"unaryPlusIsRejectedByTheStandard -> #3170",
+			"portUpdatedIsAcceptedByTheStandard -> #3171",
+			"selfPropertyReferenceIsAcceptedByTheStandard -> #3172",
+			"optionalLoopClassifierIsAcceptedByTheStandard -> #3173",
+			"internalPortActionsAreAcceptedByTheStandard -> #3174");
+
+	/** The fixtures a standard expectation in this class asserts about. */
+	private static final List<String> ASSERTED_FIXTURES = List.of("InternalCondition.aadl",
+			"ExternalConditionXor.aadl", "ExternalConditionGrouping.aadl", "FrozenPortParentheses.aadl",
+			"TimeoutResetPorts.aadl", "ShortCircuitOperators.aadl", "UnaryPlus.aadl", "PortUpdated.aadl",
+			"SelfPropertyReference.aadl", "OptionalForClassifier.aadl", "OptionalForallClassifier.aadl",
+			"InternalPortActions.aadl");
 
 	@Inject
 	private TestHelper<?> testHelper;
 
-	@Test
-	public void internalConditionCurrentFailure() throws Exception {
-		assertDiagnostics("InternalCondition.aadl",
-				List.of("syntax | extraneous input 'first_event' expecting {'and', 'or', '[', ']->', '.'}"));
-	}
-
-	@Ignore("Issue #2445: implement internal conditions")
+	@Ignore("Issue #3165: implement internal conditions")
 	@Test
 	public void internalConditionIsAcceptedByTheStandard() throws Exception {
 		assertNoIssues("InternalCondition.aadl");
 	}
 
-	@Test
-	public void externalConditionOperatorsCurrentFailure() throws Exception {
-		assertDiagnostics("ExternalConditionXor.aadl",
-				List.of("syntax | mismatched input 'xor' expecting {'and', 'or', '[', ']->', '.'}"));
-		assertDiagnostics("ExternalConditionGrouping.aadl",
-				List.of("syntax | extraneous input 'or' expecting {<EOF>, IDENT}",
-						"syntax | no viable alternative at input 'on('",
-						"syntax | unterminated behavior transition (missing ending ';')"));
-	}
-
-	@Ignore("Issue #2445: implement all external-condition logical operators and grouping")
+	@Ignore("Issue #3166: implement all external-condition logical operators and grouping")
 	@Test
 	public void externalConditionOperatorsAreAcceptedByTheStandard() throws Exception {
 		assertNoIssues("ExternalConditionXor.aadl");
@@ -89,92 +107,113 @@ public class BehaviorAnnexConformanceTest {
 		assertNoIssues("FrozenPortParentheses.aadl");
 	}
 
-	@Test
-	public void timeoutResetPortsCurrentFailure() throws Exception {
-		assertDiagnostics("TimeoutResetPorts.aadl", List.of("syntax | mismatched input '(' expecting ']->'"));
-	}
-
-	@Ignore("Issue #2445: implement completion-relative timeout reset ports")
+	@Ignore("Issue #3168: implement completion-relative timeout reset ports")
 	@Test
 	public void timeoutResetPortsAreAcceptedByTheStandard() throws Exception {
 		assertNoIssues("TimeoutResetPorts.aadl");
 	}
 
-	@Test
-	public void shortCircuitOperatorsCurrentFailure() throws Exception {
-		assertDiagnostics("ShortCircuitOperators.aadl",
-				List.of("syntax | extraneous input 'right' expecting {'and', 'mod', 'or', 'rem', 'xor', '[', "
-						+ "']->', '?', '.', ''', '=', '!=', '<', '<=', '>', '>=', '+', '-', '*', '/', '**', '=='}",
-						"syntax | no viable alternative at input 'else'"));
-	}
-
-	@Ignore("Issue #2445: implement and then and or else")
+	@Ignore("Issue #3169: implement and then and or else")
 	@Test
 	public void shortCircuitOperatorsAreAcceptedByTheStandard() throws Exception {
 		assertNoIssues("ShortCircuitOperators.aadl");
 	}
 
-	@Test
-	public void unaryPlusCurrentOverAcceptance() throws Exception {
-		assertNoIssues("UnaryPlus.aadl");
-	}
-
-	@Ignore("Issue #2445: reject unary plus as required by AS5506/3 Rev A")
+	@Ignore("Issue #3170: reject unary plus as required by AS5506/3 Rev A")
 	@Test
 	public void unaryPlusIsRejectedByTheStandard() throws Exception {
-		assertHasSyntaxError("UnaryPlus.aadl");
+		assertSyntaxErrorOn("UnaryPlus.aadl", "+1");
 	}
 
-	@Test
-	public void portUpdatedCurrentFailure() throws Exception {
-		assertDiagnostics("PortUpdated.aadl",
-				List.of("syntax | mismatched input 'updated' expecting {'count', 'fresh'}"));
-	}
-
-	@Ignore("Issue #2445: implement the port updated value")
+	@Ignore("Issue #3171: implement the port updated value")
 	@Test
 	public void portUpdatedIsAcceptedByTheStandard() throws Exception {
 		assertNoIssues("PortUpdated.aadl");
 	}
 
-	@Test
-	public void selfPropertyReferenceCurrentFailure() throws Exception {
-		assertDiagnostics("SelfPropertyReference.aadl", List.of("semantic | 'self' is not found"));
-	}
-
-	@Ignore("Issue #2445: implement self as a component element reference")
+	@Ignore("Issue #3172: implement self as a component element reference")
 	@Test
 	public void selfPropertyReferenceIsAcceptedByTheStandard() throws Exception {
 		assertNoIssues("SelfPropertyReference.aadl");
 	}
 
-	@Test
-	public void optionalLoopClassifierCurrentFailure() throws Exception {
-		assertDiagnostics("OptionalForClassifier.aadl",
-				List.of("syntax | no viable alternative at input '{for(iin'",
-						"syntax | unterminated behavior transition (missing ending ';')"));
-		assertDiagnostics("OptionalForallClassifier.aadl",
-				List.of("syntax | no viable alternative at input '{forall(iin'",
-						"syntax | unterminated behavior transition (missing ending ';')"));
-	}
-
-	@Ignore("Issue #2445: make for and forall classifiers optional")
+	@Ignore("Issue #3173: make for and forall classifiers optional")
 	@Test
 	public void optionalLoopClassifierIsAcceptedByTheStandard() throws Exception {
 		assertNoIssues("OptionalForClassifier.aadl");
 		assertNoIssues("OptionalForallClassifier.aadl");
 	}
 
-	@Test
-	public void internalPortActionsCurrentFailure() throws Exception {
-		assertDiagnostics("InternalPortActions.aadl",
-				List.of("semantic | 'internal_action' is not found", "semantic | 'internal_target' is not found"));
-	}
-
-	@Ignore("Issue #2445: support internal ports as targets and communication actions")
+	/**
+	 * Stays skipped even though the fixture already parses without a diagnostic: G10 is a representation defect, and
+	 * {@code expected/resolved-model} shows the generic data-subcomponent holder the translator falls back to. Closing
+	 * #3174 needs a strict-model assertion, so enabling this test alone would report success for the wrong reason.
+	 */
+	@Ignore("Issue #3174: represent internal ports with internal-feature holders, which acceptance alone cannot show")
 	@Test
 	public void internalPortActionsAreAcceptedByTheStandard() throws Exception {
 		assertNoIssues("InternalPortActions.aadl");
+	}
+
+	/**
+	 * Requires every skipped expectation to name a tracking issue and to appear in {@link #TRACKED_SKIPS}. Without
+	 * this, the backlog value of the skips depends on nobody adding an untracked one.
+	 */
+	@Test
+	public void everyStandardExpectationNamesItsTrackingIssue() {
+		final var actualSkips = new ArrayList<String>();
+		final var untracked = new ArrayList<String>();
+		for (final var method : BehaviorAnnexConformanceTest.class.getDeclaredMethods()) {
+			final var ignore = method.getAnnotation(Ignore.class);
+			if (method.getAnnotation(Test.class) == null || ignore == null) {
+				continue;
+			}
+			final var issue = trackedIssue(ignore.value());
+			if (issue == null) {
+				untracked.add(method.getName() + " -> " + ignore.value());
+			} else {
+				actualSkips.add(method.getName() + " -> " + issue);
+			}
+		}
+
+		assertEquals("Every skipped standard expectation must name its tracking issue as \"Issue #<number>: ...\"",
+				List.of(), untracked);
+		assertEquals("The skipped standard expectations and TRACKED_SKIPS must agree", new TreeSet<>(TRACKED_SKIPS),
+				new TreeSet<>(actualSkips));
+	}
+
+	/**
+	 * Requires every conformance fixture to carry a standard expectation. A fixture nothing asserts about records a
+	 * gap without stating the required outcome.
+	 */
+	@Test
+	public void everyConformanceFixtureHasAStandardExpectation() throws Exception {
+		assertEquals("Every fixture in " + MODEL_DIRECTORY + " needs a standard expectation in this class",
+				new TreeSet<>(ASSERTED_FIXTURES), fixtureNames());
+	}
+
+	private static String trackedIssue(final String reason) {
+		if (reason == null || !reason.startsWith("Issue #")) {
+			return null;
+		}
+		final var colon = reason.indexOf(':');
+		if (colon < 0) {
+			return null;
+		}
+		final var number = reason.substring("Issue #".length(), colon);
+		return number.isEmpty() || !number.chars().allMatch(Character::isDigit) ? null : "#" + number;
+	}
+
+	private static Set<String> fixtureNames() throws Exception {
+		final var directory = Paths.get(System.getProperty("user.dir")).toAbsolutePath().getParent()
+				.resolve(MODEL_DIRECTORY);
+		try (var files = Files.list(directory)) {
+			final var result = new TreeSet<String>();
+			files.map(path -> path.getFileName().toString())
+					.filter(name -> name.endsWith(".aadl"))
+					.forEach(result::add);
+			return result;
+		}
 	}
 
 	private void assertNoIssues(final String model) throws Exception {
@@ -182,13 +221,30 @@ public class BehaviorAnnexConformanceTest {
 		assertTrue(result.getSummary(), result.getIssues().isEmpty());
 	}
 
-	private void assertHasSyntaxError(final String model) throws Exception {
-		final var result = testHelper.testFile(MODEL_DIRECTORY + model);
-		assertTrue(result.getSummary(), result.getIssues().stream().anyMatch(Issue::isSyntaxError));
-	}
+	/**
+	 * Requires exactly one syntax error covering {@code offendingText}, which must occur once in the fixture. Anchoring
+	 * on the source text instead of a message keeps the expectation exact about where the standard requires a
+	 * rejection without prescribing the wording a future parser will use.
+	 */
+	private void assertSyntaxErrorOn(final String model, final String offendingText) throws Exception {
+		final var source = Files.readString(Paths.get(System.getProperty("user.dir")).toAbsolutePath().getParent()
+				.resolve(MODEL_DIRECTORY + model), StandardCharsets.UTF_8);
+		final var offset = source.indexOf(offendingText);
+		assertTrue(model + " must contain " + offendingText, offset >= 0);
+		assertEquals(offendingText + " must occur once in " + model + " for this expectation to be unambiguous", -1,
+				source.indexOf(offendingText, offset + 1));
 
-	private void assertDiagnostics(final String model, final List<String> expected) throws Exception {
-		final var result = testHelper.testFile(MODEL_DIRECTORY + model);
-		assertTrue(result.getSummary(), result.getIssues() != null);
+		final var issues = testHelper.testFile(MODEL_DIRECTORY + model).getIssues();
+		final var covering = new ArrayList<String>();
+		for (final Issue issue : issues) {
+			if (issue.isSyntaxError() && issue.getOffset() != null && issue.getLength() != null
+					&& issue.getOffset().intValue() <= offset
+					&& offset < issue.getOffset().intValue() + issue.getLength().intValue()) {
+				covering.add(issue.getMessage());
+			}
+		}
+		final var reported = BehaviorAnnexCharacterizationTest.formatDiagnostics(issues);
+		assertEquals("Expected one syntax error covering " + offendingText + " in " + model
+				+ ". Diagnostics reported:\n" + (reported.isEmpty() ? "<none>\n" : reported), 1, covering.size());
 	}
 }

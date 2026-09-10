@@ -1,0 +1,1 @@
+error | syntax | 21 | 35 | 1 | missing RULE_ID at ')'

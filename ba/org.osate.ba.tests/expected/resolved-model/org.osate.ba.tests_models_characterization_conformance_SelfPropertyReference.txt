@@ -1,9 +1,9 @@
 annex[0] owner=SelfPropertyReference::worker
   parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
     variables[0] : BehaviorVariable name=value
-    states[0] : BehaviorState name=start
-    states[1] : BehaviorState name=finish
+    states[0] : BehaviorState name=waiting
     transitions[0] : BehaviorTransition
+      condition : DispatchCondition
     actions[0] : BehaviorActionBlock
       content : AssignmentAction
         target : BehaviorVariableHolder element=value [BehaviorVariable]

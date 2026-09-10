@@ -1,0 +1,12 @@
+error | semantic | 36 | 5 | 26 | Transitions out of complete states must have dispatch condition : Behavior Annex D.3.(L7) legality rule failed.
+error | semantic | 37 | 18 | 11 | Only transition out of complete states may have dispatch condition : Behavior Annex D.3.(L6) legality rule failed.
+error | semantic | 38 | 5 | 27 | Transitions out of final states are not allowed : Behavior Annex D.3.(L8) legality rule failed.
+error | semantic | 48 | 19 | 13 | issue3155::subprogramLegality.impl can't have more than one initial state : firstInitial, secondInitial : Behavior Annex D.3.(L1) legality rule failed.
+error | semantic | 48 | 5 | 12 | issue3155::subprogramLegality.impl can't have more than one initial state : firstInitial, secondInitial : Behavior Annex D.3.(L1) legality rule failed.
+error | semantic | 49 | 5 | 9 | issue3155::subprogramLegality.impl can't have complete state : waitState : Behavior Annex D.3.(L2) legality rule failed.
+error | semantic | 50 | 17 | 11 | issue3155::subprogramLegality.impl has more than one final state : firstFinal, secondFinal : Behavior Annex D.3.(L1) legality rule failed.
+error | semantic | 50 | 5 | 10 | issue3155::subprogramLegality.impl has more than one final state : firstFinal, secondFinal : Behavior Annex D.3.(L1) legality rule failed.
+error | semantic | 60 | 5 | 12 | issue3155::threadLegality.impl can't have more than one initial state : firstInitial, secondInitial : Behavior Annex D.3.(L3) legality rule failed.
+error | semantic | 61 | 5 | 13 | issue3155::threadLegality.impl can't have more than one initial state : firstInitial, secondInitial : Behavior Annex D.3.(L3) legality rule failed.
+error | semantic | 75 | 18 | 11 | Only transition out of complete states may have dispatch condition : Behavior Annex D.3.(L6) legality rule failed.
+error | semantic | 76 | 5 | 39 | Transitions out of complete states must have dispatch condition : Behavior Annex D.3.(L7) legality rule failed.

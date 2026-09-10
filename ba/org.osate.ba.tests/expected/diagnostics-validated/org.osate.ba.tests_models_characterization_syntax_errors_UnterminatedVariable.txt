@@ -1,0 +1,1 @@
+error | syntax | 9 | 3 | 6 | missing ';' at 'states'

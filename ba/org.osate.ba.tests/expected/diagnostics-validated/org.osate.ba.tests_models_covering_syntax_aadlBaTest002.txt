@@ -1,0 +1,17 @@
+error | semantic | 643 | 22 | 13 | There is no applicable operator ">" for type Base_Types::Boolean
+error | semantic | 645 | 22 | 17 | There is no applicable operator ">" for type AadlBaTest::Types::Opaque
+error | semantic | 650 | 21 | 14 | There is no applicable operator "+" for type AadlBaTest::Types::Opaque
+error | semantic | 655 | 21 | 13 | Operator "-" not defined for type Base_Types::Character
+error | semantic | 656 | 24 | 17 | There is no applicable operator "+" for type Base_Types::String
+error | semantic | 665 | 21 | 17 | There is no applicable operator "mod" for type Base_Types::Float
+error | semantic | 666 | 21 | 17 | There is no applicable operator "rem" for type Base_Types::Float
+error | semantic | 669 | 23 | 9 | Operator "abs" not defined for type Base_Types::Character
+error | semantic | 673 | 23 | 5 | Operator "!" not defined for type universal integer
+error | semantic | 679 | 21 | 56 | exponent must be of type natural, found universal integer
+error | semantic | 680 | 21 | 15 | exponent must be of type natural, found DataTypeCheckerTest::NegativeInteger
+error | semantic | 681 | 21 | 14 | exponent must be of type natural, found Base_Types::Float
+error | semantic | 682 | 21 | 12 | exponent must be of type natural, found Base_Types::Integer
+error | semantic | 684 | 23 | 14 | Invalid operand types for operator "**": left operand has type DataTypeCheckerTest::MyFixedPoint, right operand has type Base_Types::Natural
+warning | semantic | 25 | 33 | 21 | AadlBaTestPropertySet in 'with' clause of public package section is not used.
+warning | semantic | 25 | 75 | 20 | AadlBaTestSubprogram in 'with' clause of public package section is not used.
+warning | semantic | 683 | 21 | 38 | Cannot evaluate if the exponent is a natural

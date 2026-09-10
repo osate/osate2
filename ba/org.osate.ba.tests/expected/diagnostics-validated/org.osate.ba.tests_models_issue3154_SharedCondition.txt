@@ -1,0 +1,1 @@
+warning | semantic | 40 | 18 | 11 | Using a dispatch condition in an abstract component means this component can only be refined into a component category on which the Dispatch_Protocol property can be applied.

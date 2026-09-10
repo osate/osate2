@@ -1,0 +1,6 @@
+error | semantic | 47 | 1 | 96 | exemple_lr_D3_L1_L2::sub.error1 has no final state : Behavior Annex D.3.(L1) legality rule failed.
+error | semantic | 48 | 2 | 10 | exemple_lr_D3_L1_L2::sub.error1 can't have more than one initial state : initState1, initState2 : Behavior Annex D.3.(L1) legality rule failed.
+error | semantic | 49 | 2 | 10 | exemple_lr_D3_L1_L2::sub.error1 can't have more than one initial state : initState1, initState2 : Behavior Annex D.3.(L1) legality rule failed.
+error | semantic | 50 | 2 | 9 | exemple_lr_D3_L1_L2::sub.error1 can't have complete state : compState : Behavior Annex D.3.(L2) legality rule failed.
+error | semantic | 61 | 2 | 11 | exemple_lr_D3_L1_L2::sub.error2 has more than one final state : uniqueState, finalState1 : Behavior Annex D.3.(L1) legality rule failed.
+error | semantic | 62 | 2 | 11 | exemple_lr_D3_L1_L2::sub.error2 has more than one final state : uniqueState, finalState1 : Behavior Annex D.3.(L1) legality rule failed.

@@ -1,0 +1,2 @@
+error | semantic | 10 | 32 | 4 | Cannot represent integer literal 2#2#: '2' at string index 2 is not an extended digit in base 2
+error | semantic | 8 | 3 | 105 | MalformedInteger::t has no complete state : Behavior Annex D.3.(L3) legality rule failed.

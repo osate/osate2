@@ -1,0 +1,2 @@
+error | semantic | 41 | 16 | 11 | Only transition out of complete states may have dispatch condition : Behavior Annex D.3.(L6) legality rule failed.
+error | semantic | 41 | 16 | 11 | subprogram components cannot contain a dispatch condition in any of their transitions: they cannot be dispatched (extension of Behavior Annex D.3.(L5) legality rule).
