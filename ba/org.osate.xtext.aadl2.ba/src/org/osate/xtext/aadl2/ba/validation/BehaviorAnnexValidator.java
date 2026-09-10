@@ -150,11 +150,11 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	 * AS5506/3 Rev A D.3 requires each behavior-variable array size to be the integer value constant of D.7: an integer
 	 * literal or a property reference. The shared integer-value grammar also accepts an ordinary reference expression,
 	 * which the strict array dimension cannot carry and translation would otherwise turn into a zero extent. A reference
-	 * expression with a property tail is a property reference, but only an unindexed property constant supplies the
-	 * context-free static extent that the strict array dimension can represent. A bare or element-prefixed property
-	 * definition would otherwise become a zero extent, so reject it before running the strict-model checkers.
+	 * expression with a property tail is a property reference. The strict array dimension can retain an unindexed
+	 * property constant directly, or the evaluated extent of an element-prefixed property reference when that element
+	 * supplies one non-modal integer value. Reject any other property reference before it can become a zero extent.
 	 *
-	 * @return {@code true} when every declared array size is an integer literal or an unindexed property constant
+	 * @return {@code true} when every declared array size has an unambiguous integer value
 	 */
 	private boolean checkArraySizes(final BehaviorAnnex source, final TranslationResult translation) {
 		var accepted = true;
@@ -169,20 +169,14 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 						ValidationMessageAcceptor.INSIGNIFICANT_INDEX, ARRAY_SIZE);
 				accepted = false;
 			} else if ((size instanceof HashPropertyReference || size instanceof ReferenceExpression)
-					&& !hasRepresentablePropertyConstant(dimension, translation)) {
+					&& !translation.isArraySizeRepresentable(dimension)) {
 				var written = NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(size));
-				error("Array size property reference '" + written + "' must name a property constant", size, null,
-						ValidationMessageAcceptor.INSIGNIFICANT_INDEX, ARRAY_SIZE);
+				error("Array size property reference '" + written + "' does not have an unambiguous integer value", size,
+						null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, ARRAY_SIZE);
 				accepted = false;
 			}
 		}
 		return accepted;
-	}
-
-	private static boolean hasRepresentablePropertyConstant(final ArrayDimension dimension,
-			final TranslationResult translation) {
-		var strictDimension = (org.osate.aadl2.ArrayDimension) translation.getStrict(dimension);
-		return strictDimension.getSize().getSizeProperty() != null;
 	}
 
 	/**

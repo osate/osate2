@@ -29,6 +29,8 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.OptionalLong;
+import java.util.Set;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
@@ -81,6 +83,7 @@ import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.aadl2.SubprogramType;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.parsesupport.ParseUtil;
+import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.ba.aadlba.AadlBaFactory;
 import org.osate.ba.aadlba.ActualPortHolder;
 import org.osate.ba.aadlba.BehaviorAction;
@@ -207,14 +210,17 @@ public final class DeclarativeToStrictTranslator {
 		private final Map<EObject, EObject> declarativeToStrict;
 		private final Map<EObject, EObject> strictToDeclarative;
 		private final Map<EObject, NamedElement> resolvedReferences;
+		private final Set<ArrayDimension> representableArraySizes;
 
 		private TranslationResult(final BehaviorAnnex strictAnnex, final Map<EObject, EObject> declarativeToStrict,
 				final Map<EObject, EObject> strictToDeclarative,
-				final Map<EObject, NamedElement> resolvedReferences) {
+				final Map<EObject, NamedElement> resolvedReferences,
+				final Set<ArrayDimension> representableArraySizes) {
 			this.strictAnnex = strictAnnex;
 			this.declarativeToStrict = Collections.unmodifiableMap(new IdentityHashMap<>(declarativeToStrict));
 			this.strictToDeclarative = Collections.unmodifiableMap(new IdentityHashMap<>(strictToDeclarative));
 			this.resolvedReferences = Collections.unmodifiableMap(new IdentityHashMap<>(resolvedReferences));
+			this.representableArraySizes = Set.copyOf(representableArraySizes);
 		}
 
 		public BehaviorAnnex getStrictAnnex() {
@@ -248,6 +254,11 @@ public final class DeclarativeToStrictTranslator {
 			var declarativeTarget = strictToDeclarative.get(target);
 			return declarativeTarget == null ? target : declarativeTarget;
 		}
+
+		/** Returns whether the translated dimension retains the extent supplied by its declarative size. */
+		public boolean isArraySizeRepresentable(final ArrayDimension dimension) {
+			return representableArraySizes.contains(dimension);
+		}
 	}
 
 	private static final class TranslationCache extends EContentAdapter {
@@ -278,6 +289,7 @@ public final class DeclarativeToStrictTranslator {
 		private final java.util.Set<EObject> consumedParentheses = Collections.newSetFromMap(new IdentityHashMap<>());
 		private final IdentityHashMap<EObject, List<ElementHolder>> resolvedPaths = new IdentityHashMap<>();
 		private final IdentityHashMap<EObject, NamedElement> resolvedReferences = new IdentityHashMap<>();
+		private final Set<ArrayDimension> representableArraySizes = Collections.newSetFromMap(new IdentityHashMap<>());
 
 		private Builder(final org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex source,
 				final ComponentClassifier owner) {
@@ -291,7 +303,8 @@ public final class DeclarativeToStrictTranslator {
 			translateVariables(strict);
 			translateStates(strict);
 			translateTransitions(strict);
-			return new TranslationResult(strict, declarativeToStrict, strictToDeclarative, resolvedReferences);
+			return new TranslationResult(strict, declarativeToStrict, strictToDeclarative, resolvedReferences,
+					representableArraySizes);
 		}
 
 		private void translateVariables(final BehaviorAnnex strict) {
@@ -324,8 +337,10 @@ public final class DeclarativeToStrictTranslator {
 		/**
 		 * Translates the extent of one declared array dimension. AS5506/3 Rev A D.3 writes an array size as an integer
 		 * value constant, and {@code aadl2::ArraySize} carries either a literal extent or the property constant that
-		 * supplies one, so both of those forms keep the declared extent. Any other size the grammar accepts has
-		 * nothing to carry it and keeps the model default; the size still traces to the syntax that was written.
+		 * supplies one, so both of those forms keep the declared extent. An element-prefixed property reference also
+		 * keeps its extent when the referenced element has one non-modal integer value for that property. Any other size
+		 * the grammar accepts has nothing to carry it and keeps the model default; the size still traces to the syntax
+		 * that was written, and the translation result marks whether the extent was retained for validation.
 		 */
 		private ArraySize toArraySize(final ArrayDimension dimension) {
 			final var declaredSize = dimension.getSize();
@@ -333,12 +348,39 @@ public final class DeclarativeToStrictTranslator {
 					declaredSize == null ? dimension : declaredSize);
 			if (declaredSize instanceof BehaviorIntegerLiteral literal) {
 				result.setSize(parseInteger(literal.getValue(), 0));
+				representableArraySizes.add(dimension);
 			} else if (declaredSize instanceof HashPropertyReference reference && reference.getIndexes().isEmpty()
 					&& reference.getFields().isEmpty()
 					&& resolveQualified(reference.getProperty(), true) instanceof PropertyConstant constant) {
 				result.setSizeProperty(constant);
+				representableArraySizes.add(dimension);
+			} else if (declaredSize instanceof ReferenceExpression reference && reference.getProperty() != null) {
+				var propertySize = propertyArraySize(reference);
+				if (propertySize.isPresent()) {
+					result.setSize(propertySize.getAsLong());
+					representableArraySizes.add(dimension);
+				}
 			}
 			return result;
+		}
+
+		private OptionalLong propertyArraySize(final ReferenceExpression reference) {
+			var propertyReference = reference.getProperty();
+			if (!propertyReference.getIndexes().isEmpty() || !propertyReference.getFields().isEmpty()) {
+				return OptionalLong.empty();
+			}
+			toReferenceValue(reference.getReference());
+			var valueOwner = resolvedReferences.get(reference.getReference());
+			var property = resolveQualified(propertyReference.getProperty(), true);
+			if (valueOwner == null || !(property instanceof Property propertyDefinition)) {
+				return OptionalLong.empty();
+			}
+			try {
+				return OptionalLong.of(
+						org.osate.xtext.aadl2.properties.util.PropertyUtils.getIntegerValue(valueOwner, propertyDefinition));
+			} catch (PropertyLookupException | ClassCastException | IllegalStateException | IllegalArgumentException e) {
+				return OptionalLong.empty();
+			}
 		}
 
 		private PropertyAssociation toPropertyAssociation(final BehaviorPropertyAssociation sourceAssociation) {
