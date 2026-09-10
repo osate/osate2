@@ -1,4 +1,0 @@
-error | semantic | 46 | 14 | 4 | resolved behavior annex holder has no element
-error | semantic | 47 | 14 | 4 | resolved behavior annex holder has no element
-error | semantic | 48 | 14 | 4 | resolved behavior annex holder has no element
-error | semantic | 73 | 14 | 4 | resolved behavior annex holder has no element

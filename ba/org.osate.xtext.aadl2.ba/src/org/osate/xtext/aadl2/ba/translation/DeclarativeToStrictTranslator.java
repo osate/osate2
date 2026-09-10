@@ -1156,6 +1156,13 @@ public final class DeclarativeToStrictTranslator {
 				addResolvedSegment(current, segment, holders, groups);
 			}
 			if (holders.isEmpty()) {
+				if (current != null) {
+					// "self" on its own resolves the containing classifier, which no holder can carry: an element
+					// holder holds a NamedElement of the classifier, not the classifier. Record the resolution against
+					// the complete reference so a property reference can name the classifier, and return an unresolved
+					// holder for the positions that need a value, where the standard does not admit "self" anyway.
+					resolvedReferences.put(traceSource, current);
+				}
 				return trace(FACTORY.createBehaviorVariableHolder(), traceSource);
 			}
 			resolvedReferences.put(traceSource, current);

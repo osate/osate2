@@ -66,9 +66,10 @@ public class BehaviorAnnexConformanceTest {
 
 	/**
 	 * The standard expectations that are still skipped, each with the issue that tracks the missing implementation.
-	 * G01 (#3165), G03 (#3167), and G10 (#3174) are absent because
+	 * G01 (#3165), G03 (#3167), G08 (#3172), and G10 (#3174) are absent because
 	 * {@link #internalConditionIsAcceptedByTheStandard()}, {@link #frozenPortParenthesesAreAcceptedByTheStandard()},
-	 * and {@link #internalPortActionsAreAcceptedByTheStandard()} pass.
+	 * {@link #selfPropertyReferenceIsAcceptedByTheStandard()}, and
+	 * {@link #internalPortActionsAreAcceptedByTheStandard()} pass.
 	 */
 	private static final List<String> TRACKED_SKIPS = List.of(
 			"externalConditionOperatorsAreAcceptedByTheStandard -> #3166",
@@ -76,7 +77,6 @@ public class BehaviorAnnexConformanceTest {
 			"shortCircuitOperatorsAreAcceptedByTheStandard -> #3169",
 			"unaryPlusIsRejectedByTheStandard -> #3170",
 			"portUpdatedIsAcceptedByTheStandard -> #3171",
-			"selfPropertyReferenceIsAcceptedByTheStandard -> #3172",
 			"optionalLoopClassifierIsAcceptedByTheStandard -> #3173");
 
 	/** The fixtures a standard expectation in this class asserts about. */
@@ -130,7 +130,6 @@ public class BehaviorAnnexConformanceTest {
 		assertNoIssues("PortUpdated.aadl");
 	}
 
-	@Ignore("Issue #3172: implement self as a component element reference")
 	@Test
 	public void selfPropertyReferenceIsAcceptedByTheStandard() throws Exception {
 		assertNoIssues("SelfPropertyReference.aadl");

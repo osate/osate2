@@ -13,10 +13,9 @@ annex[0] owner=Issue3172::reader
               firstExpression : SimpleExpression
                 terms[0] : Term
                   factors[0] : Factor
-                    firstValue : ClassifierFeaturePropertyReference
+                    firstValue : ClassifierPropertyReference
                       properties[0] : PropertyNameHolder
-                        property : BasicPropertyHolder element=Thread_Properties::Priority [Property]
-                      component : BehaviorVariableHolder element=<null>
+                        property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
         actions[1] : AssignmentAction
           target : BehaviorVariableHolder element=value [BehaviorVariable]
           valueExpression : ValueExpression
@@ -24,10 +23,9 @@ annex[0] owner=Issue3172::reader
               firstExpression : SimpleExpression
                 terms[0] : Term
                   factors[0] : Factor
-                    firstValue : ClassifierFeaturePropertyReference
+                    firstValue : ClassifierPropertyReference
                       properties[0] : PropertyNameHolder
-                        property : BasicPropertyHolder element=Thread_Properties::Priority [Property]
-                      component : BehaviorVariableHolder element=<null>
+                        property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
         actions[2] : AssignmentAction
           target : BehaviorVariableHolder element=value [BehaviorVariable]
           valueExpression : ValueExpression
@@ -35,10 +33,9 @@ annex[0] owner=Issue3172::reader
               firstExpression : SimpleExpression
                 terms[0] : Term
                   factors[0] : Factor
-                    firstValue : ClassifierFeaturePropertyReference
+                    firstValue : ClassifierPropertyReference
                       properties[0] : PropertyNameHolder
                         property : BasicPropertyHolder element=Timing_Properties::Deadline [Property]
-                      component : BehaviorVariableHolder element=<null>
         actions[3] : AssignmentAction
           target : BehaviorVariableHolder element=value [BehaviorVariable]
           valueExpression : ValueExpression
@@ -62,10 +59,9 @@ annex[1] owner=Issue3172::writer.impl
               firstExpression : SimpleExpression
                 terms[0] : Term
                   factors[0] : Factor
-                    firstValue : ClassifierFeaturePropertyReference
+                    firstValue : ClassifierPropertyReference
                       properties[0] : PropertyNameHolder
-                        property : BasicPropertyHolder element=Thread_Properties::Priority [Property]
-                      component : BehaviorVariableHolder element=<null>
+                        property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
         actions[1] : AssignmentAction
           target : BehaviorVariableHolder element=value [BehaviorVariable]
           valueExpression : ValueExpression
