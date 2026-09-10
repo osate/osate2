@@ -495,6 +495,31 @@ public class BehaviorAnnexItemProviderAdapterFactory extends BehaviorAnnexAdapte
   }
 
   /**
+   * This keeps track of the one adapter used for all {@link org.osate.xtext.aadl2.ba.behaviorAnnex.InternalCondition} instances.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected InternalConditionItemProvider internalConditionItemProvider;
+
+  /**
+   * This creates an adapter for a {@link org.osate.xtext.aadl2.ba.behaviorAnnex.InternalCondition}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Adapter createInternalConditionAdapter()
+  {
+    if (internalConditionItemProvider == null)
+    {
+      internalConditionItemProvider = new InternalConditionItemProvider(this);
+    }
+
+    return internalConditionItemProvider;
+  }
+
+  /**
    * This keeps track of the one adapter used for all {@link org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorActionBlock} instances.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1602,6 +1627,7 @@ public class BehaviorAnnexItemProviderAdapterFactory extends BehaviorAnnexAdapte
     if (dispatchConjunctionItemProvider != null) dispatchConjunctionItemProvider.dispose();
     if (modeSwitchConditionItemProvider != null) modeSwitchConditionItemProvider.dispose();
     if (modeSwitchConjunctionItemProvider != null) modeSwitchConjunctionItemProvider.dispose();
+    if (internalConditionItemProvider != null) internalConditionItemProvider.dispose();
     if (behaviorActionBlockItemProvider != null) behaviorActionBlockItemProvider.dispose();
     if (behaviorActionsItemProvider != null) behaviorActionsItemProvider.dispose();
     if (behaviorActionItemProvider != null) behaviorActionItemProvider.dispose();

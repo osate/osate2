@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorCondition#getDispatch <em>Dispatch</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorCondition#getInternal <em>Internal</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorCondition#getModeSwitch <em>Mode Switch</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorCondition#getExecute <em>Execute</em>}</li>
  * </ul>
@@ -66,6 +67,28 @@ public interface BehaviorCondition extends EObject
    * @generated
    */
   void setDispatch(DispatchCondition value);
+
+  /**
+   * Returns the value of the '<em><b>Internal</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Internal</em>' containment reference.
+   * @see #setInternal(InternalCondition)
+   * @see org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage#getBehaviorCondition_Internal()
+   * @model containment="true"
+   * @generated
+   */
+  InternalCondition getInternal();
+
+  /**
+   * Sets the value of the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorCondition#getInternal <em>Internal</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Internal</em>' containment reference.
+   * @see #getInternal()
+   * @generated
+   */
+  void setInternal(InternalCondition value);
 
   /**
    * Returns the value of the '<em><b>Mode Switch</b></em>' containment reference.

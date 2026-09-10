@@ -1,1 +1,1 @@
-error | syntax | 41 | 34 | 6 | extraneous input 'raised' expecting ']->'
+error | semantic | 41 | 22 | 18 | An internal condition cannot be in the same behavior annex subclause as a send action on an internal feature : Behavior Annex D.6.(L11) legality rule failed.

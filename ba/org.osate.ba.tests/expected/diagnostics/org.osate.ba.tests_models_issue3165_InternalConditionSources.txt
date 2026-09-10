@@ -1,2 +1,0 @@
-error | syntax | 40 | 39 | 6 | extraneous input 'raised' expecting ']->'
-error | syntax | 41 | 42 | 6 | extraneous input 'raised' expecting ']->'

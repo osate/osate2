@@ -1,12 +1,12 @@
 /**
  * AADL-BA-FrontEnd
- * 
+ *
  * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
  * version 2.0 of the License, or (at your option) any later version. This
@@ -802,6 +802,15 @@ public interface AadlBaFactory extends EFactory {
 	 * @generated
 	 */
 	InternalPortSendAction createInternalPortSendAction();
+
+	/**
+	 * Returns a new object of class '<em>Internal Condition</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Internal Condition</em>'.
+	 * @generated
+	 */
+	InternalCondition createInternalCondition();
 
 	/**
 	 * Returns the package supported by this factory.

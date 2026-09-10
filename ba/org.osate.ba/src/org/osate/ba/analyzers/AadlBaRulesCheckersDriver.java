@@ -165,6 +165,10 @@ public class AadlBaRulesCheckersDriver {
 				if (_ba.isSetTransitions()) {
 					otherwiseCheck(_ba);
 
+					// D.6.(L11) constrains the subclause as a whole rather than one transition, so it is checked once
+					// here instead of from the per-transition traversal below.
+					result &= _legality.D_6_L11_Check(_ba);
+
 					// A multi-source transition has copies of its condition and a shared action block. Check each once
 					// per annex traversal, while retaining the state checks for every expanded transition.
 					Set<BehaviorElement> checked = Collections.newSetFromMap(new IdentityHashMap<>());
@@ -238,6 +242,7 @@ public class AadlBaRulesCheckersDriver {
 					result &= _legality.D_3_L6_Check(_currentBt, srcState);
 					result &= _legality.D_3_L7_Check(_currentBt, srcState);
 					result &= _legality.D_3_L8_Check(_currentBt, srcState);
+					result &= _legality.D_3_Internal_Condition_Check(_currentBt, srcState);
 					result &= _consistency.D_3_C4_Check(_currentBt, srcState);
 				}
 

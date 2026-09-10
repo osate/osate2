@@ -1,1 +1,0 @@
-error | syntax | 41 | 34 | 6 | extraneous input 'raised' expecting ']->'

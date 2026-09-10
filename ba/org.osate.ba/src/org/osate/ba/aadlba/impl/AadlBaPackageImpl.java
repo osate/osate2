@@ -847,6 +847,13 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass internalConditionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass propertySetPropertyReferenceEClass = null;
 
 	/**
@@ -3097,6 +3104,26 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * @generated
 	 */
 	@Override
+	public EClass getInternalCondition() {
+		return internalConditionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getInternalCondition_InternalPorts() {
+		return (EReference) internalConditionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getPropertySetPropertyReference() {
 		return propertySetPropertyReferenceEClass;
 	}
@@ -3720,6 +3747,9 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		createEReference(internalPortSendActionEClass, INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT);
 		createEReference(internalPortSendActionEClass, INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION);
 
+		internalConditionEClass = createEClass(INTERNAL_CONDITION);
+		createEReference(internalConditionEClass, INTERNAL_CONDITION__INTERNAL_PORTS);
+
 		// Create enums
 		behaviorFeatureTypeEEnum = createEEnum(BEHAVIOR_FEATURE_TYPE);
 		binaryAddingOperatorEEnum = createEEnum(BINARY_ADDING_OPERATOR);
@@ -3974,6 +4004,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		eventSourceHolderEClass.getESuperTypes().add(getInternalPortHolder());
 		eventDataSourceHolderEClass.getESuperTypes().add(getInternalPortHolder());
 		internalPortSendActionEClass.getESuperTypes().add(getCommunicationAction());
+		internalConditionEClass.getESuperTypes().add(getBehaviorCondition());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(actualPortHolderEClass, ActualPortHolder.class, "ActualPortHolder", IS_ABSTRACT, !IS_INTERFACE,
@@ -4764,6 +4795,12 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		initEReference(getInternalPortSendAction_ValueExpression(), getValueExpression(), null, "valueExpression", null,
 				0, 1, InternalPortSendAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(internalConditionEClass, InternalCondition.class, "InternalCondition", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getInternalCondition_InternalPorts(), getInternalPortHolder(), null, "internalPorts", null, 1,
+				-1, InternalCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(behaviorFeatureTypeEEnum, BehaviorFeatureType.class, "BehaviorFeatureType");

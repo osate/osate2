@@ -1,6 +1,0 @@
-error | linking | 45 | 44 | 11 | Couldn't resolve reference to BehaviorState 'first_event'.
-error | linking | 45 | 59 | 12 | Couldn't resolve reference to BehaviorState 'second_event'.
-error | syntax | 44 | 43 | 11 | extraneous input 'first_event' expecting ']->'
-error | syntax | 45 | 44 | 11 | missing ']->' at 'first_event'
-error | syntax | 45 | 56 | 2 | mismatched input 'or' expecting ';'
-error | syntax | 45 | 72 | 3 | missing '-[' at ']->'

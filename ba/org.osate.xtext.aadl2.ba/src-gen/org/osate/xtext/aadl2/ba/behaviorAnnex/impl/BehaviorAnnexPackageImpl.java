@@ -70,6 +70,7 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.ForStatement;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.HashPropertyReference;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.IfStatement;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.IntegerValue;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.InternalCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchConjunction;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.NamedPropertyField;
@@ -210,6 +211,13 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
    * @generated
    */
   private EClass modeSwitchConjunctionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass internalConditionEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -919,7 +927,7 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
    * @generated
    */
   @Override
-  public EReference getBehaviorCondition_ModeSwitch()
+  public EReference getBehaviorCondition_Internal()
   {
     return (EReference)behaviorConditionEClass.getEStructuralFeatures().get(1);
   }
@@ -930,9 +938,20 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
    * @generated
    */
   @Override
-  public EReference getBehaviorCondition_Execute()
+  public EReference getBehaviorCondition_ModeSwitch()
   {
     return (EReference)behaviorConditionEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getBehaviorCondition_Execute()
+  {
+    return (EReference)behaviorConditionEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -1153,6 +1172,28 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
   public EReference getModeSwitchConjunction_Triggers()
   {
     return (EReference)modeSwitchConjunctionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getInternalCondition()
+  {
+    return internalConditionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getInternalCondition_InternalPorts()
+  {
+    return (EReference)internalConditionEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -2547,6 +2588,7 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
 
     behaviorConditionEClass = createEClass(BEHAVIOR_CONDITION);
     createEReference(behaviorConditionEClass, BEHAVIOR_CONDITION__DISPATCH);
+    createEReference(behaviorConditionEClass, BEHAVIOR_CONDITION__INTERNAL);
     createEReference(behaviorConditionEClass, BEHAVIOR_CONDITION__MODE_SWITCH);
     createEReference(behaviorConditionEClass, BEHAVIOR_CONDITION__EXECUTE);
 
@@ -2576,6 +2618,9 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
 
     modeSwitchConjunctionEClass = createEClass(MODE_SWITCH_CONJUNCTION);
     createEReference(modeSwitchConjunctionEClass, MODE_SWITCH_CONJUNCTION__TRIGGERS);
+
+    internalConditionEClass = createEClass(INTERNAL_CONDITION);
+    createEReference(internalConditionEClass, INTERNAL_CONDITION__INTERNAL_PORTS);
 
     behaviorActionBlockEClass = createEClass(BEHAVIOR_ACTION_BLOCK);
     createEReference(behaviorActionBlockEClass, BEHAVIOR_ACTION_BLOCK__CONTENT);
@@ -2840,6 +2885,7 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
 
     initEClass(behaviorConditionEClass, BehaviorCondition.class, "BehaviorCondition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getBehaviorCondition_Dispatch(), this.getDispatchCondition(), null, "dispatch", null, 0, 1, BehaviorCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getBehaviorCondition_Internal(), this.getInternalCondition(), null, "internal", null, 0, 1, BehaviorCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getBehaviorCondition_ModeSwitch(), this.getModeSwitchCondition(), null, "modeSwitch", null, 0, 1, BehaviorCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getBehaviorCondition_Execute(), this.getExecuteCondition(), null, "execute", null, 0, 1, BehaviorCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -2869,6 +2915,9 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
 
     initEClass(modeSwitchConjunctionEClass, ModeSwitchConjunction.class, "ModeSwitchConjunction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getModeSwitchConjunction_Triggers(), this.getReference(), null, "triggers", null, 0, -1, ModeSwitchConjunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(internalConditionEClass, InternalCondition.class, "InternalCondition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getInternalCondition_InternalPorts(), this.getReference(), null, "internalPorts", null, 0, -1, InternalCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(behaviorActionBlockEClass, BehaviorActionBlock.class, "BehaviorActionBlock", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getBehaviorActionBlock_Content(), this.getBehaviorActions(), null, "content", null, 0, 1, BehaviorActionBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

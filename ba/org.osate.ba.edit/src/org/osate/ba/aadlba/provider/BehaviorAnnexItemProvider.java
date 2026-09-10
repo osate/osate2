@@ -203,6 +203,9 @@ public class BehaviorAnnexItemProvider extends AnnexSubclauseItemProvider {
 
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_ANNEX__CONDITIONS,
 				AadlBaFactory.eINSTANCE.createModeSwitchTriggerLogicalExpression()));
+
+		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_ANNEX__CONDITIONS,
+				AadlBaFactory.eINSTANCE.createInternalCondition()));
 	}
 
 	/**

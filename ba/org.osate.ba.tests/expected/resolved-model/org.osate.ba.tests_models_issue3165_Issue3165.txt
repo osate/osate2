@@ -5,9 +5,9 @@ annex[0] owner=Issue3165::internal_conditions.reacting
     states[2] : BehaviorState name=done
     transitions[0] : BehaviorTransition name=enter_working
     transitions[1] : BehaviorTransition name=react_to_event
-      condition : ModeSwitchTriggerLogicalExpression
-        modeSwitchConjunctions[0] : ModeSwitchConjunction
+      condition : InternalCondition
+        internalPorts[0] : EventSourceHolder element=Issue3165::internal_conditions.reacting.first_event [EventSource]
     transitions[2] : BehaviorTransition name=react_to_either
-      condition : ModeSwitchTriggerLogicalExpression
-        modeSwitchConjunctions[0] : ModeSwitchConjunction
-    transitions[3] : BehaviorTransition
+      condition : InternalCondition
+        internalPorts[0] : EventSourceHolder element=Issue3165::internal_conditions.reacting.first_event [EventSource]
+        internalPorts[1] : EventDataSourceHolder element=Issue3165::internal_conditions.reacting.second_event [EventDataSource]

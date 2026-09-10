@@ -67,6 +67,9 @@ public final class BehaviorAnnexReferenceProposalService {
 			addNames(names, owner.getAllPrototypes());
 			if (owner instanceof ComponentImplementation implementation) {
 				addNames(names, implementation.getAllSubcomponents());
+				// An internal feature is not a feature, so it needs its own contribution. The D.3 internal_condition
+				// and the D.6 target and communication_action productions all name one.
+				addNames(names, implementation.getAllInternalFeatures());
 			}
 		}
 		return List.copyOf(names);

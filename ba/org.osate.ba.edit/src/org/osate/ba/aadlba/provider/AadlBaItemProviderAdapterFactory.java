@@ -2043,6 +2043,29 @@ public class AadlBaItemProviderAdapterFactory extends AadlBaAdapterFactory
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.ba.aadlba.InternalCondition} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected InternalConditionItemProvider internalConditionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.ba.aadlba.InternalCondition}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createInternalConditionAdapter() {
+		if (internalConditionItemProvider == null) {
+			internalConditionItemProvider = new InternalConditionItemProvider(this);
+		}
+
+		return internalConditionItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2401,6 +2424,9 @@ public class AadlBaItemProviderAdapterFactory extends AadlBaAdapterFactory
 		}
 		if (internalPortSendActionItemProvider != null) {
 			internalPortSendActionItemProvider.dispose();
+		}
+		if (internalConditionItemProvider != null) {
+			internalConditionItemProvider.dispose();
 		}
 	}
 

@@ -154,6 +154,7 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.ForStatement;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.HashPropertyReference;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.IfStatement;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.IntegerValue;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.InternalCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.NamedPropertyField;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyArrayIndex;
@@ -397,6 +398,9 @@ public final class DeclarativeToStrictTranslator {
 			if (condition.getDispatch() != null) {
 				return toDispatchCondition(condition.getDispatch(), condition);
 			}
+			if (condition.getInternal() != null) {
+				return toInternalCondition(condition.getInternal(), condition);
+			}
 			if (condition.getModeSwitch() != null) {
 				return toModeSwitchCondition(condition.getModeSwitch(), condition);
 			}
@@ -459,6 +463,22 @@ public final class DeclarativeToStrictTranslator {
 			}
 			for (final Reference frozen : dispatch.getFrozenPorts()) {
 				result.getFrozenPorts().add((ActualPortHolder) toReferenceValue(frozen));
+			}
+			return result;
+		}
+
+		/**
+		 * AS5506/3 Rev A D.3 lists internal event or internal event data features. A name that denotes anything else
+		 * has no internal port holder to become, so it is left out here; {@code BehaviorAnnexValidator} reports it on
+		 * the name itself and keeps the strict-model checkers out of a condition it cannot represent.
+		 */
+		private org.osate.ba.aadlba.InternalCondition toInternalCondition(final InternalCondition condition,
+				final EObject traceSource) {
+			final org.osate.ba.aadlba.InternalCondition result = trace(FACTORY.createInternalCondition(), traceSource);
+			for (final Reference reference : condition.getInternalPorts()) {
+				if (toReferenceValue(reference) instanceof InternalPortHolder internalPort) {
+					result.getInternalPorts().add(internalPort);
+				}
 			}
 			return result;
 		}

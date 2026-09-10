@@ -550,28 +550,30 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
         private final Alternatives cAlternatives_0_1 = (Alternatives)cGroup_0.eContents().get(1);
         private final Assignment cDispatchAssignment_0_1_0 = (Assignment)cAlternatives_0_1.eContents().get(0);
         private final RuleCall cDispatchDispatchConditionParserRuleCall_0_1_0_0 = (RuleCall)cDispatchAssignment_0_1_0.eContents().get(0);
-        private final Assignment cModeSwitchAssignment_0_1_1 = (Assignment)cAlternatives_0_1.eContents().get(1);
-        private final RuleCall cModeSwitchModeSwitchConditionParserRuleCall_0_1_1_0 = (RuleCall)cModeSwitchAssignment_0_1_1.eContents().get(0);
+        private final Assignment cInternalAssignment_0_1_1 = (Assignment)cAlternatives_0_1.eContents().get(1);
+        private final RuleCall cInternalInternalConditionParserRuleCall_0_1_1_0 = (RuleCall)cInternalAssignment_0_1_1.eContents().get(0);
+        private final Assignment cModeSwitchAssignment_0_1_2 = (Assignment)cAlternatives_0_1.eContents().get(2);
+        private final RuleCall cModeSwitchModeSwitchConditionParserRuleCall_0_1_2_0 = (RuleCall)cModeSwitchAssignment_0_1_2.eContents().get(0);
         private final Assignment cExecuteAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
         private final RuleCall cExecuteExecuteConditionParserRuleCall_1_0 = (RuleCall)cExecuteAssignment_1.eContents().get(0);
 
         //BehaviorCondition:
-        //    'on' (dispatch=DispatchCondition | modeSwitch=ModeSwitchCondition)
+        //    'on' (dispatch=DispatchCondition | internal=InternalCondition | modeSwitch=ModeSwitchCondition)
         //    | execute=ExecuteCondition
         //;
         @Override public ParserRule getRule() { return rule; }
 
-        //'on' (dispatch=DispatchCondition | modeSwitch=ModeSwitchCondition)
+        //'on' (dispatch=DispatchCondition | internal=InternalCondition | modeSwitch=ModeSwitchCondition)
         //| execute=ExecuteCondition
         public Alternatives getAlternatives() { return cAlternatives; }
 
-        //'on' (dispatch=DispatchCondition | modeSwitch=ModeSwitchCondition)
+        //'on' (dispatch=DispatchCondition | internal=InternalCondition | modeSwitch=ModeSwitchCondition)
         public Group getGroup_0() { return cGroup_0; }
 
         //'on'
         public Keyword getOnKeyword_0_0() { return cOnKeyword_0_0; }
 
-        //(dispatch=DispatchCondition | modeSwitch=ModeSwitchCondition)
+        //(dispatch=DispatchCondition | internal=InternalCondition | modeSwitch=ModeSwitchCondition)
         public Alternatives getAlternatives_0_1() { return cAlternatives_0_1; }
 
         //dispatch=DispatchCondition
@@ -580,11 +582,17 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
         //DispatchCondition
         public RuleCall getDispatchDispatchConditionParserRuleCall_0_1_0_0() { return cDispatchDispatchConditionParserRuleCall_0_1_0_0; }
 
+        //internal=InternalCondition
+        public Assignment getInternalAssignment_0_1_1() { return cInternalAssignment_0_1_1; }
+
+        //InternalCondition
+        public RuleCall getInternalInternalConditionParserRuleCall_0_1_1_0() { return cInternalInternalConditionParserRuleCall_0_1_1_0; }
+
         //modeSwitch=ModeSwitchCondition
-        public Assignment getModeSwitchAssignment_0_1_1() { return cModeSwitchAssignment_0_1_1; }
+        public Assignment getModeSwitchAssignment_0_1_2() { return cModeSwitchAssignment_0_1_2; }
 
         //ModeSwitchCondition
-        public RuleCall getModeSwitchModeSwitchConditionParserRuleCall_0_1_1_0() { return cModeSwitchModeSwitchConditionParserRuleCall_0_1_1_0; }
+        public RuleCall getModeSwitchModeSwitchConditionParserRuleCall_0_1_2_0() { return cModeSwitchModeSwitchConditionParserRuleCall_0_1_2_0; }
 
         //execute=ExecuteCondition
         public Assignment getExecuteAssignment_1() { return cExecuteAssignment_1; }
@@ -898,6 +906,48 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 
         //Reference
         public RuleCall getTriggersReferenceParserRuleCall_1_1_0() { return cTriggersReferenceParserRuleCall_1_1_0; }
+    }
+    public class InternalConditionElements extends AbstractParserRuleElementFinder {
+        private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.InternalCondition");
+        private final Group cGroup = (Group)rule.eContents().get(1);
+        private final Keyword cInternalKeyword_0 = (Keyword)cGroup.eContents().get(0);
+        private final Assignment cInternalPortsAssignment_1 = (Assignment)cGroup.eContents().get(1);
+        private final RuleCall cInternalPortsReferenceParserRuleCall_1_0 = (RuleCall)cInternalPortsAssignment_1.eContents().get(0);
+        private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+        private final Keyword cOrKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+        private final Assignment cInternalPortsAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
+        private final RuleCall cInternalPortsReferenceParserRuleCall_2_1_0 = (RuleCall)cInternalPortsAssignment_2_1.eContents().get(0);
+
+        //// The listed names are internal event or event data features of the containing component. Like every other name in
+        //// the annex they stay symbolic here; the translator resolves them against the owner.
+        //InternalCondition:
+        //    'internal' internalPorts+=Reference ('or' internalPorts+=Reference)*
+        //;
+        @Override public ParserRule getRule() { return rule; }
+
+        //'internal' internalPorts+=Reference ('or' internalPorts+=Reference)*
+        public Group getGroup() { return cGroup; }
+
+        //'internal'
+        public Keyword getInternalKeyword_0() { return cInternalKeyword_0; }
+
+        //internalPorts+=Reference
+        public Assignment getInternalPortsAssignment_1() { return cInternalPortsAssignment_1; }
+
+        //Reference
+        public RuleCall getInternalPortsReferenceParserRuleCall_1_0() { return cInternalPortsReferenceParserRuleCall_1_0; }
+
+        //('or' internalPorts+=Reference)*
+        public Group getGroup_2() { return cGroup_2; }
+
+        //'or'
+        public Keyword getOrKeyword_2_0() { return cOrKeyword_2_0; }
+
+        //internalPorts+=Reference
+        public Assignment getInternalPortsAssignment_2_1() { return cInternalPortsAssignment_2_1; }
+
+        //Reference
+        public RuleCall getInternalPortsReferenceParserRuleCall_2_1_0() { return cInternalPortsReferenceParserRuleCall_2_1_0; }
     }
     public class BehaviorActionBlockElements extends AbstractParserRuleElementFinder {
         private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.BehaviorActionBlock");
@@ -2998,6 +3048,7 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
     private final DispatchConjunctionElements pDispatchConjunction;
     private final ModeSwitchConditionElements pModeSwitchCondition;
     private final ModeSwitchConjunctionElements pModeSwitchConjunction;
+    private final InternalConditionElements pInternalCondition;
     private final BehaviorActionBlockElements pBehaviorActionBlock;
     private final BehaviorActionsElements pBehaviorActions;
     private final BehaviorActionElements pBehaviorAction;
@@ -3070,6 +3121,7 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
         this.pDispatchConjunction = new DispatchConjunctionElements();
         this.pModeSwitchCondition = new ModeSwitchConditionElements();
         this.pModeSwitchConjunction = new ModeSwitchConjunctionElements();
+        this.pInternalCondition = new InternalConditionElements();
         this.pBehaviorActionBlock = new BehaviorActionBlockElements();
         this.pBehaviorActions = new BehaviorActionsElements();
         this.pBehaviorAction = new BehaviorActionElements();
@@ -3257,7 +3309,7 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
     }
 
     //BehaviorCondition:
-    //    'on' (dispatch=DispatchCondition | modeSwitch=ModeSwitchCondition)
+    //    'on' (dispatch=DispatchCondition | internal=InternalCondition | modeSwitch=ModeSwitchCondition)
     //    | execute=ExecuteCondition
     //;
     public BehaviorConditionElements getBehaviorConditionAccess() {
@@ -3349,6 +3401,19 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 
     public ParserRule getModeSwitchConjunctionRule() {
         return getModeSwitchConjunctionAccess().getRule();
+    }
+
+    //// The listed names are internal event or event data features of the containing component. Like every other name in
+    //// the annex they stay symbolic here; the translator resolves them against the owner.
+    //InternalCondition:
+    //    'internal' internalPorts+=Reference ('or' internalPorts+=Reference)*
+    //;
+    public InternalConditionElements getInternalConditionAccess() {
+        return pInternalCondition;
+    }
+
+    public ParserRule getInternalConditionRule() {
+        return getInternalConditionAccess().getRule();
     }
 
     //BehaviorActionBlock:

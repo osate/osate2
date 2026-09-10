@@ -36,6 +36,7 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ExecuteCondition;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.InternalCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchCondition;
 
 /**
@@ -47,6 +48,7 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchCondition;
  * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorConditionImpl#getDispatch <em>Dispatch</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorConditionImpl#getInternal <em>Internal</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorConditionImpl#getModeSwitch <em>Mode Switch</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorConditionImpl#getExecute <em>Execute</em>}</li>
  * </ul>
@@ -64,6 +66,16 @@ public class BehaviorConditionImpl extends MinimalEObjectImpl.Container implemen
    * @ordered
    */
   protected DispatchCondition dispatch;
+
+  /**
+   * The cached value of the '{@link #getInternal() <em>Internal</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getInternal()
+   * @generated
+   * @ordered
+   */
+  protected InternalCondition internal;
 
   /**
    * The cached value of the '{@link #getModeSwitch() <em>Mode Switch</em>}' containment reference.
@@ -154,6 +166,56 @@ public class BehaviorConditionImpl extends MinimalEObjectImpl.Container implemen
     }
     else if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, BehaviorAnnexPackage.BEHAVIOR_CONDITION__DISPATCH, newDispatch, newDispatch));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public InternalCondition getInternal()
+  {
+    return internal;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetInternal(InternalCondition newInternal, NotificationChain msgs)
+  {
+    InternalCondition oldInternal = internal;
+    internal = newInternal;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, BehaviorAnnexPackage.BEHAVIOR_CONDITION__INTERNAL, oldInternal, newInternal);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void setInternal(InternalCondition newInternal)
+  {
+    if (newInternal != internal)
+    {
+      NotificationChain msgs = null;
+      if (internal != null)
+        msgs = ((InternalEObject)internal).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - BehaviorAnnexPackage.BEHAVIOR_CONDITION__INTERNAL, null, msgs);
+      if (newInternal != null)
+        msgs = ((InternalEObject)newInternal).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - BehaviorAnnexPackage.BEHAVIOR_CONDITION__INTERNAL, null, msgs);
+      msgs = basicSetInternal(newInternal, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, BehaviorAnnexPackage.BEHAVIOR_CONDITION__INTERNAL, newInternal, newInternal));
   }
 
   /**
@@ -268,6 +330,8 @@ public class BehaviorConditionImpl extends MinimalEObjectImpl.Container implemen
     {
       case BehaviorAnnexPackage.BEHAVIOR_CONDITION__DISPATCH:
         return basicSetDispatch(null, msgs);
+      case BehaviorAnnexPackage.BEHAVIOR_CONDITION__INTERNAL:
+        return basicSetInternal(null, msgs);
       case BehaviorAnnexPackage.BEHAVIOR_CONDITION__MODE_SWITCH:
         return basicSetModeSwitch(null, msgs);
       case BehaviorAnnexPackage.BEHAVIOR_CONDITION__EXECUTE:
@@ -288,6 +352,8 @@ public class BehaviorConditionImpl extends MinimalEObjectImpl.Container implemen
     {
       case BehaviorAnnexPackage.BEHAVIOR_CONDITION__DISPATCH:
         return getDispatch();
+      case BehaviorAnnexPackage.BEHAVIOR_CONDITION__INTERNAL:
+        return getInternal();
       case BehaviorAnnexPackage.BEHAVIOR_CONDITION__MODE_SWITCH:
         return getModeSwitch();
       case BehaviorAnnexPackage.BEHAVIOR_CONDITION__EXECUTE:
@@ -308,6 +374,9 @@ public class BehaviorConditionImpl extends MinimalEObjectImpl.Container implemen
     {
       case BehaviorAnnexPackage.BEHAVIOR_CONDITION__DISPATCH:
         setDispatch((DispatchCondition)newValue);
+        return;
+      case BehaviorAnnexPackage.BEHAVIOR_CONDITION__INTERNAL:
+        setInternal((InternalCondition)newValue);
         return;
       case BehaviorAnnexPackage.BEHAVIOR_CONDITION__MODE_SWITCH:
         setModeSwitch((ModeSwitchCondition)newValue);
@@ -332,6 +401,9 @@ public class BehaviorConditionImpl extends MinimalEObjectImpl.Container implemen
       case BehaviorAnnexPackage.BEHAVIOR_CONDITION__DISPATCH:
         setDispatch((DispatchCondition)null);
         return;
+      case BehaviorAnnexPackage.BEHAVIOR_CONDITION__INTERNAL:
+        setInternal((InternalCondition)null);
+        return;
       case BehaviorAnnexPackage.BEHAVIOR_CONDITION__MODE_SWITCH:
         setModeSwitch((ModeSwitchCondition)null);
         return;
@@ -354,6 +426,8 @@ public class BehaviorConditionImpl extends MinimalEObjectImpl.Container implemen
     {
       case BehaviorAnnexPackage.BEHAVIOR_CONDITION__DISPATCH:
         return dispatch != null;
+      case BehaviorAnnexPackage.BEHAVIOR_CONDITION__INTERNAL:
+        return internal != null;
       case BehaviorAnnexPackage.BEHAVIOR_CONDITION__MODE_SWITCH:
         return modeSwitch != null;
       case BehaviorAnnexPackage.BEHAVIOR_CONDITION__EXECUTE:

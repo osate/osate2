@@ -1,8 +1,10 @@
 annex[0] owner=InternalCondition::component.i
   parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
     states[0] : BehaviorState name=start
-    states[1] : BehaviorState name=finish
+    states[1] : BehaviorState name=working
+    states[2] : BehaviorState name=finish
     transitions[0] : BehaviorTransition
-      condition : ModeSwitchTriggerLogicalExpression
-        modeSwitchConjunctions[0] : ModeSwitchConjunction
     transitions[1] : BehaviorTransition
+      condition : InternalCondition
+        internalPorts[0] : EventSourceHolder element=InternalCondition::component.i.first_event [EventSource]
+        internalPorts[1] : EventSourceHolder element=InternalCondition::component.i.second_event [EventSource]

@@ -94,7 +94,7 @@ public class Issue3174Test {
 	@Test
 	public void internalPortsAreNotIncomingPorts() throws Exception {
 		var expected = "'raised_data' is an internal port: it can only be an assignment or dequeue target,"
-				+ " or the port of a send action";
+				+ " the port of a send action, or a port of an internal condition";
 		assertEquals(List.of("ERROR: " + expected, "ERROR: " + expected, "ERROR: " + expected,
 				"ERROR: " + expected.replace("raised_data", "raised_event")), issues("InternalPortMisuse.aadl"));
 	}

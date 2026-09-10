@@ -1,3 +1,3 @@
-error | syntax | 50 | 45 | 7 | extraneous input 'trigger' expecting ']->'
-error | syntax | 51 | 40 | 8 | extraneous input 'progress' expecting ']->'
-error | syntax | 52 | 49 | 5 | extraneous input 'tally' expecting ']->'
+error | semantic | 50 | 45 | 7 | 'trigger' is not an internal port: an internal condition can only list internal event or internal event data features
+error | semantic | 51 | 40 | 8 | 'progress' is not an internal port: an internal condition can only list internal event or internal event data features
+error | semantic | 52 | 49 | 5 | 'tally' is not an internal port: an internal condition can only list internal event or internal event data features

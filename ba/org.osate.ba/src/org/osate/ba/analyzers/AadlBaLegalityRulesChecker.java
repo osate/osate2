@@ -30,6 +30,9 @@ import java.util.Set;
 import java.util.WeakHashMap;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.DeviceClassifier;
@@ -62,6 +65,8 @@ import org.osate.ba.aadlba.DispatchRelativeTimeout;
 import org.osate.ba.aadlba.ElseStatement;
 import org.osate.ba.aadlba.IfStatement;
 import org.osate.ba.aadlba.IntegerValue;
+import org.osate.ba.aadlba.InternalCondition;
+import org.osate.ba.aadlba.InternalPortSendAction;
 import org.osate.ba.aadlba.LoopStatement;
 import org.osate.ba.aadlba.Target;
 import org.osate.ba.aadlba.TimedAction;
@@ -452,6 +457,31 @@ public class AadlBaLegalityRulesChecker {
 			// Declaring a final-only state is legal; leaving it by a transition is not.
 			this.reportLegalityError(bt, "Transitions out "
 					+ "of final states are not allowed : Behavior Annex" + " D.3.(L8) legality rule failed");
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	/**
+	 * Document: AS5506/3 Rev A
+	 * Type : Legality rule
+	 * Section : D.3 Behavior Specification
+	 * Object : Internal conditions can be used in transitions out of execution states only. The rule is cited by
+	 * section rather than by number because the numbered rule list this class follows comes from the 0.94 draft, in
+	 * which the D.3 legality rules are ordered differently, so no number can be carried over for a rule the draft
+	 * numbering does not already cover.
+	 * Keys : transition execution state internal condition
+	 */
+	public boolean D_3_Internal_Condition_Check(BehaviorTransition bt, BehaviorState sourceState) {
+		// A state carrying any qualifier is not an execution state.
+		if (bt.getCondition() instanceof InternalCondition
+				&& (sourceState.isInitial() || sourceState.isComplete() || sourceState.isFinal())) {
+			// The source state declaration is legal; the internal condition is what the rule forbids here.
+			this.reportLegalityError(bt.getCondition(),
+					"Only transitions out of execution states may have an internal condition, and a state qualified as "
+							+ "initial, complete, or final is not an execution state : Behavior Annex D.3 legality rule "
+							+ "failed");
 			return false;
 		} else {
 			return true;
@@ -850,6 +880,38 @@ public class AadlBaLegalityRulesChecker {
 		{
 			return true;
 		}
+	}
+
+	/**
+	 * Document: AS5506/3 Rev A
+	 * Type    : Legality rule
+	 * Section : D.6 Behavior Action Language
+	 * Object  : Check legality rule D.6.(L11)
+	 * Keys    : internal condition, internal feature send action, separate abstractions
+	 *
+	 * Internal conditions and sends on internal features belong to two separate abstractions of the same behavior, one
+	 * describing when an internal feature is raised and the other reacting to it. Reports on each internal condition,
+	 * which is what the rule's own wording forbids in a subclause that also sends an internal feature.
+	 */
+	public boolean D_6_L11_Check(BehaviorAnnex ba) {
+		List<InternalCondition> conditions = new ArrayList<InternalCondition>();
+		boolean sendsInternalFeature = false;
+		for (TreeIterator<EObject> contents = EcoreUtil.getAllContents(ba, true); contents.hasNext();) {
+			EObject object = contents.next();
+			if (object instanceof InternalCondition condition) {
+				conditions.add(condition);
+			} else if (object instanceof InternalPortSendAction) {
+				sendsInternalFeature = true;
+			}
+		}
+
+		if (!sendsInternalFeature || conditions.isEmpty()) {
+			return true;
+		}
+		reportLegalityError(conditions,
+				"An internal condition cannot be in the same behavior annex subclause as a send action on an internal "
+						+ "feature : Behavior Annex D.6.(L11) legality rule failed");
+		return false;
 	}
 
 	// TODO Provide column number.

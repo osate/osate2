@@ -116,6 +116,8 @@ public class BehaviorAnnexParser extends AbstractContentAssistParser {
             builder.put(grammarAccess.getModeSwitchConditionAccess().getGroup_1(), "rule__ModeSwitchCondition__Group_1__0");
             builder.put(grammarAccess.getModeSwitchConjunctionAccess().getGroup(), "rule__ModeSwitchConjunction__Group__0");
             builder.put(grammarAccess.getModeSwitchConjunctionAccess().getGroup_1(), "rule__ModeSwitchConjunction__Group_1__0");
+            builder.put(grammarAccess.getInternalConditionAccess().getGroup(), "rule__InternalCondition__Group__0");
+            builder.put(grammarAccess.getInternalConditionAccess().getGroup_2(), "rule__InternalCondition__Group_2__0");
             builder.put(grammarAccess.getBehaviorActionBlockAccess().getGroup(), "rule__BehaviorActionBlock__Group__0");
             builder.put(grammarAccess.getBehaviorActionBlockAccess().getGroup_3(), "rule__BehaviorActionBlock__Group_3__0");
             builder.put(grammarAccess.getBehaviorActionsAccess().getGroup(), "rule__BehaviorActions__Group__0");
@@ -248,7 +250,8 @@ public class BehaviorAnnexParser extends AbstractContentAssistParser {
             builder.put(grammarAccess.getBehaviorTransitionAccess().getDestinationStateAssignment_6(), "rule__BehaviorTransition__DestinationStateAssignment_6");
             builder.put(grammarAccess.getBehaviorTransitionAccess().getActionBlockAssignment_7(), "rule__BehaviorTransition__ActionBlockAssignment_7");
             builder.put(grammarAccess.getBehaviorConditionAccess().getDispatchAssignment_0_1_0(), "rule__BehaviorCondition__DispatchAssignment_0_1_0");
-            builder.put(grammarAccess.getBehaviorConditionAccess().getModeSwitchAssignment_0_1_1(), "rule__BehaviorCondition__ModeSwitchAssignment_0_1_1");
+            builder.put(grammarAccess.getBehaviorConditionAccess().getInternalAssignment_0_1_1(), "rule__BehaviorCondition__InternalAssignment_0_1_1");
+            builder.put(grammarAccess.getBehaviorConditionAccess().getModeSwitchAssignment_0_1_2(), "rule__BehaviorCondition__ModeSwitchAssignment_0_1_2");
             builder.put(grammarAccess.getBehaviorConditionAccess().getExecuteAssignment_1(), "rule__BehaviorCondition__ExecuteAssignment_1");
             builder.put(grammarAccess.getExecuteConditionAccess().getValueAssignment_0(), "rule__ExecuteCondition__ValueAssignment_0");
             builder.put(grammarAccess.getExecuteConditionAccess().getTimeoutAssignment_1(), "rule__ExecuteCondition__TimeoutAssignment_1");
@@ -268,6 +271,8 @@ public class BehaviorAnnexParser extends AbstractContentAssistParser {
             builder.put(grammarAccess.getModeSwitchConditionAccess().getConjunctionsAssignment_1_1(), "rule__ModeSwitchCondition__ConjunctionsAssignment_1_1");
             builder.put(grammarAccess.getModeSwitchConjunctionAccess().getTriggersAssignment_0(), "rule__ModeSwitchConjunction__TriggersAssignment_0");
             builder.put(grammarAccess.getModeSwitchConjunctionAccess().getTriggersAssignment_1_1(), "rule__ModeSwitchConjunction__TriggersAssignment_1_1");
+            builder.put(grammarAccess.getInternalConditionAccess().getInternalPortsAssignment_1(), "rule__InternalCondition__InternalPortsAssignment_1");
+            builder.put(grammarAccess.getInternalConditionAccess().getInternalPortsAssignment_2_1(), "rule__InternalCondition__InternalPortsAssignment_2_1");
             builder.put(grammarAccess.getBehaviorActionBlockAccess().getContentAssignment_1(), "rule__BehaviorActionBlock__ContentAssignment_1");
             builder.put(grammarAccess.getBehaviorActionBlockAccess().getTimeoutAssignment_3_1(), "rule__BehaviorActionBlock__TimeoutAssignment_3_1");
             builder.put(grammarAccess.getBehaviorActionsAccess().getActionsAssignment_1_0_2(), "rule__BehaviorActions__ActionsAssignment_1_0_2");

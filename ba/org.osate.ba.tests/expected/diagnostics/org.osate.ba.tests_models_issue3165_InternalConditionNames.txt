@@ -1,3 +1,0 @@
-error | syntax | 50 | 45 | 7 | extraneous input 'trigger' expecting ']->'
-error | syntax | 51 | 40 | 8 | extraneous input 'progress' expecting ']->'
-error | syntax | 52 | 49 | 5 | extraneous input 'tally' expecting ']->'

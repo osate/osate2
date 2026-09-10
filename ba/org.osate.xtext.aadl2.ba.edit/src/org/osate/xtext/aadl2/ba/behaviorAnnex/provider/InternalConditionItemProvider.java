@@ -45,15 +45,15 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
 
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexFactory;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorCondition;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.InternalCondition;
 
 /**
- * This is the item provider adapter for a {@link org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorCondition} object.
+ * This is the item provider adapter for a {@link org.osate.xtext.aadl2.ba.behaviorAnnex.InternalCondition} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class BehaviorConditionItemProvider
+public class InternalConditionItemProvider
   extends ItemProviderAdapter
   implements
     IEditingDomainItemProvider,
@@ -68,7 +68,7 @@ public class BehaviorConditionItemProvider
    * <!-- end-user-doc -->
    * @generated
    */
-  public BehaviorConditionItemProvider(AdapterFactory adapterFactory)
+  public InternalConditionItemProvider(AdapterFactory adapterFactory)
   {
     super(adapterFactory);
   }
@@ -104,10 +104,7 @@ public class BehaviorConditionItemProvider
     if (childrenFeatures == null)
     {
       super.getChildrenFeatures(object);
-      childrenFeatures.add(BehaviorAnnexPackage.Literals.BEHAVIOR_CONDITION__DISPATCH);
-      childrenFeatures.add(BehaviorAnnexPackage.Literals.BEHAVIOR_CONDITION__INTERNAL);
-      childrenFeatures.add(BehaviorAnnexPackage.Literals.BEHAVIOR_CONDITION__MODE_SWITCH);
-      childrenFeatures.add(BehaviorAnnexPackage.Literals.BEHAVIOR_CONDITION__EXECUTE);
+      childrenFeatures.add(BehaviorAnnexPackage.Literals.INTERNAL_CONDITION__INTERNAL_PORTS);
     }
     return childrenFeatures;
   }
@@ -127,7 +124,7 @@ public class BehaviorConditionItemProvider
   }
 
   /**
-   * This returns BehaviorCondition.gif.
+   * This returns InternalCondition.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -135,7 +132,7 @@ public class BehaviorConditionItemProvider
   @Override
   public Object getImage(Object object)
   {
-    return overlayImage(object, getResourceLocator().getImage("full/obj16/BehaviorCondition"));
+    return overlayImage(object, getResourceLocator().getImage("full/obj16/InternalCondition"));
   }
 
   /**
@@ -147,7 +144,7 @@ public class BehaviorConditionItemProvider
   @Override
   public String getText(Object object)
   {
-    return getString("_UI_BehaviorCondition_type");
+    return getString("_UI_InternalCondition_type");
   }
 
 
@@ -163,12 +160,9 @@ public class BehaviorConditionItemProvider
   {
     updateChildren(notification);
 
-    switch (notification.getFeatureID(BehaviorCondition.class))
+    switch (notification.getFeatureID(InternalCondition.class))
     {
-      case BehaviorAnnexPackage.BEHAVIOR_CONDITION__DISPATCH:
-      case BehaviorAnnexPackage.BEHAVIOR_CONDITION__INTERNAL:
-      case BehaviorAnnexPackage.BEHAVIOR_CONDITION__MODE_SWITCH:
-      case BehaviorAnnexPackage.BEHAVIOR_CONDITION__EXECUTE:
+      case BehaviorAnnexPackage.INTERNAL_CONDITION__INTERNAL_PORTS:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
         return;
     }
@@ -189,23 +183,8 @@ public class BehaviorConditionItemProvider
 
     newChildDescriptors.add
       (createChildParameter
-        (BehaviorAnnexPackage.Literals.BEHAVIOR_CONDITION__DISPATCH,
-         BehaviorAnnexFactory.eINSTANCE.createDispatchCondition()));
-
-    newChildDescriptors.add
-      (createChildParameter
-        (BehaviorAnnexPackage.Literals.BEHAVIOR_CONDITION__INTERNAL,
-         BehaviorAnnexFactory.eINSTANCE.createInternalCondition()));
-
-    newChildDescriptors.add
-      (createChildParameter
-        (BehaviorAnnexPackage.Literals.BEHAVIOR_CONDITION__MODE_SWITCH,
-         BehaviorAnnexFactory.eINSTANCE.createModeSwitchCondition()));
-
-    newChildDescriptors.add
-      (createChildParameter
-        (BehaviorAnnexPackage.Literals.BEHAVIOR_CONDITION__EXECUTE,
-         BehaviorAnnexFactory.eINSTANCE.createExecuteCondition()));
+        (BehaviorAnnexPackage.Literals.INTERNAL_CONDITION__INTERNAL_PORTS,
+         BehaviorAnnexFactory.eINSTANCE.createReference()));
   }
 
   /**

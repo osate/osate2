@@ -2,9 +2,11 @@
 
 \t\tstates
 \t\t\tstart: initial state;
+\t\t\tworking: state;
 \t\t\tfinish: final state;
 \t\ttransitions
-\t\t\tstart -[ on internal first_event or second_event ]-> finish;
+\t\t\tstart -[ ]-> working;
+\t\t\tworking -[ on internal first_event or second_event ]-> finish;
 \t
 ----- Xtext reparse -----
 reparsed

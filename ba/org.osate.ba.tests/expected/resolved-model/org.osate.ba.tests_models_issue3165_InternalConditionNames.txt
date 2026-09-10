@@ -6,11 +6,8 @@ annex[0] owner=InternalConditionNames::names.not_internal_ports
     states[2] : BehaviorState name=done
     transitions[0] : BehaviorTransition name=enter_working
     transitions[1] : BehaviorTransition name=on_incoming_port
-      condition : ModeSwitchTriggerLogicalExpression
-        modeSwitchConjunctions[0] : ModeSwitchConjunction
+      condition : InternalCondition
     transitions[2] : BehaviorTransition name=on_variable
-      condition : ModeSwitchTriggerLogicalExpression
-        modeSwitchConjunctions[0] : ModeSwitchConjunction
+      condition : InternalCondition
     transitions[3] : BehaviorTransition name=on_data_subcomponent
-      condition : ModeSwitchTriggerLogicalExpression
-        modeSwitchConjunctions[0] : ModeSwitchConjunction
+      condition : InternalCondition
