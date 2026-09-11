@@ -1,0 +1,66 @@
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
+-- All Rights Reserved.
+--
+-- NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+-- KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+-- OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+-- MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+--
+-- This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+-- which is available at https://www.eclipse.org/legal/epl-2.0/
+-- SPDX-License-Identifier: EPL-2.0
+--
+-- Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+--
+-- This program includes and/or can make use of certain third party source code, object code, documentation and other
+-- files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+-- configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+-- conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+-- Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+-- aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+-- censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+
+package Issue3171
+public
+	with Base_Types;
+
+	feature group readings
+	features
+		pulse: in event port;
+	end readings;
+
+	-- AS5506/3 Rev. A lists 'updated among the D.5 port services and admits it in the D.7 value_variable production as
+	-- "port_name ' updated", beside 'count and 'fresh. The value is a universal Boolean, equivalent to the core Updated
+	-- runtime service: true when new values were received in the port since its last freeze, and it does not freeze the
+	-- port. So it carries no data classifier of its own and applies to a data-less event port as well as to a port that
+	-- carries data.
+	--
+	-- Every port named here is incoming, which is what that description of the value is about. The production spells
+	-- "port_name" rather than the "incoming_port_name" it uses for a plain port read, so it admits an outgoing port too,
+	-- but nothing in D.5 or D.7 says what the value would mean there; this model takes no position on that case.
+	thread sampler
+	features
+		reading: in data port Base_Types::Integer;
+		request: in event data port Base_Types::Integer;
+		trigger: in event port;
+		bundle: feature group readings;
+	properties
+		Dispatch_Protocol => Sporadic;
+	end sampler;
+
+	thread implementation sampler.i
+	annex behavior_specification {**
+		variables
+			changed: Base_Types::Boolean;
+		states
+			start: initial state;
+			checking: state;
+			bundling: state;
+			done: complete final state;
+		transitions
+			data_port: start -[ reading'updated ]-> checking;
+			event_data_port: checking -[ request'updated ]-> bundling { changed := trigger'updated };
+			feature_group_port: bundling -[ bundle.pulse'updated ]-> done;
+	**};
+	end sampler.i;
+end Issue3171;

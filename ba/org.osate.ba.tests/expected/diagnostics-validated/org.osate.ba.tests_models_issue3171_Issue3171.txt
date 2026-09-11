@@ -1,0 +1,9 @@
+error | linking | 62 | 75 | 7 | Couldn't resolve reference to BehaviorState 'trigger'.
+error | linking | 62 | 83 | 7 | Couldn't resolve reference to BehaviorState 'updated'.
+error | syntax | 61 | 32 | 7 | no viable alternative at input 'updated'
+error | syntax | 62 | 41 | 7 | no viable alternative at input 'updated'
+error | syntax | 62 | 72 | 2 | no viable alternative at input ':='
+error | syntax | 62 | 75 | 7 | mismatched input 'trigger' expecting '}'
+error | syntax | 62 | 82 | 1 | mismatched input ''' expecting '-['
+error | syntax | 62 | 91 | 1 | mismatched input '}' expecting '-['
+error | syntax | 63 | 49 | 7 | no viable alternative at input 'updated'
