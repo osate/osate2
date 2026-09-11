@@ -49,10 +49,12 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.EventPort;
 import org.osate.aadl2.InternalFeature;
+import org.osate.aadl2.Property;
 import org.osate.aadl2.modelsupport.errorreporting.AbstractAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.parsesupport.ParseUtil;
 import org.osate.annexsupport.ParseResultHolder;
+import org.osate.ba.aadlba.PropertySetPropertyReference;
 import org.osate.ba.analyzers.AadlBaRulesCheckersDriver;
 import org.osate.ba.analyzers.AadlBaTypeChecker;
 import org.osate.ba.analyzers.AdaLikeDataTypeChecker;
@@ -89,6 +91,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	public static final String TIMEOUT_RESET_PORT_TIME = "org.osate.xtext.aadl2.ba.timeoutResetPortTime";
 	public static final String ITERATIVE_VARIABLE_TARGET = "org.osate.xtext.aadl2.ba.iterativeVariableTarget";
 	public static final String ARRAY_SIZE = "org.osate.xtext.aadl2.ba.arraySize";
+	public static final String PROPERTY_REFERENCE_VALUE = "org.osate.xtext.aadl2.ba.propertyReferenceValue";
 	private static final URI VALIDATION_RESOURCE_URI = URI.createURI("validation:/behavior-annex.aadlba");
 
 	@Inject
@@ -120,6 +123,9 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 		representable &= checkInternalConditionPorts(source, translation);
 		representable &= checkTimeoutResetPorts(source, translation);
 		representable &= checkIteratorTargets(source, translation);
+		// The strict model does carry a property reference that denotes no value, so this one is not a gate: the strict
+		// checkers keep their model and whatever else they have to say about it.
+		checkPropertyReferenceValues(translation);
 		if (!representable) {
 			return;
 		}
@@ -170,6 +176,31 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 			}
 		}
 		return accepted;
+	}
+
+	/**
+	 * The first AS5506/3 Rev A D.7 property_reference alternative writes a property value name after {@code #} with no
+	 * element before it, so the reference names a property definition without naming anything that holds a value for it.
+	 * The only value such a reference can denote is the default value of the property, and translation puts that default
+	 * in the property name holder. A property with no default value leaves the definition itself there, which denotes no
+	 * value at all, and no strict checker rejects it. Report the reference as written. A reference that names a property
+	 * type keeps its own value, an enumeration literal, so it is not one of these.
+	 */
+	private void checkPropertyReferenceValues(final TranslationResult translation) {
+		for (var contents = translation.getStrictAnnex().eAllContents(); contents.hasNext();) {
+			// A property-set property reference is the translation of the alternative that names no element, and its
+			// first property name holds the default value when the property has one.
+			if (!(contents.next() instanceof PropertySetPropertyReference reference)
+					|| reference.getProperties().isEmpty()
+					|| !(reference.getProperties().getFirst().getProperty().getElement() instanceof Property property)) {
+				continue;
+			}
+			var written = sourceFor(reference, translation);
+			error("Property reference '" + NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(written))
+					+ "' has no value: property '" + property.getName() + "' has no default value and the reference"
+					+ " names no element that has a value for it", written, null,
+					ValidationMessageAcceptor.INSIGNIFICANT_INDEX, PROPERTY_REFERENCE_VALUE);
+		}
 	}
 
 	/**

@@ -1,3 +1,13 @@
+error | semantic | 259 | 23 | 36 | Property reference '#AadlBaTestPropertySet::aSimpleValue' has no value: property 'aSimpleValue' has no default value and the reference names no element that has a value for it
+error | semantic | 261 | 23 | 42 | Property reference '#AadlBaTestPropertySet::aRange.upper_bound' has no value: property 'aRange' has no default value and the reference names no element that has a value for it
+error | semantic | 262 | 23 | 42 | Property reference '#AadlBaTestPropertySet::aRange.lower_bound' has no value: property 'aRange' has no default value and the reference names no element that has a value for it
+error | semantic | 264 | 19 | 29 | Property reference '#AadlBaTestPropertySet::aEnum' has no value: property 'aEnum' has no default value and the reference names no element that has a value for it
+error | semantic | 264 | 51 | 33 | Property reference '#AadlBaTestPropertySet::aEnum.two' has no value: property 'aEnum' has no default value and the reference names no element that has a value for it
+error | semantic | 265 | 19 | 29 | Property reference '#AadlBaTestPropertySet::aEnum' has no value: property 'aEnum' has no default value and the reference names no element that has a value for it
+error | semantic | 265 | 51 | 32 | Property reference '#AadlBaTestPropertySet::aEnum[1]' has no value: property 'aEnum' has no default value and the reference names no element that has a value for it
+error | semantic | 267 | 23 | 41 | Property reference '#AadlBaTestPropertySet::aSimpleRecord.int' has no value: property 'aSimpleRecord' has no default value and the reference names no element that has a value for it
+error | semantic | 268 | 19 | 42 | Property reference '#AadlBaTestPropertySet::aSimpleRecord.bool' has no value: property 'aSimpleRecord' has no default value and the reference names no element that has a value for it
+error | semantic | 270 | 23 | 42 | Property reference '#AadlBaTestPropertySet::aComplexRecord.int' has no value: property 'aComplexRecord' has no default value and the reference names no element that has a value for it
 error | semantic | 367 | 23 | 35 | resolved behavior annex holder has no element
 error | semantic | 411 | 23 | 30 | resolved behavior annex holder has no element
 warning | semantic | 105 | 56 | 17 | AadlBaTest::Types in 'with' clause of public package section is not used.
