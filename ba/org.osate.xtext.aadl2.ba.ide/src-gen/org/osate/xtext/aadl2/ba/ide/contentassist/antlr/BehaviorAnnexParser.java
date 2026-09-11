@@ -347,6 +347,7 @@ public class BehaviorAnnexParser extends AbstractContentAssistParser {
             builder.put(grammarAccess.getReferenceExpressionAccess().getDequeueAssignment_1_1(), "rule__ReferenceExpression__DequeueAssignment_1_1");
             builder.put(grammarAccess.getReferenceExpressionAccess().getCountAssignment_1_2_1_0(), "rule__ReferenceExpression__CountAssignment_1_2_1_0");
             builder.put(grammarAccess.getReferenceExpressionAccess().getFreshAssignment_1_2_1_1(), "rule__ReferenceExpression__FreshAssignment_1_2_1_1");
+            builder.put(grammarAccess.getReferenceExpressionAccess().getUpdatedAssignment_1_2_1_2(), "rule__ReferenceExpression__UpdatedAssignment_1_2_1_2");
             builder.put(grammarAccess.getHashPropertyReferenceAccess().getPropertyAssignment_1(), "rule__HashPropertyReference__PropertyAssignment_1");
             builder.put(grammarAccess.getHashPropertyReferenceAccess().getIndexesAssignment_2(), "rule__HashPropertyReference__IndexesAssignment_2");
             builder.put(grammarAccess.getHashPropertyReferenceAccess().getFieldsAssignment_3(), "rule__HashPropertyReference__FieldsAssignment_3");
@@ -361,6 +362,7 @@ public class BehaviorAnnexParser extends AbstractContentAssistParser {
             builder.put(grammarAccess.getUnindexedReferenceExpressionAccess().getDequeueAssignment_1_0(), "rule__UnindexedReferenceExpression__DequeueAssignment_1_0");
             builder.put(grammarAccess.getUnindexedReferenceExpressionAccess().getCountAssignment_1_1_1_0(), "rule__UnindexedReferenceExpression__CountAssignment_1_1_1_0");
             builder.put(grammarAccess.getUnindexedReferenceExpressionAccess().getFreshAssignment_1_1_1_1(), "rule__UnindexedReferenceExpression__FreshAssignment_1_1_1_1");
+            builder.put(grammarAccess.getUnindexedReferenceExpressionAccess().getUpdatedAssignment_1_1_1_2(), "rule__UnindexedReferenceExpression__UpdatedAssignment_1_1_1_2");
             builder.put(grammarAccess.getUnindexedReferenceAccess().getSegmentsAssignment_0(), "rule__UnindexedReference__SegmentsAssignment_0");
             builder.put(grammarAccess.getUnindexedReferenceAccess().getTailsAssignment_1(), "rule__UnindexedReference__TailsAssignment_1");
             builder.put(grammarAccess.getUnindexedReferenceTailAccess().getSeparatorAssignment_0(), "rule__UnindexedReferenceTail__SeparatorAssignment_0");

@@ -222,6 +222,9 @@ public class IntegerRangeItemProvider extends BehaviorElementItemProvider {
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.INTEGER_RANGE__LOWER_INTEGER_VALUE,
 				AadlBaFactory.eINSTANCE.createStructUnionElementHolder()));
 
+		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.INTEGER_RANGE__LOWER_INTEGER_VALUE,
+				AadlBaFactory.eINSTANCE.createPortUpdatedValue()));
+
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.INTEGER_RANGE__UPPER_INTEGER_VALUE,
 				AadlBaFactory.eINSTANCE.createBehaviorBooleanLiteral()));
 
@@ -296,6 +299,9 @@ public class IntegerRangeItemProvider extends BehaviorElementItemProvider {
 
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.INTEGER_RANGE__UPPER_INTEGER_VALUE,
 				AadlBaFactory.eINSTANCE.createStructUnionElementHolder()));
+
+		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.INTEGER_RANGE__UPPER_INTEGER_VALUE,
+				AadlBaFactory.eINSTANCE.createPortUpdatedValue()));
 	}
 
 	/**

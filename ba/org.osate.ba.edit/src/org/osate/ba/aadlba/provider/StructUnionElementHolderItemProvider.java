@@ -222,6 +222,9 @@ public class StructUnionElementHolderItemProvider extends DataHolderItemProvider
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.INDEXABLE_ELEMENT__ARRAY_INDEXES,
 				AadlBaFactory.eINSTANCE.createStructUnionElementHolder()));
 
+		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.INDEXABLE_ELEMENT__ARRAY_INDEXES,
+				AadlBaFactory.eINSTANCE.createPortUpdatedValue()));
+
 		newChildDescriptors
 				.add(createChildParameter(AadlBaPackage.Literals.STRUCT_UNION_ELEMENT_HOLDER__STRUCT_UNION_ELEMENT,
 						AadlBaFactory.eINSTANCE.createStructUnionElement()));

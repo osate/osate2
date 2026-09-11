@@ -73,6 +73,7 @@ public class UnindexedReferenceExpressionItemProvider extends PropertyIndexValue
       addDequeuePropertyDescriptor(object);
       addCountPropertyDescriptor(object);
       addFreshPropertyDescriptor(object);
+      addUpdatedPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -138,6 +139,29 @@ public class UnindexedReferenceExpressionItemProvider extends PropertyIndexValue
          getString("_UI_UnindexedReferenceExpression_fresh_feature"),
          getString("_UI_PropertyDescriptor_description", "_UI_UnindexedReferenceExpression_fresh_feature", "_UI_UnindexedReferenceExpression_type"),
          BehaviorAnnexPackage.Literals.UNINDEXED_REFERENCE_EXPRESSION__FRESH,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
+   * This adds a property descriptor for the Updated feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addUpdatedPropertyDescriptor(Object object)
+  {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_UnindexedReferenceExpression_updated_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_UnindexedReferenceExpression_updated_feature", "_UI_UnindexedReferenceExpression_type"),
+         BehaviorAnnexPackage.Literals.UNINDEXED_REFERENCE_EXPRESSION__UPDATED,
          true,
          false,
          false,
@@ -222,6 +246,7 @@ public class UnindexedReferenceExpressionItemProvider extends PropertyIndexValue
       case BehaviorAnnexPackage.UNINDEXED_REFERENCE_EXPRESSION__DEQUEUE:
       case BehaviorAnnexPackage.UNINDEXED_REFERENCE_EXPRESSION__COUNT:
       case BehaviorAnnexPackage.UNINDEXED_REFERENCE_EXPRESSION__FRESH:
+      case BehaviorAnnexPackage.UNINDEXED_REFERENCE_EXPRESSION__UPDATED:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
       case BehaviorAnnexPackage.UNINDEXED_REFERENCE_EXPRESSION__REFERENCE:

@@ -46,6 +46,7 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceExpression;
  *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.ReferenceExpressionImpl#isDequeue <em>Dequeue</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.ReferenceExpressionImpl#isCount <em>Count</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.ReferenceExpressionImpl#isFresh <em>Fresh</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.ReferenceExpressionImpl#isUpdated <em>Updated</em>}</li>
  * </ul>
  *
  * @generated
@@ -131,6 +132,26 @@ public class ReferenceExpressionImpl extends IntegerValueImpl implements Referen
    * @ordered
    */
   protected boolean fresh = FRESH_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #isUpdated() <em>Updated</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isUpdated()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean UPDATED_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isUpdated() <em>Updated</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isUpdated()
+   * @generated
+   * @ordered
+   */
+  protected boolean updated = UPDATED_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -334,6 +355,31 @@ public class ReferenceExpressionImpl extends IntegerValueImpl implements Referen
    * @generated
    */
   @Override
+  public boolean isUpdated()
+  {
+    return updated;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void setUpdated(boolean newUpdated)
+  {
+    boolean oldUpdated = updated;
+    updated = newUpdated;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, BehaviorAnnexPackage.REFERENCE_EXPRESSION__UPDATED, oldUpdated, updated));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
     switch (featureID)
@@ -366,6 +412,8 @@ public class ReferenceExpressionImpl extends IntegerValueImpl implements Referen
         return isCount();
       case BehaviorAnnexPackage.REFERENCE_EXPRESSION__FRESH:
         return isFresh();
+      case BehaviorAnnexPackage.REFERENCE_EXPRESSION__UPDATED:
+        return isUpdated();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -394,6 +442,9 @@ public class ReferenceExpressionImpl extends IntegerValueImpl implements Referen
         return;
       case BehaviorAnnexPackage.REFERENCE_EXPRESSION__FRESH:
         setFresh((Boolean)newValue);
+        return;
+      case BehaviorAnnexPackage.REFERENCE_EXPRESSION__UPDATED:
+        setUpdated((Boolean)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -424,6 +475,9 @@ public class ReferenceExpressionImpl extends IntegerValueImpl implements Referen
       case BehaviorAnnexPackage.REFERENCE_EXPRESSION__FRESH:
         setFresh(FRESH_EDEFAULT);
         return;
+      case BehaviorAnnexPackage.REFERENCE_EXPRESSION__UPDATED:
+        setUpdated(UPDATED_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -448,6 +502,8 @@ public class ReferenceExpressionImpl extends IntegerValueImpl implements Referen
         return count != COUNT_EDEFAULT;
       case BehaviorAnnexPackage.REFERENCE_EXPRESSION__FRESH:
         return fresh != FRESH_EDEFAULT;
+      case BehaviorAnnexPackage.REFERENCE_EXPRESSION__UPDATED:
+        return updated != UPDATED_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -469,6 +525,8 @@ public class ReferenceExpressionImpl extends IntegerValueImpl implements Referen
     result.append(count);
     result.append(", fresh: ");
     result.append(fresh);
+    result.append(", updated: ");
+    result.append(updated);
     result.append(')');
     return result.toString();
   }

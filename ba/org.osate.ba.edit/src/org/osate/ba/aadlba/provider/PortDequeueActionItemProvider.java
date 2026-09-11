@@ -168,6 +168,9 @@ public class PortDequeueActionItemProvider extends BehaviorElementItemProvider {
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.PORT_DEQUEUE_ACTION__PORT,
 				AadlBaFactory.eINSTANCE.createPortFreshValue()));
 
+		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.PORT_DEQUEUE_ACTION__PORT,
+				AadlBaFactory.eINSTANCE.createPortUpdatedValue()));
+
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.PORT_DEQUEUE_ACTION__TARGET,
 				AadlBaFactory.eINSTANCE.createBehaviorVariableHolder()));
 

@@ -290,6 +290,9 @@ public class FactorItemProvider extends BehaviorElementItemProvider {
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.FACTOR__FIRST_VALUE,
 				AadlBaFactory.eINSTANCE.createStructUnionElementHolder()));
 
+		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.FACTOR__FIRST_VALUE,
+				AadlBaFactory.eINSTANCE.createPortUpdatedValue()));
+
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.FACTOR__SECOND_VALUE,
 				AadlBaFactory.eINSTANCE.createValueExpression()));
 
@@ -370,6 +373,9 @@ public class FactorItemProvider extends BehaviorElementItemProvider {
 
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.FACTOR__SECOND_VALUE,
 				AadlBaFactory.eINSTANCE.createStructUnionElementHolder()));
+
+		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.FACTOR__SECOND_VALUE,
+				AadlBaFactory.eINSTANCE.createPortUpdatedValue()));
 	}
 
 	/**

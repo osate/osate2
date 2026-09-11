@@ -219,6 +219,9 @@ public class BehaviorVariableHolderItemProvider extends DataHolderItemProvider {
 
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.INDEXABLE_ELEMENT__ARRAY_INDEXES,
 				AadlBaFactory.eINSTANCE.createStructUnionElementHolder()));
+
+		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.INDEXABLE_ELEMENT__ARRAY_INDEXES,
+				AadlBaFactory.eINSTANCE.createPortUpdatedValue()));
 	}
 
 }

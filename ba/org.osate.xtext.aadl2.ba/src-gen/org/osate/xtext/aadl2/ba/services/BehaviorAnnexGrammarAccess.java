@@ -2514,13 +2514,15 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
         private final Keyword cCountCountKeyword_1_2_1_0_0 = (Keyword)cCountAssignment_1_2_1_0.eContents().get(0);
         private final Assignment cFreshAssignment_1_2_1_1 = (Assignment)cAlternatives_1_2_1.eContents().get(1);
         private final Keyword cFreshFreshKeyword_1_2_1_1_0 = (Keyword)cFreshAssignment_1_2_1_1.eContents().get(0);
+        private final Assignment cUpdatedAssignment_1_2_1_2 = (Assignment)cAlternatives_1_2_1.eContents().get(2);
+        private final Keyword cUpdatedUpdatedKeyword_1_2_1_2_0 = (Keyword)cUpdatedAssignment_1_2_1_2.eContents().get(0);
 
         //ReferenceExpression:
         //    reference=Reference
         //    (
         //        property=PropertyReferenceTail
         //        | dequeue?='?'
-        //        | "'" (count?='count' | fresh?='fresh')
+        //        | "'" (count?='count' | fresh?='fresh' | updated?='updated')
         //    )?
         //;
         @Override public ParserRule getRule() { return rule; }
@@ -2529,7 +2531,7 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
         //(
         //    property=PropertyReferenceTail
         //    | dequeue?='?'
-        //    | "'" (count?='count' | fresh?='fresh')
+        //    | "'" (count?='count' | fresh?='fresh' | updated?='updated')
         //)?
         public Group getGroup() { return cGroup; }
 
@@ -2542,7 +2544,7 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
         //(
         //    property=PropertyReferenceTail
         //    | dequeue?='?'
-        //    | "'" (count?='count' | fresh?='fresh')
+        //    | "'" (count?='count' | fresh?='fresh' | updated?='updated')
         //)?
         public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
@@ -2558,13 +2560,13 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
         //'?'
         public Keyword getDequeueQuestionMarkKeyword_1_1_0() { return cDequeueQuestionMarkKeyword_1_1_0; }
 
-        //"'" (count?='count' | fresh?='fresh')
+        //"'" (count?='count' | fresh?='fresh' | updated?='updated')
         public Group getGroup_1_2() { return cGroup_1_2; }
 
         //"'"
         public Keyword getApostropheKeyword_1_2_0() { return cApostropheKeyword_1_2_0; }
 
-        //(count?='count' | fresh?='fresh')
+        //(count?='count' | fresh?='fresh' | updated?='updated')
         public Alternatives getAlternatives_1_2_1() { return cAlternatives_1_2_1; }
 
         //count?='count'
@@ -2578,6 +2580,12 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 
         //'fresh'
         public Keyword getFreshFreshKeyword_1_2_1_1_0() { return cFreshFreshKeyword_1_2_1_1_0; }
+
+        //updated?='updated'
+        public Assignment getUpdatedAssignment_1_2_1_2() { return cUpdatedAssignment_1_2_1_2; }
+
+        //'updated'
+        public Keyword getUpdatedUpdatedKeyword_1_2_1_2_0() { return cUpdatedUpdatedKeyword_1_2_1_2_0; }
     }
     public class HashPropertyReferenceElements extends AbstractParserRuleElementFinder {
         private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.HashPropertyReference");
@@ -2786,15 +2794,17 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
         private final Keyword cCountCountKeyword_1_1_1_0_0 = (Keyword)cCountAssignment_1_1_1_0.eContents().get(0);
         private final Assignment cFreshAssignment_1_1_1_1 = (Assignment)cAlternatives_1_1_1.eContents().get(1);
         private final Keyword cFreshFreshKeyword_1_1_1_1_0 = (Keyword)cFreshAssignment_1_1_1_1.eContents().get(0);
+        private final Assignment cUpdatedAssignment_1_1_1_2 = (Assignment)cAlternatives_1_1_1.eContents().get(2);
+        private final Keyword cUpdatedUpdatedKeyword_1_1_1_2_0 = (Keyword)cUpdatedAssignment_1_1_1_2.eContents().get(0);
 
         //UnindexedReferenceExpression:
         //    reference=UnindexedReference
-        //    (dequeue?='?' | "'" (count?='count' | fresh?='fresh'))?
+        //    (dequeue?='?' | "'" (count?='count' | fresh?='fresh' | updated?='updated'))?
         //;
         @Override public ParserRule getRule() { return rule; }
 
         //reference=UnindexedReference
-        //(dequeue?='?' | "'" (count?='count' | fresh?='fresh'))?
+        //(dequeue?='?' | "'" (count?='count' | fresh?='fresh' | updated?='updated'))?
         public Group getGroup() { return cGroup; }
 
         //reference=UnindexedReference
@@ -2803,7 +2813,7 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
         //UnindexedReference
         public RuleCall getReferenceUnindexedReferenceParserRuleCall_0_0() { return cReferenceUnindexedReferenceParserRuleCall_0_0; }
 
-        //(dequeue?='?' | "'" (count?='count' | fresh?='fresh'))?
+        //(dequeue?='?' | "'" (count?='count' | fresh?='fresh' | updated?='updated'))?
         public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
         //dequeue?='?'
@@ -2812,13 +2822,13 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
         //'?'
         public Keyword getDequeueQuestionMarkKeyword_1_0_0() { return cDequeueQuestionMarkKeyword_1_0_0; }
 
-        //"'" (count?='count' | fresh?='fresh')
+        //"'" (count?='count' | fresh?='fresh' | updated?='updated')
         public Group getGroup_1_1() { return cGroup_1_1; }
 
         //"'"
         public Keyword getApostropheKeyword_1_1_0() { return cApostropheKeyword_1_1_0; }
 
-        //(count?='count' | fresh?='fresh')
+        //(count?='count' | fresh?='fresh' | updated?='updated')
         public Alternatives getAlternatives_1_1_1() { return cAlternatives_1_1_1; }
 
         //count?='count'
@@ -2832,6 +2842,12 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 
         //'fresh'
         public Keyword getFreshFreshKeyword_1_1_1_1_0() { return cFreshFreshKeyword_1_1_1_1_0; }
+
+        //updated?='updated'
+        public Assignment getUpdatedAssignment_1_1_1_2() { return cUpdatedAssignment_1_1_1_2; }
+
+        //'updated'
+        public Keyword getUpdatedUpdatedKeyword_1_1_1_2_0() { return cUpdatedUpdatedKeyword_1_1_1_2_0; }
     }
     public class UnindexedReferenceElements extends AbstractParserRuleElementFinder {
         private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.UnindexedReference");
@@ -3819,7 +3835,7 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
     //    (
     //        property=PropertyReferenceTail
     //        | dequeue?='?'
-    //        | "'" (count?='count' | fresh?='fresh')
+    //        | "'" (count?='count' | fresh?='fresh' | updated?='updated')
     //    )?
     //;
     public ReferenceExpressionElements getReferenceExpressionAccess() {
@@ -3900,7 +3916,7 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 
     //UnindexedReferenceExpression:
     //    reference=UnindexedReference
-    //    (dequeue?='?' | "'" (count?='count' | fresh?='fresh'))?
+    //    (dequeue?='?' | "'" (count?='count' | fresh?='fresh' | updated?='updated'))?
     //;
     public UnindexedReferenceExpressionElements getUnindexedReferenceExpressionAccess() {
         return pUnindexedReferenceExpression;

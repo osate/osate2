@@ -585,5 +585,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//InternalCondition/internalPorts"/>
     </genClasses>
     <genClasses image="false" ecoreClass="aadlba.ecore#//TimeoutResetPort"/>
+    <genClasses ecoreClass="aadlba.ecore#//PortUpdatedValue"/>
   </genPackages>
 </genmodel:GenModel>

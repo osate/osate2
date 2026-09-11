@@ -182,6 +182,8 @@ public interface IBAVisitor {
 
 	void visit(PortSendAction psa);
 
+	void visit(PortUpdatedValue puv);
+
 	void visit(PropertyAssociationHolder pah);
 
 	void visit(PropertyElementHolder peh);

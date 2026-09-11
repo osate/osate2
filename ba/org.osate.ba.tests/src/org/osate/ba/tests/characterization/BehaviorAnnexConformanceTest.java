@@ -76,7 +76,6 @@ public class BehaviorAnnexConformanceTest {
 			"externalConditionOperatorsAreAcceptedByTheStandard -> #3166",
 			"shortCircuitOperatorsAreAcceptedByTheStandard -> #3169",
 			"unaryPlusIsRejectedByTheStandard -> #3170",
-			"portUpdatedIsAcceptedByTheStandard -> #3171",
 			"optionalLoopClassifierIsAcceptedByTheStandard -> #3173");
 
 	/** The fixtures a standard expectation in this class asserts about. */
@@ -123,7 +122,6 @@ public class BehaviorAnnexConformanceTest {
 		assertSyntaxErrorOn("UnaryPlus.aadl", "+1");
 	}
 
-	@Ignore("Issue #3171: implement the port updated value")
 	@Test
 	public void portUpdatedIsAcceptedByTheStandard() throws Exception {
 		assertNoIssues("PortUpdated.aadl");

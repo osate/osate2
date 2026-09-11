@@ -4016,6 +4016,21 @@ ruleReferenceExpression returns [EObject current=null]
                             }
                         )
                     )
+                        |
+                    (
+                        (
+                            lv_updated_6_0=Updated
+                            {
+                                newLeafNode(lv_updated_6_0, grammarAccess.getReferenceExpressionAccess().getUpdatedUpdatedKeyword_1_2_1_2_0());
+                            }
+                            {
+                                if ($current==null) {
+                                    $current = createModelElement(grammarAccess.getReferenceExpressionRule());
+                                }
+                                setWithLastConsumed($current, "updated", lv_updated_6_0 != null, "updated");
+                            }
+                        )
+                    )
                 )
             )
         )?
@@ -4458,6 +4473,21 @@ ruleUnindexedReferenceExpression returns [EObject current=null]
                                     $current = createModelElement(grammarAccess.getUnindexedReferenceExpressionRule());
                                 }
                                 setWithLastConsumed($current, "fresh", lv_fresh_4_0 != null, "fresh");
+                            }
+                        )
+                    )
+                        |
+                    (
+                        (
+                            lv_updated_5_0=Updated
+                            {
+                                newLeafNode(lv_updated_5_0, grammarAccess.getUnindexedReferenceExpressionAccess().getUpdatedUpdatedKeyword_1_1_1_2_0());
+                            }
+                            {
+                                if ($current==null) {
+                                    $current = createModelElement(grammarAccess.getUnindexedReferenceExpressionRule());
+                                }
+                                setWithLastConsumed($current, "updated", lv_updated_5_0 != null, "updated");
                             }
                         )
                     )

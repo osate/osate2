@@ -1969,6 +1969,17 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
    * @generated
    */
   @Override
+  public EAttribute getReferenceExpression_Updated()
+  {
+    return (EAttribute)referenceExpressionEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EClass getHashPropertyReference()
   {
     return hashPropertyReferenceEClass;
@@ -2192,6 +2203,17 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
   public EAttribute getUnindexedReferenceExpression_Fresh()
   {
     return (EAttribute)unindexedReferenceExpressionEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EAttribute getUnindexedReferenceExpression_Updated()
+  {
+    return (EAttribute)unindexedReferenceExpressionEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -2720,6 +2742,7 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
     createEAttribute(referenceExpressionEClass, REFERENCE_EXPRESSION__DEQUEUE);
     createEAttribute(referenceExpressionEClass, REFERENCE_EXPRESSION__COUNT);
     createEAttribute(referenceExpressionEClass, REFERENCE_EXPRESSION__FRESH);
+    createEAttribute(referenceExpressionEClass, REFERENCE_EXPRESSION__UPDATED);
 
     hashPropertyReferenceEClass = createEClass(HASH_PROPERTY_REFERENCE);
     createEAttribute(hashPropertyReferenceEClass, HASH_PROPERTY_REFERENCE__PROPERTY);
@@ -2748,6 +2771,7 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
     createEAttribute(unindexedReferenceExpressionEClass, UNINDEXED_REFERENCE_EXPRESSION__DEQUEUE);
     createEAttribute(unindexedReferenceExpressionEClass, UNINDEXED_REFERENCE_EXPRESSION__COUNT);
     createEAttribute(unindexedReferenceExpressionEClass, UNINDEXED_REFERENCE_EXPRESSION__FRESH);
+    createEAttribute(unindexedReferenceExpressionEClass, UNINDEXED_REFERENCE_EXPRESSION__UPDATED);
 
     unindexedReferenceEClass = createEClass(UNINDEXED_REFERENCE);
     createEReference(unindexedReferenceEClass, UNINDEXED_REFERENCE__SEGMENTS);
@@ -3018,6 +3042,7 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
     initEAttribute(getReferenceExpression_Dequeue(), theEcorePackage.getEBoolean(), "dequeue", null, 0, 1, ReferenceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getReferenceExpression_Count(), theEcorePackage.getEBoolean(), "count", null, 0, 1, ReferenceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getReferenceExpression_Fresh(), theEcorePackage.getEBoolean(), "fresh", null, 0, 1, ReferenceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getReferenceExpression_Updated(), theEcorePackage.getEBoolean(), "updated", null, 0, 1, ReferenceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(hashPropertyReferenceEClass, HashPropertyReference.class, "HashPropertyReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getHashPropertyReference_Property(), theEcorePackage.getEString(), "property", null, 0, 1, HashPropertyReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3046,6 +3071,7 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
     initEAttribute(getUnindexedReferenceExpression_Dequeue(), theEcorePackage.getEBoolean(), "dequeue", null, 0, 1, UnindexedReferenceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getUnindexedReferenceExpression_Count(), theEcorePackage.getEBoolean(), "count", null, 0, 1, UnindexedReferenceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getUnindexedReferenceExpression_Fresh(), theEcorePackage.getEBoolean(), "fresh", null, 0, 1, UnindexedReferenceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getUnindexedReferenceExpression_Updated(), theEcorePackage.getEBoolean(), "updated", null, 0, 1, UnindexedReferenceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(unindexedReferenceEClass, UnindexedReference.class, "UnindexedReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getUnindexedReference_Segments(), this.getUnindexedReferenceSegment(), null, "segments", null, 0, -1, UnindexedReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

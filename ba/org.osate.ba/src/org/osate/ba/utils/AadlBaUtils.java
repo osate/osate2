@@ -130,6 +130,7 @@ import org.osate.ba.aadlba.IterativeVariable;
 import org.osate.ba.aadlba.Otherwise;
 import org.osate.ba.aadlba.PortCountValue;
 import org.osate.ba.aadlba.PortFreshValue;
+import org.osate.ba.aadlba.PortUpdatedValue;
 import org.osate.ba.aadlba.PropertyElementHolder;
 import org.osate.ba.aadlba.PropertyNameHolder;
 import org.osate.ba.aadlba.PropertyReference;
@@ -383,7 +384,7 @@ public class AadlBaUtils {
 	public static DataRepresentation getDataRepresentation(ValueVariable v) {
 		if (v instanceof PortCountValue) {
 			return DataRepresentation.INTEGER;
-		} else if (v instanceof PortFreshValue) {
+		} else if (v instanceof PortFreshValue || v instanceof PortUpdatedValue) {
 			return DataRepresentation.BOOLEAN;
 		} else {
 			// Either ElementHolder or DataComponentReference object.
@@ -917,10 +918,11 @@ public class AadlBaUtils {
 			result.setDataRep(DataRepresentation.UNKNOWN);
 		}
 
-		// Port count value and port fresh value are, respectively, universal
-		// integer and universal boolean. So their data classifier field must be
-		// null.
-		if (v instanceof ValueVariable && (!(v instanceof PortCountValue || v instanceof PortFreshValue))) {
+		// Port count value is a universal integer, and port fresh value and port
+		// updated value are universal booleans. So their data classifier field
+		// must be null.
+		if (v instanceof ValueVariable && (!(v instanceof PortCountValue || v instanceof PortFreshValue
+				|| v instanceof PortUpdatedValue))) {
 			result.setKlass(getDataClassifier(v, parentContainer));
 		}
 		// else: nothing.

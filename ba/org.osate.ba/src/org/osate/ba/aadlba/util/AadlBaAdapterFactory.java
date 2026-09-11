@@ -725,6 +725,11 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter casePortUpdatedValue(PortUpdatedValue object) {
+			return createPortUpdatedValueAdapter();
+		}
+
+		@Override
 		public Adapter caseElement(Element object) {
 			return createElementAdapter();
 		}
@@ -2770,6 +2775,20 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTimeoutResetPortAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.PortUpdatedValue <em>Port Updated Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.ba.aadlba.PortUpdatedValue
+	 * @generated
+	 */
+	public Adapter createPortUpdatedValueAdapter() {
 		return null;
 	}
 

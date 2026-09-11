@@ -1,0 +1,38 @@
+annex[0] owner=Issue3171::sampler.i
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=changed
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=checking
+    states[2] : BehaviorState name=bundling
+    states[3] : BehaviorState name=done
+    transitions[0] : BehaviorTransition name=data_port
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : PortUpdatedValue
+    transitions[1] : BehaviorTransition name=event_data_port
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : PortUpdatedValue
+    transitions[2] : BehaviorTransition name=feature_group_port
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : PortUpdatedValue
+                  groupHolders[0] : GroupHolder element=Issue3171::sampler.bundle [FeatureGroup]
+    actions[0] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=changed [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PortUpdatedValue
