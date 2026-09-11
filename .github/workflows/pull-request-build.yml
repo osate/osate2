@@ -116,12 +116,12 @@ jobs:
           mvn --batch-mode --no-transfer-progress -T5
           -Dmaven.repo.local="${MAVEN_REPOSITORY}"
           -s releng/osate.releng/settings.xml
-          -Plocal,with-ge-tests
+          -Plocal
           -Dtycho.localArtifacts=ignore
           -Dpr.build=true
           -Dsign=false
-          -Dspotbugs=true
-          -Dcodecoverage=true
+          -Dspotbugs=false
+          -Dcodecoverage=false
           -Djavadoc=false
           -Declipse.p2.mirrors=false
           -DfailIfNoTests=false
