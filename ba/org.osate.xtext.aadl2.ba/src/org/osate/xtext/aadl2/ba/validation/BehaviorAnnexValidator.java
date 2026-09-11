@@ -65,7 +65,6 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTransition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.CommunicationAction;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchTriggerCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ForStatement;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.HashPropertyReference;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.InternalCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.Reference;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceExpression;
@@ -116,7 +115,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 		var translation = translator.translate(source, owner);
 		// Each check describes a use no strict checker can reject, and a model can get each one wrong independently,
 		// so report them all before deciding whether the strict checkers have a model to work on.
-		var representable = checkArraySizes(source, translation);
+		var representable = checkArraySizes(source);
 		representable &= checkInternalPortUses(source, translation);
 		representable &= checkInternalConditionPorts(source, translation);
 		representable &= checkTimeoutResetPorts(source, translation);
@@ -149,14 +148,14 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	/**
 	 * AS5506/3 Rev A D.3 requires each behavior-variable array size to be the integer value constant of D.7: an integer
 	 * literal or a property reference. The shared integer-value grammar also accepts an ordinary reference expression,
-	 * which the strict array dimension cannot carry and translation would otherwise turn into a zero extent. A reference
-	 * expression with a property tail is a property reference. The strict array dimension can retain an unindexed
-	 * property constant directly, or the evaluated extent of an element-prefixed property reference when that element
-	 * supplies one non-modal integer value. Reject any other property reference before it can become a zero extent.
+	 * which names a value variable rather than a constant, and no strict checker constrains an array size. A reference
+	 * expression with a property tail is a property reference, so reject only one without a tail. The value a property
+	 * reference denotes belongs to a component instance, so whether it can be read from the declarative model says
+	 * nothing about the legality of the declaration and is not checked here.
 	 *
-	 * @return {@code true} when every declared array size has an unambiguous integer value
+	 * @return {@code true} when every declared array size is an integer value constant
 	 */
-	private boolean checkArraySizes(final BehaviorAnnex source, final TranslationResult translation) {
+	private boolean checkArraySizes(final BehaviorAnnex source) {
 		var accepted = true;
 		for (var contents = source.eAllContents(); contents.hasNext();) {
 			if (!(contents.next() instanceof ArrayDimension dimension)) {
@@ -167,12 +166,6 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 				var written = NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(size));
 				error("Array size '" + written + "' must be an integer literal or a property reference", size, null,
 						ValidationMessageAcceptor.INSIGNIFICANT_INDEX, ARRAY_SIZE);
-				accepted = false;
-			} else if ((size instanceof HashPropertyReference || size instanceof ReferenceExpression)
-					&& !translation.isArraySizeRepresentable(dimension)) {
-				var written = NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(size));
-				error("Array size property reference '" + written + "' does not have an unambiguous integer value", size,
-						null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, ARRAY_SIZE);
 				accepted = false;
 			}
 		}

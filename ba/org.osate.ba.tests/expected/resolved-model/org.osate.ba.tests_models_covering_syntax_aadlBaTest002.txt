@@ -11,7 +11,8 @@ annex[0] owner=DataTypeCheckerTest::concreteThread.impl
     variables[8] : BehaviorVariable name=int3
     variables[9] : BehaviorVariable name=tab
       arrayDimension[0] : ArrayDimension
-        size : ArraySize
+        size : BehaviorArraySize
+          integerValue : BehaviorIntegerLiteral
     variables[10] : BehaviorVariable name=nat1
     variables[11] : BehaviorVariable name=nat2
     variables[12] : BehaviorVariable name=nat3

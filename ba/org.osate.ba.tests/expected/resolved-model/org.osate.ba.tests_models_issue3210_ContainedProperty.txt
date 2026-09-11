@@ -1,11 +1,12 @@
-annex[0] owner=BareProperty::sizer.impl
+annex[0] owner=ContainedProperty::sizer.impl
   parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
-    variables[0] : BehaviorVariable name=byProperty
+    variables[0] : BehaviorVariable name=sized
       arrayDimension[0] : ArrayDimension
         size : BehaviorArraySize
-          integerValue : PropertySetPropertyReference
+          integerValue : ClassifierFeaturePropertyReference
             properties[0] : PropertyNameHolder
-              property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+              property : BasicPropertyHolder element=Communication_Properties::Queue_Size [Property]
+            component : EventDataPortHolder element=ContainedProperty::sizer.input [EventDataPort]
     states[0] : BehaviorState name=start
     states[1] : BehaviorState name=ready
     states[2] : BehaviorState name=done
@@ -14,4 +15,4 @@ annex[0] owner=BareProperty::sizer.impl
       condition : DispatchCondition
         dispatchTriggerCondition : DispatchTriggerLogicalExpression
           dispatchConjunctions[0] : DispatchConjunction
-            dispatchTriggers[0] : EventPortHolder element=BareProperty::sizer.trigger [EventPort]
+            dispatchTriggers[0] : EventPortHolder element=ContainedProperty::sizer.trigger [EventPort]

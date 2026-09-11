@@ -5,7 +5,8 @@ annex[0] owner=DataStructPrototypeTest::concreteThread.impl
     variables[2] : BehaviorVariable name=localMyStruct_A
     variables[3] : BehaviorVariable name=localArrayMyStruct_A
       arrayDimension[0] : ArrayDimension
-        size : ArraySize
+        size : BehaviorArraySize
+          integerValue : BehaviorIntegerLiteral
     variables[4] : BehaviorVariable name=localMyStruct_B
     variables[5] : BehaviorVariable name=localMyArray_Integer_A
     variables[6] : BehaviorVariable name=localMyArray_Integer_B
@@ -15,23 +16,30 @@ annex[0] owner=DataStructPrototypeTest::concreteThread.impl
     variables[10] : BehaviorVariable name=localMyIntegerArray_B
     variables[11] : BehaviorVariable name=localMyIntegerArray_C
       arrayDimension[0] : ArrayDimension
-        size : ArraySize
+        size : BehaviorArraySize
+          integerValue : BehaviorIntegerLiteral
       arrayDimension[1] : ArrayDimension
-        size : ArraySize
+        size : BehaviorArraySize
+          integerValue : BehaviorIntegerLiteral
     variables[12] : BehaviorVariable name=localOtherMyIntegerArray_B
       arrayDimension[0] : ArrayDimension
-        size : ArraySize
+        size : BehaviorArraySize
+          integerValue : BehaviorIntegerLiteral
       arrayDimension[1] : ArrayDimension
-        size : ArraySize
+        size : BehaviorArraySize
+          integerValue : BehaviorIntegerLiteral
       arrayDimension[2] : ArrayDimension
-        size : ArraySize
+        size : BehaviorArraySize
+          integerValue : BehaviorIntegerLiteral
     variables[13] : BehaviorVariable name=localMyEnum
     variables[14] : BehaviorVariable name=localDay
     variables[15] : BehaviorVariable name=squareTab
       arrayDimension[0] : ArrayDimension
-        size : ArraySize
+        size : BehaviorArraySize
+          integerValue : BehaviorIntegerLiteral
       arrayDimension[1] : ArrayDimension
-        size : ArraySize
+        size : BehaviorArraySize
+          integerValue : BehaviorPropertyConstant
     states[0] : BehaviorState name=uniqueState
     states[1] : BehaviorState name=a
     transitions[0] : BehaviorTransition
@@ -799,7 +807,8 @@ annex[1] owner=DataStructPrototypeTest::MySubProgConcrete
     variables[0] : BehaviorVariable name=localMyStruct_B
     variables[1] : BehaviorVariable name=tab
       arrayDimension[0] : ArrayDimension
-        size : ArraySize
+        size : BehaviorArraySize
+          integerValue : BehaviorIntegerLiteral
     states[0] : BehaviorState name=uniqueState
     states[1] : BehaviorState name=a
     transitions[0] : BehaviorTransition
