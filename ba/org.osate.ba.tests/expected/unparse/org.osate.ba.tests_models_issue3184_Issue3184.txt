@@ -1,0 +1,13 @@
+===== annex[0] owner=Issue3184::example.impl =====
+
+states
+\tstart : initial state;
+\tnested : state;
+\tdone : final state;
+transitions
+\tstart -[true]-> nested {computation (1 ms)} timeout 2 ms;
+\tstart -[timeout]-> done;
+\tnested -[true]-> done {{computation (1 ms)} timeout 3 ms};
+\tnested -[timeout]-> done;
+----- Xtext reparse -----
+reparsed

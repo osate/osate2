@@ -1,0 +1,1 @@
+error | semantic | 36 | 55 | 4 | A behavior action timeout must have a transition from source state 'start' with a simple timeout condition : Behavior Annex D.3 and D.6 legality rules failed.

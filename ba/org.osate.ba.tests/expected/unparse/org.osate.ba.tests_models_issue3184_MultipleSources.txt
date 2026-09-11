@@ -1,0 +1,12 @@
+===== annex[0] owner=MultipleSources::example.impl =====
+
+states
+\tstart : initial state;
+\tfirst, second : state;
+\tdone : final state;
+transitions
+\tstart -[]-> first;
+\tfirst, second -[true]-> done {computation (1 ms)} timeout 2 ms;
+\tfirst -[timeout]-> done;
+----- Xtext reparse -----
+reparsed

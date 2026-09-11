@@ -1,0 +1,3 @@
+error | semantic | 35 | 55 | 4 | A behavior action timeout is not allowed on a transition with a timeout condition : Behavior Annex D.3 and D.6 legality rules failed.
+error | semantic | 51 | 69 | 4 | A behavior action timeout is not allowed on a transition with a timeout condition : Behavior Annex D.3 and D.6 legality rules failed.
+error | semantic | 61 | 74 | 4 | A behavior action timeout is not allowed on a transition with a timeout condition : Behavior Annex D.3 and D.6 legality rules failed.

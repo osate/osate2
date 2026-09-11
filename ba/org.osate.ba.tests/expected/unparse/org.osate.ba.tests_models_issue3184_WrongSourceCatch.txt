@@ -1,0 +1,11 @@
+===== annex[0] owner=WrongSourceCatch::example.impl =====
+
+states
+\tstart : initial state;
+\trunning : state;
+\tdone : final state;
+transitions
+\tstart -[true]-> running {computation (1 ms)} timeout 2 ms;
+\trunning -[timeout]-> done;
+----- Xtext reparse -----
+reparsed
