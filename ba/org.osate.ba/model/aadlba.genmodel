@@ -112,6 +112,8 @@
       <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//LogicalOperator/And"/>
       <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//LogicalOperator/Or"/>
       <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//LogicalOperator/Xor"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//LogicalOperator/AndThen"/>
+      <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//LogicalOperator/OrElse"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadlba.ecore#//MultiplyingOperator">
       <genEnumLiterals ecoreEnumLiteral="aadlba.ecore#//MultiplyingOperator/None"/>

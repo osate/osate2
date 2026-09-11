@@ -25,17 +25,16 @@ package org.osate.xtext.aadl2.ba.validation;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.eclipse.emf.ecore.EPackage;
 import org.osate.xtext.aadl2.properties.validation.PropertiesValidator;
 
 public abstract class AbstractBehaviorAnnexValidator extends PropertiesValidator {
-
-    @Override
-    protected List<EPackage> getEPackages() {
-        List<EPackage> result = new ArrayList<EPackage>(super.getEPackages());
-        result.add(org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage.eINSTANCE);
-        result.add(EPackage.Registry.INSTANCE.getEPackage("http://aadl.info/AADL/2.0"));
-        return result;
-    }
+	
+	@Override
+	protected List<EPackage> getEPackages() {
+		List<EPackage> result = new ArrayList<EPackage>(super.getEPackages());
+		result.add(org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage.eINSTANCE);
+		result.add(EPackage.Registry.INSTANCE.getEPackage("http://aadl.info/AADL/2.0"));
+		return result;
+	}
 }

@@ -1,18 +1,18 @@
 /**
  * Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- *
+ * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- *
+ * 
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- *
+ * 
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- *
+ * 
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -25,69 +25,17 @@ package org.osate.xtext.aadl2.ba.behaviorAnnex.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
+
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
+
 import org.eclipse.emf.ecore.EObject;
+
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.NamedElement;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.ArrayDimension;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.ArrayIndex;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.AssignmentAction;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAction;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorActionBlock;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorActionSequence;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorActionSet;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorActions;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorBooleanLiteral;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorCondition;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorIntegerLiteral;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorPropertyAssociation;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorRealLiteral;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorState;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorStateGroup;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorStringLiteral;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTime;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTransition;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorVariable;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorVariableGroup;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BinaryExpression;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.CommunicationAction;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchCondition;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchConjunction;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchTriggerCondition;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchTriggerLogicalExpression;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.DoUntilStatement;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.ElementValues;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.ElseIfClause;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.ExecuteCondition;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.ForStatement;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.HashPropertyReference;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.IfStatement;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.IntegerValue;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.InternalCondition;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchCondition;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchConjunction;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.NamedPropertyField;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyArrayIndex;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyIndexPropertyReference;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyIndexValue;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyReferenceTail;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.Reference;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceExpression;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceSegment;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceTail;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.TimedAction;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.UnaryExpression;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReference;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReferenceExpression;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReferenceSegment;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReferenceTail;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.ValueConstant;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.ValueExpression;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.WhileStatement;
+
+import org.osate.xtext.aadl2.ba.behaviorAnnex.*;
 
 /**
  * <!-- begin-user-doc -->

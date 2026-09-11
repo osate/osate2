@@ -1,3 +1,2 @@
-error | syntax | 35 | 48 | 5 | extraneous input 'right' expecting ']->'
-error | syntax | 36 | 41 | 4 | no viable alternative at input 'else'
-error | syntax | 36 | 46 | 5 | extraneous input 'right' expecting ']->'
+error | semantic | 35 | 34 | 19 | There is no applicable operator "and then" for type Base_Types::Integer
+error | semantic | 36 | 33 | 18 | There is no applicable operator "or else" for type Base_Types::Integer

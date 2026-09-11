@@ -23,6 +23,8 @@
  */
 package org.osate.xtext.aadl2.ba.ide;
 
+import com.google.inject.Binder;
+import com.google.inject.name.Names;
 import org.eclipse.xtext.ide.DefaultIdeModule;
 import org.eclipse.xtext.ide.LexerIdeBindings;
 import org.eclipse.xtext.ide.editor.contentassist.FQNPrefixMatcher;
@@ -37,45 +39,42 @@ import org.eclipse.xtext.ide.server.rename.RenameService2;
 import org.osate.xtext.aadl2.ba.ide.contentassist.antlr.BehaviorAnnexParser;
 import org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer;
 
-import com.google.inject.Binder;
-import com.google.inject.name.Names;
-
 /**
  * Manual modifications go to {@link BehaviorAnnexIdeModule}.
  */
 @SuppressWarnings("all")
 public abstract class AbstractBehaviorAnnexIdeModule extends DefaultIdeModule {
 
-    // contributed by org.eclipse.xtext.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment2
-    public void configureContentAssistLexer(Binder binder) {
-        binder.bind(Lexer.class)
-            .annotatedWith(Names.named(LexerIdeBindings.CONTENT_ASSIST))
-            .to(InternalBehaviorAnnexLexer.class);
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment2
-    public Class<? extends IContentAssistParser> bindIContentAssistParser() {
-        return BehaviorAnnexParser.class;
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment2
-    public Class<? extends IProposalConflictHelper> bindIProposalConflictHelper() {
-        return AntlrProposalConflictHelper.class;
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.exporting.QualifiedNamesFragment2
-    public Class<? extends IPrefixMatcher> bindIPrefixMatcher() {
-        return FQNPrefixMatcher.class;
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.ui.refactoring.RefactorElementNameFragment2
-    public Class<? extends IRenameService2> bindIRenameService2() {
-        return RenameService2.class;
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.ui.refactoring.RefactorElementNameFragment2
-    public Class<? extends IRenameStrategy2> bindIRenameStrategy2() {
-        return IRenameStrategy2.DefaultImpl.class;
-    }
-
+	// contributed by org.eclipse.xtext.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment2
+	public void configureContentAssistLexer(Binder binder) {
+		binder.bind(Lexer.class)
+			.annotatedWith(Names.named(LexerIdeBindings.CONTENT_ASSIST))
+			.to(InternalBehaviorAnnexLexer.class);
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment2
+	public Class<? extends IContentAssistParser> bindIContentAssistParser() {
+		return BehaviorAnnexParser.class;
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment2
+	public Class<? extends IProposalConflictHelper> bindIProposalConflictHelper() {
+		return AntlrProposalConflictHelper.class;
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.exporting.QualifiedNamesFragment2
+	public Class<? extends IPrefixMatcher> bindIPrefixMatcher() {
+		return FQNPrefixMatcher.class;
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.ui.refactoring.RefactorElementNameFragment2
+	public Class<? extends IRenameService2> bindIRenameService2() {
+		return RenameService2.class;
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.ui.refactoring.RefactorElementNameFragment2
+	public Class<? extends IRenameStrategy2> bindIRenameStrategy2() {
+		return IRenameStrategy2.DefaultImpl.class;
+	}
+	
 }

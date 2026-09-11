@@ -6,8 +6,9 @@
 \t\t\tstart: initial state;
 \t\t\tfinish: final state;
 \t\ttransitions
-\t\t\tand_then_transition: start -[ left and then right ]-> finish;
-\t\t\tor_else_transition: start -[ left or else right ]-> finish;
+\t\t\tand_then_transition: start -[ left and\t\tthen right ]-> finish;
+\t\t\tor_else_transition: start -[ left or     -- Hidden text must not change the operator value.
+\t\t\t\telse right ]-> finish;
 \t
 ----- Xtext reparse -----
 reparsed

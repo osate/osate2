@@ -23,8 +23,8 @@
  */
 package org.osate.xtext.aadl2.ba.serializer;
 
+import com.google.inject.Inject;
 import java.util.List;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.RuleCall;
@@ -36,83 +36,81 @@ import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISyn
 import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 import org.osate.xtext.aadl2.ba.services.BehaviorAnnexGrammarAccess;
 
-import com.google.inject.Inject;
-
 @SuppressWarnings("all")
 public abstract class AbstractBehaviorAnnexSyntacticSequencer extends AbstractSyntacticSequencer {
 
-    protected BehaviorAnnexGrammarAccess grammarAccess;
-    protected AbstractElementAlias match_PrimaryExpression_LeftParenthesisKeyword_2_0_a;
-    protected AbstractElementAlias match_PrimaryExpression_LeftParenthesisKeyword_2_0_p;
+	protected BehaviorAnnexGrammarAccess grammarAccess;
+	protected AbstractElementAlias match_PrimaryExpression_LeftParenthesisKeyword_2_0_a;
+	protected AbstractElementAlias match_PrimaryExpression_LeftParenthesisKeyword_2_0_p;
+	
+	@Inject
+	protected void init(IGrammarAccess access) {
+		grammarAccess = (BehaviorAnnexGrammarAccess) access;
+		match_PrimaryExpression_LeftParenthesisKeyword_2_0_a = new TokenAlias(true, true, grammarAccess.getPrimaryExpressionAccess().getLeftParenthesisKeyword_2_0());
+		match_PrimaryExpression_LeftParenthesisKeyword_2_0_p = new TokenAlias(true, false, grammarAccess.getPrimaryExpressionAccess().getLeftParenthesisKeyword_2_0());
+	}
+	
+	@Override
+	protected String getUnassignedRuleCallToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		return "";
+	}
+	
+	
+	@Override
+	protected void emitUnassignedTokens(EObject semanticObject, ISynTransition transition, INode fromNode, INode toNode) {
+		if (transition.getAmbiguousSyntaxes().isEmpty()) return;
+		List<INode> transitionNodes = collectNodes(fromNode, toNode);
+		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
+			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
+			if (match_PrimaryExpression_LeftParenthesisKeyword_2_0_a.equals(syntax))
+				emit_PrimaryExpression_LeftParenthesisKeyword_2_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_PrimaryExpression_LeftParenthesisKeyword_2_0_p.equals(syntax))
+				emit_PrimaryExpression_LeftParenthesisKeyword_2_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else acceptNodes(getLastNavigableState(), syntaxNodes);
+		}
+	}
 
-    @Inject
-    protected void init(IGrammarAccess access) {
-        grammarAccess = (BehaviorAnnexGrammarAccess) access;
-        match_PrimaryExpression_LeftParenthesisKeyword_2_0_a = new TokenAlias(true, true, grammarAccess.getPrimaryExpressionAccess().getLeftParenthesisKeyword_2_0());
-        match_PrimaryExpression_LeftParenthesisKeyword_2_0_p = new TokenAlias(true, false, grammarAccess.getPrimaryExpressionAccess().getLeftParenthesisKeyword_2_0());
-    }
-
-    @Override
-    protected String getUnassignedRuleCallToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-        return "";
-    }
-
-
-    @Override
-    protected void emitUnassignedTokens(EObject semanticObject, ISynTransition transition, INode fromNode, INode toNode) {
-        if (transition.getAmbiguousSyntaxes().isEmpty()) return;
-        List<INode> transitionNodes = collectNodes(fromNode, toNode);
-        for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
-            List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-            if (match_PrimaryExpression_LeftParenthesisKeyword_2_0_a.equals(syntax))
-                emit_PrimaryExpression_LeftParenthesisKeyword_2_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
-            else if (match_PrimaryExpression_LeftParenthesisKeyword_2_0_p.equals(syntax))
-                emit_PrimaryExpression_LeftParenthesisKeyword_2_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
-            else acceptNodes(getLastNavigableState(), syntaxNodes);
-        }
-    }
-
-    /**
-     * <pre>
-     * Ambiguous syntax:
-     *     '('*
-     *
-     * This ambiguous syntax occurs at:
-     *     (rule start) (ambiguity) '#' property=QualifiedName
-     *     (rule start) (ambiguity) 'false' (rule start)
-     *     (rule start) (ambiguity) operator='+'
-     *     (rule start) (ambiguity) operator='-'
-     *     (rule start) (ambiguity) operator='abs'
-     *     (rule start) (ambiguity) operator='not'
-     *     (rule start) (ambiguity) reference=Reference
-     *     (rule start) (ambiguity) value=INTEGER_LIT
-     *     (rule start) (ambiguity) value=REAL_LIT
-     *     (rule start) (ambiguity) value=STRING
-     *     (rule start) (ambiguity) value?='true'
-     *     (rule start) (ambiguity) {BinaryExpression.left=}
-
-     * </pre>
-     */
-    protected void emit_PrimaryExpression_LeftParenthesisKeyword_2_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-        acceptNodes(transition, nodes);
-    }
-
-    /**
-     * <pre>
-     * Ambiguous syntax:
-     *     '('+
-     *
-     * This ambiguous syntax occurs at:
-     *     (rule start) (ambiguity) operator='+'
-     *     (rule start) (ambiguity) operator='-'
-     *     (rule start) (ambiguity) operator='abs'
-     *     (rule start) (ambiguity) operator='not'
-     *     (rule start) (ambiguity) {BinaryExpression.left=}
-
-     * </pre>
-     */
-    protected void emit_PrimaryExpression_LeftParenthesisKeyword_2_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-        acceptNodes(transition, nodes);
-    }
-
+	/**
+	 * <pre>
+	 * Ambiguous syntax:
+	 *     '('*
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) '#' property=QualifiedName
+	 *     (rule start) (ambiguity) 'false' (rule start)
+	 *     (rule start) (ambiguity) operator='+'
+	 *     (rule start) (ambiguity) operator='-'
+	 *     (rule start) (ambiguity) operator='abs'
+	 *     (rule start) (ambiguity) operator='not'
+	 *     (rule start) (ambiguity) reference=Reference
+	 *     (rule start) (ambiguity) value=INTEGER_LIT
+	 *     (rule start) (ambiguity) value=REAL_LIT
+	 *     (rule start) (ambiguity) value=STRING
+	 *     (rule start) (ambiguity) value?='true'
+	 *     (rule start) (ambiguity) {BinaryExpression.left=}
+	 
+	 * </pre>
+	 */
+	protected void emit_PrimaryExpression_LeftParenthesisKeyword_2_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * <pre>
+	 * Ambiguous syntax:
+	 *     '('+
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) operator='+'
+	 *     (rule start) (ambiguity) operator='-'
+	 *     (rule start) (ambiguity) operator='abs'
+	 *     (rule start) (ambiguity) operator='not'
+	 *     (rule start) (ambiguity) {BinaryExpression.left=}
+	 
+	 * </pre>
+	 */
+	protected void emit_PrimaryExpression_LeftParenthesisKeyword_2_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
 }
