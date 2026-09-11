@@ -1,0 +1,24 @@
+annex[0] owner=Issue3208::sizer.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=slots
+    variables[1] : BehaviorVariable name=byLiteral
+      arrayDimension[0] : ArrayDimension
+        size : BehaviorArraySize
+          integerValue : BehaviorIntegerLiteral
+    variables[2] : BehaviorVariable name=byConstant
+      arrayDimension[0] : ArrayDimension
+        size : BehaviorArraySize
+          integerValue : BehaviorPropertyConstant
+    variables[3] : BehaviorVariable name=byVariable
+      arrayDimension[0] : ArrayDimension
+        size : BehaviorArraySize
+          integerValue : BehaviorVariableHolder element=slots [BehaviorVariable]
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=ready
+    states[2] : BehaviorState name=done
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchTriggerLogicalExpression
+          dispatchConjunctions[0] : DispatchConjunction
+            dispatchTriggers[0] : EventPortHolder element=Issue3208::sizer.trigger [EventPort]

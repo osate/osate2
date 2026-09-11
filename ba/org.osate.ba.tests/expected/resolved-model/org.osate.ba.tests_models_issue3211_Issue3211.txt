@@ -1,0 +1,34 @@
+annex[0] owner=Issue3211::reader.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=value
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=ready
+    states[2] : BehaviorState name=done
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchTriggerLogicalExpression
+          dispatchConjunctions[0] : DispatchConjunction
+            dispatchTriggers[0] : EventPortHolder element=Issue3211::reader.trigger [EventPort]
+    actions[0] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=value [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=Thread_Properties::Priority [Property]
+    actions[1] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=value [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PropertySetPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]

@@ -24,6 +24,7 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.AnnexSubclause;
+import org.osate.aadl2.ArraySize;
 import org.osate.aadl2.ArrayableElement;
 import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.Data;
@@ -151,6 +152,11 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseBehaviorAnnex(BehaviorAnnex object) {
 			return createBehaviorAnnexAdapter();
+		}
+
+		@Override
+		public Adapter caseBehaviorArraySize(BehaviorArraySize object) {
+			return createBehaviorArraySizeAdapter();
 		}
 
 		@Override
@@ -739,6 +745,11 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseArraySize(ArraySize object) {
+			return createArraySizeAdapter();
+		}
+
+		@Override
 		public Adapter casePropertyExpression(PropertyExpression object) {
 			return createPropertyExpressionAdapter();
 		}
@@ -967,6 +978,20 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createBehaviorAnnexAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.BehaviorArraySize <em>Behavior Array Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.ba.aadlba.BehaviorArraySize
+	 * @generated
+	 */
+	public Adapter createBehaviorArraySizeAdapter() {
 		return null;
 	}
 
@@ -2521,6 +2546,20 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createAnnexSubclauseAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.ArraySize <em>Array Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.ArraySize
+	 * @generated
+	 */
+	public Adapter createArraySizeAdapter() {
 		return null;
 	}
 

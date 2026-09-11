@@ -185,6 +185,9 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorAnnex/conditions"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorAnnex/initialState"/>
     </genClasses>
+    <genClasses ecoreClass="aadlba.ecore#//BehaviorArraySize">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorArraySize/integerValue"/>
+    </genClasses>
     <genClasses ecoreClass="aadlba.ecore#//BehaviorBooleanLiteral"/>
     <genClasses image="false" ecoreClass="aadlba.ecore#//BehaviorCondition"/>
     <genClasses image="false" ecoreClass="aadlba.ecore#//BehaviorElement"/>

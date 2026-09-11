@@ -1,0 +1,1 @@
+error | semantic | 29 | 14 | 53 | Property reference '#Issue2445_Holder_Properties::record_property.omitted' has no value: property 'record_property' has no default value and the reference names no element that has a value for it

@@ -2,7 +2,8 @@ annex[0] owner=issue2459::top
   parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
     variables[0] : BehaviorVariable name=bool1
       arrayDimension[0] : ArrayDimension
-        size : ArraySize
+        size : BehaviorArraySize
+          integerValue : BehaviorIntegerLiteral
     states[0] : BehaviorState name=s3
     transitions[0] : BehaviorTransition name=t1
       condition : ValueExpression

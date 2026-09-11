@@ -1,0 +1,1 @@
+error | semantic | 45 | 34 | 29 | Property reference '# Thread_Properties::Priority' has no value: property 'Priority' has no default value and the reference names no element that has a value for it

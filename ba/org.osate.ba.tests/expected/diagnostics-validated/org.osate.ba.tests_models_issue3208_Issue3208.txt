@@ -1,0 +1,1 @@
+error | semantic | 40 | 16 | 5 | Array size 'slots' must be an integer literal or a property reference

@@ -20,15 +20,19 @@ annex[1] owner=NamesResolutionTest::thread1.impl
     variables[3] : BehaviorVariable name=tmp0
     variables[4] : BehaviorVariable name=tab
       arrayDimension[0] : ArrayDimension
-        size : ArraySize
+        size : BehaviorArraySize
+          integerValue : BehaviorIntegerLiteral
     variables[5] : BehaviorVariable name=squareTab
       arrayDimension[0] : ArrayDimension
-        size : ArraySize
+        size : BehaviorArraySize
+          integerValue : BehaviorIntegerLiteral
       arrayDimension[1] : ArrayDimension
-        size : ArraySize
+        size : BehaviorArraySize
+          integerValue : BehaviorIntegerLiteral
     variables[6] : BehaviorVariable name=tab2
       arrayDimension[0] : ArrayDimension
-        size : ArraySize
+        size : BehaviorArraySize
+          integerValue : BehaviorPropertyConstant
     variables[7] : BehaviorVariable name=tmp1
     variables[8] : BehaviorVariable name=tmp2
     variables[9] : BehaviorVariable name=tmp3

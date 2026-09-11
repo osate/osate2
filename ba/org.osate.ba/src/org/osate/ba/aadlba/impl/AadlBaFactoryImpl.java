@@ -85,6 +85,8 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 			return createBehaviorActionSet();
 		case AadlBaPackage.BEHAVIOR_ANNEX:
 			return createBehaviorAnnex();
+		case AadlBaPackage.BEHAVIOR_ARRAY_SIZE:
+			return createBehaviorArraySize();
 		case AadlBaPackage.BEHAVIOR_BOOLEAN_LITERAL:
 			return createBehaviorBooleanLiteral();
 		case AadlBaPackage.BEHAVIOR_INTEGER_LITERAL:
@@ -409,6 +411,17 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory {
 	public BehaviorAnnex createBehaviorAnnex() {
 		BehaviorAnnexImpl behaviorAnnex = new BehaviorAnnexImpl();
 		return behaviorAnnex;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public BehaviorArraySize createBehaviorArraySize() {
+		BehaviorArraySizeImpl behaviorArraySize = new BehaviorArraySizeImpl();
+		return behaviorArraySize;
 	}
 
 	/**

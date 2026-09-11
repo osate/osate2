@@ -68,6 +68,13 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="initialState" lowerBound="1"
         eType="#//BehaviorState"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorArraySize" eSuperTypes="../../org.osate.aadl2/model/aadl2.ecore#//ArraySize #//BehaviorElement">
+    <eAnnotations source="Documentation">
+      <details key="documentation" value="The size of one behavior variable array dimension. The size is the integer value that was written, held without evaluation. The inherited size and sizeProperty carry the extent only for the two forms core AADL can express, an integer literal and a property constant."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="integerValue" lowerBound="1"
+        eType="#//IntegerValue" containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BehaviorBooleanLiteral" eSuperTypes="../../org.osate.aadl2/model/aadl2.ecore#//BooleanLiteral #//Literal"/>
   <eClassifiers xsi:type="ecore:EClass" name="BehaviorCondition" abstract="true" interface="true"
       eSuperTypes="#//BehaviorElement"/>

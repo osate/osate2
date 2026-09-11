@@ -38,7 +38,6 @@ import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.AccessSpecification;
-import org.osate.aadl2.ArraySize;
 import org.osate.aadl2.BasicProperty;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierValue;
@@ -86,6 +85,7 @@ import org.osate.ba.aadlba.ActualPortHolder;
 import org.osate.ba.aadlba.BehaviorAction;
 import org.osate.ba.aadlba.BehaviorActions;
 import org.osate.ba.aadlba.BehaviorAnnex;
+import org.osate.ba.aadlba.BehaviorArraySize;
 import org.osate.ba.aadlba.BehaviorElement;
 import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ba.aadlba.BehaviorVariable;
@@ -323,14 +323,21 @@ public final class DeclarativeToStrictTranslator {
 
 		/**
 		 * Translates the extent of one declared array dimension. AS5506/3 Rev A D.3 writes an array size as an integer
-		 * value constant, and {@code aadl2::ArraySize} carries either a literal extent or the property constant that
-		 * supplies one, so both of those forms keep the declared extent. Any other size the grammar accepts has
-		 * nothing to carry it and keeps the model default; the size still traces to the syntax that was written.
+		 * value constant, so the size becomes the strict integer value that was written, held without evaluation the way
+		 * every other integer value position holds one. A property reference keeps its own form, including any element
+		 * prefix, indexes, and fields; the value it denotes belongs to a component instance and is not a translation
+		 * result. The inherited {@code aadl2::ArraySize} extent is set for the two forms core AADL can express, an
+		 * integer literal and an unindexed property constant, so consumers that read a dimension the core way still see
+		 * those extents.
 		 */
-		private ArraySize toArraySize(final ArrayDimension dimension) {
+		private BehaviorArraySize toArraySize(final ArrayDimension dimension) {
 			final var declaredSize = dimension.getSize();
-			final var result = trace(Aadl2Factory.eINSTANCE.createArraySize(),
+			final var result = trace(FACTORY.createBehaviorArraySize(),
 					declaredSize == null ? dimension : declaredSize);
+			if (declaredSize == null) {
+				return result;
+			}
+			result.setIntegerValue(toIntegerValue(declaredSize));
 			if (declaredSize instanceof BehaviorIntegerLiteral literal) {
 				result.setSize(parseInteger(literal.getValue(), 0));
 			} else if (declaredSize instanceof HashPropertyReference reference && reference.getIndexes().isEmpty()

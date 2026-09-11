@@ -49,14 +49,17 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.EventPort;
 import org.osate.aadl2.InternalFeature;
+import org.osate.aadl2.Property;
 import org.osate.aadl2.modelsupport.errorreporting.AbstractAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.parsesupport.ParseUtil;
 import org.osate.annexsupport.ParseResultHolder;
+import org.osate.ba.aadlba.PropertySetPropertyReference;
 import org.osate.ba.analyzers.AadlBaRulesCheckersDriver;
 import org.osate.ba.analyzers.AadlBaTypeChecker;
 import org.osate.ba.analyzers.AdaLikeDataTypeChecker;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.AssignmentAction;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ArrayDimension;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorIntegerLiteral;
@@ -66,6 +69,7 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchTriggerCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ForStatement;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.InternalCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.Reference;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceExpression;
 import org.osate.xtext.aadl2.ba.translation.DeclarativeToStrictTranslator;
 import org.osate.xtext.aadl2.ba.translation.DeclarativeToStrictTranslator.TranslationResult;
 
@@ -86,6 +90,8 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	public static final String TIMEOUT_RESET_PORT = "org.osate.xtext.aadl2.ba.timeoutResetPort";
 	public static final String TIMEOUT_RESET_PORT_TIME = "org.osate.xtext.aadl2.ba.timeoutResetPortTime";
 	public static final String ITERATIVE_VARIABLE_TARGET = "org.osate.xtext.aadl2.ba.iterativeVariableTarget";
+	public static final String ARRAY_SIZE = "org.osate.xtext.aadl2.ba.arraySize";
+	public static final String PROPERTY_REFERENCE_VALUE = "org.osate.xtext.aadl2.ba.propertyReferenceValue";
 	private static final URI VALIDATION_RESOURCE_URI = URI.createURI("validation:/behavior-annex.aadlba");
 
 	@Inject
@@ -112,10 +118,14 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 		var translation = translator.translate(source, owner);
 		// Each check describes a use no strict checker can reject, and a model can get each one wrong independently,
 		// so report them all before deciding whether the strict checkers have a model to work on.
-		var representable = checkInternalPortUses(source, translation);
+		var representable = checkArraySizes(source);
+		representable &= checkInternalPortUses(source, translation);
 		representable &= checkInternalConditionPorts(source, translation);
 		representable &= checkTimeoutResetPorts(source, translation);
 		representable &= checkIteratorTargets(source, translation);
+		// The strict model does carry a property reference that denotes no value, so this one is not a gate: the strict
+		// checkers keep their model and whatever else they have to say about it.
+		checkPropertyReferenceValues(translation);
 		if (!representable) {
 			return;
 		}
@@ -138,6 +148,58 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 			} finally {
 				validationResource.getContents().clear();
 			}
+		}
+	}
+
+	/**
+	 * AS5506/3 Rev A D.3 requires each behavior-variable array size to be the integer value constant of D.7: an integer
+	 * literal or a property reference. The shared integer-value grammar also accepts an ordinary reference expression,
+	 * which names a value variable rather than a constant, and no strict checker constrains an array size. A reference
+	 * expression with a property tail is a property reference, so reject only one without a tail. The value a property
+	 * reference denotes belongs to a component instance, so whether it can be read from the declarative model says
+	 * nothing about the legality of the declaration and is not checked here.
+	 *
+	 * @return {@code true} when every declared array size is an integer value constant
+	 */
+	private boolean checkArraySizes(final BehaviorAnnex source) {
+		var accepted = true;
+		for (var contents = source.eAllContents(); contents.hasNext();) {
+			if (!(contents.next() instanceof ArrayDimension dimension)) {
+				continue;
+			}
+			var size = dimension.getSize();
+			if (size instanceof ReferenceExpression reference && reference.getProperty() == null) {
+				var written = NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(size));
+				error("Array size '" + written + "' must be an integer literal or a property reference", size, null,
+						ValidationMessageAcceptor.INSIGNIFICANT_INDEX, ARRAY_SIZE);
+				accepted = false;
+			}
+		}
+		return accepted;
+	}
+
+	/**
+	 * The first AS5506/3 Rev A D.7 property_reference alternative writes a property value name after {@code #} with no
+	 * element before it, so the reference names a property definition without naming anything that holds a value for it.
+	 * The only value such a reference can denote is the default value of the property, and translation puts that default
+	 * in the property name holder. A property with no default value leaves the definition itself there, which denotes no
+	 * value at all, and no strict checker rejects it. Report the reference as written. A reference that names a property
+	 * type keeps its own value, an enumeration literal, so it is not one of these.
+	 */
+	private void checkPropertyReferenceValues(final TranslationResult translation) {
+		for (var contents = translation.getStrictAnnex().eAllContents(); contents.hasNext();) {
+			// A property-set property reference is the translation of the alternative that names no element, and its
+			// first property name holds the default value when the property has one.
+			if (!(contents.next() instanceof PropertySetPropertyReference reference)
+					|| reference.getProperties().isEmpty()
+					|| !(reference.getProperties().getFirst().getProperty().getElement() instanceof Property property)) {
+				continue;
+			}
+			var written = sourceFor(reference, translation);
+			error("Property reference '" + NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(written))
+					+ "' has no value: property '" + property.getName() + "' has no default value and the reference"
+					+ " names no element that has a value for it", written, null,
+					ValidationMessageAcceptor.INSIGNIFICANT_INDEX, PROPERTY_REFERENCE_VALUE);
 		}
 	}
 

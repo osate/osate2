@@ -83,7 +83,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBehaviorElement()
 	 * @generated
 	 */
-	int BEHAVIOR_ELEMENT = 14;
+	int BEHAVIOR_ELEMENT = 15;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -120,7 +120,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getIndexableElement()
 	 * @generated
 	 */
-	int INDEXABLE_ELEMENT = 61;
+	int INDEXABLE_ELEMENT = 62;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.PortHolderImpl <em>Port Holder</em>}' class.
@@ -130,7 +130,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getPortHolder()
 	 * @generated
 	 */
-	int PORT_HOLDER = 81;
+	int PORT_HOLDER = 82;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.ActualPortHolderImpl <em>Actual Port Holder</em>}' class.
@@ -190,7 +190,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getValue()
 	 * @generated
 	 */
-	int VALUE = 110;
+	int VALUE = 111;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -227,7 +227,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getValueExpression()
 	 * @generated
 	 */
-	int VALUE_EXPRESSION = 112;
+	int VALUE_EXPRESSION = 113;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.AnyImpl <em>Any</em>}' class.
@@ -297,7 +297,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBehaviorBooleanLiteral()
 	 * @generated
 	 */
-	int BEHAVIOR_BOOLEAN_LITERAL = 12;
+	int BEHAVIOR_BOOLEAN_LITERAL = 13;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.BehaviorCondition <em>Behavior Condition</em>}' class.
@@ -307,7 +307,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBehaviorCondition()
 	 * @generated
 	 */
-	int BEHAVIOR_CONDITION = 13;
+	int BEHAVIOR_CONDITION = 14;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.ValueConstant <em>Value Constant</em>}' class.
@@ -317,7 +317,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getValueConstant()
 	 * @generated
 	 */
-	int VALUE_CONSTANT = 111;
+	int VALUE_CONSTANT = 112;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.Literal <em>Literal</em>}' class.
@@ -327,7 +327,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getLiteral()
 	 * @generated
 	 */
-	int LITERAL = 68;
+	int LITERAL = 69;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.BehaviorIntegerLiteralImpl <em>Behavior Integer Literal</em>}' class.
@@ -337,7 +337,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBehaviorIntegerLiteral()
 	 * @generated
 	 */
-	int BEHAVIOR_INTEGER_LITERAL = 15;
+	int BEHAVIOR_INTEGER_LITERAL = 16;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.BehaviorNamedElementImpl <em>Behavior Named Element</em>}' class.
@@ -347,7 +347,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBehaviorNamedElement()
 	 * @generated
 	 */
-	int BEHAVIOR_NAMED_ELEMENT = 16;
+	int BEHAVIOR_NAMED_ELEMENT = 17;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.BehaviorPropertyConstantImpl <em>Behavior Property Constant</em>}' class.
@@ -357,7 +357,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBehaviorPropertyConstant()
 	 * @generated
 	 */
-	int BEHAVIOR_PROPERTY_CONSTANT = 17;
+	int BEHAVIOR_PROPERTY_CONSTANT = 18;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.BehaviorRealLiteralImpl <em>Behavior Real Literal</em>}' class.
@@ -367,7 +367,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBehaviorRealLiteral()
 	 * @generated
 	 */
-	int BEHAVIOR_REAL_LITERAL = 18;
+	int BEHAVIOR_REAL_LITERAL = 19;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.BehaviorStateImpl <em>Behavior State</em>}' class.
@@ -377,7 +377,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBehaviorState()
 	 * @generated
 	 */
-	int BEHAVIOR_STATE = 19;
+	int BEHAVIOR_STATE = 20;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.BehaviorStringLiteralImpl <em>Behavior String Literal</em>}' class.
@@ -387,7 +387,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBehaviorStringLiteral()
 	 * @generated
 	 */
-	int BEHAVIOR_STRING_LITERAL = 20;
+	int BEHAVIOR_STRING_LITERAL = 21;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.BehaviorTimeImpl <em>Behavior Time</em>}' class.
@@ -397,7 +397,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBehaviorTime()
 	 * @generated
 	 */
-	int BEHAVIOR_TIME = 21;
+	int BEHAVIOR_TIME = 22;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.BehaviorTransitionImpl <em>Behavior Transition</em>}' class.
@@ -407,7 +407,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBehaviorTransition()
 	 * @generated
 	 */
-	int BEHAVIOR_TRANSITION = 22;
+	int BEHAVIOR_TRANSITION = 23;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.BehaviorVariableImpl <em>Behavior Variable</em>}' class.
@@ -417,7 +417,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBehaviorVariable()
 	 * @generated
 	 */
-	int BEHAVIOR_VARIABLE = 23;
+	int BEHAVIOR_VARIABLE = 24;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.ElementHolder <em>Element Holder</em>}' class.
@@ -427,7 +427,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getElementHolder()
 	 * @generated
 	 */
-	int ELEMENT_HOLDER = 45;
+	int ELEMENT_HOLDER = 46;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.DataHolderImpl <em>Data Holder</em>}' class.
@@ -437,7 +437,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getDataHolder()
 	 * @generated
 	 */
-	int DATA_HOLDER = 35;
+	int DATA_HOLDER = 36;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.BehaviorVariableHolderImpl <em>Behavior Variable Holder</em>}' class.
@@ -447,7 +447,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBehaviorVariableHolder()
 	 * @generated
 	 */
-	int BEHAVIOR_VARIABLE_HOLDER = 24;
+	int BEHAVIOR_VARIABLE_HOLDER = 25;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.CalledSubprogramHolderImpl <em>Called Subprogram Holder</em>}' class.
@@ -457,7 +457,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getCalledSubprogramHolder()
 	 * @generated
 	 */
-	int CALLED_SUBPROGRAM_HOLDER = 25;
+	int CALLED_SUBPROGRAM_HOLDER = 26;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.CommunicationAction <em>Communication Action</em>}' class.
@@ -467,7 +467,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getCommunicationAction()
 	 * @generated
 	 */
-	int COMMUNICATION_ACTION = 29;
+	int COMMUNICATION_ACTION = 30;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.CompletionRelativeTimeoutImpl <em>Completion Relative Timeout</em>}' class.
@@ -477,7 +477,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getCompletionRelativeTimeout()
 	 * @generated
 	 */
-	int COMPLETION_RELATIVE_TIMEOUT = 30;
+	int COMPLETION_RELATIVE_TIMEOUT = 31;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.CondStatement <em>Cond Statement</em>}' class.
@@ -487,7 +487,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getCondStatement()
 	 * @generated
 	 */
-	int COND_STATEMENT = 31;
+	int COND_STATEMENT = 32;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.DataAccessHolderImpl <em>Data Access Holder</em>}' class.
@@ -497,7 +497,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getDataAccessHolder()
 	 * @generated
 	 */
-	int DATA_ACCESS_HOLDER = 32;
+	int DATA_ACCESS_HOLDER = 33;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.DataAccessPrototypeHolderImpl <em>Data Access Prototype Holder</em>}' class.
@@ -507,7 +507,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getDataAccessPrototypeHolder()
 	 * @generated
 	 */
-	int DATA_ACCESS_PROTOTYPE_HOLDER = 33;
+	int DATA_ACCESS_PROTOTYPE_HOLDER = 34;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.ElementValues <em>Element Values</em>}' class.
@@ -517,7 +517,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getElementValues()
 	 * @generated
 	 */
-	int ELEMENT_VALUES = 46;
+	int ELEMENT_VALUES = 47;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.DataComponentReferenceImpl <em>Data Component Reference</em>}' class.
@@ -527,7 +527,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getDataComponentReference()
 	 * @generated
 	 */
-	int DATA_COMPONENT_REFERENCE = 34;
+	int DATA_COMPONENT_REFERENCE = 35;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.DataPortHolderImpl <em>Data Port Holder</em>}' class.
@@ -537,7 +537,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getDataPortHolder()
 	 * @generated
 	 */
-	int DATA_PORT_HOLDER = 36;
+	int DATA_PORT_HOLDER = 37;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.DataSubcomponentHolderImpl <em>Data Subcomponent Holder</em>}' class.
@@ -547,7 +547,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getDataSubcomponentHolder()
 	 * @generated
 	 */
-	int DATA_SUBCOMPONENT_HOLDER = 37;
+	int DATA_SUBCOMPONENT_HOLDER = 38;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.DispatchConditionImpl <em>Dispatch Condition</em>}' class.
@@ -557,7 +557,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getDispatchCondition()
 	 * @generated
 	 */
-	int DISPATCH_CONDITION = 38;
+	int DISPATCH_CONDITION = 39;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.DispatchConjunctionImpl <em>Dispatch Conjunction</em>}' class.
@@ -567,7 +567,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getDispatchConjunction()
 	 * @generated
 	 */
-	int DISPATCH_CONJUNCTION = 39;
+	int DISPATCH_CONJUNCTION = 40;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.DispatchTriggerCondition <em>Dispatch Trigger Condition</em>}' class.
@@ -577,7 +577,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getDispatchTriggerCondition()
 	 * @generated
 	 */
-	int DISPATCH_TRIGGER_CONDITION = 42;
+	int DISPATCH_TRIGGER_CONDITION = 43;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.DispatchRelativeTimeoutImpl <em>Dispatch Relative Timeout</em>}' class.
@@ -587,7 +587,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getDispatchRelativeTimeout()
 	 * @generated
 	 */
-	int DISPATCH_RELATIVE_TIMEOUT = 40;
+	int DISPATCH_RELATIVE_TIMEOUT = 41;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.DispatchTrigger <em>Dispatch Trigger</em>}' class.
@@ -597,7 +597,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getDispatchTrigger()
 	 * @generated
 	 */
-	int DISPATCH_TRIGGER = 41;
+	int DISPATCH_TRIGGER = 42;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.DispatchTriggerConditionStopImpl <em>Dispatch Trigger Condition Stop</em>}' class.
@@ -607,7 +607,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getDispatchTriggerConditionStop()
 	 * @generated
 	 */
-	int DISPATCH_TRIGGER_CONDITION_STOP = 43;
+	int DISPATCH_TRIGGER_CONDITION_STOP = 44;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.DispatchTriggerLogicalExpressionImpl <em>Dispatch Trigger Logical Expression</em>}' class.
@@ -617,7 +617,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getDispatchTriggerLogicalExpression()
 	 * @generated
 	 */
-	int DISPATCH_TRIGGER_LOGICAL_EXPRESSION = 44;
+	int DISPATCH_TRIGGER_LOGICAL_EXPRESSION = 45;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.ElseStatementImpl <em>Else Statement</em>}' class.
@@ -627,7 +627,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getElseStatement()
 	 * @generated
 	 */
-	int ELSE_STATEMENT = 47;
+	int ELSE_STATEMENT = 48;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.EventDataPortHolderImpl <em>Event Data Port Holder</em>}' class.
@@ -637,7 +637,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getEventDataPortHolder()
 	 * @generated
 	 */
-	int EVENT_DATA_PORT_HOLDER = 49;
+	int EVENT_DATA_PORT_HOLDER = 50;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.EventPortHolderImpl <em>Event Port Holder</em>}' class.
@@ -647,7 +647,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getEventPortHolder()
 	 * @generated
 	 */
-	int EVENT_PORT_HOLDER = 50;
+	int EVENT_PORT_HOLDER = 51;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.ExecuteCondition <em>Execute Condition</em>}' class.
@@ -657,7 +657,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getExecuteCondition()
 	 * @generated
 	 */
-	int EXECUTE_CONDITION = 51;
+	int EXECUTE_CONDITION = 52;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.ExecutionTimeoutCatchImpl <em>Execution Timeout Catch</em>}' class.
@@ -667,7 +667,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getExecutionTimeoutCatch()
 	 * @generated
 	 */
-	int EXECUTION_TIMEOUT_CATCH = 52;
+	int EXECUTION_TIMEOUT_CATCH = 53;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.FactorImpl <em>Factor</em>}' class.
@@ -677,7 +677,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getFactor()
 	 * @generated
 	 */
-	int FACTOR = 53;
+	int FACTOR = 54;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.FeaturePrototypeHolderImpl <em>Feature Prototype Holder</em>}' class.
@@ -687,7 +687,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getFeaturePrototypeHolder()
 	 * @generated
 	 */
-	int FEATURE_PROTOTYPE_HOLDER = 55;
+	int FEATURE_PROTOTYPE_HOLDER = 56;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.LoopStatementImpl <em>Loop Statement</em>}' class.
@@ -697,7 +697,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getLoopStatement()
 	 * @generated
 	 */
-	int LOOP_STATEMENT = 70;
+	int LOOP_STATEMENT = 71;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.ForOrForAllStatementImpl <em>For Or For All Statement</em>}' class.
@@ -707,7 +707,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getForOrForAllStatement()
 	 * @generated
 	 */
-	int FOR_OR_FOR_ALL_STATEMENT = 56;
+	int FOR_OR_FOR_ALL_STATEMENT = 57;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.GroupableElement <em>Groupable Element</em>}' class.
@@ -717,7 +717,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getGroupableElement()
 	 * @generated
 	 */
-	int GROUPABLE_ELEMENT = 57;
+	int GROUPABLE_ELEMENT = 58;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.GroupHolderImpl <em>Group Holder</em>}' class.
@@ -727,7 +727,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getGroupHolder()
 	 * @generated
 	 */
-	int GROUP_HOLDER = 58;
+	int GROUP_HOLDER = 59;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.GroupPrototypeHolderImpl <em>Group Prototype Holder</em>}' class.
@@ -737,7 +737,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getGroupPrototypeHolder()
 	 * @generated
 	 */
-	int GROUP_PROTOTYPE_HOLDER = 59;
+	int GROUP_PROTOTYPE_HOLDER = 60;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.IfStatementImpl <em>If Statement</em>}' class.
@@ -747,7 +747,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getIfStatement()
 	 * @generated
 	 */
-	int IF_STATEMENT = 60;
+	int IF_STATEMENT = 61;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.IntegerRangeImpl <em>Integer Range</em>}' class.
@@ -757,7 +757,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getIntegerRange()
 	 * @generated
 	 */
-	int INTEGER_RANGE = 62;
+	int INTEGER_RANGE = 63;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.IntegerValue <em>Integer Value</em>}' class.
@@ -767,7 +767,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getIntegerValue()
 	 * @generated
 	 */
-	int INTEGER_VALUE = 63;
+	int INTEGER_VALUE = 64;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.IntegerValueConstant <em>Integer Value Constant</em>}' class.
@@ -777,7 +777,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getIntegerValueConstant()
 	 * @generated
 	 */
-	int INTEGER_VALUE_CONSTANT = 64;
+	int INTEGER_VALUE_CONSTANT = 65;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.IntegerValueVariable <em>Integer Value Variable</em>}' class.
@@ -787,7 +787,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getIntegerValueVariable()
 	 * @generated
 	 */
-	int INTEGER_VALUE_VARIABLE = 65;
+	int INTEGER_VALUE_VARIABLE = 66;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.IterativeVariableImpl <em>Iterative Variable</em>}' class.
@@ -797,7 +797,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getIterativeVariable()
 	 * @generated
 	 */
-	int ITERATIVE_VARIABLE = 66;
+	int ITERATIVE_VARIABLE = 67;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.IterativeVariableHolderImpl <em>Iterative Variable Holder</em>}' class.
@@ -807,7 +807,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getIterativeVariableHolder()
 	 * @generated
 	 */
-	int ITERATIVE_VARIABLE_HOLDER = 67;
+	int ITERATIVE_VARIABLE_HOLDER = 68;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.SharedDataActionImpl <em>Shared Data Action</em>}' class.
@@ -817,7 +817,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getSharedDataAction()
 	 * @generated
 	 */
-	int SHARED_DATA_ACTION = 94;
+	int SHARED_DATA_ACTION = 95;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.LockActionImpl <em>Lock Action</em>}' class.
@@ -827,7 +827,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getLockAction()
 	 * @generated
 	 */
-	int LOCK_ACTION = 69;
+	int LOCK_ACTION = 70;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.NumericLiteral <em>Numeric Literal</em>}' class.
@@ -837,7 +837,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getNumericLiteral()
 	 * @generated
 	 */
-	int NUMERIC_LITERAL = 72;
+	int NUMERIC_LITERAL = 73;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.OtherwiseImpl <em>Otherwise</em>}' class.
@@ -847,7 +847,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getOtherwise()
 	 * @generated
 	 */
-	int OTHERWISE = 73;
+	int OTHERWISE = 74;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.ParameterHolderImpl <em>Parameter Holder</em>}' class.
@@ -857,7 +857,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getParameterHolder()
 	 * @generated
 	 */
-	int PARAMETER_HOLDER = 74;
+	int PARAMETER_HOLDER = 75;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.ParameterLabel <em>Parameter Label</em>}' class.
@@ -867,7 +867,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getParameterLabel()
 	 * @generated
 	 */
-	int PARAMETER_LABEL = 75;
+	int PARAMETER_LABEL = 76;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.PortCountValueImpl <em>Port Count Value</em>}' class.
@@ -877,7 +877,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getPortCountValue()
 	 * @generated
 	 */
-	int PORT_COUNT_VALUE = 76;
+	int PORT_COUNT_VALUE = 77;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.PortDequeueActionImpl <em>Port Dequeue Action</em>}' class.
@@ -887,7 +887,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getPortDequeueAction()
 	 * @generated
 	 */
-	int PORT_DEQUEUE_ACTION = 77;
+	int PORT_DEQUEUE_ACTION = 78;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.PortDequeueValueImpl <em>Port Dequeue Value</em>}' class.
@@ -897,7 +897,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getPortDequeueValue()
 	 * @generated
 	 */
-	int PORT_DEQUEUE_VALUE = 78;
+	int PORT_DEQUEUE_VALUE = 79;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.PortFreezeActionImpl <em>Port Freeze Action</em>}' class.
@@ -907,7 +907,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getPortFreezeAction()
 	 * @generated
 	 */
-	int PORT_FREEZE_ACTION = 79;
+	int PORT_FREEZE_ACTION = 80;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.PortFreshValueImpl <em>Port Fresh Value</em>}' class.
@@ -917,7 +917,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getPortFreshValue()
 	 * @generated
 	 */
-	int PORT_FRESH_VALUE = 80;
+	int PORT_FRESH_VALUE = 81;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.PortPrototypeHolderImpl <em>Port Prototype Holder</em>}' class.
@@ -927,7 +927,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getPortPrototypeHolder()
 	 * @generated
 	 */
-	int PORT_PROTOTYPE_HOLDER = 82;
+	int PORT_PROTOTYPE_HOLDER = 83;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.PortSendActionImpl <em>Port Send Action</em>}' class.
@@ -937,7 +937,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getPortSendAction()
 	 * @generated
 	 */
-	int PORT_SEND_ACTION = 83;
+	int PORT_SEND_ACTION = 84;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.PrototypeHolder <em>Prototype Holder</em>}' class.
@@ -947,7 +947,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getPrototypeHolder()
 	 * @generated
 	 */
-	int PROTOTYPE_HOLDER = 92;
+	int PROTOTYPE_HOLDER = 93;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.RelationImpl <em>Relation</em>}' class.
@@ -957,7 +957,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getRelation()
 	 * @generated
 	 */
-	int RELATION = 93;
+	int RELATION = 94;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.SimpleExpressionImpl <em>Simple Expression</em>}' class.
@@ -967,7 +967,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getSimpleExpression()
 	 * @generated
 	 */
-	int SIMPLE_EXPRESSION = 95;
+	int SIMPLE_EXPRESSION = 96;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.StructUnionElementImpl <em>Struct Union Element</em>}' class.
@@ -977,7 +977,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getStructUnionElement()
 	 * @generated
 	 */
-	int STRUCT_UNION_ELEMENT = 96;
+	int STRUCT_UNION_ELEMENT = 97;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.StructUnionElementHolderImpl <em>Struct Union Element Holder</em>}' class.
@@ -987,7 +987,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getStructUnionElementHolder()
 	 * @generated
 	 */
-	int STRUCT_UNION_ELEMENT_HOLDER = 97;
+	int STRUCT_UNION_ELEMENT_HOLDER = 98;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.SubprogramAccessHolderImpl <em>Subprogram Access Holder</em>}' class.
@@ -997,7 +997,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getSubprogramAccessHolder()
 	 * @generated
 	 */
-	int SUBPROGRAM_ACCESS_HOLDER = 99;
+	int SUBPROGRAM_ACCESS_HOLDER = 100;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.SubprogramCallActionImpl <em>Subprogram Call Action</em>}' class.
@@ -1007,7 +1007,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getSubprogramCallAction()
 	 * @generated
 	 */
-	int SUBPROGRAM_CALL_ACTION = 100;
+	int SUBPROGRAM_CALL_ACTION = 101;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.SubprogramHolderImpl <em>Subprogram Holder</em>}' class.
@@ -1017,7 +1017,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getSubprogramHolder()
 	 * @generated
 	 */
-	int SUBPROGRAM_HOLDER = 101;
+	int SUBPROGRAM_HOLDER = 102;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.SubprogramHolderProxyImpl <em>Subprogram Holder Proxy</em>}' class.
@@ -1027,7 +1027,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getSubprogramHolderProxy()
 	 * @generated
 	 */
-	int SUBPROGRAM_HOLDER_PROXY = 102;
+	int SUBPROGRAM_HOLDER_PROXY = 103;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.SubprogramPrototypeHolderImpl <em>Subprogram Prototype Holder</em>}' class.
@@ -1037,7 +1037,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getSubprogramPrototypeHolder()
 	 * @generated
 	 */
-	int SUBPROGRAM_PROTOTYPE_HOLDER = 103;
+	int SUBPROGRAM_PROTOTYPE_HOLDER = 104;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.TargetImpl <em>Target</em>}' class.
@@ -1047,7 +1047,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getTarget()
 	 * @generated
 	 */
-	int TARGET = 105;
+	int TARGET = 106;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.TermImpl <em>Term</em>}' class.
@@ -1057,7 +1057,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getTerm()
 	 * @generated
 	 */
-	int TERM = 106;
+	int TERM = 107;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.TimedActionImpl <em>Timed Action</em>}' class.
@@ -1067,7 +1067,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getTimedAction()
 	 * @generated
 	 */
-	int TIMED_ACTION = 107;
+	int TIMED_ACTION = 108;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.UnlockActionImpl <em>Unlock Action</em>}' class.
@@ -1077,7 +1077,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getUnlockAction()
 	 * @generated
 	 */
-	int UNLOCK_ACTION = 108;
+	int UNLOCK_ACTION = 109;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.ValueVariable <em>Value Variable</em>}' class.
@@ -1087,7 +1087,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getValueVariable()
 	 * @generated
 	 */
-	int VALUE_VARIABLE = 113;
+	int VALUE_VARIABLE = 114;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1448,7 +1448,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getPropertyElementHolder()
 	 * @generated
 	 */
-	int PROPERTY_ELEMENT_HOLDER = 85;
+	int PROPERTY_ELEMENT_HOLDER = 86;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1819,6 +1819,70 @@ public interface AadlBaPackage extends EPackage {
 	 * @ordered
 	 */
 	int BEHAVIOR_ANNEX_FEATURE_COUNT = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 6;
+
+	/**
+	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.BehaviorArraySizeImpl <em>Behavior Array Size</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.ba.aadlba.impl.BehaviorArraySizeImpl
+	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBehaviorArraySize()
+	 * @generated
+	 */
+	int BEHAVIOR_ARRAY_SIZE = 12;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_ARRAY_SIZE__OWNED_ELEMENT = Aadl2Package.ARRAY_SIZE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_ARRAY_SIZE__OWNED_COMMENT = Aadl2Package.ARRAY_SIZE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Size</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_ARRAY_SIZE__SIZE = Aadl2Package.ARRAY_SIZE__SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Size Property</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_ARRAY_SIZE__SIZE_PROPERTY = Aadl2Package.ARRAY_SIZE__SIZE_PROPERTY;
+
+	/**
+	 * The feature id for the '<em><b>Integer Value</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_ARRAY_SIZE__INTEGER_VALUE = Aadl2Package.ARRAY_SIZE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Behavior Array Size</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_ARRAY_SIZE_FEATURE_COUNT = Aadl2Package.ARRAY_SIZE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2665,7 +2729,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getClassifierFeatureHolder()
 	 * @generated
 	 */
-	int CLASSIFIER_FEATURE_HOLDER = 26;
+	int CLASSIFIER_FEATURE_HOLDER = 27;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2711,7 +2775,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getWhileOrDoUntilStatement()
 	 * @generated
 	 */
-	int WHILE_OR_DO_UNTIL_STATEMENT = 114;
+	int WHILE_OR_DO_UNTIL_STATEMENT = 115;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.PropertyReferenceImpl <em>Property Reference</em>}' class.
@@ -2721,7 +2785,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getPropertyReference()
 	 * @generated
 	 */
-	int PROPERTY_REFERENCE = 89;
+	int PROPERTY_REFERENCE = 90;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2767,7 +2831,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getPropertySetPropertyReference()
 	 * @generated
 	 */
-	int PROPERTY_SET_PROPERTY_REFERENCE = 90;
+	int PROPERTY_SET_PROPERTY_REFERENCE = 91;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.SubcomponentHolderImpl <em>Subcomponent Holder</em>}' class.
@@ -2777,7 +2841,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getSubcomponentHolder()
 	 * @generated
 	 */
-	int SUBCOMPONENT_HOLDER = 98;
+	int SUBCOMPONENT_HOLDER = 99;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.SubprogramSubcomponentHolderImpl <em>Subprogram Subcomponent Holder</em>}' class.
@@ -2787,7 +2851,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getSubprogramSubcomponentHolder()
 	 * @generated
 	 */
-	int SUBPROGRAM_SUBCOMPONENT_HOLDER = 104;
+	int SUBPROGRAM_SUBCOMPONENT_HOLDER = 105;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.FeatureHolderImpl <em>Feature Holder</em>}' class.
@@ -2797,7 +2861,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getFeatureHolder()
 	 * @generated
 	 */
-	int FEATURE_HOLDER = 54;
+	int FEATURE_HOLDER = 55;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.ClassifierPropertyReferenceImpl <em>Classifier Property Reference</em>}' class.
@@ -2807,7 +2871,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getClassifierPropertyReference()
 	 * @generated
 	 */
-	int CLASSIFIER_PROPERTY_REFERENCE = 28;
+	int CLASSIFIER_PROPERTY_REFERENCE = 29;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.ClassifierFeaturePropertyReferenceImpl <em>Classifier Feature Property Reference</em>}' class.
@@ -2817,7 +2881,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getClassifierFeaturePropertyReference()
 	 * @generated
 	 */
-	int CLASSIFIER_FEATURE_PROPERTY_REFERENCE = 27;
+	int CLASSIFIER_FEATURE_PROPERTY_REFERENCE = 28;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3583,7 +3647,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getEnumLiteralHolder()
 	 * @generated
 	 */
-	int ENUM_LITERAL_HOLDER = 48;
+	int ENUM_LITERAL_HOLDER = 49;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -4646,7 +4710,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getPropertyNameField()
 	 * @generated
 	 */
-	int PROPERTY_NAME_FIELD = 87;
+	int PROPERTY_NAME_FIELD = 88;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -4683,7 +4747,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getUpperBound()
 	 * @generated
 	 */
-	int UPPER_BOUND = 109;
+	int UPPER_BOUND = 110;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.LowerBoundImpl <em>Lower Bound</em>}' class.
@@ -4693,7 +4757,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getLowerBound()
 	 * @generated
 	 */
-	int LOWER_BOUND = 71;
+	int LOWER_BOUND = 72;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -5243,7 +5307,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getPropertyNameHolder()
 	 * @generated
 	 */
-	int PROPERTY_NAME_HOLDER = 88;
+	int PROPERTY_NAME_HOLDER = 89;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.PropertyAssociationHolderImpl <em>Property Association Holder</em>}' class.
@@ -5253,7 +5317,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getPropertyAssociationHolder()
 	 * @generated
 	 */
-	int PROPERTY_ASSOCIATION_HOLDER = 84;
+	int PROPERTY_ASSOCIATION_HOLDER = 85;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -5308,7 +5372,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getPropertyExpressionHolder()
 	 * @generated
 	 */
-	int PROPERTY_EXPRESSION_HOLDER = 86;
+	int PROPERTY_EXPRESSION_HOLDER = 87;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -5408,7 +5472,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getPropertyTypeHolder()
 	 * @generated
 	 */
-	int PROPERTY_TYPE_HOLDER = 91;
+	int PROPERTY_TYPE_HOLDER = 92;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -6399,7 +6463,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getModeSwitchTriggerCondition()
 	 * @generated
 	 */
-	int MODE_SWITCH_TRIGGER_CONDITION = 116;
+	int MODE_SWITCH_TRIGGER_CONDITION = 117;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -6436,7 +6500,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getModeSwitchTriggerLogicalExpression()
 	 * @generated
 	 */
-	int MODE_SWITCH_TRIGGER_LOGICAL_EXPRESSION = 115;
+	int MODE_SWITCH_TRIGGER_LOGICAL_EXPRESSION = 116;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -6483,7 +6547,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getModeSwitchConjunction()
 	 * @generated
 	 */
-	int MODE_SWITCH_CONJUNCTION = 117;
+	int MODE_SWITCH_CONJUNCTION = 118;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -6529,7 +6593,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getModeSwitchTrigger()
 	 * @generated
 	 */
-	int MODE_SWITCH_TRIGGER = 118;
+	int MODE_SWITCH_TRIGGER = 119;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -6566,7 +6630,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getInternalPortHolder()
 	 * @generated
 	 */
-	int INTERNAL_PORT_HOLDER = 119;
+	int INTERNAL_PORT_HOLDER = 120;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -6612,7 +6676,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getEventSourceHolder()
 	 * @generated
 	 */
-	int EVENT_SOURCE_HOLDER = 120;
+	int EVENT_SOURCE_HOLDER = 121;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -6658,7 +6722,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getEventDataSourceHolder()
 	 * @generated
 	 */
-	int EVENT_DATA_SOURCE_HOLDER = 121;
+	int EVENT_DATA_SOURCE_HOLDER = 122;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -6704,7 +6768,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getInternalPortSendAction()
 	 * @generated
 	 */
-	int INTERNAL_PORT_SEND_ACTION = 122;
+	int INTERNAL_PORT_SEND_ACTION = 123;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -6759,7 +6823,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getInternalCondition()
 	 * @generated
 	 */
-	int INTERNAL_CONDITION = 123;
+	int INTERNAL_CONDITION = 124;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -6805,7 +6869,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getTimeoutResetPort()
 	 * @generated
 	 */
-	int TIMEOUT_RESET_PORT = 124;
+	int TIMEOUT_RESET_PORT = 125;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -6842,7 +6906,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBehaviorFeatureType()
 	 * @generated
 	 */
-	int BEHAVIOR_FEATURE_TYPE = 125;
+	int BEHAVIOR_FEATURE_TYPE = 126;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.BinaryAddingOperator <em>Binary Adding Operator</em>}' enum.
@@ -6852,7 +6916,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBinaryAddingOperator()
 	 * @generated
 	 */
-	int BINARY_ADDING_OPERATOR = 126;
+	int BINARY_ADDING_OPERATOR = 127;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.BinaryNumericOperator <em>Binary Numeric Operator</em>}' enum.
@@ -6862,7 +6926,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBinaryNumericOperator()
 	 * @generated
 	 */
-	int BINARY_NUMERIC_OPERATOR = 127;
+	int BINARY_NUMERIC_OPERATOR = 128;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.DataRepresentation <em>Data Representation</em>}' enum.
@@ -6872,7 +6936,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getDataRepresentation()
 	 * @generated
 	 */
-	int DATA_REPRESENTATION = 128;
+	int DATA_REPRESENTATION = 129;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.FeatureType <em>Feature Type</em>}' enum.
@@ -6882,7 +6946,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getFeatureType()
 	 * @generated
 	 */
-	int FEATURE_TYPE = 129;
+	int FEATURE_TYPE = 130;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.LogicalOperator <em>Logical Operator</em>}' enum.
@@ -6892,7 +6956,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getLogicalOperator()
 	 * @generated
 	 */
-	int LOGICAL_OPERATOR = 130;
+	int LOGICAL_OPERATOR = 131;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.MultiplyingOperator <em>Multiplying Operator</em>}' enum.
@@ -6902,7 +6966,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getMultiplyingOperator()
 	 * @generated
 	 */
-	int MULTIPLYING_OPERATOR = 131;
+	int MULTIPLYING_OPERATOR = 132;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.RelationalOperator <em>Relational Operator</em>}' enum.
@@ -6912,7 +6976,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getRelationalOperator()
 	 * @generated
 	 */
-	int RELATIONAL_OPERATOR = 132;
+	int RELATIONAL_OPERATOR = 133;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.UnaryAddingOperator <em>Unary Adding Operator</em>}' enum.
@@ -6922,7 +6986,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getUnaryAddingOperator()
 	 * @generated
 	 */
-	int UNARY_ADDING_OPERATOR = 133;
+	int UNARY_ADDING_OPERATOR = 134;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.UnaryBooleanOperator <em>Unary Boolean Operator</em>}' enum.
@@ -6932,7 +6996,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getUnaryBooleanOperator()
 	 * @generated
 	 */
-	int UNARY_BOOLEAN_OPERATOR = 134;
+	int UNARY_BOOLEAN_OPERATOR = 135;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.UnaryNumericOperator <em>Unary Numeric Operator</em>}' enum.
@@ -6942,7 +7006,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getUnaryNumericOperator()
 	 * @generated
 	 */
-	int UNARY_NUMERIC_OPERATOR = 135;
+	int UNARY_NUMERIC_OPERATOR = 136;
 
 	/**
 	 * The meta object id for the '<em>Boolean</em>' data type.
@@ -6951,7 +7015,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBoolean()
 	 * @generated
 	 */
-	int BOOLEAN = 136;
+	int BOOLEAN = 137;
 
 	/**
 	 * The meta object id for the '<em>Integer</em>' data type.
@@ -6960,7 +7024,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getInteger()
 	 * @generated
 	 */
-	int INTEGER = 137;
+	int INTEGER = 138;
 
 	/**
 	 * The meta object id for the '<em>Real</em>' data type.
@@ -6969,7 +7033,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getReal()
 	 * @generated
 	 */
-	int REAL = 138;
+	int REAL = 139;
 
 	/**
 	 * The meta object id for the '<em>String</em>' data type.
@@ -6979,7 +7043,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getString()
 	 * @generated
 	 */
-	int STRING = 139;
+	int STRING = 140;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.ba.aadlba.ActualPortHolder <em>Actual Port Holder</em>}'.
@@ -7221,6 +7285,27 @@ public interface AadlBaPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getBehaviorAnnex_InitialState();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.ba.aadlba.BehaviorArraySize <em>Behavior Array Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Behavior Array Size</em>'.
+	 * @see org.osate.ba.aadlba.BehaviorArraySize
+	 * @generated
+	 */
+	EClass getBehaviorArraySize();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.osate.ba.aadlba.BehaviorArraySize#getIntegerValue <em>Integer Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Integer Value</em>'.
+	 * @see org.osate.ba.aadlba.BehaviorArraySize#getIntegerValue()
+	 * @see #getBehaviorArraySize()
+	 * @generated
+	 */
+	EReference getBehaviorArraySize_IntegerValue();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.ba.aadlba.BehaviorBooleanLiteral <em>Behavior Boolean Literal</em>}'.
@@ -9627,6 +9712,24 @@ public interface AadlBaPackage extends EPackage {
 		 * @generated
 		 */
 		EReference BEHAVIOR_ANNEX__INITIAL_STATE = eINSTANCE.getBehaviorAnnex_InitialState();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.ba.aadlba.impl.BehaviorArraySizeImpl <em>Behavior Array Size</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.ba.aadlba.impl.BehaviorArraySizeImpl
+		 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBehaviorArraySize()
+		 * @generated
+		 */
+		EClass BEHAVIOR_ARRAY_SIZE = eINSTANCE.getBehaviorArraySize();
+
+		/**
+		 * The meta object literal for the '<em><b>Integer Value</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference BEHAVIOR_ARRAY_SIZE__INTEGER_VALUE = eINSTANCE.getBehaviorArraySize_IntegerValue();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.ba.aadlba.impl.BehaviorBooleanLiteralImpl <em>Behavior Boolean Literal</em>}' class.
