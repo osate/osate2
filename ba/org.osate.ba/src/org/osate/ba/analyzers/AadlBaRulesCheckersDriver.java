@@ -248,10 +248,14 @@ public class AadlBaRulesCheckersDriver {
 				 * }
 				 */
 
-				if (_currentBt.getActionBlock() != null && checked.add(_currentBt.getActionBlock())) {
-					result &= _legality.D_6_L3_And_L4_Check(_currentBt.getActionBlock());
+				if (_currentBt.getActionBlock() != null) {
+					// Check every expanded source against the shared action block before deduplicating its content checks.
+					result &= _legality.D_3_And_D_6_Action_Timeout_Check(_currentBt);
+					if (checked.add(_currentBt.getActionBlock())) {
+						result &= _legality.D_6_L3_And_L4_Check(_currentBt.getActionBlock());
 
-					process(_currentBt.getActionBlock());
+						process(_currentBt.getActionBlock());
+					}
 				}
 
 				return result;

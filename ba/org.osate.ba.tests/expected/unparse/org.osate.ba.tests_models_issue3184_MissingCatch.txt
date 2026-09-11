@@ -1,0 +1,9 @@
+===== annex[0] owner=MissingCatch::example.impl =====
+
+states
+\tstart : initial state;
+\tdone : final state;
+transitions
+\tstart -[true]-> done {{computation (1 ms)} timeout 3 ms} timeout 2 ms;
+----- Xtext reparse -----
+reparsed

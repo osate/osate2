@@ -63,6 +63,7 @@ import org.osate.ba.aadlba.CompletionRelativeTimeout;
 import org.osate.ba.aadlba.DispatchCondition;
 import org.osate.ba.aadlba.DispatchRelativeTimeout;
 import org.osate.ba.aadlba.ElseStatement;
+import org.osate.ba.aadlba.ExecutionTimeoutCatch;
 import org.osate.ba.aadlba.IfStatement;
 import org.osate.ba.aadlba.IntegerValue;
 import org.osate.ba.aadlba.InternalCondition;
@@ -688,6 +689,75 @@ public class AadlBaLegalityRulesChecker {
 		}
 
 		return lDuplicates.isEmpty();
+	}
+
+	/**
+	 * Document: AS5506/3 Rev A
+	 * Type    : Legality rule
+	 * Sections: D.3 Behavior Specification, D.6 Behavior Action Language
+	 * Object  : Check action timeout catch and transition-condition rules
+	 * Keys    : action timeout simple timeout condition source state
+	 *
+	 * Every timeout-bearing action block is checked against the transition that contains it. The translator expands a
+	 * declarative multi-source transition into one strict transition per source while sharing the action block, so the
+	 * driver calls this method for every expanded transition. This ensures that every source has its own timeout-catch
+	 * transition.
+	 */
+	public boolean D_3_And_D_6_Action_Timeout_Check(BehaviorTransition transition) {
+		var actionBlock = transition.getActionBlock();
+		if (actionBlock == null) {
+			return true;
+		}
+
+		var timedBlocks = new ArrayList<BehaviorActionBlock>();
+		if (actionBlock.getTimeout() != null) {
+			timedBlocks.add(actionBlock);
+		}
+		for (var contents = EcoreUtil.getAllContents(actionBlock, true); contents.hasNext();) {
+			if (contents.next() instanceof BehaviorActionBlock nestedBlock && nestedBlock.getTimeout() != null) {
+				timedBlocks.add(nestedBlock);
+			}
+		}
+		if (timedBlocks.isEmpty()) {
+			return true;
+		}
+
+		if (hasTimeoutCondition(transition)) {
+			for (var timedBlock : timedBlocks) {
+				reportLegalityError(timedBlock.getTimeout(),
+						"A behavior action timeout is not allowed on a transition with a timeout condition : "
+								+ "Behavior Annex D.3 and D.6 legality rules failed");
+			}
+			return false;
+		}
+
+		var source = transition.getSourceState();
+		var hasCatch = source != null && _ba.getTransitions()
+				.stream()
+				.anyMatch(candidate -> candidate.getSourceState() == source
+						&& candidate.getCondition() instanceof ExecutionTimeoutCatch);
+		if (hasCatch) {
+			return true;
+		}
+
+		var sourceName = source == null ? "<unresolved>" : source.getName();
+		for (var timedBlock : timedBlocks) {
+			reportLegalityError(timedBlock.getTimeout(),
+					"A behavior action timeout must have a transition from source state '" + sourceName
+							+ "' with a simple timeout condition : Behavior Annex D.3 and D.6 legality rules failed");
+		}
+		return false;
+	}
+
+	private static boolean hasTimeoutCondition(BehaviorTransition transition) {
+		if (transition.getCondition() instanceof ExecutionTimeoutCatch) {
+			return true;
+		}
+		if (transition.getCondition() instanceof DispatchCondition dispatch) {
+			var trigger = dispatch.getDispatchTriggerCondition();
+			return trigger instanceof DispatchRelativeTimeout || trigger instanceof CompletionRelativeTimeout;
+		}
+		return false;
 	}
 
 	/**
