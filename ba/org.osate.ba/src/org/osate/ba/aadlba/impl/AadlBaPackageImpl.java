@@ -126,6 +126,13 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass behaviorArraySizeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass behaviorBooleanLiteralEClass = null;
 
 	/**
@@ -1313,6 +1320,26 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	@Override
 	public EReference getBehaviorAnnex_InitialState() {
 		return (EReference) behaviorAnnexEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getBehaviorArraySize() {
+		return behaviorArraySizeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getBehaviorArraySize_IntegerValue() {
+		return (EReference) behaviorArraySizeEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3471,6 +3498,9 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		createEReference(behaviorAnnexEClass, BEHAVIOR_ANNEX__CONDITIONS);
 		createEReference(behaviorAnnexEClass, BEHAVIOR_ANNEX__INITIAL_STATE);
 
+		behaviorArraySizeEClass = createEClass(BEHAVIOR_ARRAY_SIZE);
+		createEReference(behaviorArraySizeEClass, BEHAVIOR_ARRAY_SIZE__INTEGER_VALUE);
+
 		behaviorBooleanLiteralEClass = createEClass(BEHAVIOR_BOOLEAN_LITERAL);
 
 		behaviorConditionEClass = createEClass(BEHAVIOR_CONDITION);
@@ -3847,6 +3877,8 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		behaviorActionSetEClass.getESuperTypes().add(getBehaviorActionCollection());
 		behaviorAnnexEClass.getESuperTypes().add(theAadl2Package.getAnnexSubclause());
 		behaviorAnnexEClass.getESuperTypes().add(getBehaviorElement());
+		behaviorArraySizeEClass.getESuperTypes().add(theAadl2Package.getArraySize());
+		behaviorArraySizeEClass.getESuperTypes().add(getBehaviorElement());
 		behaviorBooleanLiteralEClass.getESuperTypes().add(theAadl2Package.getBooleanLiteral());
 		behaviorBooleanLiteralEClass.getESuperTypes().add(getLiteral());
 		behaviorConditionEClass.getESuperTypes().add(getBehaviorElement());
@@ -4117,6 +4149,12 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBehaviorAnnex_InitialState(), getBehaviorState(), null, "initialState", null, 1, 1,
 				BehaviorAnnex.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(behaviorArraySizeEClass, BehaviorArraySize.class, "BehaviorArraySize", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getBehaviorArraySize_IntegerValue(), getIntegerValue(), null, "integerValue", null, 1, 1,
+				BehaviorArraySize.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(behaviorBooleanLiteralEClass, BehaviorBooleanLiteral.class, "BehaviorBooleanLiteral", !IS_ABSTRACT,
@@ -4982,12 +5020,26 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		createResource(eNS_URI);
 
 		// Create annotations
-		// http://www.topcased.org/documentation
-		createDocumentationAnnotations();
 		// Documentation
+		createDocumentationAnnotations();
+		// http://www.topcased.org/documentation
 		createDocumentation_1Annotations();
 		// documentation
 		createDocumentation_2Annotations();
+	}
+
+	/**
+	 * Initializes the annotations for <b>Documentation</b>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void createDocumentationAnnotations() {
+		String source = "Documentation";
+		addAnnotation(behaviorArraySizeEClass, source, new String[] { "documentation",
+				"The size of one behavior variable array dimension. The size is the integer value that was written, held without evaluation. The inherited size and sizeProperty carry the extent only for the two forms core AADL can express, an integer literal and a property constant." });
+		addAnnotation(lockActionEClass, source, new String[] { "documentation",
+				"A null data name means that all shared data are locked while in the critical section" });
 	}
 
 	/**
@@ -4996,7 +5048,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void createDocumentationAnnotations() {
+	protected void createDocumentation_1Annotations() {
 		String source = "http://www.topcased.org/documentation";
 		addAnnotation(booleanEDataType, source, new String[] { "documentation",
 				"A Boolean type is used for logical expression, consisting of the predefined values true and false." });
@@ -5006,18 +5058,6 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 				new String[] { "documentation", "A real is a primitive type representing real numeric values." });
 		addAnnotation(stringEDataType, source, new String[] { "documentation",
 				"A string is a sequence of characters in some suitable character set used to display information about the model. Character sets may include non-Roman alphabets and characters." });
-	}
-
-	/**
-	 * Initializes the annotations for <b>Documentation</b>.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void createDocumentation_1Annotations() {
-		String source = "Documentation";
-		addAnnotation(lockActionEClass, source, new String[] { "documentation",
-				"A null data name means that all shared data are locked while in the critical section" });
 	}
 
 	/**

@@ -249,6 +249,29 @@ public class AadlBaItemProviderAdapterFactory extends AadlBaAdapterFactory
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.ba.aadlba.BehaviorArraySize} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected BehaviorArraySizeItemProvider behaviorArraySizeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.ba.aadlba.BehaviorArraySize}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createBehaviorArraySizeAdapter() {
+		if (behaviorArraySizeItemProvider == null) {
+			behaviorArraySizeItemProvider = new BehaviorArraySizeItemProvider(this);
+		}
+
+		return behaviorArraySizeItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.osate.ba.aadlba.BehaviorBooleanLiteral} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2190,6 +2213,9 @@ public class AadlBaItemProviderAdapterFactory extends AadlBaAdapterFactory
 		}
 		if (behaviorAnnexItemProvider != null) {
 			behaviorAnnexItemProvider.dispose();
+		}
+		if (behaviorArraySizeItemProvider != null) {
+			behaviorArraySizeItemProvider.dispose();
 		}
 		if (behaviorBooleanLiteralItemProvider != null) {
 			behaviorBooleanLiteralItemProvider.dispose();

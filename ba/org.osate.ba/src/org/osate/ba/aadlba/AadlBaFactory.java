@@ -102,6 +102,15 @@ public interface AadlBaFactory extends EFactory {
 	BehaviorAnnex createBehaviorAnnex();
 
 	/**
+	 * Returns a new object of class '<em>Behavior Array Size</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Behavior Array Size</em>'.
+	 * @generated
+	 */
+	BehaviorArraySize createBehaviorArraySize();
+
+	/**
 	 * Returns a new object of class '<em>Behavior Boolean Literal</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
 import org.osate.aadl2.AnnexSubclause;
+import org.osate.aadl2.ArraySize;
 import org.osate.aadl2.ArrayableElement;
 import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.Data;
@@ -355,6 +356,23 @@ public class AadlBaSwitch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(behaviorAnnex);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case AadlBaPackage.BEHAVIOR_ARRAY_SIZE: {
+			BehaviorArraySize behaviorArraySize = (BehaviorArraySize) theEObject;
+			T result = caseBehaviorArraySize(behaviorArraySize);
+			if (result == null) {
+				result = caseArraySize(behaviorArraySize);
+			}
+			if (result == null) {
+				result = caseBehaviorElement(behaviorArraySize);
+			}
+			if (result == null) {
+				result = caseElement(behaviorArraySize);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -3512,6 +3530,21 @@ public class AadlBaSwitch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Behavior Array Size</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Behavior Array Size</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBehaviorArraySize(BehaviorArraySize object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Behavior Boolean Literal</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -5173,6 +5206,21 @@ public class AadlBaSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseAnnexSubclause(AnnexSubclause object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Array Size</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Array Size</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseArraySize(ArraySize object) {
 		return null;
 	}
 
