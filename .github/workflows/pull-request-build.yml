@@ -32,9 +32,6 @@ concurrency:
   group: pull-request-build-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
-env:
-  MAVEN_REPOSITORY: ${{ runner.temp }}/maven-repository
-
 jobs:
   build:
     name: Build and integration tests
@@ -57,7 +54,9 @@ jobs:
       - name: Set cache generation
         id: cache-generation
         shell: bash
-        run: echo "month=$(date --utc +%Y-%m)" >> "$GITHUB_OUTPUT"
+        run: |
+          echo "MAVEN_REPOSITORY=${RUNNER_TEMP}/maven-repository" >> "$GITHUB_ENV"
+          echo "month=$(date --utc +%Y-%m)" >> "$GITHUB_OUTPUT"
 
       # Do not use restore keys for either cache. A changed dependency graph must
       # start with an empty cache so that removed versions are not copied forward.
