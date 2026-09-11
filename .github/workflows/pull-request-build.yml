@@ -113,7 +113,7 @@ jobs:
         shell: bash
         run: >-
           xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24"
-          mvn --batch-mode --no-transfer-progress
+          mvn --batch-mode --no-transfer-progress -T5
           -Dmaven.repo.local="${MAVEN_REPOSITORY}"
           -s releng/osate.releng/settings.xml
           -Plocal,with-ge-tests
