@@ -222,6 +222,9 @@ public class BehaviorArraySizeItemProvider extends ArraySizeItemProvider {
 
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_ARRAY_SIZE__INTEGER_VALUE,
 				AadlBaFactory.eINSTANCE.createStructUnionElementHolder()));
+
+		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_ARRAY_SIZE__INTEGER_VALUE,
+				AadlBaFactory.eINSTANCE.createPortUpdatedValue()));
 	}
 
 	/**

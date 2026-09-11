@@ -73,6 +73,7 @@ public class ReferenceExpressionItemProvider extends IntegerValueItemProvider
       addDequeuePropertyDescriptor(object);
       addCountPropertyDescriptor(object);
       addFreshPropertyDescriptor(object);
+      addUpdatedPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -138,6 +139,29 @@ public class ReferenceExpressionItemProvider extends IntegerValueItemProvider
          getString("_UI_ReferenceExpression_fresh_feature"),
          getString("_UI_PropertyDescriptor_description", "_UI_ReferenceExpression_fresh_feature", "_UI_ReferenceExpression_type"),
          BehaviorAnnexPackage.Literals.REFERENCE_EXPRESSION__FRESH,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
+   * This adds a property descriptor for the Updated feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addUpdatedPropertyDescriptor(Object object)
+  {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_ReferenceExpression_updated_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_ReferenceExpression_updated_feature", "_UI_ReferenceExpression_type"),
+         BehaviorAnnexPackage.Literals.REFERENCE_EXPRESSION__UPDATED,
          true,
          false,
          false,
@@ -223,6 +247,7 @@ public class ReferenceExpressionItemProvider extends IntegerValueItemProvider
       case BehaviorAnnexPackage.REFERENCE_EXPRESSION__DEQUEUE:
       case BehaviorAnnexPackage.REFERENCE_EXPRESSION__COUNT:
       case BehaviorAnnexPackage.REFERENCE_EXPRESSION__FRESH:
+      case BehaviorAnnexPackage.REFERENCE_EXPRESSION__UPDATED:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
       case BehaviorAnnexPackage.REFERENCE_EXPRESSION__REFERENCE:

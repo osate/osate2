@@ -822,6 +822,15 @@ public interface AadlBaFactory extends EFactory {
 	InternalCondition createInternalCondition();
 
 	/**
+	 * Returns a new object of class '<em>Port Updated Value</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Port Updated Value</em>'.
+	 * @generated
+	 */
+	PortUpdatedValue createPortUpdatedValue();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

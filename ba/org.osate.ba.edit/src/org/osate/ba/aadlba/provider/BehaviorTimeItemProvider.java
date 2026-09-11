@@ -236,6 +236,9 @@ public class BehaviorTimeItemProvider extends BehaviorElementItemProvider {
 
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_TIME__INTEGER_VALUE,
 				AadlBaFactory.eINSTANCE.createStructUnionElementHolder()));
+
+		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.BEHAVIOR_TIME__INTEGER_VALUE,
+				AadlBaFactory.eINSTANCE.createPortUpdatedValue()));
 	}
 
 }

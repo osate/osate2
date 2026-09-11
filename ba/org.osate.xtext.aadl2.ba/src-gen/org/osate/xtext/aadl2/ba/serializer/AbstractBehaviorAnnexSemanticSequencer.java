@@ -1190,7 +1190,7 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
      *     ReferenceExpression returns ReferenceExpression
      *
      * Constraint:
-     *     (reference=Reference (property=PropertyReferenceTail | dequeue?='?' | count?='count' | fresh?='fresh')?)
+     *     (reference=Reference (property=PropertyReferenceTail | dequeue?='?' | count?='count' | fresh?='fresh' | updated?='updated')?)
      * </pre>
      */
     protected void sequence_ReferenceExpression(ISerializationContext context, ReferenceExpression semanticObject) {
@@ -1302,7 +1302,7 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
      *     UnindexedReferenceExpression returns UnindexedReferenceExpression
      *
      * Constraint:
-     *     (reference=UnindexedReference (dequeue?='?' | count?='count' | fresh?='fresh')?)
+     *     (reference=UnindexedReference (dequeue?='?' | count?='count' | fresh?='fresh' | updated?='updated')?)
      * </pre>
      */
     protected void sequence_UnindexedReferenceExpression(ISerializationContext context, UnindexedReferenceExpression semanticObject) {

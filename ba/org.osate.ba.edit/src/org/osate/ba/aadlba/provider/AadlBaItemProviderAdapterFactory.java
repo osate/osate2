@@ -2089,6 +2089,29 @@ public class AadlBaItemProviderAdapterFactory extends AadlBaAdapterFactory
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.ba.aadlba.PortUpdatedValue} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PortUpdatedValueItemProvider portUpdatedValueItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.ba.aadlba.PortUpdatedValue}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createPortUpdatedValueAdapter() {
+		if (portUpdatedValueItemProvider == null) {
+			portUpdatedValueItemProvider = new PortUpdatedValueItemProvider(this);
+		}
+
+		return portUpdatedValueItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2453,6 +2476,9 @@ public class AadlBaItemProviderAdapterFactory extends AadlBaAdapterFactory
 		}
 		if (internalConditionItemProvider != null) {
 			internalConditionItemProvider.dispose();
+		}
+		if (portUpdatedValueItemProvider != null) {
+			portUpdatedValueItemProvider.dispose();
 		}
 	}
 

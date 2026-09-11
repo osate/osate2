@@ -290,7 +290,7 @@ ReferenceExpression:
     (
         property=PropertyReferenceTail
         | dequeue?='?'
-        | "'" (count?='count' | fresh?='fresh')
+        | "'" (count?='count' | fresh?='fresh' | updated?='updated')
     )?
 ;
 
@@ -322,7 +322,7 @@ PropertyIndexPropertyReference:
 
 UnindexedReferenceExpression:
     reference=UnindexedReference
-    (dequeue?='?' | "'" (count?='count' | fresh?='fresh'))?
+    (dequeue?='?' | "'" (count?='count' | fresh?='fresh' | updated?='updated'))?
 ;
 
 UnindexedReference:

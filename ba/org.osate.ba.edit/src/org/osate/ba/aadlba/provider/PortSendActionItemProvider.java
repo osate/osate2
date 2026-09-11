@@ -167,6 +167,9 @@ public class PortSendActionItemProvider extends BehaviorElementItemProvider {
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.PORT_SEND_ACTION__PORT,
 				AadlBaFactory.eINSTANCE.createPortFreshValue()));
 
+		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.PORT_SEND_ACTION__PORT,
+				AadlBaFactory.eINSTANCE.createPortUpdatedValue()));
+
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.PORT_SEND_ACTION__VALUE_EXPRESSION,
 				AadlBaFactory.eINSTANCE.createValueExpression()));
 

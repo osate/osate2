@@ -876,4 +876,5 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TimeoutResetPort" abstract="true" interface="true"
       eSuperTypes="#//BehaviorElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PortUpdatedValue" eSuperTypes="#//ActualPortHolder"/>
 </ecore:EPackage>

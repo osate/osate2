@@ -3344,6 +3344,53 @@ public class AadlBaSwitch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case AadlBaPackage.PORT_UPDATED_VALUE: {
+			PortUpdatedValue portUpdatedValue = (PortUpdatedValue) theEObject;
+			T result = casePortUpdatedValue(portUpdatedValue);
+			if (result == null) {
+				result = caseActualPortHolder(portUpdatedValue);
+			}
+			if (result == null) {
+				result = casePortHolder(portUpdatedValue);
+			}
+			if (result == null) {
+				result = caseIntegerValueVariable(portUpdatedValue);
+			}
+			if (result == null) {
+				result = caseFeatureHolder(portUpdatedValue);
+			}
+			if (result == null) {
+				result = caseValueVariable(portUpdatedValue);
+			}
+			if (result == null) {
+				result = caseValue(portUpdatedValue);
+			}
+			if (result == null) {
+				result = caseIntegerValue(portUpdatedValue);
+			}
+			if (result == null) {
+				result = caseClassifierFeatureHolder(portUpdatedValue);
+			}
+			if (result == null) {
+				result = caseIndexableElement(portUpdatedValue);
+			}
+			if (result == null) {
+				result = caseGroupableElement(portUpdatedValue);
+			}
+			if (result == null) {
+				result = caseElementHolder(portUpdatedValue);
+			}
+			if (result == null) {
+				result = caseBehaviorElement(portUpdatedValue);
+			}
+			if (result == null) {
+				result = caseElement(portUpdatedValue);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		default:
 			return defaultCase(theEObject);
 		}
@@ -5446,6 +5493,21 @@ public class AadlBaSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseTimeoutResetPort(TimeoutResetPort object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Port Updated Value</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Port Updated Value</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePortUpdatedValue(PortUpdatedValue object) {
 		return null;
 	}
 

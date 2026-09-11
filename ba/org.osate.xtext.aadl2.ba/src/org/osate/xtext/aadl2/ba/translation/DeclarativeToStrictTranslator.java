@@ -769,7 +769,8 @@ public final class DeclarativeToStrictTranslator {
 							&& Aadl2Utils.getDataAccessRight(dataAccess) != Aadl2Utils.DataAccessRight.read_only;
 			if (writable && parameter instanceof ReferenceExpression expression) {
 				if (expression.getProperty() == null && !expression.isCount() && !expression.isFresh()
-						&& !expression.isDequeue() && expression.getReference().getSegments().size()
+						&& !expression.isUpdated() && !expression.isDequeue()
+						&& expression.getReference().getSegments().size()
 								+ expression.getReference().getTails().size() == 1) {
 					final var reference = toReferenceValue(expression.getReference());
 					if (reference instanceof Target target) {
@@ -998,9 +999,10 @@ public final class DeclarativeToStrictTranslator {
 				return toPropertyReference(expression.getReference(), expression.getProperty());
 			}
 			final var referenced = toReferenceValue(expression.getReference());
-			if (expression.isCount() || expression.isFresh() || expression.isDequeue()) {
+			if (expression.isCount() || expression.isFresh() || expression.isUpdated() || expression.isDequeue()) {
 				final var holderType = expression.isCount() ? "PortCountValue"
-						: expression.isFresh() ? "PortFreshValue" : "PortDequeueValue";
+						: expression.isFresh() ? "PortFreshValue"
+								: expression.isUpdated() ? "PortUpdatedValue" : "PortDequeueValue";
 				final var portValue = (ElementHolder) create(holderType, expression);
 				if (referenced instanceof ElementHolder holder) {
 					copyHolder(holder, portValue);

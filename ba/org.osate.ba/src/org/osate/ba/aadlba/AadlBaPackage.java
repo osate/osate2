@@ -6899,6 +6899,70 @@ public interface AadlBaPackage extends EPackage {
 	int TIMEOUT_RESET_PORT_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.osate.ba.aadlba.impl.PortUpdatedValueImpl <em>Port Updated Value</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.ba.aadlba.impl.PortUpdatedValueImpl
+	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getPortUpdatedValue()
+	 * @generated
+	 */
+	int PORT_UPDATED_VALUE = 126;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_UPDATED_VALUE__OWNED_ELEMENT = ACTUAL_PORT_HOLDER__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_UPDATED_VALUE__OWNED_COMMENT = ACTUAL_PORT_HOLDER__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_UPDATED_VALUE__ELEMENT = ACTUAL_PORT_HOLDER__ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Array Indexes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_UPDATED_VALUE__ARRAY_INDEXES = ACTUAL_PORT_HOLDER__ARRAY_INDEXES;
+
+	/**
+	 * The feature id for the '<em><b>Group Holders</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_UPDATED_VALUE__GROUP_HOLDERS = ACTUAL_PORT_HOLDER__GROUP_HOLDERS;
+
+	/**
+	 * The number of structural features of the '<em>Port Updated Value</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_UPDATED_VALUE_FEATURE_COUNT = ACTUAL_PORT_HOLDER_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.BehaviorFeatureType <em>Behavior Feature Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6906,7 +6970,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBehaviorFeatureType()
 	 * @generated
 	 */
-	int BEHAVIOR_FEATURE_TYPE = 126;
+	int BEHAVIOR_FEATURE_TYPE = 127;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.BinaryAddingOperator <em>Binary Adding Operator</em>}' enum.
@@ -6916,7 +6980,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBinaryAddingOperator()
 	 * @generated
 	 */
-	int BINARY_ADDING_OPERATOR = 127;
+	int BINARY_ADDING_OPERATOR = 128;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.BinaryNumericOperator <em>Binary Numeric Operator</em>}' enum.
@@ -6926,7 +6990,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBinaryNumericOperator()
 	 * @generated
 	 */
-	int BINARY_NUMERIC_OPERATOR = 128;
+	int BINARY_NUMERIC_OPERATOR = 129;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.DataRepresentation <em>Data Representation</em>}' enum.
@@ -6936,7 +7000,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getDataRepresentation()
 	 * @generated
 	 */
-	int DATA_REPRESENTATION = 129;
+	int DATA_REPRESENTATION = 130;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.FeatureType <em>Feature Type</em>}' enum.
@@ -6946,7 +7010,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getFeatureType()
 	 * @generated
 	 */
-	int FEATURE_TYPE = 130;
+	int FEATURE_TYPE = 131;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.LogicalOperator <em>Logical Operator</em>}' enum.
@@ -6956,7 +7020,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getLogicalOperator()
 	 * @generated
 	 */
-	int LOGICAL_OPERATOR = 131;
+	int LOGICAL_OPERATOR = 132;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.MultiplyingOperator <em>Multiplying Operator</em>}' enum.
@@ -6966,7 +7030,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getMultiplyingOperator()
 	 * @generated
 	 */
-	int MULTIPLYING_OPERATOR = 132;
+	int MULTIPLYING_OPERATOR = 133;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.RelationalOperator <em>Relational Operator</em>}' enum.
@@ -6976,7 +7040,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getRelationalOperator()
 	 * @generated
 	 */
-	int RELATIONAL_OPERATOR = 133;
+	int RELATIONAL_OPERATOR = 134;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.UnaryAddingOperator <em>Unary Adding Operator</em>}' enum.
@@ -6986,7 +7050,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getUnaryAddingOperator()
 	 * @generated
 	 */
-	int UNARY_ADDING_OPERATOR = 134;
+	int UNARY_ADDING_OPERATOR = 135;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.UnaryBooleanOperator <em>Unary Boolean Operator</em>}' enum.
@@ -6996,7 +7060,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getUnaryBooleanOperator()
 	 * @generated
 	 */
-	int UNARY_BOOLEAN_OPERATOR = 135;
+	int UNARY_BOOLEAN_OPERATOR = 136;
 
 	/**
 	 * The meta object id for the '{@link org.osate.ba.aadlba.UnaryNumericOperator <em>Unary Numeric Operator</em>}' enum.
@@ -7006,7 +7070,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getUnaryNumericOperator()
 	 * @generated
 	 */
-	int UNARY_NUMERIC_OPERATOR = 136;
+	int UNARY_NUMERIC_OPERATOR = 137;
 
 	/**
 	 * The meta object id for the '<em>Boolean</em>' data type.
@@ -7015,7 +7079,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBoolean()
 	 * @generated
 	 */
-	int BOOLEAN = 137;
+	int BOOLEAN = 138;
 
 	/**
 	 * The meta object id for the '<em>Integer</em>' data type.
@@ -7024,7 +7088,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getInteger()
 	 * @generated
 	 */
-	int INTEGER = 138;
+	int INTEGER = 139;
 
 	/**
 	 * The meta object id for the '<em>Real</em>' data type.
@@ -7033,7 +7097,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getReal()
 	 * @generated
 	 */
-	int REAL = 139;
+	int REAL = 140;
 
 	/**
 	 * The meta object id for the '<em>String</em>' data type.
@@ -7043,7 +7107,7 @@ public interface AadlBaPackage extends EPackage {
 	 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getString()
 	 * @generated
 	 */
-	int STRING = 140;
+	int STRING = 141;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.ba.aadlba.ActualPortHolder <em>Actual Port Holder</em>}'.
@@ -9484,6 +9548,16 @@ public interface AadlBaPackage extends EPackage {
 	EClass getTimeoutResetPort();
 
 	/**
+	 * Returns the meta object for class '{@link org.osate.ba.aadlba.PortUpdatedValue <em>Port Updated Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Port Updated Value</em>'.
+	 * @see org.osate.ba.aadlba.PortUpdatedValue
+	 * @generated
+	 */
+	EClass getPortUpdatedValue();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -11664,6 +11738,16 @@ public interface AadlBaPackage extends EPackage {
 		 * @generated
 		 */
 		EClass TIMEOUT_RESET_PORT = eINSTANCE.getTimeoutResetPort();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.ba.aadlba.impl.PortUpdatedValueImpl <em>Port Updated Value</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.ba.aadlba.impl.PortUpdatedValueImpl
+		 * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getPortUpdatedValue()
+		 * @generated
+		 */
+		EClass PORT_UPDATED_VALUE = eINSTANCE.getPortUpdatedValue();
 
 	}
 

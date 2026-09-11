@@ -868,6 +868,13 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass portUpdatedValueEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass propertySetPropertyReferenceEClass = null;
 
 	/**
@@ -3178,6 +3185,16 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * @generated
 	 */
 	@Override
+	public EClass getPortUpdatedValue() {
+		return portUpdatedValueEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getPropertySetPropertyReference() {
 		return propertySetPropertyReferenceEClass;
 	}
@@ -3810,6 +3827,8 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		timeoutResetPortEClass = createEClass(TIMEOUT_RESET_PORT);
 
+		portUpdatedValueEClass = createEClass(PORT_UPDATED_VALUE);
+
 		// Create enums
 		behaviorFeatureTypeEEnum = createEEnum(BEHAVIOR_FEATURE_TYPE);
 		binaryAddingOperatorEEnum = createEEnum(BINARY_ADDING_OPERATOR);
@@ -4070,6 +4089,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		internalPortSendActionEClass.getESuperTypes().add(getCommunicationAction());
 		internalConditionEClass.getESuperTypes().add(getBehaviorCondition());
 		timeoutResetPortEClass.getESuperTypes().add(getBehaviorElement());
+		portUpdatedValueEClass.getESuperTypes().add(getActualPortHolder());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(actualPortHolderEClass, ActualPortHolder.class, "ActualPortHolder", IS_ABSTRACT, !IS_INTERFACE,
@@ -4877,6 +4897,9 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 				!IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(timeoutResetPortEClass, TimeoutResetPort.class, "TimeoutResetPort", IS_ABSTRACT, IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(portUpdatedValueEClass, PortUpdatedValue.class, "PortUpdatedValue", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals

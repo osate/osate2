@@ -38,6 +38,7 @@ package org.osate.xtext.aadl2.ba.behaviorAnnex;
  *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceExpression#isDequeue <em>Dequeue</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceExpression#isCount <em>Count</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceExpression#isFresh <em>Fresh</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceExpression#isUpdated <em>Updated</em>}</li>
  * </ul>
  *
  * @see org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage#getReferenceExpression()
@@ -155,5 +156,27 @@ public interface ReferenceExpression extends IntegerValue, ValueExpression
    * @generated
    */
   void setFresh(boolean value);
+
+  /**
+   * Returns the value of the '<em><b>Updated</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Updated</em>' attribute.
+   * @see #setUpdated(boolean)
+   * @see org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage#getReferenceExpression_Updated()
+   * @model
+   * @generated
+   */
+  boolean isUpdated();
+
+  /**
+   * Sets the value of the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceExpression#isUpdated <em>Updated</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Updated</em>' attribute.
+   * @see #isUpdated()
+   * @generated
+   */
+  void setUpdated(boolean value);
 
 } // ReferenceExpression

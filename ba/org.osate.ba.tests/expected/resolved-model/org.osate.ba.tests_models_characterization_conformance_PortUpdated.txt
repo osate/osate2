@@ -8,4 +8,4 @@ annex[0] owner=PortUpdated::component.i
           firstExpression : SimpleExpression
             terms[0] : Term
               factors[0] : Factor
-                firstValue : DataPortHolder element=PortUpdated::component.input [DataPort]
+                firstValue : PortUpdatedValue

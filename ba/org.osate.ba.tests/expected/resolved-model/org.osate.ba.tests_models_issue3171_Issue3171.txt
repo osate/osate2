@@ -11,24 +11,28 @@ annex[0] owner=Issue3171::sampler.i
           firstExpression : SimpleExpression
             terms[0] : Term
               factors[0] : Factor
-                firstValue : DataPortHolder element=Issue3171::sampler.reading [DataPort]
+                firstValue : PortUpdatedValue
     transitions[1] : BehaviorTransition name=event_data_port
       condition : ValueExpression
         relations[0] : Relation
           firstExpression : SimpleExpression
             terms[0] : Term
               factors[0] : Factor
-                firstValue : EventDataPortHolder element=Issue3171::sampler.request [EventDataPort]
-    transitions[2] : BehaviorTransition
-    transitions[3] : BehaviorTransition
-    transitions[4] : BehaviorTransition name=feature_group_port
+                firstValue : PortUpdatedValue
+    transitions[2] : BehaviorTransition name=feature_group_port
       condition : ValueExpression
         relations[0] : Relation
           firstExpression : SimpleExpression
             terms[0] : Term
               factors[0] : Factor
-                firstValue : EventPortHolder element=Issue3171::readings.pulse [EventPort]
+                firstValue : PortUpdatedValue
                   groupHolders[0] : GroupHolder element=Issue3171::sampler.bundle [FeatureGroup]
     actions[0] : BehaviorActionBlock
-      content : SubprogramCallAction
-        proxy : BehaviorVariableHolder element=changed [BehaviorVariable]
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=changed [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : PortUpdatedValue

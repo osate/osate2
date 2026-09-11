@@ -267,6 +267,9 @@ public class DataAccessPrototypeHolderItemProvider extends DataHolderItemProvide
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.INDEXABLE_ELEMENT__ARRAY_INDEXES,
 				AadlBaFactory.eINSTANCE.createStructUnionElementHolder()));
 
+		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.INDEXABLE_ELEMENT__ARRAY_INDEXES,
+				AadlBaFactory.eINSTANCE.createPortUpdatedValue()));
+
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.GROUPABLE_ELEMENT__GROUP_HOLDERS,
 				AadlBaFactory.eINSTANCE.createGroupHolder()));
 

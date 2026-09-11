@@ -187,6 +187,9 @@ public class DispatchConditionItemProvider extends BehaviorElementItemProvider {
 
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.DISPATCH_CONDITION__FROZEN_PORTS,
 				AadlBaFactory.eINSTANCE.createPortFreshValue()));
+
+		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.DISPATCH_CONDITION__FROZEN_PORTS,
+				AadlBaFactory.eINSTANCE.createPortUpdatedValue()));
 	}
 
 }

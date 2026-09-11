@@ -1656,13 +1656,22 @@ public interface BehaviorAnnexPackage extends EPackage
   int REFERENCE_EXPRESSION__FRESH = INTEGER_VALUE_FEATURE_COUNT + 4;
 
   /**
+   * The feature id for the '<em><b>Updated</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REFERENCE_EXPRESSION__UPDATED = INTEGER_VALUE_FEATURE_COUNT + 5;
+
+  /**
    * The number of structural features of the '<em>Reference Expression</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REFERENCE_EXPRESSION_FEATURE_COUNT = INTEGER_VALUE_FEATURE_COUNT + 5;
+  int REFERENCE_EXPRESSION_FEATURE_COUNT = INTEGER_VALUE_FEATURE_COUNT + 6;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.HashPropertyReferenceImpl <em>Hash Property Reference</em>}' class.
@@ -1915,13 +1924,22 @@ public interface BehaviorAnnexPackage extends EPackage
   int UNINDEXED_REFERENCE_EXPRESSION__FRESH = PROPERTY_INDEX_VALUE_FEATURE_COUNT + 3;
 
   /**
+   * The feature id for the '<em><b>Updated</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UNINDEXED_REFERENCE_EXPRESSION__UPDATED = PROPERTY_INDEX_VALUE_FEATURE_COUNT + 4;
+
+  /**
    * The number of structural features of the '<em>Unindexed Reference Expression</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int UNINDEXED_REFERENCE_EXPRESSION_FEATURE_COUNT = PROPERTY_INDEX_VALUE_FEATURE_COUNT + 4;
+  int UNINDEXED_REFERENCE_EXPRESSION_FEATURE_COUNT = PROPERTY_INDEX_VALUE_FEATURE_COUNT + 5;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.UnindexedReferenceImpl <em>Unindexed Reference</em>}' class.
@@ -3675,6 +3693,17 @@ public interface BehaviorAnnexPackage extends EPackage
   EAttribute getReferenceExpression_Fresh();
 
   /**
+   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceExpression#isUpdated <em>Updated</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Updated</em>'.
+   * @see org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceExpression#isUpdated()
+   * @see #getReferenceExpression()
+   * @generated
+   */
+  EAttribute getReferenceExpression_Updated();
+
+  /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.HashPropertyReference <em>Hash Property Reference</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3897,6 +3926,17 @@ public interface BehaviorAnnexPackage extends EPackage
    * @generated
    */
   EAttribute getUnindexedReferenceExpression_Fresh();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReferenceExpression#isUpdated <em>Updated</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Updated</em>'.
+   * @see org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReferenceExpression#isUpdated()
+   * @see #getUnindexedReferenceExpression()
+   * @generated
+   */
+  EAttribute getUnindexedReferenceExpression_Updated();
 
   /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReference <em>Unindexed Reference</em>}'.
@@ -5341,6 +5381,14 @@ public interface BehaviorAnnexPackage extends EPackage
     EAttribute REFERENCE_EXPRESSION__FRESH = eINSTANCE.getReferenceExpression_Fresh();
 
     /**
+     * The meta object literal for the '<em><b>Updated</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute REFERENCE_EXPRESSION__UPDATED = eINSTANCE.getReferenceExpression_Updated();
+
+    /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.HashPropertyReferenceImpl <em>Hash Property Reference</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5521,6 +5569,14 @@ public interface BehaviorAnnexPackage extends EPackage
      * @generated
      */
     EAttribute UNINDEXED_REFERENCE_EXPRESSION__FRESH = eINSTANCE.getUnindexedReferenceExpression_Fresh();
+
+    /**
+     * The meta object literal for the '<em><b>Updated</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute UNINDEXED_REFERENCE_EXPRESSION__UPDATED = eINSTANCE.getUnindexedReferenceExpression_Updated();
 
     /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.UnindexedReferenceImpl <em>Unindexed Reference</em>}' class.

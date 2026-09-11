@@ -366,6 +366,9 @@ public abstract class AbstractBehaviorAnnexProposalProvider extends PropertiesPr
     public void completeReferenceExpression_Fresh(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
         // subclasses may override
     }
+    public void completeReferenceExpression_Updated(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        // subclasses may override
+    }
     public void completeHashPropertyReference_Property(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
         completeRuleCall(((RuleCall)assignment.getTerminal()), context, acceptor);
     }
@@ -406,6 +409,9 @@ public abstract class AbstractBehaviorAnnexProposalProvider extends PropertiesPr
         // subclasses may override
     }
     public void completeUnindexedReferenceExpression_Fresh(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        // subclasses may override
+    }
+    public void completeUnindexedReferenceExpression_Updated(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
         // subclasses may override
     }
     public void completeUnindexedReference_Segments(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {

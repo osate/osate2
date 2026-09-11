@@ -124,6 +124,7 @@ import org.osate.xtext.aadl2.ba.services.BehaviorAnnexGrammarAccess;
         tokenNameToValue.put("Compute", "'compute'");
         tokenNameToValue.put("Initial", "'initial'");
         tokenNameToValue.put("Timeout", "'timeout'");
+        tokenNameToValue.put("Updated", "'updated'");
         tokenNameToValue.put("Complete", "'complete'");
         tokenNameToValue.put("Constant", "'constant'");
         tokenNameToValue.put("Dispatch", "'dispatch'");
@@ -3113,6 +3114,12 @@ rule__ReferenceExpression__Alternatives_1_2_1
         (rule__ReferenceExpression__FreshAssignment_1_2_1_1)
         { after(grammarAccess.getReferenceExpressionAccess().getFreshAssignment_1_2_1_1()); }
     )
+    |
+    (
+        { before(grammarAccess.getReferenceExpressionAccess().getUpdatedAssignment_1_2_1_2()); }
+        (rule__ReferenceExpression__UpdatedAssignment_1_2_1_2)
+        { after(grammarAccess.getReferenceExpressionAccess().getUpdatedAssignment_1_2_1_2()); }
+    )
 ;
 finally {
     restoreStackSize(stackSize);
@@ -3181,6 +3188,12 @@ rule__UnindexedReferenceExpression__Alternatives_1_1_1
         { before(grammarAccess.getUnindexedReferenceExpressionAccess().getFreshAssignment_1_1_1_1()); }
         (rule__UnindexedReferenceExpression__FreshAssignment_1_1_1_1)
         { after(grammarAccess.getUnindexedReferenceExpressionAccess().getFreshAssignment_1_1_1_1()); }
+    )
+    |
+    (
+        { before(grammarAccess.getUnindexedReferenceExpressionAccess().getUpdatedAssignment_1_1_1_2()); }
+        (rule__UnindexedReferenceExpression__UpdatedAssignment_1_1_1_2)
+        { after(grammarAccess.getUnindexedReferenceExpressionAccess().getUpdatedAssignment_1_1_1_2()); }
     )
 ;
 finally {
@@ -15783,6 +15796,25 @@ finally {
     restoreStackSize(stackSize);
 }
 
+rule__ReferenceExpression__UpdatedAssignment_1_2_1_2
+    @init {
+        int stackSize = keepStackSize();
+    }
+:
+    (
+        { before(grammarAccess.getReferenceExpressionAccess().getUpdatedUpdatedKeyword_1_2_1_2_0()); }
+        (
+            { before(grammarAccess.getReferenceExpressionAccess().getUpdatedUpdatedKeyword_1_2_1_2_0()); }
+            Updated
+            { after(grammarAccess.getReferenceExpressionAccess().getUpdatedUpdatedKeyword_1_2_1_2_0()); }
+        )
+        { after(grammarAccess.getReferenceExpressionAccess().getUpdatedUpdatedKeyword_1_2_1_2_0()); }
+    )
+;
+finally {
+    restoreStackSize(stackSize);
+}
+
 rule__HashPropertyReference__PropertyAssignment_1
     @init {
         int stackSize = keepStackSize();
@@ -15999,6 +16031,25 @@ rule__UnindexedReferenceExpression__FreshAssignment_1_1_1_1
             { after(grammarAccess.getUnindexedReferenceExpressionAccess().getFreshFreshKeyword_1_1_1_1_0()); }
         )
         { after(grammarAccess.getUnindexedReferenceExpressionAccess().getFreshFreshKeyword_1_1_1_1_0()); }
+    )
+;
+finally {
+    restoreStackSize(stackSize);
+}
+
+rule__UnindexedReferenceExpression__UpdatedAssignment_1_1_1_2
+    @init {
+        int stackSize = keepStackSize();
+    }
+:
+    (
+        { before(grammarAccess.getUnindexedReferenceExpressionAccess().getUpdatedUpdatedKeyword_1_1_1_2_0()); }
+        (
+            { before(grammarAccess.getUnindexedReferenceExpressionAccess().getUpdatedUpdatedKeyword_1_1_1_2_0()); }
+            Updated
+            { after(grammarAccess.getUnindexedReferenceExpressionAccess().getUpdatedUpdatedKeyword_1_1_1_2_0()); }
+        )
+        { after(grammarAccess.getUnindexedReferenceExpressionAccess().getUpdatedUpdatedKeyword_1_1_1_2_0()); }
     )
 ;
 finally {
