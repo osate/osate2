@@ -1,0 +1,158 @@
+# Copyright (c) 2026 Carnegie Mellon University and others. (see Contributors file).
+# All Rights Reserved.
+#
+# NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+# KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+# OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+# MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+#
+# This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+# which is available at https://www.eclipse.org/legal/epl-2.0/
+# SPDX-License-Identifier: EPL-2.0
+#
+# Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+#
+# This program includes and/or can make use of certain third party source code, object code, documentation and other
+# files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+# configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+# conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+# Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party beneficiaries
+# to this license with respect to the terms applicable to their Third Party Software. Third Party Software licenses
+# only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+
+name: Pull Request Build
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pull-request-build-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+env:
+  MAVEN_REPOSITORY: ${{ runner.temp }}/maven-repository
+
+jobs:
+  build:
+    name: Build and integration tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+
+    steps:
+      - name: Check out sources
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Set cache generation
+        id: cache-generation
+        shell: bash
+        run: echo "month=$(date --utc +%Y-%m)" >> "$GITHUB_OUTPUT"
+
+      # Do not use restore keys for either cache. A changed dependency graph must
+      # start with an empty cache so that removed versions are not copied forward.
+      - name: Cache Maven dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ${{ env.MAVEN_REPOSITORY }}
+            !${{ env.MAVEN_REPOSITORY }}/.cache/tycho
+            !${{ env.MAVEN_REPOSITORY }}/.meta
+            !${{ env.MAVEN_REPOSITORY }}/org/osate
+            !${{ env.MAVEN_REPOSITORY }}/p2
+          key: >-
+            maven-v1-${{ runner.os }}-${{ steps.cache-generation.outputs.month }}-${{
+              hashFiles('.github/workflows/pull-request-build.yml', '**/pom.xml')
+            }}
+
+      - name: Cache downloaded target-platform bundles
+        uses: actions/cache@v4
+        with:
+          path: |
+            ${{ env.MAVEN_REPOSITORY }}/.cache/tycho
+            ${{ env.MAVEN_REPOSITORY }}/p2
+            !${{ env.MAVEN_REPOSITORY }}/.cache/tycho/org.osate*
+            !${{ env.MAVEN_REPOSITORY }}/p2/binary/org.osate*
+            !${{ env.MAVEN_REPOSITORY }}/p2/org/eclipse/update/feature/org.osate*
+            !${{ env.MAVEN_REPOSITORY }}/p2/osgi/bundle/org.osate*
+          key: >-
+            tycho-p2-v1-${{ runner.os }}-${{ steps.cache-generation.outputs.month }}-${{
+              hashFiles(
+                '.github/workflows/pull-request-build.yml',
+                'releng/org.osate.build.target/**',
+                'releng/osate.releng/settings.xml',
+                '**/pom.xml',
+                '**/feature.xml',
+                '**/META-INF/MANIFEST.MF'
+              )
+            }}
+
+      - name: Use reactor dependency versions
+        shell: bash
+        run: >-
+          mvn --batch-mode --no-transfer-progress
+          -Dmaven.repo.local="${MAVEN_REPOSITORY}"
+          -s releng/osate.releng/settings.xml
+          org.codehaus.mojo:versions-maven-plugin:use-reactor
+          -DgenerateBackupPoms=false
+          -Dtycho.mode=maven
+          -Dcodecoverage=true
+
+      # Tycho executes the eclipse-test-plugin suites during verify. The
+      # pr.build property omits the update-site and product packaging modules.
+      - name: Build and run integration tests
+        shell: bash
+        run: >-
+          xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24"
+          mvn --batch-mode --no-transfer-progress
+          -Dmaven.repo.local="${MAVEN_REPOSITORY}"
+          -s releng/osate.releng/settings.xml
+          -Plocal,with-ge-tests
+          -Dtycho.localArtifacts=ignore
+          -Dpr.build=true
+          -Dsign=false
+          -Dspotbugs=true
+          -Dcodecoverage=true
+          -Djavadoc=false
+          -Declipse.p2.mirrors=false
+          -DfailIfNoTests=false
+          clean verify
+
+      - name: Confirm integration tests ran
+        shell: bash
+        run: |
+          mapfile -t reports < <(find . -path '*/target/surefire-reports/TEST-*.xml' -type f)
+          if (( ${#reports[@]} == 0 )); then
+            echo "No Surefire test reports were produced." >&2
+            exit 1
+          fi
+          echo "Found ${#reports[@]} Surefire test reports."
+
+      # Reactor artifacts are always rebuilt from the checked-out sources and
+      # must not accumulate in either dependency cache.
+      - name: Remove reactor artifacts from caches
+        if: always()
+        shell: bash
+        run: |
+          rm -rf "${MAVEN_REPOSITORY}/org/osate"
+
+          for directory in \
+            "${MAVEN_REPOSITORY}/.cache/tycho" \
+            "${MAVEN_REPOSITORY}/p2/binary" \
+            "${MAVEN_REPOSITORY}/p2/org/eclipse/update/feature" \
+            "${MAVEN_REPOSITORY}/p2/osgi/bundle"
+          do
+            if [[ -d "${directory}" ]]; then
+              find "${directory}" -mindepth 1 -maxdepth 1 -name 'org.osate*' -exec rm -rf -- {} +
+            fi
+          done
