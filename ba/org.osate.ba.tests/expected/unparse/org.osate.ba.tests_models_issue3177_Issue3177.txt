@@ -1,0 +1,31 @@
+===== annex[0] owner=Issue3177::evaluate =====
+
+\t\tvariables
+\t\t\ttotal : Base_Types::Integer;
+\t\t\tresult : Base_Types::Integer;
+\t\t\tleft : Base_Types::Boolean;
+\t\t\tmiddle : Base_Types::Boolean;
+\t\t\tright : Base_Types::Boolean;
+\t\t\tflag : Base_Types::Boolean;
+\t\tstates
+\t\t\tstart : initial state;
+\t\t\tdone : final state;
+\t\ttransitions
+\t\t\tstart -[ ]-> done {
+\t\t\t\t-- D.7 puts every logical operator on one precedence level and associates a level from left to
+\t\t\t\t-- right, so this is (left or middle) and right.
+\t\t\t\tflag := left or middle and right;
+\t\t\t\t-- The parenthesized group is a single operand of and, not a pair of relations spliced into the
+\t\t\t\t-- enclosing value expression.
+\t\t\t\tflag := left and (middle or right);
+\t\t\t\t-- The binary numeric operator binds tighter than the unary adding operator, so this is -(2 ** 2).
+\t\t\t\tresult := -2 ** 2;
+\t\t\t\t-- The unary adding operator applies to the whole first term, so this is -(total mod 3). The sign
+\t\t\t\t-- matters: -(1 mod 3) is -1 while (-1) mod 3 is 2.
+\t\t\t\tresult := -total mod 3;
+\t\t\t\t-- factor admits one exponentiation, so a chain needs explicit parentheses.
+\t\t\t\tresult := (total ** 2) ** 3
+\t\t\t};
+\t
+----- Xtext reparse -----
+reparsed

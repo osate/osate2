@@ -1526,6 +1526,34 @@ public interface BehaviorAnnexPackage extends EPackage
   int VALUE_EXPRESSION_FEATURE_COUNT = 0;
 
   /**
+   * The meta object id for the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.ParenthesizedExpressionImpl <em>Parenthesized Expression</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.ParenthesizedExpressionImpl
+   * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getParenthesizedExpression()
+   * @generated
+   */
+  int PARENTHESIZED_EXPRESSION = 33;
+
+  /**
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PARENTHESIZED_EXPRESSION__EXPRESSION = VALUE_EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Parenthesized Expression</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PARENTHESIZED_EXPRESSION_FEATURE_COUNT = VALUE_EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.ValueConstantImpl <em>Value Constant</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1533,7 +1561,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getValueConstant()
    * @generated
    */
-  int VALUE_CONSTANT = 33;
+  int VALUE_CONSTANT = 34;
 
   /**
    * The number of structural features of the '<em>Value Constant</em>' class.
@@ -1552,7 +1580,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getBehaviorIntegerLiteral()
    * @generated
    */
-  int BEHAVIOR_INTEGER_LITERAL = 34;
+  int BEHAVIOR_INTEGER_LITERAL = 35;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1580,7 +1608,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getBehaviorRealLiteral()
    * @generated
    */
-  int BEHAVIOR_REAL_LITERAL = 35;
+  int BEHAVIOR_REAL_LITERAL = 36;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1608,7 +1636,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getBehaviorStringLiteral()
    * @generated
    */
-  int BEHAVIOR_STRING_LITERAL = 36;
+  int BEHAVIOR_STRING_LITERAL = 37;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1636,7 +1664,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getBehaviorBooleanLiteral()
    * @generated
    */
-  int BEHAVIOR_BOOLEAN_LITERAL = 37;
+  int BEHAVIOR_BOOLEAN_LITERAL = 38;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1664,7 +1692,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getReferenceExpression()
    * @generated
    */
-  int REFERENCE_EXPRESSION = 38;
+  int REFERENCE_EXPRESSION = 39;
 
   /**
    * The feature id for the '<em><b>Reference</b></em>' containment reference.
@@ -1737,7 +1765,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getHashPropertyReference()
    * @generated
    */
-  int HASH_PROPERTY_REFERENCE = 39;
+  int HASH_PROPERTY_REFERENCE = 40;
 
   /**
    * The feature id for the '<em><b>Property</b></em>' attribute.
@@ -1783,7 +1811,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getPropertyReferenceTail()
    * @generated
    */
-  int PROPERTY_REFERENCE_TAIL = 40;
+  int PROPERTY_REFERENCE_TAIL = 41;
 
   /**
    * The feature id for the '<em><b>Property</b></em>' attribute.
@@ -1829,7 +1857,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getNamedPropertyField()
    * @generated
    */
-  int NAMED_PROPERTY_FIELD = 41;
+  int NAMED_PROPERTY_FIELD = 42;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1866,7 +1894,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getPropertyArrayIndex()
    * @generated
    */
-  int PROPERTY_ARRAY_INDEX = 42;
+  int PROPERTY_ARRAY_INDEX = 43;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -1894,7 +1922,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getPropertyIndexValue()
    * @generated
    */
-  int PROPERTY_INDEX_VALUE = 43;
+  int PROPERTY_INDEX_VALUE = 44;
 
   /**
    * The number of structural features of the '<em>Property Index Value</em>' class.
@@ -1913,7 +1941,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getPropertyIndexPropertyReference()
    * @generated
    */
-  int PROPERTY_INDEX_PROPERTY_REFERENCE = 44;
+  int PROPERTY_INDEX_PROPERTY_REFERENCE = 45;
 
   /**
    * The feature id for the '<em><b>Property</b></em>' attribute.
@@ -1941,7 +1969,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getUnindexedReferenceExpression()
    * @generated
    */
-  int UNINDEXED_REFERENCE_EXPRESSION = 45;
+  int UNINDEXED_REFERENCE_EXPRESSION = 46;
 
   /**
    * The feature id for the '<em><b>Reference</b></em>' containment reference.
@@ -2005,7 +2033,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getUnindexedReference()
    * @generated
    */
-  int UNINDEXED_REFERENCE = 46;
+  int UNINDEXED_REFERENCE = 47;
 
   /**
    * The feature id for the '<em><b>Segments</b></em>' containment reference list.
@@ -2042,7 +2070,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getUnindexedReferenceTail()
    * @generated
    */
-  int UNINDEXED_REFERENCE_TAIL = 47;
+  int UNINDEXED_REFERENCE_TAIL = 48;
 
   /**
    * The feature id for the '<em><b>Separator</b></em>' attribute.
@@ -2079,7 +2107,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getUnindexedReferenceSegment()
    * @generated
    */
-  int UNINDEXED_REFERENCE_SEGMENT = 48;
+  int UNINDEXED_REFERENCE_SEGMENT = 49;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2107,7 +2135,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getReference()
    * @generated
    */
-  int REFERENCE = 49;
+  int REFERENCE = 50;
 
   /**
    * The feature id for the '<em><b>Segments</b></em>' containment reference list.
@@ -2144,7 +2172,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getReferenceTail()
    * @generated
    */
-  int REFERENCE_TAIL = 50;
+  int REFERENCE_TAIL = 51;
 
   /**
    * The feature id for the '<em><b>Separator</b></em>' attribute.
@@ -2181,7 +2209,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getReferenceSegment()
    * @generated
    */
-  int REFERENCE_SEGMENT = 51;
+  int REFERENCE_SEGMENT = 52;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2218,7 +2246,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getArrayIndex()
    * @generated
    */
-  int ARRAY_INDEX = 52;
+  int ARRAY_INDEX = 53;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -2246,7 +2274,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getBehaviorActionSequence()
    * @generated
    */
-  int BEHAVIOR_ACTION_SEQUENCE = 53;
+  int BEHAVIOR_ACTION_SEQUENCE = 54;
 
   /**
    * The feature id for the '<em><b>Actions</b></em>' containment reference list.
@@ -2274,7 +2302,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getBehaviorActionSet()
    * @generated
    */
-  int BEHAVIOR_ACTION_SET = 54;
+  int BEHAVIOR_ACTION_SET = 55;
 
   /**
    * The feature id for the '<em><b>Actions</b></em>' containment reference list.
@@ -2302,7 +2330,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getBinaryExpression()
    * @generated
    */
-  int BINARY_EXPRESSION = 55;
+  int BINARY_EXPRESSION = 56;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -2348,7 +2376,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getUnaryExpression()
    * @generated
    */
-  int UNARY_EXPRESSION = 56;
+  int UNARY_EXPRESSION = 57;
 
   /**
    * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -3642,6 +3670,27 @@ public interface BehaviorAnnexPackage extends EPackage
    * @generated
    */
   EClass getValueExpression();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.ParenthesizedExpression <em>Parenthesized Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Parenthesized Expression</em>'.
+   * @see org.osate.xtext.aadl2.ba.behaviorAnnex.ParenthesizedExpression
+   * @generated
+   */
+  EClass getParenthesizedExpression();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.ParenthesizedExpression#getExpression <em>Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Expression</em>'.
+   * @see org.osate.xtext.aadl2.ba.behaviorAnnex.ParenthesizedExpression#getExpression()
+   * @see #getParenthesizedExpression()
+   * @generated
+   */
+  EReference getParenthesizedExpression_Expression();
 
   /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.ValueConstant <em>Value Constant</em>}'.
@@ -5399,6 +5448,24 @@ public interface BehaviorAnnexPackage extends EPackage
      * @generated
      */
     EClass VALUE_EXPRESSION = eINSTANCE.getValueExpression();
+
+    /**
+     * The meta object literal for the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.ParenthesizedExpressionImpl <em>Parenthesized Expression</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.ParenthesizedExpressionImpl
+     * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getParenthesizedExpression()
+     * @generated
+     */
+    EClass PARENTHESIZED_EXPRESSION = eINSTANCE.getParenthesizedExpression();
+
+    /**
+     * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PARENTHESIZED_EXPRESSION__EXPRESSION = eINSTANCE.getParenthesizedExpression_Expression();
 
     /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.ValueConstantImpl <em>Value Constant</em>}' class.

@@ -920,6 +920,31 @@ public class BehaviorAnnexItemProviderAdapterFactory extends BehaviorAnnexAdapte
   }
 
   /**
+   * This keeps track of the one adapter used for all {@link org.osate.xtext.aadl2.ba.behaviorAnnex.ParenthesizedExpression} instances.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected ParenthesizedExpressionItemProvider parenthesizedExpressionItemProvider;
+
+  /**
+   * This creates an adapter for a {@link org.osate.xtext.aadl2.ba.behaviorAnnex.ParenthesizedExpression}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Adapter createParenthesizedExpressionAdapter()
+  {
+    if (parenthesizedExpressionItemProvider == null)
+    {
+      parenthesizedExpressionItemProvider = new ParenthesizedExpressionItemProvider(this);
+    }
+
+    return parenthesizedExpressionItemProvider;
+  }
+
+  /**
    * This keeps track of the one adapter used for all {@link org.osate.xtext.aadl2.ba.behaviorAnnex.ValueConstant} instances.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1669,6 +1694,7 @@ public class BehaviorAnnexItemProviderAdapterFactory extends BehaviorAnnexAdapte
     if (behaviorTimeItemProvider != null) behaviorTimeItemProvider.dispose();
     if (integerValueItemProvider != null) integerValueItemProvider.dispose();
     if (valueExpressionItemProvider != null) valueExpressionItemProvider.dispose();
+    if (parenthesizedExpressionItemProvider != null) parenthesizedExpressionItemProvider.dispose();
     if (valueConstantItemProvider != null) valueConstantItemProvider.dispose();
     if (behaviorIntegerLiteralItemProvider != null) behaviorIntegerLiteralItemProvider.dispose();
     if (behaviorRealLiteralItemProvider != null) behaviorRealLiteralItemProvider.dispose();

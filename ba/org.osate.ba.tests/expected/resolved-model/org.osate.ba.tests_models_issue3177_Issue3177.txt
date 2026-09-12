@@ -1,0 +1,88 @@
+annex[0] owner=Issue3177::evaluate
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=total
+    variables[1] : BehaviorVariable name=result
+    variables[2] : BehaviorVariable name=left
+    variables[3] : BehaviorVariable name=middle
+    variables[4] : BehaviorVariable name=right
+    variables[5] : BehaviorVariable name=flag
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : BehaviorVariableHolder element=flag [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=left [BehaviorVariable]
+            relations[1] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=middle [BehaviorVariable]
+            relations[2] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=right [BehaviorVariable]
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=flag [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=left [BehaviorVariable]
+            relations[1] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : ValueExpression
+                      relations[0] : Relation
+                        firstExpression : SimpleExpression
+                          terms[0] : Term
+                            factors[0] : Factor
+                              firstValue : BehaviorVariableHolder element=middle [BehaviorVariable]
+                      relations[1] : Relation
+                        firstExpression : SimpleExpression
+                          terms[0] : Term
+                            factors[0] : Factor
+                              firstValue : BehaviorVariableHolder element=right [BehaviorVariable]
+        actions[2] : AssignmentAction
+          target : BehaviorVariableHolder element=result [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+                    secondValue : BehaviorIntegerLiteral
+        actions[3] : AssignmentAction
+          target : BehaviorVariableHolder element=result [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=total [BehaviorVariable]
+                  factors[1] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[4] : AssignmentAction
+          target : BehaviorVariableHolder element=result [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : ValueExpression
+                      relations[0] : Relation
+                        firstExpression : SimpleExpression
+                          terms[0] : Term
+                            factors[0] : Factor
+                              firstValue : BehaviorVariableHolder element=total [BehaviorVariable]
+                              secondValue : BehaviorIntegerLiteral
+                    secondValue : BehaviorIntegerLiteral

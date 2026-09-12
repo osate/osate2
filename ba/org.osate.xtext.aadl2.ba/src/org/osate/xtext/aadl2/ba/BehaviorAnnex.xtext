@@ -222,58 +222,87 @@ IntegerValue:
     | ReferenceExpression
 ;
 
+// The expression rules follow the D.7 productions rather than one rule per operator, because the standard puts every
+// logical operator on a single precedence level and associates the operators of one level from left to right.
+// 'a or b and c' therefore means '(a or b) and c'.
 ValueExpression:
-    LogicalOrExpression
+    Relation
+    ({BinaryExpression.left=current} operator=LogicalOperator right=Relation)*
 ;
 
-LogicalOrExpression returns ValueExpression:
-    LogicalAndExpression
-    ({BinaryExpression.left=current} operator=LogicalOrOperator right=LogicalAndExpression)*
+LogicalOperator returns ecore::EString:
+    LogicalAndOperator | LogicalOrOperator
 ;
 
 LogicalOrOperator returns ecore::EString:
     'or' ('else')? | 'xor'
 ;
 
-LogicalAndExpression returns ValueExpression:
-    RelationalExpression
-    ({BinaryExpression.left=current} operator=LogicalAndOperator right=RelationalExpression)*
-;
-
 LogicalAndOperator returns ecore::EString:
     'and' ('then')?
 ;
 
-RelationalExpression returns ValueExpression:
-    AdditiveExpression
-    ({BinaryExpression.left=current} operator=('=' | '!=' | '<' | '<=' | '>' | '>=')
-        right=AdditiveExpression)?
+Relation returns ValueExpression:
+    SimpleExpression
+    ({BinaryExpression.left=current} operator=RelationalOperator right=SimpleExpression)?
 ;
 
-AdditiveExpression returns ValueExpression:
-    MultiplicativeExpression
-    ({BinaryExpression.left=current} operator=('+' | '-') right=MultiplicativeExpression)*
+RelationalOperator returns ecore::EString:
+    '=' | '!=' | '<' | '<=' | '>' | '>='
 ;
 
-MultiplicativeExpression returns ValueExpression:
-    PowerExpression
-    ({BinaryExpression.left=current} operator=('*' | '/' | 'mod' | 'rem') right=PowerExpression)*
+// The unary adding operator leads the whole simple expression, so it binds below the multiplying and the numeric
+// operators: '-a mod b' is '-(a mod b)' and '-a ** b' is '-(a ** b)'. D.7 admits '-' only; '+' remains accepted here
+// and is tracked separately as issue #3170.
+SimpleExpression returns ValueExpression:
+    ({UnaryExpression} operator=UnaryAddingOperator operand=Term | Term)
+    ({BinaryExpression.left=current} operator=BinaryAddingOperator right=Term)*
 ;
 
-PowerExpression returns ValueExpression:
-    UnaryExpression
-    ({BinaryExpression.left=current} operator='**' right=PowerExpression)?
+UnaryAddingOperator returns ecore::EString:
+    '-' | '+'
 ;
 
-UnaryExpression returns ValueExpression:
-    {UnaryExpression} operator=('+' | '-' | 'abs' | 'not') operand=UnaryExpression
-    | PrimaryExpression
+BinaryAddingOperator returns ecore::EString:
+    '+' | '-'
 ;
 
-PrimaryExpression returns ValueExpression:
+Term returns ValueExpression:
+    Factor
+    ({BinaryExpression.left=current} operator=MultiplyingOperator right=Factor)*
+;
+
+MultiplyingOperator returns ecore::EString:
+    '*' | '/' | 'mod' | 'rem'
+;
+
+// A factor admits at most one exponentiation and applies a unary numeric or boolean operator to a single value, so
+// 'a ** b ** c', 'abs -a', and 'not not a' need explicit parentheses.
+Factor returns ValueExpression:
+    Value
+    ({BinaryExpression.left=current} operator=BinaryNumericOperator right=Value)?
+    | {UnaryExpression} operator=UnaryValueOperator operand=Value
+;
+
+BinaryNumericOperator returns ecore::EString:
+    '**'
+;
+
+UnaryValueOperator returns ecore::EString:
+    'abs' | 'not'
+;
+
+Value returns ValueExpression:
     ValueConstant
     | ReferenceExpression
-    | '(' ValueExpression ')'
+    | ParenthesizedExpression
+;
+
+// A parenthesized value expression is one value of the enclosing factor. The group is an object of its own so that the
+// grouping the model records is the grouping the source requested, and so that the serializer emits it from the model
+// rather than reconstructing it from the parse text.
+ParenthesizedExpression:
+    '(' expression=ValueExpression ')'
 ;
 
 ValueConstant:

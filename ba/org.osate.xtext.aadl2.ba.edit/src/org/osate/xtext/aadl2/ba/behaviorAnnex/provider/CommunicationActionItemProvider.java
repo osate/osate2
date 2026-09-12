@@ -388,6 +388,11 @@ public class CommunicationActionItemProvider extends BehaviorActionItemProvider
     newChildDescriptors.add
       (createChildParameter
         (BehaviorAnnexPackage.Literals.COMMUNICATION_ACTION__PARAMETERS,
+         BehaviorAnnexFactory.eINSTANCE.createParenthesizedExpression()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (BehaviorAnnexPackage.Literals.COMMUNICATION_ACTION__PARAMETERS,
          BehaviorAnnexFactory.eINSTANCE.createValueConstant()));
 
     newChildDescriptors.add

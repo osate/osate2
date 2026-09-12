@@ -1,0 +1,13 @@
+===== annex[0] owner=RepeatedUnaryMinus::evaluate =====
+
+\t\tvariables
+\t\t\ttotal : Base_Types::Integer;
+\t\t\tresult : Base_Types::Integer;
+\t\tstates
+\t\t\tstart : initial state;
+\t\t\tdone : final state;
+\t\ttransitions
+\t\t\tstart -[ ]-> done { result := - -total };
+\t
+----- Xtext reparse -----
+reparsed

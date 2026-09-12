@@ -90,6 +90,7 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchConjunction;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchTrigger;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.NamedPropertyField;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ParenthesizedExpression;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyArrayIndex;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyIndexPropertyReference;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyReferenceTail;
@@ -276,8 +277,31 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
 				sequence_BehaviorVariableGroup(context, (BehaviorVariableGroup) semanticObject); 
 				return; 
 			case BehaviorAnnexPackage.BINARY_EXPRESSION:
-				sequence_AdditiveExpression_LogicalAndExpression_LogicalOrExpression_MultiplicativeExpression_PowerExpression_RelationalExpression(context, (BinaryExpression) semanticObject); 
-				return; 
+				if (rule == grammarAccess.getFactorRule()) {
+					sequence_Factor(context, (BinaryExpression) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getRelationRule()) {
+					sequence_Factor_Relation_SimpleExpression_Term(context, (BinaryExpression) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getValueExpressionRule()
+						|| action == grammarAccess.getValueExpressionAccess().getBinaryExpressionLeftAction_1_0()) {
+					sequence_Factor_Relation_SimpleExpression_Term_ValueExpression(context, (BinaryExpression) semanticObject); 
+					return; 
+				}
+				else if (action == grammarAccess.getRelationAccess().getBinaryExpressionLeftAction_1_0()
+						|| rule == grammarAccess.getSimpleExpressionRule()
+						|| action == grammarAccess.getSimpleExpressionAccess().getBinaryExpressionLeftAction_1_0()) {
+					sequence_Factor_SimpleExpression_Term(context, (BinaryExpression) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getTermRule()
+						|| action == grammarAccess.getTermAccess().getBinaryExpressionLeftAction_1_0()) {
+					sequence_Factor_Term(context, (BinaryExpression) semanticObject); 
+					return; 
+				}
+				else break;
 			case BehaviorAnnexPackage.COMMUNICATION_ACTION:
 				sequence_CommunicationAction(context, (CommunicationAction) semanticObject); 
 				return; 
@@ -329,6 +353,9 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
 			case BehaviorAnnexPackage.NAMED_PROPERTY_FIELD:
 				sequence_NamedPropertyField(context, (NamedPropertyField) semanticObject); 
 				return; 
+			case BehaviorAnnexPackage.PARENTHESIZED_EXPRESSION:
+				sequence_ParenthesizedExpression(context, (ParenthesizedExpression) semanticObject); 
+				return; 
 			case BehaviorAnnexPackage.PROPERTY_ARRAY_INDEX:
 				sequence_PropertyArrayIndex(context, (PropertyArrayIndex) semanticObject); 
 				return; 
@@ -354,8 +381,22 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
 				sequence_TimedAction(context, (TimedAction) semanticObject); 
 				return; 
 			case BehaviorAnnexPackage.UNARY_EXPRESSION:
-				sequence_UnaryExpression(context, (UnaryExpression) semanticObject); 
-				return; 
+				if (rule == grammarAccess.getValueExpressionRule()
+						|| action == grammarAccess.getValueExpressionAccess().getBinaryExpressionLeftAction_1_0()
+						|| rule == grammarAccess.getRelationRule()
+						|| action == grammarAccess.getRelationAccess().getBinaryExpressionLeftAction_1_0()
+						|| rule == grammarAccess.getSimpleExpressionRule()
+						|| action == grammarAccess.getSimpleExpressionAccess().getBinaryExpressionLeftAction_1_0()) {
+					sequence_Factor_SimpleExpression(context, (UnaryExpression) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getTermRule()
+						|| action == grammarAccess.getTermAccess().getBinaryExpressionLeftAction_1_0()
+						|| rule == grammarAccess.getFactorRule()) {
+					sequence_Factor(context, (UnaryExpression) semanticObject); 
+					return; 
+				}
+				else break;
 			case BehaviorAnnexPackage.UNINDEXED_REFERENCE:
 				sequence_UnindexedReference(context, (UnindexedReference) semanticObject); 
 				return; 
@@ -375,52 +416,6 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
 		if (errorAcceptor != null)
 			errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
-	
-	/**
-	 * <pre>
-	 * Contexts:
-	 *     ValueExpression returns BinaryExpression
-	 *     LogicalOrExpression returns BinaryExpression
-	 *     LogicalOrExpression.BinaryExpression_1_0 returns BinaryExpression
-	 *     LogicalAndExpression returns BinaryExpression
-	 *     LogicalAndExpression.BinaryExpression_1_0 returns BinaryExpression
-	 *     RelationalExpression returns BinaryExpression
-	 *     RelationalExpression.BinaryExpression_1_0 returns BinaryExpression
-	 *     AdditiveExpression returns BinaryExpression
-	 *     AdditiveExpression.BinaryExpression_1_0 returns BinaryExpression
-	 *     MultiplicativeExpression returns BinaryExpression
-	 *     MultiplicativeExpression.BinaryExpression_1_0 returns BinaryExpression
-	 *     PowerExpression returns BinaryExpression
-	 *     PowerExpression.BinaryExpression_1_0 returns BinaryExpression
-	 *     UnaryExpression returns BinaryExpression
-	 *     PrimaryExpression returns BinaryExpression
-	 *
-	 * Constraint:
-	 *     (
-	 *         (left=LogicalOrExpression_BinaryExpression_1_0 operator=LogicalOrOperator right=LogicalAndExpression) | 
-	 *         (left=LogicalAndExpression_BinaryExpression_1_0 operator=LogicalAndOperator right=RelationalExpression) | 
-	 *         (
-	 *             left=RelationalExpression_BinaryExpression_1_0 
-	 *             (
-	 *                 operator='=' | 
-	 *                 operator='!=' | 
-	 *                 operator='&lt;' | 
-	 *                 operator='&lt;=' | 
-	 *                 operator='&gt;' | 
-	 *                 operator='&gt;='
-	 *             ) 
-	 *             right=AdditiveExpression
-	 *         ) | 
-	 *         (left=AdditiveExpression_BinaryExpression_1_0 (operator='+' | operator='-') right=MultiplicativeExpression) | 
-	 *         (left=MultiplicativeExpression_BinaryExpression_1_0 (operator='*' | operator='/' | operator='mod' | operator='rem') right=PowerExpression) | 
-	 *         (left=PowerExpression_BinaryExpression_1_0 operator='**' right=PowerExpression)
-	 *     )
-	 * </pre>
-	 */
-	protected void sequence_AdditiveExpression_LogicalAndExpression_LogicalOrExpression_MultiplicativeExpression_PowerExpression_RelationalExpression(ISerializationContext context, BinaryExpression semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
 	
 	/**
 	 * <pre>
@@ -545,20 +540,16 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
 	 * <pre>
 	 * Contexts:
 	 *     ValueExpression returns BehaviorBooleanLiteral
-	 *     LogicalOrExpression returns BehaviorBooleanLiteral
-	 *     LogicalOrExpression.BinaryExpression_1_0 returns BehaviorBooleanLiteral
-	 *     LogicalAndExpression returns BehaviorBooleanLiteral
-	 *     LogicalAndExpression.BinaryExpression_1_0 returns BehaviorBooleanLiteral
-	 *     RelationalExpression returns BehaviorBooleanLiteral
-	 *     RelationalExpression.BinaryExpression_1_0 returns BehaviorBooleanLiteral
-	 *     AdditiveExpression returns BehaviorBooleanLiteral
-	 *     AdditiveExpression.BinaryExpression_1_0 returns BehaviorBooleanLiteral
-	 *     MultiplicativeExpression returns BehaviorBooleanLiteral
-	 *     MultiplicativeExpression.BinaryExpression_1_0 returns BehaviorBooleanLiteral
-	 *     PowerExpression returns BehaviorBooleanLiteral
-	 *     PowerExpression.BinaryExpression_1_0 returns BehaviorBooleanLiteral
-	 *     UnaryExpression returns BehaviorBooleanLiteral
-	 *     PrimaryExpression returns BehaviorBooleanLiteral
+	 *     ValueExpression.BinaryExpression_1_0 returns BehaviorBooleanLiteral
+	 *     Relation returns BehaviorBooleanLiteral
+	 *     Relation.BinaryExpression_1_0 returns BehaviorBooleanLiteral
+	 *     SimpleExpression returns BehaviorBooleanLiteral
+	 *     SimpleExpression.BinaryExpression_1_0 returns BehaviorBooleanLiteral
+	 *     Term returns BehaviorBooleanLiteral
+	 *     Term.BinaryExpression_1_0 returns BehaviorBooleanLiteral
+	 *     Factor returns BehaviorBooleanLiteral
+	 *     Factor.BinaryExpression_0_1_0 returns BehaviorBooleanLiteral
+	 *     Value returns BehaviorBooleanLiteral
 	 *     ValueConstant returns BehaviorBooleanLiteral
 	 *     BehaviorBooleanLiteral returns BehaviorBooleanLiteral
 	 *
@@ -590,20 +581,16 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
 	 * Contexts:
 	 *     IntegerValue returns BehaviorIntegerLiteral
 	 *     ValueExpression returns BehaviorIntegerLiteral
-	 *     LogicalOrExpression returns BehaviorIntegerLiteral
-	 *     LogicalOrExpression.BinaryExpression_1_0 returns BehaviorIntegerLiteral
-	 *     LogicalAndExpression returns BehaviorIntegerLiteral
-	 *     LogicalAndExpression.BinaryExpression_1_0 returns BehaviorIntegerLiteral
-	 *     RelationalExpression returns BehaviorIntegerLiteral
-	 *     RelationalExpression.BinaryExpression_1_0 returns BehaviorIntegerLiteral
-	 *     AdditiveExpression returns BehaviorIntegerLiteral
-	 *     AdditiveExpression.BinaryExpression_1_0 returns BehaviorIntegerLiteral
-	 *     MultiplicativeExpression returns BehaviorIntegerLiteral
-	 *     MultiplicativeExpression.BinaryExpression_1_0 returns BehaviorIntegerLiteral
-	 *     PowerExpression returns BehaviorIntegerLiteral
-	 *     PowerExpression.BinaryExpression_1_0 returns BehaviorIntegerLiteral
-	 *     UnaryExpression returns BehaviorIntegerLiteral
-	 *     PrimaryExpression returns BehaviorIntegerLiteral
+	 *     ValueExpression.BinaryExpression_1_0 returns BehaviorIntegerLiteral
+	 *     Relation returns BehaviorIntegerLiteral
+	 *     Relation.BinaryExpression_1_0 returns BehaviorIntegerLiteral
+	 *     SimpleExpression returns BehaviorIntegerLiteral
+	 *     SimpleExpression.BinaryExpression_1_0 returns BehaviorIntegerLiteral
+	 *     Term returns BehaviorIntegerLiteral
+	 *     Term.BinaryExpression_1_0 returns BehaviorIntegerLiteral
+	 *     Factor returns BehaviorIntegerLiteral
+	 *     Factor.BinaryExpression_0_1_0 returns BehaviorIntegerLiteral
+	 *     Value returns BehaviorIntegerLiteral
 	 *     ValueConstant returns BehaviorIntegerLiteral
 	 *     BehaviorIntegerLiteral returns BehaviorIntegerLiteral
 	 *     PropertyIndexValue returns BehaviorIntegerLiteral
@@ -650,20 +637,16 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
 	 * <pre>
 	 * Contexts:
 	 *     ValueExpression returns BehaviorRealLiteral
-	 *     LogicalOrExpression returns BehaviorRealLiteral
-	 *     LogicalOrExpression.BinaryExpression_1_0 returns BehaviorRealLiteral
-	 *     LogicalAndExpression returns BehaviorRealLiteral
-	 *     LogicalAndExpression.BinaryExpression_1_0 returns BehaviorRealLiteral
-	 *     RelationalExpression returns BehaviorRealLiteral
-	 *     RelationalExpression.BinaryExpression_1_0 returns BehaviorRealLiteral
-	 *     AdditiveExpression returns BehaviorRealLiteral
-	 *     AdditiveExpression.BinaryExpression_1_0 returns BehaviorRealLiteral
-	 *     MultiplicativeExpression returns BehaviorRealLiteral
-	 *     MultiplicativeExpression.BinaryExpression_1_0 returns BehaviorRealLiteral
-	 *     PowerExpression returns BehaviorRealLiteral
-	 *     PowerExpression.BinaryExpression_1_0 returns BehaviorRealLiteral
-	 *     UnaryExpression returns BehaviorRealLiteral
-	 *     PrimaryExpression returns BehaviorRealLiteral
+	 *     ValueExpression.BinaryExpression_1_0 returns BehaviorRealLiteral
+	 *     Relation returns BehaviorRealLiteral
+	 *     Relation.BinaryExpression_1_0 returns BehaviorRealLiteral
+	 *     SimpleExpression returns BehaviorRealLiteral
+	 *     SimpleExpression.BinaryExpression_1_0 returns BehaviorRealLiteral
+	 *     Term returns BehaviorRealLiteral
+	 *     Term.BinaryExpression_1_0 returns BehaviorRealLiteral
+	 *     Factor returns BehaviorRealLiteral
+	 *     Factor.BinaryExpression_0_1_0 returns BehaviorRealLiteral
+	 *     Value returns BehaviorRealLiteral
 	 *     ValueConstant returns BehaviorRealLiteral
 	 *     BehaviorRealLiteral returns BehaviorRealLiteral
 	 *
@@ -720,20 +703,16 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
 	 * <pre>
 	 * Contexts:
 	 *     ValueExpression returns BehaviorStringLiteral
-	 *     LogicalOrExpression returns BehaviorStringLiteral
-	 *     LogicalOrExpression.BinaryExpression_1_0 returns BehaviorStringLiteral
-	 *     LogicalAndExpression returns BehaviorStringLiteral
-	 *     LogicalAndExpression.BinaryExpression_1_0 returns BehaviorStringLiteral
-	 *     RelationalExpression returns BehaviorStringLiteral
-	 *     RelationalExpression.BinaryExpression_1_0 returns BehaviorStringLiteral
-	 *     AdditiveExpression returns BehaviorStringLiteral
-	 *     AdditiveExpression.BinaryExpression_1_0 returns BehaviorStringLiteral
-	 *     MultiplicativeExpression returns BehaviorStringLiteral
-	 *     MultiplicativeExpression.BinaryExpression_1_0 returns BehaviorStringLiteral
-	 *     PowerExpression returns BehaviorStringLiteral
-	 *     PowerExpression.BinaryExpression_1_0 returns BehaviorStringLiteral
-	 *     UnaryExpression returns BehaviorStringLiteral
-	 *     PrimaryExpression returns BehaviorStringLiteral
+	 *     ValueExpression.BinaryExpression_1_0 returns BehaviorStringLiteral
+	 *     Relation returns BehaviorStringLiteral
+	 *     Relation.BinaryExpression_1_0 returns BehaviorStringLiteral
+	 *     SimpleExpression returns BehaviorStringLiteral
+	 *     SimpleExpression.BinaryExpression_1_0 returns BehaviorStringLiteral
+	 *     Term returns BehaviorStringLiteral
+	 *     Term.BinaryExpression_1_0 returns BehaviorStringLiteral
+	 *     Factor returns BehaviorStringLiteral
+	 *     Factor.BinaryExpression_0_1_0 returns BehaviorStringLiteral
+	 *     Value returns BehaviorStringLiteral
 	 *     ValueConstant returns BehaviorStringLiteral
 	 *     BehaviorStringLiteral returns BehaviorStringLiteral
 	 *
@@ -995,6 +974,154 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
 	/**
 	 * <pre>
 	 * Contexts:
+	 *     Factor returns BinaryExpression
+	 *
+	 * Constraint:
+	 *     (left=Factor_BinaryExpression_0_1_0 operator=BinaryNumericOperator right=Value)
+	 * </pre>
+	 */
+	protected void sequence_Factor(ISerializationContext context, BinaryExpression semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, BehaviorAnnexPackage.Literals.BINARY_EXPRESSION__LEFT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, BehaviorAnnexPackage.Literals.BINARY_EXPRESSION__LEFT));
+			if (transientValues.isValueTransient(semanticObject, BehaviorAnnexPackage.Literals.BINARY_EXPRESSION__OPERATOR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, BehaviorAnnexPackage.Literals.BINARY_EXPRESSION__OPERATOR));
+			if (transientValues.isValueTransient(semanticObject, BehaviorAnnexPackage.Literals.BINARY_EXPRESSION__RIGHT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, BehaviorAnnexPackage.Literals.BINARY_EXPRESSION__RIGHT));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getFactorAccess().getBinaryExpressionLeftAction_0_1_0(), semanticObject.getLeft());
+		feeder.accept(grammarAccess.getFactorAccess().getOperatorBinaryNumericOperatorParserRuleCall_0_1_1_0(), semanticObject.getOperator());
+		feeder.accept(grammarAccess.getFactorAccess().getRightValueParserRuleCall_0_1_2_0(), semanticObject.getRight());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * <pre>
+	 * Contexts:
+	 *     Relation returns BinaryExpression
+	 *
+	 * Constraint:
+	 *     (
+	 *         (left=Relation_BinaryExpression_1_0 operator=RelationalOperator right=SimpleExpression) | 
+	 *         (left=SimpleExpression_BinaryExpression_1_0 operator=BinaryAddingOperator right=Term) | 
+	 *         (left=Term_BinaryExpression_1_0 operator=MultiplyingOperator right=Factor) | 
+	 *         (left=Factor_BinaryExpression_0_1_0 operator=BinaryNumericOperator right=Value)
+	 *     )
+	 * </pre>
+	 */
+	protected void sequence_Factor_Relation_SimpleExpression_Term(ISerializationContext context, BinaryExpression semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * <pre>
+	 * Contexts:
+	 *     ValueExpression returns BinaryExpression
+	 *     ValueExpression.BinaryExpression_1_0 returns BinaryExpression
+	 *
+	 * Constraint:
+	 *     (
+	 *         (left=ValueExpression_BinaryExpression_1_0 operator=LogicalOperator right=Relation) | 
+	 *         (left=Relation_BinaryExpression_1_0 operator=RelationalOperator right=SimpleExpression) | 
+	 *         (left=SimpleExpression_BinaryExpression_1_0 operator=BinaryAddingOperator right=Term) | 
+	 *         (left=Term_BinaryExpression_1_0 operator=MultiplyingOperator right=Factor) | 
+	 *         (left=Factor_BinaryExpression_0_1_0 operator=BinaryNumericOperator right=Value)
+	 *     )
+	 * </pre>
+	 */
+	protected void sequence_Factor_Relation_SimpleExpression_Term_ValueExpression(ISerializationContext context, BinaryExpression semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * <pre>
+	 * Contexts:
+	 *     Relation.BinaryExpression_1_0 returns BinaryExpression
+	 *     SimpleExpression returns BinaryExpression
+	 *     SimpleExpression.BinaryExpression_1_0 returns BinaryExpression
+	 *
+	 * Constraint:
+	 *     (
+	 *         (left=SimpleExpression_BinaryExpression_1_0 operator=BinaryAddingOperator right=Term) | 
+	 *         (left=Term_BinaryExpression_1_0 operator=MultiplyingOperator right=Factor) | 
+	 *         (left=Factor_BinaryExpression_0_1_0 operator=BinaryNumericOperator right=Value)
+	 *     )
+	 * </pre>
+	 */
+	protected void sequence_Factor_SimpleExpression_Term(ISerializationContext context, BinaryExpression semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * <pre>
+	 * Contexts:
+	 *     ValueExpression returns UnaryExpression
+	 *     ValueExpression.BinaryExpression_1_0 returns UnaryExpression
+	 *     Relation returns UnaryExpression
+	 *     Relation.BinaryExpression_1_0 returns UnaryExpression
+	 *     SimpleExpression returns UnaryExpression
+	 *     SimpleExpression.BinaryExpression_1_0 returns UnaryExpression
+	 *
+	 * Constraint:
+	 *     ((operator=UnaryAddingOperator operand=Term) | (operator=UnaryValueOperator operand=Value))
+	 * </pre>
+	 */
+	protected void sequence_Factor_SimpleExpression(ISerializationContext context, UnaryExpression semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * <pre>
+	 * Contexts:
+	 *     Term returns BinaryExpression
+	 *     Term.BinaryExpression_1_0 returns BinaryExpression
+	 *
+	 * Constraint:
+	 *     (
+	 *         (left=Term_BinaryExpression_1_0 operator=MultiplyingOperator right=Factor) | 
+	 *         (left=Factor_BinaryExpression_0_1_0 operator=BinaryNumericOperator right=Value)
+	 *     )
+	 * </pre>
+	 */
+	protected void sequence_Factor_Term(ISerializationContext context, BinaryExpression semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * <pre>
+	 * Contexts:
+	 *     Term returns UnaryExpression
+	 *     Term.BinaryExpression_1_0 returns UnaryExpression
+	 *     Factor returns UnaryExpression
+	 *
+	 * Constraint:
+	 *     (operator=UnaryValueOperator operand=Value)
+	 * </pre>
+	 */
+	protected void sequence_Factor(ISerializationContext context, UnaryExpression semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, BehaviorAnnexPackage.Literals.UNARY_EXPRESSION__OPERATOR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, BehaviorAnnexPackage.Literals.UNARY_EXPRESSION__OPERATOR));
+			if (transientValues.isValueTransient(semanticObject, BehaviorAnnexPackage.Literals.UNARY_EXPRESSION__OPERAND) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, BehaviorAnnexPackage.Literals.UNARY_EXPRESSION__OPERAND));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getFactorAccess().getOperatorUnaryValueOperatorParserRuleCall_1_1_0(), semanticObject.getOperator());
+		feeder.accept(grammarAccess.getFactorAccess().getOperandValueParserRuleCall_1_2_0(), semanticObject.getOperand());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * <pre>
+	 * Contexts:
 	 *     BehaviorActions returns ForStatement
 	 *     BehaviorActions.BehaviorActionSequence_1_0_0 returns ForStatement
 	 *     BehaviorActions.BehaviorActionSet_1_1_0 returns ForStatement
@@ -1015,20 +1142,16 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
 	 * Contexts:
 	 *     IntegerValue returns HashPropertyReference
 	 *     ValueExpression returns HashPropertyReference
-	 *     LogicalOrExpression returns HashPropertyReference
-	 *     LogicalOrExpression.BinaryExpression_1_0 returns HashPropertyReference
-	 *     LogicalAndExpression returns HashPropertyReference
-	 *     LogicalAndExpression.BinaryExpression_1_0 returns HashPropertyReference
-	 *     RelationalExpression returns HashPropertyReference
-	 *     RelationalExpression.BinaryExpression_1_0 returns HashPropertyReference
-	 *     AdditiveExpression returns HashPropertyReference
-	 *     AdditiveExpression.BinaryExpression_1_0 returns HashPropertyReference
-	 *     MultiplicativeExpression returns HashPropertyReference
-	 *     MultiplicativeExpression.BinaryExpression_1_0 returns HashPropertyReference
-	 *     PowerExpression returns HashPropertyReference
-	 *     PowerExpression.BinaryExpression_1_0 returns HashPropertyReference
-	 *     UnaryExpression returns HashPropertyReference
-	 *     PrimaryExpression returns HashPropertyReference
+	 *     ValueExpression.BinaryExpression_1_0 returns HashPropertyReference
+	 *     Relation returns HashPropertyReference
+	 *     Relation.BinaryExpression_1_0 returns HashPropertyReference
+	 *     SimpleExpression returns HashPropertyReference
+	 *     SimpleExpression.BinaryExpression_1_0 returns HashPropertyReference
+	 *     Term returns HashPropertyReference
+	 *     Term.BinaryExpression_1_0 returns HashPropertyReference
+	 *     Factor returns HashPropertyReference
+	 *     Factor.BinaryExpression_0_1_0 returns HashPropertyReference
+	 *     Value returns HashPropertyReference
 	 *     ValueConstant returns HashPropertyReference
 	 *     HashPropertyReference returns HashPropertyReference
 	 *
@@ -1132,6 +1255,37 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
 	/**
 	 * <pre>
 	 * Contexts:
+	 *     ValueExpression returns ParenthesizedExpression
+	 *     ValueExpression.BinaryExpression_1_0 returns ParenthesizedExpression
+	 *     Relation returns ParenthesizedExpression
+	 *     Relation.BinaryExpression_1_0 returns ParenthesizedExpression
+	 *     SimpleExpression returns ParenthesizedExpression
+	 *     SimpleExpression.BinaryExpression_1_0 returns ParenthesizedExpression
+	 *     Term returns ParenthesizedExpression
+	 *     Term.BinaryExpression_1_0 returns ParenthesizedExpression
+	 *     Factor returns ParenthesizedExpression
+	 *     Factor.BinaryExpression_0_1_0 returns ParenthesizedExpression
+	 *     Value returns ParenthesizedExpression
+	 *     ParenthesizedExpression returns ParenthesizedExpression
+	 *
+	 * Constraint:
+	 *     expression=ValueExpression
+	 * </pre>
+	 */
+	protected void sequence_ParenthesizedExpression(ISerializationContext context, ParenthesizedExpression semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, BehaviorAnnexPackage.Literals.PARENTHESIZED_EXPRESSION__EXPRESSION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, BehaviorAnnexPackage.Literals.PARENTHESIZED_EXPRESSION__EXPRESSION));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getParenthesizedExpressionAccess().getExpressionValueExpressionParserRuleCall_1_0(), semanticObject.getExpression());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * <pre>
+	 * Contexts:
 	 *     PropertyArrayIndex returns PropertyArrayIndex
 	 *
 	 * Constraint:
@@ -1189,20 +1343,16 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
 	 * Contexts:
 	 *     IntegerValue returns ReferenceExpression
 	 *     ValueExpression returns ReferenceExpression
-	 *     LogicalOrExpression returns ReferenceExpression
-	 *     LogicalOrExpression.BinaryExpression_1_0 returns ReferenceExpression
-	 *     LogicalAndExpression returns ReferenceExpression
-	 *     LogicalAndExpression.BinaryExpression_1_0 returns ReferenceExpression
-	 *     RelationalExpression returns ReferenceExpression
-	 *     RelationalExpression.BinaryExpression_1_0 returns ReferenceExpression
-	 *     AdditiveExpression returns ReferenceExpression
-	 *     AdditiveExpression.BinaryExpression_1_0 returns ReferenceExpression
-	 *     MultiplicativeExpression returns ReferenceExpression
-	 *     MultiplicativeExpression.BinaryExpression_1_0 returns ReferenceExpression
-	 *     PowerExpression returns ReferenceExpression
-	 *     PowerExpression.BinaryExpression_1_0 returns ReferenceExpression
-	 *     UnaryExpression returns ReferenceExpression
-	 *     PrimaryExpression returns ReferenceExpression
+	 *     ValueExpression.BinaryExpression_1_0 returns ReferenceExpression
+	 *     Relation returns ReferenceExpression
+	 *     Relation.BinaryExpression_1_0 returns ReferenceExpression
+	 *     SimpleExpression returns ReferenceExpression
+	 *     SimpleExpression.BinaryExpression_1_0 returns ReferenceExpression
+	 *     Term returns ReferenceExpression
+	 *     Term.BinaryExpression_1_0 returns ReferenceExpression
+	 *     Factor returns ReferenceExpression
+	 *     Factor.BinaryExpression_0_1_0 returns ReferenceExpression
+	 *     Value returns ReferenceExpression
 	 *     ReferenceExpression returns ReferenceExpression
 	 *
 	 * Constraint:
@@ -1279,34 +1429,6 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
 	 * </pre>
 	 */
 	protected void sequence_TimedAction(ISerializationContext context, TimedAction semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * <pre>
-	 * Contexts:
-	 *     ValueExpression returns UnaryExpression
-	 *     LogicalOrExpression returns UnaryExpression
-	 *     LogicalOrExpression.BinaryExpression_1_0 returns UnaryExpression
-	 *     LogicalAndExpression returns UnaryExpression
-	 *     LogicalAndExpression.BinaryExpression_1_0 returns UnaryExpression
-	 *     RelationalExpression returns UnaryExpression
-	 *     RelationalExpression.BinaryExpression_1_0 returns UnaryExpression
-	 *     AdditiveExpression returns UnaryExpression
-	 *     AdditiveExpression.BinaryExpression_1_0 returns UnaryExpression
-	 *     MultiplicativeExpression returns UnaryExpression
-	 *     MultiplicativeExpression.BinaryExpression_1_0 returns UnaryExpression
-	 *     PowerExpression returns UnaryExpression
-	 *     PowerExpression.BinaryExpression_1_0 returns UnaryExpression
-	 *     UnaryExpression returns UnaryExpression
-	 *     PrimaryExpression returns UnaryExpression
-	 *
-	 * Constraint:
-	 *     ((operator='+' | operator='-' | operator='abs' | operator='not') operand=UnaryExpression)
-	 * </pre>
-	 */
-	protected void sequence_UnaryExpression(ISerializationContext context, UnaryExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

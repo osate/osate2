@@ -341,6 +341,15 @@ public interface BehaviorAnnexFactory extends EFactory
   ValueExpression createValueExpression();
 
   /**
+   * Returns a new object of class '<em>Parenthesized Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Parenthesized Expression</em>'.
+   * @generated
+   */
+  ParenthesizedExpression createParenthesizedExpression();
+
+  /**
    * Returns a new object of class '<em>Value Constant</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

@@ -1,0 +1,2 @@
+error | syntax | 38 | 31 | 2 | no viable alternative at input ':='
+error | syntax | 38 | 39 | 5 | extraneous input 'total' expecting '}'

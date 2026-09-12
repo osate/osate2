@@ -1,0 +1,13 @@
+annex[0] owner=RepeatedNot::evaluate
+  (BehaviorActionBlock, <null>, 2079, 24)
+  (BehaviorAnnex, behavior_specification, 1945, 159)
+  (BehaviorState, done, 2024, 4)
+  (BehaviorState, start, 1998, 5)
+  (BehaviorStateGroup, <null>, 1998, 22)
+  (BehaviorStateGroup, <null>, 2024, 19)
+  (BehaviorTransition, <null>, 2061, 43)
+  (BehaviorVariable, flag, 1958, 4)
+  (BehaviorVariableGroup, <null>, 1958, 27)
+  (CommunicationAction, <null>, 2081, 15)
+  (Reference, <null>, 2081, 4)
+  (ReferenceSegment, flag, 2081, 4)

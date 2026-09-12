@@ -236,6 +236,11 @@ public class DoUntilStatementItemProvider extends BehaviorActionItemProvider
     newChildDescriptors.add
       (createChildParameter
         (BehaviorAnnexPackage.Literals.DO_UNTIL_STATEMENT__CONDITION,
+         BehaviorAnnexFactory.eINSTANCE.createParenthesizedExpression()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (BehaviorAnnexPackage.Literals.DO_UNTIL_STATEMENT__CONDITION,
          BehaviorAnnexFactory.eINSTANCE.createValueConstant()));
 
     newChildDescriptors.add

@@ -1,0 +1,2 @@
+error | syntax | 36 | 29 | 2 | no viable alternative at input ':='
+error | syntax | 36 | 40 | 4 | extraneous input 'flag' expecting '}'

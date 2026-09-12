@@ -34,7 +34,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.AccessSpecification;
@@ -155,6 +154,7 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.InternalCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchTrigger;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.NamedPropertyField;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ParenthesizedExpression;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyArrayIndex;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyIndexPropertyReference;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyIndexValue;
@@ -276,7 +276,6 @@ public final class DeclarativeToStrictTranslator {
 				new IdentityHashMap<>();
 		private final Map<String, BehaviorVariable> variables = new java.util.TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 		private final List<Map<String, org.osate.ba.aadlba.IterativeVariable>> iterativeScopes = new ArrayList<>();
-		private final java.util.Set<EObject> consumedParentheses = Collections.newSetFromMap(new IdentityHashMap<>());
 		private final IdentityHashMap<EObject, List<ElementHolder>> resolvedPaths = new IdentityHashMap<>();
 		private final IdentityHashMap<EObject, NamedElement> resolvedReferences = new IdentityHashMap<>();
 
@@ -864,17 +863,33 @@ public final class DeclarativeToStrictTranslator {
 
 		private ValueExpression toValueExpression(
 				final org.osate.xtext.aadl2.ba.behaviorAnnex.ValueExpression expression) {
-			final var result = trace(FACTORY.createValueExpression(), expression);
+			return toValueExpression(expression, expression);
+		}
+
+		/**
+		 * Translates one D.7 value expression. A group traces to the {@code ParenthesizedExpression} that spans the
+		 * parentheses rather than to the expression inside them, so a diagnostic about the group covers the source the
+		 * reader sees as the operand.
+		 */
+		private ValueExpression toValueExpression(
+				final org.osate.xtext.aadl2.ba.behaviorAnnex.ValueExpression expression, final EObject traceSource) {
+			final var result = trace(FACTORY.createValueExpression(), traceSource);
 			appendLogical(result, expression);
 			return result;
 		}
 
+		/**
+		 * Flattens the left-associated chain of logical operators the grammar builds into the relation and operator
+		 * lists of one strict value expression, which is how the strict model represents D.7's single logical
+		 * precedence level. Only the left operand can be another logical operation, so a parenthesized group stays one
+		 * relation instead of being spliced into the enclosing expression.
+		 */
 		private void appendLogical(final ValueExpression result,
 				final org.osate.xtext.aadl2.ba.behaviorAnnex.ValueExpression expression) {
 			if (expression instanceof BinaryExpression binary && isLogical(binary.getOperator())) {
 				appendLogical(result, binary.getLeft());
 				result.getLogicalOperators().add(logicalOperator(binary.getOperator()));
-				appendLogical(result, binary.getRight());
+				result.getRelations().add(toRelation(binary.getRight()));
 			} else {
 				result.getRelations().add(toRelation(expression));
 			}
@@ -895,22 +910,15 @@ public final class DeclarativeToStrictTranslator {
 		private SimpleExpression toSimpleExpression(
 				final org.osate.xtext.aadl2.ba.behaviorAnnex.ValueExpression expression) {
 			final var result = trace(FACTORY.createSimpleExpression(), expression);
-			if (isParenthesized(expression) && consumedParentheses.add(expression)) {
-				try {
-					final var term = trace(FACTORY.createTerm(), expression);
-					final var factor = trace(FACTORY.createFactor(), expression);
-					factor.setFirstValue(toValueExpression(expression));
-					term.getFactors().add(factor);
-					result.getTerms().add(term);
-				} finally {
-					consumedParentheses.remove(expression);
-				}
-			} else {
-				appendAdding(result, expression);
-			}
+			appendAdding(result, expression);
 			return result;
 		}
 
+		/**
+		 * The grammar admits the unary adding operator only ahead of the first term of a simple expression, so the
+		 * recursion reaches it as the leftmost operand and it becomes the simple expression's own operator instead of
+		 * being lost inside a term or a factor.
+		 */
 		private void appendAdding(final SimpleExpression result,
 				final org.osate.xtext.aadl2.ba.behaviorAnnex.ValueExpression expression) {
 			if (expression instanceof BinaryExpression binary && isAdding(binary.getOperator())) {
@@ -945,22 +953,15 @@ public final class DeclarativeToStrictTranslator {
 
 		private Factor toFactor(final org.osate.xtext.aadl2.ba.behaviorAnnex.ValueExpression expression) {
 			final var result = trace(FACTORY.createFactor(), expression);
-			if (isParenthesized(expression) && consumedParentheses.add(expression)) {
-				try {
-					result.setFirstValue(toValueExpression(expression));
-				} finally {
-					consumedParentheses.remove(expression);
-				}
-			} else if (expression instanceof BinaryExpression binary && "**".equals(binary.getOperator())) {
+			if (expression instanceof BinaryExpression binary && "**".equals(binary.getOperator())) {
 				result.setFirstValue(toValue(binary.getLeft()));
 				result.setBinaryNumericOperator(BinaryNumericOperator.MULTIPLY_MULTIPLY);
 				result.setSecondValue(toValue(binary.getRight()));
-			} else if (expression instanceof UnaryExpression unary) {
-				if ("abs".equals(unary.getOperator())) {
-					result.setUnaryNumericOperator(UnaryNumericOperator.ABS);
-				} else if ("not".equals(unary.getOperator())) {
-					result.setUnaryBooleanOperator(UnaryBooleanOperator.NOT);
-				}
+			} else if (expression instanceof UnaryExpression unary && "abs".equals(unary.getOperator())) {
+				result.setUnaryNumericOperator(UnaryNumericOperator.ABS);
+				result.setFirstValue(toValue(unary.getOperand()));
+			} else if (expression instanceof UnaryExpression unary && "not".equals(unary.getOperator())) {
+				result.setUnaryBooleanOperator(UnaryBooleanOperator.NOT);
 				result.setFirstValue(toValue(unary.getOperand()));
 			} else {
 				result.setFirstValue(toValue(expression));
@@ -968,13 +969,14 @@ public final class DeclarativeToStrictTranslator {
 			return result;
 		}
 
+		/**
+		 * A parenthesized group becomes the nested strict value expression that D.7's {@code value} production admits,
+		 * which is what keeps the requested grouping in the strict model. Any other composite expression is nested the
+		 * same way rather than losing its operator.
+		 */
 		private Value toValue(final org.osate.xtext.aadl2.ba.behaviorAnnex.ValueExpression expression) {
-			if (isParenthesized(expression) && consumedParentheses.add(expression)) {
-				try {
-					return toValueExpression(expression);
-				} finally {
-					consumedParentheses.remove(expression);
-				}
+			if (expression instanceof ParenthesizedExpression group) {
+				return toValueExpression(group.getExpression(), group);
 			}
 			if (expression instanceof org.osate.xtext.aadl2.ba.behaviorAnnex.ValueConstant constant) {
 				return toValueConstant(constant);
@@ -1580,15 +1582,6 @@ public final class DeclarativeToStrictTranslator {
 			} catch (final IllegalArgumentException exception) {
 				return fallback;
 			}
-		}
-
-		private static boolean isParenthesized(final EObject expression) {
-			final var node = NodeModelUtils.findActualNodeFor(expression);
-			if (node == null) {
-				return false;
-			}
-			final var text = node.getText().strip();
-			return text.startsWith("(") && text.endsWith(")");
 		}
 
 		private static boolean isLogical(final String operator) {

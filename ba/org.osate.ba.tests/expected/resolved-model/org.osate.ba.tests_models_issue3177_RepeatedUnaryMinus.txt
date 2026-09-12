@@ -1,0 +1,10 @@
+annex[0] owner=RepeatedUnaryMinus::evaluate
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=total
+    variables[1] : BehaviorVariable name=result
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : SubprogramCallAction
+        proxy : BehaviorVariableHolder element=result [BehaviorVariable]
