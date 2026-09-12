@@ -770,13 +770,22 @@ public interface BehaviorAnnexPackage extends EPackage
   int MODE_SWITCH_CONDITION__CONJUNCTIONS = 0;
 
   /**
+   * The feature id for the '<em><b>Logical Operators</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODE_SWITCH_CONDITION__LOGICAL_OPERATORS = 1;
+
+  /**
    * The number of structural features of the '<em>Mode Switch Condition</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MODE_SWITCH_CONDITION_FEATURE_COUNT = 1;
+  int MODE_SWITCH_CONDITION_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.ModeSwitchConjunctionImpl <em>Mode Switch Conjunction</em>}' class.
@@ -798,13 +807,59 @@ public interface BehaviorAnnexPackage extends EPackage
   int MODE_SWITCH_CONJUNCTION__TRIGGERS = 0;
 
   /**
+   * The feature id for the '<em><b>Logical Operators</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODE_SWITCH_CONJUNCTION__LOGICAL_OPERATORS = 1;
+
+  /**
    * The number of structural features of the '<em>Mode Switch Conjunction</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MODE_SWITCH_CONJUNCTION_FEATURE_COUNT = 1;
+  int MODE_SWITCH_CONJUNCTION_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.ModeSwitchTriggerImpl <em>Mode Switch Trigger</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.ModeSwitchTriggerImpl
+   * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getModeSwitchTrigger()
+   * @generated
+   */
+  int MODE_SWITCH_TRIGGER = 16;
+
+  /**
+   * The feature id for the '<em><b>Reference</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODE_SWITCH_TRIGGER__REFERENCE = 0;
+
+  /**
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODE_SWITCH_TRIGGER__EXPRESSION = 1;
+
+  /**
+   * The number of structural features of the '<em>Mode Switch Trigger</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODE_SWITCH_TRIGGER_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.InternalConditionImpl <em>Internal Condition</em>}' class.
@@ -814,7 +869,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getInternalCondition()
    * @generated
    */
-  int INTERNAL_CONDITION = 16;
+  int INTERNAL_CONDITION = 17;
 
   /**
    * The feature id for the '<em><b>Internal Ports</b></em>' containment reference list.
@@ -842,7 +897,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getBehaviorActions()
    * @generated
    */
-  int BEHAVIOR_ACTIONS = 18;
+  int BEHAVIOR_ACTIONS = 19;
 
   /**
    * The number of structural features of the '<em>Behavior Actions</em>' class.
@@ -861,7 +916,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getBehaviorAction()
    * @generated
    */
-  int BEHAVIOR_ACTION = 19;
+  int BEHAVIOR_ACTION = 20;
 
   /**
    * The number of structural features of the '<em>Behavior Action</em>' class.
@@ -880,7 +935,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getBehaviorActionBlock()
    * @generated
    */
-  int BEHAVIOR_ACTION_BLOCK = 17;
+  int BEHAVIOR_ACTION_BLOCK = 18;
 
   /**
    * The feature id for the '<em><b>Content</b></em>' containment reference.
@@ -917,7 +972,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getAssignmentAction()
    * @generated
    */
-  int ASSIGNMENT_ACTION = 20;
+  int ASSIGNMENT_ACTION = 21;
 
   /**
    * The feature id for the '<em><b>Target</b></em>' containment reference.
@@ -963,7 +1018,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getCommunicationAction()
    * @generated
    */
-  int COMMUNICATION_ACTION = 21;
+  int COMMUNICATION_ACTION = 22;
 
   /**
    * The feature id for the '<em><b>Reference</b></em>' containment reference.
@@ -1081,7 +1136,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getTimedAction()
    * @generated
    */
-  int TIMED_ACTION = 22;
+  int TIMED_ACTION = 23;
 
   /**
    * The feature id for the '<em><b>Lower Time</b></em>' containment reference.
@@ -1127,7 +1182,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getIfStatement()
    * @generated
    */
-  int IF_STATEMENT = 23;
+  int IF_STATEMENT = 24;
 
   /**
    * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -1182,7 +1237,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getElseIfClause()
    * @generated
    */
-  int ELSE_IF_CLAUSE = 24;
+  int ELSE_IF_CLAUSE = 25;
 
   /**
    * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -1219,7 +1274,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getForStatement()
    * @generated
    */
-  int FOR_STATEMENT = 25;
+  int FOR_STATEMENT = 26;
 
   /**
    * The feature id for the '<em><b>For</b></em>' attribute.
@@ -1292,7 +1347,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getWhileStatement()
    * @generated
    */
-  int WHILE_STATEMENT = 26;
+  int WHILE_STATEMENT = 27;
 
   /**
    * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -1329,7 +1384,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getDoUntilStatement()
    * @generated
    */
-  int DO_UNTIL_STATEMENT = 27;
+  int DO_UNTIL_STATEMENT = 28;
 
   /**
    * The feature id for the '<em><b>Actions</b></em>' containment reference.
@@ -1366,7 +1421,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getElementValues()
    * @generated
    */
-  int ELEMENT_VALUES = 28;
+  int ELEMENT_VALUES = 29;
 
   /**
    * The feature id for the '<em><b>Lower</b></em>' containment reference.
@@ -1403,7 +1458,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getBehaviorTime()
    * @generated
    */
-  int BEHAVIOR_TIME = 29;
+  int BEHAVIOR_TIME = 30;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -1440,7 +1495,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getIntegerValue()
    * @generated
    */
-  int INTEGER_VALUE = 30;
+  int INTEGER_VALUE = 31;
 
   /**
    * The number of structural features of the '<em>Integer Value</em>' class.
@@ -1459,7 +1514,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getValueExpression()
    * @generated
    */
-  int VALUE_EXPRESSION = 31;
+  int VALUE_EXPRESSION = 32;
 
   /**
    * The number of structural features of the '<em>Value Expression</em>' class.
@@ -1478,7 +1533,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getValueConstant()
    * @generated
    */
-  int VALUE_CONSTANT = 32;
+  int VALUE_CONSTANT = 33;
 
   /**
    * The number of structural features of the '<em>Value Constant</em>' class.
@@ -1497,7 +1552,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getBehaviorIntegerLiteral()
    * @generated
    */
-  int BEHAVIOR_INTEGER_LITERAL = 33;
+  int BEHAVIOR_INTEGER_LITERAL = 34;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1525,7 +1580,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getBehaviorRealLiteral()
    * @generated
    */
-  int BEHAVIOR_REAL_LITERAL = 34;
+  int BEHAVIOR_REAL_LITERAL = 35;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1553,7 +1608,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getBehaviorStringLiteral()
    * @generated
    */
-  int BEHAVIOR_STRING_LITERAL = 35;
+  int BEHAVIOR_STRING_LITERAL = 36;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1581,7 +1636,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getBehaviorBooleanLiteral()
    * @generated
    */
-  int BEHAVIOR_BOOLEAN_LITERAL = 36;
+  int BEHAVIOR_BOOLEAN_LITERAL = 37;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1609,7 +1664,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getReferenceExpression()
    * @generated
    */
-  int REFERENCE_EXPRESSION = 37;
+  int REFERENCE_EXPRESSION = 38;
 
   /**
    * The feature id for the '<em><b>Reference</b></em>' containment reference.
@@ -1682,7 +1737,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getHashPropertyReference()
    * @generated
    */
-  int HASH_PROPERTY_REFERENCE = 38;
+  int HASH_PROPERTY_REFERENCE = 39;
 
   /**
    * The feature id for the '<em><b>Property</b></em>' attribute.
@@ -1728,7 +1783,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getPropertyReferenceTail()
    * @generated
    */
-  int PROPERTY_REFERENCE_TAIL = 39;
+  int PROPERTY_REFERENCE_TAIL = 40;
 
   /**
    * The feature id for the '<em><b>Property</b></em>' attribute.
@@ -1774,7 +1829,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getNamedPropertyField()
    * @generated
    */
-  int NAMED_PROPERTY_FIELD = 40;
+  int NAMED_PROPERTY_FIELD = 41;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1811,7 +1866,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getPropertyArrayIndex()
    * @generated
    */
-  int PROPERTY_ARRAY_INDEX = 41;
+  int PROPERTY_ARRAY_INDEX = 42;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -1839,7 +1894,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getPropertyIndexValue()
    * @generated
    */
-  int PROPERTY_INDEX_VALUE = 42;
+  int PROPERTY_INDEX_VALUE = 43;
 
   /**
    * The number of structural features of the '<em>Property Index Value</em>' class.
@@ -1858,7 +1913,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getPropertyIndexPropertyReference()
    * @generated
    */
-  int PROPERTY_INDEX_PROPERTY_REFERENCE = 43;
+  int PROPERTY_INDEX_PROPERTY_REFERENCE = 44;
 
   /**
    * The feature id for the '<em><b>Property</b></em>' attribute.
@@ -1886,7 +1941,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getUnindexedReferenceExpression()
    * @generated
    */
-  int UNINDEXED_REFERENCE_EXPRESSION = 44;
+  int UNINDEXED_REFERENCE_EXPRESSION = 45;
 
   /**
    * The feature id for the '<em><b>Reference</b></em>' containment reference.
@@ -1950,7 +2005,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getUnindexedReference()
    * @generated
    */
-  int UNINDEXED_REFERENCE = 45;
+  int UNINDEXED_REFERENCE = 46;
 
   /**
    * The feature id for the '<em><b>Segments</b></em>' containment reference list.
@@ -1987,7 +2042,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getUnindexedReferenceTail()
    * @generated
    */
-  int UNINDEXED_REFERENCE_TAIL = 46;
+  int UNINDEXED_REFERENCE_TAIL = 47;
 
   /**
    * The feature id for the '<em><b>Separator</b></em>' attribute.
@@ -2024,7 +2079,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getUnindexedReferenceSegment()
    * @generated
    */
-  int UNINDEXED_REFERENCE_SEGMENT = 47;
+  int UNINDEXED_REFERENCE_SEGMENT = 48;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2052,7 +2107,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getReference()
    * @generated
    */
-  int REFERENCE = 48;
+  int REFERENCE = 49;
 
   /**
    * The feature id for the '<em><b>Segments</b></em>' containment reference list.
@@ -2089,7 +2144,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getReferenceTail()
    * @generated
    */
-  int REFERENCE_TAIL = 49;
+  int REFERENCE_TAIL = 50;
 
   /**
    * The feature id for the '<em><b>Separator</b></em>' attribute.
@@ -2126,7 +2181,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getReferenceSegment()
    * @generated
    */
-  int REFERENCE_SEGMENT = 50;
+  int REFERENCE_SEGMENT = 51;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2163,7 +2218,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getArrayIndex()
    * @generated
    */
-  int ARRAY_INDEX = 51;
+  int ARRAY_INDEX = 52;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -2191,7 +2246,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getBehaviorActionSequence()
    * @generated
    */
-  int BEHAVIOR_ACTION_SEQUENCE = 52;
+  int BEHAVIOR_ACTION_SEQUENCE = 53;
 
   /**
    * The feature id for the '<em><b>Actions</b></em>' containment reference list.
@@ -2219,7 +2274,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getBehaviorActionSet()
    * @generated
    */
-  int BEHAVIOR_ACTION_SET = 53;
+  int BEHAVIOR_ACTION_SET = 54;
 
   /**
    * The feature id for the '<em><b>Actions</b></em>' containment reference list.
@@ -2247,7 +2302,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getBinaryExpression()
    * @generated
    */
-  int BINARY_EXPRESSION = 54;
+  int BINARY_EXPRESSION = 55;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -2293,7 +2348,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getUnaryExpression()
    * @generated
    */
-  int UNARY_EXPRESSION = 55;
+  int UNARY_EXPRESSION = 56;
 
   /**
    * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -2914,6 +2969,17 @@ public interface BehaviorAnnexPackage extends EPackage
   EReference getModeSwitchCondition_Conjunctions();
 
   /**
+   * Returns the meta object for the attribute list '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchCondition#getLogicalOperators <em>Logical Operators</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute list '<em>Logical Operators</em>'.
+   * @see org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchCondition#getLogicalOperators()
+   * @see #getModeSwitchCondition()
+   * @generated
+   */
+  EAttribute getModeSwitchCondition_LogicalOperators();
+
+  /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchConjunction <em>Mode Switch Conjunction</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2933,6 +2999,49 @@ public interface BehaviorAnnexPackage extends EPackage
    * @generated
    */
   EReference getModeSwitchConjunction_Triggers();
+
+  /**
+   * Returns the meta object for the attribute list '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchConjunction#getLogicalOperators <em>Logical Operators</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute list '<em>Logical Operators</em>'.
+   * @see org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchConjunction#getLogicalOperators()
+   * @see #getModeSwitchConjunction()
+   * @generated
+   */
+  EAttribute getModeSwitchConjunction_LogicalOperators();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchTrigger <em>Mode Switch Trigger</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Mode Switch Trigger</em>'.
+   * @see org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchTrigger
+   * @generated
+   */
+  EClass getModeSwitchTrigger();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchTrigger#getReference <em>Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Reference</em>'.
+   * @see org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchTrigger#getReference()
+   * @see #getModeSwitchTrigger()
+   * @generated
+   */
+  EReference getModeSwitchTrigger_Reference();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchTrigger#getExpression <em>Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Expression</em>'.
+   * @see org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchTrigger#getExpression()
+   * @see #getModeSwitchTrigger()
+   * @generated
+   */
+  EReference getModeSwitchTrigger_Expression();
 
   /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.InternalCondition <em>Internal Condition</em>}'.
@@ -4752,6 +4861,14 @@ public interface BehaviorAnnexPackage extends EPackage
     EReference MODE_SWITCH_CONDITION__CONJUNCTIONS = eINSTANCE.getModeSwitchCondition_Conjunctions();
 
     /**
+     * The meta object literal for the '<em><b>Logical Operators</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute MODE_SWITCH_CONDITION__LOGICAL_OPERATORS = eINSTANCE.getModeSwitchCondition_LogicalOperators();
+
+    /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.ModeSwitchConjunctionImpl <em>Mode Switch Conjunction</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4768,6 +4885,40 @@ public interface BehaviorAnnexPackage extends EPackage
      * @generated
      */
     EReference MODE_SWITCH_CONJUNCTION__TRIGGERS = eINSTANCE.getModeSwitchConjunction_Triggers();
+
+    /**
+     * The meta object literal for the '<em><b>Logical Operators</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute MODE_SWITCH_CONJUNCTION__LOGICAL_OPERATORS = eINSTANCE.getModeSwitchConjunction_LogicalOperators();
+
+    /**
+     * The meta object literal for the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.ModeSwitchTriggerImpl <em>Mode Switch Trigger</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.ModeSwitchTriggerImpl
+     * @see org.osate.xtext.aadl2.ba.behaviorAnnex.impl.BehaviorAnnexPackageImpl#getModeSwitchTrigger()
+     * @generated
+     */
+    EClass MODE_SWITCH_TRIGGER = eINSTANCE.getModeSwitchTrigger();
+
+    /**
+     * The meta object literal for the '<em><b>Reference</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MODE_SWITCH_TRIGGER__REFERENCE = eINSTANCE.getModeSwitchTrigger_Reference();
+
+    /**
+     * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MODE_SWITCH_TRIGGER__EXPRESSION = eINSTANCE.getModeSwitchTrigger_Expression();
 
     /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.InternalConditionImpl <em>Internal Condition</em>}' class.

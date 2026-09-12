@@ -188,6 +188,15 @@ public interface BehaviorAnnexFactory extends EFactory
   ModeSwitchConjunction createModeSwitchConjunction();
 
   /**
+   * Returns a new object of class '<em>Mode Switch Trigger</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Mode Switch Trigger</em>'.
+   * @generated
+   */
+  ModeSwitchTrigger createModeSwitchTrigger();
+
+  /**
    * Returns a new object of class '<em>Internal Condition</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

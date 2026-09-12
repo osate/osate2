@@ -55,6 +55,7 @@ public class BehaviorAnnexParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getBehaviorConditionAccess().getAlternatives_0_1(), "rule__BehaviorCondition__Alternatives_0_1");
 			builder.put(grammarAccess.getExecuteConditionAccess().getAlternatives(), "rule__ExecuteCondition__Alternatives");
 			builder.put(grammarAccess.getDispatchTriggerConditionAccess().getAlternatives(), "rule__DispatchTriggerCondition__Alternatives");
+			builder.put(grammarAccess.getModeSwitchTriggerAccess().getAlternatives(), "rule__ModeSwitchTrigger__Alternatives");
 			builder.put(grammarAccess.getBehaviorActionsAccess().getAlternatives_1(), "rule__BehaviorActions__Alternatives_1");
 			builder.put(grammarAccess.getBehaviorActionAccess().getAlternatives(), "rule__BehaviorAction__Alternatives");
 			builder.put(grammarAccess.getAssignmentActionAccess().getAlternatives_2(), "rule__AssignmentAction__Alternatives_2");
@@ -118,6 +119,7 @@ public class BehaviorAnnexParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getModeSwitchConditionAccess().getGroup_1(), "rule__ModeSwitchCondition__Group_1__0");
 			builder.put(grammarAccess.getModeSwitchConjunctionAccess().getGroup(), "rule__ModeSwitchConjunction__Group__0");
 			builder.put(grammarAccess.getModeSwitchConjunctionAccess().getGroup_1(), "rule__ModeSwitchConjunction__Group_1__0");
+			builder.put(grammarAccess.getModeSwitchTriggerAccess().getGroup_1(), "rule__ModeSwitchTrigger__Group_1__0");
 			builder.put(grammarAccess.getInternalConditionAccess().getGroup(), "rule__InternalCondition__Group__0");
 			builder.put(grammarAccess.getInternalConditionAccess().getGroup_2(), "rule__InternalCondition__Group_2__0");
 			builder.put(grammarAccess.getBehaviorActionBlockAccess().getGroup(), "rule__BehaviorActionBlock__Group__0");
@@ -274,9 +276,13 @@ public class BehaviorAnnexParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getDispatchConjunctionAccess().getTriggersAssignment_0(), "rule__DispatchConjunction__TriggersAssignment_0");
 			builder.put(grammarAccess.getDispatchConjunctionAccess().getTriggersAssignment_1_1(), "rule__DispatchConjunction__TriggersAssignment_1_1");
 			builder.put(grammarAccess.getModeSwitchConditionAccess().getConjunctionsAssignment_0(), "rule__ModeSwitchCondition__ConjunctionsAssignment_0");
+			builder.put(grammarAccess.getModeSwitchConditionAccess().getLogicalOperatorsAssignment_1_0(), "rule__ModeSwitchCondition__LogicalOperatorsAssignment_1_0");
 			builder.put(grammarAccess.getModeSwitchConditionAccess().getConjunctionsAssignment_1_1(), "rule__ModeSwitchCondition__ConjunctionsAssignment_1_1");
 			builder.put(grammarAccess.getModeSwitchConjunctionAccess().getTriggersAssignment_0(), "rule__ModeSwitchConjunction__TriggersAssignment_0");
+			builder.put(grammarAccess.getModeSwitchConjunctionAccess().getLogicalOperatorsAssignment_1_0(), "rule__ModeSwitchConjunction__LogicalOperatorsAssignment_1_0");
 			builder.put(grammarAccess.getModeSwitchConjunctionAccess().getTriggersAssignment_1_1(), "rule__ModeSwitchConjunction__TriggersAssignment_1_1");
+			builder.put(grammarAccess.getModeSwitchTriggerAccess().getReferenceAssignment_0(), "rule__ModeSwitchTrigger__ReferenceAssignment_0");
+			builder.put(grammarAccess.getModeSwitchTriggerAccess().getExpressionAssignment_1_1(), "rule__ModeSwitchTrigger__ExpressionAssignment_1_1");
 			builder.put(grammarAccess.getInternalConditionAccess().getInternalPortsAssignment_1(), "rule__InternalCondition__InternalPortsAssignment_1");
 			builder.put(grammarAccess.getInternalConditionAccess().getInternalPortsAssignment_2_1(), "rule__InternalCondition__InternalPortsAssignment_2_1");
 			builder.put(grammarAccess.getBehaviorActionBlockAccess().getContentAssignment_1(), "rule__BehaviorActionBlock__ContentAssignment_1");

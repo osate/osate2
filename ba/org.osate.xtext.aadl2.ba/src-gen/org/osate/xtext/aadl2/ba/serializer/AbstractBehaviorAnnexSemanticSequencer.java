@@ -88,6 +88,7 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.IfStatement;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.InternalCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchConjunction;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchTrigger;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.NamedPropertyField;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyArrayIndex;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyIndexPropertyReference;
@@ -321,6 +322,9 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
 				return; 
 			case BehaviorAnnexPackage.MODE_SWITCH_CONJUNCTION:
 				sequence_ModeSwitchConjunction(context, (ModeSwitchConjunction) semanticObject); 
+				return; 
+			case BehaviorAnnexPackage.MODE_SWITCH_TRIGGER:
+				sequence_ModeSwitchTrigger(context, (ModeSwitchTrigger) semanticObject); 
 				return; 
 			case BehaviorAnnexPackage.NAMED_PROPERTY_FIELD:
 				sequence_NamedPropertyField(context, (NamedPropertyField) semanticObject); 
@@ -1075,7 +1079,7 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
 	 *     ModeSwitchCondition returns ModeSwitchCondition
 	 *
 	 * Constraint:
-	 *     (conjunctions+=ModeSwitchConjunction conjunctions+=ModeSwitchConjunction*)
+	 *     (conjunctions+=ModeSwitchConjunction (logicalOperators+=LogicalOrOperator conjunctions+=ModeSwitchConjunction)*)
 	 * </pre>
 	 */
 	protected void sequence_ModeSwitchCondition(ISerializationContext context, ModeSwitchCondition semanticObject) {
@@ -1089,10 +1093,24 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
 	 *     ModeSwitchConjunction returns ModeSwitchConjunction
 	 *
 	 * Constraint:
-	 *     (triggers+=Reference triggers+=Reference*)
+	 *     (triggers+=ModeSwitchTrigger (logicalOperators+=LogicalAndOperator triggers+=ModeSwitchTrigger)*)
 	 * </pre>
 	 */
 	protected void sequence_ModeSwitchConjunction(ISerializationContext context, ModeSwitchConjunction semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * <pre>
+	 * Contexts:
+	 *     ModeSwitchTrigger returns ModeSwitchTrigger
+	 *
+	 * Constraint:
+	 *     (reference=Reference | expression=ModeSwitchCondition)
+	 * </pre>
+	 */
+	protected void sequence_ModeSwitchTrigger(ISerializationContext context, ModeSwitchTrigger semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

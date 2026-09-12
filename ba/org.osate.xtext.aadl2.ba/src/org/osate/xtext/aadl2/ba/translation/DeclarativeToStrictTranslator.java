@@ -153,6 +153,7 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.IfStatement;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.IntegerValue;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.InternalCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchCondition;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchTrigger;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.NamedPropertyField;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyArrayIndex;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyIndexPropertyReference;
@@ -520,19 +521,38 @@ public final class DeclarativeToStrictTranslator {
 
 		private org.osate.ba.aadlba.BehaviorCondition toModeSwitchCondition(final ModeSwitchCondition condition,
 				final EObject traceSource) {
+			return toModeSwitchExpression(condition, traceSource);
+		}
+
+		private org.osate.ba.aadlba.ModeSwitchTriggerLogicalExpression toModeSwitchExpression(
+				final ModeSwitchCondition condition, final EObject traceSource) {
 			final org.osate.ba.aadlba.ModeSwitchTriggerLogicalExpression result = trace(
 					FACTORY.createModeSwitchTriggerLogicalExpression(), traceSource);
 			for (final org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchConjunction sourceConjunction : condition
 					.getConjunctions()) {
 				final org.osate.ba.aadlba.ModeSwitchConjunction conjunction = trace(
 						FACTORY.createModeSwitchConjunction(), sourceConjunction);
-				for (final Reference reference : sourceConjunction.getTriggers()) {
-					final var resolvedTrigger = toReferenceValue(reference);
-					if (resolvedTrigger instanceof org.osate.ba.aadlba.ModeSwitchTrigger modeSwitchTrigger) {
-						conjunction.getModeSwitchTriggers().add(modeSwitchTrigger);
+				for (final ModeSwitchTrigger sourceTrigger : sourceConjunction.getTriggers()) {
+					final org.osate.ba.aadlba.ModeSwitchTrigger strictTrigger;
+					if (sourceTrigger.getReference() != null) {
+						final var resolvedTrigger = toReferenceValue(sourceTrigger.getReference());
+						strictTrigger = resolvedTrigger instanceof org.osate.ba.aadlba.ModeSwitchTrigger modeSwitchTrigger
+								? modeSwitchTrigger
+								: null;
+					} else {
+						strictTrigger = toModeSwitchExpression(sourceTrigger.getExpression(), sourceTrigger);
+					}
+					if (strictTrigger != null) {
+						conjunction.getModeSwitchTriggers().add(strictTrigger);
 					}
 				}
+				for (final String operator : sourceConjunction.getLogicalOperators()) {
+					conjunction.getLogicalOperators().add(logicalOperator(operator));
+				}
 				result.getModeSwitchConjunctions().add(conjunction);
+			}
+			for (final String operator : condition.getLogicalOperators()) {
+				result.getLogicalOperators().add(logicalOperator(operator));
 			}
 			return result;
 		}

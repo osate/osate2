@@ -181,6 +181,11 @@ public class BehaviorAnnexAdapterFactory extends AdapterFactoryImpl
         return createModeSwitchConjunctionAdapter();
       }
       @Override
+      public Adapter caseModeSwitchTrigger(ModeSwitchTrigger object)
+      {
+        return createModeSwitchTriggerAdapter();
+      }
+      @Override
       public Adapter caseInternalCondition(InternalCondition object)
       {
         return createInternalConditionAdapter();
@@ -658,6 +663,21 @@ public class BehaviorAnnexAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createModeSwitchConjunctionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchTrigger <em>Mode Switch Trigger</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchTrigger
+   * @generated
+   */
+  public Adapter createModeSwitchTriggerAdapter()
   {
     return null;
   }

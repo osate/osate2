@@ -25,7 +25,9 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.osate.ba.aadlba.AadlBaFactory;
 import org.osate.ba.aadlba.AadlBaPackage;
@@ -59,8 +61,25 @@ public class ModeSwitchConjunctionItemProvider extends BehaviorElementItemProvid
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addLogicalOperatorsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Logical Operators feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLogicalOperatorsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ModeSwitchConjunction_logicalOperators_feature"),
+						getString("_UI_PropertyDescriptor_description",
+								"_UI_ModeSwitchConjunction_logicalOperators_feature", "_UI_ModeSwitchConjunction_type"),
+						AadlBaPackage.Literals.MODE_SWITCH_CONJUNCTION__LOGICAL_OPERATORS, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -127,6 +146,9 @@ public class ModeSwitchConjunctionItemProvider extends BehaviorElementItemProvid
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(ModeSwitchConjunction.class)) {
+		case AadlBaPackage.MODE_SWITCH_CONJUNCTION__LOGICAL_OPERATORS:
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+			return;
 		case AadlBaPackage.MODE_SWITCH_CONJUNCTION__MODE_SWITCH_TRIGGERS:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
@@ -152,6 +174,10 @@ public class ModeSwitchConjunctionItemProvider extends BehaviorElementItemProvid
 		newChildDescriptors
 				.add(createChildParameter(AadlBaPackage.Literals.MODE_SWITCH_CONJUNCTION__MODE_SWITCH_TRIGGERS,
 						AadlBaFactory.eINSTANCE.createEventPortHolder()));
+
+		newChildDescriptors
+				.add(createChildParameter(AadlBaPackage.Literals.MODE_SWITCH_CONJUNCTION__MODE_SWITCH_TRIGGERS,
+						AadlBaFactory.eINSTANCE.createModeSwitchTriggerLogicalExpression()));
 	}
 
 }

@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -50,6 +51,7 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchConjunction;
  * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.ModeSwitchConditionImpl#getConjunctions <em>Conjunctions</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.ModeSwitchConditionImpl#getLogicalOperators <em>Logical Operators</em>}</li>
  * </ul>
  *
  * @generated
@@ -65,6 +67,16 @@ public class ModeSwitchConditionImpl extends MinimalEObjectImpl.Container implem
    * @ordered
    */
   protected EList<ModeSwitchConjunction> conjunctions;
+
+  /**
+   * The cached value of the '{@link #getLogicalOperators() <em>Logical Operators</em>}' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getLogicalOperators()
+   * @generated
+   * @ordered
+   */
+  protected EList<String> logicalOperators;
 
   /**
    * <!-- begin-user-doc -->
@@ -108,6 +120,21 @@ public class ModeSwitchConditionImpl extends MinimalEObjectImpl.Container implem
    * @generated
    */
   @Override
+  public EList<String> getLogicalOperators()
+  {
+    if (logicalOperators == null)
+    {
+      logicalOperators = new EDataTypeEList<String>(String.class, this, BehaviorAnnexPackage.MODE_SWITCH_CONDITION__LOGICAL_OPERATORS);
+    }
+    return logicalOperators;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
     switch (featureID)
@@ -130,6 +157,8 @@ public class ModeSwitchConditionImpl extends MinimalEObjectImpl.Container implem
     {
       case BehaviorAnnexPackage.MODE_SWITCH_CONDITION__CONJUNCTIONS:
         return getConjunctions();
+      case BehaviorAnnexPackage.MODE_SWITCH_CONDITION__LOGICAL_OPERATORS:
+        return getLogicalOperators();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -149,6 +178,10 @@ public class ModeSwitchConditionImpl extends MinimalEObjectImpl.Container implem
         getConjunctions().clear();
         getConjunctions().addAll((Collection<? extends ModeSwitchConjunction>)newValue);
         return;
+      case BehaviorAnnexPackage.MODE_SWITCH_CONDITION__LOGICAL_OPERATORS:
+        getLogicalOperators().clear();
+        getLogicalOperators().addAll((Collection<? extends String>)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -166,6 +199,9 @@ public class ModeSwitchConditionImpl extends MinimalEObjectImpl.Container implem
       case BehaviorAnnexPackage.MODE_SWITCH_CONDITION__CONJUNCTIONS:
         getConjunctions().clear();
         return;
+      case BehaviorAnnexPackage.MODE_SWITCH_CONDITION__LOGICAL_OPERATORS:
+        getLogicalOperators().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -182,8 +218,27 @@ public class ModeSwitchConditionImpl extends MinimalEObjectImpl.Container implem
     {
       case BehaviorAnnexPackage.MODE_SWITCH_CONDITION__CONJUNCTIONS:
         return conjunctions != null && !conjunctions.isEmpty();
+      case BehaviorAnnexPackage.MODE_SWITCH_CONDITION__LOGICAL_OPERATORS:
+        return logicalOperators != null && !logicalOperators.isEmpty();
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuilder result = new StringBuilder(super.toString());
+    result.append(" (logicalOperators: ");
+    result.append(logicalOperators);
+    result.append(')');
+    return result.toString();
   }
 
 } //ModeSwitchConditionImpl

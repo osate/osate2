@@ -1,12 +1,12 @@
 /**
  * AADL-BA-FrontEnd
- * 
+ *
  * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
  * version 2.0 of the License, or (at your option) any later version. This
@@ -31,6 +31,7 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.ModeSwitchConjunction#getModeSwitchTriggers <em>Mode Switch Triggers</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.ModeSwitchConjunction#getLogicalOperators <em>Logical Operators</em>}</li>
  * </ul>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getModeSwitchConjunction()
@@ -72,5 +73,42 @@ public interface ModeSwitchConjunction extends BehaviorElement {
 	 * @generated
 	 */
 	boolean isSetModeSwitchTriggers();
+
+	/**
+	 * Returns the value of the '<em><b>Logical Operators</b></em>' attribute list.
+	 * The list contents are of type {@link org.osate.ba.aadlba.LogicalOperator}.
+	 * The literals are from the enumeration {@link org.osate.ba.aadlba.LogicalOperator}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Logical Operators</em>' attribute list.
+	 * @see org.osate.ba.aadlba.LogicalOperator
+	 * @see #isSetLogicalOperators()
+	 * @see #unsetLogicalOperators()
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getModeSwitchConjunction_LogicalOperators()
+	 * @model unique="false" unsettable="true"
+	 * @generated
+	 */
+	EList<LogicalOperator> getLogicalOperators();
+
+	/**
+	 * Unsets the value of the '{@link org.osate.ba.aadlba.ModeSwitchConjunction#getLogicalOperators <em>Logical Operators</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetLogicalOperators()
+	 * @see #getLogicalOperators()
+	 * @generated
+	 */
+	void unsetLogicalOperators();
+
+	/**
+	 * Returns whether the value of the '{@link org.osate.ba.aadlba.ModeSwitchConjunction#getLogicalOperators <em>Logical Operators</em>}' attribute list is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Logical Operators</em>' attribute list is set.
+	 * @see #unsetLogicalOperators()
+	 * @see #getLogicalOperators()
+	 * @generated
+	 */
+	boolean isSetLogicalOperators();
 
 } // ModeSwitchConjunction

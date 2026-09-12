@@ -101,6 +101,7 @@ public class BehaviorAnnexFactoryImpl extends EFactoryImpl implements BehaviorAn
       case BehaviorAnnexPackage.DISPATCH_CONJUNCTION: return createDispatchConjunction();
       case BehaviorAnnexPackage.MODE_SWITCH_CONDITION: return createModeSwitchCondition();
       case BehaviorAnnexPackage.MODE_SWITCH_CONJUNCTION: return createModeSwitchConjunction();
+      case BehaviorAnnexPackage.MODE_SWITCH_TRIGGER: return createModeSwitchTrigger();
       case BehaviorAnnexPackage.INTERNAL_CONDITION: return createInternalCondition();
       case BehaviorAnnexPackage.BEHAVIOR_ACTION_BLOCK: return createBehaviorActionBlock();
       case BehaviorAnnexPackage.BEHAVIOR_ACTIONS: return createBehaviorActions();
@@ -336,6 +337,18 @@ public class BehaviorAnnexFactoryImpl extends EFactoryImpl implements BehaviorAn
   {
     ModeSwitchConjunctionImpl modeSwitchConjunction = new ModeSwitchConjunctionImpl();
     return modeSwitchConjunction;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public ModeSwitchTrigger createModeSwitchTrigger()
+  {
+    ModeSwitchTriggerImpl modeSwitchTrigger = new ModeSwitchTriggerImpl();
+    return modeSwitchTrigger;
   }
 
   /**

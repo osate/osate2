@@ -3145,6 +3145,9 @@ public class AadlBaSwitch<T> extends Switch<T> {
 				result = caseModeSwitchTriggerCondition(modeSwitchTriggerLogicalExpression);
 			}
 			if (result == null) {
+				result = caseModeSwitchTrigger(modeSwitchTriggerLogicalExpression);
+			}
+			if (result == null) {
 				result = caseBehaviorCondition(modeSwitchTriggerLogicalExpression);
 			}
 			if (result == null) {

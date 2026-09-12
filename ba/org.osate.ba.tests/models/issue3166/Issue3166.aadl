@@ -1,0 +1,24 @@
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others.
+-- SPDX-License-Identifier: EPL-2.0
+package Issue3166
+public
+	with Base_Types;
+
+	abstract worker
+	features
+		first_event: in event port;
+		second_event: in event data port Base_Types::Integer;
+		third_event: in event port;
+	end worker;
+
+	abstract implementation worker.i
+	annex behavior_specification {**
+		states
+			waiting: initial state;
+			finished: final state;
+		transitions
+			waiting -[ on (first_event or second_event) and then third_event xor first_event
+				or else second_event and third_event ]-> finished;
+	**};
+	end worker.i;
+end Issue3166;

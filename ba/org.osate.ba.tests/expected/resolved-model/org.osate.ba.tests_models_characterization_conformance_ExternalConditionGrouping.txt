@@ -3,5 +3,10 @@ annex[0] owner=ExternalConditionGrouping::component.i
     states[0] : BehaviorState name=start
     states[1] : BehaviorState name=finish
     transitions[0] : BehaviorTransition
-    transitions[1] : BehaviorTransition
-    transitions[2] : BehaviorTransition
+      condition : ModeSwitchTriggerLogicalExpression
+        modeSwitchConjunctions[0] : ModeSwitchConjunction
+          modeSwitchTriggers[0] : ModeSwitchTriggerLogicalExpression
+            modeSwitchConjunctions[0] : ModeSwitchConjunction
+              modeSwitchTriggers[0] : EventPortHolder element=ExternalConditionGrouping::component.first_event [EventPort]
+            modeSwitchConjunctions[1] : ModeSwitchConjunction
+              modeSwitchTriggers[0] : EventPortHolder element=ExternalConditionGrouping::component.second_event [EventPort]

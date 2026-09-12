@@ -8,5 +8,6 @@ annex[0] owner=issue2147::threadA.impl
   (BehaviorTransition, <null>, 409, 21)
   (ModeSwitchCondition, <null>, 418, 5)
   (ModeSwitchConjunction, <null>, 418, 5)
+  (ModeSwitchTrigger, <null>, 418, 5)
   (Reference, <null>, 418, 5)
   (ReferenceSegment, input, 418, 5)
