@@ -1408,10 +1408,25 @@ ruleModeSwitchCondition returns [EObject current=null]
 			)
 		)
 		(
-			otherlv_1=Or
-			{
-				newLeafNode(otherlv_1, grammarAccess.getModeSwitchConditionAccess().getOrKeyword_1_0());
-			}
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getModeSwitchConditionAccess().getLogicalOperatorsLogicalOrOperatorParserRuleCall_1_0_0());
+					}
+					lv_logicalOperators_1_0=ruleLogicalOrOperator
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getModeSwitchConditionRule());
+						}
+						add(
+							$current,
+							"logicalOperators",
+							lv_logicalOperators_1_0,
+							"org.osate.xtext.aadl2.ba.BehaviorAnnex.LogicalOrOperator");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
 			(
 				(
 					{
@@ -1454,9 +1469,9 @@ ruleModeSwitchConjunction returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getModeSwitchConjunctionAccess().getTriggersReferenceParserRuleCall_0_0());
+					newCompositeNode(grammarAccess.getModeSwitchConjunctionAccess().getTriggersModeSwitchTriggerParserRuleCall_0_0());
 				}
-				lv_triggers_0_0=ruleReference
+				lv_triggers_0_0=ruleModeSwitchTrigger
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getModeSwitchConjunctionRule());
@@ -1465,22 +1480,37 @@ ruleModeSwitchConjunction returns [EObject current=null]
 						$current,
 						"triggers",
 						lv_triggers_0_0,
-						"org.osate.xtext.aadl2.ba.BehaviorAnnex.Reference");
+						"org.osate.xtext.aadl2.ba.BehaviorAnnex.ModeSwitchTrigger");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)
 		(
-			otherlv_1=And
-			{
-				newLeafNode(otherlv_1, grammarAccess.getModeSwitchConjunctionAccess().getAndKeyword_1_0());
-			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getModeSwitchConjunctionAccess().getTriggersReferenceParserRuleCall_1_1_0());
+						newCompositeNode(grammarAccess.getModeSwitchConjunctionAccess().getLogicalOperatorsLogicalAndOperatorParserRuleCall_1_0_0());
 					}
-					lv_triggers_2_0=ruleReference
+					lv_logicalOperators_1_0=ruleLogicalAndOperator
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getModeSwitchConjunctionRule());
+						}
+						add(
+							$current,
+							"logicalOperators",
+							lv_logicalOperators_1_0,
+							"org.osate.xtext.aadl2.ba.BehaviorAnnex.LogicalAndOperator");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getModeSwitchConjunctionAccess().getTriggersModeSwitchTriggerParserRuleCall_1_1_0());
+					}
+					lv_triggers_2_0=ruleModeSwitchTrigger
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getModeSwitchConjunctionRule());
@@ -1489,12 +1519,80 @@ ruleModeSwitchConjunction returns [EObject current=null]
 							$current,
 							"triggers",
 							lv_triggers_2_0,
-							"org.osate.xtext.aadl2.ba.BehaviorAnnex.Reference");
+							"org.osate.xtext.aadl2.ba.BehaviorAnnex.ModeSwitchTrigger");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
 		)*
+	)
+;
+
+// Entry rule entryRuleModeSwitchTrigger
+entryRuleModeSwitchTrigger returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getModeSwitchTriggerRule()); }
+	iv_ruleModeSwitchTrigger=ruleModeSwitchTrigger
+	{ $current=$iv_ruleModeSwitchTrigger.current; }
+	EOF;
+
+// Rule ModeSwitchTrigger
+ruleModeSwitchTrigger returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getModeSwitchTriggerAccess().getReferenceReferenceParserRuleCall_0_0());
+				}
+				lv_reference_0_0=ruleReference
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getModeSwitchTriggerRule());
+					}
+					set(
+						$current,
+						"reference",
+						lv_reference_0_0,
+						"org.osate.xtext.aadl2.ba.BehaviorAnnex.Reference");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		    |
+		(
+			otherlv_1=LeftParenthesis
+			{
+				newLeafNode(otherlv_1, grammarAccess.getModeSwitchTriggerAccess().getLeftParenthesisKeyword_1_0());
+			}
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getModeSwitchTriggerAccess().getExpressionModeSwitchConditionParserRuleCall_1_1_0());
+					}
+					lv_expression_2_0=ruleModeSwitchCondition
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getModeSwitchTriggerRule());
+						}
+						set(
+							$current,
+							"expression",
+							lv_expression_2_0,
+							"org.osate.xtext.aadl2.ba.BehaviorAnnex.ModeSwitchCondition");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+			otherlv_3=RightParenthesis
+			{
+				newLeafNode(otherlv_3, grammarAccess.getModeSwitchTriggerAccess().getRightParenthesisKeyword_1_2());
+			}
+		)
 	)
 ;
 

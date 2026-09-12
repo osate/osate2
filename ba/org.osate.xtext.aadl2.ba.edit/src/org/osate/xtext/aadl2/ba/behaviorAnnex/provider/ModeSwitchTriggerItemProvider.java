@@ -34,28 +34,26 @@ import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexFactory;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchConjunction;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchTrigger;
 
 /**
- * This is the item provider adapter for a {@link org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchConjunction} object.
+ * This is the item provider adapter for a {@link org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchTrigger} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class ModeSwitchConjunctionItemProvider 
+public class ModeSwitchTriggerItemProvider 
   extends ItemProviderAdapter
   implements
     IEditingDomainItemProvider,
@@ -70,7 +68,7 @@ public class ModeSwitchConjunctionItemProvider
    * <!-- end-user-doc -->
    * @generated
    */
-  public ModeSwitchConjunctionItemProvider(AdapterFactory adapterFactory)
+  public ModeSwitchTriggerItemProvider(AdapterFactory adapterFactory)
   {
     super(adapterFactory);
   }
@@ -88,32 +86,8 @@ public class ModeSwitchConjunctionItemProvider
     {
       super.getPropertyDescriptors(object);
 
-      addLogicalOperatorsPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
-  }
-
-  /**
-   * This adds a property descriptor for the Logical Operators feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addLogicalOperatorsPropertyDescriptor(Object object)
-  {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_ModeSwitchConjunction_logicalOperators_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_ModeSwitchConjunction_logicalOperators_feature", "_UI_ModeSwitchConjunction_type"),
-         BehaviorAnnexPackage.Literals.MODE_SWITCH_CONJUNCTION__LOGICAL_OPERATORS,
-         true,
-         false,
-         false,
-         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-         null,
-         null));
   }
 
   /**
@@ -130,7 +104,8 @@ public class ModeSwitchConjunctionItemProvider
     if (childrenFeatures == null)
     {
       super.getChildrenFeatures(object);
-      childrenFeatures.add(BehaviorAnnexPackage.Literals.MODE_SWITCH_CONJUNCTION__TRIGGERS);
+      childrenFeatures.add(BehaviorAnnexPackage.Literals.MODE_SWITCH_TRIGGER__REFERENCE);
+      childrenFeatures.add(BehaviorAnnexPackage.Literals.MODE_SWITCH_TRIGGER__EXPRESSION);
     }
     return childrenFeatures;
   }
@@ -150,7 +125,7 @@ public class ModeSwitchConjunctionItemProvider
   }
 
   /**
-   * This returns ModeSwitchConjunction.gif.
+   * This returns ModeSwitchTrigger.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -158,7 +133,7 @@ public class ModeSwitchConjunctionItemProvider
   @Override
   public Object getImage(Object object)
   {
-    return overlayImage(object, getResourceLocator().getImage("full/obj16/ModeSwitchConjunction"));
+    return overlayImage(object, getResourceLocator().getImage("full/obj16/ModeSwitchTrigger"));
   }
 
   /**
@@ -170,7 +145,7 @@ public class ModeSwitchConjunctionItemProvider
   @Override
   public String getText(Object object)
   {
-    return getString("_UI_ModeSwitchConjunction_type");
+    return getString("_UI_ModeSwitchTrigger_type");
   }
 
 
@@ -186,12 +161,10 @@ public class ModeSwitchConjunctionItemProvider
   {
     updateChildren(notification);
 
-    switch (notification.getFeatureID(ModeSwitchConjunction.class))
+    switch (notification.getFeatureID(ModeSwitchTrigger.class))
     {
-      case BehaviorAnnexPackage.MODE_SWITCH_CONJUNCTION__LOGICAL_OPERATORS:
-        fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-        return;
-      case BehaviorAnnexPackage.MODE_SWITCH_CONJUNCTION__TRIGGERS:
+      case BehaviorAnnexPackage.MODE_SWITCH_TRIGGER__REFERENCE:
+      case BehaviorAnnexPackage.MODE_SWITCH_TRIGGER__EXPRESSION:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
         return;
     }
@@ -212,8 +185,13 @@ public class ModeSwitchConjunctionItemProvider
 
     newChildDescriptors.add
       (createChildParameter
-        (BehaviorAnnexPackage.Literals.MODE_SWITCH_CONJUNCTION__TRIGGERS,
-         BehaviorAnnexFactory.eINSTANCE.createModeSwitchTrigger()));
+        (BehaviorAnnexPackage.Literals.MODE_SWITCH_TRIGGER__REFERENCE,
+         BehaviorAnnexFactory.eINSTANCE.createReference()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (BehaviorAnnexPackage.Literals.MODE_SWITCH_TRIGGER__EXPRESSION,
+         BehaviorAnnexFactory.eINSTANCE.createModeSwitchCondition()));
   }
 
   /**

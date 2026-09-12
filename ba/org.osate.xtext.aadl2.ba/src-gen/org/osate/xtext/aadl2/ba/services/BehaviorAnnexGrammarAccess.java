@@ -879,16 +879,19 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 		private final Assignment cConjunctionsAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cConjunctionsModeSwitchConjunctionParserRuleCall_0_0 = (RuleCall)cConjunctionsAssignment_0.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Keyword cOrKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cLogicalOperatorsAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
+		private final RuleCall cLogicalOperatorsLogicalOrOperatorParserRuleCall_1_0_0 = (RuleCall)cLogicalOperatorsAssignment_1_0.eContents().get(0);
 		private final Assignment cConjunctionsAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final RuleCall cConjunctionsModeSwitchConjunctionParserRuleCall_1_1_0 = (RuleCall)cConjunctionsAssignment_1_1.eContents().get(0);
 		
 		//ModeSwitchCondition:
-		//    conjunctions+=ModeSwitchConjunction ('or' conjunctions+=ModeSwitchConjunction)*
+		//    conjunctions+=ModeSwitchConjunction
+		//    (logicalOperators+=LogicalOrOperator conjunctions+=ModeSwitchConjunction)*
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//conjunctions+=ModeSwitchConjunction ('or' conjunctions+=ModeSwitchConjunction)*
+		//conjunctions+=ModeSwitchConjunction
+		//(logicalOperators+=LogicalOrOperator conjunctions+=ModeSwitchConjunction)*
 		public Group getGroup() { return cGroup; }
 		
 		//conjunctions+=ModeSwitchConjunction
@@ -897,11 +900,14 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 		//ModeSwitchConjunction
 		public RuleCall getConjunctionsModeSwitchConjunctionParserRuleCall_0_0() { return cConjunctionsModeSwitchConjunctionParserRuleCall_0_0; }
 		
-		//('or' conjunctions+=ModeSwitchConjunction)*
+		//(logicalOperators+=LogicalOrOperator conjunctions+=ModeSwitchConjunction)*
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//'or'
-		public Keyword getOrKeyword_1_0() { return cOrKeyword_1_0; }
+		//logicalOperators+=LogicalOrOperator
+		public Assignment getLogicalOperatorsAssignment_1_0() { return cLogicalOperatorsAssignment_1_0; }
+		
+		//LogicalOrOperator
+		public RuleCall getLogicalOperatorsLogicalOrOperatorParserRuleCall_1_0_0() { return cLogicalOperatorsLogicalOrOperatorParserRuleCall_1_0_0; }
 		
 		//conjunctions+=ModeSwitchConjunction
 		public Assignment getConjunctionsAssignment_1_1() { return cConjunctionsAssignment_1_1; }
@@ -913,37 +919,85 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.ModeSwitchConjunction");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cTriggersAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cTriggersReferenceParserRuleCall_0_0 = (RuleCall)cTriggersAssignment_0.eContents().get(0);
+		private final RuleCall cTriggersModeSwitchTriggerParserRuleCall_0_0 = (RuleCall)cTriggersAssignment_0.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Keyword cAndKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cLogicalOperatorsAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
+		private final RuleCall cLogicalOperatorsLogicalAndOperatorParserRuleCall_1_0_0 = (RuleCall)cLogicalOperatorsAssignment_1_0.eContents().get(0);
 		private final Assignment cTriggersAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cTriggersReferenceParserRuleCall_1_1_0 = (RuleCall)cTriggersAssignment_1_1.eContents().get(0);
+		private final RuleCall cTriggersModeSwitchTriggerParserRuleCall_1_1_0 = (RuleCall)cTriggersAssignment_1_1.eContents().get(0);
 		
 		//ModeSwitchConjunction:
-		//    triggers+=Reference ('and' triggers+=Reference)*
+		//    triggers+=ModeSwitchTrigger
+		//    (logicalOperators+=LogicalAndOperator triggers+=ModeSwitchTrigger)*
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//triggers+=Reference ('and' triggers+=Reference)*
+		//triggers+=ModeSwitchTrigger
+		//(logicalOperators+=LogicalAndOperator triggers+=ModeSwitchTrigger)*
 		public Group getGroup() { return cGroup; }
 		
-		//triggers+=Reference
+		//triggers+=ModeSwitchTrigger
 		public Assignment getTriggersAssignment_0() { return cTriggersAssignment_0; }
 		
-		//Reference
-		public RuleCall getTriggersReferenceParserRuleCall_0_0() { return cTriggersReferenceParserRuleCall_0_0; }
+		//ModeSwitchTrigger
+		public RuleCall getTriggersModeSwitchTriggerParserRuleCall_0_0() { return cTriggersModeSwitchTriggerParserRuleCall_0_0; }
 		
-		//('and' triggers+=Reference)*
+		//(logicalOperators+=LogicalAndOperator triggers+=ModeSwitchTrigger)*
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//'and'
-		public Keyword getAndKeyword_1_0() { return cAndKeyword_1_0; }
+		//logicalOperators+=LogicalAndOperator
+		public Assignment getLogicalOperatorsAssignment_1_0() { return cLogicalOperatorsAssignment_1_0; }
 		
-		//triggers+=Reference
+		//LogicalAndOperator
+		public RuleCall getLogicalOperatorsLogicalAndOperatorParserRuleCall_1_0_0() { return cLogicalOperatorsLogicalAndOperatorParserRuleCall_1_0_0; }
+		
+		//triggers+=ModeSwitchTrigger
 		public Assignment getTriggersAssignment_1_1() { return cTriggersAssignment_1_1; }
 		
+		//ModeSwitchTrigger
+		public RuleCall getTriggersModeSwitchTriggerParserRuleCall_1_1_0() { return cTriggersModeSwitchTriggerParserRuleCall_1_1_0; }
+	}
+	public class ModeSwitchTriggerElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.ModeSwitchTrigger");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Assignment cReferenceAssignment_0 = (Assignment)cAlternatives.eContents().get(0);
+		private final RuleCall cReferenceReferenceParserRuleCall_0_0 = (RuleCall)cReferenceAssignment_0.eContents().get(0);
+		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cExpressionAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cExpressionModeSwitchConditionParserRuleCall_1_1_0 = (RuleCall)cExpressionAssignment_1_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
+		
+		//ModeSwitchTrigger:
+		//    reference=Reference
+		//    | '(' expression=ModeSwitchCondition ')'
+		//;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//reference=Reference
+		//| '(' expression=ModeSwitchCondition ')'
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//reference=Reference
+		public Assignment getReferenceAssignment_0() { return cReferenceAssignment_0; }
+		
 		//Reference
-		public RuleCall getTriggersReferenceParserRuleCall_1_1_0() { return cTriggersReferenceParserRuleCall_1_1_0; }
+		public RuleCall getReferenceReferenceParserRuleCall_0_0() { return cReferenceReferenceParserRuleCall_0_0; }
+		
+		//'(' expression=ModeSwitchCondition ')'
+		public Group getGroup_1() { return cGroup_1; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_1_0() { return cLeftParenthesisKeyword_1_0; }
+		
+		//expression=ModeSwitchCondition
+		public Assignment getExpressionAssignment_1_1() { return cExpressionAssignment_1_1; }
+		
+		//ModeSwitchCondition
+		public RuleCall getExpressionModeSwitchConditionParserRuleCall_1_1_0() { return cExpressionModeSwitchConditionParserRuleCall_1_1_0; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_1_2() { return cRightParenthesisKeyword_1_2; }
 	}
 	public class InternalConditionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.InternalCondition");
@@ -3142,6 +3196,7 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 	private final DispatchConjunctionElements pDispatchConjunction;
 	private final ModeSwitchConditionElements pModeSwitchCondition;
 	private final ModeSwitchConjunctionElements pModeSwitchConjunction;
+	private final ModeSwitchTriggerElements pModeSwitchTrigger;
 	private final InternalConditionElements pInternalCondition;
 	private final BehaviorActionBlockElements pBehaviorActionBlock;
 	private final BehaviorActionsElements pBehaviorActions;
@@ -3217,6 +3272,7 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 		this.pDispatchConjunction = new DispatchConjunctionElements();
 		this.pModeSwitchCondition = new ModeSwitchConditionElements();
 		this.pModeSwitchConjunction = new ModeSwitchConjunctionElements();
+		this.pModeSwitchTrigger = new ModeSwitchTriggerElements();
 		this.pInternalCondition = new InternalConditionElements();
 		this.pBehaviorActionBlock = new BehaviorActionBlockElements();
 		this.pBehaviorActions = new BehaviorActionsElements();
@@ -3482,7 +3538,8 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 	}
 	
 	//ModeSwitchCondition:
-	//    conjunctions+=ModeSwitchConjunction ('or' conjunctions+=ModeSwitchConjunction)*
+	//    conjunctions+=ModeSwitchConjunction
+	//    (logicalOperators+=LogicalOrOperator conjunctions+=ModeSwitchConjunction)*
 	//;
 	public ModeSwitchConditionElements getModeSwitchConditionAccess() {
 		return pModeSwitchCondition;
@@ -3493,7 +3550,8 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 	}
 	
 	//ModeSwitchConjunction:
-	//    triggers+=Reference ('and' triggers+=Reference)*
+	//    triggers+=ModeSwitchTrigger
+	//    (logicalOperators+=LogicalAndOperator triggers+=ModeSwitchTrigger)*
 	//;
 	public ModeSwitchConjunctionElements getModeSwitchConjunctionAccess() {
 		return pModeSwitchConjunction;
@@ -3501,6 +3559,18 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 	
 	public ParserRule getModeSwitchConjunctionRule() {
 		return getModeSwitchConjunctionAccess().getRule();
+	}
+	
+	//ModeSwitchTrigger:
+	//    reference=Reference
+	//    | '(' expression=ModeSwitchCondition ')'
+	//;
+	public ModeSwitchTriggerElements getModeSwitchTriggerAccess() {
+		return pModeSwitchTrigger;
+	}
+	
+	public ParserRule getModeSwitchTriggerRule() {
+		return getModeSwitchTriggerAccess().getRule();
 	}
 	
 	//// The listed names are internal event or event data features of the containing component. Like every other name in

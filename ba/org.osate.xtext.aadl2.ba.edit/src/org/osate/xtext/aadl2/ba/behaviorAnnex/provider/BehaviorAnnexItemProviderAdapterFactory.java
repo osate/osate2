@@ -495,6 +495,31 @@ public class BehaviorAnnexItemProviderAdapterFactory extends BehaviorAnnexAdapte
   }
 
   /**
+   * This keeps track of the one adapter used for all {@link org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchTrigger} instances.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected ModeSwitchTriggerItemProvider modeSwitchTriggerItemProvider;
+
+  /**
+   * This creates an adapter for a {@link org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchTrigger}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Adapter createModeSwitchTriggerAdapter()
+  {
+    if (modeSwitchTriggerItemProvider == null)
+    {
+      modeSwitchTriggerItemProvider = new ModeSwitchTriggerItemProvider(this);
+    }
+
+    return modeSwitchTriggerItemProvider;
+  }
+
+  /**
    * This keeps track of the one adapter used for all {@link org.osate.xtext.aadl2.ba.behaviorAnnex.InternalCondition} instances.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1627,6 +1652,7 @@ public class BehaviorAnnexItemProviderAdapterFactory extends BehaviorAnnexAdapte
     if (dispatchConjunctionItemProvider != null) dispatchConjunctionItemProvider.dispose();
     if (modeSwitchConditionItemProvider != null) modeSwitchConditionItemProvider.dispose();
     if (modeSwitchConjunctionItemProvider != null) modeSwitchConjunctionItemProvider.dispose();
+    if (modeSwitchTriggerItemProvider != null) modeSwitchTriggerItemProvider.dispose();
     if (internalConditionItemProvider != null) internalConditionItemProvider.dispose();
     if (behaviorActionBlockItemProvider != null) behaviorActionBlockItemProvider.dispose();
     if (behaviorActionsItemProvider != null) behaviorActionsItemProvider.dispose();

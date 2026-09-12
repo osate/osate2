@@ -3055,6 +3055,16 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * @generated
 	 */
 	@Override
+	public EAttribute getModeSwitchTriggerLogicalExpression_LogicalOperators() {
+		return (EAttribute) modeSwitchTriggerLogicalExpressionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getModeSwitchTriggerCondition() {
 		return modeSwitchTriggerConditionEClass;
 	}
@@ -3077,6 +3087,16 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	@Override
 	public EReference getModeSwitchConjunction_ModeSwitchTriggers() {
 		return (EReference) modeSwitchConjunctionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getModeSwitchConjunction_LogicalOperators() {
+		return (EAttribute) modeSwitchConjunctionEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -3804,11 +3824,14 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		modeSwitchTriggerLogicalExpressionEClass = createEClass(MODE_SWITCH_TRIGGER_LOGICAL_EXPRESSION);
 		createEReference(modeSwitchTriggerLogicalExpressionEClass,
 				MODE_SWITCH_TRIGGER_LOGICAL_EXPRESSION__MODE_SWITCH_CONJUNCTIONS);
+		createEAttribute(modeSwitchTriggerLogicalExpressionEClass,
+				MODE_SWITCH_TRIGGER_LOGICAL_EXPRESSION__LOGICAL_OPERATORS);
 
 		modeSwitchTriggerConditionEClass = createEClass(MODE_SWITCH_TRIGGER_CONDITION);
 
 		modeSwitchConjunctionEClass = createEClass(MODE_SWITCH_CONJUNCTION);
 		createEReference(modeSwitchConjunctionEClass, MODE_SWITCH_CONJUNCTION__MODE_SWITCH_TRIGGERS);
+		createEAttribute(modeSwitchConjunctionEClass, MODE_SWITCH_CONJUNCTION__LOGICAL_OPERATORS);
 
 		modeSwitchTriggerEClass = createEClass(MODE_SWITCH_TRIGGER);
 
@@ -4079,6 +4102,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		valueVariableEClass.getESuperTypes().add(getValue());
 		whileOrDoUntilStatementEClass.getESuperTypes().add(getLoopStatement());
 		modeSwitchTriggerLogicalExpressionEClass.getESuperTypes().add(getModeSwitchTriggerCondition());
+		modeSwitchTriggerLogicalExpressionEClass.getESuperTypes().add(getModeSwitchTrigger());
 		modeSwitchTriggerConditionEClass.getESuperTypes().add(getBehaviorCondition());
 		modeSwitchConjunctionEClass.getESuperTypes().add(getBehaviorElement());
 		modeSwitchTriggerEClass.getESuperTypes().add(getBehaviorElement());
@@ -4841,6 +4865,9 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 				"modeSwitchConjunctions", null, 1, -1, ModeSwitchTriggerLogicalExpression.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
 				IS_ORDERED);
+		initEAttribute(getModeSwitchTriggerLogicalExpression_LogicalOperators(), getLogicalOperator(),
+				"logicalOperators", null, 0, -1, ModeSwitchTriggerLogicalExpression.class, !IS_TRANSIENT, !IS_VOLATILE,
+				IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(modeSwitchTriggerConditionEClass, ModeSwitchTriggerCondition.class, "ModeSwitchTriggerCondition",
 				IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -4850,6 +4877,9 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		initEReference(getModeSwitchConjunction_ModeSwitchTriggers(), getModeSwitchTrigger(), null,
 				"modeSwitchTriggers", null, 1, -1, ModeSwitchConjunction.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getModeSwitchConjunction_LogicalOperators(), getLogicalOperator(), "logicalOperators", null, 0,
+				-1, ModeSwitchConjunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID,
+				!IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(modeSwitchTriggerEClass, ModeSwitchTrigger.class, "ModeSwitchTrigger", IS_ABSTRACT, IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);

@@ -73,6 +73,7 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.IntegerValue;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.InternalCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchConjunction;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchTrigger;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.NamedPropertyField;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyArrayIndex;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyIndexPropertyReference;
@@ -211,6 +212,13 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
    * @generated
    */
   private EClass modeSwitchConjunctionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass modeSwitchTriggerEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -1169,6 +1177,17 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
    * @generated
    */
   @Override
+  public EAttribute getModeSwitchCondition_LogicalOperators()
+  {
+    return (EAttribute)modeSwitchConditionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EClass getModeSwitchConjunction()
   {
     return modeSwitchConjunctionEClass;
@@ -1183,6 +1202,50 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
   public EReference getModeSwitchConjunction_Triggers()
   {
     return (EReference)modeSwitchConjunctionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EAttribute getModeSwitchConjunction_LogicalOperators()
+  {
+    return (EAttribute)modeSwitchConjunctionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getModeSwitchTrigger()
+  {
+    return modeSwitchTriggerEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getModeSwitchTrigger_Reference()
+  {
+    return (EReference)modeSwitchTriggerEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getModeSwitchTrigger_Expression()
+  {
+    return (EReference)modeSwitchTriggerEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -2649,9 +2712,15 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
 
     modeSwitchConditionEClass = createEClass(MODE_SWITCH_CONDITION);
     createEReference(modeSwitchConditionEClass, MODE_SWITCH_CONDITION__CONJUNCTIONS);
+    createEAttribute(modeSwitchConditionEClass, MODE_SWITCH_CONDITION__LOGICAL_OPERATORS);
 
     modeSwitchConjunctionEClass = createEClass(MODE_SWITCH_CONJUNCTION);
     createEReference(modeSwitchConjunctionEClass, MODE_SWITCH_CONJUNCTION__TRIGGERS);
+    createEAttribute(modeSwitchConjunctionEClass, MODE_SWITCH_CONJUNCTION__LOGICAL_OPERATORS);
+
+    modeSwitchTriggerEClass = createEClass(MODE_SWITCH_TRIGGER);
+    createEReference(modeSwitchTriggerEClass, MODE_SWITCH_TRIGGER__REFERENCE);
+    createEReference(modeSwitchTriggerEClass, MODE_SWITCH_TRIGGER__EXPRESSION);
 
     internalConditionEClass = createEClass(INTERNAL_CONDITION);
     createEReference(internalConditionEClass, INTERNAL_CONDITION__INTERNAL_PORTS);
@@ -2949,9 +3018,15 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
 
     initEClass(modeSwitchConditionEClass, ModeSwitchCondition.class, "ModeSwitchCondition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getModeSwitchCondition_Conjunctions(), this.getModeSwitchConjunction(), null, "conjunctions", null, 0, -1, ModeSwitchCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getModeSwitchCondition_LogicalOperators(), theEcorePackage.getEString(), "logicalOperators", null, 0, -1, ModeSwitchCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(modeSwitchConjunctionEClass, ModeSwitchConjunction.class, "ModeSwitchConjunction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getModeSwitchConjunction_Triggers(), this.getReference(), null, "triggers", null, 0, -1, ModeSwitchConjunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getModeSwitchConjunction_Triggers(), this.getModeSwitchTrigger(), null, "triggers", null, 0, -1, ModeSwitchConjunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getModeSwitchConjunction_LogicalOperators(), theEcorePackage.getEString(), "logicalOperators", null, 0, -1, ModeSwitchConjunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(modeSwitchTriggerEClass, ModeSwitchTrigger.class, "ModeSwitchTrigger", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getModeSwitchTrigger_Reference(), this.getReference(), null, "reference", null, 0, 1, ModeSwitchTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getModeSwitchTrigger_Expression(), this.getModeSwitchCondition(), null, "expression", null, 0, 1, ModeSwitchTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(internalConditionEClass, InternalCondition.class, "InternalCondition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getInternalCondition_InternalPorts(), this.getReference(), null, "internalPorts", null, 0, -1, InternalCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

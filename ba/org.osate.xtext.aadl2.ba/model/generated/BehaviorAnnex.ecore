@@ -97,10 +97,20 @@
   <eClassifiers xsi:type="ecore:EClass" name="ModeSwitchCondition">
     <eStructuralFeatures xsi:type="ecore:EReference" name="conjunctions" upperBound="-1"
         eType="#//ModeSwitchConjunction" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="logicalOperators" unique="false"
+        upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModeSwitchConjunction">
     <eStructuralFeatures xsi:type="ecore:EReference" name="triggers" upperBound="-1"
-        eType="#//Reference" containment="true"/>
+        eType="#//ModeSwitchTrigger" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="logicalOperators" unique="false"
+        upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModeSwitchTrigger">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reference" eType="#//Reference"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="#//ModeSwitchCondition"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="InternalCondition">
     <eStructuralFeatures xsi:type="ecore:EReference" name="internalPorts" upperBound="-1"

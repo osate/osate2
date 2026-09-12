@@ -23,51 +23,69 @@
  */
 package org.osate.xtext.aadl2.ba.behaviorAnnex;
 
-import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Mode Switch Condition</b></em>'.
+ * A representation of the model object '<em><b>Mode Switch Trigger</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchCondition#getConjunctions <em>Conjunctions</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchCondition#getLogicalOperators <em>Logical Operators</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchTrigger#getReference <em>Reference</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchTrigger#getExpression <em>Expression</em>}</li>
  * </ul>
  *
- * @see org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage#getModeSwitchCondition()
+ * @see org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage#getModeSwitchTrigger()
  * @model
  * @generated
  */
-public interface ModeSwitchCondition extends EObject
+public interface ModeSwitchTrigger extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Conjunctions</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchConjunction}.
+   * Returns the value of the '<em><b>Reference</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Conjunctions</em>' containment reference list.
-   * @see org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage#getModeSwitchCondition_Conjunctions()
+   * @return the value of the '<em>Reference</em>' containment reference.
+   * @see #setReference(Reference)
+   * @see org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage#getModeSwitchTrigger_Reference()
    * @model containment="true"
    * @generated
    */
-  EList<ModeSwitchConjunction> getConjunctions();
+  Reference getReference();
 
   /**
-   * Returns the value of the '<em><b>Logical Operators</b></em>' attribute list.
-   * The list contents are of type {@link java.lang.String}.
+   * Sets the value of the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchTrigger#getReference <em>Reference</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Logical Operators</em>' attribute list.
-   * @see org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage#getModeSwitchCondition_LogicalOperators()
-   * @model unique="false"
+   * @param value the new value of the '<em>Reference</em>' containment reference.
+   * @see #getReference()
    * @generated
    */
-  EList<String> getLogicalOperators();
+  void setReference(Reference value);
 
-} // ModeSwitchCondition
+  /**
+   * Returns the value of the '<em><b>Expression</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Expression</em>' containment reference.
+   * @see #setExpression(ModeSwitchCondition)
+   * @see org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage#getModeSwitchTrigger_Expression()
+   * @model containment="true"
+   * @generated
+   */
+  ModeSwitchCondition getExpression();
+
+  /**
+   * Sets the value of the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchTrigger#getExpression <em>Expression</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Expression</em>' containment reference.
+   * @see #getExpression()
+   * @generated
+   */
+  void setExpression(ModeSwitchCondition value);
+
+} // ModeSwitchTrigger

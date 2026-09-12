@@ -66,14 +66,15 @@ public class BehaviorAnnexConformanceTest {
 
 	/**
 	 * The standard expectations that are still skipped, each with the issue that tracks the missing implementation.
-	 * G01 (#3165), G03 (#3167), G04 (#3168), G05 (#3169), G08 (#3172), and G10 (#3174) are absent because
-	 * {@link #internalConditionIsAcceptedByTheStandard()}, {@link #frozenPortParenthesesAreAcceptedByTheStandard()},
+	 * G01 (#3165), G02 (#3166), G03 (#3167), G04 (#3168), G05 (#3169), G08 (#3172), and G10 (#3174) are absent because
+	 * {@link #internalConditionIsAcceptedByTheStandard()},
+	 * {@link #externalConditionOperatorsAreAcceptedByTheStandard()},
+	 * {@link #frozenPortParenthesesAreAcceptedByTheStandard()},
 	 * {@link #timeoutResetPortsAreAcceptedByTheStandard()}, {@link #shortCircuitOperatorsAreAcceptedByTheStandard()},
 	 * {@link #selfPropertyReferenceIsAcceptedByTheStandard()}, and
 	 * {@link #internalPortActionsAreAcceptedByTheStandard()} pass.
 	 */
 	private static final List<String> TRACKED_SKIPS = List.of(
-			"externalConditionOperatorsAreAcceptedByTheStandard -> #3166",
 			"unaryPlusIsRejectedByTheStandard -> #3170",
 			"optionalLoopClassifierIsAcceptedByTheStandard -> #3173");
 
@@ -92,7 +93,6 @@ public class BehaviorAnnexConformanceTest {
 		assertNoIssues("InternalCondition.aadl");
 	}
 
-	@Ignore("Issue #3166: implement all external-condition logical operators and grouping")
 	@Test
 	public void externalConditionOperatorsAreAcceptedByTheStandard() throws Exception {
 		assertNoIssues("ExternalConditionXor.aadl");

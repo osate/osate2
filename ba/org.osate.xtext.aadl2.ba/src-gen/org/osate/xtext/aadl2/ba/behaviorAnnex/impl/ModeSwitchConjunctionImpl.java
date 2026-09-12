@@ -34,12 +34,13 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchConjunction;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.Reference;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchTrigger;
 
 /**
  * <!-- begin-user-doc -->
@@ -50,6 +51,7 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.Reference;
  * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.ModeSwitchConjunctionImpl#getTriggers <em>Triggers</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.ModeSwitchConjunctionImpl#getLogicalOperators <em>Logical Operators</em>}</li>
  * </ul>
  *
  * @generated
@@ -64,7 +66,17 @@ public class ModeSwitchConjunctionImpl extends MinimalEObjectImpl.Container impl
    * @generated
    * @ordered
    */
-  protected EList<Reference> triggers;
+  protected EList<ModeSwitchTrigger> triggers;
+
+  /**
+   * The cached value of the '{@link #getLogicalOperators() <em>Logical Operators</em>}' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getLogicalOperators()
+   * @generated
+   * @ordered
+   */
+  protected EList<String> logicalOperators;
 
   /**
    * <!-- begin-user-doc -->
@@ -93,13 +105,28 @@ public class ModeSwitchConjunctionImpl extends MinimalEObjectImpl.Container impl
    * @generated
    */
   @Override
-  public EList<Reference> getTriggers()
+  public EList<ModeSwitchTrigger> getTriggers()
   {
     if (triggers == null)
     {
-      triggers = new EObjectContainmentEList<Reference>(Reference.class, this, BehaviorAnnexPackage.MODE_SWITCH_CONJUNCTION__TRIGGERS);
+      triggers = new EObjectContainmentEList<ModeSwitchTrigger>(ModeSwitchTrigger.class, this, BehaviorAnnexPackage.MODE_SWITCH_CONJUNCTION__TRIGGERS);
     }
     return triggers;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EList<String> getLogicalOperators()
+  {
+    if (logicalOperators == null)
+    {
+      logicalOperators = new EDataTypeEList<String>(String.class, this, BehaviorAnnexPackage.MODE_SWITCH_CONJUNCTION__LOGICAL_OPERATORS);
+    }
+    return logicalOperators;
   }
 
   /**
@@ -130,6 +157,8 @@ public class ModeSwitchConjunctionImpl extends MinimalEObjectImpl.Container impl
     {
       case BehaviorAnnexPackage.MODE_SWITCH_CONJUNCTION__TRIGGERS:
         return getTriggers();
+      case BehaviorAnnexPackage.MODE_SWITCH_CONJUNCTION__LOGICAL_OPERATORS:
+        return getLogicalOperators();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -147,7 +176,11 @@ public class ModeSwitchConjunctionImpl extends MinimalEObjectImpl.Container impl
     {
       case BehaviorAnnexPackage.MODE_SWITCH_CONJUNCTION__TRIGGERS:
         getTriggers().clear();
-        getTriggers().addAll((Collection<? extends Reference>)newValue);
+        getTriggers().addAll((Collection<? extends ModeSwitchTrigger>)newValue);
+        return;
+      case BehaviorAnnexPackage.MODE_SWITCH_CONJUNCTION__LOGICAL_OPERATORS:
+        getLogicalOperators().clear();
+        getLogicalOperators().addAll((Collection<? extends String>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -166,6 +199,9 @@ public class ModeSwitchConjunctionImpl extends MinimalEObjectImpl.Container impl
       case BehaviorAnnexPackage.MODE_SWITCH_CONJUNCTION__TRIGGERS:
         getTriggers().clear();
         return;
+      case BehaviorAnnexPackage.MODE_SWITCH_CONJUNCTION__LOGICAL_OPERATORS:
+        getLogicalOperators().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -182,8 +218,27 @@ public class ModeSwitchConjunctionImpl extends MinimalEObjectImpl.Container impl
     {
       case BehaviorAnnexPackage.MODE_SWITCH_CONJUNCTION__TRIGGERS:
         return triggers != null && !triggers.isEmpty();
+      case BehaviorAnnexPackage.MODE_SWITCH_CONJUNCTION__LOGICAL_OPERATORS:
+        return logicalOperators != null && !logicalOperators.isEmpty();
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuilder result = new StringBuilder(super.toString());
+    result.append(" (logicalOperators: ");
+    result.append(logicalOperators);
+    result.append(')');
+    return result.toString();
   }
 
 } //ModeSwitchConjunctionImpl

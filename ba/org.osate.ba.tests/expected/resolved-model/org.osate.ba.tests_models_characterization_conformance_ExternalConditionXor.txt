@@ -6,4 +6,5 @@ annex[0] owner=ExternalConditionXor::component.i
       condition : ModeSwitchTriggerLogicalExpression
         modeSwitchConjunctions[0] : ModeSwitchConjunction
           modeSwitchTriggers[0] : EventPortHolder element=ExternalConditionXor::component.first_event [EventPort]
-    transitions[1] : BehaviorTransition
+        modeSwitchConjunctions[1] : ModeSwitchConjunction
+          modeSwitchTriggers[0] : EventPortHolder element=ExternalConditionXor::component.second_event [EventPort]

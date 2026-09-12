@@ -37,6 +37,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchConjunction#getTriggers <em>Triggers</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchConjunction#getLogicalOperators <em>Logical Operators</em>}</li>
  * </ul>
  *
  * @see org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage#getModeSwitchConjunction()
@@ -47,7 +48,7 @@ public interface ModeSwitchConjunction extends EObject
 {
   /**
    * Returns the value of the '<em><b>Triggers</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.xtext.aadl2.ba.behaviorAnnex.Reference}.
+   * The list contents are of type {@link org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchTrigger}.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the value of the '<em>Triggers</em>' containment reference list.
@@ -55,6 +56,18 @@ public interface ModeSwitchConjunction extends EObject
    * @model containment="true"
    * @generated
    */
-  EList<Reference> getTriggers();
+  EList<ModeSwitchTrigger> getTriggers();
+
+  /**
+   * Returns the value of the '<em><b>Logical Operators</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.String}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Logical Operators</em>' attribute list.
+   * @see org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage#getModeSwitchConjunction_LogicalOperators()
+   * @model unique="false"
+   * @generated
+   */
+  EList<String> getLogicalOperators();
 
 } // ModeSwitchConjunction

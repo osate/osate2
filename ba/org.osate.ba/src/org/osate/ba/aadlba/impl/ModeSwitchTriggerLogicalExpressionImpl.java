@@ -1,12 +1,12 @@
 /**
  * AADL-BA-FrontEnd
- * 
+ *
  * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
  * version 2.0 of the License, or (at your option) any later version. This
@@ -25,9 +25,11 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.ba.aadlba.AadlBaPackage;
+import org.osate.ba.aadlba.LogicalOperator;
 import org.osate.ba.aadlba.ModeSwitchConjunction;
 import org.osate.ba.aadlba.ModeSwitchTriggerLogicalExpression;
 
@@ -40,6 +42,7 @@ import org.osate.ba.aadlba.ModeSwitchTriggerLogicalExpression;
  * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.ModeSwitchTriggerLogicalExpressionImpl#getModeSwitchConjunctions <em>Mode Switch Conjunctions</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.impl.ModeSwitchTriggerLogicalExpressionImpl#getLogicalOperators <em>Logical Operators</em>}</li>
  * </ul>
  *
  * @generated
@@ -55,6 +58,16 @@ public class ModeSwitchTriggerLogicalExpressionImpl extends BehaviorElementImpl
 	 * @ordered
 	 */
 	protected EList<ModeSwitchConjunction> modeSwitchConjunctions;
+
+	/**
+	 * The cached value of the '{@link #getLogicalOperators() <em>Logical Operators</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLogicalOperators()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<LogicalOperator> logicalOperators;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -83,10 +96,46 @@ public class ModeSwitchTriggerLogicalExpressionImpl extends BehaviorElementImpl
 	@Override
 	public EList<ModeSwitchConjunction> getModeSwitchConjunctions() {
 		if (modeSwitchConjunctions == null) {
-			modeSwitchConjunctions = new EObjectContainmentEList<ModeSwitchConjunction>(ModeSwitchConjunction.class,
+			modeSwitchConjunctions = new EObjectContainmentEList<>(ModeSwitchConjunction.class,
 					this, AadlBaPackage.MODE_SWITCH_TRIGGER_LOGICAL_EXPRESSION__MODE_SWITCH_CONJUNCTIONS);
 		}
 		return modeSwitchConjunctions;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<LogicalOperator> getLogicalOperators() {
+		if (logicalOperators == null) {
+			logicalOperators = new EDataTypeEList.Unsettable<>(LogicalOperator.class, this,
+					AadlBaPackage.MODE_SWITCH_TRIGGER_LOGICAL_EXPRESSION__LOGICAL_OPERATORS);
+		}
+		return logicalOperators;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void unsetLogicalOperators() {
+		if (logicalOperators != null) {
+			((InternalEList.Unsettable<?>) logicalOperators).unset();
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean isSetLogicalOperators() {
+		return logicalOperators != null && ((InternalEList.Unsettable<?>) logicalOperators).isSet();
 	}
 
 	/**
@@ -113,6 +162,8 @@ public class ModeSwitchTriggerLogicalExpressionImpl extends BehaviorElementImpl
 		switch (featureID) {
 		case AadlBaPackage.MODE_SWITCH_TRIGGER_LOGICAL_EXPRESSION__MODE_SWITCH_CONJUNCTIONS:
 			return getModeSwitchConjunctions();
+		case AadlBaPackage.MODE_SWITCH_TRIGGER_LOGICAL_EXPRESSION__LOGICAL_OPERATORS:
+			return getLogicalOperators();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -130,6 +181,10 @@ public class ModeSwitchTriggerLogicalExpressionImpl extends BehaviorElementImpl
 			getModeSwitchConjunctions().clear();
 			getModeSwitchConjunctions().addAll((Collection<? extends ModeSwitchConjunction>) newValue);
 			return;
+		case AadlBaPackage.MODE_SWITCH_TRIGGER_LOGICAL_EXPRESSION__LOGICAL_OPERATORS:
+			getLogicalOperators().clear();
+			getLogicalOperators().addAll((Collection<? extends LogicalOperator>) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -145,6 +200,9 @@ public class ModeSwitchTriggerLogicalExpressionImpl extends BehaviorElementImpl
 		case AadlBaPackage.MODE_SWITCH_TRIGGER_LOGICAL_EXPRESSION__MODE_SWITCH_CONJUNCTIONS:
 			getModeSwitchConjunctions().clear();
 			return;
+		case AadlBaPackage.MODE_SWITCH_TRIGGER_LOGICAL_EXPRESSION__LOGICAL_OPERATORS:
+			unsetLogicalOperators();
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -159,8 +217,28 @@ public class ModeSwitchTriggerLogicalExpressionImpl extends BehaviorElementImpl
 		switch (featureID) {
 		case AadlBaPackage.MODE_SWITCH_TRIGGER_LOGICAL_EXPRESSION__MODE_SWITCH_CONJUNCTIONS:
 			return modeSwitchConjunctions != null && !modeSwitchConjunctions.isEmpty();
+		case AadlBaPackage.MODE_SWITCH_TRIGGER_LOGICAL_EXPRESSION__LOGICAL_OPERATORS:
+			return isSetLogicalOperators();
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) {
+			return super.toString();
+		}
+
+		StringBuilder result = new StringBuilder(super.toString());
+		result.append(" (logicalOperators: ");
+		result.append(logicalOperators);
+		result.append(')');
+		return result.toString();
 	}
 
 } // ModeSwitchTriggerLogicalExpressionImpl

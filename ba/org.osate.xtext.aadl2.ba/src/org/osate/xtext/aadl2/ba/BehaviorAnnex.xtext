@@ -112,11 +112,18 @@ DispatchConjunction:
 ;
 
 ModeSwitchCondition:
-    conjunctions+=ModeSwitchConjunction ('or' conjunctions+=ModeSwitchConjunction)*
+    conjunctions+=ModeSwitchConjunction
+    (logicalOperators+=LogicalOrOperator conjunctions+=ModeSwitchConjunction)*
 ;
 
 ModeSwitchConjunction:
-    triggers+=Reference ('and' triggers+=Reference)*
+    triggers+=ModeSwitchTrigger
+    (logicalOperators+=LogicalAndOperator triggers+=ModeSwitchTrigger)*
+;
+
+ModeSwitchTrigger:
+    reference=Reference
+    | '(' expression=ModeSwitchCondition ')'
 ;
 
 // The listed names are internal event or event data features of the containing component. Like every other name in

@@ -1,0 +1,18 @@
+annex[0] owner=Issue3166::worker.i
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=waiting
+    states[1] : BehaviorState name=finished
+    transitions[0] : BehaviorTransition
+      condition : ModeSwitchTriggerLogicalExpression
+        modeSwitchConjunctions[0] : ModeSwitchConjunction
+          modeSwitchTriggers[0] : ModeSwitchTriggerLogicalExpression
+            modeSwitchConjunctions[0] : ModeSwitchConjunction
+              modeSwitchTriggers[0] : EventPortHolder element=Issue3166::worker.first_event [EventPort]
+            modeSwitchConjunctions[1] : ModeSwitchConjunction
+              modeSwitchTriggers[0] : EventDataPortHolder element=Issue3166::worker.second_event [EventDataPort]
+          modeSwitchTriggers[1] : EventPortHolder element=Issue3166::worker.third_event [EventPort]
+        modeSwitchConjunctions[1] : ModeSwitchConjunction
+          modeSwitchTriggers[0] : EventPortHolder element=Issue3166::worker.first_event [EventPort]
+        modeSwitchConjunctions[2] : ModeSwitchConjunction
+          modeSwitchTriggers[0] : EventDataPortHolder element=Issue3166::worker.second_event [EventDataPort]
+          modeSwitchTriggers[1] : EventPortHolder element=Issue3166::worker.third_event [EventPort]

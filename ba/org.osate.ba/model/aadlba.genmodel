@@ -549,10 +549,12 @@
     </genClasses>
     <genClasses ecoreClass="aadlba.ecore#//ModeSwitchTriggerLogicalExpression">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//ModeSwitchTriggerLogicalExpression/modeSwitchConjunctions"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//ModeSwitchTriggerLogicalExpression/logicalOperators"/>
     </genClasses>
     <genClasses image="false" ecoreClass="aadlba.ecore#//ModeSwitchTriggerCondition"/>
     <genClasses ecoreClass="aadlba.ecore#//ModeSwitchConjunction">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//ModeSwitchConjunction/modeSwitchTriggers"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadlba.ecore#//ModeSwitchConjunction/logicalOperators"/>
     </genClasses>
     <genClasses image="false" ecoreClass="aadlba.ecore#//ModeSwitchTrigger"/>
     <genClasses ecoreClass="aadlba.ecore#//InternalPortHolder">
