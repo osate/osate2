@@ -1,0 +1,57 @@
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
+-- All Rights Reserved.
+--
+-- NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+-- KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+-- OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+-- MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+--
+-- This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+-- which is available at https://www.eclipse.org/legal/epl-2.0/
+-- SPDX-License-Identifier: EPL-2.0
+--
+-- Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+--
+-- This program includes and/or can make use of certain third party source code, object code, documentation and other
+-- files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+-- configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+-- conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+-- Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+-- aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+-- censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+
+package Issue3177
+public
+	with Base_Types;
+
+	subprogram evaluate
+	annex behavior_specification {**
+		variables
+			total : Base_Types::Integer;
+			result : Base_Types::Integer;
+			left : Base_Types::Boolean;
+			middle : Base_Types::Boolean;
+			right : Base_Types::Boolean;
+			flag : Base_Types::Boolean;
+		states
+			start : initial state;
+			done : final state;
+		transitions
+			start -[ ]-> done {
+				-- D.7 puts every logical operator on one precedence level and associates a level from left to
+				-- right, so this is (left or middle) and right.
+				flag := left or middle and right;
+				-- The parenthesized group is a single operand of and, not a pair of relations spliced into the
+				-- enclosing value expression.
+				flag := left and (middle or right);
+				-- The binary numeric operator binds tighter than the unary adding operator, so this is -(2 ** 2).
+				result := -2 ** 2;
+				-- The unary adding operator applies to the whole first term, so this is -(total mod 3). The sign
+				-- matters: -(1 mod 3) is -1 while (-1) mod 3 is 2.
+				result := -total mod 3;
+				-- factor admits one exponentiation, so a chain needs explicit parentheses.
+				result := (total ** 2) ** 3
+			};
+	**};
+	end evaluate;
+end Issue3177;
