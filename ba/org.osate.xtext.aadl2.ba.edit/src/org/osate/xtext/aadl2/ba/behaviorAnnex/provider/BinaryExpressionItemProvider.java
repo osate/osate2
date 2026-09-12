@@ -208,6 +208,11 @@ public class BinaryExpressionItemProvider extends ValueExpressionItemProvider
     newChildDescriptors.add
       (createChildParameter
         (BehaviorAnnexPackage.Literals.BINARY_EXPRESSION__LEFT,
+         BehaviorAnnexFactory.eINSTANCE.createParenthesizedExpression()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (BehaviorAnnexPackage.Literals.BINARY_EXPRESSION__LEFT,
          BehaviorAnnexFactory.eINSTANCE.createValueConstant()));
 
     newChildDescriptors.add
@@ -254,6 +259,11 @@ public class BinaryExpressionItemProvider extends ValueExpressionItemProvider
       (createChildParameter
         (BehaviorAnnexPackage.Literals.BINARY_EXPRESSION__RIGHT,
          BehaviorAnnexFactory.eINSTANCE.createValueExpression()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (BehaviorAnnexPackage.Literals.BINARY_EXPRESSION__RIGHT,
+         BehaviorAnnexFactory.eINSTANCE.createParenthesizedExpression()));
 
     newChildDescriptors.add
       (createChildParameter

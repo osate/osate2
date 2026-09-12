@@ -206,6 +206,10 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IntegerValue"/>
   <eClassifiers xsi:type="ecore:EClass" name="ValueExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ParenthesizedExpression" eSuperTypes="#//ValueExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="#//ValueExpression"
+        containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ValueConstant" eSuperTypes="#//ValueExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="BehaviorIntegerLiteral" eSuperTypes="#//IntegerValue #//ValueConstant #//PropertyIndexValue">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>

@@ -244,6 +244,11 @@ public class ExecuteConditionItemProvider
     newChildDescriptors.add
       (createChildParameter
         (BehaviorAnnexPackage.Literals.EXECUTE_CONDITION__VALUE,
+         BehaviorAnnexFactory.eINSTANCE.createParenthesizedExpression()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (BehaviorAnnexPackage.Literals.EXECUTE_CONDITION__VALUE,
          BehaviorAnnexFactory.eINSTANCE.createValueConstant()));
 
     newChildDescriptors.add

@@ -155,6 +155,9 @@
     </genClasses>
     <genClasses ecoreClass="BehaviorAnnex.ecore#//IntegerValue"/>
     <genClasses ecoreClass="BehaviorAnnex.ecore#//ValueExpression"/>
+    <genClasses ecoreClass="BehaviorAnnex.ecore#//ParenthesizedExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference BehaviorAnnex.ecore#//ParenthesizedExpression/expression"/>
+    </genClasses>
     <genClasses ecoreClass="BehaviorAnnex.ecore#//ValueConstant"/>
     <genClasses ecoreClass="BehaviorAnnex.ecore#//BehaviorIntegerLiteral">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute BehaviorAnnex.ecore#//BehaviorIntegerLiteral/value"/>

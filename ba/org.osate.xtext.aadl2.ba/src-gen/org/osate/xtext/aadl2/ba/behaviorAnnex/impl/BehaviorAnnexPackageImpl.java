@@ -75,6 +75,7 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchConjunction;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchTrigger;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.NamedPropertyField;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ParenthesizedExpression;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyArrayIndex;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyIndexPropertyReference;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyIndexValue;
@@ -331,6 +332,13 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
    * @generated
    */
   private EClass valueExpressionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass parenthesizedExpressionEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -1870,6 +1878,28 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
    * @generated
    */
   @Override
+  public EClass getParenthesizedExpression()
+  {
+    return parenthesizedExpressionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getParenthesizedExpression_Expression()
+  {
+    return (EReference)parenthesizedExpressionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EClass getValueConstant()
   {
     return valueConstantEClass;
@@ -2794,6 +2824,9 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
 
     valueExpressionEClass = createEClass(VALUE_EXPRESSION);
 
+    parenthesizedExpressionEClass = createEClass(PARENTHESIZED_EXPRESSION);
+    createEReference(parenthesizedExpressionEClass, PARENTHESIZED_EXPRESSION__EXPRESSION);
+
     valueConstantEClass = createEClass(VALUE_CONSTANT);
 
     behaviorIntegerLiteralEClass = createEClass(BEHAVIOR_INTEGER_LITERAL);
@@ -2930,6 +2963,7 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
     forStatementEClass.getESuperTypes().add(this.getBehaviorAction());
     whileStatementEClass.getESuperTypes().add(this.getBehaviorAction());
     doUntilStatementEClass.getESuperTypes().add(this.getBehaviorAction());
+    parenthesizedExpressionEClass.getESuperTypes().add(this.getValueExpression());
     valueConstantEClass.getESuperTypes().add(this.getValueExpression());
     behaviorIntegerLiteralEClass.getESuperTypes().add(this.getIntegerValue());
     behaviorIntegerLiteralEClass.getESuperTypes().add(this.getValueConstant());
@@ -3099,6 +3133,9 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
     initEClass(integerValueEClass, IntegerValue.class, "IntegerValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(valueExpressionEClass, ValueExpression.class, "ValueExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(parenthesizedExpressionEClass, ParenthesizedExpression.class, "ParenthesizedExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getParenthesizedExpression_Expression(), this.getValueExpression(), null, "expression", null, 0, 1, ParenthesizedExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(valueConstantEClass, ValueConstant.class, "ValueConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

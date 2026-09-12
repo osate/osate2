@@ -2010,57 +2010,68 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 	}
 	public class ValueExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.ValueExpression");
-		private final RuleCall cLogicalOrExpressionParserRuleCall = (RuleCall)rule.eContents().get(1);
-		
-		//ValueExpression:
-		//    LogicalOrExpression
-		//;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//LogicalOrExpression
-		public RuleCall getLogicalOrExpressionParserRuleCall() { return cLogicalOrExpressionParserRuleCall; }
-	}
-	public class LogicalOrExpressionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.LogicalOrExpression");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cLogicalAndExpressionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final RuleCall cRelationParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Action cBinaryExpressionLeftAction_1_0 = (Action)cGroup_1.eContents().get(0);
 		private final Assignment cOperatorAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cOperatorLogicalOrOperatorParserRuleCall_1_1_0 = (RuleCall)cOperatorAssignment_1_1.eContents().get(0);
+		private final RuleCall cOperatorLogicalOperatorParserRuleCall_1_1_0 = (RuleCall)cOperatorAssignment_1_1.eContents().get(0);
 		private final Assignment cRightAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final RuleCall cRightLogicalAndExpressionParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
+		private final RuleCall cRightRelationParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
 		
-		//LogicalOrExpression returns ValueExpression:
-		//    LogicalAndExpression
-		//    ({BinaryExpression.left=current} operator=LogicalOrOperator right=LogicalAndExpression)*
+		//// The expression rules follow the D.7 productions rather than one rule per operator, because the standard puts every
+		//// logical operator on a single precedence level and associates the operators of one level from left to right.
+		//// 'a or b and c' therefore means '(a or b) and c'.
+		//ValueExpression:
+		//    Relation
+		//    ({BinaryExpression.left=current} operator=LogicalOperator right=Relation)*
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//LogicalAndExpression
-		//({BinaryExpression.left=current} operator=LogicalOrOperator right=LogicalAndExpression)*
+		//Relation
+		//({BinaryExpression.left=current} operator=LogicalOperator right=Relation)*
 		public Group getGroup() { return cGroup; }
 		
-		//LogicalAndExpression
-		public RuleCall getLogicalAndExpressionParserRuleCall_0() { return cLogicalAndExpressionParserRuleCall_0; }
+		//Relation
+		public RuleCall getRelationParserRuleCall_0() { return cRelationParserRuleCall_0; }
 		
-		//({BinaryExpression.left=current} operator=LogicalOrOperator right=LogicalAndExpression)*
+		//({BinaryExpression.left=current} operator=LogicalOperator right=Relation)*
 		public Group getGroup_1() { return cGroup_1; }
 		
 		//{BinaryExpression.left=current}
 		public Action getBinaryExpressionLeftAction_1_0() { return cBinaryExpressionLeftAction_1_0; }
 		
-		//operator=LogicalOrOperator
+		//operator=LogicalOperator
 		public Assignment getOperatorAssignment_1_1() { return cOperatorAssignment_1_1; }
 		
-		//LogicalOrOperator
-		public RuleCall getOperatorLogicalOrOperatorParserRuleCall_1_1_0() { return cOperatorLogicalOrOperatorParserRuleCall_1_1_0; }
+		//LogicalOperator
+		public RuleCall getOperatorLogicalOperatorParserRuleCall_1_1_0() { return cOperatorLogicalOperatorParserRuleCall_1_1_0; }
 		
-		//right=LogicalAndExpression
+		//right=Relation
 		public Assignment getRightAssignment_1_2() { return cRightAssignment_1_2; }
 		
-		//LogicalAndExpression
-		public RuleCall getRightLogicalAndExpressionParserRuleCall_1_2_0() { return cRightLogicalAndExpressionParserRuleCall_1_2_0; }
+		//Relation
+		public RuleCall getRightRelationParserRuleCall_1_2_0() { return cRightRelationParserRuleCall_1_2_0; }
+	}
+	public class LogicalOperatorElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.LogicalOperator");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cLogicalAndOperatorParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cLogicalOrOperatorParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		
+		//LogicalOperator returns ecore::EString:
+		//    LogicalAndOperator | LogicalOrOperator
+		//;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//LogicalAndOperator | LogicalOrOperator
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//LogicalAndOperator
+		public RuleCall getLogicalAndOperatorParserRuleCall_0() { return cLogicalAndOperatorParserRuleCall_0; }
+		
+		//LogicalOrOperator
+		public RuleCall getLogicalOrOperatorParserRuleCall_1() { return cLogicalOrOperatorParserRuleCall_1; }
 	}
 	public class LogicalOrOperatorElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.LogicalOrOperator");
@@ -2090,48 +2101,6 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 		//'xor'
 		public Keyword getXorKeyword_1() { return cXorKeyword_1; }
 	}
-	public class LogicalAndExpressionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.LogicalAndExpression");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cRelationalExpressionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cBinaryExpressionLeftAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Assignment cOperatorAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cOperatorLogicalAndOperatorParserRuleCall_1_1_0 = (RuleCall)cOperatorAssignment_1_1.eContents().get(0);
-		private final Assignment cRightAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final RuleCall cRightRelationalExpressionParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
-		
-		//LogicalAndExpression returns ValueExpression:
-		//    RelationalExpression
-		//    ({BinaryExpression.left=current} operator=LogicalAndOperator right=RelationalExpression)*
-		//;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//RelationalExpression
-		//({BinaryExpression.left=current} operator=LogicalAndOperator right=RelationalExpression)*
-		public Group getGroup() { return cGroup; }
-		
-		//RelationalExpression
-		public RuleCall getRelationalExpressionParserRuleCall_0() { return cRelationalExpressionParserRuleCall_0; }
-		
-		//({BinaryExpression.left=current} operator=LogicalAndOperator right=RelationalExpression)*
-		public Group getGroup_1() { return cGroup_1; }
-		
-		//{BinaryExpression.left=current}
-		public Action getBinaryExpressionLeftAction_1_0() { return cBinaryExpressionLeftAction_1_0; }
-		
-		//operator=LogicalAndOperator
-		public Assignment getOperatorAssignment_1_1() { return cOperatorAssignment_1_1; }
-		
-		//LogicalAndOperator
-		public RuleCall getOperatorLogicalAndOperatorParserRuleCall_1_1_0() { return cOperatorLogicalAndOperatorParserRuleCall_1_1_0; }
-		
-		//right=RelationalExpression
-		public Assignment getRightAssignment_1_2() { return cRightAssignment_1_2; }
-		
-		//RelationalExpression
-		public RuleCall getRightRelationalExpressionParserRuleCall_1_2_0() { return cRightRelationalExpressionParserRuleCall_1_2_0; }
-	}
 	public class LogicalAndOperatorElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.LogicalAndOperator");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -2152,303 +2121,391 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 		//('then')?
 		public Keyword getThenKeyword_1() { return cThenKeyword_1; }
 	}
-	public class RelationalExpressionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.RelationalExpression");
+	public class RelationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.Relation");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cAdditiveExpressionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final RuleCall cSimpleExpressionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Action cBinaryExpressionLeftAction_1_0 = (Action)cGroup_1.eContents().get(0);
 		private final Assignment cOperatorAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final Alternatives cOperatorAlternatives_1_1_0 = (Alternatives)cOperatorAssignment_1_1.eContents().get(0);
-		private final Keyword cOperatorEqualsSignKeyword_1_1_0_0 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(0);
-		private final Keyword cOperatorExclamationMarkEqualsSignKeyword_1_1_0_1 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(1);
-		private final Keyword cOperatorLessThanSignKeyword_1_1_0_2 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(2);
-		private final Keyword cOperatorLessThanSignEqualsSignKeyword_1_1_0_3 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(3);
-		private final Keyword cOperatorGreaterThanSignKeyword_1_1_0_4 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(4);
-		private final Keyword cOperatorGreaterThanSignEqualsSignKeyword_1_1_0_5 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(5);
+		private final RuleCall cOperatorRelationalOperatorParserRuleCall_1_1_0 = (RuleCall)cOperatorAssignment_1_1.eContents().get(0);
 		private final Assignment cRightAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final RuleCall cRightAdditiveExpressionParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
+		private final RuleCall cRightSimpleExpressionParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
 		
-		//RelationalExpression returns ValueExpression:
-		//    AdditiveExpression
-		//    ({BinaryExpression.left=current} operator=('=' | '!=' | '<' | '<=' | '>' | '>=')
-		//        right=AdditiveExpression)?
+		//Relation returns ValueExpression:
+		//    SimpleExpression
+		//    ({BinaryExpression.left=current} operator=RelationalOperator right=SimpleExpression)?
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//AdditiveExpression
-		//({BinaryExpression.left=current} operator=('=' | '!=' | '<' | '<=' | '>' | '>=')
-		//    right=AdditiveExpression)?
+		//SimpleExpression
+		//({BinaryExpression.left=current} operator=RelationalOperator right=SimpleExpression)?
 		public Group getGroup() { return cGroup; }
 		
-		//AdditiveExpression
-		public RuleCall getAdditiveExpressionParserRuleCall_0() { return cAdditiveExpressionParserRuleCall_0; }
+		//SimpleExpression
+		public RuleCall getSimpleExpressionParserRuleCall_0() { return cSimpleExpressionParserRuleCall_0; }
 		
-		//({BinaryExpression.left=current} operator=('=' | '!=' | '<' | '<=' | '>' | '>=')
-		//    right=AdditiveExpression)?
+		//({BinaryExpression.left=current} operator=RelationalOperator right=SimpleExpression)?
 		public Group getGroup_1() { return cGroup_1; }
 		
 		//{BinaryExpression.left=current}
 		public Action getBinaryExpressionLeftAction_1_0() { return cBinaryExpressionLeftAction_1_0; }
 		
-		//operator=('=' | '!=' | '<' | '<=' | '>' | '>=')
+		//operator=RelationalOperator
 		public Assignment getOperatorAssignment_1_1() { return cOperatorAssignment_1_1; }
 		
-		//('=' | '!=' | '<' | '<=' | '>' | '>=')
-		public Alternatives getOperatorAlternatives_1_1_0() { return cOperatorAlternatives_1_1_0; }
+		//RelationalOperator
+		public RuleCall getOperatorRelationalOperatorParserRuleCall_1_1_0() { return cOperatorRelationalOperatorParserRuleCall_1_1_0; }
 		
-		//'='
-		public Keyword getOperatorEqualsSignKeyword_1_1_0_0() { return cOperatorEqualsSignKeyword_1_1_0_0; }
-		
-		//'!='
-		public Keyword getOperatorExclamationMarkEqualsSignKeyword_1_1_0_1() { return cOperatorExclamationMarkEqualsSignKeyword_1_1_0_1; }
-		
-		//'<'
-		public Keyword getOperatorLessThanSignKeyword_1_1_0_2() { return cOperatorLessThanSignKeyword_1_1_0_2; }
-		
-		//'<='
-		public Keyword getOperatorLessThanSignEqualsSignKeyword_1_1_0_3() { return cOperatorLessThanSignEqualsSignKeyword_1_1_0_3; }
-		
-		//'>'
-		public Keyword getOperatorGreaterThanSignKeyword_1_1_0_4() { return cOperatorGreaterThanSignKeyword_1_1_0_4; }
-		
-		//'>='
-		public Keyword getOperatorGreaterThanSignEqualsSignKeyword_1_1_0_5() { return cOperatorGreaterThanSignEqualsSignKeyword_1_1_0_5; }
-		
-		//right=AdditiveExpression
+		//right=SimpleExpression
 		public Assignment getRightAssignment_1_2() { return cRightAssignment_1_2; }
 		
-		//AdditiveExpression
-		public RuleCall getRightAdditiveExpressionParserRuleCall_1_2_0() { return cRightAdditiveExpressionParserRuleCall_1_2_0; }
+		//SimpleExpression
+		public RuleCall getRightSimpleExpressionParserRuleCall_1_2_0() { return cRightSimpleExpressionParserRuleCall_1_2_0; }
 	}
-	public class AdditiveExpressionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.AdditiveExpression");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cMultiplicativeExpressionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cBinaryExpressionLeftAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Assignment cOperatorAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final Alternatives cOperatorAlternatives_1_1_0 = (Alternatives)cOperatorAssignment_1_1.eContents().get(0);
-		private final Keyword cOperatorPlusSignKeyword_1_1_0_0 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(0);
-		private final Keyword cOperatorHyphenMinusKeyword_1_1_0_1 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(1);
-		private final Assignment cRightAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final RuleCall cRightMultiplicativeExpressionParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
-		
-		//AdditiveExpression returns ValueExpression:
-		//    MultiplicativeExpression
-		//    ({BinaryExpression.left=current} operator=('+' | '-') right=MultiplicativeExpression)*
-		//;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//MultiplicativeExpression
-		//({BinaryExpression.left=current} operator=('+' | '-') right=MultiplicativeExpression)*
-		public Group getGroup() { return cGroup; }
-		
-		//MultiplicativeExpression
-		public RuleCall getMultiplicativeExpressionParserRuleCall_0() { return cMultiplicativeExpressionParserRuleCall_0; }
-		
-		//({BinaryExpression.left=current} operator=('+' | '-') right=MultiplicativeExpression)*
-		public Group getGroup_1() { return cGroup_1; }
-		
-		//{BinaryExpression.left=current}
-		public Action getBinaryExpressionLeftAction_1_0() { return cBinaryExpressionLeftAction_1_0; }
-		
-		//operator=('+' | '-')
-		public Assignment getOperatorAssignment_1_1() { return cOperatorAssignment_1_1; }
-		
-		//('+' | '-')
-		public Alternatives getOperatorAlternatives_1_1_0() { return cOperatorAlternatives_1_1_0; }
-		
-		//'+'
-		public Keyword getOperatorPlusSignKeyword_1_1_0_0() { return cOperatorPlusSignKeyword_1_1_0_0; }
-		
-		//'-'
-		public Keyword getOperatorHyphenMinusKeyword_1_1_0_1() { return cOperatorHyphenMinusKeyword_1_1_0_1; }
-		
-		//right=MultiplicativeExpression
-		public Assignment getRightAssignment_1_2() { return cRightAssignment_1_2; }
-		
-		//MultiplicativeExpression
-		public RuleCall getRightMultiplicativeExpressionParserRuleCall_1_2_0() { return cRightMultiplicativeExpressionParserRuleCall_1_2_0; }
-	}
-	public class MultiplicativeExpressionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.MultiplicativeExpression");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cPowerExpressionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cBinaryExpressionLeftAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Assignment cOperatorAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final Alternatives cOperatorAlternatives_1_1_0 = (Alternatives)cOperatorAssignment_1_1.eContents().get(0);
-		private final Keyword cOperatorAsteriskKeyword_1_1_0_0 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(0);
-		private final Keyword cOperatorSolidusKeyword_1_1_0_1 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(1);
-		private final Keyword cOperatorModKeyword_1_1_0_2 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(2);
-		private final Keyword cOperatorRemKeyword_1_1_0_3 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(3);
-		private final Assignment cRightAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final RuleCall cRightPowerExpressionParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
-		
-		//MultiplicativeExpression returns ValueExpression:
-		//    PowerExpression
-		//    ({BinaryExpression.left=current} operator=('*' | '/' | 'mod' | 'rem') right=PowerExpression)*
-		//;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//PowerExpression
-		//({BinaryExpression.left=current} operator=('*' | '/' | 'mod' | 'rem') right=PowerExpression)*
-		public Group getGroup() { return cGroup; }
-		
-		//PowerExpression
-		public RuleCall getPowerExpressionParserRuleCall_0() { return cPowerExpressionParserRuleCall_0; }
-		
-		//({BinaryExpression.left=current} operator=('*' | '/' | 'mod' | 'rem') right=PowerExpression)*
-		public Group getGroup_1() { return cGroup_1; }
-		
-		//{BinaryExpression.left=current}
-		public Action getBinaryExpressionLeftAction_1_0() { return cBinaryExpressionLeftAction_1_0; }
-		
-		//operator=('*' | '/' | 'mod' | 'rem')
-		public Assignment getOperatorAssignment_1_1() { return cOperatorAssignment_1_1; }
-		
-		//('*' | '/' | 'mod' | 'rem')
-		public Alternatives getOperatorAlternatives_1_1_0() { return cOperatorAlternatives_1_1_0; }
-		
-		//'*'
-		public Keyword getOperatorAsteriskKeyword_1_1_0_0() { return cOperatorAsteriskKeyword_1_1_0_0; }
-		
-		//'/'
-		public Keyword getOperatorSolidusKeyword_1_1_0_1() { return cOperatorSolidusKeyword_1_1_0_1; }
-		
-		//'mod'
-		public Keyword getOperatorModKeyword_1_1_0_2() { return cOperatorModKeyword_1_1_0_2; }
-		
-		//'rem'
-		public Keyword getOperatorRemKeyword_1_1_0_3() { return cOperatorRemKeyword_1_1_0_3; }
-		
-		//right=PowerExpression
-		public Assignment getRightAssignment_1_2() { return cRightAssignment_1_2; }
-		
-		//PowerExpression
-		public RuleCall getRightPowerExpressionParserRuleCall_1_2_0() { return cRightPowerExpressionParserRuleCall_1_2_0; }
-	}
-	public class PowerExpressionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.PowerExpression");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cUnaryExpressionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cBinaryExpressionLeftAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Assignment cOperatorAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final Keyword cOperatorAsteriskAsteriskKeyword_1_1_0 = (Keyword)cOperatorAssignment_1_1.eContents().get(0);
-		private final Assignment cRightAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final RuleCall cRightPowerExpressionParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
-		
-		//PowerExpression returns ValueExpression:
-		//    UnaryExpression
-		//    ({BinaryExpression.left=current} operator='**' right=PowerExpression)?
-		//;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//UnaryExpression
-		//({BinaryExpression.left=current} operator='**' right=PowerExpression)?
-		public Group getGroup() { return cGroup; }
-		
-		//UnaryExpression
-		public RuleCall getUnaryExpressionParserRuleCall_0() { return cUnaryExpressionParserRuleCall_0; }
-		
-		//({BinaryExpression.left=current} operator='**' right=PowerExpression)?
-		public Group getGroup_1() { return cGroup_1; }
-		
-		//{BinaryExpression.left=current}
-		public Action getBinaryExpressionLeftAction_1_0() { return cBinaryExpressionLeftAction_1_0; }
-		
-		//operator='**'
-		public Assignment getOperatorAssignment_1_1() { return cOperatorAssignment_1_1; }
-		
-		//'**'
-		public Keyword getOperatorAsteriskAsteriskKeyword_1_1_0() { return cOperatorAsteriskAsteriskKeyword_1_1_0; }
-		
-		//right=PowerExpression
-		public Assignment getRightAssignment_1_2() { return cRightAssignment_1_2; }
-		
-		//PowerExpression
-		public RuleCall getRightPowerExpressionParserRuleCall_1_2_0() { return cRightPowerExpressionParserRuleCall_1_2_0; }
-	}
-	public class UnaryExpressionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.UnaryExpression");
+	public class RelationalOperatorElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.RelationalOperator");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
-		private final Action cUnaryExpressionAction_0_0 = (Action)cGroup_0.eContents().get(0);
-		private final Assignment cOperatorAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
-		private final Alternatives cOperatorAlternatives_0_1_0 = (Alternatives)cOperatorAssignment_0_1.eContents().get(0);
-		private final Keyword cOperatorPlusSignKeyword_0_1_0_0 = (Keyword)cOperatorAlternatives_0_1_0.eContents().get(0);
-		private final Keyword cOperatorHyphenMinusKeyword_0_1_0_1 = (Keyword)cOperatorAlternatives_0_1_0.eContents().get(1);
-		private final Keyword cOperatorAbsKeyword_0_1_0_2 = (Keyword)cOperatorAlternatives_0_1_0.eContents().get(2);
-		private final Keyword cOperatorNotKeyword_0_1_0_3 = (Keyword)cOperatorAlternatives_0_1_0.eContents().get(3);
-		private final Assignment cOperandAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
-		private final RuleCall cOperandUnaryExpressionParserRuleCall_0_2_0 = (RuleCall)cOperandAssignment_0_2.eContents().get(0);
-		private final RuleCall cPrimaryExpressionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final Keyword cEqualsSignKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
+		private final Keyword cExclamationMarkEqualsSignKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
+		private final Keyword cLessThanSignKeyword_2 = (Keyword)cAlternatives.eContents().get(2);
+		private final Keyword cLessThanSignEqualsSignKeyword_3 = (Keyword)cAlternatives.eContents().get(3);
+		private final Keyword cGreaterThanSignKeyword_4 = (Keyword)cAlternatives.eContents().get(4);
+		private final Keyword cGreaterThanSignEqualsSignKeyword_5 = (Keyword)cAlternatives.eContents().get(5);
 		
-		//UnaryExpression returns ValueExpression:
-		//    {UnaryExpression} operator=('+' | '-' | 'abs' | 'not') operand=UnaryExpression
-		//    | PrimaryExpression
+		//RelationalOperator returns ecore::EString:
+		//    '=' | '!=' | '<' | '<=' | '>' | '>='
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{UnaryExpression} operator=('+' | '-' | 'abs' | 'not') operand=UnaryExpression
-		//| PrimaryExpression
+		//'=' | '!=' | '<' | '<=' | '>' | '>='
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
-		//{UnaryExpression} operator=('+' | '-' | 'abs' | 'not') operand=UnaryExpression
-		public Group getGroup_0() { return cGroup_0; }
+		//'='
+		public Keyword getEqualsSignKeyword_0() { return cEqualsSignKeyword_0; }
+		
+		//'!='
+		public Keyword getExclamationMarkEqualsSignKeyword_1() { return cExclamationMarkEqualsSignKeyword_1; }
+		
+		//'<'
+		public Keyword getLessThanSignKeyword_2() { return cLessThanSignKeyword_2; }
+		
+		//'<='
+		public Keyword getLessThanSignEqualsSignKeyword_3() { return cLessThanSignEqualsSignKeyword_3; }
+		
+		//'>'
+		public Keyword getGreaterThanSignKeyword_4() { return cGreaterThanSignKeyword_4; }
+		
+		//'>='
+		public Keyword getGreaterThanSignEqualsSignKeyword_5() { return cGreaterThanSignEqualsSignKeyword_5; }
+	}
+	public class SimpleExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.SimpleExpression");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
+		private final Group cGroup_0_0 = (Group)cAlternatives_0.eContents().get(0);
+		private final Action cUnaryExpressionAction_0_0_0 = (Action)cGroup_0_0.eContents().get(0);
+		private final Assignment cOperatorAssignment_0_0_1 = (Assignment)cGroup_0_0.eContents().get(1);
+		private final RuleCall cOperatorUnaryAddingOperatorParserRuleCall_0_0_1_0 = (RuleCall)cOperatorAssignment_0_0_1.eContents().get(0);
+		private final Assignment cOperandAssignment_0_0_2 = (Assignment)cGroup_0_0.eContents().get(2);
+		private final RuleCall cOperandTermParserRuleCall_0_0_2_0 = (RuleCall)cOperandAssignment_0_0_2.eContents().get(0);
+		private final RuleCall cTermParserRuleCall_0_1 = (RuleCall)cAlternatives_0.eContents().get(1);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Action cBinaryExpressionLeftAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Assignment cOperatorAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cOperatorBinaryAddingOperatorParserRuleCall_1_1_0 = (RuleCall)cOperatorAssignment_1_1.eContents().get(0);
+		private final Assignment cRightAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
+		private final RuleCall cRightTermParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
+		
+		//// The unary adding operator leads the whole simple expression, so it binds below the multiplying and the numeric
+		//// operators: '-a mod b' is '-(a mod b)' and '-a ** b' is '-(a ** b)'. D.7 admits '-' only; '+' remains accepted here
+		//// and is tracked separately as issue #3170.
+		//SimpleExpression returns ValueExpression:
+		//    ({UnaryExpression} operator=UnaryAddingOperator operand=Term | Term)
+		//    ({BinaryExpression.left=current} operator=BinaryAddingOperator right=Term)*
+		//;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//({UnaryExpression} operator=UnaryAddingOperator operand=Term | Term)
+		//({BinaryExpression.left=current} operator=BinaryAddingOperator right=Term)*
+		public Group getGroup() { return cGroup; }
+		
+		//({UnaryExpression} operator=UnaryAddingOperator operand=Term | Term)
+		public Alternatives getAlternatives_0() { return cAlternatives_0; }
+		
+		//{UnaryExpression} operator=UnaryAddingOperator operand=Term
+		public Group getGroup_0_0() { return cGroup_0_0; }
 		
 		//{UnaryExpression}
-		public Action getUnaryExpressionAction_0_0() { return cUnaryExpressionAction_0_0; }
+		public Action getUnaryExpressionAction_0_0_0() { return cUnaryExpressionAction_0_0_0; }
 		
-		//operator=('+' | '-' | 'abs' | 'not')
-		public Assignment getOperatorAssignment_0_1() { return cOperatorAssignment_0_1; }
+		//operator=UnaryAddingOperator
+		public Assignment getOperatorAssignment_0_0_1() { return cOperatorAssignment_0_0_1; }
 		
-		//('+' | '-' | 'abs' | 'not')
-		public Alternatives getOperatorAlternatives_0_1_0() { return cOperatorAlternatives_0_1_0; }
+		//UnaryAddingOperator
+		public RuleCall getOperatorUnaryAddingOperatorParserRuleCall_0_0_1_0() { return cOperatorUnaryAddingOperatorParserRuleCall_0_0_1_0; }
 		
-		//'+'
-		public Keyword getOperatorPlusSignKeyword_0_1_0_0() { return cOperatorPlusSignKeyword_0_1_0_0; }
+		//operand=Term
+		public Assignment getOperandAssignment_0_0_2() { return cOperandAssignment_0_0_2; }
+		
+		//Term
+		public RuleCall getOperandTermParserRuleCall_0_0_2_0() { return cOperandTermParserRuleCall_0_0_2_0; }
+		
+		//Term
+		public RuleCall getTermParserRuleCall_0_1() { return cTermParserRuleCall_0_1; }
+		
+		//({BinaryExpression.left=current} operator=BinaryAddingOperator right=Term)*
+		public Group getGroup_1() { return cGroup_1; }
+		
+		//{BinaryExpression.left=current}
+		public Action getBinaryExpressionLeftAction_1_0() { return cBinaryExpressionLeftAction_1_0; }
+		
+		//operator=BinaryAddingOperator
+		public Assignment getOperatorAssignment_1_1() { return cOperatorAssignment_1_1; }
+		
+		//BinaryAddingOperator
+		public RuleCall getOperatorBinaryAddingOperatorParserRuleCall_1_1_0() { return cOperatorBinaryAddingOperatorParserRuleCall_1_1_0; }
+		
+		//right=Term
+		public Assignment getRightAssignment_1_2() { return cRightAssignment_1_2; }
+		
+		//Term
+		public RuleCall getRightTermParserRuleCall_1_2_0() { return cRightTermParserRuleCall_1_2_0; }
+	}
+	public class UnaryAddingOperatorElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.UnaryAddingOperator");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Keyword cHyphenMinusKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
+		private final Keyword cPlusSignKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
+		
+		//UnaryAddingOperator returns ecore::EString:
+		//    '-' | '+'
+		//;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'-' | '+'
+		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//'-'
-		public Keyword getOperatorHyphenMinusKeyword_0_1_0_1() { return cOperatorHyphenMinusKeyword_0_1_0_1; }
+		public Keyword getHyphenMinusKeyword_0() { return cHyphenMinusKeyword_0; }
+		
+		//'+'
+		public Keyword getPlusSignKeyword_1() { return cPlusSignKeyword_1; }
+	}
+	public class BinaryAddingOperatorElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.BinaryAddingOperator");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Keyword cPlusSignKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
+		private final Keyword cHyphenMinusKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
+		
+		//BinaryAddingOperator returns ecore::EString:
+		//    '+' | '-'
+		//;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'+' | '-'
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//'+'
+		public Keyword getPlusSignKeyword_0() { return cPlusSignKeyword_0; }
+		
+		//'-'
+		public Keyword getHyphenMinusKeyword_1() { return cHyphenMinusKeyword_1; }
+	}
+	public class TermElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.Term");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cFactorParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Action cBinaryExpressionLeftAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Assignment cOperatorAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cOperatorMultiplyingOperatorParserRuleCall_1_1_0 = (RuleCall)cOperatorAssignment_1_1.eContents().get(0);
+		private final Assignment cRightAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
+		private final RuleCall cRightFactorParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
+		
+		//Term returns ValueExpression:
+		//    Factor
+		//    ({BinaryExpression.left=current} operator=MultiplyingOperator right=Factor)*
+		//;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//Factor
+		//({BinaryExpression.left=current} operator=MultiplyingOperator right=Factor)*
+		public Group getGroup() { return cGroup; }
+		
+		//Factor
+		public RuleCall getFactorParserRuleCall_0() { return cFactorParserRuleCall_0; }
+		
+		//({BinaryExpression.left=current} operator=MultiplyingOperator right=Factor)*
+		public Group getGroup_1() { return cGroup_1; }
+		
+		//{BinaryExpression.left=current}
+		public Action getBinaryExpressionLeftAction_1_0() { return cBinaryExpressionLeftAction_1_0; }
+		
+		//operator=MultiplyingOperator
+		public Assignment getOperatorAssignment_1_1() { return cOperatorAssignment_1_1; }
+		
+		//MultiplyingOperator
+		public RuleCall getOperatorMultiplyingOperatorParserRuleCall_1_1_0() { return cOperatorMultiplyingOperatorParserRuleCall_1_1_0; }
+		
+		//right=Factor
+		public Assignment getRightAssignment_1_2() { return cRightAssignment_1_2; }
+		
+		//Factor
+		public RuleCall getRightFactorParserRuleCall_1_2_0() { return cRightFactorParserRuleCall_1_2_0; }
+	}
+	public class MultiplyingOperatorElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.MultiplyingOperator");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Keyword cAsteriskKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
+		private final Keyword cSolidusKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
+		private final Keyword cModKeyword_2 = (Keyword)cAlternatives.eContents().get(2);
+		private final Keyword cRemKeyword_3 = (Keyword)cAlternatives.eContents().get(3);
+		
+		//MultiplyingOperator returns ecore::EString:
+		//    '*' | '/' | 'mod' | 'rem'
+		//;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'*' | '/' | 'mod' | 'rem'
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//'*'
+		public Keyword getAsteriskKeyword_0() { return cAsteriskKeyword_0; }
+		
+		//'/'
+		public Keyword getSolidusKeyword_1() { return cSolidusKeyword_1; }
+		
+		//'mod'
+		public Keyword getModKeyword_2() { return cModKeyword_2; }
+		
+		//'rem'
+		public Keyword getRemKeyword_3() { return cRemKeyword_3; }
+	}
+	public class FactorElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.Factor");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final RuleCall cValueParserRuleCall_0_0 = (RuleCall)cGroup_0.eContents().get(0);
+		private final Group cGroup_0_1 = (Group)cGroup_0.eContents().get(1);
+		private final Action cBinaryExpressionLeftAction_0_1_0 = (Action)cGroup_0_1.eContents().get(0);
+		private final Assignment cOperatorAssignment_0_1_1 = (Assignment)cGroup_0_1.eContents().get(1);
+		private final RuleCall cOperatorBinaryNumericOperatorParserRuleCall_0_1_1_0 = (RuleCall)cOperatorAssignment_0_1_1.eContents().get(0);
+		private final Assignment cRightAssignment_0_1_2 = (Assignment)cGroup_0_1.eContents().get(2);
+		private final RuleCall cRightValueParserRuleCall_0_1_2_0 = (RuleCall)cRightAssignment_0_1_2.eContents().get(0);
+		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
+		private final Action cUnaryExpressionAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Assignment cOperatorAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cOperatorUnaryValueOperatorParserRuleCall_1_1_0 = (RuleCall)cOperatorAssignment_1_1.eContents().get(0);
+		private final Assignment cOperandAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
+		private final RuleCall cOperandValueParserRuleCall_1_2_0 = (RuleCall)cOperandAssignment_1_2.eContents().get(0);
+		
+		//// A factor admits at most one exponentiation and applies a unary numeric or boolean operator to a single value, so
+		//// 'a ** b ** c', 'abs -a', and 'not not a' need explicit parentheses.
+		//Factor returns ValueExpression:
+		//    Value
+		//    ({BinaryExpression.left=current} operator=BinaryNumericOperator right=Value)?
+		//    | {UnaryExpression} operator=UnaryValueOperator operand=Value
+		//;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//Value
+		//({BinaryExpression.left=current} operator=BinaryNumericOperator right=Value)?
+		//| {UnaryExpression} operator=UnaryValueOperator operand=Value
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//Value
+		//({BinaryExpression.left=current} operator=BinaryNumericOperator right=Value)?
+		public Group getGroup_0() { return cGroup_0; }
+		
+		//Value
+		public RuleCall getValueParserRuleCall_0_0() { return cValueParserRuleCall_0_0; }
+		
+		//({BinaryExpression.left=current} operator=BinaryNumericOperator right=Value)?
+		public Group getGroup_0_1() { return cGroup_0_1; }
+		
+		//{BinaryExpression.left=current}
+		public Action getBinaryExpressionLeftAction_0_1_0() { return cBinaryExpressionLeftAction_0_1_0; }
+		
+		//operator=BinaryNumericOperator
+		public Assignment getOperatorAssignment_0_1_1() { return cOperatorAssignment_0_1_1; }
+		
+		//BinaryNumericOperator
+		public RuleCall getOperatorBinaryNumericOperatorParserRuleCall_0_1_1_0() { return cOperatorBinaryNumericOperatorParserRuleCall_0_1_1_0; }
+		
+		//right=Value
+		public Assignment getRightAssignment_0_1_2() { return cRightAssignment_0_1_2; }
+		
+		//Value
+		public RuleCall getRightValueParserRuleCall_0_1_2_0() { return cRightValueParserRuleCall_0_1_2_0; }
+		
+		//{UnaryExpression} operator=UnaryValueOperator operand=Value
+		public Group getGroup_1() { return cGroup_1; }
+		
+		//{UnaryExpression}
+		public Action getUnaryExpressionAction_1_0() { return cUnaryExpressionAction_1_0; }
+		
+		//operator=UnaryValueOperator
+		public Assignment getOperatorAssignment_1_1() { return cOperatorAssignment_1_1; }
+		
+		//UnaryValueOperator
+		public RuleCall getOperatorUnaryValueOperatorParserRuleCall_1_1_0() { return cOperatorUnaryValueOperatorParserRuleCall_1_1_0; }
+		
+		//operand=Value
+		public Assignment getOperandAssignment_1_2() { return cOperandAssignment_1_2; }
+		
+		//Value
+		public RuleCall getOperandValueParserRuleCall_1_2_0() { return cOperandValueParserRuleCall_1_2_0; }
+	}
+	public class BinaryNumericOperatorElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.BinaryNumericOperator");
+		private final Keyword cAsteriskAsteriskKeyword = (Keyword)rule.eContents().get(1);
+		
+		//BinaryNumericOperator returns ecore::EString:
+		//    '**'
+		//;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'**'
+		public Keyword getAsteriskAsteriskKeyword() { return cAsteriskAsteriskKeyword; }
+	}
+	public class UnaryValueOperatorElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.UnaryValueOperator");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Keyword cAbsKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
+		private final Keyword cNotKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
+		
+		//UnaryValueOperator returns ecore::EString:
+		//    'abs' | 'not'
+		//;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'abs' | 'not'
+		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//'abs'
-		public Keyword getOperatorAbsKeyword_0_1_0_2() { return cOperatorAbsKeyword_0_1_0_2; }
+		public Keyword getAbsKeyword_0() { return cAbsKeyword_0; }
 		
 		//'not'
-		public Keyword getOperatorNotKeyword_0_1_0_3() { return cOperatorNotKeyword_0_1_0_3; }
-		
-		//operand=UnaryExpression
-		public Assignment getOperandAssignment_0_2() { return cOperandAssignment_0_2; }
-		
-		//UnaryExpression
-		public RuleCall getOperandUnaryExpressionParserRuleCall_0_2_0() { return cOperandUnaryExpressionParserRuleCall_0_2_0; }
-		
-		//PrimaryExpression
-		public RuleCall getPrimaryExpressionParserRuleCall_1() { return cPrimaryExpressionParserRuleCall_1; }
+		public Keyword getNotKeyword_1() { return cNotKeyword_1; }
 	}
-	public class PrimaryExpressionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.PrimaryExpression");
+	public class ValueElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.Value");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cValueConstantParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cReferenceExpressionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final Group cGroup_2 = (Group)cAlternatives.eContents().get(2);
-		private final Keyword cLeftParenthesisKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final RuleCall cValueExpressionParserRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
-		private final Keyword cRightParenthesisKeyword_2_2 = (Keyword)cGroup_2.eContents().get(2);
+		private final RuleCall cParenthesizedExpressionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
-		//PrimaryExpression returns ValueExpression:
+		//Value returns ValueExpression:
 		//    ValueConstant
 		//    | ReferenceExpression
-		//    | '(' ValueExpression ')'
+		//    | ParenthesizedExpression
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//ValueConstant
 		//| ReferenceExpression
-		//| '(' ValueExpression ')'
+		//| ParenthesizedExpression
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//ValueConstant
@@ -2457,17 +2514,39 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 		//ReferenceExpression
 		public RuleCall getReferenceExpressionParserRuleCall_1() { return cReferenceExpressionParserRuleCall_1; }
 		
-		//'(' ValueExpression ')'
-		public Group getGroup_2() { return cGroup_2; }
+		//ParenthesizedExpression
+		public RuleCall getParenthesizedExpressionParserRuleCall_2() { return cParenthesizedExpressionParserRuleCall_2; }
+	}
+	public class ParenthesizedExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.ParenthesizedExpression");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cExpressionAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cExpressionValueExpressionParserRuleCall_1_0 = (RuleCall)cExpressionAssignment_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		
+		//// A parenthesized value expression is one value of the enclosing factor. The group is an object of its own so that the
+		//// grouping the model records is the grouping the source requested, and so that the serializer emits it from the model
+		//// rather than reconstructing it from the parse text.
+		//ParenthesizedExpression:
+		//    '(' expression=ValueExpression ')'
+		//;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'(' expression=ValueExpression ')'
+		public Group getGroup() { return cGroup; }
 		
 		//'('
-		public Keyword getLeftParenthesisKeyword_2_0() { return cLeftParenthesisKeyword_2_0; }
+		public Keyword getLeftParenthesisKeyword_0() { return cLeftParenthesisKeyword_0; }
+		
+		//expression=ValueExpression
+		public Assignment getExpressionAssignment_1() { return cExpressionAssignment_1; }
 		
 		//ValueExpression
-		public RuleCall getValueExpressionParserRuleCall_2_1() { return cValueExpressionParserRuleCall_2_1; }
+		public RuleCall getExpressionValueExpressionParserRuleCall_1_0() { return cExpressionValueExpressionParserRuleCall_1_0; }
 		
 		//')'
-		public Keyword getRightParenthesisKeyword_2_2() { return cRightParenthesisKeyword_2_2; }
+		public Keyword getRightParenthesisKeyword_2() { return cRightParenthesisKeyword_2; }
 	}
 	public class ValueConstantElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.ValueConstant");
@@ -3213,16 +3292,21 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 	private final BehaviorTimeElements pBehaviorTime;
 	private final IntegerValueElements pIntegerValue;
 	private final ValueExpressionElements pValueExpression;
-	private final LogicalOrExpressionElements pLogicalOrExpression;
+	private final LogicalOperatorElements pLogicalOperator;
 	private final LogicalOrOperatorElements pLogicalOrOperator;
-	private final LogicalAndExpressionElements pLogicalAndExpression;
 	private final LogicalAndOperatorElements pLogicalAndOperator;
-	private final RelationalExpressionElements pRelationalExpression;
-	private final AdditiveExpressionElements pAdditiveExpression;
-	private final MultiplicativeExpressionElements pMultiplicativeExpression;
-	private final PowerExpressionElements pPowerExpression;
-	private final UnaryExpressionElements pUnaryExpression;
-	private final PrimaryExpressionElements pPrimaryExpression;
+	private final RelationElements pRelation;
+	private final RelationalOperatorElements pRelationalOperator;
+	private final SimpleExpressionElements pSimpleExpression;
+	private final UnaryAddingOperatorElements pUnaryAddingOperator;
+	private final BinaryAddingOperatorElements pBinaryAddingOperator;
+	private final TermElements pTerm;
+	private final MultiplyingOperatorElements pMultiplyingOperator;
+	private final FactorElements pFactor;
+	private final BinaryNumericOperatorElements pBinaryNumericOperator;
+	private final UnaryValueOperatorElements pUnaryValueOperator;
+	private final ValueElements pValue;
+	private final ParenthesizedExpressionElements pParenthesizedExpression;
 	private final ValueConstantElements pValueConstant;
 	private final BehaviorIntegerLiteralElements pBehaviorIntegerLiteral;
 	private final BehaviorRealLiteralElements pBehaviorRealLiteral;
@@ -3289,16 +3373,21 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 		this.pBehaviorTime = new BehaviorTimeElements();
 		this.pIntegerValue = new IntegerValueElements();
 		this.pValueExpression = new ValueExpressionElements();
-		this.pLogicalOrExpression = new LogicalOrExpressionElements();
+		this.pLogicalOperator = new LogicalOperatorElements();
 		this.pLogicalOrOperator = new LogicalOrOperatorElements();
-		this.pLogicalAndExpression = new LogicalAndExpressionElements();
 		this.pLogicalAndOperator = new LogicalAndOperatorElements();
-		this.pRelationalExpression = new RelationalExpressionElements();
-		this.pAdditiveExpression = new AdditiveExpressionElements();
-		this.pMultiplicativeExpression = new MultiplicativeExpressionElements();
-		this.pPowerExpression = new PowerExpressionElements();
-		this.pUnaryExpression = new UnaryExpressionElements();
-		this.pPrimaryExpression = new PrimaryExpressionElements();
+		this.pRelation = new RelationElements();
+		this.pRelationalOperator = new RelationalOperatorElements();
+		this.pSimpleExpression = new SimpleExpressionElements();
+		this.pUnaryAddingOperator = new UnaryAddingOperatorElements();
+		this.pBinaryAddingOperator = new BinaryAddingOperatorElements();
+		this.pTerm = new TermElements();
+		this.pMultiplyingOperator = new MultiplyingOperatorElements();
+		this.pFactor = new FactorElements();
+		this.pBinaryNumericOperator = new BinaryNumericOperatorElements();
+		this.pUnaryValueOperator = new UnaryValueOperatorElements();
+		this.pValue = new ValueElements();
+		this.pParenthesizedExpression = new ParenthesizedExpressionElements();
 		this.pValueConstant = new ValueConstantElements();
 		this.pBehaviorIntegerLiteral = new BehaviorIntegerLiteralElements();
 		this.pBehaviorRealLiteral = new BehaviorRealLiteralElements();
@@ -3774,8 +3863,12 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 		return getIntegerValueAccess().getRule();
 	}
 	
+	//// The expression rules follow the D.7 productions rather than one rule per operator, because the standard puts every
+	//// logical operator on a single precedence level and associates the operators of one level from left to right.
+	//// 'a or b and c' therefore means '(a or b) and c'.
 	//ValueExpression:
-	//    LogicalOrExpression
+	//    Relation
+	//    ({BinaryExpression.left=current} operator=LogicalOperator right=Relation)*
 	//;
 	public ValueExpressionElements getValueExpressionAccess() {
 		return pValueExpression;
@@ -3785,16 +3878,15 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 		return getValueExpressionAccess().getRule();
 	}
 	
-	//LogicalOrExpression returns ValueExpression:
-	//    LogicalAndExpression
-	//    ({BinaryExpression.left=current} operator=LogicalOrOperator right=LogicalAndExpression)*
+	//LogicalOperator returns ecore::EString:
+	//    LogicalAndOperator | LogicalOrOperator
 	//;
-	public LogicalOrExpressionElements getLogicalOrExpressionAccess() {
-		return pLogicalOrExpression;
+	public LogicalOperatorElements getLogicalOperatorAccess() {
+		return pLogicalOperator;
 	}
 	
-	public ParserRule getLogicalOrExpressionRule() {
-		return getLogicalOrExpressionAccess().getRule();
+	public ParserRule getLogicalOperatorRule() {
+		return getLogicalOperatorAccess().getRule();
 	}
 	
 	//LogicalOrOperator returns ecore::EString:
@@ -3808,18 +3900,6 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 		return getLogicalOrOperatorAccess().getRule();
 	}
 	
-	//LogicalAndExpression returns ValueExpression:
-	//    RelationalExpression
-	//    ({BinaryExpression.left=current} operator=LogicalAndOperator right=RelationalExpression)*
-	//;
-	public LogicalAndExpressionElements getLogicalAndExpressionAccess() {
-		return pLogicalAndExpression;
-	}
-	
-	public ParserRule getLogicalAndExpressionRule() {
-		return getLogicalAndExpressionAccess().getRule();
-	}
-	
 	//LogicalAndOperator returns ecore::EString:
 	//    'and' ('then')?
 	//;
@@ -3831,78 +3911,151 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 		return getLogicalAndOperatorAccess().getRule();
 	}
 	
-	//RelationalExpression returns ValueExpression:
-	//    AdditiveExpression
-	//    ({BinaryExpression.left=current} operator=('=' | '!=' | '<' | '<=' | '>' | '>=')
-	//        right=AdditiveExpression)?
+	//Relation returns ValueExpression:
+	//    SimpleExpression
+	//    ({BinaryExpression.left=current} operator=RelationalOperator right=SimpleExpression)?
 	//;
-	public RelationalExpressionElements getRelationalExpressionAccess() {
-		return pRelationalExpression;
+	public RelationElements getRelationAccess() {
+		return pRelation;
 	}
 	
-	public ParserRule getRelationalExpressionRule() {
-		return getRelationalExpressionAccess().getRule();
+	public ParserRule getRelationRule() {
+		return getRelationAccess().getRule();
 	}
 	
-	//AdditiveExpression returns ValueExpression:
-	//    MultiplicativeExpression
-	//    ({BinaryExpression.left=current} operator=('+' | '-') right=MultiplicativeExpression)*
+	//RelationalOperator returns ecore::EString:
+	//    '=' | '!=' | '<' | '<=' | '>' | '>='
 	//;
-	public AdditiveExpressionElements getAdditiveExpressionAccess() {
-		return pAdditiveExpression;
+	public RelationalOperatorElements getRelationalOperatorAccess() {
+		return pRelationalOperator;
 	}
 	
-	public ParserRule getAdditiveExpressionRule() {
-		return getAdditiveExpressionAccess().getRule();
+	public ParserRule getRelationalOperatorRule() {
+		return getRelationalOperatorAccess().getRule();
 	}
 	
-	//MultiplicativeExpression returns ValueExpression:
-	//    PowerExpression
-	//    ({BinaryExpression.left=current} operator=('*' | '/' | 'mod' | 'rem') right=PowerExpression)*
+	//// The unary adding operator leads the whole simple expression, so it binds below the multiplying and the numeric
+	//// operators: '-a mod b' is '-(a mod b)' and '-a ** b' is '-(a ** b)'. D.7 admits '-' only; '+' remains accepted here
+	//// and is tracked separately as issue #3170.
+	//SimpleExpression returns ValueExpression:
+	//    ({UnaryExpression} operator=UnaryAddingOperator operand=Term | Term)
+	//    ({BinaryExpression.left=current} operator=BinaryAddingOperator right=Term)*
 	//;
-	public MultiplicativeExpressionElements getMultiplicativeExpressionAccess() {
-		return pMultiplicativeExpression;
+	public SimpleExpressionElements getSimpleExpressionAccess() {
+		return pSimpleExpression;
 	}
 	
-	public ParserRule getMultiplicativeExpressionRule() {
-		return getMultiplicativeExpressionAccess().getRule();
+	public ParserRule getSimpleExpressionRule() {
+		return getSimpleExpressionAccess().getRule();
 	}
 	
-	//PowerExpression returns ValueExpression:
-	//    UnaryExpression
-	//    ({BinaryExpression.left=current} operator='**' right=PowerExpression)?
+	//UnaryAddingOperator returns ecore::EString:
+	//    '-' | '+'
 	//;
-	public PowerExpressionElements getPowerExpressionAccess() {
-		return pPowerExpression;
+	public UnaryAddingOperatorElements getUnaryAddingOperatorAccess() {
+		return pUnaryAddingOperator;
 	}
 	
-	public ParserRule getPowerExpressionRule() {
-		return getPowerExpressionAccess().getRule();
+	public ParserRule getUnaryAddingOperatorRule() {
+		return getUnaryAddingOperatorAccess().getRule();
 	}
 	
-	//UnaryExpression returns ValueExpression:
-	//    {UnaryExpression} operator=('+' | '-' | 'abs' | 'not') operand=UnaryExpression
-	//    | PrimaryExpression
+	//BinaryAddingOperator returns ecore::EString:
+	//    '+' | '-'
 	//;
-	public UnaryExpressionElements getUnaryExpressionAccess() {
-		return pUnaryExpression;
+	public BinaryAddingOperatorElements getBinaryAddingOperatorAccess() {
+		return pBinaryAddingOperator;
 	}
 	
-	public ParserRule getUnaryExpressionRule() {
-		return getUnaryExpressionAccess().getRule();
+	public ParserRule getBinaryAddingOperatorRule() {
+		return getBinaryAddingOperatorAccess().getRule();
 	}
 	
-	//PrimaryExpression returns ValueExpression:
+	//Term returns ValueExpression:
+	//    Factor
+	//    ({BinaryExpression.left=current} operator=MultiplyingOperator right=Factor)*
+	//;
+	public TermElements getTermAccess() {
+		return pTerm;
+	}
+	
+	public ParserRule getTermRule() {
+		return getTermAccess().getRule();
+	}
+	
+	//MultiplyingOperator returns ecore::EString:
+	//    '*' | '/' | 'mod' | 'rem'
+	//;
+	public MultiplyingOperatorElements getMultiplyingOperatorAccess() {
+		return pMultiplyingOperator;
+	}
+	
+	public ParserRule getMultiplyingOperatorRule() {
+		return getMultiplyingOperatorAccess().getRule();
+	}
+	
+	//// A factor admits at most one exponentiation and applies a unary numeric or boolean operator to a single value, so
+	//// 'a ** b ** c', 'abs -a', and 'not not a' need explicit parentheses.
+	//Factor returns ValueExpression:
+	//    Value
+	//    ({BinaryExpression.left=current} operator=BinaryNumericOperator right=Value)?
+	//    | {UnaryExpression} operator=UnaryValueOperator operand=Value
+	//;
+	public FactorElements getFactorAccess() {
+		return pFactor;
+	}
+	
+	public ParserRule getFactorRule() {
+		return getFactorAccess().getRule();
+	}
+	
+	//BinaryNumericOperator returns ecore::EString:
+	//    '**'
+	//;
+	public BinaryNumericOperatorElements getBinaryNumericOperatorAccess() {
+		return pBinaryNumericOperator;
+	}
+	
+	public ParserRule getBinaryNumericOperatorRule() {
+		return getBinaryNumericOperatorAccess().getRule();
+	}
+	
+	//UnaryValueOperator returns ecore::EString:
+	//    'abs' | 'not'
+	//;
+	public UnaryValueOperatorElements getUnaryValueOperatorAccess() {
+		return pUnaryValueOperator;
+	}
+	
+	public ParserRule getUnaryValueOperatorRule() {
+		return getUnaryValueOperatorAccess().getRule();
+	}
+	
+	//Value returns ValueExpression:
 	//    ValueConstant
 	//    | ReferenceExpression
-	//    | '(' ValueExpression ')'
+	//    | ParenthesizedExpression
 	//;
-	public PrimaryExpressionElements getPrimaryExpressionAccess() {
-		return pPrimaryExpression;
+	public ValueElements getValueAccess() {
+		return pValue;
 	}
 	
-	public ParserRule getPrimaryExpressionRule() {
-		return getPrimaryExpressionAccess().getRule();
+	public ParserRule getValueRule() {
+		return getValueAccess().getRule();
+	}
+	
+	//// A parenthesized value expression is one value of the enclosing factor. The group is an object of its own so that the
+	//// grouping the model records is the grouping the source requested, and so that the serializer emits it from the model
+	//// rather than reconstructing it from the parse text.
+	//ParenthesizedExpression:
+	//    '(' expression=ValueExpression ')'
+	//;
+	public ParenthesizedExpressionElements getParenthesizedExpressionAccess() {
+		return pParenthesizedExpression;
+	}
+	
+	public ParserRule getParenthesizedExpressionRule() {
+		return getParenthesizedExpressionAccess().getRule();
 	}
 	
 	//ValueConstant:

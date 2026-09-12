@@ -1,0 +1,12 @@
+===== annex[0] owner=RepeatedNot::evaluate =====
+
+\t\tvariables
+\t\t\tflag : Base_Types::Boolean;
+\t\tstates
+\t\t\tstart : initial state;
+\t\t\tdone : final state;
+\t\ttransitions
+\t\t\tstart -[ ]-> done { flag := not not flag };
+\t
+----- Xtext reparse -----
+reparsed

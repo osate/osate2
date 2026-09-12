@@ -1,0 +1,9 @@
+annex[0] owner=RepeatedNot::evaluate
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=flag
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : SubprogramCallAction
+        proxy : BehaviorVariableHolder element=flag [BehaviorVariable]

@@ -211,6 +211,11 @@ public class AssignmentActionItemProvider extends BehaviorActionItemProvider
     newChildDescriptors.add
       (createChildParameter
         (BehaviorAnnexPackage.Literals.ASSIGNMENT_ACTION__VALUE,
+         BehaviorAnnexFactory.eINSTANCE.createParenthesizedExpression()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (BehaviorAnnexPackage.Literals.ASSIGNMENT_ACTION__VALUE,
          BehaviorAnnexFactory.eINSTANCE.createValueConstant()));
 
     newChildDescriptors.add

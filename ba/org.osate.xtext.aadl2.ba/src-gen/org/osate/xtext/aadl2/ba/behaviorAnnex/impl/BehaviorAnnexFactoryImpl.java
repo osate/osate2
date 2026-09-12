@@ -118,6 +118,7 @@ public class BehaviorAnnexFactoryImpl extends EFactoryImpl implements BehaviorAn
       case BehaviorAnnexPackage.BEHAVIOR_TIME: return createBehaviorTime();
       case BehaviorAnnexPackage.INTEGER_VALUE: return createIntegerValue();
       case BehaviorAnnexPackage.VALUE_EXPRESSION: return createValueExpression();
+      case BehaviorAnnexPackage.PARENTHESIZED_EXPRESSION: return createParenthesizedExpression();
       case BehaviorAnnexPackage.VALUE_CONSTANT: return createValueConstant();
       case BehaviorAnnexPackage.BEHAVIOR_INTEGER_LITERAL: return createBehaviorIntegerLiteral();
       case BehaviorAnnexPackage.BEHAVIOR_REAL_LITERAL: return createBehaviorRealLiteral();
@@ -541,6 +542,18 @@ public class BehaviorAnnexFactoryImpl extends EFactoryImpl implements BehaviorAn
   {
     ValueExpressionImpl valueExpression = new ValueExpressionImpl();
     return valueExpression;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public ParenthesizedExpression createParenthesizedExpression()
+  {
+    ParenthesizedExpressionImpl parenthesizedExpression = new ParenthesizedExpressionImpl();
+    return parenthesizedExpression;
   }
 
   /**

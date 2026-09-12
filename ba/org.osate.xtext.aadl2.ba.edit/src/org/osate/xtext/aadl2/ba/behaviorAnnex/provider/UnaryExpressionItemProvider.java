@@ -206,6 +206,11 @@ public class UnaryExpressionItemProvider extends ValueExpressionItemProvider
     newChildDescriptors.add
       (createChildParameter
         (BehaviorAnnexPackage.Literals.UNARY_EXPRESSION__OPERAND,
+         BehaviorAnnexFactory.eINSTANCE.createParenthesizedExpression()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (BehaviorAnnexPackage.Literals.UNARY_EXPRESSION__OPERAND,
          BehaviorAnnexFactory.eINSTANCE.createValueConstant()));
 
     newChildDescriptors.add

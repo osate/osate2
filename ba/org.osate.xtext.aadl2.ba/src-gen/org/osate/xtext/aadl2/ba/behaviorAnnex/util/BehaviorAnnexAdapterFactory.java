@@ -266,6 +266,11 @@ public class BehaviorAnnexAdapterFactory extends AdapterFactoryImpl
         return createValueExpressionAdapter();
       }
       @Override
+      public Adapter caseParenthesizedExpression(ParenthesizedExpression object)
+      {
+        return createParenthesizedExpressionAdapter();
+      }
+      @Override
       public Adapter caseValueConstant(ValueConstant object)
       {
         return createValueConstantAdapter();
@@ -918,6 +923,21 @@ public class BehaviorAnnexAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createValueExpressionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.ParenthesizedExpression <em>Parenthesized Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.xtext.aadl2.ba.behaviorAnnex.ParenthesizedExpression
+   * @generated
+   */
+  public Adapter createParenthesizedExpressionAdapter()
   {
     return null;
   }
