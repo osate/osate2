@@ -1,0 +1,1 @@
+error | semantic | 42 | 21 | 5 | The behavior transition tries to refine a transition mode but it is not consisting with any transition mode of WrongTrigger::worker.impl component: Behavior Annex D.3.(C4) consistency rule failed.

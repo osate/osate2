@@ -1,0 +1,6 @@
+annex[0] owner=MixedCompleteStates::worker.impl
+  (BehaviorAnnex, behavior_specification, 1915, 65)
+  (BehaviorState, idle, 1923, 4)
+  (BehaviorState, waiting, 1955, 7)
+  (BehaviorStateGroup, <null>, 1923, 30)
+  (BehaviorStateGroup, <null>, 1955, 25)

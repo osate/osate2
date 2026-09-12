@@ -132,8 +132,8 @@ public class Issue3154Test {
 		resource.getContents().add(strict);
 		var first = strict.getTransitions().get(1);
 		var second = strict.getTransitions().get(2);
-		// Mode binding is not populated by the translator yet. Supply bindings through the public strict API
-		// to isolate C4's per-source checks from that independent limitation.
+		// This checker-level test intentionally binds differently named states through the public strict API.
+		// Issue3178Test covers production same-name binding through embedded AADL validation.
 		first.getSourceState().setBindedMode(owner.getOwnedModes().get(0));
 		second.getSourceState().setBindedMode(owner.getOwnedModes().get(1));
 		var manager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory);

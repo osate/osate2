@@ -1,0 +1,9 @@
+===== annex[0] owner=MultipleSources::worker.impl =====
+
+states
+\tfirst : initial complete state;
+\tsecond, done : complete state;
+transitions
+\tfirst, second -[on dispatch wrong]-> done;
+----- Xtext reparse -----
+reparsed

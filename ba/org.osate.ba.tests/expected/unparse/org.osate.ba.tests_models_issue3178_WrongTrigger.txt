@@ -1,0 +1,9 @@
+===== annex[0] owner=WrongTrigger::worker.impl =====
+
+states
+\tidle : initial complete state;
+\tactive : complete state;
+transitions
+\tidle -[on dispatch wrong]-> active;
+----- Xtext reparse -----
+reparsed

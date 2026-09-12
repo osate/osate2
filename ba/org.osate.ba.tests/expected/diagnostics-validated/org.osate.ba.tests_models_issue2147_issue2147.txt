@@ -1,1 +1,0 @@
-error | semantic | 35 | 5 | 21 | Transitions out of complete states must have dispatch condition : Behavior Annex D.3.(L7) legality rule failed.

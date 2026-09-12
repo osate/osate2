@@ -45,6 +45,7 @@ import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.DataPort;
 import org.osate.aadl2.DataSubcomponent;
+import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
@@ -58,6 +59,7 @@ import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeaturePrototype;
 import org.osate.aadl2.FeaturePrototypeBinding;
 import org.osate.aadl2.ListValue;
+import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.Parameter;
@@ -187,19 +189,35 @@ public final class DeclarativeToStrictTranslator {
 			final ComponentClassifier owner) {
 		Objects.requireNonNull(source, "source");
 		Objects.requireNonNull(owner, "owner");
+		final var modeRefinement = canRefineModes(source);
 		var cache = (TranslationCache) EcoreUtil.getExistingAdapter(source, TranslationCache.class);
 		if (cache == null) {
 			cache = new TranslationCache();
 			source.eAdapters().add(cache);
 		}
-		if (cache.result != null && cache.owner == owner) {
+		if (cache.result != null && cache.owner == owner && cache.modeRefinement == modeRefinement) {
 			return cache.result;
 		}
 
-		final var builder = new Builder(source, owner);
+		final var builder = new Builder(source, owner, modeRefinement);
 		cache.owner = owner;
+		cache.modeRefinement = modeRefinement;
 		cache.result = builder.translate();
 		return cache.result;
+	}
+
+	/**
+	 * Returns whether a subclause may refine the containing classifier's modes. Embedded parsing normally retains the
+	 * modal context on the enclosing default annex; standalone callers may instead supply it on the parsed annex.
+	 */
+	public static boolean canRefineModes(
+			final org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex source) {
+		Objects.requireNonNull(source, "source");
+		if (!source.getInModes().isEmpty()) {
+			return false;
+		}
+		return !(source.eContainer() instanceof DefaultAnnexSubclause defaultAnnex)
+				|| defaultAnnex.getInModes().isEmpty();
 	}
 
 	/** Translation output and immutable identity maps in both directions. */
@@ -253,6 +271,7 @@ public final class DeclarativeToStrictTranslator {
 
 	private static final class TranslationCache extends EContentAdapter {
 		private ComponentClassifier owner;
+		private boolean modeRefinement;
 		private TranslationResult result;
 
 		@Override
@@ -270,6 +289,7 @@ public final class DeclarativeToStrictTranslator {
 	private static final class Builder {
 		private final org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex source;
 		private final ComponentClassifier owner;
+		private final boolean modeRefinement;
 		private final IdentityHashMap<EObject, EObject> declarativeToStrict = new IdentityHashMap<>();
 		private final IdentityHashMap<EObject, EObject> strictToDeclarative = new IdentityHashMap<>();
 		private final IdentityHashMap<org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorState, BehaviorState> states =
@@ -280,9 +300,10 @@ public final class DeclarativeToStrictTranslator {
 		private final IdentityHashMap<EObject, NamedElement> resolvedReferences = new IdentityHashMap<>();
 
 		private Builder(final org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex source,
-				final ComponentClassifier owner) {
+				final ComponentClassifier owner, final boolean modeRefinement) {
 			this.source = source;
 			this.owner = owner;
+			this.modeRefinement = modeRefinement;
 		}
 
 		private TranslationResult translate() {
@@ -361,6 +382,12 @@ public final class DeclarativeToStrictTranslator {
 		}
 
 		private void translateStates(final BehaviorAnnex strict) {
+			Map<String, Mode> modes = new java.util.TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+			if (modeRefinement) {
+				for (final var mode : owner.getAllModes()) {
+					modes.put(mode.getName(), mode);
+				}
+			}
 			for (final var group : source.getStateGroups()) {
 				for (final var state : group.getStates()) {
 					final var result = trace(FACTORY.createBehaviorState(), state);
@@ -368,6 +395,9 @@ public final class DeclarativeToStrictTranslator {
 					result.setInitial(group.isInitial());
 					result.setComplete(group.isComplete());
 					result.setFinal(group.isFinal());
+					if (group.isComplete() && state.getName() != null) {
+						result.setBindedMode(modes.get(state.getName()));
+					}
 					strict.getStates().add(result);
 					states.put(state, result);
 					if (group.isInitial() && strict.getInitialState() == null) {
