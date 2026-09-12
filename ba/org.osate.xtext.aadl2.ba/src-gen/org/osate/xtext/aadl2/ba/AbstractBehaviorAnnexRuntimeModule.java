@@ -23,8 +23,10 @@
  */
 package org.osate.xtext.aadl2.ba;
 
+import com.google.inject.Binder;
+import com.google.inject.Provider;
+import com.google.inject.name.Names;
 import java.util.Properties;
-
 import org.eclipse.xtext.Constants;
 import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.conversion.impl.AbstractIDValueConverter;
@@ -76,169 +78,165 @@ import org.osate.xtext.aadl2.ba.serializer.BehaviorAnnexSyntacticSequencer;
 import org.osate.xtext.aadl2.ba.services.BehaviorAnnexGrammarAccess;
 import org.osate.xtext.aadl2.ba.validation.BehaviorAnnexValidator;
 
-import com.google.inject.Binder;
-import com.google.inject.Provider;
-import com.google.inject.name.Names;
-
 /**
  * Manual modifications go to {@link BehaviorAnnexRuntimeModule}.
  */
 @SuppressWarnings("all")
 public abstract class AbstractBehaviorAnnexRuntimeModule extends DefaultRuntimeModule {
 
-    protected Properties properties = null;
+	protected Properties properties = null;
 
-    @Override
-    public void configure(Binder binder) {
-        properties = tryBindProperties(binder, "org/osate/xtext/aadl2/ba/BehaviorAnnex.properties");
-        super.configure(binder);
-    }
-
-    public void configureLanguageName(Binder binder) {
-        binder.bind(String.class).annotatedWith(Names.named(Constants.LANGUAGE_NAME)).toInstance("org.osate.xtext.aadl2.ba.BehaviorAnnex");
-    }
-
-    public void configureFileExtensions(Binder binder) {
-        if (properties == null || properties.getProperty(Constants.FILE_EXTENSIONS) == null)
-            binder.bind(String.class).annotatedWith(Names.named(Constants.FILE_EXTENSIONS)).toInstance("baxtext");
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.grammarAccess.GrammarAccessFragment2
-    public ClassLoader bindClassLoaderToInstance() {
-        return getClass().getClassLoader();
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.grammarAccess.GrammarAccessFragment2
-    public Class<? extends IGrammarAccess> bindIGrammarAccess() {
-        return BehaviorAnnexGrammarAccess.class;
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.serializer.SerializerFragment2
-    public Class<? extends ISemanticSequencer> bindISemanticSequencer() {
-        return BehaviorAnnexSemanticSequencer.class;
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.serializer.SerializerFragment2
-    public Class<? extends ISyntacticSequencer> bindISyntacticSequencer() {
-        return BehaviorAnnexSyntacticSequencer.class;
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.serializer.SerializerFragment2
-    public Class<? extends ISerializer> bindISerializer() {
-        return Serializer.class;
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment2
-    public Class<? extends IParser> bindIParser() {
-        return BehaviorAnnexParser.class;
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment2
-    public Class<? extends ITokenToStringConverter> bindITokenToStringConverter() {
-        return AntlrTokenToStringConverter.class;
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment2
-    public Class<? extends IAntlrTokenFileProvider> bindIAntlrTokenFileProvider() {
-        return BehaviorAnnexAntlrTokenFileProvider.class;
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment2
-    public Class<? extends Lexer> bindLexer() {
-        return InternalBehaviorAnnexLexer.class;
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment2
-    public Class<? extends ITokenDefProvider> bindITokenDefProvider() {
-        return AntlrTokenDefProvider.class;
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment2
-    public Provider<? extends InternalBehaviorAnnexLexer> provideInternalBehaviorAnnexLexer() {
-        return LexerProvider.create(InternalBehaviorAnnexLexer.class);
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment2
-    public void configureRuntimeLexer(Binder binder) {
-        binder.bind(Lexer.class)
-            .annotatedWith(Names.named(LexerBindings.RUNTIME))
-            .to(InternalBehaviorAnnexLexer.class);
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment2
-    public Class<? extends ITokenSerializer.IKeywordSerializer> bindITokenSerializer$IKeywordSerializer() {
-        return IgnoreCaseKeywordSerializer.class;
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment2
-    public Class<? extends IKeywordSerializer> bindIKeywordSerializer() {
-        return org.eclipse.xtext.serializer.tokens.IgnoreCaseKeywordSerializer.class;
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment2
-    public Class<? extends AbstractIDValueConverter> bindAbstractIDValueConverter() {
-        return IgnoreCaseIDValueConverter.class;
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.validation.ValidatorFragment2
-    @SingletonBinding(eager=true)
-    public Class<? extends BehaviorAnnexValidator> bindBehaviorAnnexValidator() {
-        return BehaviorAnnexValidator.class;
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.scoping.ImportNamespacesScopingFragment2
-    public Class<? extends IScopeProvider> bindIScopeProvider() {
-        return BehaviorAnnexScopeProvider.class;
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.scoping.ImportNamespacesScopingFragment2
-    public void configureIScopeProviderDelegate(Binder binder) {
-        binder.bind(IScopeProvider.class).annotatedWith(Names.named(AbstractDeclarativeScopeProvider.NAMED_DELEGATE)).to(ImportedNamespaceAwareLocalScopeProvider.class);
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.scoping.ImportNamespacesScopingFragment2
-    public Class<? extends IGlobalScopeProvider> bindIGlobalScopeProvider() {
-        return DefaultGlobalScopeProvider.class;
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.scoping.ImportNamespacesScopingFragment2
-    public void configureIgnoreCaseLinking(Binder binder) {
-        binder.bindConstant().annotatedWith(IgnoreCaseLinking.class).to(true);
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.exporting.QualifiedNamesFragment2
-    public Class<? extends IQualifiedNameProvider> bindIQualifiedNameProvider() {
-        return DefaultDeclarativeQualifiedNameProvider.class;
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.builder.BuilderIntegrationFragment2
-    public Class<? extends IContainer.Manager> bindIContainer$Manager() {
-        return StateBasedContainerManager.class;
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.builder.BuilderIntegrationFragment2
-    public Class<? extends IAllContainersState.Provider> bindIAllContainersState$Provider() {
-        return ResourceSetBasedAllContainersStateProvider.class;
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.builder.BuilderIntegrationFragment2
-    public void configureIResourceDescriptions(Binder binder) {
-        binder.bind(IResourceDescriptions.class).to(ResourceSetBasedResourceDescriptions.class);
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.builder.BuilderIntegrationFragment2
-    public void configureIResourceDescriptionsPersisted(Binder binder) {
-        binder.bind(IResourceDescriptions.class).annotatedWith(Names.named(ResourceDescriptionsProvider.PERSISTED_DESCRIPTIONS)).to(ResourceSetBasedResourceDescriptions.class);
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.formatting.Formatter2Fragment2
-    public Class<? extends IFormatter2> bindIFormatter2() {
-        return BehaviorAnnexFormatter.class;
-    }
-
-    // contributed by org.eclipse.xtext.xtext.generator.formatting.Formatter2Fragment2
-    public void configureFormatterPreferences(Binder binder) {
-        binder.bind(IPreferenceValuesProvider.class).annotatedWith(FormatterPreferences.class).to(FormatterPreferenceValuesProvider.class);
-    }
-
+	@Override
+	public void configure(Binder binder) {
+		properties = tryBindProperties(binder, "org/osate/xtext/aadl2/ba/BehaviorAnnex.properties");
+		super.configure(binder);
+	}
+	
+	public void configureLanguageName(Binder binder) {
+		binder.bind(String.class).annotatedWith(Names.named(Constants.LANGUAGE_NAME)).toInstance("org.osate.xtext.aadl2.ba.BehaviorAnnex");
+	}
+	
+	public void configureFileExtensions(Binder binder) {
+		if (properties == null || properties.getProperty(Constants.FILE_EXTENSIONS) == null)
+			binder.bind(String.class).annotatedWith(Names.named(Constants.FILE_EXTENSIONS)).toInstance("baxtext");
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.grammarAccess.GrammarAccessFragment2
+	public ClassLoader bindClassLoaderToInstance() {
+		return getClass().getClassLoader();
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.grammarAccess.GrammarAccessFragment2
+	public Class<? extends IGrammarAccess> bindIGrammarAccess() {
+		return BehaviorAnnexGrammarAccess.class;
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.serializer.SerializerFragment2
+	public Class<? extends ISemanticSequencer> bindISemanticSequencer() {
+		return BehaviorAnnexSemanticSequencer.class;
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.serializer.SerializerFragment2
+	public Class<? extends ISyntacticSequencer> bindISyntacticSequencer() {
+		return BehaviorAnnexSyntacticSequencer.class;
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.serializer.SerializerFragment2
+	public Class<? extends ISerializer> bindISerializer() {
+		return Serializer.class;
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment2
+	public Class<? extends IParser> bindIParser() {
+		return BehaviorAnnexParser.class;
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment2
+	public Class<? extends ITokenToStringConverter> bindITokenToStringConverter() {
+		return AntlrTokenToStringConverter.class;
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment2
+	public Class<? extends IAntlrTokenFileProvider> bindIAntlrTokenFileProvider() {
+		return BehaviorAnnexAntlrTokenFileProvider.class;
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment2
+	public Class<? extends Lexer> bindLexer() {
+		return InternalBehaviorAnnexLexer.class;
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment2
+	public Class<? extends ITokenDefProvider> bindITokenDefProvider() {
+		return AntlrTokenDefProvider.class;
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment2
+	public Provider<? extends InternalBehaviorAnnexLexer> provideInternalBehaviorAnnexLexer() {
+		return LexerProvider.create(InternalBehaviorAnnexLexer.class);
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment2
+	public void configureRuntimeLexer(Binder binder) {
+		binder.bind(Lexer.class)
+			.annotatedWith(Names.named(LexerBindings.RUNTIME))
+			.to(InternalBehaviorAnnexLexer.class);
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment2
+	public Class<? extends ITokenSerializer.IKeywordSerializer> bindITokenSerializer$IKeywordSerializer() {
+		return IgnoreCaseKeywordSerializer.class;
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment2
+	public Class<? extends IKeywordSerializer> bindIKeywordSerializer() {
+		return org.eclipse.xtext.serializer.tokens.IgnoreCaseKeywordSerializer.class;
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment2
+	public Class<? extends AbstractIDValueConverter> bindAbstractIDValueConverter() {
+		return IgnoreCaseIDValueConverter.class;
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.validation.ValidatorFragment2
+	@SingletonBinding(eager=true)
+	public Class<? extends BehaviorAnnexValidator> bindBehaviorAnnexValidator() {
+		return BehaviorAnnexValidator.class;
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.scoping.ImportNamespacesScopingFragment2
+	public Class<? extends IScopeProvider> bindIScopeProvider() {
+		return BehaviorAnnexScopeProvider.class;
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.scoping.ImportNamespacesScopingFragment2
+	public void configureIScopeProviderDelegate(Binder binder) {
+		binder.bind(IScopeProvider.class).annotatedWith(Names.named(AbstractDeclarativeScopeProvider.NAMED_DELEGATE)).to(ImportedNamespaceAwareLocalScopeProvider.class);
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.scoping.ImportNamespacesScopingFragment2
+	public Class<? extends IGlobalScopeProvider> bindIGlobalScopeProvider() {
+		return DefaultGlobalScopeProvider.class;
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.scoping.ImportNamespacesScopingFragment2
+	public void configureIgnoreCaseLinking(Binder binder) {
+		binder.bindConstant().annotatedWith(IgnoreCaseLinking.class).to(true);
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.exporting.QualifiedNamesFragment2
+	public Class<? extends IQualifiedNameProvider> bindIQualifiedNameProvider() {
+		return DefaultDeclarativeQualifiedNameProvider.class;
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.builder.BuilderIntegrationFragment2
+	public Class<? extends IContainer.Manager> bindIContainer$Manager() {
+		return StateBasedContainerManager.class;
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.builder.BuilderIntegrationFragment2
+	public Class<? extends IAllContainersState.Provider> bindIAllContainersState$Provider() {
+		return ResourceSetBasedAllContainersStateProvider.class;
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.builder.BuilderIntegrationFragment2
+	public void configureIResourceDescriptions(Binder binder) {
+		binder.bind(IResourceDescriptions.class).to(ResourceSetBasedResourceDescriptions.class);
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.builder.BuilderIntegrationFragment2
+	public void configureIResourceDescriptionsPersisted(Binder binder) {
+		binder.bind(IResourceDescriptions.class).annotatedWith(Names.named(ResourceDescriptionsProvider.PERSISTED_DESCRIPTIONS)).to(ResourceSetBasedResourceDescriptions.class);
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.formatting.Formatter2Fragment2
+	public Class<? extends IFormatter2> bindIFormatter2() {
+		return BehaviorAnnexFormatter.class;
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.formatting.Formatter2Fragment2
+	public void configureFormatterPreferences(Binder binder) {
+		binder.bind(IPreferenceValuesProvider.class).annotatedWith(FormatterPreferences.class).to(FormatterPreferenceValuesProvider.class);
+	}
+	
 }

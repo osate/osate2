@@ -221,12 +221,20 @@ ValueExpression:
 
 LogicalOrExpression returns ValueExpression:
     LogicalAndExpression
-    ({BinaryExpression.left=current} operator=('or' | 'xor') right=LogicalAndExpression)*
+    ({BinaryExpression.left=current} operator=LogicalOrOperator right=LogicalAndExpression)*
+;
+
+LogicalOrOperator returns ecore::EString:
+    'or' ('else')? | 'xor'
 ;
 
 LogicalAndExpression returns ValueExpression:
     RelationalExpression
-    ({BinaryExpression.left=current} operator='and' right=RelationalExpression)*
+    ({BinaryExpression.left=current} operator=LogicalAndOperator right=RelationalExpression)*
+;
+
+LogicalAndOperator returns ecore::EString:
+    'and' ('then')?
 ;
 
 RelationalExpression returns ValueExpression:

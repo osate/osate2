@@ -23,28 +23,27 @@
  */
 package org.osate.xtext.aadl2.ba.ui;
 
+import com.google.inject.Injector;
 import org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory;
 import org.osate.xtext.aadl2.ba.ui.internal.BaActivator;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
-import com.google.inject.Injector;
-
 /**
  * This class was generated. Customizations should only happen in a newly
- * introduced subclass.
+ * introduced subclass. 
  */
 public class BehaviorAnnexExecutableExtensionFactory extends AbstractGuiceAwareExecutableExtensionFactory {
 
-    @Override
-    protected Bundle getBundle() {
-        return FrameworkUtil.getBundle(BaActivator.class);
-    }
-
-    @Override
-    protected Injector getInjector() {
-        BaActivator activator = BaActivator.getInstance();
-        return activator != null ? activator.getInjector(BaActivator.ORG_OSATE_XTEXT_AADL2_BA_BEHAVIORANNEX) : null;
-    }
+	@Override
+	protected Bundle getBundle() {
+		return FrameworkUtil.getBundle(BaActivator.class);
+	}
+	
+	@Override
+	protected Injector getInjector() {
+		BaActivator activator = BaActivator.getInstance();
+		return activator != null ? activator.getInjector(BaActivator.ORG_OSATE_XTEXT_AADL2_BA_BEHAVIORANNEX) : null;
+	}
 
 }

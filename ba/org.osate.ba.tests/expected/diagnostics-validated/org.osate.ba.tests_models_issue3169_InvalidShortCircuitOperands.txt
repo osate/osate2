@@ -1,0 +1,2 @@
+error | semantic | 35 | 34 | 19 | There is no applicable operator "and then" for type Base_Types::Integer
+error | semantic | 36 | 33 | 18 | There is no applicable operator "or else" for type Base_Types::Integer

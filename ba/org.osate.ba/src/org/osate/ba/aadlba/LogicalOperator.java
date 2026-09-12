@@ -73,7 +73,27 @@ public enum LogicalOperator implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	XOR(3, "Xor", "xor");
+	XOR(3, "Xor", "xor"),
+
+	/**
+	 * The '<em><b>And Then</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #AND_THEN_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	AND_THEN(4, "AndThen", "and then"),
+
+	/**
+	 * The '<em><b>Or Else</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OR_ELSE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OR_ELSE(5, "OrElse", "or else");
 
 	/**
 	 * The '<em><b>None</b></em>' literal value.
@@ -136,12 +156,43 @@ public enum LogicalOperator implements Enumerator {
 	public static final int XOR_VALUE = 3;
 
 	/**
+	 * The '<em><b>And Then</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>And Then</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #AND_THEN
+	 * @model name="AndThen" literal="and then"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int AND_THEN_VALUE = 4;
+
+	/**
+	 * The '<em><b>Or Else</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Or Else</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OR_ELSE
+	 * @model name="OrElse" literal="or else"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OR_ELSE_VALUE = 5;
+
+	/**
 	 * An array of all the '<em><b>Logical Operator</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final LogicalOperator[] VALUES_ARRAY = new LogicalOperator[] { NONE, AND, OR, XOR, };
+	private static final LogicalOperator[] VALUES_ARRAY = new LogicalOperator[] { NONE, AND, OR, XOR, AND_THEN,
+			OR_ELSE, };
 
 	/**
 	 * A public read-only list of all the '<em><b>Logical Operator</b></em>' enumerators.
@@ -205,6 +256,10 @@ public enum LogicalOperator implements Enumerator {
 			return OR;
 		case XOR_VALUE:
 			return XOR;
+		case AND_THEN_VALUE:
+			return AND_THEN;
+		case OR_ELSE_VALUE:
+			return OR_ELSE;
 		}
 		return null;
 	}

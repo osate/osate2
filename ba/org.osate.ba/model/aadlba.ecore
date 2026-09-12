@@ -528,6 +528,8 @@
     <eLiterals name="And" value="1" literal="and"/>
     <eLiterals name="Or" value="2" literal="or"/>
     <eLiterals name="Xor" value="3" literal="xor"/>
+    <eLiterals name="AndThen" value="4" literal="and then"/>
+    <eLiterals name="OrElse" value="5" literal="or else"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LoopStatement" abstract="true" eSuperTypes="#//CondStatement"/>
   <eClassifiers xsi:type="ecore:EClass" name="LowerBound" eSuperTypes="#//PropertyNameField"/>

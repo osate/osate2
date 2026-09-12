@@ -5003,6 +5003,8 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		addEEnumLiteral(logicalOperatorEEnum, LogicalOperator.AND);
 		addEEnumLiteral(logicalOperatorEEnum, LogicalOperator.OR);
 		addEEnumLiteral(logicalOperatorEEnum, LogicalOperator.XOR);
+		addEEnumLiteral(logicalOperatorEEnum, LogicalOperator.AND_THEN);
+		addEEnumLiteral(logicalOperatorEEnum, LogicalOperator.OR_ELSE);
 
 		initEEnum(multiplyingOperatorEEnum, MultiplyingOperator.class, "MultiplyingOperator");
 		addEEnumLiteral(multiplyingOperatorEEnum, MultiplyingOperator.NONE);

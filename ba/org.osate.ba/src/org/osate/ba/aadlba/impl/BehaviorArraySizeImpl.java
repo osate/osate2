@@ -204,7 +204,7 @@ public class BehaviorArraySizeImpl extends ArraySizeImpl implements BehaviorArra
 
 	@Override
 	public AadlBaLocationReference getAadlBaLocationReference() {
-		return (AadlBaLocationReference) this.getLocationReference();
+		return (AadlBaLocationReference) getLocationReference();
 	}
 
 } // BehaviorArraySizeImpl

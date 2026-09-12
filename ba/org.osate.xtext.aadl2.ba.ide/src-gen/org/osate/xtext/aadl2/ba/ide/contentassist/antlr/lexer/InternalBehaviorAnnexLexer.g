@@ -26,7 +26,7 @@ lexer grammar InternalBehaviorAnnexLexer;
 @header {
 package org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer;
 
-// Hack: Use our own Lexer superclass by means of import.
+// Hack: Use our own Lexer superclass by means of import. 
 // Currently there is no other way to specify the superclass for the lexer.
 import org.eclipse.xtext.ide.editor.contentassist.antlr.internal.Lexer;
 }
@@ -92,6 +92,8 @@ While : ('W'|'w')('H'|'h')('I'|'i')('L'|'l')('E'|'e');
 Else : ('E'|'e')('L'|'l')('S'|'s')('E'|'e');
 
 Stop : ('S'|'s')('T'|'t')('O'|'o')('P'|'p');
+
+Then : ('T'|'t')('H'|'h')('E'|'e')('N'|'n');
 
 True : ('T'|'t')('R'|'r')('U'|'u')('E'|'e');
 

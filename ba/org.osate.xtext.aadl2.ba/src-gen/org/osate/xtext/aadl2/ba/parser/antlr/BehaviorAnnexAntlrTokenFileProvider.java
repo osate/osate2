@@ -24,14 +24,13 @@
 package org.osate.xtext.aadl2.ba.parser.antlr;
 
 import java.io.InputStream;
-
 import org.eclipse.xtext.parser.antlr.IAntlrTokenFileProvider;
 
 public class BehaviorAnnexAntlrTokenFileProvider implements IAntlrTokenFileProvider {
 
-    @Override
-    public InputStream getAntlrTokenFile() {
-        ClassLoader classLoader = getClass().getClassLoader();
-        return classLoader.getResourceAsStream("org/osate/xtext/aadl2/ba/parser/antlr/internal/InternalBehaviorAnnexParser.tokens");
-    }
+	@Override
+	public InputStream getAntlrTokenFile() {
+		ClassLoader classLoader = getClass().getClassLoader();
+		return classLoader.getResourceAsStream("org/osate/xtext/aadl2/ba/parser/antlr/internal/InternalBehaviorAnnexParser.tokens");
+	}
 }

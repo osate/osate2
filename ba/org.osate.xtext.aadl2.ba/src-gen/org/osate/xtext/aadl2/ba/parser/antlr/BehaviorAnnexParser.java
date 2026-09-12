@@ -23,39 +23,38 @@
  */
 package org.osate.xtext.aadl2.ba.parser.antlr;
 
+import com.google.inject.Inject;
 import org.eclipse.xtext.parser.antlr.AbstractAntlrParser;
 import org.eclipse.xtext.parser.antlr.XtextTokenStream;
 import org.osate.xtext.aadl2.ba.parser.antlr.internal.InternalBehaviorAnnexParser;
 import org.osate.xtext.aadl2.ba.services.BehaviorAnnexGrammarAccess;
 
-import com.google.inject.Inject;
-
 public class BehaviorAnnexParser extends AbstractAntlrParser {
 
-    @Inject
-    private BehaviorAnnexGrammarAccess grammarAccess;
+	@Inject
+	private BehaviorAnnexGrammarAccess grammarAccess;
 
-    @Override
-    protected void setInitialHiddenTokens(XtextTokenStream tokenStream) {
-        tokenStream.setInitialHiddenTokens("RULE_WS", "RULE_SL_COMMENT");
-    }
+	@Override
+	protected void setInitialHiddenTokens(XtextTokenStream tokenStream) {
+		tokenStream.setInitialHiddenTokens("RULE_WS", "RULE_SL_COMMENT");
+	}
+	
 
+	@Override
+	protected InternalBehaviorAnnexParser createParser(XtextTokenStream stream) {
+		return new InternalBehaviorAnnexParser(stream, getGrammarAccess());
+	}
 
-    @Override
-    protected InternalBehaviorAnnexParser createParser(XtextTokenStream stream) {
-        return new InternalBehaviorAnnexParser(stream, getGrammarAccess());
-    }
+	@Override 
+	protected String getDefaultRuleName() {
+		return "AnnexSubclause";
+	}
 
-    @Override
-    protected String getDefaultRuleName() {
-        return "AnnexSubclause";
-    }
+	public BehaviorAnnexGrammarAccess getGrammarAccess() {
+		return this.grammarAccess;
+	}
 
-    public BehaviorAnnexGrammarAccess getGrammarAccess() {
-        return this.grammarAccess;
-    }
-
-    public void setGrammarAccess(BehaviorAnnexGrammarAccess grammarAccess) {
-        this.grammarAccess = grammarAccess;
-    }
+	public void setGrammarAccess(BehaviorAnnexGrammarAccess grammarAccess) {
+		this.grammarAccess = grammarAccess;
+	}
 }

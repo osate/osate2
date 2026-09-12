@@ -66,15 +66,14 @@ public class BehaviorAnnexConformanceTest {
 
 	/**
 	 * The standard expectations that are still skipped, each with the issue that tracks the missing implementation.
-	 * G01 (#3165), G03 (#3167), G04 (#3168), G08 (#3172), and G10 (#3174) are absent because
+	 * G01 (#3165), G03 (#3167), G04 (#3168), G05 (#3169), G08 (#3172), and G10 (#3174) are absent because
 	 * {@link #internalConditionIsAcceptedByTheStandard()}, {@link #frozenPortParenthesesAreAcceptedByTheStandard()},
-	 * {@link #timeoutResetPortsAreAcceptedByTheStandard()},
+	 * {@link #timeoutResetPortsAreAcceptedByTheStandard()}, {@link #shortCircuitOperatorsAreAcceptedByTheStandard()},
 	 * {@link #selfPropertyReferenceIsAcceptedByTheStandard()}, and
 	 * {@link #internalPortActionsAreAcceptedByTheStandard()} pass.
 	 */
 	private static final List<String> TRACKED_SKIPS = List.of(
 			"externalConditionOperatorsAreAcceptedByTheStandard -> #3166",
-			"shortCircuitOperatorsAreAcceptedByTheStandard -> #3169",
 			"unaryPlusIsRejectedByTheStandard -> #3170",
 			"optionalLoopClassifierIsAcceptedByTheStandard -> #3173");
 
@@ -110,7 +109,6 @@ public class BehaviorAnnexConformanceTest {
 		assertNoIssues("TimeoutResetPorts.aadl");
 	}
 
-	@Ignore("Issue #3169: implement and then and or else")
 	@Test
 	public void shortCircuitOperatorsAreAcceptedByTheStandard() throws Exception {
 		assertNoIssues("ShortCircuitOperators.aadl");

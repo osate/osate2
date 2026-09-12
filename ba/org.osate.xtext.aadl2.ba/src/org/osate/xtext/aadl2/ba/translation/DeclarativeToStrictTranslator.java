@@ -1572,7 +1572,10 @@ public final class DeclarativeToStrictTranslator {
 		}
 
 		private static boolean isLogical(final String operator) {
-			return "and".equals(operator) || "or".equals(operator) || "xor".equals(operator);
+			return switch (operator) {
+			case "and", "and then", "or", "or else", "xor" -> true;
+			default -> false;
+			};
 		}
 
 		private static boolean isRelational(final String operator) {
@@ -1590,7 +1593,9 @@ public final class DeclarativeToStrictTranslator {
 		private static LogicalOperator logicalOperator(final String operator) {
 			return switch (operator) {
 			case "and" -> LogicalOperator.AND;
+			case "and then" -> LogicalOperator.AND_THEN;
 			case "or" -> LogicalOperator.OR;
+			case "or else" -> LogicalOperator.OR_ELSE;
 			default -> LogicalOperator.XOR;
 			};
 		}

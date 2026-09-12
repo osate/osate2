@@ -23,6 +23,8 @@
  */
 package org.osate.xtext.aadl2.ba;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.ISetup;
@@ -31,33 +33,30 @@ import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage;
 import org.osate.xtext.aadl2.properties.PropertiesStandaloneSetup;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-
 @SuppressWarnings("all")
 public class BehaviorAnnexStandaloneSetupGenerated implements ISetup {
 
-    @Override
-    public Injector createInjectorAndDoEMFRegistration() {
-        PropertiesStandaloneSetup.doSetup();
+	@Override
+	public Injector createInjectorAndDoEMFRegistration() {
+		PropertiesStandaloneSetup.doSetup();
 
-        Injector injector = createInjector();
-        register(injector);
-        return injector;
-    }
-
-    public Injector createInjector() {
-        return Guice.createInjector(new BehaviorAnnexRuntimeModule());
-    }
-
-    public void register(Injector injector) {
-        if (!EPackage.Registry.INSTANCE.containsKey("http://www.aadl.info/BehaviorSpecification")) {
-            EPackage.Registry.INSTANCE.put("http://www.aadl.info/BehaviorSpecification", BehaviorAnnexPackage.eINSTANCE);
-        }
-        IResourceFactory resourceFactory = injector.getInstance(IResourceFactory.class);
-        IResourceServiceProvider serviceProvider = injector.getInstance(IResourceServiceProvider.class);
-
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("baxtext", resourceFactory);
-        IResourceServiceProvider.Registry.INSTANCE.getExtensionToFactoryMap().put("baxtext", serviceProvider);
-    }
+		Injector injector = createInjector();
+		register(injector);
+		return injector;
+	}
+	
+	public Injector createInjector() {
+		return Guice.createInjector(new BehaviorAnnexRuntimeModule());
+	}
+	
+	public void register(Injector injector) {
+		if (!EPackage.Registry.INSTANCE.containsKey("http://www.aadl.info/BehaviorSpecification")) {
+			EPackage.Registry.INSTANCE.put("http://www.aadl.info/BehaviorSpecification", BehaviorAnnexPackage.eINSTANCE);
+		}
+		IResourceFactory resourceFactory = injector.getInstance(IResourceFactory.class);
+		IResourceServiceProvider serviceProvider = injector.getInstance(IResourceServiceProvider.class);
+		
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("baxtext", resourceFactory);
+		IResourceServiceProvider.Registry.INSTANCE.getExtensionToFactoryMap().put("baxtext", serviceProvider);
+	}
 }
