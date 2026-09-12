@@ -31,6 +31,8 @@ features
     input : in event port;
 modes
     active : initial mode;
+    standby : mode;
+    active -[input]-> standby;
 end base;
 thread implementation base.impl
 subcomponents
