@@ -1,0 +1,4 @@
+annex[0] owner=MixedCompleteStates::worker.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=idle
+    states[1] : BehaviorState name=waiting

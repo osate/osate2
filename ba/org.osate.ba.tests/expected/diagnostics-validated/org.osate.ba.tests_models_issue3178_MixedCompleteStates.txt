@@ -1,0 +1,1 @@
+error | semantic | 36 | 2 | 7 | Complete state 'waiting' must be a mode identifier because complete state 'idle' is a mode identifier: Behavior Annex D.3 legality rule failed.

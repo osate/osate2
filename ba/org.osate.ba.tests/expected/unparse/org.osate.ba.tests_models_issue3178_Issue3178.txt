@@ -1,0 +1,9 @@
+===== annex[0] owner=Issue3178::worker.impl =====
+
+states
+\tidle : initial complete state;
+\tactive : complete state;
+transitions
+\tidle -[on dispatch go]-> active;
+----- Xtext reparse -----
+reparsed
