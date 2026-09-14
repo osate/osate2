@@ -1,0 +1,23 @@
+===== annex[0] owner=Issue3217::status_values.i =====
+
+\t\tvariables
+\t\t\tport_count: Base_Types::Integer;
+\t\t\tport_fresh, port_updated: Base_Types::Boolean;
+\t\tstates
+\t\t\tstart: initial state;
+\t\t\tdone: complete state;
+\t\ttransitions
+\t\t\tstart -[]-> done {
+\t\t\t\tport_count := incoming'count;
+\t\t\t\tport_fresh := incoming'fresh;
+\t\t\t\tport_updated := incoming'updated;
+\t\t\t\tport_count := bidirectional'count;
+\t\t\t\tport_fresh := bidirectional'fresh;
+\t\t\t\tport_updated := bidirectional'updated;
+\t\t\t\tport_count := outgoing'count;
+\t\t\t\tport_fresh := outgoing'fresh;
+\t\t\t\tport_updated := outgoing'updated
+\t\t\t};
+\t
+----- Xtext reparse -----
+reparsed
