@@ -14,4 +14,20 @@ error | semantic | 682 | 21 | 12 | exponent must be of type natural, found Base_
 error | semantic | 684 | 23 | 14 | Invalid operand types for operator "**": left operand has type DataTypeCheckerTest::MyFixedPoint, right operand has type Base_Types::Natural
 warning | semantic | 25 | 33 | 21 | AadlBaTestPropertySet in 'with' clause of public package section is not used.
 warning | semantic | 25 | 75 | 20 | AadlBaTestSubprogram in 'with' clause of public package section is not used.
+warning | semantic | 426 | 21 | 1 | Unary plus is not part of AS5506/3 Rev. A
+warning | semantic | 428 | 21 | 1 | Unary plus is not part of AS5506/3 Rev. A
+warning | semantic | 432 | 23 | 1 | Unary plus is not part of AS5506/3 Rev. A
+warning | semantic | 434 | 23 | 1 | Unary plus is not part of AS5506/3 Rev. A
+warning | semantic | 436 | 23 | 1 | Unary plus is not part of AS5506/3 Rev. A
+warning | semantic | 438 | 23 | 1 | Unary plus is not part of AS5506/3 Rev. A
+warning | semantic | 440 | 23 | 1 | Unary plus is not part of AS5506/3 Rev. A
+warning | semantic | 442 | 23 | 1 | Unary plus is not part of AS5506/3 Rev. A
+warning | semantic | 446 | 26 | 1 | Unary plus is not part of AS5506/3 Rev. A
+warning | semantic | 448 | 26 | 1 | Unary plus is not part of AS5506/3 Rev. A
+warning | semantic | 450 | 25 | 1 | Unary plus is not part of AS5506/3 Rev. A
+warning | semantic | 452 | 25 | 1 | Unary plus is not part of AS5506/3 Rev. A
+warning | semantic | 454 | 23 | 1 | Unary plus is not part of AS5506/3 Rev. A
+warning | semantic | 456 | 23 | 1 | Unary plus is not part of AS5506/3 Rev. A
+warning | semantic | 458 | 23 | 1 | Unary plus is not part of AS5506/3 Rev. A
+warning | semantic | 460 | 23 | 1 | Unary plus is not part of AS5506/3 Rev. A
 warning | semantic | 683 | 21 | 38 | Cannot evaluate if the exponent is a natural
