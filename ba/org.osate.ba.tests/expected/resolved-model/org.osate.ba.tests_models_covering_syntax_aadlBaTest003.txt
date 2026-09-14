@@ -514,9 +514,9 @@ annex[0] owner=DataStructPrototypeTest::concreteThread.impl
                 factors[0] : Factor
                   firstValue : ClassifierPropertyReference
                     properties[0] : PropertyNameHolder
-                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                      property : BasicPropertyHolder element=Data_Model::Enumerators [Property]
                     properties[1] : PropertyNameHolder
-                      property : PropertyExpressionHolder element=StringLiteral [StringLiteral]
+                      property : BasicPropertyHolder element=<null>
     actions[31] : BehaviorActionBlock
       content : ForOrForAllStatement
         behaviorActions : AssignmentAction
@@ -546,9 +546,9 @@ annex[0] owner=DataStructPrototypeTest::concreteThread.impl
                   factors[0] : Factor
                     firstValue : ClassifierPropertyReference
                       properties[0] : PropertyNameHolder
-                        property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                        property : BasicPropertyHolder element=Data_Model::Enumerators [Property]
                       properties[1] : PropertyNameHolder
-                        property : PropertyExpressionHolder element=StringLiteral [StringLiteral]
+                        property : BasicPropertyHolder element=<null>
         actions[1] : AssignmentAction
           target : BehaviorVariableHolder element=localDay [BehaviorVariable]
           valueExpression : ValueExpression
@@ -558,9 +558,9 @@ annex[0] owner=DataStructPrototypeTest::concreteThread.impl
                   factors[0] : Factor
                     firstValue : ClassifierPropertyReference
                       properties[0] : PropertyNameHolder
-                        property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                        property : BasicPropertyHolder element=Data_Model::Enumerators [Property]
                       properties[1] : PropertyNameHolder
-                        property : PropertyExpressionHolder element=StringLiteral [StringLiteral]
+                        property : BasicPropertyHolder element=<null>
         actions[2] : AssignmentAction
           target : BehaviorVariableHolder element=localMyEnum [BehaviorVariable]
           valueExpression : ValueExpression

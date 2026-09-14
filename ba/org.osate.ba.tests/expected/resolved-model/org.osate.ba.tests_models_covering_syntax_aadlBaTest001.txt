@@ -890,7 +890,7 @@ annex[1] owner=NamesResolutionTest::thread1.impl
                 factors[0] : Factor
                   firstValue : ClassifierPropertyReference
                     properties[0] : PropertyNameHolder
-                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleValue [Property]
         parameterLabels[1] : ValueExpression
           relations[0] : Relation
             firstExpression : SimpleExpression
@@ -914,7 +914,7 @@ annex[1] owner=NamesResolutionTest::thread1.impl
                 factors[0] : Factor
                   firstValue : ClassifierPropertyReference
                     properties[0] : PropertyNameHolder
-                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                      property : BasicPropertyHolder element=Timing_Properties::Period [Property]
         parameterLabels[2] : BehaviorVariableHolder element=tmp [BehaviorVariable]
     actions[18] : BehaviorActionBlock
       content : SubprogramCallAction

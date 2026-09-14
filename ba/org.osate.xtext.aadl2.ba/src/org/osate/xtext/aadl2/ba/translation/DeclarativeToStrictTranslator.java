@@ -1114,13 +1114,13 @@ public final class DeclarativeToStrictTranslator {
 				result = propertyReference;
 			}
 			var primaryElement = (Element) propertyElement;
-			if (prefix == null) {
-				if (propertyElement instanceof Property property) {
-					if (property.getDefaultValue() != null) {
-						primaryElement = property.getDefaultValue();
-					}
+			if (prefix == null && propertyElement instanceof Property property) {
+				if (property.getDefaultValue() != null) {
+					primaryElement = property.getDefaultValue();
 				}
-			} else {
+			} else if (prefix != null && propertyElement == null) {
+				// Keep an element-prefixed reference symbolic. An association is only a fallback for resolving the
+				// property definition when ordinary name lookup could not find it.
 				final NamedElement valueOwner;
 				if (prefixElement instanceof Classifier classifier) {
 					valueOwner = classifier;
@@ -1138,7 +1138,7 @@ public final class DeclarativeToStrictTranslator {
 						? null
 						: PropertyUtils.findPropertyAssociation(localPropertyName, valueOwner);
 				if (association != null) {
-					primaryElement = association;
+					primaryElement = association.getProperty();
 				}
 			}
 			result.getProperties().add(toPropertyNameHolder(primaryElement, indexes, traceSource));
