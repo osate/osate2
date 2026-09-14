@@ -1852,6 +1852,9 @@ public class AadlBaSwitch<T> extends Switch<T> {
 				result = caseDataHolder(iterativeVariableHolder);
 			}
 			if (result == null) {
+				result = caseElementValues(iterativeVariableHolder);
+			}
+			if (result == null) {
 				result = caseElementHolder(iterativeVariableHolder);
 			}
 			if (result == null) {

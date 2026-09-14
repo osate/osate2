@@ -4028,6 +4028,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		integerValueVariableEClass.getESuperTypes().add(getValueVariable());
 		iterativeVariableEClass.getESuperTypes().add(getBehaviorNamedElement());
 		iterativeVariableHolderEClass.getESuperTypes().add(getDataHolder());
+		iterativeVariableHolderEClass.getESuperTypes().add(getElementValues());
 		literalEClass.getESuperTypes().add(getValueConstant());
 		literalEClass.getESuperTypes().add(getIntegerValueConstant());
 		lockActionEClass.getESuperTypes().add(getSharedDataAction());

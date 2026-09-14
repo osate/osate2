@@ -54,6 +54,7 @@ import org.osate.aadl2.modelsupport.errorreporting.AbstractAnalysisErrorReporter
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.parsesupport.ParseUtil;
 import org.osate.annexsupport.ParseResultHolder;
+import org.osate.ba.aadlba.ForOrForAllStatement;
 import org.osate.ba.aadlba.PropertySetPropertyReference;
 import org.osate.ba.analyzers.AadlBaRulesCheckersDriver;
 import org.osate.ba.analyzers.AadlBaTypeChecker;
@@ -90,6 +91,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	public static final String TIMEOUT_RESET_PORT = "org.osate.xtext.aadl2.ba.timeoutResetPort";
 	public static final String TIMEOUT_RESET_PORT_TIME = "org.osate.xtext.aadl2.ba.timeoutResetPortTime";
 	public static final String ITERATIVE_VARIABLE_TARGET = "org.osate.xtext.aadl2.ba.iterativeVariableTarget";
+	public static final String ITERATED_VALUES = "org.osate.xtext.aadl2.ba.iteratedValues";
 	public static final String ARRAY_SIZE = "org.osate.xtext.aadl2.ba.arraySize";
 	public static final String PROPERTY_REFERENCE_VALUE = "org.osate.xtext.aadl2.ba.propertyReferenceValue";
 	public static final String MODE_REFINEMENT = "org.osate.xtext.aadl2.ba.modeRefinement";
@@ -125,6 +127,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 		representable &= checkInternalConditionPorts(source, translation);
 		representable &= checkTimeoutResetPorts(source, translation);
 		representable &= checkIteratorTargets(source, translation);
+		representable &= checkIteratedValues(source, translation);
 		// The strict model does carry a property reference that denotes no value, so this one is not a gate: the strict
 		// checkers keep their model and whatever else they have to say about it.
 		checkPropertyReferenceValues(translation);
@@ -329,6 +332,36 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 						ValidationMessageAcceptor.INSIGNIFICANT_INDEX, ITERATIVE_VARIABLE_TARGET);
 				accepted = false;
 			}
+		}
+		return accepted;
+	}
+
+	/**
+	 * The AS5506/3 Rev A D.6 element_values production admits an integer range, an event data port name, or an array
+	 * data component reference, and a data component reference starts with a data subcomponent, a data access feature,
+	 * a local variable, or a data access feature prototype. D.6 gives the iterator of a for or forall the name scope of
+	 * the construct, where it acts as a local variable, so an enclosing iterator is one of those names as well. The
+	 * iterated values share the D.7 integer value grammar with the rest of the annex, which also accepts an integer
+	 * literal, a property reference, and names that denote none of the above, and the strict model has no element values
+	 * to carry any of them: translation drops them, and the loop would otherwise reach the strict checkers iterating
+	 * nothing at all. Report the values as written, since an integer range never fails here and everything else is one
+	 * expression.
+	 *
+	 * @return {@code true} when every loop in the annex iterates values the strict model can carry
+	 */
+	private boolean checkIteratedValues(final BehaviorAnnex source, final TranslationResult translation) {
+		var accepted = true;
+		for (var contents = source.eAllContents(); contents.hasNext();) {
+			if (!(contents.next() instanceof ForStatement loop) || loop.getValues() == null
+					|| !(translation.getStrict(loop) instanceof ForOrForAllStatement strict)
+					|| strict.getIteratedValues() != null) {
+				continue;
+			}
+			error("'" + NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(loop.getValues()))
+					+ "' cannot be iterated: a for or forall iterates an integer range, an event data port, a parameter,"
+					+ " or an array data component reference", loop.getValues(), null,
+					ValidationMessageAcceptor.INSIGNIFICANT_INDEX, ITERATED_VALUES);
+			accepted = false;
 		}
 		return accepted;
 	}

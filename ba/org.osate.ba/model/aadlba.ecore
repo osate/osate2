@@ -503,7 +503,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="dataClassifier" unique="false"
         eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//DataClassifier"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="IterativeVariableHolder" eSuperTypes="#//DataHolder">
+  <eClassifiers xsi:type="ecore:EClass" name="IterativeVariableHolder" eSuperTypes="#//DataHolder #//ElementValues">
     <eOperations name="setIterativeVariable" lowerBound="1">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="element = itV ;"/>

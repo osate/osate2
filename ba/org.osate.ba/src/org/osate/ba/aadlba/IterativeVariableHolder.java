@@ -29,7 +29,7 @@ package org.osate.ba.aadlba;
  * @model
  * @generated
  */
-public interface IterativeVariableHolder extends DataHolder {
+public interface IterativeVariableHolder extends DataHolder, ElementValues {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

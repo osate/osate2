@@ -195,6 +195,9 @@ public class ForOrForAllStatementItemProvider extends LoopStatementItemProvider 
 				AadlBaFactory.eINSTANCE.createIntegerRange()));
 
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.FOR_OR_FOR_ALL_STATEMENT__ITERATED_VALUES,
+				AadlBaFactory.eINSTANCE.createIterativeVariableHolder()));
+
+		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.FOR_OR_FOR_ALL_STATEMENT__ITERATED_VALUES,
 				AadlBaFactory.eINSTANCE.createParameterHolder()));
 
 		newChildDescriptors.add(createChildParameter(AadlBaPackage.Literals.FOR_OR_FOR_ALL_STATEMENT__ITERATED_VALUES,
