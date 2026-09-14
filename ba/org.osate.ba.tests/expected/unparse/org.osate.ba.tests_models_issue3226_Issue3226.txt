@@ -1,0 +1,19 @@
+===== annex[0] owner=Issue3226::worker.i =====
+
+        variables
+            total : Base_Types::Integer;
+            m : Matrix;
+        states
+            start : initial state;
+            done : complete final state;
+        transitions
+            start -[]-> done {
+                for (row : Row in m) {
+                    for (cell : Base_Types::Integer in row) {
+                        total := cell + total
+                    }
+                }
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
