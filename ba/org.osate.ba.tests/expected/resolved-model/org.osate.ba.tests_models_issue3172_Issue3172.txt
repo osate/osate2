@@ -15,7 +15,7 @@ annex[0] owner=Issue3172::reader
                   factors[0] : Factor
                     firstValue : ClassifierPropertyReference
                       properties[0] : PropertyNameHolder
-                        property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                        property : BasicPropertyHolder element=Thread_Properties::Priority [Property]
         actions[1] : AssignmentAction
           target : BehaviorVariableHolder element=value [BehaviorVariable]
           valueExpression : ValueExpression
@@ -25,7 +25,7 @@ annex[0] owner=Issue3172::reader
                   factors[0] : Factor
                     firstValue : ClassifierPropertyReference
                       properties[0] : PropertyNameHolder
-                        property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                        property : BasicPropertyHolder element=Thread_Properties::Priority [Property]
         actions[2] : AssignmentAction
           target : BehaviorVariableHolder element=value [BehaviorVariable]
           valueExpression : ValueExpression
@@ -61,7 +61,7 @@ annex[1] owner=Issue3172::writer.impl
                   factors[0] : Factor
                     firstValue : ClassifierPropertyReference
                       properties[0] : PropertyNameHolder
-                        property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                        property : BasicPropertyHolder element=Thread_Properties::Priority [Property]
         actions[1] : AssignmentAction
           target : BehaviorVariableHolder element=value [BehaviorVariable]
           valueExpression : ValueExpression

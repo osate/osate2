@@ -38,7 +38,6 @@ import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.PropertyAssociation;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.ba.aadlba.AssignmentAction;
 import org.osate.ba.aadlba.BehaviorAnnex;
@@ -72,8 +71,8 @@ public class Issue3172Test {
 	@Test
 	public void selfNamesTheContainingTypeOfAPropertyReference() throws Exception {
 		assertEquals(List.of("ClassifierPropertyReference(classifier=Issue3172::reader, "
-				+ "PropertyAssociationHolder:Priority)",
-				"ClassifierPropertyReference(classifier=Issue3172::reader, PropertyAssociationHolder:Priority)",
+				+ "BasicPropertyHolder:Priority)",
+				"ClassifierPropertyReference(classifier=Issue3172::reader, BasicPropertyHolder:Priority)",
 				"ClassifierPropertyReference(classifier=Issue3172::reader, BasicPropertyHolder:Deadline)",
 				"DataPortHolder:input"), assignedValues(0));
 	}
@@ -81,7 +80,7 @@ public class Issue3172Test {
 	@Test
 	public void selfNamesTheContainingImplementationOfAPropertyReference() throws Exception {
 		assertEquals(List.of("ClassifierPropertyReference(classifier=Issue3172::writer.impl, "
-				+ "PropertyAssociationHolder:Priority)", "DataSubcomponentHolder:storage"), assignedValues(1));
+				+ "BasicPropertyHolder:Priority)", "DataSubcomponentHolder:storage"), assignedValues(1));
 	}
 
 	@Test
@@ -154,9 +153,6 @@ public class Issue3172Test {
 	}
 
 	private static String property(final Element element) {
-		if (element instanceof PropertyAssociation association) {
-			return name(association.getProperty());
-		}
 		return element instanceof NamedElement named ? name(named) : String.valueOf(element);
 	}
 

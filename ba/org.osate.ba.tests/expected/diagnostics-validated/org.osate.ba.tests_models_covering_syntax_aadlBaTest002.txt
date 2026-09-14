@@ -1,3 +1,5 @@
+error | semantic | 230 | 17 | 14 | Port status value 'outPortA'count' is defined only for a port that is frozen on input, but 'outPortA' is an outgoing port. AS5506/3 Rev. A states no corresponding legality rule.
+error | semantic | 237 | 23 | 14 | Port status value 'outPortA'fresh' is defined only for a port that is frozen on input, but 'outPortA' is an outgoing port. AS5506/3 Rev. A states no corresponding legality rule.
 error | semantic | 643 | 22 | 13 | There is no applicable operator ">" for type Base_Types::Boolean
 error | semantic | 645 | 22 | 17 | There is no applicable operator ">" for type AadlBaTest::Types::Opaque
 error | semantic | 650 | 21 | 14 | There is no applicable operator "+" for type AadlBaTest::Types::Opaque
