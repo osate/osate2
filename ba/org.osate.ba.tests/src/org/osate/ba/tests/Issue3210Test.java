@@ -35,10 +35,9 @@ import org.eclipse.xtext.testing.validation.ValidationTestHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.PropertyAssociation;
 import org.osate.annexsupport.AnnexUtil;
+import org.osate.ba.aadlba.BasicPropertyHolder;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorArraySize;
 import org.osate.ba.aadlba.BehaviorIntegerLiteral;
@@ -104,6 +103,7 @@ public class Issue3210Test {
 		assertTrue(describe(size), value instanceof ClassifierFeaturePropertyReference);
 		var reference = (ClassifierFeaturePropertyReference) value;
 		assertEquals("input", reference.getComponent().getElement().getName());
+		assertTrue(reference.getProperties().getFirst().getProperty() instanceof BasicPropertyHolder);
 		assertEquals(List.of("Queue_Size"), propertyNames(reference));
 		assertNotEvaluated(size);
 	}
@@ -149,16 +149,12 @@ public class Issue3210Test {
 		return (BehaviorArraySize) variable.getArrayDimensions().getFirst().getSize();
 	}
 
-	/** Names the properties a reference reads, taking the property of an association the reference resolved to. */
+	/** Names the property definitions a reference preserves. */
 	private static List<String> propertyNames(final PropertyReference reference) {
-		return reference.getProperties().stream().map(holder -> propertyName(holder.getProperty().getElement())).toList();
-	}
-
-	private static String propertyName(final Element element) {
-		if (element instanceof PropertyAssociation association) {
-			return association.getProperty().getName();
-		}
-		return element instanceof NamedElement named ? named.getName() : String.valueOf(element);
+		return reference.getProperties()
+				.stream()
+				.map(holder -> ((NamedElement) holder.getProperty().getElement()).getName())
+				.toList();
 	}
 
 	/** Describes a size by its parts, so a failing run reports the translated size instead of only a class cast. */

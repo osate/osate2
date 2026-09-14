@@ -14,4 +14,4 @@ annex[0] owner=SelfPropertyReference::worker
                 factors[0] : Factor
                   firstValue : ClassifierPropertyReference
                     properties[0] : PropertyNameHolder
-                      property : PropertyAssociationHolder element=PropertyAssociation [PropertyAssociation]
+                      property : BasicPropertyHolder element=Thread_Properties::Priority [Property]
