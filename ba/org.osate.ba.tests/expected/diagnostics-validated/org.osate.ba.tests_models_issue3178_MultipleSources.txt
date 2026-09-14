@@ -1,0 +1,1 @@
+error | semantic | 44 | 30 | 5 | The behavior transition tries to refine a transition mode but it is not consisting with any transition mode of MultipleSources::worker.impl component: Behavior Annex D.3.(C4) consistency rule failed.

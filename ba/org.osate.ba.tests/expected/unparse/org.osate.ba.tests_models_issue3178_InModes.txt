@@ -1,0 +1,6 @@
+===== annex[0] owner=InModes::worker.impl =====
+
+states
+\tactive : initial complete state;
+----- Xtext reparse -----
+reparsed

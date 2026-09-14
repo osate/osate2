@@ -20,67 +20,20 @@
 -- aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
 -- censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
 
-package Issue3182
+package MixedCompleteStates
 public
-with Base_Types;
 
-subprogram worker
+thread worker
 end worker;
-thread base
-features
-    input : in event port;
+
+thread implementation worker.impl
 modes
-    active : initial mode;
-    standby : mode;
-    active -[input]-> standby;
-end base;
-thread implementation base.impl
-subcomponents
-    task : subprogram worker;
-end base.impl;
-thread derived extends base
+	idle : initial mode;
+	active : mode;
 annex behavior_specification {**
-variables
-    local : Base_Types::Integer;
 states
-    start : initial state;
-    ACTIVE : complete state;
-    finish : final state;
-transitions
-    begin: start -[]-> active {local := 1};
-    active -[on dispatch input]-> active;
-    active -[on dispatch input]-> finish;
+	idle : initial complete state;
+	waiting : complete state;
 **};
-end derived;
-thread implementation derived.impl extends base.impl
-annex behavior_specification {**
-variables
-    local, TASK : Base_Types::Integer;
-states
-    start : initial state;
-    ACTIVE : complete state;
-    finish : final state;
-transitions
-    begin: start -[]-> active {local := 1};
-    active -[on dispatch input]-> active;
-    active -[on dispatch input]-> finish;
-**};
-end derived.impl;
--- An implementation's data declarations are outside its type annex's scope.
-thread typed
-annex behavior_specification {**
-variables
-    implementationData : Base_Types::Integer;
-states
-    start : initial state;
-    ready : complete state;
-    finish : final state;
-transitions
-    begin: start -[]-> ready;
-**};
-end typed;
-thread implementation typed.impl
-subcomponents
-    implementationData : data Base_Types::Integer;
-end typed.impl;
-end Issue3182;
+end worker.impl;
+end MixedCompleteStates;

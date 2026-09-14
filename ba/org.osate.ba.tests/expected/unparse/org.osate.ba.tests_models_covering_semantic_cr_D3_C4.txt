@@ -6,7 +6,7 @@ states
   finalState : final state ;
 \s\s\s
 transitions
-  m1 -[on inPorta and inPortB or inPortc and inPortA]-> finalState ;
+  m1 -[on dispatch inPortA and inPortB or inPortC]-> finalState ;
 \s\s
 ----- Xtext reparse -----
 reparsed

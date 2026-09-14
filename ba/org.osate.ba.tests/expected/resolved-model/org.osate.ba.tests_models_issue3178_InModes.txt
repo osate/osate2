@@ -1,0 +1,3 @@
+annex[0] owner=InModes::worker.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=active

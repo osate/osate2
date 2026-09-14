@@ -92,6 +92,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	public static final String ITERATIVE_VARIABLE_TARGET = "org.osate.xtext.aadl2.ba.iterativeVariableTarget";
 	public static final String ARRAY_SIZE = "org.osate.xtext.aadl2.ba.arraySize";
 	public static final String PROPERTY_REFERENCE_VALUE = "org.osate.xtext.aadl2.ba.propertyReferenceValue";
+	public static final String MODE_REFINEMENT = "org.osate.xtext.aadl2.ba.modeRefinement";
 	private static final URI VALIDATION_RESOURCE_URI = URI.createURI("validation:/behavior-annex.aadlba");
 
 	@Inject
@@ -111,7 +112,8 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	@Check(CheckType.NORMAL)
 	public void checkBehaviorAnnex(final BehaviorAnnex source) {
 		if (!(source.getContainingClassifier() instanceof ComponentClassifier owner)
-				|| !checkDeclarationNames(source, owner) || hasSyntaxOrLinkingErrors(source)) {
+				|| !checkDeclarationNames(source, owner) || hasSyntaxOrLinkingErrors(source)
+				|| !checkCompleteModeStates(source, owner)) {
 			return;
 		}
 
@@ -410,6 +412,37 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 							+ enclosingKind + " identifier", declaration.source(), declaration.feature(), DECLARATION_NAME);
 					valid = false;
 				}
+			}
+		}
+		return valid;
+	}
+
+	/**
+	 * In a subclause without an {@code in modes} statement, one complete state that names a mode makes the subclause a
+	 * mode refinement. D.3 then requires every complete state in that subclause to name a mode.
+	 */
+	private boolean checkCompleteModeStates(final BehaviorAnnex source, final ComponentClassifier owner) {
+		if (!DeclarativeToStrictTranslator.canRefineModes(source)) {
+			return true;
+		}
+		var modeNames = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+		for (var mode : owner.getAllModes()) {
+			modeNames.add(mode.getName());
+		}
+		var completeStates = source.getStateGroups().stream().filter(group -> group.isComplete())
+				.flatMap(group -> group.getStates().stream()).toList();
+		var firstModeState = completeStates.stream().filter(state -> modeNames.contains(state.getName())).findFirst();
+		if (firstModeState.isEmpty()) {
+			return true;
+		}
+		var modeStateName = firstModeState.orElseThrow().getName();
+		var valid = true;
+		for (var state : completeStates) {
+			if (!modeNames.contains(state.getName())) {
+				valid = false;
+				error("Complete state '" + state.getName() + "' must be a mode identifier because complete state '"
+						+ modeStateName + "' is a mode identifier: Behavior Annex D.3 legality rule failed.", state,
+						BehaviorAnnexPackage.eINSTANCE.getBehaviorState_Name(), MODE_REFINEMENT);
 			}
 		}
 		return valid;

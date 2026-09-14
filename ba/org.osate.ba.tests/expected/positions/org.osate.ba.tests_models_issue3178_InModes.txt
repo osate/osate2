@@ -1,0 +1,4 @@
+annex[0] owner=InModes::worker.impl
+  (BehaviorAnnex, behavior_specification, 1889, 40)
+  (BehaviorState, active, 1897, 6)
+  (BehaviorStateGroup, <null>, 1897, 32)

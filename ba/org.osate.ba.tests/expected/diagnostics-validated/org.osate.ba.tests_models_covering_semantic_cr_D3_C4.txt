@@ -1,1 +1,1 @@
-error | semantic | 45 | 3 | 66 | Transitions out of complete states must have dispatch condition : Behavior Annex D.3.(L7) legality rule failed.
+error | semantic | 45 | 20 | 30 | The behavior transition tries to refine a transition mode but it is not consisting with any transition mode of exemple_cr_D3_C4::proc component: Behavior Annex D.3.(C4) consistency rule failed.
