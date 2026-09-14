@@ -1,0 +1,4 @@
+error | semantic | 49 | 17 | 91 | iterative variable data classifier is not resolved
+error | semantic | 50 | 30 | 12 | There is no applicable operator "+" for type unknown
+error | semantic | 54 | 17 | 101 | iterative variable data classifier is not resolved
+error | semantic | 55 | 30 | 13 | There is no applicable operator "+" for type unknown

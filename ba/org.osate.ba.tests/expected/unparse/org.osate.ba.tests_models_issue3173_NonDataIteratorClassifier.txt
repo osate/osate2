@@ -1,0 +1,21 @@
+===== annex[0] owner=NonDataIteratorClassifier::worker.i =====
+
+        variables
+            total : Base_Types::Integer;
+        states
+            start : initial state;
+            done : complete final state;
+        transitions
+            written_thread_type : start -[]-> done {
+                for (step : helper in 0 .. 2) {
+                    total := step + total
+                }
+            };
+            written_thread_implementation : start -[]-> done {
+                forall (other : helper.impl in 0 .. 2) {
+                    total := other + total
+                }
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed

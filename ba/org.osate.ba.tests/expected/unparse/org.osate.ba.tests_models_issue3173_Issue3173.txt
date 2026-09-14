@@ -1,0 +1,42 @@
+===== annex[0] owner=Issue3173::worker.i =====
+
+        variables
+            total : Base_Types::Integer;
+            pairs : Pairs;
+        states
+            start : initial state;
+            done : complete final state;
+        transitions
+            range_loop : start -[]-> done {
+                for (step in 0 .. 2) {
+                    total := step + total
+                }
+            };
+            range_forall : start -[]-> done {
+                forall (other in 0 .. 2) {
+                    total := other - total
+                }
+            };
+            queue_loop : start -[]-> done {
+                for (sample in readings) {
+                    total := sample + total
+                }
+            };
+            array_loop : start -[]-> done {
+                for (element in history) {
+                    total := element + total
+                }
+            };
+            data_model_array_forall : start -[]-> done {
+                forall (entry in pairs) {
+                    total := entry.left + entry.right
+                }
+            };
+            written_classifier : start -[]-> done {
+                for (typed : Base_Types::Integer in 0 .. 2) {
+                    total := typed + total
+                }
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
