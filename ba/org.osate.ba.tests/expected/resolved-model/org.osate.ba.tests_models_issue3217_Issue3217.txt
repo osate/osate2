@@ -1,0 +1,82 @@
+annex[0] owner=Issue3217::status_values.i
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=port_count
+    variables[1] : BehaviorVariable name=port_fresh
+    variables[2] : BehaviorVariable name=port_updated
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : BehaviorVariableHolder element=port_count [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : PortCountValue
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=port_fresh [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : PortFreshValue
+        actions[2] : AssignmentAction
+          target : BehaviorVariableHolder element=port_updated [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : PortUpdatedValue
+        actions[3] : AssignmentAction
+          target : BehaviorVariableHolder element=port_count [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : PortCountValue
+        actions[4] : AssignmentAction
+          target : BehaviorVariableHolder element=port_fresh [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : PortFreshValue
+        actions[5] : AssignmentAction
+          target : BehaviorVariableHolder element=port_updated [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : PortUpdatedValue
+        actions[6] : AssignmentAction
+          target : BehaviorVariableHolder element=port_count [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : PortCountValue
+        actions[7] : AssignmentAction
+          target : BehaviorVariableHolder element=port_fresh [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : PortFreshValue
+        actions[8] : AssignmentAction
+          target : BehaviorVariableHolder element=port_updated [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : PortUpdatedValue
