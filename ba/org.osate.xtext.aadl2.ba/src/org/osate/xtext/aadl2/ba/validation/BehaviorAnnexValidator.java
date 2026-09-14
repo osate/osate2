@@ -44,6 +44,7 @@ import org.eclipse.xtext.validation.CheckType;
 import org.eclipse.xtext.validation.ValidationMessageAcceptor;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EventDataPort;
@@ -90,6 +91,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	public static final String TIMEOUT_RESET_PORT = "org.osate.xtext.aadl2.ba.timeoutResetPort";
 	public static final String TIMEOUT_RESET_PORT_TIME = "org.osate.xtext.aadl2.ba.timeoutResetPortTime";
 	public static final String ITERATIVE_VARIABLE_TARGET = "org.osate.xtext.aadl2.ba.iterativeVariableTarget";
+	public static final String ITERATOR_CLASSIFIER = "org.osate.xtext.aadl2.ba.iteratorClassifier";
 	public static final String ARRAY_SIZE = "org.osate.xtext.aadl2.ba.arraySize";
 	public static final String PROPERTY_REFERENCE_VALUE = "org.osate.xtext.aadl2.ba.propertyReferenceValue";
 	public static final String MODE_REFINEMENT = "org.osate.xtext.aadl2.ba.modeRefinement";
@@ -121,6 +123,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 		// Each check describes a use no strict checker can reject, and a model can get each one wrong independently,
 		// so report them all before deciding whether the strict checkers have a model to work on.
 		var representable = checkArraySizes(source);
+		representable &= checkIteratorClassifiers(source);
 		representable &= checkInternalPortUses(source, translation);
 		representable &= checkInternalConditionPorts(source, translation);
 		representable &= checkTimeoutResetPorts(source, translation);
@@ -176,6 +179,31 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 						ValidationMessageAcceptor.INSIGNIFICANT_INDEX, ARRAY_SIZE);
 				accepted = false;
 			}
+		}
+		return accepted;
+	}
+
+	/**
+	 * The AS5506/3 Rev A D.6 {@code for} and {@code forall} productions write the iterator classifier as a
+	 * data_unique_component_classifier_reference, and an iterative variable is typed by a data classifier alone, so a
+	 * classifier of any other category has nothing to become in the strict model. Because the same production leaves the
+	 * classifier out altogether, letting it pass would not leave the declaration rejected either: the iterated values
+	 * would supply the iterator's type as if nothing had been written. Report it on the reference the loop writes.
+	 *
+	 * @return {@code true} when every written iterator classifier is a data classifier
+	 */
+	private boolean checkIteratorClassifiers(final BehaviorAnnex source) {
+		var accepted = true;
+		for (var contents = source.eAllContents(); contents.hasNext();) {
+			if (!(contents.next() instanceof ForStatement loop) || loop.getDataClassifier() == null
+					|| loop.getDataClassifier() instanceof DataClassifier) {
+				continue;
+			}
+			error("'" + loop.getDataClassifier().getName() + "' is not a data classifier: a for or forall iterator can"
+					+ " only name a data component classifier", loop,
+					BehaviorAnnexPackage.eINSTANCE.getForStatement_DataClassifier(),
+					ValidationMessageAcceptor.INSIGNIFICANT_INDEX, ITERATOR_CLASSIFIER);
+			accepted = false;
 		}
 		return accepted;
 	}

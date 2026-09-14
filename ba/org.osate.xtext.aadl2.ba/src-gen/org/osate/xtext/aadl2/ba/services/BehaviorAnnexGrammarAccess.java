@@ -1733,29 +1733,32 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cVariableAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cVariableIDTerminalRuleCall_2_0 = (RuleCall)cVariableAssignment_2.eContents().get(0);
-		private final Keyword cColonKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cDataClassifierAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final CrossReference cDataClassifierComponentClassifierCrossReference_4_0 = (CrossReference)cDataClassifierAssignment_4.eContents().get(0);
-		private final RuleCall cDataClassifierComponentClassifierQCREFParserRuleCall_4_0_1 = (RuleCall)cDataClassifierComponentClassifierCrossReference_4_0.eContents().get(1);
-		private final Keyword cInKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		private final Assignment cValuesAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final RuleCall cValuesElementValuesParserRuleCall_6_0 = (RuleCall)cValuesAssignment_6.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_7 = (Keyword)cGroup.eContents().get(7);
-		private final Keyword cLeftCurlyBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
-		private final Assignment cActionsAssignment_9 = (Assignment)cGroup.eContents().get(9);
-		private final RuleCall cActionsBehaviorActionsParserRuleCall_9_0 = (RuleCall)cActionsAssignment_9.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_10 = (Keyword)cGroup.eContents().get(10);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cColonKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Assignment cDataClassifierAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final CrossReference cDataClassifierComponentClassifierCrossReference_3_1_0 = (CrossReference)cDataClassifierAssignment_3_1.eContents().get(0);
+		private final RuleCall cDataClassifierComponentClassifierQCREFParserRuleCall_3_1_0_1 = (RuleCall)cDataClassifierComponentClassifierCrossReference_3_1_0.eContents().get(1);
+		private final Keyword cInKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Assignment cValuesAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cValuesElementValuesParserRuleCall_5_0 = (RuleCall)cValuesAssignment_5.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final Keyword cLeftCurlyBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		private final Assignment cActionsAssignment_8 = (Assignment)cGroup.eContents().get(8);
+		private final RuleCall cActionsBehaviorActionsParserRuleCall_8_0 = (RuleCall)cActionsAssignment_8.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_9 = (Keyword)cGroup.eContents().get(9);
 		
+		//// D.6 writes the iterator as 'element_identifier [ : data_unique_component_classifier_reference ]', so the classifier
+		//// is optional. When it is left out the iterated values determine the element type, which the translator resolves.
 		//ForStatement:
 		//    (for?='for' | forall?='forall')
-		//    '(' variable=ID ':' dataClassifier=[aadl2::ComponentClassifier|QCREF]
+		//    '(' variable=ID (':' dataClassifier=[aadl2::ComponentClassifier|QCREF])?
 		//    'in' values=ElementValues ')'
 		//    '{' actions=BehaviorActions '}'
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//(for?='for' | forall?='forall')
-		//'(' variable=ID ':' dataClassifier=[aadl2::ComponentClassifier|QCREF]
+		//'(' variable=ID (':' dataClassifier=[aadl2::ComponentClassifier|QCREF])?
 		//'in' values=ElementValues ')'
 		//'{' actions=BehaviorActions '}'
 		public Group getGroup() { return cGroup; }
@@ -1784,41 +1787,44 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 		//ID
 		public RuleCall getVariableIDTerminalRuleCall_2_0() { return cVariableIDTerminalRuleCall_2_0; }
 		
+		//(':' dataClassifier=[aadl2::ComponentClassifier|QCREF])?
+		public Group getGroup_3() { return cGroup_3; }
+		
 		//':'
-		public Keyword getColonKeyword_3() { return cColonKeyword_3; }
+		public Keyword getColonKeyword_3_0() { return cColonKeyword_3_0; }
 		
 		//dataClassifier=[aadl2::ComponentClassifier|QCREF]
-		public Assignment getDataClassifierAssignment_4() { return cDataClassifierAssignment_4; }
+		public Assignment getDataClassifierAssignment_3_1() { return cDataClassifierAssignment_3_1; }
 		
 		//[aadl2::ComponentClassifier|QCREF]
-		public CrossReference getDataClassifierComponentClassifierCrossReference_4_0() { return cDataClassifierComponentClassifierCrossReference_4_0; }
+		public CrossReference getDataClassifierComponentClassifierCrossReference_3_1_0() { return cDataClassifierComponentClassifierCrossReference_3_1_0; }
 		
 		//QCREF
-		public RuleCall getDataClassifierComponentClassifierQCREFParserRuleCall_4_0_1() { return cDataClassifierComponentClassifierQCREFParserRuleCall_4_0_1; }
+		public RuleCall getDataClassifierComponentClassifierQCREFParserRuleCall_3_1_0_1() { return cDataClassifierComponentClassifierQCREFParserRuleCall_3_1_0_1; }
 		
 		//'in'
-		public Keyword getInKeyword_5() { return cInKeyword_5; }
+		public Keyword getInKeyword_4() { return cInKeyword_4; }
 		
 		//values=ElementValues
-		public Assignment getValuesAssignment_6() { return cValuesAssignment_6; }
+		public Assignment getValuesAssignment_5() { return cValuesAssignment_5; }
 		
 		//ElementValues
-		public RuleCall getValuesElementValuesParserRuleCall_6_0() { return cValuesElementValuesParserRuleCall_6_0; }
+		public RuleCall getValuesElementValuesParserRuleCall_5_0() { return cValuesElementValuesParserRuleCall_5_0; }
 		
 		//')'
-		public Keyword getRightParenthesisKeyword_7() { return cRightParenthesisKeyword_7; }
+		public Keyword getRightParenthesisKeyword_6() { return cRightParenthesisKeyword_6; }
 		
 		//'{'
-		public Keyword getLeftCurlyBracketKeyword_8() { return cLeftCurlyBracketKeyword_8; }
+		public Keyword getLeftCurlyBracketKeyword_7() { return cLeftCurlyBracketKeyword_7; }
 		
 		//actions=BehaviorActions
-		public Assignment getActionsAssignment_9() { return cActionsAssignment_9; }
+		public Assignment getActionsAssignment_8() { return cActionsAssignment_8; }
 		
 		//BehaviorActions
-		public RuleCall getActionsBehaviorActionsParserRuleCall_9_0() { return cActionsBehaviorActionsParserRuleCall_9_0; }
+		public RuleCall getActionsBehaviorActionsParserRuleCall_8_0() { return cActionsBehaviorActionsParserRuleCall_8_0; }
 		
 		//'}'
-		public Keyword getRightCurlyBracketKeyword_10() { return cRightCurlyBracketKeyword_10; }
+		public Keyword getRightCurlyBracketKeyword_9() { return cRightCurlyBracketKeyword_9; }
 	}
 	public class WhileStatementElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.WhileStatement");
@@ -3792,9 +3798,11 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 		return getElseIfClauseAccess().getRule();
 	}
 	
+	//// D.6 writes the iterator as 'element_identifier [ : data_unique_component_classifier_reference ]', so the classifier
+	//// is optional. When it is left out the iterated values determine the element type, which the translator resolves.
 	//ForStatement:
 	//    (for?='for' | forall?='forall')
-	//    '(' variable=ID ':' dataClassifier=[aadl2::ComponentClassifier|QCREF]
+	//    '(' variable=ID (':' dataClassifier=[aadl2::ComponentClassifier|QCREF])?
 	//    'in' values=ElementValues ')'
 	//    '{' actions=BehaviorActions '}'
 	//;

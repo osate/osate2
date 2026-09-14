@@ -5,74 +5,95 @@ annex[0] owner=Issue3173::worker.i
     states[0] : BehaviorState name=start
     states[1] : BehaviorState name=done
     transitions[0] : BehaviorTransition name=range_loop
-    transitions[1] : BehaviorTransition
-    transitions[2] : BehaviorTransition
-      condition : ValueExpression
-        relations[0] : Relation
-          firstExpression : SimpleExpression
-            terms[0] : Term
-              factors[0] : Factor
-                firstValue : BehaviorVariableHolder element=total [BehaviorVariable]
-    transitions[3] : BehaviorTransition name=range_forall
-    transitions[4] : BehaviorTransition
-    transitions[5] : BehaviorTransition
-      condition : ValueExpression
-        relations[0] : Relation
-          firstExpression : SimpleExpression
-            terms[0] : Term
-              factors[0] : Factor
-                firstValue : BehaviorVariableHolder element=total [BehaviorVariable]
-    transitions[6] : BehaviorTransition name=queue_loop
-    transitions[7] : BehaviorTransition
-    transitions[8] : BehaviorTransition
-    transitions[9] : BehaviorTransition
-      condition : ValueExpression
-        relations[0] : Relation
-          firstExpression : SimpleExpression
-            terms[0] : Term
-              factors[0] : Factor
-                firstValue : BehaviorVariableHolder element=total [BehaviorVariable]
-    transitions[10] : BehaviorTransition name=array_loop
-    transitions[11] : BehaviorTransition
-    transitions[12] : BehaviorTransition
-    transitions[13] : BehaviorTransition
-      condition : ValueExpression
-        relations[0] : Relation
-          firstExpression : SimpleExpression
-            terms[0] : Term
-              factors[0] : Factor
-                firstValue : BehaviorVariableHolder element=total [BehaviorVariable]
-    transitions[14] : BehaviorTransition name=data_model_array_forall
-    transitions[15] : BehaviorTransition
-    transitions[16] : BehaviorTransition
-    transitions[17] : BehaviorTransition
-    transitions[18] : BehaviorTransition
-      condition : ValueExpression
-        relations[0] : Relation
-          firstExpression : SimpleExpression
-            terms[0] : Term
-              factors[0] : Factor
-                firstValue : BehaviorVariableHolder element=<null>
-    transitions[19] : BehaviorTransition name=written_classifier
+    transitions[1] : BehaviorTransition name=range_forall
+    transitions[2] : BehaviorTransition name=queue_loop
+    transitions[3] : BehaviorTransition name=array_loop
+    transitions[4] : BehaviorTransition name=data_model_array_forall
+    transitions[5] : BehaviorTransition name=written_classifier
     actions[0] : BehaviorActionBlock
       content : ForOrForAllStatement
-        behaviorActions : BehaviorActionBlock
+        behaviorActions : AssignmentAction
+          target : BehaviorVariableHolder element=total [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : IterativeVariableHolder element=step [IterativeVariable]
+                terms[1] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=total [BehaviorVariable]
+        iteratedValues : IntegerRange
+          lowerIntegerValue : BehaviorIntegerLiteral
+          upperIntegerValue : BehaviorIntegerLiteral
         iterativeVariable : IterativeVariable name=step
     actions[1] : BehaviorActionBlock
       content : ForOrForAllStatement
-        behaviorActions : BehaviorActionBlock
+        behaviorActions : AssignmentAction
+          target : BehaviorVariableHolder element=total [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : IterativeVariableHolder element=other [IterativeVariable]
+                terms[1] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=total [BehaviorVariable]
+        iteratedValues : IntegerRange
+          lowerIntegerValue : BehaviorIntegerLiteral
+          upperIntegerValue : BehaviorIntegerLiteral
         iterativeVariable : IterativeVariable name=other
     actions[2] : BehaviorActionBlock
       content : ForOrForAllStatement
-        behaviorActions : BehaviorActionBlock
+        behaviorActions : AssignmentAction
+          target : BehaviorVariableHolder element=total [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : IterativeVariableHolder element=sample [IterativeVariable]
+                terms[1] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=total [BehaviorVariable]
+        iteratedValues : EventDataPortHolder element=Issue3173::worker.readings [EventDataPort]
         iterativeVariable : IterativeVariable name=sample
     actions[3] : BehaviorActionBlock
       content : ForOrForAllStatement
-        behaviorActions : BehaviorActionBlock
+        behaviorActions : AssignmentAction
+          target : BehaviorVariableHolder element=total [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : IterativeVariableHolder element=element [IterativeVariable]
+                terms[1] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=total [BehaviorVariable]
+        iteratedValues : DataSubcomponentHolder element=Issue3173::worker.i.history [DataSubcomponent]
         iterativeVariable : IterativeVariable name=element
     actions[4] : BehaviorActionBlock
       content : ForOrForAllStatement
-        behaviorActions : BehaviorActionBlock
+        behaviorActions : AssignmentAction
+          target : BehaviorVariableHolder element=total [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataComponentReference
+                      data[0] : IterativeVariableHolder element=entry [IterativeVariable]
+                      data[1] : StructUnionElementHolder element=left [StructUnionElement]
+                        structUnionElement : StructUnionElement name=left
+                terms[1] : Term
+                  factors[0] : Factor
+                    firstValue : DataComponentReference
+                      data[0] : IterativeVariableHolder element=entry [IterativeVariable]
+                      data[1] : StructUnionElementHolder element=right [StructUnionElement]
+                        structUnionElement : StructUnionElement name=right
+        iteratedValues : BehaviorVariableHolder element=pairs [BehaviorVariable]
         iterativeVariable : IterativeVariable name=entry
     actions[5] : BehaviorActionBlock
       content : ForOrForAllStatement

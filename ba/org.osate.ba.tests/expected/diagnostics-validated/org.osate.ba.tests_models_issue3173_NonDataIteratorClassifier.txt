@@ -1,4 +1,2 @@
-error | semantic | 49 | 17 | 91 | iterative variable data classifier is not resolved
-error | semantic | 50 | 30 | 12 | There is no applicable operator "+" for type unknown
-error | semantic | 54 | 17 | 101 | iterative variable data classifier is not resolved
-error | semantic | 55 | 30 | 13 | There is no applicable operator "+" for type unknown
+error | semantic | 49 | 29 | 6 | 'helper' is not a data classifier: a for or forall iterator can only name a data component classifier
+error | semantic | 54 | 33 | 11 | 'helper.impl' is not a data classifier: a for or forall iterator can only name a data component classifier
