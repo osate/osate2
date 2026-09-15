@@ -1,0 +1,9 @@
+===== annex[0] owner=DeviceExternalCondition::sensor.impl =====
+
+states
+\tidle : initial complete state;
+\tactive : complete state;
+transitions
+\tidle -[on go]-> active;
+----- Xtext reparse -----
+reparsed

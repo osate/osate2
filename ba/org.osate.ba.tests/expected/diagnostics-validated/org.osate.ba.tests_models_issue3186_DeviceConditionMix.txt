@@ -1,0 +1,2 @@
+error | semantic | 41 | 9 | 14 | The transitions out of complete state 'idle' of a device must use either only external conditions or only dispatch conditions: Behavior Annex D.3 consistency rule failed.
+error | semantic | 42 | 9 | 5 | The transitions out of complete state 'idle' of a device must use either only external conditions or only dispatch conditions: Behavior Annex D.3 consistency rule failed.

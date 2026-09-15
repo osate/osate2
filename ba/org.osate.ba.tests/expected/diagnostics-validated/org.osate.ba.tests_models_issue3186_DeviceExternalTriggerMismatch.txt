@@ -1,0 +1,1 @@
+error | semantic | 42 | 9 | 8 | The behavior transition tries to refine a transition mode but it is not consisting with any transition mode of DeviceExternalTriggerMismatch::sensor.impl component: Behavior Annex D.3.(C4) consistency rule failed.

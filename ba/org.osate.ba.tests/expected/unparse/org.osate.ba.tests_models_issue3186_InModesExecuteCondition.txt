@@ -1,0 +1,9 @@
+===== annex[0] owner=InModesExecuteCondition::controller.impl =====
+
+states
+\twaiting : initial state;
+\trunning : state;
+transitions
+\twaiting -[]-> running;
+----- Xtext reparse -----
+reparsed

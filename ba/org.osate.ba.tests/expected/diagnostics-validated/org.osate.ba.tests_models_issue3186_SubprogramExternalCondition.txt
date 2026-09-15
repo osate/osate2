@@ -1,0 +1,1 @@
+error | semantic | 37 | 10 | 5 | subprogram components cannot use an external condition: an execute or internal condition must be used instead: Behavior Annex D.3 consistency rule failed.
