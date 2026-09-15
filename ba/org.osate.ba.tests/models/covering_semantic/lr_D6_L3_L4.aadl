@@ -50,7 +50,7 @@ thread implementation th.good
 annex behavior_specification {**
 
 variables
- a : Base_Types::Integer ;
+ a : Base_Types::Integer := 0 ;
  b : Base_Types::Integer ;
  c : Base_Types::Integer ;
  d : Base_Types::Integer ;
@@ -131,7 +131,7 @@ thread implementation th.error
 annex behavior_specification {**
 
 variables
- a : Base_Types::Integer ;
+ a : Base_Types::Integer := 0 ;
  b : Base_Types::Integer ;
  c : Base_Types::Integer ;
  d : Base_Types::Integer ;

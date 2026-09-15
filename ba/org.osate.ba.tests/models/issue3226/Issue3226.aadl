@@ -47,8 +47,8 @@ public
     thread implementation worker.i
     annex behavior_specification {**
         variables
-            total : Base_Types::Integer;
-            m : Matrix;
+			total : Base_Types::Integer := 0;
+			m : Matrix { Data_Model::Initial_Value => ("[]"); };
         states
             start : initial state;
             done : complete final state;
