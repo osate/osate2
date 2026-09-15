@@ -77,6 +77,7 @@ public class BehaviorAnnexConformanceTest {
 	 * {@link #optionalLoopClassifierIsAcceptedByTheStandard()}, and
 	 * {@link #internalPortActionsAreAcceptedByTheStandard()} pass.
 	 */
+	private static final List<String> TRACKED_SKIPS = List.of();
 
 	/** The fixtures an expectation in this class asserts about. */
 	private static final List<String> ASSERTED_FIXTURES = List.of("InternalCondition.aadl",
