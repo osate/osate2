@@ -50,6 +50,7 @@ import org.osate.ba.aadlba.DispatchTriggerConditionStop;
 import org.osate.ba.aadlba.ElseStatement;
 import org.osate.ba.aadlba.IfStatement;
 import org.osate.ba.aadlba.LoopStatement;
+import org.osate.ba.aadlba.ModeSwitchTriggerCondition;
 import org.osate.ba.aadlba.Otherwise;
 import org.osate.ba.aadlba.TimedAction;
 import org.osate.ba.aadlba.util.AadlBaSwitch;
@@ -169,6 +170,10 @@ public class AadlBaRulesCheckersDriver {
 					// here instead of from the per-transition traversal below.
 					result &= _legality.D_6_L11_Check(_ba);
 
+					// The device condition rule compares the conditions of every transition out of one complete state,
+					// so it is checked once for the subclause rather than from the per-transition traversal below.
+					result &= _consistency.D_3_Device_Condition_Check(_ba);
+
 					// A multi-source transition has copies of its condition and a shared action block. Check each once
 					// per annex traversal, while retaining the state checks for every expanded transition.
 					Set<BehaviorElement> checked = Collections.newSetFromMap(new IdentityHashMap<>());
@@ -234,6 +239,13 @@ public class AadlBaRulesCheckersDriver {
 						&& checked.add(BehaviorTransitionContext.getOriginalCondition(bc))) {
 					_errManager.warning(_currentBt,
 							"An otherwise transition should not have an explicit priority: Behavior Annex D.3.");
+				}
+
+				// The component category admits or forbids an external condition regardless of the source state, so
+				// check it once for a shared declaration.
+				if (bc instanceof ModeSwitchTriggerCondition
+						&& checked.add(BehaviorTransitionContext.getOriginalCondition(bc))) {
+					result &= _consistency.D_3_External_Condition_Category_Check(_currentBt);
 				}
 
 				// Check Dispatch condition.
