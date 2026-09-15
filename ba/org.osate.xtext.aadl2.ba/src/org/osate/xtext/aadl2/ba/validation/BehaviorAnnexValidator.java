@@ -214,8 +214,9 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 			accepted = false;
 		}
 		return accepted;
-  }
-  
+	}
+
+	/**
 	 * D.5 defines {@code count}, {@code fresh}, and {@code updated} in terms of receiving or freezing input, so none has
 	 * a defined value on an outgoing port. The D.7 value-variable grammar nevertheless names a general port for all
 	 * three suffixes, and neither D.5 nor D.7 states a corresponding legality rule. Enforce the semantics shared by the
