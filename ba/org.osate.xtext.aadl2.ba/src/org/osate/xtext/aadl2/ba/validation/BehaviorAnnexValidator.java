@@ -46,10 +46,12 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.DataSubcomponent;
+import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.EventPort;
 import org.osate.aadl2.InternalFeature;
+import org.osate.aadl2.Port;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.modelsupport.errorreporting.AbstractAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
@@ -59,6 +61,7 @@ import org.osate.ba.aadlba.PropertySetPropertyReference;
 import org.osate.ba.analyzers.AadlBaRulesCheckersDriver;
 import org.osate.ba.analyzers.AadlBaTypeChecker;
 import org.osate.ba.analyzers.AdaLikeDataTypeChecker;
+import org.osate.ba.utils.AadlBaUtils;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.AssignmentAction;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ArrayDimension;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
@@ -71,6 +74,8 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.ForStatement;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.InternalCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.Reference;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceExpression;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.UnaryExpression;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReferenceExpression;
 import org.osate.xtext.aadl2.ba.translation.DeclarativeToStrictTranslator;
 import org.osate.xtext.aadl2.ba.translation.DeclarativeToStrictTranslator.TranslationResult;
 
@@ -95,6 +100,8 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	public static final String ARRAY_SIZE = "org.osate.xtext.aadl2.ba.arraySize";
 	public static final String PROPERTY_REFERENCE_VALUE = "org.osate.xtext.aadl2.ba.propertyReferenceValue";
 	public static final String MODE_REFINEMENT = "org.osate.xtext.aadl2.ba.modeRefinement";
+	public static final String UNARY_PLUS = "org.osate.xtext.aadl2.ba.unaryPlus";
+	public static final String PORT_STATUS_DIRECTION = "org.osate.xtext.aadl2.ba.portStatusDirection";
 	private static final URI VALIDATION_RESOURCE_URI = URI.createURI("validation:/behavior-annex.aadlba");
 
 	@Inject
@@ -128,6 +135,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 		representable &= checkInternalConditionPorts(source, translation);
 		representable &= checkTimeoutResetPorts(source, translation);
 		representable &= checkIteratorTargets(source, translation);
+		checkPortStatusValues(source, translation);
 		// The strict model does carry a property reference that denotes no value, so this one is not a gate: the strict
 		// checkers keep their model and whatever else they have to say about it.
 		checkPropertyReferenceValues(translation);
@@ -206,6 +214,35 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 			accepted = false;
 		}
 		return accepted;
+  }
+  
+	 * D.5 defines {@code count}, {@code fresh}, and {@code updated} in terms of receiving or freezing input, so none has
+	 * a defined value on an outgoing port. The D.7 value-variable grammar nevertheless names a general port for all
+	 * three suffixes, and neither D.5 nor D.7 states a corresponding legality rule. Enforce the semantics shared by the
+	 * three definitions, while accepting both incoming and bidirectional ports because both are frozen on input.
+	 */
+	private void checkPortStatusValues(final BehaviorAnnex source, final TranslationResult translation) {
+		for (var contents = source.eAllContents(); contents.hasNext();) {
+			var value = contents.next();
+			final EObject reference;
+			if (value instanceof ReferenceExpression expression
+					&& (expression.isCount() || expression.isFresh() || expression.isUpdated())) {
+				reference = expression.getReference();
+			} else if (value instanceof UnindexedReferenceExpression expression
+					&& (expression.isCount() || expression.isFresh() || expression.isUpdated())) {
+				reference = expression.getReference();
+			} else {
+				continue;
+			}
+
+			if (translation.getResolvedReference(reference) instanceof Port port
+					&& AadlBaUtils.getDirectionType(port) == DirectionType.OUT) {
+				var written = NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(value));
+				error("Port status value '" + written + "' is defined only for a port that is frozen on input, but '"
+						+ port.getName() + "' is an outgoing port. AS5506/3 Rev. A states no corresponding legality rule.",
+						value, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, PORT_STATUS_DIRECTION);
+			}
+		}
 	}
 
 	/**
@@ -477,6 +514,15 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	}
 
 	private record Declaration(String name, EObject source, EStructuralFeature feature, boolean complete) {
+	}
+
+	/** AS5506/3 Rev. A D.7 defines minus as the only unary adding operator. */
+	@Check(CheckType.FAST)
+	public void checkUnaryPlus(final UnaryExpression expression) {
+		if ("+".equals(expression.getOperator())) {
+			warning("Unary plus is not part of AS5506/3 Rev. A", expression,
+					BehaviorAnnexPackage.eINSTANCE.getUnaryExpression_Operator(), UNARY_PLUS);
+		}
 	}
 
 	/**

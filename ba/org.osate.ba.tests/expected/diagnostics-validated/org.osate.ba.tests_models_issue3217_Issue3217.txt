@@ -1,0 +1,3 @@
+error | semantic | 50 | 19 | 14 | Port status value 'outgoing'count' is defined only for a port that is frozen on input, but 'outgoing' is an outgoing port. AS5506/3 Rev. A states no corresponding legality rule.
+error | semantic | 51 | 19 | 14 | Port status value 'outgoing'fresh' is defined only for a port that is frozen on input, but 'outgoing' is an outgoing port. AS5506/3 Rev. A states no corresponding legality rule.
+error | semantic | 52 | 21 | 16 | Port status value 'outgoing'updated' is defined only for a port that is frozen on input, but 'outgoing' is an outgoing port. AS5506/3 Rev. A states no corresponding legality rule.

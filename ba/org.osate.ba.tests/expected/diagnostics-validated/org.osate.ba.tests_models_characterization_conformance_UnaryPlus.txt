@@ -1,0 +1,1 @@
+warning | semantic | 15 | 35 | 1 | Unary plus is not part of AS5506/3 Rev. A
