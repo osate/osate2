@@ -1,0 +1,28 @@
+annex[0] owner=NonIterableValues::worker.i
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=total
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : ForOrForAllStatement
+          behaviorActions : AssignmentAction
+            target : BehaviorVariableHolder element=total [BehaviorVariable]
+            valueExpression : ValueExpression
+              relations[0] : Relation
+                firstExpression : SimpleExpression
+                  terms[0] : Term
+                    factors[0] : Factor
+                      firstValue : IterativeVariableHolder element=i [IterativeVariable]
+          iterativeVariable : IterativeVariable name=i
+        actions[1] : ForOrForAllStatement
+          behaviorActions : AssignmentAction
+            target : BehaviorVariableHolder element=total [BehaviorVariable]
+            valueExpression : ValueExpression
+              relations[0] : Relation
+                firstExpression : SimpleExpression
+                  terms[0] : Term
+                    factors[0] : Factor
+                      firstValue : IterativeVariableHolder element=j [IterativeVariable]
+          iterativeVariable : IterativeVariable name=j

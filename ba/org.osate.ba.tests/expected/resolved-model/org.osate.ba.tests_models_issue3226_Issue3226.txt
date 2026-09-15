@@ -1,0 +1,25 @@
+annex[0] owner=Issue3226::worker.i
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=total
+    variables[1] : BehaviorVariable name=m
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : ForOrForAllStatement
+        behaviorActions : ForOrForAllStatement
+          behaviorActions : AssignmentAction
+            target : BehaviorVariableHolder element=total [BehaviorVariable]
+            valueExpression : ValueExpression
+              relations[0] : Relation
+                firstExpression : SimpleExpression
+                  terms[0] : Term
+                    factors[0] : Factor
+                      firstValue : IterativeVariableHolder element=cell [IterativeVariable]
+                  terms[1] : Term
+                    factors[0] : Factor
+                      firstValue : BehaviorVariableHolder element=total [BehaviorVariable]
+          iteratedValues : IterativeVariableHolder element=row [IterativeVariable]
+          iterativeVariable : IterativeVariable name=cell
+        iteratedValues : BehaviorVariableHolder element=m [BehaviorVariable]
+        iterativeVariable : IterativeVariable name=row

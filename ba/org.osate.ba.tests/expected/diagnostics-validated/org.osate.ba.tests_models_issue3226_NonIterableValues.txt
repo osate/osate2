@@ -1,0 +1,2 @@
+error | semantic | 45 | 49 | 1 | '5' cannot be iterated: a for or forall iterates an integer range, an event data port, a parameter, or an array data component reference
+error | semantic | 48 | 49 | 7 | 'reading' cannot be iterated: a for or forall iterates an integer range, an event data port, a parameter, or an array data component reference

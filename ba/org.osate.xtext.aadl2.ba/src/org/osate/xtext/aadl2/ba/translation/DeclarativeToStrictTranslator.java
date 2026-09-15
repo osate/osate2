@@ -763,7 +763,11 @@ public final class DeclarativeToStrictTranslator {
 
 		private ElementValues toElementValues(final org.osate.xtext.aadl2.ba.behaviorAnnex.ElementValues values) {
 			if (values.getUpper() == null) {
-				return (ElementValues) toIntegerValue(values.getLower());
+				// D.6 admits an integer range, an event data port, or an array data component reference here, and the
+				// shared D.7 integer value grammar accepts more than that: an integer literal, a property reference,
+				// and names that resolve to something no strict ElementValues can carry. Leave those out of the strict
+				// model, the way the rest of the translator does, and let BehaviorAnnexValidator report them.
+				return toIntegerValue(values.getLower()) instanceof ElementValues iterated ? iterated : null;
 			}
 			final var result = trace(FACTORY.createIntegerRange(), values);
 			result.setLowerIntegerValue(toIntegerValue(values.getLower()));
