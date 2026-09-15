@@ -1,0 +1,9 @@
+===== annex[0] owner=SubprogramExternalCondition::calc.impl =====
+
+states
+\tstart : initial state;
+\tdone : final state;
+transitions
+\tstart -[on go]-> done;
+----- Xtext reparse -----
+reparsed

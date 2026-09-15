@@ -23,16 +23,93 @@
  */
 package org.osate.xtext.aadl2.ba.util;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.DefaultAnnexSubclause;
+import org.osate.aadl2.Mode;
+import org.osate.xtext.aadl2.ba.BehaviorAnnexStandaloneSetup;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
 import org.osate.xtext.aadl2.ba.translation.DeclarativeToStrictTranslator;
 
 /** Compatibility access to the strict public BA model derived from an Xtext annex. */
 public final class BehaviorAnnexUtil {
 	private BehaviorAnnexUtil() {
+	}
+
+	/**
+	 * Returns the Behavior Annex subclauses that apply to a classifier. AS5506/3 Rev. A D.3 applies the subclauses of
+	 * an ancestor to a descendant except where the descendant declares its own, which completely replace the ancestor
+	 * ones; the nearest classifier that declares any therefore supplies all of them. A component implementation is
+	 * searched before its type, so a subclause of the type applies to an implementation that declares none of its own,
+	 * the way core AADL inherits the rest of the type's declarations.
+	 *
+	 * <p>D.3 also lets a component with modes declare a separate subclause for each mode, so every subclause of the
+	 * classifier that supplies them is returned; {@link #getBehaviorAnnexSubclauses(ComponentClassifier, Mode)}
+	 * selects among them by mode.
+	 *
+	 * @param classifier component classifier to find the applicable subclauses of
+	 * @return the applicable subclauses in declaration order, empty when neither the classifier nor anything it
+	 *         inherits from declares one
+	 */
+	public static List<DefaultAnnexSubclause> getBehaviorAnnexSubclauses(final ComponentClassifier classifier) {
+		Objects.requireNonNull(classifier, "classifier");
+		final List<Classifier> searchOrder = new ArrayList<>(classifier.getSelfPlusAllExtended());
+		if (classifier instanceof ComponentImplementation implementation && implementation.getType() != null) {
+			searchOrder.addAll(implementation.getType().getSelfPlusAllExtended());
+		}
+		for (final var candidate : searchOrder) {
+			final var declared = declaredBehaviorAnnexSubclauses(candidate);
+			if (!declared.isEmpty()) {
+				return declared;
+			}
+		}
+		return List.of();
+	}
+
+	/**
+	 * Returns the applicable Behavior Annex subclauses of a classifier that are in effect in a mode. D.3 lets a
+	 * component with modes declare a separate subclause for each mode, and core AADL expresses which modes a subclause
+	 * applies in with its {@code in modes} statement, so a subclause without one is in effect in every mode. Modes are
+	 * matched by name, case insensitively, because an applicable subclause can be declared by an ancestor and name
+	 * that ancestor's mode.
+	 *
+	 * @param classifier component classifier to find the applicable subclauses of
+	 * @param mode mode to select the subclauses in effect in
+	 * @return the applicable subclauses in effect in the mode, in declaration order
+	 */
+	public static List<DefaultAnnexSubclause> getBehaviorAnnexSubclauses(final ComponentClassifier classifier,
+			final Mode mode) {
+		Objects.requireNonNull(mode, "mode");
+		final List<DefaultAnnexSubclause> result = new ArrayList<>();
+		for (final var subclause : getBehaviorAnnexSubclauses(classifier)) {
+			if (subclause.getInModes().isEmpty() || subclause.getInModes().stream()
+					.anyMatch(applicable -> applicable.getName() != null
+							&& applicable.getName().equalsIgnoreCase(mode.getName()))) {
+				result.add(subclause);
+			}
+		}
+		return Collections.unmodifiableList(result);
+	}
+
+	/**
+	 * Returns the Behavior Annex subclauses a classifier declares itself. Selection is by annex name so that finding
+	 * the applicable subclauses of a classifier does not parse the subclauses of other annexes.
+	 */
+	private static List<DefaultAnnexSubclause> declaredBehaviorAnnexSubclauses(final Classifier classifier) {
+		final List<DefaultAnnexSubclause> result = new ArrayList<>();
+		for (final var subclause : classifier.getOwnedAnnexSubclauses()) {
+			if (subclause instanceof DefaultAnnexSubclause defaultAnnex
+					&& BehaviorAnnexStandaloneSetup.ANNEX_NAME.equalsIgnoreCase(defaultAnnex.getName())) {
+				result.add(defaultAnnex);
+			}
+		}
+		return Collections.unmodifiableList(result);
 	}
 
 	public static org.osate.ba.aadlba.BehaviorAnnex getStrictModel(final DefaultAnnexSubclause defaultAnnex) {

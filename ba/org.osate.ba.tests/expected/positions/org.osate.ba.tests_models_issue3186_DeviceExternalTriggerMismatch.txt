@@ -1,0 +1,13 @@
+annex[0] owner=DeviceExternalTriggerMismatch::sensor.impl
+  (BehaviorAnnex, behavior_specification, 2001, 104)
+  (BehaviorCondition, <null>, 2086, 8)
+  (BehaviorState, active, 2041, 6)
+  (BehaviorState, idle, 2009, 4)
+  (BehaviorStateGroup, <null>, 2009, 30)
+  (BehaviorStateGroup, <null>, 2041, 24)
+  (BehaviorTransition, <null>, 2079, 26)
+  (ModeSwitchCondition, <null>, 2089, 5)
+  (ModeSwitchConjunction, <null>, 2089, 5)
+  (ModeSwitchTrigger, <null>, 2089, 5)
+  (Reference, <null>, 2089, 5)
+  (ReferenceSegment, wrong, 2089, 5)

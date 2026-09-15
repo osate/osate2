@@ -1,0 +1,13 @@
+annex[0] owner=SubprogramExternalCondition::calc.impl
+  (BehaviorAnnex, behavior_specification, 1912, 87)
+  (BehaviorCondition, <null>, 1985, 5)
+  (BehaviorState, done, 1944, 4)
+  (BehaviorState, start, 1920, 5)
+  (BehaviorStateGroup, <null>, 1920, 22)
+  (BehaviorStateGroup, <null>, 1944, 19)
+  (BehaviorTransition, <null>, 1977, 22)
+  (ModeSwitchCondition, <null>, 1988, 2)
+  (ModeSwitchConjunction, <null>, 1988, 2)
+  (ModeSwitchTrigger, <null>, 1988, 2)
+  (Reference, <null>, 1988, 2)
+  (ReferenceSegment, go, 1988, 2)

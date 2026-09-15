@@ -1,0 +1,18 @@
+===== annex[0] owner=ModalSubclauses::modal.impl =====
+
+states
+\twhennormal : initial state;
+----- Xtext reparse -----
+reparsed
+===== annex[1] owner=ModalSubclauses::modal.impl =====
+
+states
+\twhenbackup : initial state;
+----- Xtext reparse -----
+reparsed
+===== annex[2] owner=ModalSubclauses::modal.always =====
+
+states
+\tanymode : initial state;
+----- Xtext reparse -----
+reparsed

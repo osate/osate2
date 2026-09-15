@@ -1,0 +1,1 @@
+error | semantic | 38 | 12 | 5 | thread components cannot use an external condition: an execute, dispatch, or internal condition must be used instead: Behavior Annex D.3 consistency rule failed.

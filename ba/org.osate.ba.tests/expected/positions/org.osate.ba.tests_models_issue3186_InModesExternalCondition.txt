@@ -1,0 +1,13 @@
+annex[0] owner=InModesExternalCondition::controller.impl
+  (BehaviorAnnex, behavior_specification, 1950, 91)
+  (BehaviorCondition, <null>, 2024, 5)
+  (BehaviorState, running, 1984, 7)
+  (BehaviorState, waiting, 1958, 7)
+  (BehaviorStateGroup, <null>, 1958, 24)
+  (BehaviorStateGroup, <null>, 1984, 16)
+  (BehaviorTransition, <null>, 2014, 27)
+  (ModeSwitchCondition, <null>, 2027, 2)
+  (ModeSwitchConjunction, <null>, 2027, 2)
+  (ModeSwitchTrigger, <null>, 2027, 2)
+  (Reference, <null>, 2027, 2)
+  (ReferenceSegment, go, 2027, 2)

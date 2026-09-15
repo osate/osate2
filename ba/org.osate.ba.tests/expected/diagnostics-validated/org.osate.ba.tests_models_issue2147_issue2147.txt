@@ -1,0 +1,1 @@
+error | semantic | 35 | 11 | 8 | The behavior transition tries to refine a transition mode while issue2147::threadA.impl component hasn't got any transition mode: Behavior Annex D.3.(C4) consistency rule failed.
