@@ -1129,7 +1129,7 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
 	 *     ForStatement returns ForStatement
 	 *
 	 * Constraint:
-	 *     ((for?='for' | forall?='forall') variable=ID dataClassifier=[ComponentClassifier|QCREF] values=ElementValues actions=BehaviorActions)
+	 *     ((for?='for' | forall?='forall') variable=ID dataClassifier=[ComponentClassifier|QCREF]? values=ElementValues actions=BehaviorActions)
 	 * </pre>
 	 */
 	protected void sequence_ForStatement(ISerializationContext context, ForStatement semanticObject) {

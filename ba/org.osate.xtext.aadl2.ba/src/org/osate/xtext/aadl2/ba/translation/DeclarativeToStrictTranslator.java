@@ -125,6 +125,7 @@ import org.osate.ba.aadlba.ValueConstant;
 import org.osate.ba.aadlba.ValueExpression;
 import org.osate.ba.analyzers.BehaviorTransitionContext;
 import org.osate.ba.utils.AadlBaUtils;
+import org.osate.ba.utils.DimensionException;
 import org.osate.utils.internal.Aadl2Utils;
 import org.osate.utils.internal.Aadl2Visitors;
 import org.osate.utils.internal.PropertyUtils;
@@ -720,11 +721,44 @@ public final class DeclarativeToStrictTranslator {
 				if (statement.getValues() != null) {
 					result.setIteratedValues(toElementValues(statement.getValues()));
 				}
+				// Resolve the classifier before the body, because a data element reached through the iterator needs the
+				// iterator's own type to resolve.
+				if (statement.getDataClassifier() == null) {
+					variable.setDataClassifier(iteratedElementClassifier(result));
+				}
 				result.setBehaviorActions(toActions(statement.getActions()));
 			} finally {
 				iterativeScopes.remove(iterativeScopes.size() - 1);
 			}
 			return result;
+		}
+
+		/**
+		 * Returns the data classifier of the elements the given loop iterates, or {@code null} when no classifier denotes
+		 * them.
+		 *
+		 * <p>
+		 * D.6 leaves the iterator classifier optional and its semantics give the iterator the type of the iterated
+		 * element, so an omitted classifier is resolved here, the way every other name in the annex is. An integer range
+		 * is the one case with no classifier to resolve: the iterator is a universal integer, which no data classifier
+		 * denotes, the same way a port count value is one. Any other iterated value is a port or a data component, whose
+		 * element type is its own type with the array dimension dropped, so the classifier is the one the type of the
+		 * iterated values names. A written classifier that translation cannot carry is deliberately not replaced: the
+		 * declaration is reported as written instead.
+		 * </p>
+		 */
+		private DataClassifier iteratedElementClassifier(final org.osate.ba.aadlba.ForOrForAllStatement loop) {
+			if (!(loop.getIteratedValues() instanceof Element iterated)) {
+				return null;
+			}
+			try {
+				// The iterated values are contained by the loop by now, which is what makes getTypeHolder resolve a
+				// Data Model array to its base type instead of reporting the array itself.
+				return AadlBaUtils.getTypeHolder(iterated, owner).getKlass();
+			} catch (final DimensionException | UnsupportedOperationException exception) {
+				// The type checker reports an iterated value it cannot type, over the same model.
+				return null;
+			}
 		}
 
 		private ElementValues toElementValues(final org.osate.xtext.aadl2.ba.behaviorAnnex.ElementValues values) {

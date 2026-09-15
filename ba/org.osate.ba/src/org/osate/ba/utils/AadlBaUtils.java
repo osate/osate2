@@ -124,6 +124,7 @@ import org.osate.ba.aadlba.FeaturePrototypeHolder;
 import org.osate.ba.aadlba.FeatureType;
 import org.osate.ba.aadlba.ForOrForAllStatement;
 import org.osate.ba.aadlba.IndexableElement;
+import org.osate.ba.aadlba.IntegerRange;
 import org.osate.ba.aadlba.IntegerValue;
 import org.osate.ba.aadlba.InternalPortHolder;
 import org.osate.ba.aadlba.IterativeVariable;
@@ -431,6 +432,10 @@ public class AadlBaUtils {
 			} else if (el instanceof BehaviorVariable) {
 				// Behavior case.
 				return getDataRepresentation((BehaviorVariable) el);
+			} else if (el instanceof IterativeVariable variable) {
+				// A read of an iterator has the type of the iterator, including the universal integer an iterator
+				// over an integer range has without a classifier of its own.
+				return getDataRepresentation(variable);
 			} else {
 				// Prototype cases.
 				Classifier klass;
@@ -553,7 +558,8 @@ public class AadlBaUtils {
 			// Local variable case (BehaviorVariable).
 			result = variable.getDataClassifier();
 		} else if (el instanceof IterativeVariable variable) {
-			// Iterative variable case.
+			// Iterative variable case. D.6 leaves the classifier optional, and resolution has already supplied the
+			// classifier of the iterated elements when the construct writes none.
 			result = variable.getDataClassifier();
 		} else if (el instanceof Prototype prototype) {
 			result = prototypeResolver(prototype, parentContainer);
@@ -935,7 +941,7 @@ public class AadlBaUtils {
 	 * Returns the TypeHolder (data representation and component's DataClassifier
 	 * if any) of the given IterativeVariable object.
 	 *
-	 * @param uccr the given IterativeVariable object.
+	 * @param iv the given IterativeVariable object.
 	 * @return the type holder of the given IterativeVariable
 	 * object.
 	 * @exception UnsupportedOperationException for the unsupported types
@@ -943,9 +949,30 @@ public class AadlBaUtils {
 	private static TypeHolder getTypeHolder(IterativeVariable iv) {
 		TypeHolder result = new TypeHolder();
 		result.setKlass(iv.getDataClassifier());
-		result.setDataRep(getDataRepresentation(result.getKlass()));
+		result.setDataRep(getDataRepresentation(iv));
 
 		return result;
+	}
+
+	/**
+	 * Returns the data representation of the given IterativeVariable object.
+	 * <BR><BR>
+	 * D.6 leaves the iterator classifier optional, and resolution supplies the
+	 * classifier of the iterated elements when the construct writes none. An
+	 * integer range is the one case with no classifier to supply: D.6 gives the
+	 * iterator the integer type, which is a universal integer, exactly as a port
+	 * count value is one.
+	 *
+	 * @param iv the given IterativeVariable object
+	 * @return the data representation or DataRepresentation.UNKNOWN
+	 */
+	public static DataRepresentation getDataRepresentation(IterativeVariable iv) {
+		if (iv.getDataClassifier() != null) {
+			return getDataRepresentation(iv.getDataClassifier());
+		}
+		return iv.eContainer() instanceof ForOrForAllStatement loop
+				&& loop.getIteratedValues() instanceof IntegerRange ? DataRepresentation.INTEGER
+						: DataRepresentation.UNKNOWN;
 	}
 
 	/**

@@ -1,0 +1,2 @@
+error | semantic | 49 | 29 | 6 | 'helper' is not a data classifier: a for or forall iterator can only name a data component classifier
+error | semantic | 54 | 33 | 11 | 'helper.impl' is not a data classifier: a for or forall iterator can only name a data component classifier

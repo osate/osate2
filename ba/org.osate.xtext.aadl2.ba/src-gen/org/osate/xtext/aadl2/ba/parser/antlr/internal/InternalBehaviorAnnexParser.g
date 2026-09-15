@@ -2690,34 +2690,36 @@ ruleForStatement returns [EObject current=null]
 				}
 			)
 		)
-		otherlv_4=Colon
-		{
-			newLeafNode(otherlv_4, grammarAccess.getForStatementAccess().getColonKeyword_3());
-		}
 		(
+			otherlv_4=Colon
+			{
+				newLeafNode(otherlv_4, grammarAccess.getForStatementAccess().getColonKeyword_3_0());
+			}
 			(
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getForStatementRule());
+				(
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getForStatementRule());
+						}
 					}
-				}
-				{
-					newCompositeNode(grammarAccess.getForStatementAccess().getDataClassifierComponentClassifierCrossReference_4_0());
-				}
-				ruleQCREF
-				{
-					afterParserOrEnumRuleCall();
-				}
+					{
+						newCompositeNode(grammarAccess.getForStatementAccess().getDataClassifierComponentClassifierCrossReference_3_1_0());
+					}
+					ruleQCREF
+					{
+						afterParserOrEnumRuleCall();
+					}
+				)
 			)
-		)
+		)?
 		otherlv_6=In
 		{
-			newLeafNode(otherlv_6, grammarAccess.getForStatementAccess().getInKeyword_5());
+			newLeafNode(otherlv_6, grammarAccess.getForStatementAccess().getInKeyword_4());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getForStatementAccess().getValuesElementValuesParserRuleCall_6_0());
+					newCompositeNode(grammarAccess.getForStatementAccess().getValuesElementValuesParserRuleCall_5_0());
 				}
 				lv_values_7_0=ruleElementValues
 				{
@@ -2735,16 +2737,16 @@ ruleForStatement returns [EObject current=null]
 		)
 		otherlv_8=RightParenthesis
 		{
-			newLeafNode(otherlv_8, grammarAccess.getForStatementAccess().getRightParenthesisKeyword_7());
+			newLeafNode(otherlv_8, grammarAccess.getForStatementAccess().getRightParenthesisKeyword_6());
 		}
 		otherlv_9=LeftCurlyBracket
 		{
-			newLeafNode(otherlv_9, grammarAccess.getForStatementAccess().getLeftCurlyBracketKeyword_8());
+			newLeafNode(otherlv_9, grammarAccess.getForStatementAccess().getLeftCurlyBracketKeyword_7());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getForStatementAccess().getActionsBehaviorActionsParserRuleCall_9_0());
+					newCompositeNode(grammarAccess.getForStatementAccess().getActionsBehaviorActionsParserRuleCall_8_0());
 				}
 				lv_actions_10_0=ruleBehaviorActions
 				{
@@ -2762,7 +2764,7 @@ ruleForStatement returns [EObject current=null]
 		)
 		otherlv_11=RightCurlyBracket
 		{
-			newLeafNode(otherlv_11, grammarAccess.getForStatementAccess().getRightCurlyBracketKeyword_10());
+			newLeafNode(otherlv_11, grammarAccess.getForStatementAccess().getRightCurlyBracketKeyword_9());
 		}
 	)
 ;
