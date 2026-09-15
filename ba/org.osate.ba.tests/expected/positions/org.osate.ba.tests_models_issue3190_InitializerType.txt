@@ -1,0 +1,10 @@
+annex[0] owner=InitializerType::invalid_initializer.impl
+  (BehaviorAnnex, behavior_specification, 1930, 143)
+  (BehaviorCondition, <null>, 2052, 11)
+  (BehaviorIntegerLiteral, <null>, 1974, 1)
+  (BehaviorState, ready, 1989, 5)
+  (BehaviorStateGroup, <null>, 1989, 37)
+  (BehaviorTransition, <null>, 2044, 29)
+  (BehaviorVariable, wrong, 1943, 5)
+  (BehaviorVariableGroup, <null>, 1943, 33)
+  (DispatchCondition, <null>, 2055, 8)

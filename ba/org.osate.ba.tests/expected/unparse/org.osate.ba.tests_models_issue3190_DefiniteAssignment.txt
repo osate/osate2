@@ -1,0 +1,27 @@
+===== annex[0] owner=DefiniteAssignment::subject.impl =====
+
+\t\tvariables
+\t\t\tcondition : Base_Types::Boolean := true;
+\t\t\tguardValue : Base_Types::Boolean;
+\t\t\tbranchValue, setValue, pathValue, safeValue : Base_Types::Integer;
+\t\tstates
+\t\t\tstart : initial state;
+\t\t\tleft, right, join : state;
+\t\t\tready : complete final state;
+\t\ttransitions
+\t\t\tstart -[guardValue]-> ready;
+\t\t\tstart -[]-> left {
+\t\t\t\tsafeValue := 1;
+\t\t\t\toutput := safeValue;
+\t\t\t\tif (condition) branchValue := 1 end if;
+\t\t\t\toutput := branchValue;
+\t\t\t\t{ setValue := 1 & output := setValue }
+\t\t\t};
+\t\t\tleft -[condition]-> join { pathValue := 1 };
+\t\t\tleft -[otherwise]-> right;
+\t\t\tright -[]-> join;
+\t\t\tjoin -[]-> ready { output := pathValue };
+\t\t\tready -[on dispatch]-> ready;
+\t
+----- Xtext reparse -----
+reparsed

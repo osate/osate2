@@ -1,0 +1,11 @@
+===== annex[0] owner=InitializerType::invalid_initializer.impl =====
+
+\t\tvariables
+\t\t\twrong : Base_Types::Boolean := 1;
+\t\tstates
+\t\t\tready : initial complete final state;
+\t\ttransitions
+\t\t\tready -[on dispatch]-> ready;
+\t
+----- Xtext reparse -----
+reparsed
