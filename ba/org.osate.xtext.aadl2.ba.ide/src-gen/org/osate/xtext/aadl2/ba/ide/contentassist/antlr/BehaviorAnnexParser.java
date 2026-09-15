@@ -148,6 +148,7 @@ public class BehaviorAnnexParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getIfStatementAccess().getGroup_6(), "rule__IfStatement__Group_6__0");
 			builder.put(grammarAccess.getElseIfClauseAccess().getGroup(), "rule__ElseIfClause__Group__0");
 			builder.put(grammarAccess.getForStatementAccess().getGroup(), "rule__ForStatement__Group__0");
+			builder.put(grammarAccess.getForStatementAccess().getGroup_3(), "rule__ForStatement__Group_3__0");
 			builder.put(grammarAccess.getWhileStatementAccess().getGroup(), "rule__WhileStatement__Group__0");
 			builder.put(grammarAccess.getDoUntilStatementAccess().getGroup(), "rule__DoUntilStatement__Group__0");
 			builder.put(grammarAccess.getElementValuesAccess().getGroup(), "rule__ElementValues__Group__0");
@@ -321,9 +322,9 @@ public class BehaviorAnnexParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getForStatementAccess().getForAssignment_0_0(), "rule__ForStatement__ForAssignment_0_0");
 			builder.put(grammarAccess.getForStatementAccess().getForallAssignment_0_1(), "rule__ForStatement__ForallAssignment_0_1");
 			builder.put(grammarAccess.getForStatementAccess().getVariableAssignment_2(), "rule__ForStatement__VariableAssignment_2");
-			builder.put(grammarAccess.getForStatementAccess().getDataClassifierAssignment_4(), "rule__ForStatement__DataClassifierAssignment_4");
-			builder.put(grammarAccess.getForStatementAccess().getValuesAssignment_6(), "rule__ForStatement__ValuesAssignment_6");
-			builder.put(grammarAccess.getForStatementAccess().getActionsAssignment_9(), "rule__ForStatement__ActionsAssignment_9");
+			builder.put(grammarAccess.getForStatementAccess().getDataClassifierAssignment_3_1(), "rule__ForStatement__DataClassifierAssignment_3_1");
+			builder.put(grammarAccess.getForStatementAccess().getValuesAssignment_5(), "rule__ForStatement__ValuesAssignment_5");
+			builder.put(grammarAccess.getForStatementAccess().getActionsAssignment_8(), "rule__ForStatement__ActionsAssignment_8");
 			builder.put(grammarAccess.getWhileStatementAccess().getConditionAssignment_2(), "rule__WhileStatement__ConditionAssignment_2");
 			builder.put(grammarAccess.getWhileStatementAccess().getActionsAssignment_5(), "rule__WhileStatement__ActionsAssignment_5");
 			builder.put(grammarAccess.getDoUntilStatementAccess().getActionsAssignment_1(), "rule__DoUntilStatement__ActionsAssignment_1");

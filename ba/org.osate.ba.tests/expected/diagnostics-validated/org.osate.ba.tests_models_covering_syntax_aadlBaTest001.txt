@@ -1,5 +1,10 @@
 error | semantic | 165 | 2 | 2 | NamesResolutionTest::thread1.impl can't have more than one initial state : a5, a6 : Behavior Annex D.3.(L3) legality rule failed.
 error | semantic | 166 | 2 | 2 | NamesResolutionTest::thread1.impl can't have more than one initial state : a5, a6 : Behavior Annex D.3.(L3) legality rule failed.
 error | semantic | 199 | 19 | 14 | The completion relative timeout condition and catch statement must have a value greater or equal to the Period of the thread it is defined in (otherwise) timeout condition can never occur.
+warning | semantic | 222 | 6 | 1 | Unary plus is not part of AS5506/3 Rev. A
+warning | semantic | 226 | 6 | 1 | Unary plus is not part of AS5506/3 Rev. A
+warning | semantic | 231 | 6 | 1 | Unary plus is not part of AS5506/3 Rev. A
 warning | semantic | 25 | 33 | 21 | AadlBaTestPropertySet in 'with' clause of public package section is not used.
 warning | semantic | 25 | 75 | 20 | AadlBaTestSubprogram in 'with' clause of public package section is not used.
+warning | semantic | 387 | 18 | 1 | Unary plus is not part of AS5506/3 Rev. A
+warning | semantic | 389 | 18 | 1 | Unary plus is not part of AS5506/3 Rev. A

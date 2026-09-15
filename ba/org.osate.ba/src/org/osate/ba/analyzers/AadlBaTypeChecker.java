@@ -316,8 +316,16 @@ public class AadlBaTypeChecker {
 		return true;
 	}
 
+	/**
+	 * D.6 leaves the iterator classifier optional, so an iterator without one is not an unresolved iterator: over an
+	 * integer range D.6 gives it the integer type, which no data classifier denotes, and over any other iterated value
+	 * resolution takes the classifier of the iterated elements. What remains an error is an iterator that ends up with
+	 * no type at all.
+	 */
 	private boolean checkForOrForAll(ForOrForAllStatement statement) {
-		boolean result = statement.getIterativeVariable().getDataClassifier() instanceof DataClassifier;
+		TypeHolder variableType = getType(statement.getIterativeVariable());
+		boolean result = variableType != null
+				&& (variableType.getKlass() != null || variableType.getDataRep() != DataRepresentation.UNKNOWN);
 		if (!result) {
 			reportError(statement.getIterativeVariable(), "iterative variable data classifier is not resolved");
 		}

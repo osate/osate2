@@ -85,13 +85,15 @@ public class BehaviorAnnexCharacterizationTest {
 	private static final String ANNEX_NAME = BehaviorAnnexStandaloneSetup.ANNEX_NAME;
 	private static final String GRAMMAR_HAZARDS_MODEL = "org.osate.ba.tests/models/characterization/GrammarHazards.aadl";
 	private static final String BEHAVIOR_ANNEX_RULE_MARKER = "Behavior Annex D.";
-	private static final Set<String> UNREACHABLE_HOLDER_BASES = new HashSet<>();
+	private static final Set<String> UNREACHABLE_HOLDERS = new HashSet<>();
 	static {
 		// No production parser, resolver, or type-checker path creates these concrete Ecore base classes. Production
 		// always creates one of their semantic subclasses, so direct factory construction would not test real behavior.
-		UNREACHABLE_HOLDER_BASES.add("CalledSubprogramHolder");
-		UNREACHABLE_HOLDER_BASES.add("FeatureHolder");
-		UNREACHABLE_HOLDER_BASES.add("SubcomponentHolder");
+		UNREACHABLE_HOLDERS.add("CalledSubprogramHolder");
+		UNREACHABLE_HOLDERS.add("FeatureHolder");
+		UNREACHABLE_HOLDERS.add("SubcomponentHolder");
+		// Property references remain symbolic so translation retains a Property, never the selected association.
+		UNREACHABLE_HOLDERS.add("PropertyAssociationHolder");
 	}
 
 	/*
@@ -142,11 +144,11 @@ public class BehaviorAnnexCharacterizationTest {
 			}
 		}
 
-		final var incorrectlyInstantiatedBases = new TreeSet<>(instantiatedHolderClasses);
-		incorrectlyInstantiatedBases.retainAll(UNREACHABLE_HOLDER_BASES);
-		assertTrue("Generic holder bases must not be instantiated: " + incorrectlyInstantiatedBases,
-				incorrectlyInstantiatedBases.isEmpty());
-		expectedHolderClasses.removeAll(UNREACHABLE_HOLDER_BASES);
+		final var incorrectlyInstantiatedHolders = new TreeSet<>(instantiatedHolderClasses);
+		incorrectlyInstantiatedHolders.retainAll(UNREACHABLE_HOLDERS);
+		assertTrue("Unreachable holder classes must not be instantiated: " + incorrectlyInstantiatedHolders,
+				incorrectlyInstantiatedHolders.isEmpty());
+		expectedHolderClasses.removeAll(UNREACHABLE_HOLDERS);
 		expectedHolderClasses.removeAll(instantiatedHolderClasses);
 		assertTrue("Concrete holder classes missing from the characterization corpus: " + expectedHolderClasses,
 				expectedHolderClasses.isEmpty());

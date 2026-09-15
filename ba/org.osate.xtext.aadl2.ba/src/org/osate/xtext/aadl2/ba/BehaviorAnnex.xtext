@@ -193,9 +193,11 @@ ElseIfClause:
     'elsif' '(' condition=ValueExpression ')' actions=BehaviorActions
 ;
 
+// D.6 writes the iterator as 'element_identifier [ : data_unique_component_classifier_reference ]', so the classifier
+// is optional. When it is left out the iterated values determine the element type, which the translator resolves.
 ForStatement:
     (for?='for' | forall?='forall')
-    '(' variable=ID ':' dataClassifier=[aadl2::ComponentClassifier|QCREF]
+    '(' variable=ID (':' dataClassifier=[aadl2::ComponentClassifier|QCREF])?
     'in' values=ElementValues ')'
     '{' actions=BehaviorActions '}'
 ;

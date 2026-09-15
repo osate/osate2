@@ -4,9 +4,17 @@ annex[0] owner=OptionalForClassifier::operation
     states[0] : BehaviorState name=start
     states[1] : BehaviorState name=finish
     transitions[0] : BehaviorTransition
-    transitions[1] : BehaviorTransition
-    transitions[2] : BehaviorTransition
     actions[0] : BehaviorActionBlock
       content : ForOrForAllStatement
-        behaviorActions : BehaviorActionBlock
+        behaviorActions : AssignmentAction
+          target : BehaviorVariableHolder element=value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : IterativeVariableHolder element=i [IterativeVariable]
+        iteratedValues : IntegerRange
+          lowerIntegerValue : BehaviorIntegerLiteral
+          upperIntegerValue : BehaviorIntegerLiteral
         iterativeVariable : IterativeVariable name=i
