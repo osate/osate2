@@ -1,0 +1,15 @@
+===== annex[0] owner=Issue3190::initialized.impl =====
+
+\t\tvariables
+\t\t\tbyDeclaration : Base_Types::Integer := 1;
+\t\t\tbyProperty : Base_Types::Integer { Data_Model::Initial_Value => ("2"); };
+\t\t\tdeclarationWins : Base_Types::Integer := 3 { Data_Model::Initial_Value => ("not an integer"); };
+\t\tstates
+\t\t\tready : initial complete final state;
+\t\ttransitions
+\t\t\tready -[on dispatch]-> ready {
+\t\t\t\toutput := byDeclaration + byProperty + declarationWins
+\t\t\t};
+\t
+----- Xtext reparse -----
+reparsed

@@ -1,0 +1,33 @@
+annex[0] owner=Issue3190::initialized.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=byDeclaration
+      ownedValueConstant : BehaviorIntegerLiteral
+    variables[1] : BehaviorVariable name=byProperty
+      ownedPropertyAssociations[0] : PropertyAssociation
+        ownedValue[0] : ModalPropertyValue
+          ownedValue : ListValue
+            ownedListElement[0] : StringLiteral
+    variables[2] : BehaviorVariable name=declarationWins
+      ownedPropertyAssociations[0] : PropertyAssociation
+        ownedValue[0] : ModalPropertyValue
+          ownedValue : ListValue
+            ownedListElement[0] : StringLiteral
+      ownedValueConstant : BehaviorIntegerLiteral
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataPortHolder element=Issue3190::initialized.output [DataPort]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=byDeclaration [BehaviorVariable]
+              terms[1] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=byProperty [BehaviorVariable]
+              terms[2] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=declarationWins [BehaviorVariable]

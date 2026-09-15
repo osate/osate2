@@ -1,0 +1,4 @@
+error | semantic | 43 | 12 | 10 | Behavior variable 'guardValue' may be read before it is initialized
+error | semantic | 48 | 15 | 11 | Behavior variable 'branchValue' may be read before it is initialized
+error | semantic | 49 | 33 | 8 | Behavior variable 'setValue' may be read before it is initialized
+error | semantic | 54 | 33 | 9 | Behavior variable 'pathValue' may be read before it is initialized

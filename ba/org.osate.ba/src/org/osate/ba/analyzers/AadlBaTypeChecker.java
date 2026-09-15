@@ -147,7 +147,38 @@ public class AadlBaTypeChecker {
 				result = false;
 			}
 		}
+		if (result && variable.getOwnedValueConstant() != null) {
+			var variableType = new TypeHolder(AadlBaUtils.getDataRepresentation(variable), variable.getDataClassifier());
+			variableType.setDimension(variable.getArrayDimensions().size());
+			var initializerType = getType(variable.getOwnedValueConstant());
+			if (initializerType == null || !initializerConformsTo(variableType, initializerType)) {
+				if (initializerType != null) {
+					reportTypeError(variable.getOwnedValueConstant(), "behavior variable initializer",
+							variableType.toString(), initializerType.toString());
+				}
+				result = false;
+			}
+		}
 		return result;
+	}
+
+	/**
+	 * General BA assignment conformance is intentionally still disabled in {@link AdaLikeDataTypeChecker}. An explicit
+	 * declaration initializer is narrower: both its constant kind and the variable's declared classifier are known
+	 * before any instance-dependent property lookup, so reject only a mismatch that is definite here.
+	 */
+	private static boolean initializerConformsTo(TypeHolder variableType, TypeHolder initializerType) {
+		if (variableType.getDimension() != initializerType.getDimension()) {
+			return false;
+		}
+		var variableRepresentation = variableType.getDataRep();
+		var initializerRepresentation = initializerType.getDataRep();
+		if (variableRepresentation != DataRepresentation.UNKNOWN
+				&& initializerRepresentation != DataRepresentation.UNKNOWN) {
+			return variableRepresentation == initializerRepresentation;
+		}
+		return variableType.getKlass() == null || initializerType.getKlass() == null
+				|| variableType.getKlass() == initializerType.getKlass();
 	}
 
 	private boolean checkBehaviorTransition(BehaviorTransition transition, Set<BehaviorElement> checked) {

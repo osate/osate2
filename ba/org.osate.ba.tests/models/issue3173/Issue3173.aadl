@@ -55,8 +55,8 @@ public
         history : data Base_Types::Integer [3];
     annex behavior_specification {**
         variables
-            total : Base_Types::Integer;
-            pairs : Pairs;
+			total : Base_Types::Integer := 0;
+			pairs : Pairs { Data_Model::Initial_Value => ("[]"); };
         states
             start : initial state;
             done : complete final state;

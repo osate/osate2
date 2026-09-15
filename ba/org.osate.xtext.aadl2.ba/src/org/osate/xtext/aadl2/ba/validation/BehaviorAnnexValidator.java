@@ -59,6 +59,7 @@ import org.osate.aadl2.parsesupport.ParseUtil;
 import org.osate.annexsupport.ParseResultHolder;
 import org.osate.ba.aadlba.ForOrForAllStatement;
 import org.osate.ba.aadlba.PropertySetPropertyReference;
+import org.osate.ba.analyzers.AadlBaInitializationChecker;
 import org.osate.ba.analyzers.AadlBaRulesCheckersDriver;
 import org.osate.ba.analyzers.AadlBaTypeChecker;
 import org.osate.ba.analyzers.AdaLikeDataTypeChecker;
@@ -159,6 +160,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 				var dataTypeChecker = new AdaLikeDataTypeChecker(errorManager);
 				var typeChecker = new AadlBaTypeChecker(strictAnnex, owner, dataTypeChecker, errorManager);
 				if (typeChecker.checkTypes()) {
+					new AadlBaInitializationChecker(strictAnnex, errorManager).check();
 					new AadlBaRulesCheckersDriver(strictAnnex, owner, errorManager).process(strictAnnex);
 				}
 			} finally {
