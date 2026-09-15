@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.eclipse.xtext.validation.Issue;
@@ -46,9 +47,9 @@ import org.osate.testsupport.TestHelper;
 import com.google.inject.Inject;
 
 /**
- * States what AS5506/3 Rev. A requires of each Behavior Annex construct the current front end does not yet handle.
- * Every test here is a standard expectation: it passes only when the implementation conforms. A construct that is
- * still unimplemented is {@link Ignore}d and names the issue that tracks it, and
+ * States what AS5506/3 Rev. A requires of each Behavior Annex construct the front end did not handle when this suite
+ * was introduced, including explicit compatibility-diagnostic policy where the implementation retains an extension.
+ * A construct that is still unimplemented is {@link Ignore}d and names the issue that tracks it, and
  * {@link #everyStandardExpectationNamesItsTrackingIssue()} enforces both that listing and the set of skips, so a skip
  * cannot be added silently.
  *
@@ -63,6 +64,7 @@ import com.google.inject.Inject;
 @InjectWith(BehaviorAnnexInjectorProvider.class)
 public class BehaviorAnnexConformanceTest {
 	private static final String MODEL_DIRECTORY = "org.osate.ba.tests/models/characterization/conformance/";
+	private static final String UNARY_PLUS = "org.osate.xtext.aadl2.ba.unaryPlus";
 
 	/**
 	 * The standard expectations that are still skipped, each with the issue that tracks the missing implementation.
@@ -75,10 +77,9 @@ public class BehaviorAnnexConformanceTest {
 	 * {@link #internalPortActionsAreAcceptedByTheStandard()} pass.
 	 */
 	private static final List<String> TRACKED_SKIPS = List.of(
-			"unaryPlusIsRejectedByTheStandard -> #3170",
 			"optionalLoopClassifierIsAcceptedByTheStandard -> #3173");
 
-	/** The fixtures a standard expectation in this class asserts about. */
+	/** The fixtures an expectation in this class asserts about. */
 	private static final List<String> ASSERTED_FIXTURES = List.of("InternalCondition.aadl",
 			"ExternalConditionXor.aadl", "ExternalConditionGrouping.aadl", "FrozenPortParentheses.aadl",
 			"TimeoutResetPorts.aadl", "ShortCircuitOperators.aadl", "UnaryPlus.aadl", "PortUpdated.aadl",
@@ -114,10 +115,9 @@ public class BehaviorAnnexConformanceTest {
 		assertNoIssues("ShortCircuitOperators.aadl");
 	}
 
-	@Ignore("Issue #3170: reject unary plus as required by AS5506/3 Rev A")
 	@Test
-	public void unaryPlusIsRejectedByTheStandard() throws Exception {
-		assertSyntaxErrorOn("UnaryPlus.aadl", "+1");
+	public void unaryPlusIsWarnedAboutAsNonstandard() throws Exception {
+		assertWarningOn("UnaryPlus.aadl", "+", UNARY_PLUS, "Unary plus is not part of AS5506/3 Rev. A");
 	}
 
 	@Test
@@ -209,11 +209,11 @@ public class BehaviorAnnexConformanceTest {
 	}
 
 	/**
-	 * Requires exactly one syntax error covering {@code offendingText}, which must occur once in the fixture. Anchoring
-	 * on the source text instead of a message keeps the expectation exact about where the standard requires a
-	 * rejection without prescribing the wording a future parser will use.
+	 * Requires exactly one warning with the given code and message covering {@code offendingText}, which must occur once
+	 * in the fixture.
 	 */
-	private void assertSyntaxErrorOn(final String model, final String offendingText) throws Exception {
+	private void assertWarningOn(final String model, final String offendingText, final String code, final String message)
+			throws Exception {
 		final var source = Files.readString(Paths.get(System.getProperty("user.dir")).toAbsolutePath().getParent()
 				.resolve(MODEL_DIRECTORY + model), StandardCharsets.UTF_8);
 		final var offset = source.indexOf(offendingText);
@@ -224,14 +224,15 @@ public class BehaviorAnnexConformanceTest {
 		final var issues = testHelper.testFile(MODEL_DIRECTORY + model).getIssues();
 		final var covering = new ArrayList<String>();
 		for (final Issue issue : issues) {
-			if (issue.isSyntaxError() && issue.getOffset() != null && issue.getLength() != null
+			if (issue.getSeverity() == Severity.WARNING && code.equals(issue.getCode()) && issue.getOffset() != null
+					&& issue.getLength() != null
 					&& issue.getOffset().intValue() <= offset
 					&& offset < issue.getOffset().intValue() + issue.getLength().intValue()) {
 				covering.add(issue.getMessage());
 			}
 		}
 		final var reported = BehaviorAnnexCharacterizationTest.formatDiagnostics(issues);
-		assertEquals("Expected one syntax error covering " + offendingText + " in " + model
-				+ ". Diagnostics reported:\n" + (reported.isEmpty() ? "<none>\n" : reported), 1, covering.size());
+		assertEquals("Expected one warning covering " + offendingText + " in " + model + ". Diagnostics reported:\n"
+				+ (reported.isEmpty() ? "<none>\n" : reported), List.of(message), covering);
 	}
 }

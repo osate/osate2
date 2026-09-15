@@ -73,6 +73,7 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.ForStatement;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.InternalCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.Reference;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceExpression;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.UnaryExpression;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReferenceExpression;
 import org.osate.xtext.aadl2.ba.translation.DeclarativeToStrictTranslator;
 import org.osate.xtext.aadl2.ba.translation.DeclarativeToStrictTranslator.TranslationResult;
@@ -97,6 +98,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	public static final String ARRAY_SIZE = "org.osate.xtext.aadl2.ba.arraySize";
 	public static final String PROPERTY_REFERENCE_VALUE = "org.osate.xtext.aadl2.ba.propertyReferenceValue";
 	public static final String MODE_REFINEMENT = "org.osate.xtext.aadl2.ba.modeRefinement";
+	public static final String UNARY_PLUS = "org.osate.xtext.aadl2.ba.unaryPlus";
 	public static final String PORT_STATUS_DIRECTION = "org.osate.xtext.aadl2.ba.portStatusDirection";
 	private static final URI VALIDATION_RESOURCE_URI = URI.createURI("validation:/behavior-annex.aadlba");
 
@@ -485,6 +487,15 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	}
 
 	private record Declaration(String name, EObject source, EStructuralFeature feature, boolean complete) {
+	}
+
+	/** AS5506/3 Rev. A D.7 defines minus as the only unary adding operator. */
+	@Check(CheckType.FAST)
+	public void checkUnaryPlus(final UnaryExpression expression) {
+		if ("+".equals(expression.getOperator())) {
+			warning("Unary plus is not part of AS5506/3 Rev. A", expression,
+					BehaviorAnnexPackage.eINSTANCE.getUnaryExpression_Operator(), UNARY_PLUS);
+		}
 	}
 
 	/**
