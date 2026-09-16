@@ -23,14 +23,24 @@
  */
 package org.osate.ui.tests;
 
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.withText;
+
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.OperationCanceledException;
+import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
+import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
+import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -40,8 +50,12 @@ import org.junit.runner.RunWith;
 public class PackageCreationWizardTest {
 	private final static SWTWorkbenchBot bot = new SWTWorkbenchBot();
 
+	private final static String[] MENU_FILE_NEW_AADL_PROJECT = { "File", "New", "AADL Project" };
+
 	@BeforeClass
 	public static void closeWelcome() {
+		// Set explicitly, so that this test behaves the same whichever other test class ran before it.
+		SWTBotPreferences.TIMEOUT = 20_000;
 		for (SWTBotView view : bot.views()) {
 			if (view.getTitle().equals("Welcome")) {
 				view.close();
@@ -49,10 +63,52 @@ public class PackageCreationWizardTest {
 		}
 	}
 
+	/**
+	 * Opens File &gt; New &gt; AADL Project from the menu bar of the workbench window.
+	 * <p>
+	 * The workbench window is looked up through the workbench rather than through {@code bot.menu(...)}, which resolves
+	 * against whatever shell the display reports as active. There is no active shell while the operating system's focus
+	 * is on another application, so a plain {@code bot.menu(...)} makes the test depend on nothing else being used on the
+	 * machine that runs it.
+	 */
+	private static void clickNewAadlProjectMenu() {
+		final Shell workbenchShell = UIThreadRunnable.syncExec(() -> {
+			final IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+			return window == null ? null : window.getShell();
+		});
+		bot.menu(new SWTBotShell(workbenchShell)).menu(MENU_FILE_NEW_AADL_PROJECT).click();
+	}
+
+	/**
+	 * Waits until the dialog with the given title is open and returns it. Unlike
+	 * {@link Conditions#shellIsActive(String)} this does not require the dialog to be the active shell, which it is not
+	 * while the operating system's focus is on another application.
+	 */
+	private static SWTBotShell waitForDialog(final String title, final long timeout) {
+		bot.waitUntil(Conditions.waitForShell(withText(title)), timeout);
+		return bot.shell(title);
+	}
+
+	/**
+	 * Waits until the workspace build, and so the Xtext index that the wizard's name validation reads, is up to date.
+	 */
+	private static void waitForBuild() {
+		for (int attempt = 0; attempt < 2; attempt++) {
+			// Give the build a chance to be scheduled; joining a build that has not started yet returns at once.
+			bot.sleep(500);
+			try {
+				Job.getJobManager().join(ResourcesPlugin.FAMILY_AUTO_BUILD, null);
+				Job.getJobManager().join(ResourcesPlugin.FAMILY_MANUAL_BUILD, null);
+			} catch (final InterruptedException | OperationCanceledException e) {
+				throw new RuntimeException("Interrupted while waiting for the workspace build", e);
+			}
+		}
+	}
+
 	@Test
 	public void testNewTextPackage() {
 		// Create project TestProject
-		bot.menu("AADL Project").click();
+		clickNewAadlProjectMenu();
 		final SWTBotShell newProjectDialog = bot.shell("New");
 		bot.text().setText("TestProject");
 		bot.waitUntil(Conditions.widgetIsEnabled(bot.button("Finish")));
@@ -96,10 +152,7 @@ public class PackageCreationWizardTest {
 	@Test
 	public void testNewDiagramPackage() {
 		// Create project TestProject
-		bot.menu("File") //
-				.menu("New")//
-				.menu("AADL Project")//
-				.click();
+		clickNewAadlProjectMenu();
 		final SWTBotShell newProjectDialog = bot.shell("New");
 		bot.text().setText("TestProject");
 		bot.waitUntil(Conditions.widgetIsEnabled(bot.button("Finish")));
@@ -117,8 +170,7 @@ public class PackageCreationWizardTest {
 		bot.radio("Diagram Editor").click();
 		bot.waitUntil(Conditions.widgetIsEnabled(bot.button("Finish")));
 		bot.button("Finish").click();
-		bot.waitUntil(Conditions.shellIsActive("Create Diagram"), 10_000);
-		final SWTBotShell createDiagramDialog = bot.shell("Create Diagram");
+		final SWTBotShell createDiagramDialog = waitForDialog("Create Diagram", 10_000);
 		bot.button("OK").click();
 		bot.waitUntil(Conditions.shellCloses(createDiagramDialog));
 		bot.waitUntil(Conditions.shellCloses(newPackageDialog));
@@ -141,7 +193,7 @@ public class PackageCreationWizardTest {
 	@Test
 	public void testDuplicateNameError() {
 		// Create project A
-		bot.menu("AADL Project").click();
+		clickNewAadlProjectMenu();
 		final SWTBotShell newProjectADialog = bot.shell("New");
 		bot.text().setText("A");
 		bot.waitUntil(Conditions.widgetIsEnabled(bot.button("Finish")));
@@ -149,7 +201,7 @@ public class PackageCreationWizardTest {
 		bot.waitUntil(Conditions.shellCloses(newProjectADialog));
 
 		// Create project B
-		bot.menu("AADL Project").click();
+		clickNewAadlProjectMenu();
 		final SWTBotShell newProjectBDialog = bot.shell("New");
 		bot.text().setText("B");
 		bot.waitUntil(Conditions.widgetIsEnabled(bot.button("Next >")));
@@ -178,6 +230,14 @@ public class PackageCreationWizardTest {
 		bot.waitUntil(Conditions.widgetIsEnabled(bot.button("Finish")));
 		bot.button("Finish").click();
 		bot.waitUntil(Conditions.shellCloses(newPackageP2), 10_000);
+
+		/*
+		 * The wizard reports a duplicate name by looking the name up in the AADL scope, which is backed by the Xtext
+		 * index, and it does that once, while the name is being typed. So p1 and p2 are only reported as duplicates once
+		 * the build that indexes them has finished; without this wait the wizard shows its description instead of an
+		 * error.
+		 */
+		waitForBuild();
 
 		// Check for error when trying to create p1 and p2 in A.
 		a.contextMenu("AADL Package").click();

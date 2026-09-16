@@ -76,4 +76,15 @@
 		<module>org.osate.core.tests.log4j</module>
         <module>org.osate.slicer.tests</module>
 	</modules>
+
+	<profiles>
+		<!-- The SWTBot tests drive a real OSATE window, so they are opt in, the
+			same way the graphical editor's SWTBot tests are. -->
+		<profile>
+			<id>with-ui-tests</id>
+			<modules>
+				<module>org.osate.ui.tests</module>
+			</modules>
+		</profile>
+	</profiles>
 </project>
