@@ -20,46 +20,39 @@
 -- aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
 -- censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
 
-package Issue3226
+package DefiniteAssignment
 public
-    with Base_Types, Data_Model;
+	with Base_Types;
 
-    data Row
-    properties
-        Data_Model::Data_Representation => Array;
-        Data_Model::Base_Type => (classifier (Base_Types::Integer));
-        Data_Model::Dimension => (3);
-    end Row;
+	thread subject
+	features
+		output : out data port Base_Types::Integer;
+	end subject;
 
-    data Matrix
-    properties
-        Data_Model::Data_Representation => Array;
-        Data_Model::Base_Type => (classifier (Row));
-        Data_Model::Dimension => (2);
-    end Matrix;
-
-    thread worker
-    end worker;
-
-    -- D.6 gives the iterator of a for or forall the name scope of the construct, where it acts as a local variable, so
-    -- the iterated values of a nested loop can name the iterator of an enclosing one. The inner iterator then takes the
-    -- element type of the outer one, and 'total := cell + total' adds two integers.
-    thread implementation worker.i
-    annex behavior_specification {**
-        variables
-			total : Base_Types::Integer := 0;
-			m : Matrix { Data_Model::Initial_Value => ("[]"); };
-        states
-            start : initial state;
-            done : complete final state;
-        transitions
-            start -[]-> done {
-                for (row : Row in m) {
-                    for (cell : Base_Types::Integer in row) {
-                        total := cell + total
-                    }
-                }
-            };
-    **};
-    end worker.i;
-end Issue3226;
+	thread implementation subject.impl
+	annex behavior_specification {**
+		variables
+			condition : Base_Types::Boolean := true;
+			guardValue : Base_Types::Boolean;
+			branchValue, setValue, pathValue, safeValue : Base_Types::Integer;
+		states
+			start : initial state;
+			left, right, join : state;
+			ready : complete final state;
+		transitions
+			start -[guardValue]-> ready;
+			start -[]-> left {
+				safeValue := 1;
+				output := safeValue;
+				if (condition) branchValue := 1 end if;
+				output := branchValue;
+				{ setValue := 1 & output := setValue }
+			};
+			left -[condition]-> join { pathValue := 1 };
+			left -[otherwise]-> right;
+			right -[]-> join;
+			join -[]-> ready { output := pathValue };
+			ready -[on dispatch]-> ready;
+	**};
+	end subject.impl;
+end DefiniteAssignment;

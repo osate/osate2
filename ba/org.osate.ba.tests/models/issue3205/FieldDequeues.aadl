@@ -47,7 +47,7 @@ public
     thread implementation worker.i
     annex behavior_specification {**
         variables
-            pairs : Pairs;
+			pairs : Pairs { Data_Model::Initial_Value => ("[]"); };
             here : Pair;
         states
             start : initial state;
@@ -68,7 +68,7 @@ public
     thread implementation worker.j
     annex behavior_specification {**
         variables
-            pairs : Pairs;
+			pairs : Pairs { Data_Model::Initial_Value => ("[]"); };
             here : Pair;
         states
             start : initial state;

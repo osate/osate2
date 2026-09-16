@@ -7,7 +7,7 @@ public
 	subprogram operation
 	annex behavior_specification {**
 		variables
-			left, right: Base_Types::Boolean;
+			left, right: Base_Types::Boolean := false;
 		states
 			start: initial state;
 			finish: final state;

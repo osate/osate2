@@ -1,10 +1,14 @@
 annex[0] owner=Issue3177::evaluate
   parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
     variables[0] : BehaviorVariable name=total
+      ownedValueConstant : BehaviorIntegerLiteral
     variables[1] : BehaviorVariable name=result
     variables[2] : BehaviorVariable name=left
+      ownedValueConstant : BehaviorBooleanLiteral
     variables[3] : BehaviorVariable name=middle
+      ownedValueConstant : BehaviorBooleanLiteral
     variables[4] : BehaviorVariable name=right
+      ownedValueConstant : BehaviorBooleanLiteral
     variables[5] : BehaviorVariable name=flag
     states[0] : BehaviorState name=start
     states[1] : BehaviorState name=done

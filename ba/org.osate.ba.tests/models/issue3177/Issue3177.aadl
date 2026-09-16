@@ -27,11 +27,11 @@ public
 	subprogram evaluate
 	annex behavior_specification {**
 		variables
-			total : Base_Types::Integer;
+			total : Base_Types::Integer := 0;
 			result : Base_Types::Integer;
-			left : Base_Types::Boolean;
-			middle : Base_Types::Boolean;
-			right : Base_Types::Boolean;
+			left : Base_Types::Boolean := false;
+			middle : Base_Types::Boolean := false;
+			right : Base_Types::Boolean := false;
 			flag : Base_Types::Boolean;
 		states
 			start : initial state;

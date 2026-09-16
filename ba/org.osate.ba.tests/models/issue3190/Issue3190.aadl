@@ -20,46 +20,28 @@
 -- aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
 -- censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
 
-package Issue3226
+package Issue3190
 public
-    with Base_Types, Data_Model;
+	with Base_Types;
+	with Data_Model;
 
-    data Row
-    properties
-        Data_Model::Data_Representation => Array;
-        Data_Model::Base_Type => (classifier (Base_Types::Integer));
-        Data_Model::Dimension => (3);
-    end Row;
+	thread initialized
+	features
+		output : out data port Base_Types::Integer;
+	end initialized;
 
-    data Matrix
-    properties
-        Data_Model::Data_Representation => Array;
-        Data_Model::Base_Type => (classifier (Row));
-        Data_Model::Dimension => (2);
-    end Matrix;
-
-    thread worker
-    end worker;
-
-    -- D.6 gives the iterator of a for or forall the name scope of the construct, where it acts as a local variable, so
-    -- the iterated values of a nested loop can name the iterator of an enclosing one. The inner iterator then takes the
-    -- element type of the outer one, and 'total := cell + total' adds two integers.
-    thread implementation worker.i
-    annex behavior_specification {**
-        variables
-			total : Base_Types::Integer := 0;
-			m : Matrix { Data_Model::Initial_Value => ("[]"); };
-        states
-            start : initial state;
-            done : complete final state;
-        transitions
-            start -[]-> done {
-                for (row : Row in m) {
-                    for (cell : Base_Types::Integer in row) {
-                        total := cell + total
-                    }
-                }
-            };
-    **};
-    end worker.i;
-end Issue3226;
+	thread implementation initialized.impl
+	annex behavior_specification {**
+		variables
+			byDeclaration : Base_Types::Integer := 1;
+			byProperty : Base_Types::Integer { Data_Model::Initial_Value => ("2"); };
+			declarationWins : Base_Types::Integer := 3 { Data_Model::Initial_Value => ("not an integer"); };
+		states
+			ready : initial complete final state;
+		transitions
+			ready -[on dispatch]-> ready {
+				output := byDeclaration + byProperty + declarationWins
+			};
+	**};
+	end initialized.impl;
+end Issue3190;

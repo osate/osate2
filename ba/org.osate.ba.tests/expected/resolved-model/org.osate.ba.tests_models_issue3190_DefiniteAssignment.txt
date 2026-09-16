@@ -1,0 +1,112 @@
+annex[0] owner=DefiniteAssignment::subject.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=condition
+      ownedValueConstant : BehaviorBooleanLiteral
+    variables[1] : BehaviorVariable name=guardValue
+    variables[2] : BehaviorVariable name=branchValue
+    variables[3] : BehaviorVariable name=setValue
+    variables[4] : BehaviorVariable name=pathValue
+    variables[5] : BehaviorVariable name=safeValue
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=left
+    states[2] : BehaviorState name=right
+    states[3] : BehaviorState name=join
+    states[4] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorVariableHolder element=guardValue [BehaviorVariable]
+    transitions[1] : BehaviorTransition
+    transitions[2] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorVariableHolder element=condition [BehaviorVariable]
+    transitions[3] : BehaviorTransition
+      condition : Otherwise
+    transitions[4] : BehaviorTransition
+    transitions[5] : BehaviorTransition
+    transitions[6] : BehaviorTransition
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : BehaviorVariableHolder element=safeValue [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[1] : AssignmentAction
+          target : DataPortHolder element=DefiniteAssignment::subject.output [DataPort]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=safeValue [BehaviorVariable]
+        actions[2] : IfStatement
+          behaviorActions : AssignmentAction
+            target : BehaviorVariableHolder element=branchValue [BehaviorVariable]
+            valueExpression : ValueExpression
+              relations[0] : Relation
+                firstExpression : SimpleExpression
+                  terms[0] : Term
+                    factors[0] : Factor
+                      firstValue : BehaviorIntegerLiteral
+          logicalValueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=condition [BehaviorVariable]
+        actions[3] : AssignmentAction
+          target : DataPortHolder element=DefiniteAssignment::subject.output [DataPort]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=branchValue [BehaviorVariable]
+        actions[4] : BehaviorActionBlock
+          content : BehaviorActionSet
+            actions[0] : AssignmentAction
+              target : BehaviorVariableHolder element=setValue [BehaviorVariable]
+              valueExpression : ValueExpression
+                relations[0] : Relation
+                  firstExpression : SimpleExpression
+                    terms[0] : Term
+                      factors[0] : Factor
+                        firstValue : BehaviorIntegerLiteral
+            actions[1] : AssignmentAction
+              target : DataPortHolder element=DefiniteAssignment::subject.output [DataPort]
+              valueExpression : ValueExpression
+                relations[0] : Relation
+                  firstExpression : SimpleExpression
+                    terms[0] : Term
+                      factors[0] : Factor
+                        firstValue : BehaviorVariableHolder element=setValue [BehaviorVariable]
+    actions[1] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=pathValue [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[2] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataPortHolder element=DefiniteAssignment::subject.output [DataPort]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=pathValue [BehaviorVariable]
