@@ -23,8 +23,6 @@
  */
 package org.osate.categories.formatting2;
 
-import java.util.Arrays;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.formatting2.AbstractFormatter2;
 import org.eclipse.xtext.formatting2.IFormattableDocument;
@@ -59,28 +57,14 @@ public class CategoriesFormatter extends AbstractFormatter2 {
 	}
 
 	@XbaseGenerated
-	public void format(final Object categories, final IFormattableDocument document) {
-		if (categories instanceof XtextResource) {
-			_format((XtextResource) categories, document);
-			return;
-		} else if (categories instanceof Categories) {
-			_format((Categories) categories, document);
-			return;
-		} else if (categories instanceof CategoriesDefinitions) {
-			_format((CategoriesDefinitions) categories, document);
-			return;
-		} else if (categories instanceof EObject) {
-			_format((EObject) categories, document);
-			return;
-		} else if (categories == null) {
-			_format((Void) null, document);
-			return;
-		} else if (categories != null) {
-			_format(categories, document);
-			return;
-		} else {
-			throw new IllegalArgumentException(
-					"Unhandled parameter types: " + Arrays.<Object> asList(categories, document).toString());
+	public void format(final Object object, final IFormattableDocument document) {
+		switch (object) {
+		case XtextResource resource -> _format(resource, document);
+		case Categories categories -> _format(categories, document);
+		case CategoriesDefinitions categoriesDefinitions -> _format(categoriesDefinitions, document);
+		case EObject eObject -> _format(eObject, document);
+		case null -> _format((Void) null, document);
+		default -> _format(object, document);
 		}
 	}
 }
