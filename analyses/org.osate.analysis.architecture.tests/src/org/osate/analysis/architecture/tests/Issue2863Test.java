@@ -21,54 +21,45 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.analysis.architecture.tests
+package org.osate.analysis.architecture.tests;
 
-import com.google.inject.Inject
-import org.eclipse.xtext.testing.InjectWith
-import org.eclipse.xtext.testing.XtextRunner
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.osate.aadl2.AadlPackage
-import org.osate.analysis.architecture.PropertyTotals
-import org.osate.testsupport.Aadl2InjectorProvider
-import org.osate.testsupport.TestHelper
+import static org.junit.Assert.assertEquals;
 
-import static org.osate.testsupport.ResultHelper.*
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.xtext.testing.InjectWith;
+import org.eclipse.xtext.testing.XtextRunner;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.SystemImplementation;
+import org.osate.aadl2.instantiation.InstantiateModel;
+import org.osate.analysis.architecture.handlers.CheckBindingConstraints;
+import org.osate.testsupport.Aadl2InjectorProvider;
+import org.osate.testsupport.TestHelper;
 
-import static extension org.junit.Assert.assertEquals
-import static extension org.osate.aadl2.instantiation.InstantiateModel.instantiate
-import org.osate.aadl2.AbstractImplementation
+import com.google.inject.Inject;
+import com.itemis.xtext.testing.XtextTest;
 
-@RunWith(XtextRunner)
-@InjectWith(Aadl2InjectorProvider)
-class Issue2650Test {
-	val static DIR_NAME = "org.osate.analysis.architecture.tests/models/Issue2650/"
-	
-	val static generate = false
-	
+@RunWith(XtextRunner.class)
+@InjectWith(Aadl2InjectorProvider.class)
+public class Issue2863Test extends XtextTest {
+
 	@Inject
-	TestHelper<AadlPackage> testHelper
-	
+	TestHelper<AadlPackage> testHelper;
+
 	@Test
-	def void testNoisyThreadGroups() {
-		val fileNames = #[
-			"Noisy"
-		]
-		fileNames.forEach[fileName |
-			testHelper.parseFile(DIR_NAME + fileName + ".aadl") => [
-				fileName.assertEquals(name)
-				publicSection.ownedClassifiers.get(1) as AbstractImplementation => [
-					"s1.i1".assertEquals(name)
-					instantiate => [
-						"s1_i1_Instance".assertEquals(name)
-						
-						val actual = PropertyTotals.invoke(it)
-						
-						val resultPath = '''«DIR_NAME»results/«fileName».result'''
-						generateOrAssert(generate, resultPath,actual)
-					]
-				]
-			]
-		]
+	public void testBindingToImplementation() throws Exception {
+		var pkg = testHelper.parseFile("org.osate.analysis.architecture.tests/models/issue2863/Issue2863.aadl");
+		assertEquals("Issue2863", pkg.getName());
+
+		var implementation = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+		assertEquals("S.i", implementation.getName());
+
+		var instance = InstantiateModel.instantiate(implementation);
+		assertEquals("S_i_Instance", instance.getName());
+
+		var issues = CheckBindingConstraints.runAnalysis(new NullProgressMonitor(), instance);
+		assertEquals(0, issues.size());
 	}
+
 }

@@ -21,45 +21,54 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.analysis.architecture.tests
+package org.osate.analysis.architecture.tests;
 
-import com.google.inject.Inject
-import com.itemis.xtext.testing.XtextTest
-import org.eclipse.core.runtime.NullProgressMonitor
-import org.eclipse.xtext.testing.InjectWith
-import org.eclipse.xtext.testing.XtextRunner
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.osate.aadl2.AadlPackage
-import org.osate.aadl2.SystemImplementation
-import org.osate.analysis.architecture.handlers.CheckBindingConstraints
-import org.osate.testsupport.Aadl2InjectorProvider
-import org.osate.testsupport.TestHelper
+import static org.junit.Assert.assertEquals;
+import static org.osate.testsupport.ResultHelper.generateOrAssert;
 
-import static extension org.junit.Assert.assertEquals
-import static extension org.osate.aadl2.instantiation.InstantiateModel.instantiate
+import java.util.List;
 
-@RunWith(XtextRunner)
-@InjectWith(Aadl2InjectorProvider)
-class Issue2863Test extends XtextTest {
+import org.eclipse.xtext.testing.InjectWith;
+import org.eclipse.xtext.testing.XtextRunner;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.SystemImplementation;
+import org.osate.aadl2.instantiation.InstantiateModel;
+import org.osate.analysis.architecture.PropertyTotals;
+import org.osate.testsupport.Aadl2InjectorProvider;
+import org.osate.testsupport.TestHelper;
+
+import com.google.inject.Inject;
+
+@RunWith(XtextRunner.class)
+@InjectWith(Aadl2InjectorProvider.class)
+public class WeightTotalsTest {
+	private static final String DIR_NAME = "org.osate.analysis.architecture.tests/models/WeightTotals/";
+
+	private static final List<String> FILE_NAMES = List.of("subs", "conns", "sum_exceed_gross", "gross_exceed_sum",
+			"weight_exceed_limit", "sublimit_exceed_limit", "weight_equals_limit");
+
+	private static final boolean GENERATE = false;
 
 	@Inject
-	TestHelper<AadlPackage> testHelper
+	TestHelper<AadlPackage> testHelper;
 
 	@Test
-	def void testBindingToImplementation() {
-		val pkg = testHelper.parseFile("org.osate.analysis.architecture.tests/models/issue2863/Issue2863.aadl")
-		pkg => [
-			"Issue2863".assertEquals(name)
-			publicSection.ownedClassifiers.get(1) as SystemImplementation => [
-				"S.i".assertEquals(name)
-				instantiate => [
-					"S_i_Instance".assertEquals(name)
-					val issues = CheckBindingConstraints.runAnalysis(new NullProgressMonitor, it)
-					0.assertEquals(issues.size)
-				]
-			]
-		]
+	public void testWeightTotals() throws Exception {
+		for (var fileName : FILE_NAMES) {
+			var pkg = testHelper.parseFile(DIR_NAME + fileName + ".aadl");
+			assertEquals(fileName, pkg.getName());
+
+			var implementation = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+			assertEquals("s1.i1", implementation.getName());
+
+			var instance = InstantiateModel.instantiate(implementation);
+			assertEquals("s1_i1_Instance", instance.getName());
+
+			var actual = PropertyTotals.invoke(instance);
+			var resultPath = DIR_NAME + "results/" + fileName + ".result";
+			generateOrAssert(GENERATE, resultPath, actual);
+		}
 	}
-	
 }

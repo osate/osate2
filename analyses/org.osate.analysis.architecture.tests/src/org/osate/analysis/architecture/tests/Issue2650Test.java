@@ -21,60 +21,53 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.analysis.architecture.tests
+package org.osate.analysis.architecture.tests;
 
-import com.google.inject.Inject
-import org.eclipse.xtext.testing.InjectWith
-import org.eclipse.xtext.testing.XtextRunner
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.osate.aadl2.AadlPackage
-import org.osate.aadl2.SystemImplementation
-import org.osate.analysis.architecture.PropertyTotals
-import org.osate.testsupport.Aadl2InjectorProvider
-import org.osate.testsupport.TestHelper
+import static org.junit.Assert.assertEquals;
+import static org.osate.testsupport.ResultHelper.generateOrAssert;
 
-import static org.osate.testsupport.ResultHelper.*
+import java.util.List;
 
-import static extension org.junit.Assert.assertEquals
-import static extension org.osate.aadl2.instantiation.InstantiateModel.instantiate
+import org.eclipse.xtext.testing.InjectWith;
+import org.eclipse.xtext.testing.XtextRunner;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.AbstractImplementation;
+import org.osate.aadl2.instantiation.InstantiateModel;
+import org.osate.analysis.architecture.PropertyTotals;
+import org.osate.testsupport.Aadl2InjectorProvider;
+import org.osate.testsupport.TestHelper;
 
-@RunWith(XtextRunner)
-@InjectWith(Aadl2InjectorProvider)
-class WeightTotalsTest {
-	val static DIR_NAME = "org.osate.analysis.architecture.tests/models/WeightTotals/"
-	
-	val static generate = false
-	
+import com.google.inject.Inject;
+
+@RunWith(XtextRunner.class)
+@InjectWith(Aadl2InjectorProvider.class)
+public class Issue2650Test {
+	private static final String DIR_NAME = "org.osate.analysis.architecture.tests/models/Issue2650/";
+
+	private static final List<String> FILE_NAMES = List.of("Noisy");
+
+	private static final boolean GENERATE = false;
+
 	@Inject
-	TestHelper<AadlPackage> testHelper
-	
+	TestHelper<AadlPackage> testHelper;
+
 	@Test
-	def void testWeightTotals() {
-		val fileNames = #[
-			"subs",
-			"conns",
-			"sum_exceed_gross",
-			"gross_exceed_sum",
-			"weight_exceed_limit",
-			"sublimit_exceed_limit",
-			"weight_equals_limit"
-		]
-		fileNames.forEach[fileName |
-			testHelper.parseFile(DIR_NAME + fileName + ".aadl") => [
-				fileName.assertEquals(name)
-				publicSection.ownedClassifiers.get(1) as SystemImplementation => [
-					"s1.i1".assertEquals(name)
-					instantiate => [
-						"s1_i1_Instance".assertEquals(name)
-						
-						val actual = PropertyTotals.invoke(it)
-						
-						val resultPath = '''«DIR_NAME»results/«fileName».result'''
-						generateOrAssert(generate, resultPath,actual)
-					]
-				]
-			]
-		]
+	public void testNoisyThreadGroups() throws Exception {
+		for (var fileName : FILE_NAMES) {
+			var pkg = testHelper.parseFile(DIR_NAME + fileName + ".aadl");
+			assertEquals(fileName, pkg.getName());
+
+			var implementation = (AbstractImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
+			assertEquals("s1.i1", implementation.getName());
+
+			var instance = InstantiateModel.instantiate(implementation);
+			assertEquals("s1_i1_Instance", instance.getName());
+
+			var actual = PropertyTotals.invoke(instance);
+			var resultPath = DIR_NAME + "results/" + fileName + ".result";
+			generateOrAssert(GENERATE, resultPath, actual);
+		}
 	}
 }

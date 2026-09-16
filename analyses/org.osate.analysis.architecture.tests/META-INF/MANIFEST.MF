@@ -5,9 +5,6 @@ Bundle-SymbolicName: org.osate.analysis.architecture.tests
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-21
 Require-Bundle: com.google.guava,
- org.eclipse.xtext.xbase.lib,
- org.eclipse.xtend.lib,
- org.eclipse.xtend.lib.macro,
  org.eclipse.emf.ecore,
  org.osate.aadl2,
  org.osate.aadl2.instantiation,

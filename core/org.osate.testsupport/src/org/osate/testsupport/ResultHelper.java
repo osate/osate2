@@ -47,7 +47,7 @@ import org.osate.result.Value;
 public class ResultHelper {
 	/*
 	 * These two methods keep the undeclared checked exceptions that the Xtend compiler produced, because they are
-	 * public API of this test support bundle and Xtend callers in the analyses test bundles rely on not having to
+	 * public API of this test support bundle and their callers in the analyses test bundles rely on not having to
 	 * declare them.
 	 */
 	@SuppressWarnings("deprecation") // URL(String) is deprecated since Java 20; kept to preserve URL parsing behavior
