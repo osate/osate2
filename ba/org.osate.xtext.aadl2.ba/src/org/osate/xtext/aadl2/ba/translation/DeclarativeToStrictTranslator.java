@@ -213,12 +213,21 @@ public final class DeclarativeToStrictTranslator {
 	 */
 	public static boolean canRefineModes(
 			final org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex source) {
+		return !hasInModes(source);
+	}
+
+	/**
+	 * Returns whether a subclause carries an {@code in modes} statement, which makes it apply in the modes it lists
+	 * instead of describing the modes of its owner. Core AADL keeps that statement on the enclosing subclause, so the
+	 * strict model this class builds does not carry it and rules about it are checked on the declarative model.
+	 */
+	public static boolean hasInModes(final org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex source) {
 		Objects.requireNonNull(source, "source");
 		if (!source.getInModes().isEmpty()) {
-			return false;
+			return true;
 		}
-		return !(source.eContainer() instanceof DefaultAnnexSubclause defaultAnnex)
-				|| defaultAnnex.getInModes().isEmpty();
+		return source.eContainer() instanceof DefaultAnnexSubclause defaultAnnex
+				&& !defaultAnnex.getInModes().isEmpty();
 	}
 
 	/** Translation output and immutable identity maps in both directions. */

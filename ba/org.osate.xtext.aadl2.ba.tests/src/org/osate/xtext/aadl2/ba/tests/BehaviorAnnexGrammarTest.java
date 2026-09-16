@@ -57,8 +57,11 @@ import com.google.inject.Inject;
 @RunWith(XtextRunner.class)
 @InjectWith(BehaviorAnnexInjectorProvider.class)
 public class BehaviorAnnexGrammarTest {
+    // A subclause may carry an in modes statement between its annex text and the semicolon. Accepting it here keeps
+    // such a subclause covered instead of leaving its opening delimiter to pair with a later subclause's closing one.
     private static final Pattern BEHAVIOR_ANNEX = Pattern.compile(
-            "(?is)\\bannex\\s+behavior_specification\\s*\\{\\*\\*(.*?)\\*\\*\\}\\s*;");
+            "(?is)\\bannex\\s+behavior_specification\\s*\\{\\*\\*(.*?)\\*\\*\\}"
+                    + "\\s*(?:in\\s+modes\\s*\\([^)]*\\)\\s*)?;");
 
     @Inject
     private ParseHelper<AnnexSubclause> parseHelper;

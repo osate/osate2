@@ -1,0 +1,21 @@
+===== annex[0] owner=Inheritance::base =====
+
+states
+\tfromtype : initial state;
+----- Xtext reparse -----
+reparsed
+===== annex[1] owner=Inheritance::base.impl =====
+
+states
+\twaiting : initial state;
+\trunning : state;
+transitions
+\twaiting -[on go]-> running;
+----- Xtext reparse -----
+reparsed
+===== annex[2] owner=Inheritance::base.replaced =====
+
+states
+\tonly : initial state;
+----- Xtext reparse -----
+reparsed

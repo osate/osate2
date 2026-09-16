@@ -1,0 +1,13 @@
+annex[0] owner=Issue3186::controller.impl
+  (BehaviorAnnex, behavior_specification, 1905, 91)
+  (BehaviorCondition, <null>, 1979, 5)
+  (BehaviorState, running, 1939, 7)
+  (BehaviorState, waiting, 1913, 7)
+  (BehaviorStateGroup, <null>, 1913, 24)
+  (BehaviorStateGroup, <null>, 1939, 16)
+  (BehaviorTransition, <null>, 1969, 27)
+  (ModeSwitchCondition, <null>, 1982, 2)
+  (ModeSwitchConjunction, <null>, 1982, 2)
+  (ModeSwitchTrigger, <null>, 1982, 2)
+  (Reference, <null>, 1982, 2)
+  (ReferenceSegment, go, 1982, 2)

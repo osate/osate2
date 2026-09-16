@@ -1,0 +1,9 @@
+===== annex[0] owner=DeviceExternalTriggerMismatch::sensor.impl =====
+
+states
+\tidle : initial complete state;
+\tactive : complete state;
+transitions
+\tidle -[on wrong]-> active;
+----- Xtext reparse -----
+reparsed

@@ -103,6 +103,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	public static final String ARRAY_SIZE = "org.osate.xtext.aadl2.ba.arraySize";
 	public static final String PROPERTY_REFERENCE_VALUE = "org.osate.xtext.aadl2.ba.propertyReferenceValue";
 	public static final String MODE_REFINEMENT = "org.osate.xtext.aadl2.ba.modeRefinement";
+	public static final String EXTERNAL_CONDITION_IN_MODES = "org.osate.xtext.aadl2.ba.externalConditionInModes";
 	public static final String UNARY_PLUS = "org.osate.xtext.aadl2.ba.unaryPlus";
 	public static final String PORT_STATUS_DIRECTION = "org.osate.xtext.aadl2.ba.portStatusDirection";
 	private static final URI VALIDATION_RESOURCE_URI = URI.createURI("validation:/behavior-annex.aadlba");
@@ -140,6 +141,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 		representable &= checkIteratorTargets(source, translation);
 		representable &= checkIteratedValues(source, translation);
 		checkPortStatusValues(source, translation);
+		checkExternalConditionsInModes(source);
 		// The strict model does carry a property reference that denotes no value, so this one is not a gate: the strict
 		// checkers keep their model and whatever else they have to say about it.
 		checkPropertyReferenceValues(translation);
@@ -547,6 +549,26 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 			}
 		}
 		return valid;
+	}
+
+	/**
+	 * D.3 does not allow an external condition in a subclause that carries an {@code in modes} statement: such a
+	 * subclause applies in the modes it lists rather than describing mode transitions of its owner. Core AADL keeps the
+	 * statement on the enclosing subclause and the strict model does not carry it, so this rule is checked here, like
+	 * the complete-state mode-refinement rule, rather than by the strict-model checkers.
+	 */
+	private void checkExternalConditionsInModes(final BehaviorAnnex source) {
+		if (!DeclarativeToStrictTranslator.hasInModes(source)) {
+			return;
+		}
+		for (var transition : source.getTransitions()) {
+			var condition = transition.getCondition();
+			if (condition != null && condition.getModeSwitch() != null) {
+				error("A Behavior Annex subclause with an in modes statement cannot use an external condition:"
+						+ " Behavior Annex D.3 consistency rule failed.", condition, null,
+						ValidationMessageAcceptor.INSIGNIFICANT_INDEX, EXTERNAL_CONDITION_IN_MODES);
+			}
+		}
 	}
 
 	private record Declaration(String name, EObject source, EStructuralFeature feature, boolean complete) {

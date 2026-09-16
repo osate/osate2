@@ -1,0 +1,10 @@
+===== annex[0] owner=ThreadExternalCondition::worker.impl =====
+
+states
+\twaiting : initial complete state;
+\trunning : state;
+transitions
+\twaiting -[on dispatch]-> running;
+\trunning -[on go]-> waiting;
+----- Xtext reparse -----
+reparsed

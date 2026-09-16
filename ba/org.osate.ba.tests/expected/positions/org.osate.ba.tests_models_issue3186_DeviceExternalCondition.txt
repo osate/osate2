@@ -1,0 +1,13 @@
+annex[0] owner=DeviceExternalCondition::sensor.impl
+  (BehaviorAnnex, behavior_specification, 1971, 101)
+  (BehaviorCondition, <null>, 2056, 5)
+  (BehaviorState, active, 2011, 6)
+  (BehaviorState, idle, 1979, 4)
+  (BehaviorStateGroup, <null>, 1979, 30)
+  (BehaviorStateGroup, <null>, 2011, 24)
+  (BehaviorTransition, <null>, 2049, 23)
+  (ModeSwitchCondition, <null>, 2059, 2)
+  (ModeSwitchConjunction, <null>, 2059, 2)
+  (ModeSwitchTrigger, <null>, 2059, 2)
+  (Reference, <null>, 2059, 2)
+  (ReferenceSegment, go, 2059, 2)

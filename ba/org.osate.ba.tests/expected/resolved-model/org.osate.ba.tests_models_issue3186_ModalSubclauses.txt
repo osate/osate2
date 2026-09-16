@@ -1,0 +1,9 @@
+annex[0] owner=ModalSubclauses::modal.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=whennormal
+annex[1] owner=ModalSubclauses::modal.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=whenbackup
+annex[2] owner=ModalSubclauses::modal.always
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=anymode

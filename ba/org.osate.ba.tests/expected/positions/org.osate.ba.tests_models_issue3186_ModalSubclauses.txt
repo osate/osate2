@@ -1,0 +1,12 @@
+annex[0] owner=ModalSubclauses::modal.impl
+  (BehaviorAnnex, behavior_specification, 1914, 35)
+  (BehaviorState, whennormal, 1922, 10)
+  (BehaviorStateGroup, <null>, 1922, 27)
+annex[1] owner=ModalSubclauses::modal.impl
+  (BehaviorAnnex, behavior_specification, 2006, 35)
+  (BehaviorState, whenbackup, 2014, 10)
+  (BehaviorStateGroup, <null>, 2014, 27)
+annex[2] owner=ModalSubclauses::modal.always
+  (BehaviorAnnex, behavior_specification, 2198, 32)
+  (BehaviorState, anymode, 2206, 7)
+  (BehaviorStateGroup, <null>, 2206, 24)

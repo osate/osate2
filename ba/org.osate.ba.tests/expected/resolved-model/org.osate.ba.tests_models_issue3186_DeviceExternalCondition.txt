@@ -1,0 +1,8 @@
+annex[0] owner=DeviceExternalCondition::sensor.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=idle
+    states[1] : BehaviorState name=active
+    transitions[0] : BehaviorTransition
+      condition : ModeSwitchTriggerLogicalExpression
+        modeSwitchConjunctions[0] : ModeSwitchConjunction
+          modeSwitchTriggers[0] : EventPortHolder element=DeviceExternalCondition::sensor.go [EventPort]

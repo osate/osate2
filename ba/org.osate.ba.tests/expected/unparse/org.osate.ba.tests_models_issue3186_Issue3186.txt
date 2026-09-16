@@ -1,0 +1,9 @@
+===== annex[0] owner=Issue3186::controller.impl =====
+
+states
+\twaiting : initial state;
+\trunning : state;
+transitions
+\twaiting -[on go]-> running;
+----- Xtext reparse -----
+reparsed
