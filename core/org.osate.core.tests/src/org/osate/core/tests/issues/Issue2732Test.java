@@ -23,7 +23,8 @@
  */
 package org.osate.core.tests.issues;
 
-import static org.eclipse.xtext.xbase.lib.CollectionLiterals.newArrayList;
+
+import java.util.ArrayList;
 
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
@@ -138,7 +139,7 @@ public class Issue2732Test extends XtextTest {
 	}
 
 	private static FluentIssueCollection emptyExpectedIssues(FluentIssueCollection result) {
-		return new FluentIssueCollection(result.getResource(), newArrayList(), newArrayList());
+		return new FluentIssueCollection(result.getResource(), new ArrayList<>(), new ArrayList<>());
 	}
 
 	private static PropertySet propertySet(FluentIssueCollection result) {

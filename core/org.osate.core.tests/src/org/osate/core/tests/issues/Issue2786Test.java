@@ -23,10 +23,10 @@
  */
 package org.osate.core.tests.issues;
 
-import static org.eclipse.xtext.xbase.lib.CollectionLiterals.newArrayList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.xtext.testing.InjectWith;
@@ -64,8 +64,8 @@ public class Issue2786Test extends XtextTest {
 	@Test
 	public void test1() throws Exception {
 		FluentIssueCollection testFileResult = issues = testHelper.testFile(PATH + "FeatureArrays.aadl");
-		FluentIssueCollection issueCollection = new FluentIssueCollection(testFileResult.getResource(), newArrayList(),
-				newArrayList());
+		FluentIssueCollection issueCollection = new FluentIssueCollection(testFileResult.getResource(), new ArrayList<>(),
+				new ArrayList<>());
 
 		AadlPackage pkg = (AadlPackage) testFileResult.getResource().getContents().get(0);
 		assertEquals("FeatureArrays", pkg.getName());

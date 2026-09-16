@@ -21,41 +21,45 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.core.tests.formatter
+package org.osate.core.tests.formatter;
 
-import com.google.inject.Inject
-import org.eclipse.xtext.testing.InjectWith
-import org.eclipse.xtext.testing.XtextRunner
-import org.eclipse.xtext.testing.formatter.FormatterTestHelper
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.osate.testsupport.Aadl2InjectorProvider
+import org.eclipse.xtext.testing.InjectWith;
+import org.eclipse.xtext.testing.XtextRunner;
+import org.eclipse.xtext.testing.formatter.FormatterTestHelper;
+import org.eclipse.xtext.testing.formatter.FormatterTestRequest;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.osate.testsupport.Aadl2InjectorProvider;
+
+import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 /*
- * Some of the tests have useSerializer set to false. This has to do with the customizations done in
+ * All tests in this class use assertFormattedWithoutSerializer. This has to do with the customizations done in
  * Aadl2TextRegionAccessBuilder. In that class, we customize the node model version to create hidden regions in
  * keyword-only parser rules. We did not customize the serializer version. For formatter tests that include these
- * keyword-only rules, useSerializer must be set to false or a comparison failure will occur because the text region
+ * keyword-only rules, the serializer must not be used or a comparison failure will occur because the text region
  * from the node model doesn't match the text region from the serializer.
  */
-@RunWith(XtextRunner)
-@InjectWith(Aadl2InjectorProvider)
-class CommentsFormattingTest {
+@RunWith(XtextRunner.class)
+@InjectWith(Aadl2InjectorProvider.class)
+public class CommentsFormattingTest {
 	@Inject
-	extension FormatterTestHelper
-	
+	private FormatterTestHelper formatterTestHelper;
+
+	@Inject
+	private Provider<FormatterTestRequest> formatterTestRequestProvider;
+
 	@Test
-	def void testPropertySet() {
-		assertFormatted[
-			useSerializer = false
-			expectation = '''
+	public void testPropertySet() {
+		assertFormattedWithoutSerializer("""
 				-- Comment
 				property set ps1 is
 					-- Comment
 					with ps2;
 					-- Comment
 					with ps3;
-				
+
 					-- Comment
 					type01: type aadlboolean;
 					-- Comment
@@ -82,8 +86,7 @@ class CommentsFormattingTest {
 					def1: ps3::type1 applies to (all);
 					-- Comment
 					def2: aadlinteger applies to (all);
-				end ps1;'''
-			toBeFormatted = '''
+				end ps1;""", """
 				 -- Comment
 				property set ps1 is
 				 -- Comment
@@ -116,15 +119,12 @@ class CommentsFormattingTest {
 				def1:ps3::type1 applies to(all);
 				 -- Comment
 				def2:aadlinteger applies to(all);end ps1;
-			'''
-		]
+				""");
 	}
-	
+
 	@Test
-	def void testPackage() {
-		assertFormatted[
-			useSerializer = false
-			expectation = '''
+	public void testPackage() {
+		assertFormattedWithoutSerializer("""
 				-- Comment
 				package pkg1
 				-- Comment
@@ -139,11 +139,11 @@ class CommentsFormattingTest {
 					renames feature group pkg2::fgt1;
 					-- Comment
 					renames abstract pkg2::a1;
-				
+
 					-- Comment
 					annex EMV2 {**
 					**};
-				
+
 				-- Comment
 				private
 				-- Comment
@@ -152,8 +152,7 @@ class CommentsFormattingTest {
 					ps1::def1 => 1;
 					-- Comment
 					ps1::def2 => 2;
-				end pkg1;'''
-			toBeFormatted = '''
+				end pkg1;""", """
 				 -- Comment
 				package pkg1
 				 -- Comment
@@ -180,12 +179,9 @@ class CommentsFormattingTest {
 				 -- Comment
 				ps1::def2=>2;
 				end pkg1;
-			'''
-		]
-		
-		assertFormatted[
-			useSerializer = false
-			expectation = '''
+				""");
+
+		assertFormattedWithoutSerializer("""
 				-- Comment
 				package pkg2
 				-- Comment
@@ -193,11 +189,11 @@ class CommentsFormattingTest {
 					-- Comment
 					feature group fgt1
 					end fgt1;
-				
+
 					-- Comment
 					abstract a1
 					end a1;
-				
+
 					-- Comment
 					abstract implementation a1.i1
 					end a1.i1;
@@ -205,8 +201,7 @@ class CommentsFormattingTest {
 				properties
 					-- Comment
 					none;
-				end pkg2;'''
-			toBeFormatted = '''
+				end pkg2;""", """
 				 -- Comment
 				package pkg2
 				 -- Comment
@@ -221,15 +216,12 @@ class CommentsFormattingTest {
 				properties
 				 -- Comment
 				none;end pkg2;
-			'''
-		]
+				""");
 	}
-	
+
 	@Test
-	def void testComponentType() {
-		assertFormatted[
-			useSerializer = false
-			expectation = '''
+	public void testComponentType() {
+		assertFormattedWithoutSerializer("""
 				-- Comment
 				package pkg1
 				-- Comment
@@ -257,7 +249,7 @@ class CommentsFormattingTest {
 							-- Comment
 							none;
 					end a1;
-				
+
 					-- Comment
 					abstract a2
 						-- Comment
@@ -265,7 +257,7 @@ class CommentsFormattingTest {
 							-- Comment
 							m1: mode;
 					end a2;
-				
+
 					-- Comment
 					abstract a3
 						-- Comment
@@ -316,7 +308,7 @@ class CommentsFormattingTest {
 						annex EMV2 {**
 						**};
 					end a3;
-				
+
 					-- Comment
 					subprogram s1
 						-- Comment
@@ -324,8 +316,7 @@ class CommentsFormattingTest {
 							-- Comment
 							f1: in parameter;
 					end s1;
-				end pkg1;'''
-			toBeFormatted = '''
+				end pkg1;""", """
 				 -- Comment
 				package pkg1
 				 -- Comment
@@ -413,22 +404,19 @@ class CommentsFormattingTest {
 				features
 				 -- Comment
 				f1:in parameter;end s1;end pkg1;
-			'''
-		]
+				""");
 	}
-	
+
 	@Test
-	def void testFeatureGroupType() {
-		assertFormatted[
-			useSerializer = false
-			expectation = '''
+	public void testFeatureGroupType() {
+		assertFormattedWithoutSerializer("""
 				-- Comment
 				package pkg1
 				-- Comment
 				public
 					-- Comment
 					with ps1;
-				
+
 					-- Comment
 					feature group fgt1
 						-- Comment
@@ -446,13 +434,13 @@ class CommentsFormattingTest {
 							-- Comment
 							none;
 					end fgt1;
-				
+
 					-- Comment
 					feature group fgt2
 						-- Comment
 						inverse of fgt1
 					end fgt2;
-				
+
 					-- Comment
 					feature group fgt3
 						-- Comment
@@ -472,7 +460,7 @@ class CommentsFormattingTest {
 							-- Comment
 							none;
 					end fgt3;
-				
+
 					-- Comment
 					feature group fgt4 extends fgt1
 						-- Comment
@@ -513,7 +501,7 @@ class CommentsFormattingTest {
 						annex EMV2 {**
 						**};
 					end fgt4;
-				
+
 					-- Comment
 					feature group fgt5 extends fgt4 (p2 => in data port)
 						-- Comment
@@ -521,14 +509,13 @@ class CommentsFormattingTest {
 							-- Comment
 							none;
 					end fgt5;
-				end pkg1;'''
-			toBeFormatted = '''
+				end pkg1;""", """
 				 -- Comment
 				package pkg1
 				 -- Comment
 				public
 				 -- Comment
-				with ps1;	
+				with ps1;\t
 				 -- Comment
 				feature group fgt1
 				 -- Comment
@@ -544,7 +531,7 @@ class CommentsFormattingTest {
 				 -- Comment
 				properties
 				 -- Comment
-				none;end fgt1;	
+				none;end fgt1;\t
 				 -- Comment
 				feature group fgt2
 				 -- Comment
@@ -613,15 +600,12 @@ class CommentsFormattingTest {
 				 prototypes
 				 -- Comment
 				none;end fgt5;end pkg1;
-			'''
-		]
+				""");
 	}
-	
+
 	@Test
-	def void testComponentImplementation() {
-		assertFormatted[
-			useSerializer = false
-			expectation = '''
+	public void testComponentImplementation() {
+		assertFormattedWithoutSerializer("""
 				-- Comment
 				package pkg1
 				-- Comment
@@ -637,7 +621,7 @@ class CommentsFormattingTest {
 							-- Comment
 							flow1: flow source f1;
 					end a1;
-				
+
 					-- Comment
 					abstract implementation a1.i1
 						-- Comment
@@ -681,7 +665,7 @@ class CommentsFormattingTest {
 							-- Comment
 							none;
 					end a1.i1;
-				
+
 					-- Comment
 					abstract implementation a1.i2
 						-- Comment
@@ -733,7 +717,7 @@ class CommentsFormattingTest {
 						annex EMV2 {**
 						**};
 					end a1.i2;
-				
+
 					-- Comment
 					abstract implementation a1.i3 extends a1.i2
 						-- Comment
@@ -741,7 +725,7 @@ class CommentsFormattingTest {
 							-- Comment
 							none;
 					end a1.i3;
-				
+
 					-- Comment
 					abstract implementation a1.i4 extends a1.i2 (p2 => in data port)
 						-- Comment
@@ -749,7 +733,7 @@ class CommentsFormattingTest {
 							-- Comment
 							none;
 					end a1.i4;
-				
+
 					-- Comment
 					abstract a2
 						-- Comment
@@ -761,7 +745,7 @@ class CommentsFormattingTest {
 							-- Comment
 							flow2: flow source f2;
 					end a2;
-				
+
 					-- Comment
 					abstract a3
 						-- Comment
@@ -773,8 +757,7 @@ class CommentsFormattingTest {
 							-- Comment
 							flow3: flow sink f3;
 					end a3;
-				end pkg1;'''
-			toBeFormatted = '''
+				end pkg1;""", """
 				 -- Comment
 				package pkg1
 				 -- Comment
@@ -912,7 +895,12 @@ class CommentsFormattingTest {
 				flows
 				 -- Comment
 				flow3:flow sink f3;end a3;end pkg1;
-			'''
-		]
+				""");
+	}
+	private void assertFormattedWithoutSerializer(String expectation, String toBeFormatted) {
+		formatterTestHelper.assertFormatted(formatterTestRequestProvider.get()
+				.setExpectation(expectation)
+				.setToBeFormatted(toBeFormatted)
+				.setUseSerializer(false));
 	}
 }
