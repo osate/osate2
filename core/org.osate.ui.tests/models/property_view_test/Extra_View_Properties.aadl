@@ -1,0 +1,5 @@
+-- A second property set in the workspace, so that the tests can check how the view groups and orders the property sets
+-- it shows. Its name sorts before Property_View_Properties.
+property set Extra_View_Properties is
+	Extra_Int: aadlinteger applies to (all);
+end Extra_View_Properties;

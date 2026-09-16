@@ -1,0 +1,69 @@
+-- The tests select an element in this package by searching its text for a snippet and putting the caret at the last
+-- character of that snippet, so no comment here repeats a declared name: a comment that did could be found first.
+package Property_View_Model
+public
+	with Property_View_Properties, Extra_View_Properties;
+
+	-- A classifier without any property association, so every property is either undefined or takes its default value.
+	system Plain
+	end Plain;
+
+	system implementation Plain.Impl
+	end Plain.Impl;
+
+	system Valued
+	end Valued;
+
+	-- One local property association per kind of property value.
+	system implementation Valued.Impl
+		properties
+			Property_View_Properties::Int_Property => 7;
+			Property_View_Properties::Text_Property => "seven";
+			Property_View_Properties::Flag_Property => true;
+			Property_View_Properties::Color_Property => Green;
+			Property_View_Properties::Number_List => (1, 2, 3);
+			Property_View_Properties::Number_Bounds => 1 .. 9;
+			Property_View_Properties::Bounds_With_Delta => 1 .. 9 delta 2;
+			Property_View_Properties::Position_Property => [Horizontal => 3; Vertical => 4;];
+			Extra_View_Properties::Extra_Int => 99;
+	end Valued.Impl;
+
+	-- A record value that leaves one field of the record type unset.
+	system implementation Valued.Partial
+		properties
+			Property_View_Properties::Position_Property => [Horizontal => 5;];
+	end Valued.Partial;
+
+	-- Inherits every property association of the extended implementation and declares nothing of its own.
+	system implementation Valued.Derived extends Valued.Impl
+	end Valued.Derived;
+
+	system Container
+	end Container;
+
+	system implementation Container.Impl
+		subcomponents
+			only_child: system Plain.Impl;
+			first_child: system Plain.Impl;
+			second_child: system Plain.Impl;
+		properties
+			-- Local contained: the association applies to exactly one subcomponent.
+			Property_View_Properties::Int_Property => 11 applies to only_child;
+			-- Shared local contained: the association applies to more than one subcomponent.
+			Property_View_Properties::Flag_Property => true applies to first_child, second_child;
+			-- Inherited by the subcomponents because the property is declared with "inherit".
+			Property_View_Properties::Inheritable_Property => 5;
+	end Container.Impl;
+
+	system Switched
+	end Switched;
+
+	-- A modal property association: the property itself has no single value to show.
+	system implementation Switched.Impl
+		modes
+			idle: initial mode;
+			busy: mode;
+		properties
+			Property_View_Properties::Int_Property => 1 in modes (idle), 2 in modes (busy);
+	end Switched.Impl;
+end Property_View_Model;

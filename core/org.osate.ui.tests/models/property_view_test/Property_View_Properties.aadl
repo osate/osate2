@@ -1,0 +1,27 @@
+property set Property_View_Properties is
+	-- A scalar property without a default value. Undefined unless a model declares a value for it.
+	Int_Property: aadlinteger applies to (all);
+
+	-- A scalar property with a default value, so its status is "default" when no model declares a value.
+	Int_With_Default: aadlinteger => 42 applies to (all);
+
+	Text_Property: aadlstring applies to (all);
+
+	Flag_Property: aadlboolean applies to (all);
+
+	Color_Property: enumeration (Red, Green, Blue) applies to (all);
+
+	Number_List: list of aadlinteger applies to (all);
+
+	Number_Bounds: range of aadlinteger applies to (all);
+
+	Bounds_With_Delta: range of aadlinteger applies to (all);
+
+	Position_Property: record (
+		Horizontal: aadlinteger;
+		Vertical: aadlinteger;
+	) applies to (all);
+
+	-- Declared with "inherit" so that a value on an enclosing component is visible on its subcomponents.
+	Inheritable_Property: inherit aadlinteger applies to (all);
+end Property_View_Properties;
