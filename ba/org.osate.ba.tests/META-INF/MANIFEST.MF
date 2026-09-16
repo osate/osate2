@@ -5,12 +5,8 @@ Bundle-SymbolicName: org.osate.ba.tests
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.osate.ba.tests.Activator
 Require-Bundle: org.eclipse.core.runtime,
- com.google.guava,
  org.eclipse.emf.ecore,
  org.eclipse.xtext,
- org.eclipse.xtext.xbase.lib,
- org.eclipse.xtend.lib,
- org.eclipse.xtend.lib.macro,
  org.osate.testsupport;bundle-version="1.0.0",
  org.osate.aadl2;bundle-version="1.0.0",
  org.osate.aadl2.instantiation;bundle-version="1.0.0",
