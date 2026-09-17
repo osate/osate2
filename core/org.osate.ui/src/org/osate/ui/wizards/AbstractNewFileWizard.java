@@ -109,6 +109,9 @@ public abstract class AbstractNewFileWizard extends Wizard implements INewWizard
 		this.pluginId = pluginId;
 	}
 
+	/**
+	 * @since 7.0
+	 */
 	public void addField(String fieldLabel, Predicate<String> fieldValidator) {
 		fieldValidators.put(fieldLabel, fieldValidator);
 	}

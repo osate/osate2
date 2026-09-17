@@ -81,6 +81,7 @@ public final class Aadl2NameValidators {
 	 *
 	 * @param checkWhiteSpace <code>true</code> to require that the text not contain any whitespace
 	 * @param rule The non-terminal parse rule to use for checking
+	 * @since 10.0
 	 */
 	public static Predicate<String> getFieldValidator(boolean checkWhiteSpace, ParserRule rule) {
 		if (checkWhiteSpace) {
