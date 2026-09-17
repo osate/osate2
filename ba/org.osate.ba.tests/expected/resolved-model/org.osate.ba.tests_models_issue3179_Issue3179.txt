@@ -1,0 +1,201 @@
+annex[0] owner=Issue3179::alternative_returns
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=success
+    states[2] : BehaviorState name=failure
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+annex[1] owner=Issue3179::alternative_returns.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=success
+    states[2] : BehaviorState name=failure
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+annex[2] owner=Issue3179::abstract_behavior
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=success
+    states[2] : BehaviorState name=failure
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+annex[3] owner=Issue3179::abstract_behavior.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=success
+    states[2] : BehaviorState name=failure
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+annex[4] owner=Issue3179::bus_behavior
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=success
+    states[2] : BehaviorState name=failure
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+annex[5] owner=Issue3179::bus_behavior.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=success
+    states[2] : BehaviorState name=failure
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+annex[6] owner=Issue3179::data_behavior
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=success
+    states[2] : BehaviorState name=failure
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+annex[7] owner=Issue3179::data_behavior.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=success
+    states[2] : BehaviorState name=failure
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+annex[8] owner=Issue3179::device_behavior
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=success
+    states[2] : BehaviorState name=failure
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+annex[9] owner=Issue3179::device_behavior.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=success
+    states[2] : BehaviorState name=failure
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+annex[10] owner=Issue3179::memory_behavior
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=success
+    states[2] : BehaviorState name=failure
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+annex[11] owner=Issue3179::memory_behavior.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=success
+    states[2] : BehaviorState name=failure
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+annex[12] owner=Issue3179::process_behavior
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=success
+    states[2] : BehaviorState name=failure
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+annex[13] owner=Issue3179::process_behavior.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=success
+    states[2] : BehaviorState name=failure
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+annex[14] owner=Issue3179::processor_behavior
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=success
+    states[2] : BehaviorState name=failure
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+annex[15] owner=Issue3179::processor_behavior.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=success
+    states[2] : BehaviorState name=failure
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+annex[16] owner=Issue3179::subprogram_group_behavior
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=success
+    states[2] : BehaviorState name=failure
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+annex[17] owner=Issue3179::subprogram_group_behavior.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=success
+    states[2] : BehaviorState name=failure
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+annex[18] owner=Issue3179::system_behavior
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=success
+    states[2] : BehaviorState name=failure
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+annex[19] owner=Issue3179::system_behavior.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=success
+    states[2] : BehaviorState name=failure
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+annex[20] owner=Issue3179::thread_behavior
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=success
+    states[2] : BehaviorState name=failure
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+annex[21] owner=Issue3179::thread_behavior.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=success
+    states[2] : BehaviorState name=failure
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+annex[22] owner=Issue3179::thread_group_behavior
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=success
+    states[2] : BehaviorState name=failure
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+annex[23] owner=Issue3179::thread_group_behavior.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=success
+    states[2] : BehaviorState name=failure
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+annex[24] owner=Issue3179::virtual_bus_behavior
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=success
+    states[2] : BehaviorState name=failure
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+annex[25] owner=Issue3179::virtual_bus_behavior.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=success
+    states[2] : BehaviorState name=failure
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+annex[26] owner=Issue3179::virtual_processor_behavior
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=success
+    states[2] : BehaviorState name=failure
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+annex[27] owner=Issue3179::virtual_processor_behavior.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=success
+    states[2] : BehaviorState name=failure
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+annex[28] owner=Issue3179::initial_and_final
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=finish
+    transitions[0] : BehaviorTransition

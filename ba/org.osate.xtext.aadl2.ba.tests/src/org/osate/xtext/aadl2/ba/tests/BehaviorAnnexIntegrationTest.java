@@ -169,8 +169,8 @@ public class BehaviorAnnexIntegrationTest {
 				Path.of("..", "org.osate.ba.tests", "models", "covering_semantic", "lr_D3_L1_L2.aadl"),
 				StandardCharsets.UTF_8);
 		var result = testHelper.testString(source);
-		// D.3.(L1) and D.3.(L2) mark every state their message names, so the two-initial-state and
-		// two-final-state failures each appear once per named state.
+		// D.3.(L1) and D.3.(L2) mark every state their message names, so the two-initial-state
+		// failure appears once per named state. Multiple final states are allowed.
 		assertEquals(List.of(
 				"ERROR: exemple_lr_D3_L1_L2::sub.error1 can't have complete state : compState : "
 						+ "Behavior Annex D.3.(L2) legality rule failed.",
@@ -179,11 +179,7 @@ public class BehaviorAnnexIntegrationTest {
 				"ERROR: exemple_lr_D3_L1_L2::sub.error1 can't have more than one initial state : "
 						+ "initState1, initState2 : Behavior Annex D.3.(L1) legality rule failed.",
 				"ERROR: exemple_lr_D3_L1_L2::sub.error1 has no final state : "
-						+ "Behavior Annex D.3.(L1) legality rule failed.",
-				"ERROR: exemple_lr_D3_L1_L2::sub.error2 has more than one final state : "
-						+ "uniqueState, finalState1 : Behavior Annex D.3.(L1) legality rule failed.",
-				"ERROR: exemple_lr_D3_L1_L2::sub.error2 has more than one final state : "
-						+ "uniqueState, finalState1 : Behavior Annex D.3.(L1) legality rule failed."),
+						+ "Behavior Annex D.3.(L1) legality rule failed."),
 				result.getIssues()
 						.stream()
 						.filter(issue -> "org.osate.xtext.aadl2.ba.checker".equals(issue.getCode()))

@@ -42,7 +42,7 @@ annex behavior_specification {**
 
   -- Errors: The behavior annex of a subprogram
   --          _ can't have more than one initial state.
-  --          _ must define one final state.
+  --          _ must define at least one final state.
   --          _ can't have complete state. 
 states
  initState1 : initial state ;
@@ -55,8 +55,8 @@ end sub.error1;
 subprogram implementation sub.error2 
 annex behavior_specification {**
 
-  -- Errors: The behavior annex of a subprogram
-  --          _ can't have more than one final state.
+  -- Multiple final states are allowed in a standard behavior specification,
+  -- including when a final state is also initial.
 states
  uniqueState : initial final state ;
  finalState1 : final state ;
