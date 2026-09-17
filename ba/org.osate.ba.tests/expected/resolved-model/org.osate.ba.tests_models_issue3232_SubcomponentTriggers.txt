@@ -1,0 +1,19 @@
+annex[0] owner=SubcomponentTriggers::controller.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=waiting
+    states[1] : BehaviorState name=running
+    transitions[0] : BehaviorTransition
+      condition : ModeSwitchTriggerLogicalExpression
+        modeSwitchConjunctions[0] : ModeSwitchConjunction
+          modeSwitchTriggers[0] : EventPortHolder element=SubcomponentTriggers::worker.outgoing [EventPort] context=SubcomponentTriggers::controller.impl.first
+          modeSwitchTriggers[1] : EventPortHolder element=SubcomponentTriggers::worker.outgoing [EventPort] context=SubcomponentTriggers::controller.impl.second
+        modeSwitchConjunctions[1] : ModeSwitchConjunction
+          modeSwitchTriggers[0] : ModeSwitchTriggerLogicalExpression
+            modeSwitchConjunctions[0] : ModeSwitchConjunction
+              modeSwitchTriggers[0] : EventDataPortHolder element=SubcomponentTriggers::worker.outgoing_data [EventDataPort] context=SubcomponentTriggers::controller.impl.first
+              modeSwitchTriggers[1] : EventDataPortHolder element=SubcomponentTriggers::worker.outgoing_data [EventDataPort] context=SubcomponentTriggers::controller.impl.second
+        modeSwitchConjunctions[2] : ModeSwitchConjunction
+          modeSwitchTriggers[0] : ModeSwitchTriggerLogicalExpression
+            modeSwitchConjunctions[0] : ModeSwitchConjunction
+              modeSwitchTriggers[0] : EventPortHolder element=SubcomponentTriggers::worker.bidirectional [EventPort] context=SubcomponentTriggers::controller.impl.first
+              modeSwitchTriggers[1] : EventDataPortHolder element=SubcomponentTriggers::worker.bidirectional_data [EventDataPort] context=SubcomponentTriggers::controller.impl.second

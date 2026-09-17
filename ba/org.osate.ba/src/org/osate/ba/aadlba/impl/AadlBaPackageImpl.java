@@ -1115,6 +1115,16 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 	 * @generated
 	 */
 	@Override
+	public EReference getActualPortHolder_Context() {
+		return (EReference) actualPortHolderEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getAssignmentAction() {
 		return assignmentActionEClass;
 	}
@@ -3501,6 +3511,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 
 		// Create classes and their features
 		actualPortHolderEClass = createEClass(ACTUAL_PORT_HOLDER);
+		createEReference(actualPortHolderEClass, ACTUAL_PORT_HOLDER__CONTEXT);
 
 		assignmentActionEClass = createEClass(ASSIGNMENT_ACTION);
 		createEReference(assignmentActionEClass, ASSIGNMENT_ACTION__TARGET);
@@ -4119,6 +4130,9 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage {
 		// Initialize classes and features; add operations and parameters
 		initEClass(actualPortHolderEClass, ActualPortHolder.class, "ActualPortHolder", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getActualPortHolder_Context(), theAadl2Package.getSubcomponent(), null, "context", null, 0, 1,
+				ActualPortHolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		EOperation op = addEOperation(actualPortHolderEClass, null, "setPort", 1, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, theAadl2Package.getPort(), "port", 1, 1, IS_UNIQUE, IS_ORDERED);

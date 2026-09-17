@@ -60,6 +60,7 @@ import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexUnparserRegistry;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.ba.aadlba.AadlBaPackage;
+import org.osate.ba.aadlba.ActualPortHolder;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 import org.osate.xtext.aadl2.ba.BehaviorAnnexStandaloneSetup;
@@ -309,6 +310,9 @@ public class BehaviorAnnexCharacterizationTest {
 					result.append(" element=<null>");
 				}
 			}
+		}
+		if (object instanceof ActualPortHolder port && port.getContext() != null) {
+			result.append(" context=").append(qualifiedName(port.getContext()));
 		}
 		result.append('\n');
 

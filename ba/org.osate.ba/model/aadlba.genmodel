@@ -149,6 +149,8 @@
     <genDataTypes ecoreDataType="aadlba.ecore#//Real"/>
     <genDataTypes ecoreDataType="aadlba.ecore#//String"/>
     <genClasses image="false" ecoreClass="aadlba.ecore#//ActualPortHolder">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference aadlba.ecore#//ActualPortHolder/context"/>
       <genOperations ecoreOperation="aadlba.ecore#//ActualPortHolder/setPort" body="element = port ;">
         <genParameters ecoreParameter="aadlba.ecore#//ActualPortHolder/setPort/port"/>
       </genOperations>

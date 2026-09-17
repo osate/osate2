@@ -28,10 +28,16 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.testing.InjectWith;
@@ -42,9 +48,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.Subcomponent;
 import org.osate.annexsupport.AnnexUtil;
+import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.ActualPortHolder;
+import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.ModeSwitchTriggerLogicalExpression;
 import org.osate.testsupport.TestHelper;
 import org.osate.xtext.aadl2.ba.util.BehaviorAnnexUtil;
@@ -73,7 +80,7 @@ public class Issue3232Test extends XtextTest {
 		assertEquals(List.of("incoming", "incoming_data", "bidirectional", "bidirectional_data"),
 				ports.stream().map(port -> port.getPort().getName()).toList());
 		for (var port : ports) {
-			assertNull(context(port));
+			assertNull(port.getContext());
 		}
 	}
 
@@ -90,8 +97,50 @@ public class Issue3232Test extends XtextTest {
 				"bidirectional_data"), ports.stream().map(port -> port.getPort().getName()).toList());
 		assertSame(ports.get(0).getPort(), ports.get(1).getPort());
 		for (var i = 0; i < ports.size(); i++) {
-			assertSame(i % 2 == 0 ? first : second, context(ports.get(i)));
+			assertSame(i % 2 == 0 ? first : second, ports.get(i).getContext());
 		}
+	}
+
+	@Test
+	public void strictSerializationPreservesSubcomponentContexts() throws Exception {
+		var root = testHelper.parseFile(PATH + "SubcomponentTriggers.aadl");
+		validationHelper.assertNoIssues(root);
+		var strict = BehaviorAnnexUtil.getStrictModel(AnnexUtil.getAllDefaultAnnexSubclauses(root).getFirst());
+		var original = triggers(strict);
+		root.eResource().setURI(URI.createURI("memory:/issue3232.aadl"));
+		var resource = new XMIResourceImpl(URI.createURI("memory:/issue3232.aadlba"));
+		root.eResource().getResourceSet().getPackageRegistry().put(AadlBaPackage.eNS_URI, AadlBaPackage.eINSTANCE);
+		root.eResource().getResourceSet().getResources().add(resource);
+		try {
+			resource.getContents().add(EcoreUtil.copy(strict));
+			var bytes = new ByteArrayOutputStream();
+			resource.save(bytes, Map.of());
+			resource.unload();
+			resource.load(new ByteArrayInputStream(bytes.toByteArray()), Map.of());
+			EcoreUtil.resolveAll(resource);
+			var reloaded = triggers((BehaviorAnnex) resource.getContents().getFirst());
+			assertEquals(original.size(), reloaded.size());
+			for (var i = 0; i < original.size(); i++) {
+				assertSame(original.get(i).getPort(), reloaded.get(i).getPort());
+				assertSame(original.get(i).getContext(), reloaded.get(i).getContext());
+			}
+		} finally {
+			root.eResource().getResourceSet().getResources().remove(resource);
+		}
+	}
+
+	@Test
+	public void featureGroupsAndThreadGroupContextsRemainDistinct() throws Exception {
+		var root = testHelper.parseFile(PATH + "GroupedTriggers.aadl");
+		validationHelper.assertNoIssues(root);
+		var ports = triggers(root);
+		assertEquals(3, ports.size());
+		assertNull(ports.get(0).getContext());
+		assertEquals("child", ports.get(1).getContext().getName());
+		assertEquals("grouped", ports.get(2).getContext().getName());
+		assertEquals(List.of(List.of("input_group"), List.of("output_group"), List.of()),
+				ports.stream().map(port -> port.getGroupHolders().stream()
+						.map(group -> group.getElement().getName()).toList()).toList());
 	}
 
 	@Test
@@ -107,7 +156,7 @@ public class Issue3232Test extends XtextTest {
 	@Test
 	public void modeRefinementDistinguishesSubcomponentsOfTheSameClassifier() throws Exception {
 		var root = testHelper.parseFile(PATH + "ModeTriggers.aadl");
-		assertDiagnostics(root, List.of(new Expected("second.outgoing", "org.osate.xtext.aadl2.ba.checker",
+		assertDiagnostics(root, List.of(new Expected("on second.outgoing", "org.osate.xtext.aadl2.ba.checker",
 				"The behavior transition tries to refine a transition mode but it is not consisting with any "
 						+ "transition mode of ModeTriggers::controller.mismatching component: Behavior Annex D.3.(C4) "
 						+ "consistency rule failed.")));
@@ -115,7 +164,10 @@ public class Issue3232Test extends XtextTest {
 
 	private static List<ActualPortHolder> triggers(AadlPackage root) {
 		var annex = AnnexUtil.getAllDefaultAnnexSubclauses(root).getFirst();
-		var strict = BehaviorAnnexUtil.getStrictModel(annex);
+		return triggers(BehaviorAnnexUtil.getStrictModel(annex));
+	}
+
+	private static List<ActualPortHolder> triggers(BehaviorAnnex strict) {
 		var result = new ArrayList<ActualPortHolder>();
 		collectTriggers((ModeSwitchTriggerLogicalExpression) strict.getTransitions().getFirst().getCondition(), result);
 		return result;
@@ -132,12 +184,6 @@ public class Issue3232Test extends XtextTest {
 				}
 			}
 		}
-	}
-
-	/** Read reflectively so the regression can run before the metamodel has acquired the context reference. */
-	private static Subcomponent context(ActualPortHolder port) {
-		var feature = port.eClass().getEStructuralFeature("context");
-		return feature == null ? null : (Subcomponent) port.eGet(feature);
 	}
 
 	private void assertDiagnostics(AadlPackage root, List<Expected> expected) {

@@ -1,0 +1,14 @@
+===== annex[0] owner=InvalidTriggers::controller.impl =====
+
+variables
+\tlocal_value : Base_Types::Integer;
+states
+\twaiting : initial state;
+\trunning : state;
+transitions
+\twaiting -[on value and incoming or (stored and local_value)]-> running;
+\twaiting -[on outgoing or outgoing_data]-> running;
+\twaiting -[on child.incoming and child.incoming_data or child.value]-> running;
+\twaiting -[on unknown]-> running;
+----- Xtext reparse -----
+reparsed

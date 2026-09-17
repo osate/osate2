@@ -1,1 +1,2 @@
 error | semantic | 37 | 10 | 5 | subprogram components cannot use an external condition: an execute or internal condition must be used instead: Behavior Annex D.3 consistency rule failed.
+error | semantic | 37 | 13 | 2 | 'go' is not an external-condition trigger: expected an incoming event or event data port of the component, or an outgoing event or event data port of a subcomponent
