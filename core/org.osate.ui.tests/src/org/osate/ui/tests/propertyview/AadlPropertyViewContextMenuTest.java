@@ -141,11 +141,10 @@ public class AadlPropertyViewContextMenuTest extends AadlPropertyViewTestBase {
 
 		/*
 		 * The association applies to more than one subcomponent, so there is no single association to open for this one.
-		 * Remove is offered because the check behind it does not distinguish a shared association from one that applies
-		 * to this subcomponent alone; this is the current behavior of the view, not necessarily the intended one.
+		 * It must be made local or local contained before it can be removed without affecting the other subcomponents.
 		 */
 		assertContextMenuEnablement(new String[] { PROPERTY_SET, "Flag_Property" },
-				List.of(OPEN_PROPERTY_DEFINITION, MAKE_LOCAL, MAKE_LOCAL_CONTAINED, REMOVE));
+				List.of(OPEN_PROPERTY_DEFINITION, MAKE_LOCAL, MAKE_LOCAL_CONTAINED));
 	}
 
 	@Test

@@ -89,6 +89,13 @@
 								<id>org.osate.core.feature</id>
 								<versionRange>0.0.0</versionRange>
 							</requirement>
+							<!-- Property lookup loads contributed EMV2 libraries. The UI
+								bundle registers the resource service provider used by their parser. -->
+							<requirement>
+								<type>eclipse-plugin</type>
+								<id>org.osate.xtext.aadl2.errormodel.ui</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
 							<!-- The graphical editor, for the wizard test that creates a
 								package with a diagram. It contributes the AgeEditor, which is built on
 								GEF and JavaFX, so the JavaFX runtime is needed as well. -->
