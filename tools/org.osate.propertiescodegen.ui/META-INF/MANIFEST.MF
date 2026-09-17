@@ -6,10 +6,6 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.osate.propertiescodegen.ui.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- com.google.guava,
- org.eclipse.xtext.xbase.lib,
- org.eclipse.xtend.lib,
- org.eclipse.xtend.lib.macro,
  org.eclipse.core.resources;bundle-version="3.13.500",
  org.osate.aadl2.modelsupport;bundle-version="1.0.0",
  org.osate.aadl2;bundle-version="1.0.0",

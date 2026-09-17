@@ -5,12 +5,12 @@ Bundle-SymbolicName: org.osate.propertiescodegen.tests
 Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: org.osate.propertiescodegen.tests
 Bundle-RequiredExecutionEnvironment: JavaSE-21
-Require-Bundle: com.google.guava,
- org.eclipse.xtext.xbase.lib,
- org.eclipse.xtend.lib,
- org.eclipse.xtend.lib.macro,
- org.osate.propertiescodegen;bundle-version="1.0.0",
+Require-Bundle: org.osate.propertiescodegen;bundle-version="1.0.0",
  org.osate.testsupport;bundle-version="1.0.0",
- org.osate.aadl2;bundle-version="1.0.0"
+ org.osate.aadl2;bundle-version="1.0.0",
+ org.osate.aadl2.modelsupport,
+ org.osate.pluginsupport,
+ org.eclipse.core.runtime
+Import-Package: javax.tools
 Export-Package: org.osate.propertiescodegen.tests
 Bundle-Vendor: CMU/SEI
