@@ -1,0 +1,3 @@
+property set Second_Properties is
+	Value: aadlinteger applies to (thread);
+end Second_Properties;
