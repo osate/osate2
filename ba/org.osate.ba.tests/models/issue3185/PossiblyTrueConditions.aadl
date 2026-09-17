@@ -20,21 +20,30 @@
 -- aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
 -- censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
 
-package Issue3186
+package PossiblyTrueConditions
 public
+	with Base_Types;
 
-process controller
-features
-	go : in event port;
-end controller;
+	abstract controller
+	features
+		keep_going: in data port Base_Types::Boolean;
+	end controller;
 
-process implementation controller.impl
-annex behavior_specification {**
-states
-	waiting : initial state;
-		running : final state;
-transitions
-	waiting -[on go]-> running;
-**};
-end controller.impl;
-end Issue3186;
+	abstract implementation controller.impl
+	annex behavior_specification {**
+		states
+			start: initial state;
+			unknown_guard: state;
+			true_guard: state;
+			unconditional: state;
+			fallback: state;
+			done: final state;
+		transitions
+			start -[]-> unknown_guard;
+			unknown_guard -[keep_going]-> true_guard;
+			true_guard -[true or false]-> unconditional;
+			unconditional -[]-> fallback;
+			fallback -[otherwise]-> done;
+	**};
+	end controller.impl;
+end PossiblyTrueConditions;

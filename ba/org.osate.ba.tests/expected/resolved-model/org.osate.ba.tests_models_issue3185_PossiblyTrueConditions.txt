@@ -1,0 +1,31 @@
+annex[0] owner=PossiblyTrueConditions::controller.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=unknown_guard
+    states[2] : BehaviorState name=true_guard
+    states[3] : BehaviorState name=unconditional
+    states[4] : BehaviorState name=fallback
+    states[5] : BehaviorState name=done
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : DataPortHolder element=PossiblyTrueConditions::controller.keep_going [DataPort]
+    transitions[2] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorBooleanLiteral
+        relations[1] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorBooleanLiteral
+    transitions[3] : BehaviorTransition
+    transitions[4] : BehaviorTransition
+      condition : Otherwise

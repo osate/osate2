@@ -1,1 +1,2 @@
+error | semantic | 31 | 5 | 2 | Execution state 's1' has no possibly true outgoing execute condition and can remain blocked: Behavior Annex D.3 consistency rule failed.
 error | semantic | 35 | 11 | 8 | The behavior transition tries to refine a transition mode while issue2147::threadA.impl component hasn't got any transition mode: Behavior Annex D.3.(C4) consistency rule failed.

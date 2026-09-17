@@ -20,21 +20,18 @@
 -- aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
 -- censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
 
-package Issue3186
+package Issue3185
 public
+	abstract controller
+	end controller;
 
-process controller
-features
-	go : in event port;
-end controller;
-
-process implementation controller.impl
-annex behavior_specification {**
-states
-	waiting : initial state;
-		running : final state;
-transitions
-	waiting -[on go]-> running;
-**};
-end controller.impl;
-end Issue3186;
+	abstract implementation controller.impl
+	annex behavior_specification {**
+		states
+			start: initial state;
+			working: state;
+		transitions
+			start -[]-> working;
+	**};
+	end controller.impl;
+end Issue3185;

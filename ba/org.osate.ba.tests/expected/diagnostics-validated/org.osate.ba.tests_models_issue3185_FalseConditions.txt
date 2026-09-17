@@ -1,0 +1,1 @@
+error | semantic | 32 | 4 | 7 | Execution state 'working' has no possibly true outgoing execute condition and can remain blocked: Behavior Annex D.3 consistency rule failed.

@@ -8,7 +8,7 @@ reparsed
 
 states
 \twaiting : initial state;
-\trunning : state;
+\t\trunning : final state;
 transitions
 \twaiting -[on go]-> running;
 ----- Xtext reparse -----
