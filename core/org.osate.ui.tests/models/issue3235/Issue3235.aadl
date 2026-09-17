@@ -1,0 +1,27 @@
+package Issue3235
+public
+	with Issue3235_Properties;
+
+	system Plain
+	end Plain;
+
+	system implementation Plain.Impl
+	end Plain.Impl;
+
+	system Container
+	end Container;
+
+	system implementation Container.Impl
+		subcomponents
+			first_child: system Plain.Impl;
+			second_child: system Plain.Impl;
+		properties
+			Issue3235_Properties::Flag_Property => true applies to first_child, second_child;
+			Issue3235_Properties::Record_Property => [
+				First => 1;
+				Second => 2;
+			] applies to first_child, second_child;
+			Issue3235_Properties::List_Property => (1, 2) applies to first_child, second_child;
+			Issue3235_Properties::Range_Property => 1 .. 9 delta 2 applies to first_child, second_child;
+	end Container.Impl;
+end Issue3235;

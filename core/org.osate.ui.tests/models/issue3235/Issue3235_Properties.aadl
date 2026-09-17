@@ -1,0 +1,9 @@
+property set Issue3235_Properties is
+	Flag_Property: aadlboolean applies to (system);
+	Record_Property: record (
+		First: aadlinteger;
+		Second: aadlinteger;
+	) applies to (system);
+	List_Property: list of aadlinteger applies to (system);
+	Range_Property: range of aadlinteger applies to (system);
+end Issue3235_Properties;
