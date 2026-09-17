@@ -1,0 +1,14 @@
+package Issue3234
+public
+	with First_Properties, Second_Properties;
+
+	thread T
+	end T;
+
+	thread implementation T.impl
+	properties
+		First_Properties::Value => 1;
+		Second_Properties::Value => 2;
+		Timing_Properties::Period => 10 ms;
+	end T.impl;
+end Issue3234;

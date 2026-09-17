@@ -1,0 +1,4 @@
+-- Not imported or applicable to the selected thread, but still selectable in the workspace group.
+property set Unused_Properties is
+	Value: aadlinteger applies to (system);
+end Unused_Properties;
