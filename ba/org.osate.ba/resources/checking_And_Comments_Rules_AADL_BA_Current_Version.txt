@@ -84,7 +84,7 @@ Notes:
 
 - D.3.(N1) : an empty execute condition is equivalent to a condition that is always true. [IMPLEMENTED] in [PARSER].
 - D.3.(18) : only transition out of execution states or states that are intial only may have execute condition. [TODO] too many errors are found in aadlba std's exemples. Is the std wrong ? [IMPLEMENTED]
-- D.3.(C3) : the logical disjunction of all the execute conditions associated with the transitions out of an execution state must be true. [NOT IMPLEMENTED] [TODO] : is it statically analyzable ?
+- D.3.(C3) : the logical disjunction of all the execute conditions associated with the transitions out of an execution state must be true. [IMPLEMENTED] for an empty disjunction and execute conditions that reduce to Boolean literals; runtime-dependent, non-value, or unsupported conditions are accepted conservatively.
 
 --------------------------
 

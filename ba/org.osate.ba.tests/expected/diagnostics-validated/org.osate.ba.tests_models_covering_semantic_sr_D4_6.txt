@@ -1,3 +1,5 @@
+error | semantic | 56 | 2 | 9 | Execution state 'exeState1' has no possibly true outgoing execute condition and can remain blocked: Behavior Annex D.3 consistency rule failed.
+error | semantic | 57 | 2 | 9 | Execution state 'exeState2' has no possibly true outgoing execute condition and can remain blocked: Behavior Annex D.3 consistency rule failed.
 error | semantic | 64 | 14 | 16 | Only transition out of complete states may have dispatch condition : Behavior Annex D.3.(L6) legality rule failed.
 error | semantic | 64 | 26 | 4 | The stop dispatch trigger statement must be declared in a transition that ends to final state possibly via one or more execution states: Behavior Annex D.4.(6) semantic rule failed.
 error | semantic | 64 | 26 | 4 | The stop dispatch trigger statement must be declared in an outgoing transition of a complete state: Behavior Annex D.4.(6) semantic rule failed.

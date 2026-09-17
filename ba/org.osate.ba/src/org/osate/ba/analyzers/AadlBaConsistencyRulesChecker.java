@@ -37,6 +37,7 @@ import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.ba.aadlba.ActualPortHolder;
 import org.osate.ba.aadlba.BehaviorAnnex;
+import org.osate.ba.aadlba.BehaviorBooleanLiteral;
 import org.osate.ba.aadlba.BehaviorCondition;
 import org.osate.ba.aadlba.BehaviorElement;
 import org.osate.ba.aadlba.BehaviorState;
@@ -44,10 +45,19 @@ import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ba.aadlba.DispatchCondition;
 import org.osate.ba.aadlba.DispatchTrigger;
 import org.osate.ba.aadlba.DispatchTriggerLogicalExpression;
+import org.osate.ba.aadlba.Factor;
 import org.osate.ba.aadlba.ModeSwitchConjunction;
 import org.osate.ba.aadlba.ModeSwitchTrigger;
 import org.osate.ba.aadlba.ModeSwitchTriggerCondition;
 import org.osate.ba.aadlba.ModeSwitchTriggerLogicalExpression;
+import org.osate.ba.aadlba.Otherwise;
+import org.osate.ba.aadlba.Relation;
+import org.osate.ba.aadlba.SimpleExpression;
+import org.osate.ba.aadlba.Term;
+import org.osate.ba.aadlba.UnaryBooleanOperator;
+import org.osate.ba.aadlba.Value;
+import org.osate.ba.aadlba.ValueExpression;
+import org.osate.ba.utils.AadlBaUtils;
 import org.osate.ba.utils.AadlBaVisitors;
 import org.osate.utils.internal.Aadl2Utils;
 import org.osate.utils.internal.Aadl2Visitors;
@@ -68,6 +78,129 @@ public class AadlBaConsistencyRulesChecker {
 		_errManager = errManager;
 		_baParentContainer = AadlBaVisitors.getParentComponent(ba, parentContainer);
 		_contextsTab = AadlBaVisitors.getBaPackageSections(_ba, _baParentContainer);
+	}
+
+	/**
+	 * Document: AS5506/3 Rev A
+	 * Type    : Consistency rule
+	 * Section : D.3 Behavior Specification
+	 * Object  : The disjunction of the execute conditions on transitions out of an execution state must be true.
+	 * Report only a definite violation: an empty disjunction or one whose conditions reduce to false using Boolean
+	 * literals and operators. A runtime-dependent expression or any non-value condition makes the result unknown and
+	 * is accepted conservatively.
+	 * Keys    : execution state execute condition nonblocking
+	 */
+	public boolean D_3_C3_Check(BehaviorAnnex ba) {
+		var result = true;
+		for (var state : ba.getStates()) {
+			if (state.isInitial() || state.isComplete() || state.isFinal()) {
+				continue;
+			}
+			var disjunction = StaticTruth.FALSE;
+			for (var transition : state.getOutgoingTransitions()) {
+				var condition = transition.getCondition();
+				if (condition == null || condition instanceof Otherwise) {
+					disjunction = StaticTruth.TRUE;
+					break;
+				}
+				if (condition instanceof ValueExpression expression) {
+					disjunction = disjunction.or(staticTruth(expression));
+				} else {
+					disjunction = disjunction.or(StaticTruth.UNKNOWN);
+				}
+			}
+			if (disjunction == StaticTruth.FALSE) {
+				result = false;
+				reportConsistencyError(state, "Execution state '" + state.getName()
+						+ "' has no possibly true outgoing execute condition and can remain blocked: "
+						+ "Behavior Annex D.3 consistency rule failed");
+			}
+		}
+		return result;
+	}
+
+	private static StaticTruth staticTruth(ValueExpression expression) {
+		if (expression.getRelations().isEmpty()
+				|| expression.getLogicalOperators().size() != expression.getRelations().size() - 1) {
+			return StaticTruth.UNKNOWN;
+		}
+		var result = staticTruth(expression.getRelations().getFirst());
+		for (var i = 1; i < expression.getRelations().size(); i++) {
+			var right = staticTruth(expression.getRelations().get(i));
+			result = switch (expression.getLogicalOperators().get(i - 1)) {
+			case AND, AND_THEN -> result.and(right);
+			case OR, OR_ELSE -> result.or(right);
+			case XOR -> result.xor(right);
+			default -> StaticTruth.UNKNOWN;
+			};
+		}
+		return result;
+	}
+
+	private static StaticTruth staticTruth(Relation relation) {
+		return relation.getSecondExpression() == null && !relation.isSetRelationalOperator()
+				? staticTruth(relation.getFirstExpression())
+				: StaticTruth.UNKNOWN;
+	}
+
+	private static StaticTruth staticTruth(SimpleExpression expression) {
+		return !expression.isSetUnaryAddingOperator() && expression.getTerms().size() == 1
+				&& expression.getBinaryAddingOperators().isEmpty() ? staticTruth(expression.getTerms().getFirst())
+						: StaticTruth.UNKNOWN;
+	}
+
+	private static StaticTruth staticTruth(Term term) {
+		return term.getFactors().size() == 1 && term.getMultiplyingOperators().isEmpty()
+				? staticTruth(term.getFactors().getFirst())
+				: StaticTruth.UNKNOWN;
+	}
+
+	private static StaticTruth staticTruth(Factor factor) {
+		if (factor.getSecondValue() != null || factor.isSetBinaryNumericOperator()
+				|| factor.isSetUnaryNumericOperator()) {
+			return StaticTruth.UNKNOWN;
+		}
+		var result = staticTruth(factor.getFirstValue());
+		if (factor.isSetUnaryBooleanOperator()) {
+			result = factor.getUnaryBooleanOperator() == UnaryBooleanOperator.NOT ? result.not() : StaticTruth.UNKNOWN;
+		}
+		return result;
+	}
+
+	private static StaticTruth staticTruth(Value value) {
+		if (value instanceof BehaviorBooleanLiteral literal) {
+			return literal.isValue() ? StaticTruth.TRUE : StaticTruth.FALSE;
+		}
+		return value instanceof ValueExpression expression ? staticTruth(expression) : StaticTruth.UNKNOWN;
+	}
+
+	private enum StaticTruth {
+		FALSE, TRUE, UNKNOWN;
+
+		private StaticTruth and(StaticTruth other) {
+			if (this == FALSE || other == FALSE) {
+				return FALSE;
+			}
+			return this == TRUE && other == TRUE ? TRUE : UNKNOWN;
+		}
+
+		private StaticTruth or(StaticTruth other) {
+			if (this == TRUE || other == TRUE) {
+				return TRUE;
+			}
+			return this == FALSE && other == FALSE ? FALSE : UNKNOWN;
+		}
+
+		private StaticTruth xor(StaticTruth other) {
+			if (this == UNKNOWN || other == UNKNOWN) {
+				return UNKNOWN;
+			}
+			return this == other ? FALSE : TRUE;
+		}
+
+		private StaticTruth not() {
+			return this == TRUE ? FALSE : this == FALSE ? TRUE : UNKNOWN;
+		}
 	}
 
 	/**

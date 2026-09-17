@@ -30,6 +30,12 @@
 
 	<profiles>
 		<profile>
+			<id>tools</id>
+			<modules>
+				<module>tools</module>
+			</modules>
+		</profile>
+		<profile>
 			<id>codecoverage</id>
 			<activation>
 				<property>
