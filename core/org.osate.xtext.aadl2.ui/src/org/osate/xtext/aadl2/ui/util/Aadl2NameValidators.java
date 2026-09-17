@@ -24,6 +24,7 @@
 package org.osate.xtext.aadl2.ui.util;
 
 import java.io.StringReader;
+import java.util.function.Predicate;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.runtime.Path;
@@ -34,7 +35,6 @@ import org.eclipse.xtext.parser.IParser;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IGlobalScopeProvider;
 import org.eclipse.xtext.util.OnChangeEvictingCache;
-import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.xtext.aadl2.services.Aadl2GrammarAccess;
@@ -65,11 +65,10 @@ public final class Aadl2NameValidators {
 	 * simple ID.
 	 */
 	/** Validate ID terms (simple names) */
-	public static final Function1<? super String, ? extends Boolean> ID_VALIDATOR = getFieldValidator(true,
-			grammarAccess.getINAMERule());
+	public static final Predicate<String> ID_VALIDATOR = getFieldValidator(true, grammarAccess.getINAMERule());
 
 	/** Validate package names (a::b::c) */
-	public static final Function1<? super String, ? extends Boolean> PACKAGE_NAME_VALIDATOR = getFieldValidator(true,
+	public static final Predicate<String> PACKAGE_NAME_VALIDATOR = getFieldValidator(true,
 			grammarAccess.getPNAMERule());
 
 	// Singleton: disallow object creation
@@ -77,18 +76,13 @@ public final class Aadl2NameValidators {
 	}
 
 	/**
-	 * Get a predicate <code>(String) =&gt; boolean</code> for testing strings based on parse rules. Returns true if the
-	 * string parses using the given rule. Intended for use in validating field values in UI dialogs.
-	 *
-	 * <p>
-	 * The returned type is an Xbase <code>Function1</code> because <code>AbstractNewFileWizard.addField</code>, which
-	 * consumes it, is still Xtend.
+	 * Get a predicate for testing strings based on parse rules. Returns true if the string parses using the given
+	 * rule. Intended for use in validating field values in UI dialogs.
 	 *
 	 * @param checkWhiteSpace <code>true</code> to require that the text not contain any whitespace
 	 * @param rule The non-terminal parse rule to use for checking
 	 */
-	public static Function1<? super String, ? extends Boolean> getFieldValidator(boolean checkWhiteSpace,
-			ParserRule rule) {
+	public static Predicate<String> getFieldValidator(boolean checkWhiteSpace, ParserRule rule) {
 		if (checkWhiteSpace) {
 			return fieldValue -> fieldValue.matches("\\S+") && !parsesWithSyntaxErrors(rule, fieldValue);
 		}
