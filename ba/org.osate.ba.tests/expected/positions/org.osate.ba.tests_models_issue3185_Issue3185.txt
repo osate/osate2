@@ -1,0 +1,7 @@
+annex[0] owner=Issue3185::controller.impl
+  (BehaviorAnnex, behavior_specification, 1882, 88)
+  (BehaviorState, start, 1892, 5)
+  (BehaviorState, working, 1917, 7)
+  (BehaviorStateGroup, <null>, 1892, 21)
+  (BehaviorStateGroup, <null>, 1917, 15)
+  (BehaviorTransition, <null>, 1950, 20)

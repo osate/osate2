@@ -1,0 +1,10 @@
+===== annex[0] owner=Issue3185::controller.impl =====
+
+\t\tstates
+\t\t\tstart: initial state;
+\t\t\tworking: state;
+\t\ttransitions
+\t\t\tstart -[]-> working;
+\t
+----- Xtext reparse -----
+reparsed
