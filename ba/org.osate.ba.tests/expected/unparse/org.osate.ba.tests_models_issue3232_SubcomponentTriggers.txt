@@ -2,7 +2,7 @@
 
 states
 \twaiting : initial state;
-\trunning : state;
+\trunning : final state;
 transitions
 \twaiting -[on first.outgoing and second.outgoing or
 \t\t(first.outgoing_data and second.outgoing_data) or

@@ -36,7 +36,7 @@ process implementation controller.impl
 annex behavior_specification {**
 states
 	waiting : initial state;
-	running : state;
+	running : final state;
 transitions
 	waiting -[on incoming and incoming_data or (bidirectional and bidirectional_data)]-> running;
 **};

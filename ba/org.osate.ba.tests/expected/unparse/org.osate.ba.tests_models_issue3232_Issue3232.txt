@@ -2,7 +2,7 @@
 
 states
 \twaiting : initial state;
-\trunning : state;
+\trunning : final state;
 transitions
 \twaiting -[on incoming and incoming_data or (bidirectional and bidirectional_data)]-> running;
 ----- Xtext reparse -----

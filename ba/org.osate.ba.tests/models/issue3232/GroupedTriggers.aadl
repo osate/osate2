@@ -49,7 +49,7 @@ subcomponents
 annex behavior_specification {**
 states
 	waiting : initial state;
-	running : state;
+	running : final state;
 transitions
 	waiting -[on input_group.ready and child.output_group.ready and grouped.ready]-> running;
 **};
