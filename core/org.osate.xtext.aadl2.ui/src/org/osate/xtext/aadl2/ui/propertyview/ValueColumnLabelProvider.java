@@ -72,19 +72,19 @@ public class ValueColumnLabelProvider extends ColumnLabelProvider {
 	private PropertyExpression resolveExpression(ResourceSet resourceSet, TreeEntry entry) {
 		return switch (entry.getTreeElement()) {
 		case URI uri -> switch (resourceSet.getEObject(uri, true)) {
-			case Property property -> {
-				var parentEntry = (TreeEntry) entry.getParent();
-				var associationURI = propertyView.cachedPropertyAssociations.get(parentEntry.getTreeElement()).get(uri);
-				if (associationURI == null) {
-					yield property.getDefaultValue();
-				}
-				var association = (PropertyAssociation) resourceSet.getEObject(associationURI, true);
-				/* A modal association has no single value to show in the table. */
-				yield association.isModal() ? null : association.getOwnedValues().getFirst().getOwnedValue();
+		case Property property -> {
+			var parentEntry = (TreeEntry) entry.getParent();
+			var associationURI = propertyView.cachedPropertyAssociations.get(parentEntry.getTreeElement()).get(uri);
+			if (associationURI == null) {
+				yield property.getDefaultValue();
 			}
-			case ModalPropertyValue modalPropertyValue -> modalPropertyValue.getOwnedValue();
-			case BasicPropertyAssociation basicPropertyAssociation -> basicPropertyAssociation.getValue();
-			case null, default -> null;
+			var association = (PropertyAssociation) resourceSet.getEObject(associationURI, true);
+			/* A modal association has no single value to show in the table. */
+			yield association.isModal() ? null : association.getOwnedValues().getFirst().getOwnedValue();
+		}
+		case ModalPropertyValue modalPropertyValue -> modalPropertyValue.getOwnedValue();
+		case BasicPropertyAssociation basicPropertyAssociation -> basicPropertyAssociation.getValue();
+		case null, default -> null;
 		};
 		case RangeElement rangeElement ->
 			(PropertyExpression) resourceSet.getEObject(rangeElement.getExpressionURI(), true);
@@ -149,11 +149,8 @@ public class ValueColumnLabelProvider extends ColumnLabelProvider {
 		return path == null ? "null" : path;
 	}
 
-	private static String serializeSingleLine(EObject expression, ISerializer serializer) {
-		return serializer.serialize(expression)
-				.replaceAll("\n", "")
-				.replaceAll("\r", "")
-				.replaceAll("\t", "")
-				.trim();
+	/** Serializes the expression the way the view shows it and the cell editor offers it for editing: on one line. */
+	static String serializeSingleLine(EObject expression, ISerializer serializer) {
+		return serializer.serialize(expression).replace("\n", "").replace("\r", "").replace("\t", "").trim();
 	}
 }
