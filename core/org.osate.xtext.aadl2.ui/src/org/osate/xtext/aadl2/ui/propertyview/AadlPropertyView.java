@@ -1187,15 +1187,7 @@ public class AadlPropertyView extends ViewPart {
 			var associationURI = cachedPropertyAssociations.get(propertySetURI).get(propertyURI);
 			if (associationURI != null) {
 				var association = (PropertyAssociation) resourceSet.getEObject(associationURI, true);
-				var inputElement = resourceSet.getEObject(getInput(), true);
-				if (Objects.equals(inputElement, association.getOwner())) {
-					return PropertyStatus.LOCAL;
-				}
-				if (associationAppliesTo(association, inputElement)) {
-					return association.getAppliesTos().size() > 1 ? PropertyStatus.LOCAL_SHARED
-							: PropertyStatus.LOCAL_CONTAINED;
-				}
-				return PropertyStatus.INHERITED;
+				return getPropertyStatusNeverUndefined(resourceSet, association);
 			}
 			return ((Property) resourceSet.getEObject(propertyURI, true)).getDefaultValue() != null
 					? PropertyStatus.DEFAULT
@@ -1217,8 +1209,11 @@ public class AadlPropertyView extends ViewPart {
 		if (Objects.equals(inputElement, association.getOwner())) {
 			return PropertyStatus.LOCAL;
 		}
-		return associationAppliesTo(association, inputElement) ? PropertyStatus.LOCAL_CONTAINED
-				: PropertyStatus.INHERITED;
+		if (associationAppliesTo(association, inputElement)) {
+			return association.getAppliesTos().size() > 1 ? PropertyStatus.LOCAL_SHARED
+					: PropertyStatus.LOCAL_CONTAINED;
+		}
+		return PropertyStatus.INHERITED;
 	}
 
 	private static boolean associationAppliesTo(PropertyAssociation association, EObject inputElement) {
