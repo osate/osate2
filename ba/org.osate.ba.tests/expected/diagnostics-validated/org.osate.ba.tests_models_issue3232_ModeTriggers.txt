@@ -1,0 +1,1 @@
+error | semantic | 63 | 9 | 18 | The behavior transition tries to refine a transition mode but it is not consisting with any transition mode of ModeTriggers::controller.mismatching component: Behavior Annex D.3.(C4) consistency rule failed.

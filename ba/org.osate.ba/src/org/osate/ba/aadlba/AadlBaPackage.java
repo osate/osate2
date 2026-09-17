@@ -1216,13 +1216,22 @@ public interface AadlBaPackage extends EPackage {
 	int ACTUAL_PORT_HOLDER__GROUP_HOLDERS = PORT_HOLDER__GROUP_HOLDERS;
 
 	/**
+	 * The feature id for the '<em><b>Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTUAL_PORT_HOLDER__CONTEXT = PORT_HOLDER_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Actual Port Holder</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTUAL_PORT_HOLDER_FEATURE_COUNT = PORT_HOLDER_FEATURE_COUNT + 0;
+	int ACTUAL_PORT_HOLDER_FEATURE_COUNT = PORT_HOLDER_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3316,6 +3325,15 @@ public interface AadlBaPackage extends EPackage {
 	int DATA_PORT_HOLDER__GROUP_HOLDERS = ACTUAL_PORT_HOLDER__GROUP_HOLDERS;
 
 	/**
+	 * The feature id for the '<em><b>Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_PORT_HOLDER__CONTEXT = ACTUAL_PORT_HOLDER__CONTEXT;
+
+	/**
 	 * The number of structural features of the '<em>Data Port Holder</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3740,6 +3758,15 @@ public interface AadlBaPackage extends EPackage {
 	int EVENT_DATA_PORT_HOLDER__GROUP_HOLDERS = ACTUAL_PORT_HOLDER__GROUP_HOLDERS;
 
 	/**
+	 * The feature id for the '<em><b>Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_DATA_PORT_HOLDER__CONTEXT = ACTUAL_PORT_HOLDER__CONTEXT;
+
+	/**
 	 * The number of structural features of the '<em>Event Data Port Holder</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3792,6 +3819,15 @@ public interface AadlBaPackage extends EPackage {
 	 * @ordered
 	 */
 	int EVENT_PORT_HOLDER__GROUP_HOLDERS = ACTUAL_PORT_HOLDER__GROUP_HOLDERS;
+
+	/**
+	 * The feature id for the '<em><b>Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_PORT_HOLDER__CONTEXT = ACTUAL_PORT_HOLDER__CONTEXT;
 
 	/**
 	 * The number of structural features of the '<em>Event Port Holder</em>' class.
@@ -4976,6 +5012,15 @@ public interface AadlBaPackage extends EPackage {
 	int PORT_COUNT_VALUE__GROUP_HOLDERS = ACTUAL_PORT_HOLDER__GROUP_HOLDERS;
 
 	/**
+	 * The feature id for the '<em><b>Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_COUNT_VALUE__CONTEXT = ACTUAL_PORT_HOLDER__CONTEXT;
+
+	/**
 	 * The number of structural features of the '<em>Port Count Value</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5075,6 +5120,15 @@ public interface AadlBaPackage extends EPackage {
 	int PORT_DEQUEUE_VALUE__GROUP_HOLDERS = ACTUAL_PORT_HOLDER__GROUP_HOLDERS;
 
 	/**
+	 * The feature id for the '<em><b>Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_DEQUEUE_VALUE__CONTEXT = ACTUAL_PORT_HOLDER__CONTEXT;
+
+	/**
 	 * The number of structural features of the '<em>Port Dequeue Value</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5129,6 +5183,15 @@ public interface AadlBaPackage extends EPackage {
 	int PORT_FREEZE_ACTION__GROUP_HOLDERS = ACTUAL_PORT_HOLDER__GROUP_HOLDERS;
 
 	/**
+	 * The feature id for the '<em><b>Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_FREEZE_ACTION__CONTEXT = ACTUAL_PORT_HOLDER__CONTEXT;
+
+	/**
 	 * The number of structural features of the '<em>Port Freeze Action</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5181,6 +5244,15 @@ public interface AadlBaPackage extends EPackage {
 	 * @ordered
 	 */
 	int PORT_FRESH_VALUE__GROUP_HOLDERS = ACTUAL_PORT_HOLDER__GROUP_HOLDERS;
+
+	/**
+	 * The feature id for the '<em><b>Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_FRESH_VALUE__CONTEXT = ACTUAL_PORT_HOLDER__CONTEXT;
 
 	/**
 	 * The number of structural features of the '<em>Port Fresh Value</em>' class.
@@ -6972,6 +7044,15 @@ public interface AadlBaPackage extends EPackage {
 	int PORT_UPDATED_VALUE__GROUP_HOLDERS = ACTUAL_PORT_HOLDER__GROUP_HOLDERS;
 
 	/**
+	 * The feature id for the '<em><b>Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_UPDATED_VALUE__CONTEXT = ACTUAL_PORT_HOLDER__CONTEXT;
+
+	/**
 	 * The number of structural features of the '<em>Port Updated Value</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7136,6 +7217,17 @@ public interface AadlBaPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getActualPortHolder();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.ba.aadlba.ActualPortHolder#getContext <em>Context</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Context</em>'.
+	 * @see org.osate.ba.aadlba.ActualPortHolder#getContext()
+	 * @see #getActualPortHolder()
+	 * @generated
+	 */
+	EReference getActualPortHolder_Context();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.ba.aadlba.AssignmentAction <em>Assignment Action</em>}'.
@@ -9628,6 +9720,14 @@ public interface AadlBaPackage extends EPackage {
 		 * @generated
 		 */
 		EClass ACTUAL_PORT_HOLDER = eINSTANCE.getActualPortHolder();
+
+		/**
+		 * The meta object literal for the '<em><b>Context</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ACTUAL_PORT_HOLDER__CONTEXT = eINSTANCE.getActualPortHolder_Context();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.ba.aadlba.impl.AssignmentActionImpl <em>Assignment Action</em>}' class.

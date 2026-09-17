@@ -1,0 +1,9 @@
+error | semantic | 53 | 15 | 5 | 'value' is not an external-condition trigger: expected an incoming event or event data port of the component, or an outgoing event or event data port of a subcomponent
+error | semantic | 53 | 38 | 6 | 'stored' is not an external-condition trigger: expected an incoming event or event data port of the component, or an outgoing event or event data port of a subcomponent
+error | semantic | 53 | 49 | 11 | 'local_value' is not an external-condition trigger: expected an incoming event or event data port of the component, or an outgoing event or event data port of a subcomponent
+error | semantic | 54 | 15 | 8 | 'outgoing' is not an external-condition trigger: expected an incoming event or event data port of the component, or an outgoing event or event data port of a subcomponent
+error | semantic | 54 | 27 | 13 | 'outgoing_data' is not an external-condition trigger: expected an incoming event or event data port of the component, or an outgoing event or event data port of a subcomponent
+error | semantic | 55 | 15 | 14 | 'child.incoming' is not an external-condition trigger: expected an incoming event or event data port of the component, or an outgoing event or event data port of a subcomponent
+error | semantic | 55 | 34 | 19 | 'child.incoming_data' is not an external-condition trigger: expected an incoming event or event data port of the component, or an outgoing event or event data port of a subcomponent
+error | semantic | 55 | 57 | 11 | 'child.value' is not an external-condition trigger: expected an incoming event or event data port of the component, or an outgoing event or event data port of a subcomponent
+error | semantic | 56 | 15 | 7 | 'unknown' is not an external-condition trigger: expected an incoming event or event data port of the component, or an outgoing event or event data port of a subcomponent

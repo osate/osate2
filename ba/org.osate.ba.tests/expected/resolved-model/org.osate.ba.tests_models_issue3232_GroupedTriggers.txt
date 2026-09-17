@@ -1,0 +1,12 @@
+annex[0] owner=GroupedTriggers::controller.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=waiting
+    states[1] : BehaviorState name=running
+    transitions[0] : BehaviorTransition
+      condition : ModeSwitchTriggerLogicalExpression
+        modeSwitchConjunctions[0] : ModeSwitchConjunction
+          modeSwitchTriggers[0] : EventPortHolder element=GroupedTriggers::signals.ready [EventPort]
+            groupHolders[0] : GroupHolder element=GroupedTriggers::controller.input_group [FeatureGroup]
+          modeSwitchTriggers[1] : EventPortHolder element=GroupedTriggers::signals.ready [EventPort] context=GroupedTriggers::controller.impl.child
+            groupHolders[0] : GroupHolder element=GroupedTriggers::worker.output_group [FeatureGroup]
+          modeSwitchTriggers[2] : EventPortHolder element=GroupedTriggers::workers.ready [EventPort] context=GroupedTriggers::controller.impl.grouped

@@ -1,0 +1,9 @@
+===== annex[0] owner=GroupedTriggers::controller.impl =====
+
+states
+\twaiting : initial state;
+\trunning : final state;
+transitions
+\twaiting -[on input_group.ready and child.output_group.ready and grouped.ready]-> running;
+----- Xtext reparse -----
+reparsed

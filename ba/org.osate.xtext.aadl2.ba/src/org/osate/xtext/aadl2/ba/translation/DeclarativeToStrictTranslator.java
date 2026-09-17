@@ -578,6 +578,15 @@ public final class DeclarativeToStrictTranslator {
 						strictTrigger = resolvedTrigger instanceof org.osate.ba.aadlba.ModeSwitchTrigger modeSwitchTrigger
 								? modeSwitchTrigger
 								: null;
+						if (resolvedTrigger instanceof ActualPortHolder port
+								&& !sourceTrigger.getReference().getSegments().isEmpty()
+								&& resolvedReferences.get(sourceTrigger.getReference().getSegments().getFirst())
+										instanceof org.osate.aadl2.Subcomponent context) {
+							port.setContext(context);
+							// A thread group is also represented as a GroupHolder by the generic resolver. Its
+							// subcomponent identity belongs in context, not in the feature-group path as well.
+							port.getGroupHolders().removeIf(group -> group.getElement() == context);
+						}
 					} else {
 						strictTrigger = toModeSwitchExpression(sourceTrigger.getExpression(), sourceTrigger);
 					}

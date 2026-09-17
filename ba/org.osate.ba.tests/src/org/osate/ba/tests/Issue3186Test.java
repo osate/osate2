@@ -79,13 +79,16 @@ public class Issue3186Test extends XtextTest {
 	/**
 	 * The fixture's trigger is an outgoing event port because core AADL admits no other event port on a subprogram,
 	 * so no subprogram can name the incoming port the D.3 event_trigger production asks for. The rule constrains the
-	 * form of the condition rather than its triggers, which is what makes it worth reporting anyway.
+	 * form of the condition rather than its triggers, so it is reported alongside the trigger-direction error.
 	 */
 	@Test
 	public void subprogramCannotUseAnExternalCondition() throws Exception {
 		assertDiagnostics("SubprogramExternalCondition", List.of(new Expected("on go", CHECKER,
 				"subprogram components cannot use an external condition: an execute or internal condition must be used"
-						+ " instead: Behavior Annex D.3 consistency rule failed.")));
+						+ " instead: Behavior Annex D.3 consistency rule failed."),
+				new Expected("go", "org.osate.xtext.aadl2.ba.externalConditionTrigger",
+						"'go' is not an external-condition trigger: expected an incoming event or event data port"
+								+ " of the component, or an outgoing event or event data port of a subcomponent")));
 	}
 
 	/** Only external conditions leave the complete state, so the device rule has nothing to reject. */

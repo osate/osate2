@@ -50,9 +50,11 @@ import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.EventPort;
+import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.Property;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.errorreporting.AbstractAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.parsesupport.ParseUtil;
@@ -74,8 +76,10 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.CommunicationAction;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchTriggerCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ForStatement;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.InternalCondition;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchTrigger;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.Reference;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceExpression;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceSegment;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.UnaryExpression;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReferenceExpression;
 import org.osate.xtext.aadl2.ba.translation.DeclarativeToStrictTranslator;
@@ -95,6 +99,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	public static final String UNREPRESENTABLE_LITERAL = "org.osate.xtext.aadl2.ba.unrepresentableLiteral";
 	public static final String INTERNAL_PORT_USE = "org.osate.xtext.aadl2.ba.internalPortUse";
 	public static final String INTERNAL_CONDITION_PORT = "org.osate.xtext.aadl2.ba.internalConditionPort";
+	public static final String EXTERNAL_CONDITION_TRIGGER = "org.osate.xtext.aadl2.ba.externalConditionTrigger";
 	public static final String TIMEOUT_RESET_PORT = "org.osate.xtext.aadl2.ba.timeoutResetPort";
 	public static final String TIMEOUT_RESET_PORT_TIME = "org.osate.xtext.aadl2.ba.timeoutResetPortTime";
 	public static final String ITERATIVE_VARIABLE_TARGET = "org.osate.xtext.aadl2.ba.iterativeVariableTarget";
@@ -137,6 +142,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 		representable &= checkIteratorClassifiers(source);
 		representable &= checkInternalPortUses(source, translation);
 		representable &= checkInternalConditionPorts(source, translation);
+		representable &= checkExternalConditionTriggers(source, translation);
 		representable &= checkTimeoutResetPorts(source, translation);
 		representable &= checkIteratorTargets(source, translation);
 		representable &= checkIteratedValues(source, translation);
@@ -339,6 +345,72 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 			}
 		}
 		return accepted;
+	}
+
+	/**
+	 * D.3 external conditions name incoming event or event data ports. Also admit outgoing ports of a direct
+	 * subcomponent, retaining that subcomponent as the strict port holder's context. Invalid names and reference
+	 * paths cannot be represented faithfully, so report every written trigger and gate the strict checkers.
+	 */
+	private boolean checkExternalConditionTriggers(final BehaviorAnnex source, final TranslationResult translation) {
+		var representable = true;
+		for (var contents = source.eAllContents(); contents.hasNext();) {
+			if (!(contents.next() instanceof ModeSwitchTrigger trigger) || trigger.getReference() == null) {
+				continue;
+			}
+			var reference = trigger.getReference();
+			var kind = externalConditionTriggerKind(reference, translation);
+			if (kind != ExternalTriggerKind.VALID) {
+				error("'" + NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(reference))
+						+ "' is not an external-condition trigger: expected an incoming event or event data port"
+						+ " of the component, or an outgoing event or event data port of a subcomponent",
+						reference, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, EXTERNAL_CONDITION_TRIGGER);
+				// A wrong-direction port is still represented completely. Keep independent strict diagnostics,
+				// including the prohibition on external conditions in subprograms, whose event ports are all out.
+				representable &= kind != ExternalTriggerKind.UNREPRESENTABLE;
+			}
+		}
+		return representable;
+	}
+
+	private enum ExternalTriggerKind {
+		VALID, WRONG_DIRECTION, UNREPRESENTABLE
+	}
+
+	private static ExternalTriggerKind externalConditionTriggerKind(Reference reference, TranslationResult translation) {
+		var resolved = translation.getResolvedReference(reference);
+		if (!(resolved instanceof EventPort) && !(resolved instanceof EventDataPort)) {
+			return ExternalTriggerKind.UNREPRESENTABLE;
+		}
+		var segments = new ArrayList<ReferenceSegment>(reference.getSegments());
+		for (var tail : reference.getTails()) {
+			if (!".".equals(tail.getSeparator())) {
+				return ExternalTriggerKind.UNREPRESENTABLE;
+			}
+			segments.add(tail.getSegment());
+		}
+		var subcomponent = false;
+		var inverse = false;
+		for (var i = 0; i < segments.size() - 1; i++) {
+			var segment = segments.get(i);
+			var prefix = translation.getResolvedReference(segment);
+			if (i == 0 && prefix instanceof Subcomponent) {
+				// A context identifies a direct subcomponent, not an array element or a nested subcomponent path.
+				if (!segment.getIndexes().isEmpty()) {
+					return ExternalTriggerKind.UNREPRESENTABLE;
+				}
+				subcomponent = true;
+			} else if (prefix instanceof FeatureGroup group) {
+				inverse ^= group.isInverse();
+				var type = group.getAllFeatureGroupType();
+				inverse ^= type != null && type.getInverse() != null;
+			} else {
+				return ExternalTriggerKind.UNREPRESENTABLE;
+			}
+		}
+		var port = (Port) resolved;
+		var incoming = subcomponent ^ inverse ? port.isOut() : port.isIn();
+		return incoming ? ExternalTriggerKind.VALID : ExternalTriggerKind.WRONG_DIRECTION;
 	}
 
 	/**

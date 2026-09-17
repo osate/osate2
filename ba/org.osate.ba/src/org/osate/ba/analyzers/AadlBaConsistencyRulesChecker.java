@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringJoiner;
 
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ComponentCategory;
@@ -251,12 +252,12 @@ public class AadlBaConsistencyRulesChecker {
 			}
 			triggerOwner = expression;
 			for (var trigg : AadlBaVisitors.getDispatchTriggers(expression)) {
-				lCondTriggs.add(((ActualPortHolder) trigg).getPort().getName());
+				lCondTriggs.add(triggerName((ActualPortHolder) trigg));
 			}
 		} else if (btOwner.getCondition() instanceof ModeSwitchTriggerLogicalExpression expression) {
 			triggerOwner = expression;
 			for (var trigg : getExternalConditionTriggers(expression)) {
-				lCondTriggs.add(trigg.getPort().getName());
+				lCondTriggs.add(triggerName(trigg));
 			}
 		} else {
 			// D.3.(L6) and D.3(L7) error case. Do not report error but
@@ -289,7 +290,8 @@ public class AadlBaConsistencyRulesChecker {
 			if (mTrans.getSource().getName().equalsIgnoreCase(mode.getName())) {
 				// Fetches mode transition trigger names.
 				for (var mtt : mTrans.getOwnedTriggers()) {
-					lModeTriggs.add(AadlBaUtils.getName(mtt));
+					lModeTriggs.add(mtt.getContext() == null ? mtt.getTriggerPort().getName()
+							: mtt.getContext().getName() + "." + mtt.getTriggerPort().getName());
 				}
 
 				// Checks consistency between the two triggers lists without
@@ -407,6 +409,17 @@ public class AadlBaConsistencyRulesChecker {
 		var result = new ArrayList<ActualPortHolder>();
 		collectExternalConditionTriggers(expression, result);
 		return result;
+	}
+
+	private static String triggerName(ActualPortHolder port) {
+		var name = new StringJoiner(".");
+		if (port.getContext() != null) {
+			name.add(port.getContext().getName());
+		}
+		for (var group : port.getGroupHolders()) {
+			name.add(group.getElement().getName());
+		}
+		return name.add(port.getPort().getName()).toString();
 	}
 
 	private static void collectExternalConditionTriggers(ModeSwitchTriggerLogicalExpression expression,

@@ -1,0 +1,16 @@
+annex[0] owner=ModeTriggers::controller.matching
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=idle
+    states[1] : BehaviorState name=active
+    transitions[0] : BehaviorTransition
+      condition : ModeSwitchTriggerLogicalExpression
+        modeSwitchConjunctions[0] : ModeSwitchConjunction
+          modeSwitchTriggers[0] : EventPortHolder element=ModeTriggers::worker.outgoing [EventPort] context=ModeTriggers::controller.matching.first
+annex[1] owner=ModeTriggers::controller.mismatching
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=idle
+    states[1] : BehaviorState name=active
+    transitions[0] : BehaviorTransition
+      condition : ModeSwitchTriggerLogicalExpression
+        modeSwitchConjunctions[0] : ModeSwitchConjunction
+          modeSwitchTriggers[0] : EventPortHolder element=ModeTriggers::worker.outgoing [EventPort] context=ModeTriggers::controller.mismatching.second
