@@ -83,11 +83,7 @@ public class Issue3155Test {
 				"secondInitial => issue3155::subprogramLegality.impl can't have more than one initial state :"
 						+ " firstInitial, secondInitial : Behavior Annex D.3.(L1) legality rule failed.",
 				"waitState => issue3155::subprogramLegality.impl can't have complete state :"
-						+ " waitState : Behavior Annex D.3.(L2) legality rule failed.",
-				"firstFinal => issue3155::subprogramLegality.impl has more than one final state :"
-						+ " firstFinal, secondFinal : Behavior Annex D.3.(L1) legality rule failed.",
-				"secondFinal => issue3155::subprogramLegality.impl has more than one final state :"
-						+ " firstFinal, secondFinal : Behavior Annex D.3.(L1) legality rule failed."),
+						+ " waitState : Behavior Annex D.3.(L2) legality rule failed."),
 				markedText("D.3.(L1)", "D.3.(L2)"));
 	}
 

@@ -1,0 +1,289 @@
+===== annex[0] owner=Issue3179::alternative_returns =====
+
+\tstates
+\t\tstart : initial state;
+\t\tsuccess, failure : final state;
+\ttransitions
+\t\tstart -[]-> success;
+\t\tstart -[]-> failure;
+----- Xtext reparse -----
+reparsed
+===== annex[1] owner=Issue3179::alternative_returns.impl =====
+
+\tstates
+\t\tstart : initial state;
+\t\tsuccess, failure : final state;
+\ttransitions
+\t\tstart -[]-> success;
+\t\tstart -[]-> failure;
+----- Xtext reparse -----
+reparsed
+===== annex[2] owner=Issue3179::abstract_behavior =====
+
+\tstates
+\t\tstart : initial state;
+\t\tsuccess, failure : complete final state;
+\ttransitions
+\t\tstart -[]-> success;
+\t\tstart -[]-> failure;
+----- Xtext reparse -----
+reparsed
+===== annex[3] owner=Issue3179::abstract_behavior.impl =====
+
+\tstates
+\t\tstart : initial state;
+\t\tsuccess, failure : complete final state;
+\ttransitions
+\t\tstart -[]-> success;
+\t\tstart -[]-> failure;
+----- Xtext reparse -----
+reparsed
+===== annex[4] owner=Issue3179::bus_behavior =====
+
+\tstates
+\t\tstart : initial state;
+\t\tsuccess, failure : complete final state;
+\ttransitions
+\t\tstart -[]-> success;
+\t\tstart -[]-> failure;
+----- Xtext reparse -----
+reparsed
+===== annex[5] owner=Issue3179::bus_behavior.impl =====
+
+\tstates
+\t\tstart : initial state;
+\t\tsuccess, failure : complete final state;
+\ttransitions
+\t\tstart -[]-> success;
+\t\tstart -[]-> failure;
+----- Xtext reparse -----
+reparsed
+===== annex[6] owner=Issue3179::data_behavior =====
+
+\tstates
+\t\tstart : initial state;
+\t\tsuccess, failure : complete final state;
+\ttransitions
+\t\tstart -[]-> success;
+\t\tstart -[]-> failure;
+----- Xtext reparse -----
+reparsed
+===== annex[7] owner=Issue3179::data_behavior.impl =====
+
+\tstates
+\t\tstart : initial state;
+\t\tsuccess, failure : complete final state;
+\ttransitions
+\t\tstart -[]-> success;
+\t\tstart -[]-> failure;
+----- Xtext reparse -----
+reparsed
+===== annex[8] owner=Issue3179::device_behavior =====
+
+\tstates
+\t\tstart : initial state;
+\t\tsuccess, failure : complete final state;
+\ttransitions
+\t\tstart -[]-> success;
+\t\tstart -[]-> failure;
+----- Xtext reparse -----
+reparsed
+===== annex[9] owner=Issue3179::device_behavior.impl =====
+
+\tstates
+\t\tstart : initial state;
+\t\tsuccess, failure : complete final state;
+\ttransitions
+\t\tstart -[]-> success;
+\t\tstart -[]-> failure;
+----- Xtext reparse -----
+reparsed
+===== annex[10] owner=Issue3179::memory_behavior =====
+
+\tstates
+\t\tstart : initial state;
+\t\tsuccess, failure : complete final state;
+\ttransitions
+\t\tstart -[]-> success;
+\t\tstart -[]-> failure;
+----- Xtext reparse -----
+reparsed
+===== annex[11] owner=Issue3179::memory_behavior.impl =====
+
+\tstates
+\t\tstart : initial state;
+\t\tsuccess, failure : complete final state;
+\ttransitions
+\t\tstart -[]-> success;
+\t\tstart -[]-> failure;
+----- Xtext reparse -----
+reparsed
+===== annex[12] owner=Issue3179::process_behavior =====
+
+\tstates
+\t\tstart : initial state;
+\t\tsuccess, failure : complete final state;
+\ttransitions
+\t\tstart -[]-> success;
+\t\tstart -[]-> failure;
+----- Xtext reparse -----
+reparsed
+===== annex[13] owner=Issue3179::process_behavior.impl =====
+
+\tstates
+\t\tstart : initial state;
+\t\tsuccess, failure : complete final state;
+\ttransitions
+\t\tstart -[]-> success;
+\t\tstart -[]-> failure;
+----- Xtext reparse -----
+reparsed
+===== annex[14] owner=Issue3179::processor_behavior =====
+
+\tstates
+\t\tstart : initial state;
+\t\tsuccess, failure : complete final state;
+\ttransitions
+\t\tstart -[]-> success;
+\t\tstart -[]-> failure;
+----- Xtext reparse -----
+reparsed
+===== annex[15] owner=Issue3179::processor_behavior.impl =====
+
+\tstates
+\t\tstart : initial state;
+\t\tsuccess, failure : complete final state;
+\ttransitions
+\t\tstart -[]-> success;
+\t\tstart -[]-> failure;
+----- Xtext reparse -----
+reparsed
+===== annex[16] owner=Issue3179::subprogram_group_behavior =====
+
+\tstates
+\t\tstart : initial state;
+\t\tsuccess, failure : complete final state;
+\ttransitions
+\t\tstart -[]-> success;
+\t\tstart -[]-> failure;
+----- Xtext reparse -----
+reparsed
+===== annex[17] owner=Issue3179::subprogram_group_behavior.impl =====
+
+\tstates
+\t\tstart : initial state;
+\t\tsuccess, failure : complete final state;
+\ttransitions
+\t\tstart -[]-> success;
+\t\tstart -[]-> failure;
+----- Xtext reparse -----
+reparsed
+===== annex[18] owner=Issue3179::system_behavior =====
+
+\tstates
+\t\tstart : initial state;
+\t\tsuccess, failure : complete final state;
+\ttransitions
+\t\tstart -[]-> success;
+\t\tstart -[]-> failure;
+----- Xtext reparse -----
+reparsed
+===== annex[19] owner=Issue3179::system_behavior.impl =====
+
+\tstates
+\t\tstart : initial state;
+\t\tsuccess, failure : complete final state;
+\ttransitions
+\t\tstart -[]-> success;
+\t\tstart -[]-> failure;
+----- Xtext reparse -----
+reparsed
+===== annex[20] owner=Issue3179::thread_behavior =====
+
+\tstates
+\t\tstart : initial state;
+\t\tsuccess, failure : complete final state;
+\ttransitions
+\t\tstart -[]-> success;
+\t\tstart -[]-> failure;
+----- Xtext reparse -----
+reparsed
+===== annex[21] owner=Issue3179::thread_behavior.impl =====
+
+\tstates
+\t\tstart : initial state;
+\t\tsuccess, failure : complete final state;
+\ttransitions
+\t\tstart -[]-> success;
+\t\tstart -[]-> failure;
+----- Xtext reparse -----
+reparsed
+===== annex[22] owner=Issue3179::thread_group_behavior =====
+
+\tstates
+\t\tstart : initial state;
+\t\tsuccess, failure : complete final state;
+\ttransitions
+\t\tstart -[]-> success;
+\t\tstart -[]-> failure;
+----- Xtext reparse -----
+reparsed
+===== annex[23] owner=Issue3179::thread_group_behavior.impl =====
+
+\tstates
+\t\tstart : initial state;
+\t\tsuccess, failure : complete final state;
+\ttransitions
+\t\tstart -[]-> success;
+\t\tstart -[]-> failure;
+----- Xtext reparse -----
+reparsed
+===== annex[24] owner=Issue3179::virtual_bus_behavior =====
+
+\tstates
+\t\tstart : initial state;
+\t\tsuccess, failure : complete final state;
+\ttransitions
+\t\tstart -[]-> success;
+\t\tstart -[]-> failure;
+----- Xtext reparse -----
+reparsed
+===== annex[25] owner=Issue3179::virtual_bus_behavior.impl =====
+
+\tstates
+\t\tstart : initial state;
+\t\tsuccess, failure : complete final state;
+\ttransitions
+\t\tstart -[]-> success;
+\t\tstart -[]-> failure;
+----- Xtext reparse -----
+reparsed
+===== annex[26] owner=Issue3179::virtual_processor_behavior =====
+
+\tstates
+\t\tstart : initial state;
+\t\tsuccess, failure : complete final state;
+\ttransitions
+\t\tstart -[]-> success;
+\t\tstart -[]-> failure;
+----- Xtext reparse -----
+reparsed
+===== annex[27] owner=Issue3179::virtual_processor_behavior.impl =====
+
+\tstates
+\t\tstart : initial state;
+\t\tsuccess, failure : complete final state;
+\ttransitions
+\t\tstart -[]-> success;
+\t\tstart -[]-> failure;
+----- Xtext reparse -----
+reparsed
+===== annex[28] owner=Issue3179::initial_and_final =====
+
+\tstates
+\t\tstart : initial final state;
+\t\tfinish : final state;
+\ttransitions
+\t\tstart -[]-> finish;
+----- Xtext reparse -----
+reparsed

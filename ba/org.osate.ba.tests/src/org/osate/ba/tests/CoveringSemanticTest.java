@@ -57,8 +57,8 @@ public class CoveringSemanticTest {
 	@Test
 	public void test_lr_D3_L1_L2() throws Exception {
 		// D.3.(L1) and D.3.(L2) mark every state their message names: two initial states, one complete state, the
-		// missing final state, and two final states.
-		assertEquals(6, issues("lr_D3_L1_L2.aadl").size());
+		// missing final state. Multiple final states are allowed.
+		assertEquals(4, issues("lr_D3_L1_L2.aadl").size());
 	}
 
 	@Test

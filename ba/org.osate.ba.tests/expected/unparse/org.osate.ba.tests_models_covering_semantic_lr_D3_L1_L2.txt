@@ -11,7 +11,7 @@ reparsed
 
   -- Errors: The behavior annex of a subprogram
   --          _ can't have more than one initial state.
-  --          _ must define one final state.
+  --          _ must define at least one final state.
   --          _ can't have complete state.\s
 states
  initState1 : initial state ;
@@ -23,8 +23,8 @@ reparsed
 ===== annex[2] owner=exemple_lr_D3_L1_L2::sub.error2 =====
 
 
-  -- Errors: The behavior annex of a subprogram
-  --          _ can't have more than one final state.
+  -- Multiple final states are allowed in a standard behavior specification,
+  -- including when a final state is also initial.
 states
  uniqueState : initial final state ;
  finalState1 : final state ;

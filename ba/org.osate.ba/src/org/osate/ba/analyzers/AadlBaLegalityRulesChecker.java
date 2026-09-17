@@ -137,18 +137,12 @@ public class AadlBaLegalityRulesChecker {
 								+ " : Behavior Annex D.3.(L2) legality rule failed");
 			}
 
-			if (finalStates.size() > 1) {
+			// AS5506/3 Rev. A D.3 permits several final states in intended-behavior specifications.
+			// A component implementation does not by itself select a deterministic implementation profile.
+			if (finalStates.isEmpty()) {
 				result = false;
-				reportElements = AadlBaUtils.identifierListToString(finalStates, LIST_SEPARATOR);
-				this.reportLegalityError(finalStates,
-						_baParentContainer.getQualifiedName() + " has more than one final state : " + reportElements
-								+ " : Behavior Annex D.3.(L1) legality rule failed");
-			} else {
-				if (finalStates.size() == 0) {
-					result = false;
-					this.reportLegalityError(_ba, _baParentContainer.getQualifiedName() + " has no final "
-							+ "state : Behavior Annex D.3.(L1) legality rule failed");
-				}
+				this.reportLegalityError(_ba, _baParentContainer.getQualifiedName() + " has no final "
+						+ "state : Behavior Annex D.3.(L1) legality rule failed");
 			}
 		} // End of first if.
 
