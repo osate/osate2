@@ -53,18 +53,17 @@ import org.eclipse.swt.widgets.Shell;
 import org.osate.pluginsupport.PluginSupportUtil;
 
 class PropertySetFilterDialog extends Dialog {
-	private final DialogContentProvider contentProvider = new DialogContentProvider();
+	private static final List<String> PREDECLARED_PATH = List.of("Predeclared_Property_Sets");
+
+	private final DialogContentProvider contentProvider;
 
 	private CheckboxTreeViewer treeViewer;
 
 	private Set<URI> selectedPropertySets;
 
-	PropertySetFilterDialog(Shell parentShell) {
+	PropertySetFilterDialog(Shell parentShell, Map<URI, String> workspacePropertySets, Set<URI> selectedPropertySets) {
 		super(parentShell);
-	}
-
-	PropertySetFilterDialog(Shell parentShell, Set<URI> selectedPropertySets) {
-		super(parentShell);
+		contentProvider = new DialogContentProvider(workspacePropertySets);
 		this.selectedPropertySets = selectedPropertySets;
 	}
 
@@ -99,10 +98,11 @@ class PropertySetFilterDialog extends Dialog {
 		viewer.setComparator(new ViewerComparator(String.CASE_INSENSITIVE_ORDER) {
 			@Override
 			public int category(Object element) {
-				/* Directories are shown above the property sets of the directory that contains them. */
+				/* Predeclared and workspace groups come first, followed by other directories and property sets. */
 				return switch (element) {
-				case ContributedDirectory directory -> 0;
-				case ContributedPropertySet propertySet -> 1;
+				case ContributedDirectory directory -> directory.path().equals(PREDECLARED_PATH) ? 0 : 2;
+				case WorkspacePropertySets workspace -> 1;
+				case PropertySetEntry propertySet -> 3;
 				case null, default -> throw new AssertionError("Unexpected element: " + element);
 				};
 			}
@@ -117,7 +117,7 @@ class PropertySetFilterDialog extends Dialog {
 			}
 
 			private void setChildrenChecked(Object element, boolean checked) {
-				if (element instanceof ContributedDirectory) {
+				if (contentProvider.hasChildren(element)) {
 					for (var child : contentProvider.getChildren(element)) {
 						viewer.setChecked(child, checked);
 						setChildrenChecked(child, checked);
@@ -127,7 +127,7 @@ class PropertySetFilterDialog extends Dialog {
 
 			private void setParentCheckState(Object element, boolean checked) {
 				var parent = contentProvider.getParent(element);
-				if (parent instanceof ContributedDirectory) {
+				if (contentProvider.hasChildren(parent)) {
 					var children = contentProvider.getChildren(parent);
 					if (Arrays.stream(children).anyMatch(child -> viewer.getChecked(child) != checked)) {
 						viewer.setGrayChecked(parent, true);
@@ -143,28 +143,20 @@ class PropertySetFilterDialog extends Dialog {
 			viewer.setCheckStateProvider(new ICheckStateProvider() {
 				@Override
 				public boolean isChecked(Object element) {
-					return switch (element) {
-					case ContributedDirectory directory ->
-						Arrays.stream(contentProvider.getChildren(element)).anyMatch(this::isChecked);
-					case ContributedPropertySet propertySet -> selectedPropertySets.contains(propertySet.uri());
-					case null, default -> throw new AssertionError("Unexpected element: " + element);
-					};
+					if (element instanceof PropertySetEntry propertySet) {
+						return selectedPropertySets.contains(propertySet.uri());
+					}
+					return Arrays.stream(contentProvider.getChildren(element)).anyMatch(this::isChecked);
 				}
 
 				@Override
 				public boolean isGrayed(Object element) {
-					return switch (element) {
-					case ContributedDirectory directory -> {
-						var children = contentProvider.getChildren(element);
-						if (Arrays.stream(children).anyMatch(this::isGrayed)) {
-							yield true;
-						}
-						var checkedChildrenCount = Arrays.stream(children).filter(this::isChecked).count();
-						yield checkedChildrenCount > 0 && checkedChildrenCount < children.length;
+					var children = contentProvider.getChildren(element);
+					if (Arrays.stream(children).anyMatch(this::isGrayed)) {
+						return true;
 					}
-					case ContributedPropertySet propertySet -> false;
-					case null, default -> throw new AssertionError("Unexpected element: " + element);
-					};
+					var checkedChildrenCount = Arrays.stream(children).filter(this::isChecked).count();
+					return checkedChildrenCount > 0 && checkedChildrenCount < children.length;
 				}
 			});
 		}
@@ -205,8 +197,8 @@ class PropertySetFilterDialog extends Dialog {
 	@Override
 	protected void okPressed() {
 		selectedPropertySets = Arrays.stream(treeViewer.getCheckedElements())
-				.filter(ContributedPropertySet.class::isInstance)
-				.map(element -> ((ContributedPropertySet) element).uri())
+				.filter(PropertySetEntry.class::isInstance)
+				.map(element -> ((PropertySetEntry) element).uri())
 				.collect(Collectors.toCollection(LinkedHashSet::new));
 		super.okPressed();
 	}
@@ -221,11 +213,18 @@ class PropertySetFilterDialog extends Dialog {
 	private record ContributedDirectory(Object parent, List<String> path) {
 		@Override
 		public String toString() {
-			return path.getLast();
+			return path.equals(PREDECLARED_PATH) ? "Predeclared Property Sets" : path.getLast();
 		}
 	}
 
-	private record ContributedPropertySet(Object parent, URI uri, String name) {
+	private record WorkspacePropertySets(Map<URI, String> propertySets) {
+		@Override
+		public String toString() {
+			return "Workspace Property Sets";
+		}
+	}
+
+	private record PropertySetEntry(Object parent, URI uri, String name) {
 		@Override
 		public String toString() {
 			return name;
@@ -233,27 +232,41 @@ class PropertySetFilterDialog extends Dialog {
 	}
 
 	private static class DialogContentProvider implements ITreeContentProvider {
+		private final WorkspacePropertySets workspacePropertySets;
+
+		DialogContentProvider(Map<URI, String> workspacePropertySets) {
+			this.workspacePropertySets = new WorkspacePropertySets(Map.copyOf(workspacePropertySets));
+		}
+
 		@Override
 		public Object[] getElements(Object inputElement) {
 			@SuppressWarnings("unchecked")
 			var propertySets = (Map<URI, String>) inputElement;
-			return propertySets.entrySet().stream().<Object> map(entry -> {
+			var contributedElements = propertySets.entrySet().stream().<Object> map(entry -> {
 				var uri = entry.getKey();
 				var firstSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri);
 				if (isPropertySetItself(uri, firstSignificantIndex)) {
-					return new ContributedPropertySet(inputElement, uri, entry.getValue());
+					return new PropertySetEntry(inputElement, uri, entry.getValue());
 				}
 				return new ContributedDirectory(inputElement, List.of(uri.segment(firstSignificantIndex.getAsInt())));
-			}).distinct().toArray();
+			}).distinct();
+			return Stream.concat(contributedElements, Stream.of(workspacePropertySets)).toArray();
 		}
 
 		@Override
 		public boolean hasChildren(Object element) {
-			return element instanceof ContributedDirectory;
+			return element instanceof ContributedDirectory || element instanceof WorkspacePropertySets;
 		}
 
 		@Override
 		public Object[] getChildren(Object parentElement) {
+			if (parentElement instanceof WorkspacePropertySets workspace) {
+				return workspace.propertySets()
+						.entrySet()
+						.stream()
+						.map(entry -> new PropertySetEntry(workspace, entry.getKey(), entry.getValue()))
+						.toArray();
+			}
 			if (!(parentElement instanceof ContributedDirectory directory)) {
 				return new Object[0];
 			}
@@ -267,7 +280,7 @@ class PropertySetFilterDialog extends Dialog {
 						var nextSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri).getAsInt()
 								+ directoryPath.size();
 						if (nextSignificantIndex == uri.segmentCount() - 1) {
-							return new ContributedPropertySet(parentElement, uri, entry.getValue());
+							return new PropertySetEntry(parentElement, uri, entry.getValue());
 						}
 						var childPath = Stream
 								.concat(directoryPath.stream(), Stream.of(uri.segment(nextSignificantIndex)))
@@ -282,7 +295,8 @@ class PropertySetFilterDialog extends Dialog {
 		public Object getParent(Object element) {
 			return switch (element) {
 			case ContributedDirectory directory -> directory.parent();
-			case ContributedPropertySet propertySet -> propertySet.parent();
+			case WorkspacePropertySets workspace -> null;
+			case PropertySetEntry propertySet -> propertySet.parent();
 			case null, default -> throw new AssertionError("Unexpected element: " + element);
 			};
 		}

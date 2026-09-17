@@ -88,6 +88,7 @@ import org.eclipse.ui.part.PageBook;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
+import org.eclipse.xtext.resource.IResourceDescriptionsProvider;
 import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.scoping.IScopeProvider;
@@ -99,6 +100,7 @@ import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.BasicProperty;
 import org.osate.aadl2.BasicPropertyAssociation;
@@ -213,6 +215,9 @@ public class AadlPropertyView extends ViewPart {
 
 	@Inject
 	private IURIEditorOpener editorOpener;
+
+	@Inject
+	private IResourceDescriptionsProvider resourceDescriptionsProvider;
 
 	private URI previousSelectionURI;
 
@@ -535,8 +540,16 @@ public class AadlPropertyView extends ViewPart {
 		var propertySetFiltersAction = new Action("Property Set Filters...") {
 			@Override
 			public void run() {
-				var dialog = filteredPropertySets == null ? new PropertySetFilterDialog(getViewSite().getShell())
-						: new PropertySetFilterDialog(getViewSite().getShell(), filteredPropertySets);
+				var workspacePropertySets = new LinkedHashMap<URI, String>();
+				var descriptions = resourceDescriptionsProvider.getResourceDescriptions(new ResourceSetImpl());
+				for (var description : descriptions.getExportedObjectsByType(Aadl2Package.eINSTANCE.getPropertySet())) {
+					var uri = description.getEObjectURI().trimFragment();
+					if (uri.isPlatformResource()) {
+						workspacePropertySets.put(uri, description.getName().toString());
+					}
+				}
+				var dialog = new PropertySetFilterDialog(getViewSite().getShell(), workspacePropertySets,
+						filteredPropertySets);
 				if (dialog.open() == Window.OK) {
 					filteredPropertySets = dialog.getSelectedPropertySets();
 					treeViewer.refresh();
