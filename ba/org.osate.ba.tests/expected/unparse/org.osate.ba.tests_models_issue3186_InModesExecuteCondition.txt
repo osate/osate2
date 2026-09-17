@@ -2,7 +2,7 @@
 
 states
 \twaiting : initial state;
-\trunning : state;
+\t\trunning : final state;
 transitions
 \twaiting -[]-> running;
 ----- Xtext reparse -----

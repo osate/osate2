@@ -32,7 +32,7 @@ process implementation controller.impl
 annex behavior_specification {**
 states
 	waiting : initial state;
-	running : state;
+		running : final state;
 transitions
 	waiting -[on go]-> running;
 **};

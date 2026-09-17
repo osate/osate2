@@ -74,7 +74,8 @@ public class CoveringSemanticTest {
 
 	@Test
 	public void test_lr_D3_L6_L7_L8() throws Exception {
-		assertEquals(4, issues("lr_D3_L6_L7_L8.aadl").size());
+		// The unqualified execution state also violates D.3.(C3) because it has no outgoing transition.
+		assertEquals(5, issues("lr_D3_L6_L7_L8.aadl").size());
 	}
 
 	@Test
@@ -111,7 +112,8 @@ public class CoveringSemanticTest {
 
 	@Test
 	public void test_sr_D4_6() throws Exception {
-		assertEquals(3, issues("sr_D4_6.aadl").size());
+		// Both unqualified execution states also violate D.3.(C3) because they have no outgoing transitions.
+		assertEquals(5, issues("sr_D4_6.aadl").size());
 	}
 
 	private List<Issue> issues(String fileName) throws Exception {
