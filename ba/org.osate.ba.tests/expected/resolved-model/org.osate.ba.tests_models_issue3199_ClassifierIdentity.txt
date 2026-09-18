@@ -1,0 +1,113 @@
+annex[0] owner=ClassifierIdentity::mismatch.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=first
+    variables[1] : BehaviorVariable name=second
+    variables[2] : BehaviorVariable name=child
+    variables[3] : BehaviorVariable name=implementation
+    variables[4] : BehaviorVariable name=first_flag
+      ownedValueConstant : BehaviorBooleanLiteral
+    variables[5] : BehaviorVariable name=second_flag
+      ownedValueConstant : BehaviorBooleanLiteral
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition name=different_names
+    transitions[1] : BehaviorTransition name=extension
+    transitions[2] : BehaviorTransition name=type_implementation
+    transitions[3] : BehaviorTransition name=identical
+    transitions[4] : BehaviorTransition name=literal_left
+    transitions[5] : BehaviorTransition name=literal_right
+    transitions[6] : BehaviorTransition name=identical_boolean
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : BehaviorVariableHolder element=second [BehaviorVariable]
+          valueExpression : Any
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=first [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=second [BehaviorVariable]
+    actions[1] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : BehaviorVariableHolder element=child [BehaviorVariable]
+          valueExpression : Any
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=first [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=child [BehaviorVariable]
+    actions[2] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : BehaviorVariableHolder element=implementation [BehaviorVariable]
+          valueExpression : Any
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=first [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=implementation [BehaviorVariable]
+    actions[3] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : BehaviorVariableHolder element=first [BehaviorVariable]
+          valueExpression : Any
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=first [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=first [BehaviorVariable]
+    actions[4] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=first_flag [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorBooleanLiteral
+          relations[1] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=second_flag [BehaviorVariable]
+    actions[5] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=first_flag [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=second_flag [BehaviorVariable]
+          relations[1] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorBooleanLiteral
+    actions[6] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=first_flag [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorBooleanLiteral
+          relations[1] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=first_flag [BehaviorVariable]

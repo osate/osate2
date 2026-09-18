@@ -4,7 +4,7 @@
 \t\t\tValue: hazard_integer := 0 {
 \t\t\t\tData_Model::Initial_Value => ("1");
 \t\t\t};
-\t\t\tOther: Base_Types::Integer := 1;
+\t\t\tOther: hazard_integer := 1;
 \t\tStAtEs
 \t\t\tstart: initial state;
 \t\t\texecute: state;
@@ -43,10 +43,10 @@
 \t\t\t\telse
 \t\t\t\t\tValue := 3
 \t\t\t\tend if;
-\t\t\t\tfor (i : Base_Types::Integer in 0 .. 1) {
+\t\t\t\tfor (i : hazard_integer in 0 .. 1) {
 \t\t\t\t\tValue := Value + i
 \t\t\t\t};
-\t\t\t\tforall (j : Base_Types::Integer in 0 .. 1) {
+\t\t\t\tforall (j : hazard_integer in 0 .. 1) {
 \t\t\t\t\tValue := Value + j
 \t\t\t\t};
 \t\t\t\twhile (Value < 10) {

@@ -1,0 +1,13 @@
+===== annex[0] owner=SourceDiagnostics::worker.impl =====
+
+\t\tvariables
+\t\t\tflag : Base_Types::Boolean := 1;
+\t\t\tcounter : Base_Types::Integer;
+\t\tstates
+\t\t\tstart : initial state;
+\t\t\tdone : final state;
+\t\ttransitions
+\t\t\tstart -[]-> done { output!(counter) };
+\t
+----- Xtext reparse -----
+reparsed

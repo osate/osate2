@@ -1,0 +1,23 @@
+===== annex[0] owner=ClassifierIdentity::mismatch.impl =====
+
+\t\tvariables
+\t\t\tfirst : first_type;
+\t\t\tsecond : second_type;
+\t\t\tchild : child_type;
+\t\t\timplementation : first_type.impl;
+\t\t\tfirst_flag : first_boolean := true;
+\t\t\tsecond_flag : second_boolean := true;
+\t\tstates
+\t\t\tstart : initial state;
+\t\t\tdone : final state;
+\t\ttransitions
+\t\t\tdifferent_names : start -[]-> done { second := any; first := second };
+\t\t\textension : start -[]-> done { child := any; first := child };
+\t\t\ttype_implementation : start -[]-> done { implementation := any; first := implementation };
+\t\t\tidentical : start -[]-> done { first := any; first := first };
+\t\t\tliteral_left : start -[]-> done { first_flag := true and second_flag };
+\t\t\tliteral_right : start -[]-> done { first_flag := second_flag or false };
+\t\t\tidentical_boolean : start -[]-> done { first_flag := true and first_flag };
+\t
+----- Xtext reparse -----
+reparsed

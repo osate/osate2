@@ -1,0 +1,4 @@
+error | semantic | 48 | 33 | 15 | type error for 'port dequeue action', 'Base_Types::String' expected, found 'Base_Types::Integer'.
+error | semantic | 49 | 41 | 7 | type error for 'actual for 'argument'', 'Base_Types::String' expected, found 'Base_Types::Integer'.
+error | semantic | 49 | 50 | 7 | type error for 'actual for 'result'', 'Base_Types::String' expected, found 'Base_Types::Integer'.
+error | semantic | 50 | 52 | 6 | type error for 'internal port send action', 'Base_Types::Integer' expected, found 'standard string'.

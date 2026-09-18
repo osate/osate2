@@ -1,0 +1,47 @@
+annex[0] owner=ArrayTypes::mismatch.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=target_array
+      arrayDimension[0] : ArrayDimension
+        size : BehaviorArraySize
+          integerValue : BehaviorIntegerLiteral
+    variables[1] : BehaviorVariable name=larger_array
+      arrayDimension[0] : ArrayDimension
+        size : BehaviorArraySize
+          integerValue : BehaviorIntegerLiteral
+    variables[2] : BehaviorVariable name=matrix
+      arrayDimension[0] : ArrayDimension
+        size : BehaviorArraySize
+          integerValue : BehaviorIntegerLiteral
+      arrayDimension[1] : ArrayDimension
+        size : BehaviorArraySize
+          integerValue : BehaviorIntegerLiteral
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition name=extent
+    transitions[1] : BehaviorTransition name=rank
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : BehaviorVariableHolder element=larger_array [BehaviorVariable]
+          valueExpression : Any
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=target_array [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=larger_array [BehaviorVariable]
+    actions[1] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : BehaviorVariableHolder element=matrix [BehaviorVariable]
+          valueExpression : Any
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=target_array [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=matrix [BehaviorVariable]

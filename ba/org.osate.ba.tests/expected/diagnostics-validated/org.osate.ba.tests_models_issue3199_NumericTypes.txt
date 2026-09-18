@@ -1,0 +1,4 @@
+error | semantic | 39 | 55 | 1 | type error for 'assignment', 'Base_Types::Float' expected, found 'universal integer'.
+error | semantic | 40 | 53 | 13 | type error for 'assignment', 'Base_Types::Float' expected, found 'Base_Types::Integer'.
+error | semantic | 41 | 54 | 7 | Invalid operand types for operator "+": left operand has type universal integer, right operand has type universal real
+error | semantic | 42 | 51 | 26 | Invalid operand types for operator "+": left operand has type Base_Types::Integer, right operand has type Base_Types::Float

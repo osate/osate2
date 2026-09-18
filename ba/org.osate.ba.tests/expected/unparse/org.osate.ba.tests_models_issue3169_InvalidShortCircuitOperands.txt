@@ -1,7 +1,7 @@
 ===== annex[0] owner=InvalidShortCircuitOperands::operation =====
 
 \t\tvariables
-\t\t\tleft, right: Base_Types::Integer;
+\t\t\tleft, right: Base_Types::Integer := 0;
 \t\tstates
 \t\t\tstart: initial state;
 \t\t\tfinish: final state;

@@ -1,0 +1,5 @@
+error | semantic | 64 | 65 | 6 | type error for 'assignment', 'ClassifierIdentity::first_type' expected, found 'ClassifierIdentity::second_type'.
+error | semantic | 65 | 58 | 5 | type error for 'assignment', 'ClassifierIdentity::first_type' expected, found 'ClassifierIdentity::child_type'.
+error | semantic | 66 | 77 | 14 | type error for 'assignment', 'ClassifierIdentity::first_type' expected, found 'ClassifierIdentity::first_type.impl'.
+error | semantic | 68 | 52 | 20 | type error for 'assignment', 'ClassifierIdentity::first_boolean' expected, found 'ClassifierIdentity::second_boolean'.
+error | semantic | 69 | 53 | 20 | type error for 'assignment', 'ClassifierIdentity::first_boolean' expected, found 'ClassifierIdentity::second_boolean'.

@@ -24,10 +24,10 @@ public
 	thread hazards
 	features
 		dispatch_event: in event port;
-		input: in event data port Base_Types::Integer {
+		input: in event data port hazard_integer {
 			Dequeue_Protocol => AllItems;
 		};
-		output: out event data port Base_Types::Integer;
+		output: out event data port hazard_integer;
 		shared: requires data access Base_Types::Integer;
 	properties
 		Dispatch_Protocol => Sporadic;
@@ -36,7 +36,7 @@ public
 			Value: hazard_integer := 0 {
 				Data_Model::Initial_Value => ("1");
 			};
-			Other: Base_Types::Integer := 1;
+			Other: hazard_integer := 1;
 		StAtEs
 			start: initial state;
 			execute: state;
@@ -75,10 +75,10 @@ public
 				else
 					Value := 3
 				end if;
-				for (i : Base_Types::Integer in 0 .. 1) {
+				for (i : hazard_integer in 0 .. 1) {
 					Value := Value + i
 				};
-				forall (j : Base_Types::Integer in 0 .. 1) {
+				forall (j : hazard_integer in 0 .. 1) {
 					Value := Value + j
 				};
 				while (Value < 10) {

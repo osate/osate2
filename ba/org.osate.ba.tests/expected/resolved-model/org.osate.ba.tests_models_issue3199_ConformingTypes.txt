@@ -1,0 +1,168 @@
+annex[0] owner=ConformingTypes::worker.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=integer_value
+      ownedValueConstant : BehaviorIntegerLiteral
+    variables[1] : BehaviorVariable name=real_value
+      ownedValueConstant : BehaviorRealLiteral
+    variables[2] : BehaviorVariable name=fixed_value
+      ownedValueConstant : BehaviorRealLiteral
+    variables[3] : BehaviorVariable name=boolean_value
+      ownedValueConstant : BehaviorBooleanLiteral
+    variables[4] : BehaviorVariable name=text_value
+      ownedValueConstant : BehaviorStringLiteral
+    variables[5] : BehaviorVariable name=first_array
+      arrayDimension[0] : ArrayDimension
+        size : BehaviorArraySize
+          integerValue : BehaviorIntegerLiteral
+    variables[6] : BehaviorVariable name=second_array
+      arrayDimension[0] : ArrayDimension
+        size : BehaviorArraySize
+          integerValue : BehaviorIntegerLiteral
+    variables[7] : BehaviorVariable name=symbolic_array
+      arrayDimension[0] : ArrayDimension
+        size : BehaviorArraySize
+          integerValue : ClassifierFeaturePropertyReference
+            properties[0] : PropertyNameHolder
+              property : BasicPropertyHolder element=Communication_Properties::Queue_Size [Property]
+            component : EventDataPortHolder element=ConformingTypes::worker.input [EventDataPort]
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition name=valid
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : BehaviorVariableHolder element=integer_value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+                    secondValue : BehaviorIntegerLiteral
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=integer_value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : ValueExpression
+                      relations[0] : Relation
+                        firstExpression : SimpleExpression
+                          terms[0] : Term
+                            factors[0] : Factor
+                              firstValue : BehaviorIntegerLiteral
+                          terms[1] : Term
+                            factors[0] : Factor
+                              firstValue : BehaviorIntegerLiteral
+                  factors[1] : Factor
+                    firstValue : ValueExpression
+                      relations[0] : Relation
+                        firstExpression : SimpleExpression
+                          terms[0] : Term
+                            factors[0] : Factor
+                              firstValue : BehaviorIntegerLiteral
+                          terms[1] : Term
+                            factors[0] : Factor
+                              firstValue : BehaviorIntegerLiteral
+        actions[2] : AssignmentAction
+          target : BehaviorVariableHolder element=real_value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorRealLiteral
+                    secondValue : BehaviorIntegerLiteral
+        actions[3] : AssignmentAction
+          target : BehaviorVariableHolder element=fixed_value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorRealLiteral
+                terms[1] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=fixed_value [BehaviorVariable]
+        actions[4] : AssignmentAction
+          target : BehaviorVariableHolder element=fixed_value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=fixed_value [BehaviorVariable]
+                terms[1] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorRealLiteral
+        actions[5] : AssignmentAction
+          target : BehaviorVariableHolder element=boolean_value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : PortUpdatedValue
+        actions[6] : AssignmentAction
+          target : BehaviorVariableHolder element=boolean_value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorBooleanLiteral
+            relations[1] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorBooleanLiteral
+            relations[2] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorBooleanLiteral
+        actions[7] : AssignmentAction
+          target : BehaviorVariableHolder element=boolean_value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=text_value [BehaviorVariable]
+              secondExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorStringLiteral
+        actions[8] : AssignmentAction
+          target : BehaviorVariableHolder element=second_array [BehaviorVariable]
+          valueExpression : Any
+        actions[9] : AssignmentAction
+          target : BehaviorVariableHolder element=first_array [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=second_array [BehaviorVariable]
+        actions[10] : AssignmentAction
+          target : BehaviorVariableHolder element=symbolic_array [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=first_array [BehaviorVariable]
+        actions[11] : ForOrForAllStatement
+          behaviorActions : AssignmentAction
+            target : BehaviorVariableHolder element=integer_value [BehaviorVariable]
+            valueExpression : ValueExpression
+              relations[0] : Relation
+                firstExpression : SimpleExpression
+                  terms[0] : Term
+                    factors[0] : Factor
+                      firstValue : IterativeVariableHolder element=element [IterativeVariable]
+          iteratedValues : IntegerRange
+            lowerIntegerValue : BehaviorIntegerLiteral
+            upperIntegerValue : BehaviorIntegerLiteral
+          iterativeVariable : IterativeVariable name=element

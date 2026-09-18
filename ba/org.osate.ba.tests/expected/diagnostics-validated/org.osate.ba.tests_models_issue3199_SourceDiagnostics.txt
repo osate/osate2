@@ -1,0 +1,3 @@
+error | semantic | 34 | 3 | 193 | SourceDiagnostics::worker.impl has no complete state : Behavior Annex D.3.(L3) legality rule failed.
+error | semantic | 35 | 34 | 1 | type error for 'behavior variable initializer', 'Base_Types::Boolean' expected, found 'universal integer'.
+error | semantic | 41 | 31 | 7 | Behavior variable 'counter' may be read before it is initialized

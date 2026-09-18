@@ -32,7 +32,9 @@ end long_computation;
 subprogram send_result
 features
   result : requires data access data_type.i;
-  output : out parameter data_type;
+  -- The published example mixes data_type and data_type.i at calls. Use one classifier to satisfy OSATE's
+  -- exact classifier-name conformance policy.
+  output : out parameter data_type.i;
 end send_result;
 
 thread a_client
@@ -44,7 +46,7 @@ properties
   Period => 200ms;
 annex behavior_specification {**
   variables
-    x, y : data_type;
+    x, y : data_type.i;
   states
     s : initial complete final state;
   transitions
@@ -88,9 +90,10 @@ connections
     s2 : complete state;
   transitions
     s0 -[ on dispatch long ]-> s1;
+    -- The published example assigns 1 and 0 to Boolean status. Use Boolean literals instead.
     s1 -[ ]-> s2 { 
-        long_computation!(v, local_result); local_result.status := 1 } timeout 60ms;
-    s1 -[ timeout ]-> s2 { local_result.status := 0 };
+        long_computation!(v, local_result); local_result.status := true } timeout 60ms;
+    s1 -[ timeout ]-> s2 { local_result.status := false };
     s2 -[ on dispatch short ]-> s0 { send_result!(local_result, v) };
 **};
 end a_server.i;

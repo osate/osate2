@@ -1,0 +1,32 @@
+annex[0] owner=CommunicationTypes::host.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=counter
+      ownedValueConstant : BehaviorIntegerLiteral
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition name=dequeue
+    transitions[1] : BehaviorTransition name=call
+    transitions[2] : BehaviorTransition name=internal_send
+    actions[0] : BehaviorActionBlock
+      content : PortDequeueAction
+        port : EventDataPortHolder element=CommunicationTypes::host.input [EventDataPort]
+        target : BehaviorVariableHolder element=counter [BehaviorVariable]
+    actions[1] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramHolder element=CommunicationTypes::operation [SubprogramType]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=counter [BehaviorVariable]
+        parameterLabels[1] : BehaviorVariableHolder element=counter [BehaviorVariable]
+    actions[2] : BehaviorActionBlock
+      content : InternalPortSendAction
+        internalPort : EventDataSourceHolder element=CommunicationTypes::host.impl.raised_data [EventDataSource]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorStringLiteral

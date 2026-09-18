@@ -1,0 +1,13 @@
+===== annex[0] owner=ArrayTypes::mismatch.impl =====
+
+\t\tvariables
+\t\t\ttarget_array[2], larger_array[3], matrix[2][2] : Base_Types::Integer;
+\t\tstates
+\t\t\tstart : initial state;
+\t\t\tdone : final state;
+\t\ttransitions
+\t\t\textent : start -[]-> done { larger_array := any; target_array := larger_array };
+\t\t\trank : start -[]-> done { matrix := any; target_array := matrix };
+\t
+----- Xtext reparse -----
+reparsed

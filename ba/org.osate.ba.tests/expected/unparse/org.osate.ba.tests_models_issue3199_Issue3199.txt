@@ -1,0 +1,15 @@
+===== annex[0] owner=Issue3199::mismatch.impl =====
+
+\t\tvariables
+\t\t\tcounter : Base_Types::Integer;
+\t\tstates
+\t\t\tstart : initial state;
+\t\t\tdone : final state;
+\t\ttransitions
+\t\t\tassign_wrong_type : start -[]-> done { counter := "text" };
+\t\t\tsend_wrong_type : start -[]-> done { out_text!(42) };
+\t\t\tmixed_operands : start -[]-> done { counter := 1 + "text" };
+\t\t\tmixed_relation : start -[]-> done { counter := 1; if (counter < "text") counter := 2 end if };
+\t
+----- Xtext reparse -----
+reparsed
