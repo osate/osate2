@@ -1,0 +1,29 @@
+package Issue2817
+public
+	annex EMV2 {**
+		error behavior Machine
+			states
+				state1: initial state;
+				state2: state;
+		end behavior;
+	**};
+
+	system S
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior Issue2817::Machine;
+			component error behavior
+				events
+					typed: error event {CommonErrors};
+					untyped: error event;
+					recovery: recover event;
+					repair1: repair event;
+				transitions
+					typed_event: state1 -[typed {ServiceError} and typed {noerror}]-> state2;
+					untyped_event: state1 -[untyped {noerror}]-> state2;
+					recover_event: state1 -[recovery {noerror}]-> state2;
+					repair_event: state1 -[repair1 {noerror}]-> state2;
+			end component;
+		**};
+	end S;
+end Issue2817;

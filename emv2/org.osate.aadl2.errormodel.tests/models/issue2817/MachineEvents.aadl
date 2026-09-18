@@ -1,0 +1,15 @@
+package MachineEvents
+public
+	annex EMV2 {**
+		error behavior Machine
+			use types ErrorLibrary;
+			events
+				typed: error event {CommonErrors};
+			states
+				state1: initial state;
+				state2: state;
+			transitions
+				state1 -[typed {noerror}]-> state2;
+		end behavior;
+	**};
+end MachineEvents;
