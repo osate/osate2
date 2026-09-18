@@ -1,0 +1,60 @@
+package ValidConditions
+public
+	annex EMV2 {**
+		error behavior Machine
+			states
+				state1: initial state;
+				state2: state;
+		end behavior;
+	**};
+
+	system S
+		features
+			f1: in feature;
+			f2: in feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior ValidConditions::Machine;
+			error propagations
+				f1: in propagation {CommonErrors};
+				f2: in propagation {CommonErrors};
+			end propagations;
+			component error behavior
+				events
+					typed: error event {CommonErrors};
+					untyped: error event;
+					recovery: recover event;
+					repair1: repair event;
+				transitions
+					incoming: state1 -[f1 {ServiceError} and f2 {noerror}]-> state2;
+					typed_event: state1 -[typed {ServiceError}]-> state2;
+					unconstrained_event: state1 -[typed]-> state2;
+					untyped_event: state1 -[untyped]-> state2;
+					recover_event: state1 -[recovery]-> state2;
+					repair_event: state1 -[repair1]-> state2;
+			end component;
+		**};
+	end S;
+
+	system implementation S.i
+		subcomponents
+			child: system Child;
+		annex EMV2 {**
+			component error behavior
+				transitions
+					outgoing: state1 -[child.f {noerror}]-> state2;
+			end component;
+		**};
+	end S.i;
+
+	system Child
+		features
+			f: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			error propagations
+				f: out propagation {CommonErrors};
+			end propagations;
+		**};
+	end Child;
+end ValidConditions;
