@@ -2,7 +2,7 @@
 <feature
       id="org.osate.examples.feature"
       label="AADL Example Projects"
-      version="1.0.7.qualifier"
+      version="1.0.8.qualifier"
       provider-name="CMU SEI"
       image="icons/osateupdate_120.jpg"
       license-feature="org.osate.license"
@@ -17,13 +17,11 @@
    </copyright>
 
    <requires>
-      <import plugin="org.osate.ui" version="6.3.0" match="compatible"/>
+      <import plugin="org.osate.ui" match="compatible"/>
    </requires>
 
    <plugin
          id="org.osate.examples"
-         download-size="0"
-         install-size="0"
          version="0.0.0"/>
 
 </feature>
