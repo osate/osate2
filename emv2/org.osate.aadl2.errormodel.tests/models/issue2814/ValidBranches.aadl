@@ -1,0 +1,34 @@
+package ValidBranches
+public
+  system s
+    annex EMV2 {**
+      use types ValidBranches;
+      use behavior ValidBranches::machine;
+      component error behavior
+        transitions
+          start -[event1]-> (
+            single {First} with 0.25,
+            product {First * Second} with 0.25,
+            start with 0.25,
+            same state with 0.25
+          );
+      end component;
+    **};
+  end s;
+
+  annex EMV2 {**
+    error types
+      First: type;
+      Second: type;
+    end types;
+    error behavior machine
+      use types ValidBranches;
+      events
+        event1: error event;
+      states
+        start: initial state;
+        single: state {First};
+        product: state {First, First * Second};
+    end behavior;
+  **};
+end ValidBranches;
