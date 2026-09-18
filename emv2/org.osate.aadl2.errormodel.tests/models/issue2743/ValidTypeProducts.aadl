@@ -1,0 +1,21 @@
+package ValidTypeProducts
+public
+	system s
+		features
+			product: out feature;
+			single_type: out feature;
+			single_set: out feature;
+			alias_set: out feature;
+			union_sets: out feature;
+		annex EMV2 {**
+			use types ErrorTypes;
+			error propagations
+				product: out propagation {ServiceError * TimingError * ValueError};
+				single_type: out propagation {ServiceError};
+				single_set: out propagation {ServiceSet};
+				alias_set: out propagation {ErrorTypes::TimingAlias};
+				union_sets: out propagation {ServiceSet, TimingSet, ValueSet};
+			end propagations;
+		**};
+	end s;
+end ValidTypeProducts;

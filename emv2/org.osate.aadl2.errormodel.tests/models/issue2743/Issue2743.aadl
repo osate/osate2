@@ -1,0 +1,21 @@
+package Issue2743
+public
+	system s
+		features
+			first: out feature;
+			middle: out feature;
+			last: out feature;
+			multiple: out feature;
+			qualified: out feature;
+		annex EMV2 {**
+			use types ErrorTypes;
+			error propagations
+				first: out propagation {ServiceSet * TimingError};
+				middle: out propagation {ServiceError * TimingSet * ValueError};
+				last: out propagation {ServiceError * TimingError * ValueSet};
+				multiple: out propagation {ServiceSet * TimingSet * ValueSet};
+				qualified: out propagation {ServiceError * ErrorTypes::TimingAlias};
+			end propagations;
+		**};
+	end s;
+end Issue2743;

@@ -716,9 +716,11 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 	private void checkTypeTokenSingleTypeSet(TypeToken ts) {
 		EList<ErrorTypes> ets = ts.getType();
 		if (ets.size() > 1) {
-			ErrorTypes first = ets.get(0);
-			if (first instanceof TypeSet) {
-				error(ts, "Type product contains type set " + first.getName());
+			for (int i = 0; i < ets.size(); i++) {
+				if (ets.get(i) instanceof TypeSet typeSet) {
+					error("Type product contains type set " + typeSet.getName(), ts,
+							ErrorModelPackage.Literals.TYPE_TOKEN__TYPE, i, null);
+				}
 			}
 		}
 	}

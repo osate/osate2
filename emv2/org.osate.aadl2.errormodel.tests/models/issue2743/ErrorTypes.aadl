@@ -1,0 +1,14 @@
+package ErrorTypes
+public
+	annex EMV2 {**
+		error types
+			ServiceError: type;
+			TimingError: type;
+			ValueError: type;
+			ServiceSet: type set {ServiceError};
+			TimingSet: type set {TimingError};
+			ValueSet: type set {ValueError};
+			TimingAlias renames type set TimingSet;
+		end types;
+	**};
+end ErrorTypes;
