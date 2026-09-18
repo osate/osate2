@@ -253,8 +253,7 @@ public class PropertyReferenceTest extends XtextTest {
 		Assert.assertEquals("bvr", errorBehaviorStateMachine.getName());
 		var errorBehaviorTransition = (errorBehaviorStateMachine.getTransitions()).getFirst();
 		Assert.assertEquals("transition1", errorBehaviorTransition.getName());
-		AssertHelper.assertError(errorBehaviorTransition, lib1TestResult.getIssues(), lib1IssueCollection,
-				"Sum of branch probabilities must be 1");
+		// The library leaves the probability undefined so a using classifier can supply it.
 		this.assertHelper.assertScope(errorBehaviorTransition.getDestinationBranches().get(1).getValue(),
 				ErrorModelPackage.eINSTANCE.getBranchValue_Symboliclabel(), expectedScope);
 

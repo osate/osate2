@@ -1,0 +1,79 @@
+package Issue2821
+public
+  with ProbabilityProperties;
+
+  system s
+  end s;
+
+  system implementation s.base
+    annex EMV2 {**
+      use behavior Issue2821::machine;
+      component error behavior
+        transitions
+          t: state1 -[event1]-> (state2 with 0.125, state3 with ProbabilityProperties::probability);
+      end component;
+    **};
+  end s.base;
+
+  system implementation s.extended extends s.base
+    annex EMV2 {**
+      properties
+        ProbabilityProperties::probability => 0.875 applies to t;
+    **};
+  end s.extended;
+
+  system container
+  end container;
+
+  system implementation container.i
+    subcomponents
+      child: system s.base;
+    annex EMV2 {**
+      properties
+        ProbabilityProperties::probability => 0.875 applies to ^child@t;
+    **};
+  end container.i;
+
+  system known_value
+    annex EMV2 {**
+      use behavior Issue2821::machine;
+      component error behavior
+        transitions
+          t: state1 -[event1]-> (state2 with 0.125, state3 with ProbabilityProperties::probability);
+      end component;
+      properties
+        ProbabilityProperties::probability => 0.875 applies to t;
+    **};
+  end known_value;
+
+  system unknown_with_others
+    annex EMV2 {**
+      use behavior Issue2821::machine;
+      component error behavior
+        transitions
+          t: state1 -[event1]-> (state2 with 0.125, state3 with ProbabilityProperties::probability, same state with others);
+      end component;
+    **};
+  end unknown_with_others;
+
+  annex EMV2 {**
+    error behavior machine
+      events
+        event1: error event;
+      states
+        state1: initial state;
+        state2: state;
+        state3: state;
+    end behavior;
+
+    error behavior deferred
+      events
+        event1: error event;
+      states
+        state1: initial state;
+        state2: state;
+      transitions
+        t: state1 -[event1]-> (state2 with 0.125, same state with ProbabilityProperties::probability);
+    end behavior;
+  **};
+end Issue2821;
