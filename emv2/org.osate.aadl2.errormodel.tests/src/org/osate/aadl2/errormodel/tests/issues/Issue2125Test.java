@@ -25,23 +25,17 @@ package org.osate.aadl2.errormodel.tests.issues;
 
 import java.util.ArrayList;
 
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
-import org.eclipse.xtext.validation.Issue;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.AnnexSubclause;
-import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.DeviceImplementation;
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider;
 import org.osate.testsupport.AssertHelper;
 import org.osate.testsupport.TestHelper;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 
 import com.google.inject.Inject;

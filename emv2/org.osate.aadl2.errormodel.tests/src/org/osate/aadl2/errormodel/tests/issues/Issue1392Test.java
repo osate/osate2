@@ -28,7 +28,6 @@ import org.eclipse.xtext.testing.XtextRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider;
 import org.osate.testsupport.TestHelper;

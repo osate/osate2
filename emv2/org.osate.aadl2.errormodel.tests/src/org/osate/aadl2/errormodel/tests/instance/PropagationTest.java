@@ -32,7 +32,6 @@ import org.eclipse.xtext.testing.extensions.InjectionExtension;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.errormodel.instance.AccessPropagation;
@@ -44,8 +43,6 @@ import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.testsupport.TestHelper;
-import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
-
 import com.google.inject.Inject;
 
 @ExtendWith(InjectionExtension.class)
@@ -138,7 +135,7 @@ public class PropagationTest {
 			assertNull(propagation.getInErrorPropagation());
 			assertNull(propagation.getInTypeSet());
 			assertEquals("f1",
-					((AbstractFeature) propagation.getOutErrorPropagation().getFeatureorPPRef().getFeatureorPP())
+					propagation.getOutErrorPropagation().getFeatureorPPRef().getFeatureorPP()
 							.getName());
 			assertEquals("{ServiceError}", propagation.getOutTypeSet().getName());
 		});
@@ -149,10 +146,10 @@ public class PropagationTest {
 			assertNull(propagation.getInErrorPropagation());
 			assertNull(propagation.getInTypeSet());
 			assertEquals("f2",
-					((AbstractFeature) propagation.getOutErrorPropagation()
+					propagation.getOutErrorPropagation()
 							.getFeatureorPPRef()
 							.getNext()
-							.getFeatureorPP()).getName());
+							.getFeatureorPP().getName());
 			assertEquals("{ServiceError}", propagation.getOutTypeSet().getName());
 		});
 		with((FeaturePropagation) annexInstance.getPropagations().get(2), propagation -> {
@@ -162,11 +159,11 @@ public class PropagationTest {
 			assertNull(propagation.getInErrorPropagation());
 			assertNull(propagation.getInTypeSet());
 			assertEquals("f3",
-					((AbstractFeature) propagation.getOutErrorPropagation()
+					propagation.getOutErrorPropagation()
 							.getFeatureorPPRef()
 							.getNext()
 							.getNext()
-							.getFeatureorPP()).getName());
+							.getFeatureorPP().getName());
 			assertEquals("{ServiceError}", propagation.getOutTypeSet().getName());
 		});
 		with((FeaturePropagation) annexInstance.getPropagations().get(3), propagation -> {
@@ -176,12 +173,12 @@ public class PropagationTest {
 			assertNull(propagation.getInErrorPropagation());
 			assertNull(propagation.getInTypeSet());
 			assertEquals("f4",
-					((AbstractFeature) propagation.getOutErrorPropagation()
+					propagation.getOutErrorPropagation()
 							.getFeatureorPPRef()
 							.getNext()
 							.getNext()
 							.getNext()
-							.getFeatureorPP()).getName());
+							.getFeatureorPP().getName());
 			assertEquals("{ServiceError}", propagation.getOutTypeSet().getName());
 		});
 	}
@@ -199,7 +196,7 @@ public class PropagationTest {
 			assertNull(propagation.getInErrorPropagation());
 			assertNull(propagation.getInTypeSet());
 			assertEquals("point1",
-					((PropagationPoint) propagation.getOutErrorPropagation().getFeatureorPPRef().getFeatureorPP())
+					propagation.getOutErrorPropagation().getFeatureorPPRef().getFeatureorPP()
 							.getName());
 			assertEquals("{ServiceError}", propagation.getOutTypeSet().getName());
 		});
@@ -234,7 +231,7 @@ public class PropagationTest {
 			assertEquals("f", propagation.getFeature().getName());
 			assertEquals(DirectionType.IN, propagation.getDirection());
 			assertEquals("f",
-					((AbstractFeature) propagation.getInErrorPropagation().getFeatureorPPRef().getFeatureorPP())
+					propagation.getInErrorPropagation().getFeatureorPPRef().getFeatureorPP()
 							.getName());
 			assertEquals("{ServiceError}", propagation.getInTypeSet().getName());
 			assertNull(propagation.getOutErrorPropagation());
@@ -253,11 +250,11 @@ public class PropagationTest {
 			assertEquals("f", propagation.getFeature().getName());
 			assertEquals(DirectionType.IN_OUT, propagation.getDirection());
 			assertEquals("f",
-					((AbstractFeature) propagation.getInErrorPropagation().getFeatureorPPRef().getFeatureorPP())
+					propagation.getInErrorPropagation().getFeatureorPPRef().getFeatureorPP()
 							.getName());
 			assertEquals("{ServiceError}", propagation.getInTypeSet().getName());
 			assertEquals("f",
-					((AbstractFeature) propagation.getOutErrorPropagation().getFeatureorPPRef().getFeatureorPP())
+					propagation.getOutErrorPropagation().getFeatureorPPRef().getFeatureorPP()
 							.getName());
 			assertEquals("{ItemValueError}", propagation.getOutTypeSet().getName());
 		});
@@ -266,11 +263,11 @@ public class PropagationTest {
 			assertEquals("point1", propagation.getPoint().getName());
 			assertEquals(DirectionType.IN_OUT, propagation.getDirection());
 			assertEquals("point1",
-					((PropagationPoint) propagation.getInErrorPropagation().getFeatureorPPRef().getFeatureorPP())
+					propagation.getInErrorPropagation().getFeatureorPPRef().getFeatureorPP()
 							.getName());
 			assertEquals("{ServiceError}", propagation.getInTypeSet().getName());
 			assertEquals("point1",
-					((PropagationPoint) propagation.getOutErrorPropagation().getFeatureorPPRef().getFeatureorPP())
+					propagation.getOutErrorPropagation().getFeatureorPPRef().getFeatureorPP()
 							.getName());
 			assertEquals("{ItemValueError}", propagation.getOutTypeSet().getName());
 		});
@@ -306,7 +303,7 @@ public class PropagationTest {
 			assertNull(propagation.getInErrorPropagation());
 			assertNull(propagation.getInTypeSet());
 			assertEquals("f",
-					((AbstractFeature) propagation.getOutErrorPropagation().getFeatureorPPRef().getFeatureorPP())
+					propagation.getOutErrorPropagation().getFeatureorPPRef().getFeatureorPP()
 							.getName());
 			assertEquals("{ItemTimingError}", propagation.getOutTypeSet().getName());
 		});
@@ -317,7 +314,7 @@ public class PropagationTest {
 			assertNull(propagation.getInErrorPropagation());
 			assertNull(propagation.getInTypeSet());
 			assertEquals("point1",
-					((PropagationPoint) propagation.getOutErrorPropagation().getFeatureorPPRef().getFeatureorPP())
+					propagation.getOutErrorPropagation().getFeatureorPPRef().getFeatureorPP()
 							.getName());
 			assertEquals("{ItemTimingError}", propagation.getOutTypeSet().getName());
 		});

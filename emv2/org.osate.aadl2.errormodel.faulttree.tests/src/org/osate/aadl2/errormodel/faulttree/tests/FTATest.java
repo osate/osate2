@@ -25,9 +25,7 @@ package org.osate.aadl2.errormodel.faulttree.tests;
 
 import java.util.Objects;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.junit.Assert;
@@ -39,7 +37,6 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.errormodel.FaultTree.Event;
 import org.osate.aadl2.errormodel.FaultTree.EventType;
-import org.osate.aadl2.errormodel.FaultTree.FaultTree;
 import org.osate.aadl2.errormodel.FaultTree.FaultTreeType;
 import org.osate.aadl2.errormodel.FaultTree.LogicOperation;
 import org.osate.aadl2.errormodel.faulttree.generation.CreateFTAModel;

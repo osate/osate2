@@ -65,7 +65,7 @@ public class PropagationPointsTest {
 		var aadlFile = "propagationpointstest.aadl";
 		var featureAadlFile = "propagationpointfeaturetest.aadl";
 		var modelRoot = "org.osate.aadl2.errormodel.faulttree.tests/models/PropagationPoints/";
-		primaryRoot = (AadlPackage) testHelper.parseFile(modelRoot + aadlFile, modelRoot + featureAadlFile);
+		primaryRoot = testHelper.parseFile(modelRoot + aadlFile, modelRoot + featureAadlFile);
 		instance = instantiate(modelRoot + aadlFile, "main.commonsource");
 		instance2 = instantiate(modelRoot + featureAadlFile, "main.commonsource");
 	}

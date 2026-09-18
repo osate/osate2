@@ -23,7 +23,6 @@
  */
 package org.osate.aadl2.errormodel.tests.issues;
 
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.junit.Assert;

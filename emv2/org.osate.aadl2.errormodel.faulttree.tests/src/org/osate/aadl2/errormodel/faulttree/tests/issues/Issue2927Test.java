@@ -38,7 +38,6 @@ import org.osate.aadl2.errormodel.FaultTree.FaultTree;
 import org.osate.aadl2.errormodel.FaultTree.LogicOperation;
 import org.osate.aadl2.errormodel.faulttree.generation.CreateFTAModel;
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider;
-import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.testsupport.TestHelper;
 
@@ -79,7 +78,7 @@ public class Issue2927Test {
 		assertTrue("Missing classifier " + classifierName, classifier.isPresent());
 
 		var instance = InstantiateModel.instantiate((ComponentImplementation) classifier.get());
-		assertKOrMoreProbability(CreateFTAModel.createFaultTree((SystemInstance) instance, "state Failed"), expected);
+		assertKOrMoreProbability(CreateFTAModel.createFaultTree(instance, "state Failed"), expected);
 	}
 
 	private static boolean candidateNameMatches(final String candidateName, final String expectedName) {

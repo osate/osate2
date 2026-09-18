@@ -39,7 +39,6 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.SystemImplementation;
-import org.osate.aadl2.SystemType;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider;
 import org.osate.aadl2.instantiation.InstantiateModel;
@@ -64,9 +63,9 @@ public class ModeMappingsTest {
 		assertEquals(2, annexInstance.getModeMappings().size());
 		with(annexInstance.getModeMappings().get(0), modeMapping -> {
 			assertEquals("state1 in modes (m1)", modeMapping.getName());
-			assertSame(((ErrorModelSubclause) ((DefaultAnnexSubclause) ((SystemType) pkg.getPublicSection()
+			assertSame(((ErrorModelSubclause) ((DefaultAnnexSubclause) pkg.getPublicSection()
 					.getOwnedClassifiers()
-					.get(0)).getOwnedAnnexSubclauses().get(0)).getParsedAnnexSubclause()).getErrorStateToModeMappings()
+					.get(0).getOwnedAnnexSubclauses().get(0)).getParsedAnnexSubclause()).getErrorStateToModeMappings()
 					.get(0), modeMapping.getModeMapping());
 			assertEquals("state1", modeMapping.getState().getName());
 			assertNull(modeMapping.getTypeSet());
@@ -74,9 +73,9 @@ public class ModeMappingsTest {
 		});
 		with(annexInstance.getModeMappings().get(1), modeMapping -> {
 			assertEquals("state2 in modes (m2, m3, m4)", modeMapping.getName());
-			assertSame(((ErrorModelSubclause) ((DefaultAnnexSubclause) ((SystemType) pkg.getPublicSection()
+			assertSame(((ErrorModelSubclause) ((DefaultAnnexSubclause) pkg.getPublicSection()
 					.getOwnedClassifiers()
-					.get(0)).getOwnedAnnexSubclauses().get(0)).getParsedAnnexSubclause()).getErrorStateToModeMappings()
+					.get(0).getOwnedAnnexSubclauses().get(0)).getParsedAnnexSubclause()).getErrorStateToModeMappings()
 					.get(1), modeMapping.getModeMapping());
 			assertEquals("state2", modeMapping.getState().getName());
 			assertNull(modeMapping.getTypeSet());
@@ -93,9 +92,9 @@ public class ModeMappingsTest {
 		assertEquals(2, annexInstance.getModeMappings().size());
 		with(annexInstance.getModeMappings().get(0), modeMapping -> {
 			assertEquals("state1 {ServiceError} in modes (m1)", modeMapping.getName());
-			assertSame(((ErrorModelSubclause) ((DefaultAnnexSubclause) ((SystemType) pkg.getPublicSection()
+			assertSame(((ErrorModelSubclause) ((DefaultAnnexSubclause) pkg.getPublicSection()
 					.getOwnedClassifiers()
-					.get(0)).getOwnedAnnexSubclauses().get(0)).getParsedAnnexSubclause()).getErrorStateToModeMappings()
+					.get(0).getOwnedAnnexSubclauses().get(0)).getParsedAnnexSubclause()).getErrorStateToModeMappings()
 					.get(0), modeMapping.getModeMapping());
 			assertEquals("state1", modeMapping.getState().getName());
 			assertEquals("{ServiceError}", modeMapping.getTypeSet().getName());
@@ -105,9 +104,9 @@ public class ModeMappingsTest {
 			assertEquals(
 					"state2 {ItemTimingError, ValueRelatedError, ConcurrencyError * ReplicationError} in modes (m2)",
 					modeMapping.getName());
-			assertSame(((ErrorModelSubclause) ((DefaultAnnexSubclause) ((SystemType) pkg.getPublicSection()
+			assertSame(((ErrorModelSubclause) ((DefaultAnnexSubclause) pkg.getPublicSection()
 					.getOwnedClassifiers()
-					.get(0)).getOwnedAnnexSubclauses().get(0)).getParsedAnnexSubclause()).getErrorStateToModeMappings()
+					.get(0).getOwnedAnnexSubclauses().get(0)).getParsedAnnexSubclause()).getErrorStateToModeMappings()
 					.get(1), modeMapping.getModeMapping());
 			assertEquals("state2", modeMapping.getState().getName());
 			assertEquals("{ItemTimingError, ValueRelatedError, ConcurrencyError * ReplicationError}",
@@ -124,9 +123,9 @@ public class ModeMappingsTest {
 		assertEquals(1, annexInstance.getModeMappings().size());
 		with(annexInstance.getModeMappings().get(0), modeMapping -> {
 			assertEquals("state1 {CommonErrors} in modes (m1)", modeMapping.getName());
-			assertSame(((ErrorModelSubclause) ((DefaultAnnexSubclause) ((SystemType) pkg.getPublicSection()
+			assertSame(((ErrorModelSubclause) ((DefaultAnnexSubclause) pkg.getPublicSection()
 					.getOwnedClassifiers()
-					.get(0)).getOwnedAnnexSubclauses().get(0)).getParsedAnnexSubclause()).getErrorStateToModeMappings()
+					.get(0).getOwnedAnnexSubclauses().get(0)).getParsedAnnexSubclause()).getErrorStateToModeMappings()
 					.get(0), modeMapping.getModeMapping());
 			assertEquals("state1", modeMapping.getState().getName());
 			assertEquals("{CommonErrors}", modeMapping.getTypeSet().getName());

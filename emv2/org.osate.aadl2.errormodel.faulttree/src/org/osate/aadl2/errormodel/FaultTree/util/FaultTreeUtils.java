@@ -322,7 +322,7 @@ public class FaultTreeUtils {
 		if (io instanceof ComponentInstance) {
 			description = "'" + getName((ComponentInstance) io) + "'";
 		} else if (io instanceof ConnectionInstance) {
-			description = "Connection '" + ((ConnectionInstance) io).getName() + "'";
+			description = "Connection '" + io.getName() + "'";
 		}
 		EObject errorModelArtifact = event.getRelatedEMV2Object();
 		if (errorModelArtifact instanceof ErrorSource) {

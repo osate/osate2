@@ -47,6 +47,9 @@ public final class ErrorModelUtil {
 		return getAllErrorLibraries(library).stream().flatMap(current -> current.getTypesets().stream()).toList();
 	}
 
+	/**
+	 * @since 8.0
+	 */
 	public static List<ErrorModelLibrary> getAllErrorLibraries(final ErrorModelLibrary library) {
 		var result = new ArrayList<ErrorModelLibrary>();
 		addErrorLibraries(library, new HashSet<>(), result);

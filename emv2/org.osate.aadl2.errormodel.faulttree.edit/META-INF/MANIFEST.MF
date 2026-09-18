@@ -7,7 +7,7 @@ Bundle-ClassPath: .
 Bundle-Activator: org.osate.aadl2.errormodel.FaultTree.provider.FaultTreeEditPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.osate.aadl2.errormodel.FaultTree.provider
 Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.17.0,4.0.0)",
  org.osate.aadl2.errormodel.faulttree;bundle-version="[9.0.0,10.0.0)";visibility:=reexport,

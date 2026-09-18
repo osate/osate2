@@ -177,7 +177,7 @@ public class Issue2409Test {
 		var renamedResource = renamedResourceSet.createResource(URI.createURI("RenamedIssue2409.aadl"));
 		renamedResource.load(new java.io.ByteArrayInputStream(contents.getBytes(StandardCharsets.UTF_8)), null);
 		injector.getInstance(ValidationTestHelper.class)
-				.assertNoIssues((AadlPackage) renamedResource.getContents().getFirst());
+				.assertNoIssues(renamedResource.getContents().getFirst());
 	}
 
 	@After

@@ -25,7 +25,6 @@ package org.osate.aadl2.errormodel.instance.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.PropertyConstant;
@@ -82,7 +81,7 @@ public class ConstantCodeImpl extends EMV2InstanceObjectImpl implements Constant
 	 */
 	@Override
 	public PropertyConstant getCode() {
-		if (code != null && ((EObject) code).eIsProxy()) {
+		if (code != null && code.eIsProxy()) {
 			InternalEObject oldCode = (InternalEObject) code;
 			code = (PropertyConstant) eResolveProxy(oldCode);
 			if (code != oldCode) {
