@@ -1,0 +1,21 @@
+package Issue2804
+public
+  annex EMV2 {**
+    error behavior no_initial
+      states
+        one: state;
+        two: state;
+        three: state;
+    end behavior;
+
+    error behavior multiple_initial
+      states
+        a: initial state;
+        b: state;
+        c: initial state;
+    end behavior;
+
+    error behavior no_states
+    end behavior;
+  **};
+end Issue2804;
