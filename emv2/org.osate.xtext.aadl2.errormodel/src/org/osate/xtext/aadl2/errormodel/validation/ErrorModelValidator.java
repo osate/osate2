@@ -547,7 +547,9 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 		if (condTS == null) {
 			return;
 		}
-		if (triggerTS == null && condTS != null) {
+		if (ep instanceof ErrorBehaviorEvent && EMV2TypeSetUtil.isNoError(condTS)) {
+			error(conditionElement, "The noerror constraint is not permitted on an event.");
+		} else if (triggerTS == null && condTS != null) {
 			// it is ok for a state not to have a type set.
 			error(conditionElement, "Condition has type constraint but referenced " + triggerName + " does not.");
 		} else if (!EMV2TypeSetUtil.isNoError(condTS) && !EMV2TypeSetUtil.contains(triggerTS, condTS)) {
