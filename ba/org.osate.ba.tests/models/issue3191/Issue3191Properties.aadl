@@ -1,0 +1,45 @@
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
+-- All Rights Reserved.
+--
+-- NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+-- KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+-- OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+-- MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+--
+-- This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+-- which is available at https://www.eclipse.org/legal/epl-2.0/
+-- SPDX-License-Identifier: EPL-2.0
+--
+-- Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+--
+-- This program includes and/or can make use of certain third party source code, object code, documentation and other
+-- files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+-- configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+-- conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+-- Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+-- aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+-- censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+
+property set Issue3191Properties is
+	Unitless_Int : aadlinteger => 7 applies to (all);
+	Flag : aadlboolean => true applies to (all);
+	Label : aadlstring => "unitless" applies to (all);
+	Duration : type aadlinteger units AADL_Project::Time_Units;
+	Time_Int : Issue3191Properties::Duration => 3 ms applies to (all);
+	Time_Real : aadlreal units AADL_Project::Time_Units => 1.5 sec applies to (all);
+	Time_Constant : constant Issue3191Properties::Duration => 2 us;
+	Size_Int : aadlinteger units AADL_Project::Size_Units => 8 Bytes applies to (all);
+	Size_Real : aadlreal units AADL_Project::Size_Units => 1.5 KByte applies to (all);
+	Size_Without_Default : aadlinteger units AADL_Project::Size_Units applies to (all);
+	Size_Constant : constant aadlinteger units AADL_Project::Size_Units => 4 Bytes;
+	-- A matching unit literal name does not make this the standard time units type.
+	Other_Units : type units (ms);
+	Other : aadlinteger units Issue3191Properties::Other_Units => 5 ms applies to (all);
+	Record_Type : type record (
+		delay : Issue3191Properties::Duration;
+		size : aadlinteger units AADL_Project::Size_Units;
+		flag : aadlboolean;
+	);
+	Record_Value : Issue3191Properties::Record_Type => [delay => 6 us; size => 16 Bytes; flag => true;] applies to (all);
+	Record_Without_Default : Issue3191Properties::Record_Type applies to (all);
+end Issue3191Properties;

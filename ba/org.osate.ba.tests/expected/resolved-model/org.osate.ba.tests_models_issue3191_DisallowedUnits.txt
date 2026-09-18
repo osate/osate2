@@ -1,0 +1,104 @@
+annex[0] owner=DisallowedUnits::reader.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=i
+    variables[1] : BehaviorVariable name=r
+    variables[2] : BehaviorVariable name=b
+    variables[3] : BehaviorVariable name=s
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : BehaviorVariableHolder element=i [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : PropertySetPropertyReference
+                      properties[0] : PropertyNameHolder
+                        property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=r [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : PropertySetPropertyReference
+                      properties[0] : PropertyNameHolder
+                        property : PropertyExpressionHolder element=RealLiteral [RealLiteral]
+        actions[2] : AssignmentAction
+          target : BehaviorVariableHolder element=i [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : ClassifierPropertyReference
+                      properties[0] : PropertyNameHolder
+                        property : BasicPropertyHolder element=Issue3191Properties::Size_Int [Property]
+        actions[3] : AssignmentAction
+          target : BehaviorVariableHolder element=i [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : ClassifierFeaturePropertyReference
+                      properties[0] : PropertyNameHolder
+                        property : BasicPropertyHolder element=Issue3191Properties::Size_Int [Property]
+                      component : DataPortHolder element=DisallowedUnits::reader.input [DataPort]
+        actions[4] : AssignmentAction
+          target : BehaviorVariableHolder element=i [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : ClassifierPropertyReference
+                      properties[0] : PropertyNameHolder
+                        property : BasicPropertyHolder element=Issue3191Properties::Size_Without_Default [Property]
+        actions[5] : AssignmentAction
+          target : BehaviorVariableHolder element=i [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorPropertyConstant
+        actions[6] : AssignmentAction
+          target : BehaviorVariableHolder element=i [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : PropertySetPropertyReference
+                      properties[0] : PropertyNameHolder
+                        property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+        actions[7] : AssignmentAction
+          target : BehaviorVariableHolder element=i [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : PropertySetPropertyReference
+                      properties[0] : PropertyNameHolder
+                        property : PropertyExpressionHolder element=RecordValue [RecordValue]
+                      properties[1] : PropertyNameHolder
+                        property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+        actions[8] : AssignmentAction
+          target : BehaviorVariableHolder element=i [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : ClassifierPropertyReference
+                      properties[0] : PropertyNameHolder
+                        property : BasicPropertyHolder element=Issue3191Properties::Record_Without_Default [Property]
+                      properties[1] : PropertyNameHolder
+                        property : BasicPropertyHolder element=Issue3191Properties::Record_Type.size [BasicProperty]

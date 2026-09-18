@@ -91,6 +91,10 @@ final class BehaviorAnnexCorpus {
 				references = characterizationPaths.stream()
 						.filter(reference -> !reference.equals(path))
 						.toList();
+			} else if (path.startsWith("org.osate.ba.tests/models/issue3191/")) {
+				references = List.of("org.osate.ba.tests/models/issue3191/Issue3191Properties.aadl").stream()
+						.filter(reference -> !reference.equals(path))
+						.toList();
 			} else {
 				references = List.of();
 			}
