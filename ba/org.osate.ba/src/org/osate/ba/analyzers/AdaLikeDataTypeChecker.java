@@ -22,6 +22,7 @@
 package org.osate.ba.analyzers;
 
 import org.eclipse.emf.common.util.Enumerator;
+import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.ba.aadlba.BehaviorElement;
@@ -92,9 +93,12 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker {
 			return true;
 		}
 		if (type1.getKlass() != null && type2.getKlass() != null) {
-			// Annex D does not define classifier substitutability. OSATE uses nominal equality, including for
-			// classifiers without a Data_Representation; extension and type/implementation pairs are distinct.
-			if (!type1.getKlass().getQualifiedName().equalsIgnoreCase(type2.getKlass().getQualifiedName())) {
+			// Accept extensions in either direction when their representations agree. Sharing an ancestor is not
+			// sufficient, and a type/implementation realization is not an extension relationship.
+			if (!type1.getKlass().getQualifiedName().equalsIgnoreCase(type2.getKlass().getQualifiedName())
+					&& (type1.getDataRep() != type2.getDataRep()
+							|| !isExtensionOf(type1.getKlass(), type2.getKlass())
+									&& !isExtensionOf(type2.getKlass(), type1.getKlass()))) {
 				return false;
 			}
 		}
@@ -112,6 +116,11 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker {
 		return type.getKlass() == null && type.getDataRep() == DataRepresentation.FLOAT;
 	}
 
+	private static boolean isExtensionOf(DataClassifier classifier, DataClassifier base) {
+		return classifier.getSelfPlusAllExtended().stream().skip(1)
+				.anyMatch(ancestor -> ancestor.getQualifiedName().equalsIgnoreCase(base.getQualifiedName()));
+	}
+
 	public TypeHolder getTopLevelType(TypeHolder type1, TypeHolder type2) {
 		if (conformsTo(type1, type2, true))
 			return getTopLevelTypeWithoutConsistencyChecking(type1, type2);
@@ -122,6 +131,11 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker {
 	private TypeHolder getTopLevelTypeWithoutConsistencyChecking(TypeHolder type1, TypeHolder type2) {
 		// A universal literal adopts the other operand's declared type, including fixed-point representation.
 		var source = type1.getKlass() != null || type2.getKlass() == null ? type1 : type2;
+		// A base/extension expression has the base classifier regardless of operand order.
+		if (type1.getKlass() != null && type2.getKlass() != null
+				&& isExtensionOf(type1.getKlass(), type2.getKlass())) {
+			source = type2;
+		}
 		var result = new TypeHolder(source.getDataRep(), source.getKlass());
 		result.setDimension(source.getDimension());
 		var sizes = source.getDimensionSizes();

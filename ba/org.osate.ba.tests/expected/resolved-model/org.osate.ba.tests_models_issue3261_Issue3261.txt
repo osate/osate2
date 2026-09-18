@@ -1,0 +1,49 @@
+annex[0] owner=Issue3261::host.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=base_value
+      ownedValueConstant : BehaviorIntegerLiteral
+    variables[1] : BehaviorVariable name=grandchild_value
+      ownedValueConstant : BehaviorIntegerLiteral
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : BehaviorVariableHolder element=base_value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=grandchild_value [BehaviorVariable]
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=grandchild_value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=base_value [BehaviorVariable]
+        actions[2] : AssignmentAction
+          target : BehaviorVariableHolder element=base_value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=base_value [BehaviorVariable]
+                terms[1] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=grandchild_value [BehaviorVariable]
+        actions[3] : AssignmentAction
+          target : BehaviorVariableHolder element=base_value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=grandchild_value [BehaviorVariable]
+                terms[1] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=base_value [BehaviorVariable]

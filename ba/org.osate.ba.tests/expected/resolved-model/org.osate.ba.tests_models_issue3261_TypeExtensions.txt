@@ -1,0 +1,609 @@
+annex[0] owner=TypeExtensions::host.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=base_value
+      ownedValueConstant : BehaviorIntegerLiteral
+    variables[1] : BehaviorVariable name=child_value
+      ownedValueConstant : BehaviorIntegerLiteral
+    variables[2] : BehaviorVariable name=grandchild_value
+      ownedValueConstant : BehaviorIntegerLiteral
+    variables[3] : BehaviorVariable name=sibling_value
+      ownedValueConstant : BehaviorIntegerLiteral
+    variables[4] : BehaviorVariable name=base_real
+      ownedValueConstant : BehaviorRealLiteral
+    variables[5] : BehaviorVariable name=derived_real
+      ownedValueConstant : BehaviorRealLiteral
+    variables[6] : BehaviorVariable name=base_flag
+      ownedValueConstant : BehaviorBooleanLiteral
+    variables[7] : BehaviorVariable name=derived_flag
+      ownedValueConstant : BehaviorBooleanLiteral
+    variables[8] : BehaviorVariable name=base_object
+    variables[9] : BehaviorVariable name=derived_object
+    variables[10] : BehaviorVariable name=base_impl
+    variables[11] : BehaviorVariable name=derived_impl
+    variables[12] : BehaviorVariable name=base_array
+      arrayDimension[0] : ArrayDimension
+        size : BehaviorArraySize
+          integerValue : BehaviorIntegerLiteral
+    variables[13] : BehaviorVariable name=derived_array
+      arrayDimension[0] : ArrayDimension
+        size : BehaviorArraySize
+          integerValue : BehaviorIntegerLiteral
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition name=assignments
+    transitions[1] : BehaviorTransition name=expressions
+    transitions[2] : BehaviorTransition name=literal_operands
+    transitions[3] : BehaviorTransition name=communications
+    transitions[4] : BehaviorTransition name=arrays_and_ranges
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : BehaviorVariableHolder element=base_value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=grandchild_value [BehaviorVariable]
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=grandchild_value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=base_value [BehaviorVariable]
+        actions[2] : AssignmentAction
+          target : BehaviorVariableHolder element=base_real [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=derived_real [BehaviorVariable]
+        actions[3] : AssignmentAction
+          target : BehaviorVariableHolder element=derived_real [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=base_real [BehaviorVariable]
+        actions[4] : AssignmentAction
+          target : BehaviorVariableHolder element=base_flag [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=derived_flag [BehaviorVariable]
+        actions[5] : AssignmentAction
+          target : BehaviorVariableHolder element=derived_flag [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=base_flag [BehaviorVariable]
+        actions[6] : AssignmentAction
+          target : BehaviorVariableHolder element=base_object [BehaviorVariable]
+          valueExpression : Any
+        actions[7] : AssignmentAction
+          target : BehaviorVariableHolder element=derived_object [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=base_object [BehaviorVariable]
+        actions[8] : AssignmentAction
+          target : BehaviorVariableHolder element=base_object [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=derived_object [BehaviorVariable]
+        actions[9] : AssignmentAction
+          target : BehaviorVariableHolder element=base_impl [BehaviorVariable]
+          valueExpression : Any
+        actions[10] : AssignmentAction
+          target : BehaviorVariableHolder element=derived_impl [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=base_impl [BehaviorVariable]
+        actions[11] : AssignmentAction
+          target : BehaviorVariableHolder element=base_impl [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=derived_impl [BehaviorVariable]
+    actions[1] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : BehaviorVariableHolder element=sibling_value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=base_value [BehaviorVariable]
+                terms[1] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=grandchild_value [BehaviorVariable]
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=sibling_value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=grandchild_value [BehaviorVariable]
+                terms[1] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=base_value [BehaviorVariable]
+        actions[2] : AssignmentAction
+          target : BehaviorVariableHolder element=base_flag [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=base_value [BehaviorVariable]
+              secondExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=child_value [BehaviorVariable]
+        actions[3] : AssignmentAction
+          target : BehaviorVariableHolder element=base_flag [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=child_value [BehaviorVariable]
+              secondExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=base_value [BehaviorVariable]
+        actions[4] : AssignmentAction
+          target : BehaviorVariableHolder element=base_flag [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=base_flag [BehaviorVariable]
+            relations[1] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=derived_flag [BehaviorVariable]
+        actions[5] : AssignmentAction
+          target : BehaviorVariableHolder element=base_flag [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=derived_flag [BehaviorVariable]
+            relations[1] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=base_flag [BehaviorVariable]
+        actions[6] : AssignmentAction
+          target : BehaviorVariableHolder element=base_real [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=base_real [BehaviorVariable]
+                terms[1] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=derived_real [BehaviorVariable]
+        actions[7] : AssignmentAction
+          target : BehaviorVariableHolder element=base_real [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=derived_real [BehaviorVariable]
+                terms[1] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=base_real [BehaviorVariable]
+    actions[2] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : BehaviorVariableHolder element=base_value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=grandchild_value [BehaviorVariable]
+                terms[1] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=base_value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+                terms[1] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=grandchild_value [BehaviorVariable]
+        actions[2] : AssignmentAction
+          target : BehaviorVariableHolder element=grandchild_value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=base_value [BehaviorVariable]
+                terms[1] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[3] : AssignmentAction
+          target : BehaviorVariableHolder element=grandchild_value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+                terms[1] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=base_value [BehaviorVariable]
+        actions[4] : AssignmentAction
+          target : BehaviorVariableHolder element=sibling_value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : ValueExpression
+                      relations[0] : Relation
+                        firstExpression : SimpleExpression
+                          terms[0] : Term
+                            factors[0] : Factor
+                              firstValue : BehaviorIntegerLiteral
+                          terms[1] : Term
+                            factors[0] : Factor
+                              firstValue : BehaviorVariableHolder element=grandchild_value [BehaviorVariable]
+                terms[1] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=base_value [BehaviorVariable]
+        actions[5] : AssignmentAction
+          target : BehaviorVariableHolder element=sibling_value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=base_value [BehaviorVariable]
+                terms[1] : Term
+                  factors[0] : Factor
+                    firstValue : ValueExpression
+                      relations[0] : Relation
+                        firstExpression : SimpleExpression
+                          terms[0] : Term
+                            factors[0] : Factor
+                              firstValue : BehaviorVariableHolder element=grandchild_value [BehaviorVariable]
+                          terms[1] : Term
+                            factors[0] : Factor
+                              firstValue : BehaviorIntegerLiteral
+        actions[6] : AssignmentAction
+          target : BehaviorVariableHolder element=base_real [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=derived_real [BehaviorVariable]
+                terms[1] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorRealLiteral
+        actions[7] : AssignmentAction
+          target : BehaviorVariableHolder element=base_real [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorRealLiteral
+                terms[1] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=derived_real [BehaviorVariable]
+        actions[8] : AssignmentAction
+          target : BehaviorVariableHolder element=derived_real [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=base_real [BehaviorVariable]
+                terms[1] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorRealLiteral
+        actions[9] : AssignmentAction
+          target : BehaviorVariableHolder element=derived_real [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorRealLiteral
+                terms[1] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=base_real [BehaviorVariable]
+        actions[10] : AssignmentAction
+          target : BehaviorVariableHolder element=base_flag [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=derived_flag [BehaviorVariable]
+            relations[1] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorBooleanLiteral
+        actions[11] : AssignmentAction
+          target : BehaviorVariableHolder element=base_flag [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorBooleanLiteral
+            relations[1] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=derived_flag [BehaviorVariable]
+        actions[12] : AssignmentAction
+          target : BehaviorVariableHolder element=derived_flag [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=base_flag [BehaviorVariable]
+            relations[1] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorBooleanLiteral
+        actions[13] : AssignmentAction
+          target : BehaviorVariableHolder element=derived_flag [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorBooleanLiteral
+            relations[1] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=base_flag [BehaviorVariable]
+        actions[14] : AssignmentAction
+          target : BehaviorVariableHolder element=base_flag [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : ValueExpression
+                      relations[0] : Relation
+                        firstExpression : SimpleExpression
+                          terms[0] : Term
+                            factors[0] : Factor
+                              firstValue : BehaviorVariableHolder element=grandchild_value [BehaviorVariable]
+                          terms[1] : Term
+                            factors[0] : Factor
+                              firstValue : BehaviorIntegerLiteral
+                        secondExpression : SimpleExpression
+                          terms[0] : Term
+                            factors[0] : Factor
+                              firstValue : BehaviorVariableHolder element=base_value [BehaviorVariable]
+            relations[1] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : ValueExpression
+                      relations[0] : Relation
+                        firstExpression : SimpleExpression
+                          terms[0] : Term
+                            factors[0] : Factor
+                              firstValue : BehaviorVariableHolder element=derived_real [BehaviorVariable]
+                          terms[1] : Term
+                            factors[0] : Factor
+                              firstValue : BehaviorRealLiteral
+                        secondExpression : SimpleExpression
+                          terms[0] : Term
+                            factors[0] : Factor
+                              firstValue : BehaviorVariableHolder element=base_real [BehaviorVariable]
+            relations[2] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorBooleanLiteral
+        actions[15] : AssignmentAction
+          target : BehaviorVariableHolder element=derived_flag [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorBooleanLiteral
+            relations[1] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : ValueExpression
+                      relations[0] : Relation
+                        firstExpression : SimpleExpression
+                          terms[0] : Term
+                            factors[0] : Factor
+                              firstValue : ValueExpression
+                                relations[0] : Relation
+                                  firstExpression : SimpleExpression
+                                    terms[0] : Term
+                                      factors[0] : Factor
+                                        firstValue : BehaviorIntegerLiteral
+                                    terms[1] : Term
+                                      factors[0] : Factor
+                                        firstValue : BehaviorVariableHolder element=base_value [BehaviorVariable]
+                                  secondExpression : SimpleExpression
+                                    terms[0] : Term
+                                      factors[0] : Factor
+                                        firstValue : BehaviorVariableHolder element=grandchild_value [BehaviorVariable]
+                      relations[1] : Relation
+                        firstExpression : SimpleExpression
+                          terms[0] : Term
+                            factors[0] : Factor
+                              firstValue : ValueExpression
+                                relations[0] : Relation
+                                  firstExpression : SimpleExpression
+                                    terms[0] : Term
+                                      factors[0] : Factor
+                                        firstValue : BehaviorRealLiteral
+                                    terms[1] : Term
+                                      factors[0] : Factor
+                                        firstValue : BehaviorVariableHolder element=base_real [BehaviorVariable]
+                                  secondExpression : SimpleExpression
+                                    terms[0] : Term
+                                      factors[0] : Factor
+                                        firstValue : BehaviorVariableHolder element=derived_real [BehaviorVariable]
+    actions[3] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : PortSendAction
+          port : DataPortHolder element=TypeExtensions::host.output_base [DataPort]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=child_value [BehaviorVariable]
+        actions[1] : PortSendAction
+          port : DataPortHolder element=TypeExtensions::host.output_child [DataPort]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=base_value [BehaviorVariable]
+        actions[2] : PortDequeueAction
+          port : EventDataPortHolder element=TypeExtensions::host.input_base [EventDataPort]
+          target : BehaviorVariableHolder element=child_value [BehaviorVariable]
+        actions[3] : PortDequeueAction
+          port : EventDataPortHolder element=TypeExtensions::host.input_child [EventDataPort]
+          target : BehaviorVariableHolder element=base_value [BehaviorVariable]
+        actions[4] : InternalPortSendAction
+          internalPort : EventDataSourceHolder element=TypeExtensions::host.impl.raised_base [EventDataSource]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=child_value [BehaviorVariable]
+        actions[5] : InternalPortSendAction
+          internalPort : EventDataSourceHolder element=TypeExtensions::host.impl.raised_child [EventDataSource]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=base_value [BehaviorVariable]
+        actions[6] : SubprogramCallAction
+          subprogram : SubprogramHolder element=TypeExtensions::operation [SubprogramType]
+          parameterLabels[0] : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=child_value [BehaviorVariable]
+          parameterLabels[1] : BehaviorVariableHolder element=base_value [BehaviorVariable]
+          parameterLabels[2] : BehaviorVariableHolder element=child_value [BehaviorVariable]
+    actions[4] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : BehaviorVariableHolder element=base_array [BehaviorVariable]
+          valueExpression : Any
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=derived_array [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=base_array [BehaviorVariable]
+        actions[2] : AssignmentAction
+          target : BehaviorVariableHolder element=base_array [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=derived_array [BehaviorVariable]
+        actions[3] : ForOrForAllStatement
+          behaviorActions : AssignmentAction
+            target : BehaviorVariableHolder element=child_value [BehaviorVariable]
+            valueExpression : ValueExpression
+              relations[0] : Relation
+                firstExpression : SimpleExpression
+                  terms[0] : Term
+                    factors[0] : Factor
+                      firstValue : IterativeVariableHolder element=element [IterativeVariable]
+          iteratedValues : BehaviorVariableHolder element=base_array [BehaviorVariable]
+          iterativeVariable : IterativeVariable name=element
+        actions[4] : ForOrForAllStatement
+          behaviorActions : AssignmentAction
+            target : BehaviorVariableHolder element=base_value [BehaviorVariable]
+            valueExpression : ValueExpression
+              relations[0] : Relation
+                firstExpression : SimpleExpression
+                  terms[0] : Term
+                    factors[0] : Factor
+                      firstValue : IterativeVariableHolder element=element [IterativeVariable]
+          iteratedValues : BehaviorVariableHolder element=derived_array [BehaviorVariable]
+          iterativeVariable : IterativeVariable name=element
+        actions[5] : ForOrForAllStatement
+          behaviorActions : AssignmentAction
+            target : BehaviorVariableHolder element=child_value [BehaviorVariable]
+            valueExpression : ValueExpression
+              relations[0] : Relation
+                firstExpression : SimpleExpression
+                  terms[0] : Term
+                    factors[0] : Factor
+                      firstValue : IterativeVariableHolder element=element [IterativeVariable]
+          iteratedValues : IntegerRange
+            lowerIntegerValue : BehaviorVariableHolder element=base_value [BehaviorVariable]
+            upperIntegerValue : BehaviorVariableHolder element=grandchild_value [BehaviorVariable]
+          iterativeVariable : IterativeVariable name=element
+        actions[6] : ForOrForAllStatement
+          behaviorActions : AssignmentAction
+            target : BehaviorVariableHolder element=child_value [BehaviorVariable]
+            valueExpression : ValueExpression
+              relations[0] : Relation
+                firstExpression : SimpleExpression
+                  terms[0] : Term
+                    factors[0] : Factor
+                      firstValue : IterativeVariableHolder element=element [IterativeVariable]
+          iteratedValues : IntegerRange
+            lowerIntegerValue : BehaviorVariableHolder element=grandchild_value [BehaviorVariable]
+            upperIntegerValue : BehaviorVariableHolder element=base_value [BehaviorVariable]
+          iterativeVariable : IterativeVariable name=element
