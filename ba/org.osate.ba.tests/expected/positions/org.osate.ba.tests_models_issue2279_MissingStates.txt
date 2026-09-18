@@ -1,0 +1,17 @@
+annex[0] owner=MissingStates::worker
+  (BehaviorAnnex, behavior_specification, 0, 1835)
+annex[1] owner=MissingStates::sensor
+  (BehaviorAnnex, behavior_specification, 0, 1900)
+annex[2] owner=MissingStates::scheduler
+  (BehaviorAnnex, behavior_specification, 0, 1979)
+annex[3] owner=MissingStates::storage
+  (BehaviorAnnex, behavior_specification, 0, 2078)
+annex[4] owner=MissingStates::storage.impl
+  (BehaviorAnnex, behavior_specification, 2252, 45)
+  (BehaviorIntegerLiteral, <null>, 2295, 1)
+  (BehaviorVariable, value, 2264, 5)
+  (BehaviorVariableGroup, <null>, 2264, 33)
+annex[5] owner=MissingStates::routine
+  (BehaviorAnnex, behavior_specification, 0, 2492)
+annex[6] owner=MissingStates::nonmodal
+  (BehaviorAnnex, behavior_specification, 0, 2624)

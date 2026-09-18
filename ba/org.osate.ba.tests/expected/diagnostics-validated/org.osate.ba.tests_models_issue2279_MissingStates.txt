@@ -1,0 +1,12 @@
+error | semantic | 1 | 1 | 0 | MissingStates::routine has no final state : Behavior Annex D.3.(L1) legality rule failed.
+error | semantic | 1 | 1 | 0 | MissingStates::routine has no initialstate : Behavior Annex D.3.(L1) legality rule failed.
+error | semantic | 1 | 1 | 0 | MissingStates::scheduler has no complete state : Behavior Annex D.3.(L3) legality rule failed.
+error | semantic | 1 | 1 | 0 | MissingStates::scheduler has no initial state : Behavior Annex D.3.(L3) legality rule failed.
+error | semantic | 1 | 1 | 0 | MissingStates::sensor has no complete state : Behavior Annex D.3.(L3) legality rule failed.
+error | semantic | 1 | 1 | 0 | MissingStates::sensor has no initial state : Behavior Annex D.3.(L3) legality rule failed.
+error | semantic | 1 | 1 | 0 | MissingStates::storage has no complete state : Behavior Annex D.3.(L3) legality rule failed.
+error | semantic | 1 | 1 | 0 | MissingStates::storage has no initial state : Behavior Annex D.3.(L3) legality rule failed.
+error | semantic | 1 | 1 | 0 | MissingStates::worker has no complete state : Behavior Annex D.3.(L3) legality rule failed.
+error | semantic | 1 | 1 | 0 | MissingStates::worker has no initial state : Behavior Annex D.3.(L3) legality rule failed.
+error | semantic | 48 | 2 | 45 | MissingStates::storage.impl has no complete state : Behavior Annex D.3.(L3) legality rule failed.
+error | semantic | 48 | 2 | 45 | MissingStates::storage.impl has no initial state : Behavior Annex D.3.(L3) legality rule failed.

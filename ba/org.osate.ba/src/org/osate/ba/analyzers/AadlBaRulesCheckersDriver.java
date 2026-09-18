@@ -140,31 +140,29 @@ public class AadlBaRulesCheckersDriver {
 			public Boolean caseAnnexSubclause(AnnexSubclause object) {
 				boolean result = true;
 
-				if (_ba.isSetStates()) {
-					EList<BehaviorState> initialStates = new BasicEList<BehaviorState>();
-					EList<BehaviorState> completeStates = new BasicEList<BehaviorState>();
-					EList<BehaviorState> finalStates = new BasicEList<BehaviorState>();
+				EList<BehaviorState> initialStates = new BasicEList<BehaviorState>();
+				EList<BehaviorState> completeStates = new BasicEList<BehaviorState>();
+				EList<BehaviorState> finalStates = new BasicEList<BehaviorState>();
 
-					for (BehaviorState bs : _ba.getStates()) {
-						if (bs.isInitial()) {
-							initialStates.add(bs);
-						}
+				for (BehaviorState bs : _ba.getStates()) {
+					if (bs.isInitial()) {
+						initialStates.add(bs);
+					}
 
-						if (bs.isComplete()) {
-							completeStates.add(bs);
-						}
+					if (bs.isComplete()) {
+						completeStates.add(bs);
+					}
 
-						if (bs.isFinal()) {
-							finalStates.add(bs);
-						}
-					} // End of first for.
+					if (bs.isFinal()) {
+						finalStates.add(bs);
+					}
+				} // End of first for.
 
-					result &= _legality.D_3_L1_And_L2_Check(initialStates, completeStates, finalStates);
-					result &= _legality.D_3_L3_Check(initialStates, completeStates);
-					result &= _legality.D_3_L4_Check(initialStates, finalStates);
-					result &= _consistency.D_3_C3_Check(_ba);
-
-				} // End of first if.
+				// An omitted states section must still report any states required by the component's category or modes.
+				result &= _legality.D_3_L1_And_L2_Check(initialStates, completeStates, finalStates);
+				result &= _legality.D_3_L3_Check(initialStates, completeStates);
+				result &= _legality.D_3_L4_Check(initialStates, finalStates);
+				result &= _consistency.D_3_C3_Check(_ba);
 
 				if (_ba.isSetTransitions()) {
 					result &= otherwiseCheck(_ba);

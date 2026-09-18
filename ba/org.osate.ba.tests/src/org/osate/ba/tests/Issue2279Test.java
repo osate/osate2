@@ -82,6 +82,18 @@ public class Issue2279Test extends XtextTest {
 	}
 
 	@Test
+	public void omittedStatesSectionStillReportsRequiredStates() throws Exception {
+		var messages = new ArrayList<String>();
+		for (var classifier : List.of("worker", "sensor", "scheduler", "storage", "storage.impl")) {
+			messages.add(missingState("MissingStates::" + classifier, "initial"));
+			messages.add(missingState("MissingStates::" + classifier, "complete"));
+		}
+		messages.add("MissingStates::routine has no initialstate : Behavior Annex D.3.(L1) legality rule failed.");
+		messages.add("MissingStates::routine has no final state : Behavior Annex D.3.(L1) legality rule failed.");
+		assertDiagnostics(testHelper.parseFile(PATH + "MissingStates.aadl"), messages);
+	}
+
+	@Test
 	public void deviceDispatchNonmodalMemoryAndModalSubprogramRemainValid() throws Exception {
 		validationHelper.assertNoIssues(testHelper.parseFile(PATH + "Controls.aadl"));
 	}
