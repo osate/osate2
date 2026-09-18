@@ -85,7 +85,7 @@ public class PropertyReferenceTest extends XtextTest {
 				\t\tevents
 				\t\t\terr_evt1: error event;
 				\t\tstates
-				\t\t\tbvr_state1: state;
+				\t\t\tbvr_state1: initial state;
 				\t\t\tbvr_state2: state;
 				\t\ttransitions
 				\t\t\ttransition1: bvr_state1 -[ err_evt1 ]-> (bvr_state2 with 0.2_0, bvr_state2 with ps1::def1);

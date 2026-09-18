@@ -108,6 +108,8 @@ public class OtherErrorModelScopeProviderTest extends XtextTest {
 				\t\terror behavior b
 				\t\t\tuse types ErrorLibrary;
 				\t\t\tuse transformations t;
+				\t\tstates
+				\t\t\tstate1: initial state;
 				\t\tend behavior;
 				\t\t
 				\t\ttype mappings m

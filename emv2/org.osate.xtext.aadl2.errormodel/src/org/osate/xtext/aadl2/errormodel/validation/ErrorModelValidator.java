@@ -354,6 +354,9 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 	@Check(CheckType.FAST)
 	public void caseErrorBehaviorStateMachine(ErrorBehaviorStateMachine ebsm) {
 		checkUniqueEBSMElements(ebsm);
+		if (ebsm.getStates().stream().filter(ErrorBehaviorState::isIntial).count() != 1) {
+			error(ebsm, "Error behavior state machine must have exactly one initial state");
+		}
 	}
 
 	@Check(CheckType.FAST)

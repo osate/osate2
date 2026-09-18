@@ -1198,7 +1198,7 @@ public class EMV2PathElementTest extends XtextTest {
 				\t\tevents
 				\t\t\tevt1: error event;
 				\t\tstates
-				\t\t\tstate1: state;
+				\t\t\tstate1: initial state;
 				\t\ttransitions
 				\t\t\ttrans1: all -[ evt1 ]-> same state;
 				\t\tproperties
