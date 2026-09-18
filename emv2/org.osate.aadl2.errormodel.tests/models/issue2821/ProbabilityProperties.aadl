@@ -1,0 +1,3 @@
+property set ProbabilityProperties is
+  probability: aadlreal applies to (all);
+end ProbabilityProperties;

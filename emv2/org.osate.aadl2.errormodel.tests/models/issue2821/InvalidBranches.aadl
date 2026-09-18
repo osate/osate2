@@ -1,0 +1,57 @@
+package InvalidBranches
+public
+  with ProbabilityProperties, Issue2821;
+
+  system duplicate_same
+    annex EMV2 {**
+      use behavior Issue2821::machine;
+      component error behavior
+        transitions
+          t: state1 -[event1]-> (same state with ProbabilityProperties::probability, same state with 0.125);
+      end component;
+    **};
+  end duplicate_same;
+
+  system duplicate_others
+    annex EMV2 {**
+      use behavior Issue2821::machine;
+      component error behavior
+        transitions
+          t: state1 -[event1]-> (state2 with ProbabilityProperties::probability, same state with others, state3 with others);
+      end component;
+    **};
+  end duplicate_others;
+
+  system known_property
+    annex EMV2 {**
+      use behavior Issue2821::machine;
+      component error behavior
+        transitions
+          t: state1 -[event1]-> (state2 with 0.125, state3 with ProbabilityProperties::probability);
+      end component;
+      properties
+        ProbabilityProperties::probability => 0.5 applies to t;
+    **};
+  end known_property;
+
+  system known_literals
+    annex EMV2 {**
+      use behavior Issue2821::machine;
+      component error behavior
+        transitions
+          t: state1 -[event1]-> (state2 with 0.125, state3 with 0.5);
+      end component;
+    **};
+  end known_literals;
+
+  system exhausted_remainder
+    annex EMV2 {**
+      use behavior Issue2821::machine;
+      component error behavior
+        transitions
+          t: state1 -[event1]-> (state2 with 1.0, same state with others);
+      end component;
+    **};
+  end exhausted_remainder;
+
+end InvalidBranches;
