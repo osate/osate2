@@ -36,6 +36,7 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.EcoreUtil2;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.osate.aadl2.Aadl2Package;
@@ -60,6 +61,7 @@ import org.osate.aadl2.Port;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyType;
+import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
@@ -1104,8 +1106,7 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 				Classifier cl = EMV2Util.getAssociatedClassifier(ebt);
 				List<EMV2PropertyAssociation> pa = EMV2Properties.getProperty(sl.getQualifiedName(), cl, ebt, null);
 				for (EMV2PropertyAssociation emv2PropertyAssociation : pa) {
-					prob = prob.add(new BigDecimal(EMV2Properties.getRealValue(emv2PropertyAssociation),
-							MathContext.UNLIMITED));
+					prob = prob.add(getBranchPropertyValue(emv2PropertyAssociation));
 				}
 			}
 		}
@@ -1115,6 +1116,18 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 		if (foundothers && prob.compareTo(new BigDecimal(1.0)) >= 0) {
 			error(ebt, "Sum of branch probabilities must be less than 1 due to 'others'");
 		}
+	}
+
+	private BigDecimal getBranchPropertyValue(EMV2PropertyAssociation association) {
+		if (EMV2Properties.getPropertyValue(association) instanceof RealLiteral literal) {
+			var nodes = NodeModelUtils.findNodesForFeature(literal, Aadl2Package.eINSTANCE.getRealLiteral_Value());
+			if (!nodes.isEmpty()) {
+				var text = NodeModelUtils.getTokenText(nodes.getFirst()).replaceAll("[\\s_]", "");
+				return new BigDecimal(text);
+			}
+			return BigDecimal.valueOf(literal.getValue());
+		}
+		return BigDecimal.ZERO;
 	}
 
 	private void checkTransitionTargetTypes(TransitionBranch ebt) {
