@@ -334,6 +334,7 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 			checkTypePropagationAndContainment(errorPropagation);
 		}
 		checkUseBehavior(subclause);
+		checkModeMappings(subclause);
 	}
 
 	@Check(CheckType.FAST)
@@ -429,6 +430,24 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 					|| namedElement instanceof InternalFeature)) {
 				error(event, eventKind + " event trigger reference '" + namedElement.getName()
 						+ "' is not a port, component internal self event, or mode transition.");
+			}
+		}
+	}
+
+	private void checkModeMappings(ErrorModelSubclause subclause) {
+		var annex = EcoreUtil2.getContainerOfType(subclause, DefaultAnnexSubclause.class);
+		if (annex == null || annex.getInModes().isEmpty()) {
+			return;
+		}
+		for (var mapping : subclause.getErrorStateToModeMappings()) {
+			var modes = mapping.getMappedModes();
+			for (int i = 0; i < modes.size(); i++) {
+				var mode = modes.get(i);
+				if (!mode.eIsProxy() && !annex.getInModes().contains(mode)) {
+					error("Mapped mode " + mode.getName()
+							+ " must be listed in the enclosing EMV2 subclause's in modes", mapping,
+							ErrorModelPackage.Literals.ERROR_STATE_TO_MODE_MAPPING__MAPPED_MODES, i, null);
+				}
 			}
 		}
 	}
