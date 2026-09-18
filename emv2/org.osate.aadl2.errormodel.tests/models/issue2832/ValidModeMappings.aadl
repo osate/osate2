@@ -1,0 +1,54 @@
+package ValidModeMappings
+public
+  system unrestricted
+    modes
+      m1: initial mode;
+      m2: mode;
+      m3: mode;
+    annex EMV2 {**
+      use behavior ValidModeMappings::machine;
+      component error behavior
+        mode mappings
+          state1 in modes (m1, m2, m3);
+      end component;
+    **};
+  end unrestricted;
+
+  system restricted
+    modes
+      m1: initial mode;
+      m2: mode;
+      m3: mode;
+    annex EMV2 {**
+      use behavior ValidModeMappings::machine;
+      component error behavior
+        mode mappings
+          state1 in modes (m2);
+          state1 in modes (m2, m3);
+      end component;
+    **} in modes (m2, m3);
+  end restricted;
+
+  system parent
+    modes
+      m1: initial mode;
+      m2: mode;
+  end parent;
+
+  system child extends parent
+    annex EMV2 {**
+      use behavior ValidModeMappings::machine;
+      component error behavior
+        mode mappings
+          state1 in modes (m2);
+      end component;
+    **} in modes (m2);
+  end child;
+
+  annex EMV2 {**
+    error behavior machine
+      states
+        state1: initial state;
+    end behavior;
+  **};
+end ValidModeMappings;

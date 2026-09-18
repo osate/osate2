@@ -1,0 +1,36 @@
+package Issue2832
+public
+  system s
+    modes
+      m1: initial mode;
+      m2: mode;
+    annex EMV2 {**
+      use behavior Issue2832::machine;
+      component error behavior
+        mode mappings
+          state1 in modes (m1);
+      end component;
+    **} in modes (m2);
+  end s;
+
+  system mixed
+    modes
+      m1: initial mode;
+      m2: mode;
+      m3: mode;
+    annex EMV2 {**
+      use behavior Issue2832::machine;
+      component error behavior
+        mode mappings
+          state1 in modes (m1, m2, m3);
+      end component;
+    **} in modes (m2);
+  end mixed;
+
+  annex EMV2 {**
+    error behavior machine
+      states
+        state1: initial state;
+    end behavior;
+  **};
+end Issue2832;
