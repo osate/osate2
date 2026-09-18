@@ -1,0 +1,6 @@
+error | semantic | 72 | 13 | 97 | Complete state 'ready' may be reached while shared data 'd' remains locked: Behavior Annex D.6.
+error | semantic | 83 | 13 | 103 | Complete state 'ready' may be reached while shared data 'd' remains locked: Behavior Annex D.6.
+error | semantic | 94 | 13 | 107 | Complete state 'ready' may be reached while shared data 'd' remains locked: Behavior Annex D.6.
+info | semantic | 39 | 13 | 99 | Complete state 'ready' may be reached while shared data 'd' remains locked: Behavior Annex D.6.
+info | semantic | 50 | 13 | 107 | Complete state 'ready' may be reached while shared data 'd' remains locked: Behavior Annex D.6.
+info | semantic | 61 | 13 | 99 | Complete state 'ready' may be reached while shared data 'd' remains locked: Behavior Annex D.6.

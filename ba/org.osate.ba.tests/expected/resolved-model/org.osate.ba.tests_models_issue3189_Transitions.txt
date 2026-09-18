@@ -1,0 +1,117 @@
+annex[0] owner=Transitions::subject.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=left
+    states[2] : BehaviorState name=right
+    states[3] : BehaviorState name=join
+    states[4] : BehaviorState name=unreachable
+    states[5] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=leaked
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : DataPortHolder element=Transitions::subject.condition [DataPort]
+    transitions[1] : BehaviorTransition name=released
+      condition : Otherwise
+    transitions[2] : BehaviorTransition name=joined
+    transitions[3] : BehaviorTransition name=joined
+    transitions[4] : BehaviorTransition name=acquired
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : DataPortHolder element=Transitions::subject.condition [DataPort]
+    transitions[5] : BehaviorTransition name=clean
+      condition : Otherwise
+    transitions[6] : BehaviorTransition name=ignored
+    transitions[7] : BehaviorTransition name=impossible
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorBooleanLiteral
+    transitions[8] : BehaviorTransition name=redispatch
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : UnlockAction
+        dataAccess : DataAccessHolder element=Transitions::subject.d [DataAccess]
+    actions[1] : BehaviorActionBlock
+      content : LockAction
+        dataAccess : DataAccessHolder element=Transitions::subject.d [DataAccess]
+    actions[2] : BehaviorActionBlock
+      content : LockAction
+        dataAccess : DataAccessHolder element=Transitions::subject.d [DataAccess]
+    actions[3] : BehaviorActionBlock
+      content : LockAction
+        dataAccess : DataAccessHolder element=Transitions::subject.d [DataAccess]
+    actions[4] : BehaviorActionBlock
+      content : UnlockAction
+        dataAccess : DataAccessHolder element=Transitions::subject.d [DataAccess]
+annex[1] owner=Transitions::subject.cycle
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=first
+    states[2] : BehaviorState name=second
+    states[3] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=exitCycle
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : DataPortHolder element=Transitions::subject.condition [DataPort]
+    transitions[1] : BehaviorTransition name=entry
+    transitions[2] : BehaviorTransition name=forward
+      condition : Otherwise
+    transitions[3] : BehaviorTransition name=back
+    transitions[4] : BehaviorTransition name=dispatchAgain
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : LockAction
+        dataAccess : DataAccessHolder element=Transitions::subject.d [DataAccess]
+    actions[1] : BehaviorActionBlock
+      content : UnlockAction
+        dataAccess : DataAccessHolder element=Transitions::subject.d [DataAccess]
+annex[2] owner=Transitions::subject.balanced
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=running
+    states[2] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=acquire
+    transitions[1] : BehaviorTransition name=release
+    transitions[2] : BehaviorTransition name=runAgain
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : LockAction
+        dataAccess : DataAccessHolder element=Transitions::subject.d [DataAccess]
+    actions[1] : BehaviorActionBlock
+      content : UnlockAction
+        dataAccess : DataAccessHolder element=Transitions::subject.d [DataAccess]
+annex[3] owner=Transitions::subject.staticConditions
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=always
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorBooleanLiteral
+    transitions[1] : BehaviorTransition name=never
+      condition : Otherwise
+    transitions[2] : BehaviorTransition name=runAgain
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : LockAction
+          dataAccess : DataAccessHolder element=Transitions::subject.d [DataAccess]
+        actions[1] : UnlockAction
+          dataAccess : DataAccessHolder element=Transitions::subject.d [DataAccess]
+    actions[1] : BehaviorActionBlock
+      content : LockAction
+        dataAccess : DataAccessHolder element=Transitions::subject.d [DataAccess]

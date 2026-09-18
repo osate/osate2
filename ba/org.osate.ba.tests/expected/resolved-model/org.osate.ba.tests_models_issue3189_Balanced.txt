@@ -1,0 +1,322 @@
+annex[0] owner=Balanced::subject.sequence
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=sequence
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : LockAction
+          dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+        actions[1] : UnlockAction
+          dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+annex[1] owner=Balanced::subject.branches
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=branches
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : LockAction
+          dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+        actions[1] : IfStatement
+          behaviorActions : BehaviorActionBlock
+            content : UnlockAction
+              dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+          logicalValueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataPortHolder element=Balanced::subject.condition [DataPort]
+          elseStatement : IfStatement
+            behaviorActions : BehaviorActionBlock
+              content : UnlockAction
+                dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+            logicalValueExpression : ValueExpression
+              relations[0] : Relation
+                firstExpression : SimpleExpression
+                  terms[0] : Term
+                    factors[0] : Factor
+                      firstValue : DataPortHolder element=Balanced::subject.condition [DataPort]
+            elseStatement : ElseStatement
+              behaviorActions : BehaviorActionBlock
+                content : UnlockAction
+                  dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+annex[2] owner=Balanced::subject.branchLocal
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=branchLocal
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : IfStatement
+        behaviorActions : BehaviorActionBlock
+          content : BehaviorActionSequence
+            actions[0] : LockAction
+              dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+            actions[1] : UnlockAction
+              dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+        logicalValueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DataPortHolder element=Balanced::subject.condition [DataPort]
+annex[3] owner=Balanced::subject.actionSet
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=actionSet
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : LockAction
+          dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+        actions[1] : BehaviorActionBlock
+          content : BehaviorActionSet
+            actions[0] : BehaviorActionBlock
+              content : BehaviorActionSequence
+                actions[0] : LockAction
+                  dataAccess : DataAccessHolder element=Balanced::subject.e [DataAccess]
+                actions[1] : UnlockAction
+                  dataAccess : DataAccessHolder element=Balanced::subject.e [DataAccess]
+            actions[1] : UnlockAction
+              dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+annex[4] owner=Balanced::subject.setSequences
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=setSequences
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSet
+        actions[0] : BehaviorActionBlock
+          content : BehaviorActionSequence
+            actions[0] : LockAction
+              dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+            actions[1] : UnlockAction
+              dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+        actions[1] : BehaviorActionBlock
+          content : BehaviorActionSequence
+            actions[0] : LockAction
+              dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+            actions[1] : UnlockAction
+              dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+annex[5] owner=Balanced::subject.whileBalanced
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=whileBalanced
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : WhileOrDoUntilStatement
+        behaviorActions : BehaviorActionSequence
+          actions[0] : LockAction
+            dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+          actions[1] : UnlockAction
+            dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+        logicalValueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DataPortHolder element=Balanced::subject.condition [DataPort]
+annex[6] owner=Balanced::subject.whileCleanup
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=whileCleanup
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : WhileOrDoUntilStatement
+          behaviorActions : LockAction
+            dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+          logicalValueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataPortHolder element=Balanced::subject.condition [DataPort]
+        actions[1] : UnlockAction
+          dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+annex[7] owner=Balanced::subject.doRelease
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=doRelease
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : LockAction
+          dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+        actions[1] : WhileOrDoUntilStatement
+          behaviorActions : BehaviorActionBlock
+            content : UnlockAction
+              dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+          logicalValueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataPortHolder element=Balanced::subject.condition [DataPort]
+annex[8] owner=Balanced::subject.forRelease
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=forRelease
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : LockAction
+          dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+        actions[1] : ForOrForAllStatement
+          behaviorActions : UnlockAction
+            dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+          iteratedValues : IntegerRange
+            lowerIntegerValue : BehaviorIntegerLiteral
+            upperIntegerValue : BehaviorIntegerLiteral
+          iterativeVariable : IterativeVariable name=i
+annex[9] owner=Balanced::subject.forallBalanced
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=forallBalanced
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : ForOrForAllStatement
+        behaviorActions : BehaviorActionSequence
+          actions[0] : LockAction
+            dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+          actions[1] : UnlockAction
+            dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+        iteratedValues : IntegerRange
+          lowerIntegerValue : BehaviorIntegerLiteral
+          upperIntegerValue : BehaviorIntegerLiteral
+        iterativeVariable : IterativeVariable name=i
+annex[10] owner=Balanced::subject.wildcards
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=wildcards
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : LockAction
+        actions[1] : UnlockAction
+annex[11] owner=Balanced::subject.individualUnlocks
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=individualUnlocks
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : LockAction
+        actions[1] : UnlockAction
+          dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+        actions[2] : UnlockAction
+          dataAccess : DataAccessHolder element=Balanced::subject.e [DataAccess]
+annex[12] owner=Balanced::subject.wildcardUnlock
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=wildcardUnlock
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : LockAction
+          dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+        actions[1] : UnlockAction
+annex[13] owner=Balanced::subject.staticConditionsBranch
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=constantBranch
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : IfStatement
+        behaviorActions : BehaviorActionBlock
+          content : LockAction
+            dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+        logicalValueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorBooleanLiteral
+          relations[1] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorBooleanLiteral
+annex[14] owner=Balanced::subject.staticConditionsElse
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=constantElse
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : IfStatement
+        behaviorActions : BehaviorActionBlock
+          content : BehaviorActionSequence
+            actions[0] : LockAction
+              dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+            actions[1] : UnlockAction
+              dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+        logicalValueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorBooleanLiteral
+        elseStatement : ElseStatement
+          behaviorActions : BehaviorActionBlock
+            content : LockAction
+              dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+annex[15] owner=Balanced::subject.emptyWhile
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=emptyWhile
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : WhileOrDoUntilStatement
+        behaviorActions : LockAction
+          dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+        logicalValueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorBooleanLiteral
+annex[16] owner=Balanced::subject.emptyFor
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=emptyFor
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : ForOrForAllStatement
+        behaviorActions : LockAction
+          dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+        iteratedValues : IntegerRange
+          lowerIntegerValue : BehaviorIntegerLiteral
+          upperIntegerValue : BehaviorIntegerLiteral
+        iterativeVariable : IterativeVariable name=i
+annex[17] owner=Balanced::subject.whileForever
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=whileForever
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : WhileOrDoUntilStatement
+        behaviorActions : LockAction
+          dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+        logicalValueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorBooleanLiteral
+annex[18] owner=Balanced::subject.doForever
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=doForever
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : WhileOrDoUntilStatement
+        behaviorActions : BehaviorActionBlock
+          content : LockAction
+            dataAccess : DataAccessHolder element=Balanced::subject.d [DataAccess]
+        logicalValueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorBooleanLiteral

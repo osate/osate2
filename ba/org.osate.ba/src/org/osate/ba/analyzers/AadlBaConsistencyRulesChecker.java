@@ -119,7 +119,7 @@ public class AadlBaConsistencyRulesChecker {
 		return result;
 	}
 
-	private static StaticTruth staticTruth(ValueExpression expression) {
+	static StaticTruth staticTruth(ValueExpression expression) {
 		if (expression.getRelations().isEmpty()
 				|| expression.getLogicalOperators().size() != expression.getRelations().size() - 1) {
 			return StaticTruth.UNKNOWN;
@@ -174,7 +174,7 @@ public class AadlBaConsistencyRulesChecker {
 		return value instanceof ValueExpression expression ? staticTruth(expression) : StaticTruth.UNKNOWN;
 	}
 
-	private enum StaticTruth {
+	enum StaticTruth {
 		FALSE, TRUE, UNKNOWN;
 
 		private StaticTruth and(StaticTruth other) {

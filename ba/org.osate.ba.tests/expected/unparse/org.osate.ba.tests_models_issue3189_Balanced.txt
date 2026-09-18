@@ -1,0 +1,205 @@
+===== annex[0] owner=Balanced::subject.sequence =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            sequence : ready -[on dispatch]-> ready {
+                d!<; d!>
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[1] owner=Balanced::subject.branches =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            branches : ready -[on dispatch]-> ready {
+                d!<; if (condition) { d!> } elsif (condition) { d!> } else { d!> } end if
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[2] owner=Balanced::subject.branchLocal =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            branchLocal : ready -[on dispatch]-> ready {
+                if (condition) { d!<; d!> } end if
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[3] owner=Balanced::subject.actionSet =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            actionSet : ready -[on dispatch]-> ready {
+                d!<; { { e!<; e!> } & d!> }
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[4] owner=Balanced::subject.setSequences =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            setSequences : ready -[on dispatch]-> ready {
+                { d!<; d!> } & { d!<; d!> }
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[5] owner=Balanced::subject.whileBalanced =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            whileBalanced : ready -[on dispatch]-> ready {
+                while (condition) { d!<; d!> }
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[6] owner=Balanced::subject.whileCleanup =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            whileCleanup : ready -[on dispatch]-> ready {
+                while (condition) { d!< }; d!>
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[7] owner=Balanced::subject.doRelease =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            doRelease : ready -[on dispatch]-> ready {
+                d!<; do { d!> } until (condition)
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[8] owner=Balanced::subject.forRelease =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            forRelease : ready -[on dispatch]-> ready {
+                d!<; for (i in 1 .. 2) { d!> }
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[9] owner=Balanced::subject.forallBalanced =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            forallBalanced : ready -[on dispatch]-> ready {
+                forall (i in 1 .. 2) { d!<; d!> }
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[10] owner=Balanced::subject.wildcards =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            wildcards : ready -[on dispatch]-> ready {
+                *!<; *!>
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[11] owner=Balanced::subject.individualUnlocks =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            individualUnlocks : ready -[on dispatch]-> ready {
+                *!<; d!>; e!>
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[12] owner=Balanced::subject.wildcardUnlock =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            wildcardUnlock : ready -[on dispatch]-> ready {
+                d!<; *!>
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[13] owner=Balanced::subject.staticConditionsBranch =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            constantBranch : ready -[on dispatch]-> ready {
+                if (false or not true) { d!< } end if
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[14] owner=Balanced::subject.staticConditionsElse =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            constantElse : ready -[on dispatch]-> ready {
+                if (true) { d!<; d!> } else { d!< } end if
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[15] owner=Balanced::subject.emptyWhile =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            emptyWhile : ready -[on dispatch]-> ready {
+                while (false) { d!< }
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[16] owner=Balanced::subject.emptyFor =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            emptyFor : ready -[on dispatch]-> ready {
+                for (i in 2 .. 1) { d!< }
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[17] owner=Balanced::subject.whileForever =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            whileForever : ready -[on dispatch]-> ready { while (true) { d!< } };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[18] owner=Balanced::subject.doForever =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            doForever : ready -[on dispatch]-> ready { do { d!< } until (false) };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed

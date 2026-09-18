@@ -1,0 +1,76 @@
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
+-- All Rights Reserved.
+--
+-- NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+-- KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+-- OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+-- MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+--
+-- This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+-- which is available at https://www.eclipse.org/legal/epl-2.0/
+-- SPDX-License-Identifier: EPL-2.0
+--
+-- Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+--
+-- This program includes and/or can make use of certain third party source code, object code, documentation and other
+-- files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+-- configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+-- conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+-- Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+-- aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+-- censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+
+package PotentialFalsePositives
+public
+    with Base_Types;
+
+    thread subject
+    features
+        d : requires data access Base_Types::Integer;
+    end subject;
+
+    thread implementation subject.correlated
+    annex behavior_specification {**
+        variables
+            condition : Base_Types::Boolean := true;
+        states
+            ready : initial complete final state;
+        transitions
+            -- The condition cannot change between these actions: this path is actually balanced.
+            correlated : ready -[on dispatch]-> ready {
+                if (condition) d!< end if;
+                if (condition) d!> end if
+            };
+    **};
+    end subject.correlated;
+
+    thread implementation subject.bothBranches
+    annex behavior_specification {**
+        variables
+            condition : Base_Types::Boolean := true;
+        states
+            ready : initial complete final state;
+        transitions
+            -- Both alternatives have the same effect, so no assumption about the condition is needed.
+            bothBranches : ready -[on dispatch]-> ready {
+                if (condition) d!< else d!< end if
+            };
+    **};
+    end subject.bothBranches;
+
+    thread implementation subject.contradictory
+    annex behavior_specification {**
+        variables
+            condition : Base_Types::Boolean := true;
+        states
+            start : initial state;
+            middle : state;
+            ready : complete final state;
+        transitions
+            -- The checker must retain uncertainty across transitions, even when all entries hold a lock.
+            acquire : start -[condition]-> middle { d!< };
+            contradictory : middle -[not condition]-> ready;
+            runAgain : ready -[on dispatch]-> ready { d!> };
+    **};
+    end subject.contradictory;
+end PotentialFalsePositives;

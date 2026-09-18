@@ -1,0 +1,63 @@
+annex[0] owner=GroupedResources::subject.wrongGroup
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=wrongGroup
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : LockAction
+          dataAccess : DataAccessHolder element=GroupedResources::AccessGroup.d [DataAccess]
+            groupHolders[0] : GroupHolder element=GroupedResources::subject.left [FeatureGroup]
+        actions[1] : UnlockAction
+          dataAccess : DataAccessHolder element=GroupedResources::AccessGroup.d [DataAccess]
+            groupHolders[0] : GroupHolder element=GroupedResources::subject.right [FeatureGroup]
+annex[1] owner=GroupedResources::subject.allGroups
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=allGroups
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : LockAction
+        actions[1] : UnlockAction
+          dataAccess : DataAccessHolder element=GroupedResources::AccessGroup.d [DataAccess]
+            groupHolders[0] : GroupHolder element=GroupedResources::subject.left [FeatureGroup]
+        actions[2] : UnlockAction
+          dataAccess : DataAccessHolder element=GroupedResources::AccessGroup.d [DataAccess]
+            groupHolders[0] : GroupHolder element=GroupedResources::subject.right [FeatureGroup]
+        actions[3] : UnlockAction
+          dataAccess : DataAccessHolder element=GroupedResources::OfferedGroup.d [DataAccess]
+            groupHolders[0] : GroupHolder element=GroupedResources::subject.inverted [FeatureGroup]
+annex[2] owner=GroupedResources::subject.balanced
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=balanced
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : LockAction
+        actions[1] : UnlockAction
+          dataAccess : DataAccessHolder element=GroupedResources::AccessGroup.d [DataAccess]
+            groupHolders[0] : GroupHolder element=GroupedResources::subject.left [FeatureGroup]
+        actions[2] : UnlockAction
+          dataAccess : DataAccessHolder element=GroupedResources::AccessGroup.d [DataAccess]
+            groupHolders[0] : GroupHolder element=GroupedResources::subject.right [FeatureGroup]
+        actions[3] : UnlockAction
+          dataAccess : DataAccessHolder element=GroupedResources::AccessGroup.d [DataAccess]
+            groupHolders[0] : GroupHolder element=GroupedResources::subject.nested [FeatureGroup]
+            groupHolders[1] : GroupHolder element=GroupedResources::Wrapper.inner [FeatureGroup]
+        actions[4] : UnlockAction
+          dataAccess : DataAccessHolder element=GroupedResources::OfferedGroup.d [DataAccess]
+            groupHolders[0] : GroupHolder element=GroupedResources::subject.inverted [FeatureGroup]
+        actions[5] : LockAction
+          dataAccess : DataAccessHolder element=GroupedResources::AccessGroup.d [DataAccess]
+            groupHolders[0] : GroupHolder element=GroupedResources::subject.left [FeatureGroup]
+        actions[6] : UnlockAction
+          dataAccess : DataAccessHolder element=GroupedResources::AccessGroup.d [DataAccess]
+            groupHolders[0] : GroupHolder element=GroupedResources::subject.left [FeatureGroup]
+        actions[7] : LockAction
+          dataAccess : DataAccessHolder element=GroupedResources::OfferedGroup.d [DataAccess]
+            groupHolders[0] : GroupHolder element=GroupedResources::subject.inverted [FeatureGroup]
+        actions[8] : UnlockAction
+          dataAccess : DataAccessHolder element=GroupedResources::OfferedGroup.d [DataAccess]
+            groupHolders[0] : GroupHolder element=GroupedResources::subject.inverted [FeatureGroup]

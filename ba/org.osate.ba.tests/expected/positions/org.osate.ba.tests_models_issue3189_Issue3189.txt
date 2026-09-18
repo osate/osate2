@@ -1,0 +1,11 @@
+annex[0] owner=Issue3189::subject.unreleased
+  (BehaviorActionBlock, <null>, 2167, 35)
+  (BehaviorAnnex, behavior_specification, 2036, 167)
+  (BehaviorCondition, <null>, 2146, 11)
+  (BehaviorState, ready, 2055, 5)
+  (BehaviorStateGroup, <null>, 2055, 37)
+  (BehaviorTransition, unreleased, 2125, 78)
+  (CommunicationAction, <null>, 2185, 3)
+  (DispatchCondition, <null>, 2149, 8)
+  (Reference, <null>, 2185, 1)
+  (ReferenceSegment, d, 2185, 1)

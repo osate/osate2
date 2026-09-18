@@ -1,0 +1,30 @@
+===== annex[0] owner=GroupedResources::subject.wrongGroup =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            wrongGroup : ready -[on dispatch]-> ready { left.d!<; right.d!> };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[1] owner=GroupedResources::subject.allGroups =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            allGroups : ready -[on dispatch]-> ready { *!<; left.d!>; right.d!>; inverted.d!> };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[2] owner=GroupedResources::subject.balanced =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            balanced : ready -[on dispatch]-> ready {
+                *!<; left.d!>; right.d!>; nested.inner.d!>; inverted.d!>;
+                left.d!<; left.d!>; inverted.d!<; inverted.d!>
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed

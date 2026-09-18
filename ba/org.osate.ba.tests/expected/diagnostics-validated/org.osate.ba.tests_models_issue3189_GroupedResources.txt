@@ -1,0 +1,2 @@
+error | semantic | 55 | 13 | 66 | Complete state 'ready' may be reached while shared data 'left.d' remains locked: Behavior Annex D.6.
+error | semantic | 64 | 13 | 84 | Complete state 'ready' may be reached while shared data 'nested.inner.d' remains locked: Behavior Annex D.6.

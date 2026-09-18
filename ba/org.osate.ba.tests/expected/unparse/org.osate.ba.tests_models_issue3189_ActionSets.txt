@@ -1,0 +1,33 @@
+===== annex[0] owner=ActionSets::subject.order =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            order : ready -[on dispatch]-> ready {
+                d!< & d!>
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[1] owner=ActionSets::subject.nestedOrder =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            nestedOrder : ready -[on dispatch]-> ready {
+                { d!<; e!<; e!> } & { computation(1 ms); d!> }
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[2] owner=ActionSets::subject.unrelatedRelease =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            unrelatedRelease : ready -[on dispatch]-> ready {
+                d!<; { e!> & computation(1 ms) }
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed

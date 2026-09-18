@@ -1,0 +1,74 @@
+annex[0] owner=Branches::subject.missingElse
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=missingElse
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : LockAction
+          dataAccess : DataAccessHolder element=Branches::subject.d [DataAccess]
+        actions[1] : IfStatement
+          behaviorActions : BehaviorActionBlock
+            content : UnlockAction
+              dataAccess : DataAccessHolder element=Branches::subject.d [DataAccess]
+          logicalValueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataPortHolder element=Branches::subject.condition [DataPort]
+annex[1] owner=Branches::subject.oneBranch
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=oneBranch
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : IfStatement
+        behaviorActions : BehaviorActionBlock
+          content : LockAction
+            dataAccess : DataAccessHolder element=Branches::subject.d [DataAccess]
+        logicalValueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DataPortHolder element=Branches::subject.condition [DataPort]
+        elseStatement : ElseStatement
+          behaviorActions : BehaviorActionBlock
+            content : TimedAction
+              lowerTime : BehaviorTime
+                integerValue : BehaviorIntegerLiteral
+annex[2] owner=Branches::subject.elseIf
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=elseIf
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : LockAction
+          dataAccess : DataAccessHolder element=Branches::subject.d [DataAccess]
+        actions[1] : IfStatement
+          behaviorActions : BehaviorActionBlock
+            content : UnlockAction
+              dataAccess : DataAccessHolder element=Branches::subject.d [DataAccess]
+          logicalValueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataPortHolder element=Branches::subject.condition [DataPort]
+          elseStatement : IfStatement
+            behaviorActions : BehaviorActionBlock
+              content : TimedAction
+                lowerTime : BehaviorTime
+                  integerValue : BehaviorIntegerLiteral
+            logicalValueExpression : ValueExpression
+              relations[0] : Relation
+                firstExpression : SimpleExpression
+                  terms[0] : Term
+                    factors[0] : Factor
+                      firstValue : DataPortHolder element=Branches::subject.condition [DataPort]
+            elseStatement : ElseStatement
+              behaviorActions : BehaviorActionBlock
+                content : UnlockAction
+                  dataAccess : DataAccessHolder element=Branches::subject.d [DataAccess]

@@ -1,0 +1,91 @@
+annex[0] owner=Loops::subject.whileLock
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=whileLock
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : WhileOrDoUntilStatement
+        behaviorActions : LockAction
+          dataAccess : DataAccessHolder element=Loops::subject.d [DataAccess]
+        logicalValueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DataPortHolder element=Loops::subject.condition [DataPort]
+annex[1] owner=Loops::subject.whileMaySkip
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=whileMaySkip
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : LockAction
+          dataAccess : DataAccessHolder element=Loops::subject.d [DataAccess]
+        actions[1] : WhileOrDoUntilStatement
+          behaviorActions : UnlockAction
+            dataAccess : DataAccessHolder element=Loops::subject.d [DataAccess]
+          logicalValueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataPortHolder element=Loops::subject.condition [DataPort]
+annex[2] owner=Loops::subject.doLock
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=doLock
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : WhileOrDoUntilStatement
+        behaviorActions : BehaviorActionBlock
+          content : LockAction
+            dataAccess : DataAccessHolder element=Loops::subject.d [DataAccess]
+        logicalValueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DataPortHolder element=Loops::subject.condition [DataPort]
+annex[3] owner=Loops::subject.forLock
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=forLock
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : ForOrForAllStatement
+        behaviorActions : LockAction
+          dataAccess : DataAccessHolder element=Loops::subject.d [DataAccess]
+        iteratedValues : IntegerRange
+          lowerIntegerValue : BehaviorIntegerLiteral
+          upperIntegerValue : BehaviorIntegerLiteral
+        iterativeVariable : IterativeVariable name=i
+annex[4] owner=Loops::subject.forallLock
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=forallLock
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : ForOrForAllStatement
+        behaviorActions : LockAction
+          dataAccess : DataAccessHolder element=Loops::subject.d [DataAccess]
+        iteratedValues : IntegerRange
+          lowerIntegerValue : BehaviorIntegerLiteral
+          upperIntegerValue : BehaviorIntegerLiteral
+        iterativeVariable : IterativeVariable name=i
+annex[5] owner=Loops::subject.emptyRelease
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=emptyRelease
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : LockAction
+          dataAccess : DataAccessHolder element=Loops::subject.d [DataAccess]
+        actions[1] : ForOrForAllStatement
+          behaviorActions : UnlockAction
+            dataAccess : DataAccessHolder element=Loops::subject.d [DataAccess]
+          iteratedValues : IntegerRange
+            lowerIntegerValue : BehaviorIntegerLiteral
+            upperIntegerValue : BehaviorIntegerLiteral
+          iterativeVariable : IterativeVariable name=i

@@ -1,0 +1,91 @@
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
+-- All Rights Reserved.
+--
+-- NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+-- KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+-- OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+-- MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+--
+-- This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+-- which is available at https://www.eclipse.org/legal/epl-2.0/
+-- SPDX-License-Identifier: EPL-2.0
+--
+-- Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+--
+-- This program includes and/or can make use of certain third party source code, object code, documentation and other
+-- files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+-- configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+-- conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+-- Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+-- aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+-- censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+
+package Transitions
+public
+    with Base_Types;
+
+    thread subject
+    features
+        condition : in data port Base_Types::Boolean;
+        d : requires data access Base_Types::Integer;
+    end subject;
+
+    thread implementation subject.impl
+    annex behavior_specification {**
+        states
+            start : initial state;
+            left, right, join, unreachable : state;
+            ready : complete final state;
+        transitions
+            -- Deliberately list consumers before predecessors to exercise the fixed point.
+            leaked : join -[condition]-> ready;
+            released : join -[otherwise]-> ready { d!> };
+            joined : left, right -[]-> join;
+            acquired : start -[condition]-> left { d!< };
+            clean : start -[otherwise]-> right;
+            ignored : unreachable -[]-> ready { d!< };
+            impossible : start -[false]-> ready { d!< };
+            redispatch : ready -[on dispatch]-> ready { d!> };
+    **};
+    end subject.impl;
+
+    thread implementation subject.cycle
+    annex behavior_specification {**
+        states
+            start : initial state;
+            first, second : state;
+            ready : complete final state;
+        transitions
+            exitCycle : first -[condition]-> ready;
+            entry : start -[]-> first;
+            forward : first -[otherwise]-> second;
+            back : second -[]-> first { d!< };
+            dispatchAgain : ready -[on dispatch]-> ready { d!> };
+    **};
+    end subject.cycle;
+
+    thread implementation subject.balanced
+    annex behavior_specification {**
+        states
+            start : initial state;
+            running : state;
+            ready : complete final state;
+        transitions
+            acquire : start -[]-> running { d!< };
+            release : running -[]-> ready { d!> };
+            runAgain : ready -[on dispatch]-> ready;
+    **};
+    end subject.balanced;
+
+    thread implementation subject.staticConditions
+    annex behavior_specification {**
+        states
+            start : initial state;
+            ready : complete final state;
+        transitions
+            always : start -[true]-> ready { d!<; d!> };
+            never : start -[otherwise]-> ready { d!< };
+            runAgain : ready -[on dispatch]-> ready;
+    **};
+    end subject.staticConditions;
+end Transitions;

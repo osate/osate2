@@ -1,0 +1,1 @@
+error | semantic | 38 | 13 | 78 | Complete state 'ready' may be reached while shared data 'd' remains locked: Behavior Annex D.6.

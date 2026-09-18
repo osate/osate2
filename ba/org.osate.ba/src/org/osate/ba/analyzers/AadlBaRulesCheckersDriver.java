@@ -71,6 +71,7 @@ public class AadlBaRulesCheckersDriver {
 	private AadlBaLegalityRulesChecker _legality;
 	private AadlBaSemanticRulesChecker _semantic;
 	private AadlBaConsistencyRulesChecker _consistency;
+	private AadlBaLockChecker _locks;
 	private AnalysisErrorReporterManager _errManager;
 	private BehaviorTransition _currentBt;
 
@@ -85,6 +86,7 @@ public class AadlBaRulesCheckersDriver {
 		_legality = new AadlBaLegalityRulesChecker(ba, parentContainer, errManager);
 		_semantic = new AadlBaSemanticRulesChecker(errManager);
 		_consistency = new AadlBaConsistencyRulesChecker(ba, parentContainer, errManager);
+		_locks = new AadlBaLockChecker(ba, parentContainer, errManager);
 		_errManager = errManager;
 		this.initSwitches();
 	}
@@ -181,6 +183,7 @@ public class AadlBaRulesCheckersDriver {
 					for (BehaviorTransition bt : _ba.getTransitions()) {
 						result &= checkBehaviorTransition(bt, checked);
 					}
+					result &= _locks.check();
 				}
 
 				return result;
