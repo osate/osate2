@@ -1,0 +1,16 @@
+package ValidInitialStates
+public
+  annex EMV2 {**
+    error behavior one_state
+      states
+        only: initial state;
+    end behavior;
+
+    error behavior initial_not_first
+      states
+        one: state;
+        two: initial state;
+        three: state;
+    end behavior;
+  **};
+end ValidInitialStates;

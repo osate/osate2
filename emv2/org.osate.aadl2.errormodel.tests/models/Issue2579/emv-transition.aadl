@@ -5,7 +5,7 @@ public
 			events
 				ev: error event;
 			states
-				s: state {ErrorLibrary::CommonErrors};
+				s: initial state {ErrorLibrary::CommonErrors};
 		end behavior;
 	**};
 	
