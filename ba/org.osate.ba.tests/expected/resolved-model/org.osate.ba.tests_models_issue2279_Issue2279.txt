@@ -1,0 +1,19 @@
+annex[0] owner=Issue2279::brain.missing_complete
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=finished
+    transitions[0] : BehaviorTransition
+annex[1] owner=Issue2279::brain.corrected
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=resting
+    states[1] : BehaviorState name=active
+    transitions[0] : BehaviorTransition
+      condition : ModeSwitchTriggerLogicalExpression
+        modeSwitchConjunctions[0] : ModeSwitchConjunction
+          modeSwitchTriggers[0] : EventPortHolder element=Issue2279::brain.wake [EventPort]
+annex[2] owner=Issue2279::inherited.missing_initial
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=resting
+annex[3] owner=Issue2279::brain.extended
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start

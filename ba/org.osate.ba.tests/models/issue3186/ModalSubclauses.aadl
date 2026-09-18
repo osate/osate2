@@ -32,11 +32,11 @@ modes
 	backup : mode;
 annex behavior_specification {**
 states
-	whennormal : initial state;
+	whennormal : initial complete state;
 **} in modes (normal);
 annex behavior_specification {**
 states
-	whenbackup : initial state;
+	whenbackup : initial complete state;
 **} in modes (backup);
 end modal.impl;
 
@@ -46,7 +46,7 @@ modes
 	backup : mode;
 annex behavior_specification {**
 states
-	anymode : initial state;
+	anymode : initial complete state;
 **};
 end modal.always;
 end ModalSubclauses;

@@ -150,18 +150,20 @@ public class AadlBaLegalityRulesChecker {
 	}
 
 	/**
-	 * Document: AADL Behavior Annex draft
-	 * Version : 0.94
+	 * Document: AS5506/3 Rev. A
 	 * Type : Legality rule
 	 * Section : D.3 Behavior Specification
-	 * Object : Check legality rule D.3.(L3)
-	 * Keys : threads, suspendable devices initial complete states
+	 * Object : Require initial and complete states for components awaiting dispatch or a mode transition.
+	 * Keys : dispatchable components, modal components, initial complete states
 	 */
 	public boolean D_3_L3_Check(EList<BehaviorState> initialStates, EList<BehaviorState> completeStates) {
 		boolean result = true;
 
+		// Modes may be inherited from an extended classifier or the implementation's type. Subprograms have modes,
+		// too, but their behavior represents a call and must never contain a complete state.
 		if (_baParentContainer instanceof ThreadClassifier || _baParentContainer instanceof DeviceClassifier
-				|| _baParentContainer instanceof VirtualProcessorClassifier) {
+				|| _baParentContainer instanceof VirtualProcessorClassifier
+				|| !(_baParentContainer instanceof SubprogramClassifier) && !_baParentContainer.getAllModes().isEmpty()) {
 			String reportElements = null;
 
 			if (initialStates.size() > 1) {
