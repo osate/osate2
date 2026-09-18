@@ -1096,6 +1096,7 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 		EList<TransitionBranch> branches = ebt.getDestinationBranches();
 		boolean foundsteady = false;
 		boolean foundothers = false;
+		boolean allProbabilitiesKnown = true;
 		BigDecimal prob = new BigDecimal(0.0, MathContext.UNLIMITED);
 		if (branches.isEmpty()) {
 			return;
@@ -1122,11 +1123,17 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 			} else if (sl != null) {
 				Classifier cl = EMV2Util.getAssociatedClassifier(ebt);
 				List<EMV2PropertyAssociation> pa = EMV2Properties.getProperty(sl.getQualifiedName(), cl, ebt, null);
+				if (pa.isEmpty()) {
+					allProbabilitiesKnown = false;
+				}
 				for (EMV2PropertyAssociation emv2PropertyAssociation : pa) {
 					prob = prob.add(new BigDecimal(EMV2Properties.getRealValue(emv2PropertyAssociation),
 							MathContext.UNLIMITED));
 				}
 			}
+		}
+		if (!allProbabilitiesKnown) {
+			return;
 		}
 		if (!foundothers && prob.compareTo(new BigDecimal(1.0)) != 0) {
 			error(ebt, "Sum of branch probabilities must be 1");
