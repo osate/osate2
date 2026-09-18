@@ -23,8 +23,8 @@
 				<version>2.5</version>
 				<configuration>
 					<!--
-						combine.children="append" keeps the inherited xtend-gen and xsemantics-gen filesets. Without it
-						this fileset replaces them and a deleted .xtend leaves a stale generated class behind, which
+						combine.children="append" keeps the inherited xtend-gen fileset. Without it
+						this fileset replaces it and a deleted .xtend leaves a stale generated class behind, which
 						then collides with the maintained Java of the same name.
 					-->
 					<filesets combine.children="append">
