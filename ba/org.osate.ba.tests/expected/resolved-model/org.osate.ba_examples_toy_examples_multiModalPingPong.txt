@@ -109,14 +109,9 @@ annex[0] owner=MultiModalPingPong::Cping_t.impl
                       firstValue : IterativeVariableHolder element=i [IterativeVariable]
           actions[2] : SubprogramCallAction
             subprogram : SubprogramHolder element=MultiModalPingPong::set_muid [SubprogramType]
-            parameterLabels[0] : ValueExpression
-              relations[0] : Relation
-                firstExpression : SimpleExpression
-                  terms[0] : Term
-                    factors[0] : Factor
-                      firstValue : DataComponentReference
-                        data[0] : DataSubcomponentHolder element=MultiModalPingPong::Cping_t.impl.the_ping_msg [DataSubcomponent]
-                        data[1] : DataSubcomponentHolder element=MultiModalPingPong::payload.impl.s [DataSubcomponent]
+            parameterLabels[0] : DataComponentReference
+              data[0] : DataSubcomponentHolder element=MultiModalPingPong::Cping_t.impl.the_ping_msg [DataSubcomponent]
+              data[1] : DataSubcomponentHolder element=MultiModalPingPong::payload.impl.s [DataSubcomponent]
           actions[3] : AssignmentAction
             target : DataSubcomponentHolder element=MultiModalPingPong::Cping_t.impl.message_array [DataSubcomponent]
               arrayIndexes[0] : IterativeVariableHolder element=i [IterativeVariable]

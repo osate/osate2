@@ -1,0 +1,16 @@
+===== annex[0] owner=CallActuals::host.i =====
+
+\t\tvariables
+\t\t\tvalue : Base_Types::Integer := 1;
+\t\tstates
+\t\t\tstart : initial state;
+\t\t\tdone : final state;
+\t\ttransitions
+\t\t\tt0 : start -[]-> done { operation!(1, 2) };
+\t\t\tt1 : start -[]-> done { operation!(1, value + 1) };
+\t\t\tt2 : start -[]-> done { operation!(1, input) };
+\t\t\tt3 : start -[]-> done { operation!(output, value) };
+\t\t\tt4 : start -[]-> done { for (i in 1 .. 2) { operation!(1, i) } };
+\t
+----- Xtext reparse -----
+reparsed

@@ -692,14 +692,9 @@ annex[0] owner=DataTypeCheckerTest::concreteThread.impl
                   firstValue : DataComponentReference
                     data[0] : DataSubcomponentHolder element=DataTypeCheckerTest::abstractThread.impl.subMyStruct1 [DataSubcomponent]
                     data[1] : DataSubcomponentHolder element=DataTypeCheckerTest::MyStructure.impl.int1 [DataSubcomponent]
-        parameterLabels[1] : ValueExpression
-          relations[0] : Relation
-            firstExpression : SimpleExpression
-              terms[0] : Term
-                factors[0] : Factor
-                  firstValue : DataComponentReference
-                    data[0] : DataSubcomponentHolder element=DataTypeCheckerTest::abstractThread.impl.subMyStruct1 [DataSubcomponent]
-                    data[1] : DataSubcomponentHolder element=DataTypeCheckerTest::MyStructure.impl.float1 [DataSubcomponent]
+        parameterLabels[1] : DataComponentReference
+          data[0] : DataSubcomponentHolder element=DataTypeCheckerTest::abstractThread.impl.subMyStruct1 [DataSubcomponent]
+          data[1] : DataSubcomponentHolder element=DataTypeCheckerTest::MyStructure.impl.float1 [DataSubcomponent]
     actions[31] : BehaviorActionBlock
       content : SubprogramCallAction
         subprogram : SubprogramPrototypeHolder element=DataTypeCheckerTest::abstractThread.proto1 [SubprogramPrototype]
@@ -3930,14 +3925,9 @@ annex[0] owner=DataTypeCheckerTest::concreteThread.impl
                   firstValue : DataComponentReference
                     data[0] : DataSubcomponentHolder element=DataTypeCheckerTest::abstractThread.impl.subMyStruct1 [DataSubcomponent]
                     data[1] : DataSubcomponentHolder element=DataTypeCheckerTest::MyStructure.impl.float1 [DataSubcomponent]
-        parameterLabels[1] : ValueExpression
-          relations[0] : Relation
-            firstExpression : SimpleExpression
-              terms[0] : Term
-                factors[0] : Factor
-                  firstValue : DataComponentReference
-                    data[0] : DataSubcomponentHolder element=DataTypeCheckerTest::abstractThread.impl.subMyStruct1 [DataSubcomponent]
-                    data[1] : DataSubcomponentHolder element=DataTypeCheckerTest::MyStructure.impl.int1 [DataSubcomponent]
+        parameterLabels[1] : DataComponentReference
+          data[0] : DataSubcomponentHolder element=DataTypeCheckerTest::abstractThread.impl.subMyStruct1 [DataSubcomponent]
+          data[1] : DataSubcomponentHolder element=DataTypeCheckerTest::MyStructure.impl.int1 [DataSubcomponent]
     actions[286] : BehaviorActionBlock
       content : SubprogramCallAction
         subprogram : SubprogramPrototypeHolder element=DataTypeCheckerTest::abstractThread.proto1 [SubprogramPrototype]

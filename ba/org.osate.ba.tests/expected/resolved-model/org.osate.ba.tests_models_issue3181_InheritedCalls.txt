@@ -1,0 +1,75 @@
+annex[0] owner=InheritedCalls::host.i
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=value
+      ownedValueConstant : BehaviorIntegerLiteral
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition
+    transitions[1] : BehaviorTransition
+    transitions[2] : BehaviorTransition
+    transitions[3] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramHolder element=InheritedCalls::derived [SubprogramType]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+        parameterLabels[1] : BehaviorVariableHolder element=value [BehaviorVariable]
+        parameterLabels[2] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorBooleanLiteral
+    actions[1] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramPrototypeHolder element=InheritedCalls::host.typed [SubprogramPrototype]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+        parameterLabels[1] : BehaviorVariableHolder element=value [BehaviorVariable]
+        parameterLabels[2] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorBooleanLiteral
+    actions[2] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramPrototypeHolder element=InheritedCalls::host.untyped [SubprogramPrototype]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+        parameterLabels[1] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=value [BehaviorVariable]
+    actions[3] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramAccessHolder element=InheritedCalls::services.invoke [SubprogramAccess]
+          groupHolders[0] : GroupHolder element=InheritedCalls::host.api [FeatureGroup]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+        parameterLabels[1] : DataAccessHolder element=InheritedCalls::services.shared [DataAccess]
+          groupHolders[0] : GroupHolder element=InheritedCalls::host.api [FeatureGroup]
+        parameterLabels[2] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorBooleanLiteral

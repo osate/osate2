@@ -1,0 +1,4 @@
+error | semantic | 50 | 28 | 10 | Subprogram call requires 5 actuals but has 0
+error | semantic | 51 | 28 | 15 | Subprogram call requires 5 actuals but has 1
+error | semantic | 52 | 28 | 22 | Subprogram call requires 5 actuals but has 2
+error | semantic | 53 | 28 | 49 | Subprogram call requires 5 actuals but has 6

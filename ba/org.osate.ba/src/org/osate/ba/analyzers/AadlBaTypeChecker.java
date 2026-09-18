@@ -64,12 +64,14 @@ import org.osate.ba.aadlba.PortDequeueAction;
 import org.osate.ba.aadlba.PortSendAction;
 import org.osate.ba.aadlba.Relation;
 import org.osate.ba.aadlba.SimpleExpression;
+import org.osate.ba.aadlba.SubprogramCallAction;
 import org.osate.ba.aadlba.Term;
 import org.osate.ba.aadlba.ValueExpression;
 import org.osate.ba.aadlba.WhileOrDoUntilStatement;
 import org.osate.ba.utils.AadlBaUtils;
 import org.osate.ba.utils.AadlBaVisitors;
 import org.osate.ba.utils.DimensionException;
+import org.osate.ba.utils.SubprogramCallUtil;
 
 /**
  * Checks an already resolved strict Behavior Annex model. Name binding, ambiguity resolution, holder construction, and
@@ -240,8 +242,41 @@ public class AadlBaTypeChecker {
 			return checkInternalPortSend((InternalPortSendAction) action);
 		} else if (action instanceof PortDequeueAction) {
 			return checkPortDequeue((PortDequeueAction) action);
+		} else if (action instanceof SubprogramCallAction call) {
+			return checkSubprogramCall(call);
 		}
 		return true;
+	}
+
+	private boolean checkSubprogramCall(SubprogramCallAction call) {
+		var classifier = SubprogramCallUtil.getClassifier(call.getSubprogram(), baParentContainer);
+		if (classifier == null) {
+			return true;
+		}
+		var formals = SubprogramCallUtil.getFormals(classifier);
+		if (formals.size() != call.getParameterLabels().size()) {
+			reportError(call, "Subprogram call requires " + formals.size() + " actuals but has "
+					+ call.getParameterLabels().size());
+			return false;
+		}
+		var valid = true;
+		for (var i = 0; i < formals.size(); i++) {
+			var formal = formals.get(i);
+			// Event ports and other non-data features have no data type to compare.
+			if (AadlBaUtils.getClassifier(formal, classifier) instanceof DataClassifier dataClassifier) {
+				var actual = call.getParameterLabels().get(i);
+				var formalType = getType(dataClassifier);
+				var actualType = getType(actual);
+				if (formalType == null || actualType == null) {
+					valid = false;
+				} else if (!dataChecker.conformsTo(formalType, actualType, true)) {
+					reportTypeError(actual, "actual for '" + formal.getName() + "'", formalType.toString(),
+							actualType.toString());
+					valid = false;
+				}
+			}
+		}
+		return valid;
 	}
 
 	private boolean checkAssignment(AssignmentAction action) {

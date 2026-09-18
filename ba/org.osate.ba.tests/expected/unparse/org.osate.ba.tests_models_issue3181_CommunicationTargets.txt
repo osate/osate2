@@ -1,0 +1,25 @@
+===== annex[0] owner=CommunicationTargets::host.i =====
+
+\t\tvariables
+\t\t\tvalue : Base_Types::Integer := 1;
+\t\tstates
+\t\t\tstart : initial state;
+\t\t\tdone : final state;
+\t\ttransitions
+\t\t\tt0 : start -[]-> done { input! };
+\t\t\tt1 : start -[]-> done { output? };
+\t\t\tt2 : start -[]-> done { input_data? };
+\t\t\tt3 : start -[]-> done { output>> };
+\t\t\tt4 : start -[]-> done { value! };
+\t\t\tt5 : start -[]-> done { value? };
+\t\t\tt6 : start -[]-> done { value>> };
+\t\t\tt7 : start -[]-> done { value!< };
+\t\t\tt8 : start -[]-> done { provided!< };
+\t\t\tt9 : start -[]-> done { output!(1, 2) };
+\t\t\tt10 : start -[]-> done { output_event!(1) };
+\t\t\tt11 : start -[]-> done { input_event?(value) };
+\t\t\tt12 : start -[]-> done { input?(input_data) };
+\t\t\tt13 : start -[]-> done { input?(output_event) };
+\t
+----- Xtext reparse -----
+reparsed

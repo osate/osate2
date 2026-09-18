@@ -1,0 +1,60 @@
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
+-- All Rights Reserved.
+--
+-- NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+-- KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+-- OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+-- MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+--
+-- This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+-- which is available at https://www.eclipse.org/legal/epl-2.0/
+-- SPDX-License-Identifier: EPL-2.0
+--
+-- Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+--
+-- This program includes and/or can make use of certain third party source code, object code, documentation and other
+-- files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+-- configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+-- conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+-- Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+-- aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+-- censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+
+package CommunicationTargets
+public
+	with Base_Types;
+	abstract host
+	features
+		input : in event data port Base_Types::Integer;
+		output : out event data port Base_Types::Integer;
+		input_data : in data port Base_Types::Integer;
+		input_event : in event port;
+		output_event : out event port;
+		shared : requires data access Base_Types::Integer;
+		provided : provides data access Base_Types::Integer;
+	end host;
+	abstract implementation host.i
+	annex behavior_specification {**
+		variables
+			value : Base_Types::Integer := 1;
+		states
+			start : initial state;
+			done : final state;
+		transitions
+			t0 : start -[]-> done { input! };
+			t1 : start -[]-> done { output? };
+			t2 : start -[]-> done { input_data? };
+			t3 : start -[]-> done { output>> };
+			t4 : start -[]-> done { value! };
+			t5 : start -[]-> done { value? };
+			t6 : start -[]-> done { value>> };
+			t7 : start -[]-> done { value!< };
+			t8 : start -[]-> done { provided!< };
+			t9 : start -[]-> done { output!(1, 2) };
+			t10 : start -[]-> done { output_event!(1) };
+			t11 : start -[]-> done { input_event?(value) };
+			t12 : start -[]-> done { input?(input_data) };
+			t13 : start -[]-> done { input?(output_event) };
+	**};
+	end host.i;
+end CommunicationTargets;

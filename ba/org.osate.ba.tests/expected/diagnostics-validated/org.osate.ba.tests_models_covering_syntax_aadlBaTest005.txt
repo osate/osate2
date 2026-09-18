@@ -4,6 +4,13 @@ error | semantic | 182 | 5 | 54 | Invalid circular dependency. Subcomponent 'sub
 error | semantic | 183 | 5 | 48 | The type of subcomponent 'recursiveGrp' cannot be the object that contains it
 error | semantic | 231 | 5 | 54 | Invalid circular dependency. Subcomponent 'subprogGrp' directly or indirectly contains 'thread2.impl'.
 error | semantic | 379 | 5 | 45 | Invalid circular dependency. Subcomponent 'threadGrp' directly or indirectly contains 'process1.impl'.
+error | semantic | 476 | 16 | 25 | A port send action requires an outgoing port
+error | semantic | 477 | 16 | 24 | A freeze action requires an incoming port
+error | semantic | 478 | 16 | 24 | A dequeue action requires an incoming event or event data port
+error | semantic | 482 | 16 | 34 | A lock or unlock action requires a required data access
+error | semantic | 483 | 16 | 34 | A lock or unlock action requires a required data access
+error | semantic | 484 | 16 | 47 | A lock or unlock action requires a required data access
+error | semantic | 485 | 16 | 47 | A lock or unlock action requires a required data access
 error | semantic | 96 | 5 | 42 | Feature group directly or indirectly contains itself
 warning | semantic | 29 | 30 | 21 | AadlBaTestPropertySet in 'with' clause of public package section is not used.
 warning | semantic | 29 | 72 | 20 | AadlBaTestSubprogram in 'with' clause of public package section is not used.
