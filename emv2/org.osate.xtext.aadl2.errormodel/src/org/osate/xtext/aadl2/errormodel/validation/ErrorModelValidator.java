@@ -290,6 +290,9 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 		checkEventTriggerType(recoverEvent, recoverEvent.getEventInitiator(), "Recover");
 	}
 
+	/**
+	 * @since 8.0
+	 */
 	@Check(CheckType.FAST)
 	public void caseRepairEvent(RepairEvent repairEvent) {
 		checkEventTriggerType(repairEvent, repairEvent.getEventInitiator(), "Repair");
@@ -562,7 +565,7 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 			triggerName = "propagation " + EMV2Util.getPrintName((ErrorPropagation) ep);
 		} else if (ep instanceof ErrorEvent) {
 			triggerTS = ((ErrorEvent) ep).getTypeSet();
-			triggerName = "event " + ((ErrorBehaviorEvent) ep).getName();
+			triggerName = "event " + ep.getName();
 		}
 		TypeSet condTS = conditionElement.getConstraint();
 		if (condTS == null) {
