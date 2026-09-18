@@ -28,8 +28,6 @@ import java.util.List;
 
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
-import org.osate.aadl2.instance.FlowElementInstance;
-import org.osate.aadl2.instance.SystemOperationMode;
 
 /**
  * Normalized description of one {@link EndToEndFlowInstance}.

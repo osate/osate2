@@ -1,8 +1,8 @@
 package com.itemis.xtext.testing;
 
 import org.eclipse.emf.mwe.utils.StandaloneSetup;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeAll;
 
 /**
  * <p>

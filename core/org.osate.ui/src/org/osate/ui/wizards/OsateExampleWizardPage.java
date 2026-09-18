@@ -97,7 +97,6 @@ public class OsateExampleWizardPage extends WizardPage {
 			// Nothing to do.
 		}
 
-		@SuppressWarnings("unchecked")
 		@Override
 		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 			treeContent = (PluginInfo) newInput;
@@ -117,7 +116,6 @@ public class OsateExampleWizardPage extends WizardPage {
 			}
 		}
 
-		@SuppressWarnings("unchecked")
 		@Override
 		public Object getParent(Object element) {
 			if (element instanceof PluginInfo) {

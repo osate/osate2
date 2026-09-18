@@ -25,12 +25,19 @@ package org.osate.result.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EObject;
-
-import org.osate.result.*;
+import org.osate.result.AnalysisResult;
+import org.osate.result.BooleanValue;
+import org.osate.result.Diagnostic;
+import org.osate.result.EObjectValue;
+import org.osate.result.IntegerValue;
+import org.osate.result.ObjectValue;
+import org.osate.result.RealValue;
+import org.osate.result.Result;
+import org.osate.result.ResultPackage;
+import org.osate.result.StringValue;
+import org.osate.result.Value;
 
 /**
  * <!-- begin-user-doc -->

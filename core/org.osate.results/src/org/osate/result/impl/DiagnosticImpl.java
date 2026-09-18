@@ -27,7 +27,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.osate.result.Diagnostic;
@@ -124,6 +123,7 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DiagnosticType getDiagnosticType() {
 		return diagnosticType;
 	}
@@ -133,11 +133,13 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDiagnosticType(DiagnosticType newDiagnosticType) {
 		DiagnosticType oldDiagnosticType = diagnosticType;
 		diagnosticType = newDiagnosticType == null ? DIAGNOSTIC_TYPE_EDEFAULT : newDiagnosticType;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.DIAGNOSTIC__DIAGNOSTIC_TYPE, oldDiagnosticType, diagnosticType));
+		}
 	}
 
 	/**
@@ -145,6 +147,7 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMessage() {
 		return message;
 	}
@@ -154,11 +157,13 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMessage(String newMessage) {
 		String oldMessage = message;
 		message = newMessage;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.DIAGNOSTIC__MESSAGE, oldMessage, message));
+		}
 	}
 
 	/**
@@ -166,13 +171,15 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EObject getModelElement() {
 		if (modelElement != null && modelElement.eIsProxy()) {
 			InternalEObject oldModelElement = (InternalEObject)modelElement;
 			modelElement = eResolveProxy(oldModelElement);
 			if (modelElement != oldModelElement) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ResultPackage.DIAGNOSTIC__MODEL_ELEMENT, oldModelElement, modelElement));
+				}
 			}
 		}
 		return modelElement;
@@ -192,11 +199,13 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setModelElement(EObject newModelElement) {
 		EObject oldModelElement = modelElement;
 		modelElement = newModelElement;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.DIAGNOSTIC__MODEL_ELEMENT, oldModelElement, modelElement));
+		}
 	}
 
 	/**
@@ -212,7 +221,9 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 			case ResultPackage.DIAGNOSTIC__MESSAGE:
 				return getMessage();
 			case ResultPackage.DIAGNOSTIC__MODEL_ELEMENT:
-				if (resolve) return getModelElement();
+				if (resolve) {
+					return getModelElement();
+				}
 				return basicGetModelElement();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -223,7 +234,6 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -286,7 +296,9 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
+		if (eIsProxy()) {
+			return super.toString();
+		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (diagnosticType: ");

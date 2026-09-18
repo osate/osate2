@@ -81,6 +81,6 @@ public class PropertyCachingInstantiationTest extends AbstractComponentInstantia
 				.toList();
 		assertEquals(path(component), 1, associations.size());
 		var value = associations.get(0).getOwnedValues().get(0).getOwnedValue();
-		return (long) ((IntegerLiteral) value).getValue();
+		return ((IntegerLiteral) value).getValue();
 	}
 }

@@ -23,8 +23,6 @@
  */
 package org.osate.core.tests.issues;
 
-import static org.junit.Assert.assertEquals;
-
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.eclipse.xtext.testing.validation.ValidationTestHelper;

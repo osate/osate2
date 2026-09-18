@@ -73,7 +73,7 @@ public final class AadlUiBridge extends AbstractContextUiBridge {
 						final IEditorInput editorInput = reference.getEditorInput();
 						if (editorInput instanceof FileEditorInput) {
 							final IFile file = ((FileEditorInput) editorInput).getFile();
-							final Element input = ((IAdaptable) file).getAdapter(Element.class);
+							final Element input = file.getAdapter(Element.class);
 							if (input != null
 									&& element.getHandleIdentifier().equals(EcoreUtil.getURI(input).toString())) {
 								toClose.add(reference);

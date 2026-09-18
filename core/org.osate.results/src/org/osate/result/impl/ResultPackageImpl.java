@@ -28,9 +28,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
+import org.osate.result.AnalysisResult;
 import org.osate.result.BooleanValue;
 import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
@@ -39,7 +38,6 @@ import org.osate.result.IntegerValue;
 import org.osate.result.ObjectValue;
 import org.osate.result.RealValue;
 import org.osate.result.Result;
-import org.osate.result.AnalysisResult;
 import org.osate.result.ResultFactory;
 import org.osate.result.ResultPackage;
 import org.osate.result.ResultType;

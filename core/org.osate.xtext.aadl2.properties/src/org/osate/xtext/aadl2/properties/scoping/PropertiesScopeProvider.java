@@ -230,6 +230,9 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 				Scopes.scopedElementsFor(elements, QualifiedName.wrapper(SimpleAttributeResolver.NAME_RESOLVER)), true);
 	}
 
+	/**
+	 * @since 4.0
+	 */
 	protected static <T extends EObject> SimpleScope scopeFor(Iterable<? extends T> elements,
 			Function<? super T, ? extends QualifiedName> nameComputation, IScope outer) {
 		return new SimpleScope(outer, Scopes.scopedElementsFor(elements, nameComputation::apply), true);
@@ -245,6 +248,9 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 				.iterator();
 	}
 
+	/**
+	 * @since 4.0
+	 */
 	protected static List<SubprogramCall> allSubprogramCalls(BehavioredImplementation implementation) {
 		var allSubprogramCalls = new ArrayList<SubprogramCall>();
 		for (ComponentImplementation current = implementation; current != null; current = current.getExtended()) {
@@ -273,6 +279,9 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 		return refinedSubcomponent.getSubcomponentType();
 	}
 
+	/**
+	 * @since 4.0
+	 */
 	protected static List<InternalFeature> allInternalFeatures(ComponentImplementation implementation) {
 		var allInternalFeatures = new ArrayList<InternalFeature>();
 		for (ComponentImplementation current = implementation; current != null; current = current.getExtended()) {
@@ -281,6 +290,9 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 		return allInternalFeatures;
 	}
 
+	/**
+	 * @since 4.0
+	 */
 	public static List<NamedElement> allMembers(Classifier classifier) {
 		var allMembers = new ArrayList<NamedElement>(classifier.getMembers());
 		if (classifier instanceof BehavioredImplementation implementation) {

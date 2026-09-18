@@ -25,15 +25,10 @@
 package org.osate.aadl2.presentation;
 
 import org.eclipse.emf.common.EMFPlugin;
-
 import org.eclipse.emf.common.ui.EclipseUIPlugin;
-
 import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.ecore.provider.EcoreEditPlugin;
-
 import org.eclipse.uml2.uml.edit.UMLEditPlugin;
-
 import org.osate.aadl2.provider.Aadl2EditPlugin;
 
 /**

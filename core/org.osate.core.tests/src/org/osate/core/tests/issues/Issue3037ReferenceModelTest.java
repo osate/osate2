@@ -32,7 +32,6 @@ import org.eclipse.xtext.testing.XtextRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.core.tests.instantiation.InstanceCharacterization;
-import org.osate.core.tests.instantiation.InstanceIntegrity;
 import org.osate.core.tests.instantiation.InstanceReport;
 import org.osate.core.tests.instantiation.InstanceRun;
 import org.osate.core.tests.instantiation.InstanceSnapshot;

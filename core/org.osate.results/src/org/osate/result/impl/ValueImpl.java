@@ -24,9 +24,7 @@
 package org.osate.result.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import org.osate.result.ResultPackage;
 import org.osate.result.Value;
 

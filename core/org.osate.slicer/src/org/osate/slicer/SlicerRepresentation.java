@@ -213,7 +213,7 @@ public class SlicerRepresentation {
 			v = new OsateSlicerVertex(component, bindingType, tti);
 		} else if (prop instanceof PointPropagation) {
 			var component = EcoreUtil2.getContainerOfType(prop, ComponentInstance.class);
-			var propName = ((PointPropagation) prop).getName();
+			var propName = prop.getName();
 			v = new OsateSlicerVertex(component, propName, tti);
 		}
 		addVertex(v);

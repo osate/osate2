@@ -23,11 +23,12 @@
  */
 package org.osate.xtext.aadl2.properties.ide;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
 import org.eclipse.xtext.util.Modules2;
 import org.osate.xtext.aadl2.properties.PropertiesRuntimeModule;
 import org.osate.xtext.aadl2.properties.PropertiesStandaloneSetup;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 
 /**
  * Initialization support for running Xtext languages as language servers.

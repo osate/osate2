@@ -702,7 +702,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	}
 
 	/**
-	 * @since 2.0
+	 * @since 9.0
 	 */
 	protected static IScope scopeForElementsOfContext(Context context, Classifier containingClassifier,
 			Function<? super Classifier, ? extends Iterable<? extends EObject>> validMemberCollector) {

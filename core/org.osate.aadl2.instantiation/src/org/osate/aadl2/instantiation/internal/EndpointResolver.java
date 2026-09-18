@@ -24,8 +24,6 @@
 package org.osate.aadl2.instantiation.internal;
 
 import org.osate.aadl2.ConnectedElement;
-import org.osate.aadl2.ConnectionEnd;
-import org.osate.aadl2.Context;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;

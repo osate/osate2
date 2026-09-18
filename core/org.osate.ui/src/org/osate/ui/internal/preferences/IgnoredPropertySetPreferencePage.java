@@ -251,7 +251,6 @@ public class IgnoredPropertySetPreferencePage extends PreferencePage implements 
 			// Nothing to do.
 		}
 
-		@SuppressWarnings("unchecked")
 		@Override
 		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 			treeContent = newInput;
@@ -271,7 +270,6 @@ public class IgnoredPropertySetPreferencePage extends PreferencePage implements 
 			}
 		}
 
-		@SuppressWarnings("unchecked")
 		@Override
 		public Object getParent(Object element) {
 			if (element instanceof TreeNode) {

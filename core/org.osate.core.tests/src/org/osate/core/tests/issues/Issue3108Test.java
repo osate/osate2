@@ -112,6 +112,6 @@ public class Issue3108Test extends XtextTest {
 				.toList();
 		assertEquals(instanceObject.getInstanceObjectPath(), 1, associations.size());
 		var expression = associations.getFirst().getOwnedValues().getFirst().getOwnedValue();
-		return (long) ((IntegerLiteral) expression).getValue();
+		return ((IntegerLiteral) expression).getValue();
 	}
 }
