@@ -1,0 +1,4 @@
+property set ProbabilityProperties is
+  probability: aadlreal applies to (all);
+  complement: constant aadlreal => +8.0e-1;
+end ProbabilityProperties;

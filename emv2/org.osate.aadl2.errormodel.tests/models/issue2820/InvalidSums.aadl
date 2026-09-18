@@ -1,0 +1,51 @@
+package InvalidSums
+public
+  with ProbabilityProperties, Issue2820;
+
+  system precise_excess
+    annex EMV2 {**
+      use behavior Issue2820::machine;
+      component error behavior
+        transitions
+          t: state1 -[event1]-> (state2 with 0.2, state3 with ProbabilityProperties::probability);
+      end component;
+      properties
+        ProbabilityProperties::probability => 0.800000000000000001 applies to t;
+    **};
+  end precise_excess;
+
+  system ordinary_shortfall
+    annex EMV2 {**
+      use behavior Issue2820::machine;
+      component error behavior
+        transitions
+          t: state1 -[event1]-> (state2 with 0.2, state3 with ProbabilityProperties::probability);
+      end component;
+      properties
+        ProbabilityProperties::probability => 0.7 applies to t;
+    **};
+  end ordinary_shortfall;
+
+  system exhausted_remainder
+    annex EMV2 {**
+      use behavior Issue2820::machine;
+      component error behavior
+        transitions
+          t: state1 -[event1]-> (state2 with 0.2, state3 with ProbabilityProperties::probability, same state with others);
+      end component;
+      properties
+        ProbabilityProperties::probability => 0.8 applies to t;
+    **};
+  end exhausted_remainder;
+
+  system literal_shortfall
+    annex EMV2 {**
+      use behavior Issue2820::machine;
+      component error behavior
+        transitions
+          t: state1 -[event1]-> (state2 with 0.2, state3 with 0.7);
+      end component;
+    **};
+  end literal_shortfall;
+
+end InvalidSums;

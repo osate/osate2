@@ -1,0 +1,75 @@
+package Issue2820
+public
+  with ProbabilityProperties;
+
+  system decimal_value
+    annex EMV2 {**
+      use behavior Issue2820::machine;
+      component error behavior
+        transitions
+          t: state1 -[event1]-> (state2 with 0.2, state3 with ProbabilityProperties::probability);
+      end component;
+      properties
+        ProbabilityProperties::probability => 0.8 applies to t;
+    **};
+  end decimal_value;
+
+  system precise_value
+    annex EMV2 {**
+      use behavior Issue2820::machine;
+      component error behavior
+        transitions
+          t: state1 -[event1]-> (state2 with 0.200000000000000001, state3 with ProbabilityProperties::probability);
+      end component;
+      properties
+        ProbabilityProperties::probability => 0.799999999999999999 applies to t;
+    **};
+  end precise_value;
+
+  system constant_value
+    annex EMV2 {**
+      use behavior Issue2820::machine;
+      component error behavior
+        transitions
+          t: state1 -[event1]-> (state2 with 0.2, state3 with ProbabilityProperties::probability);
+      end component;
+      properties
+        ProbabilityProperties::probability => ProbabilityProperties::complement applies to t;
+    **};
+  end constant_value;
+
+  system formatted_value
+    annex EMV2 {**
+      use behavior Issue2820::machine;
+      component error behavior
+        transitions
+          t: state1 -[event1]-> (state2 with 0.2, state3 with ProbabilityProperties::probability);
+      end component;
+      properties
+        ProbabilityProperties::probability => +8.0_0e-1 applies to t;
+    **};
+  end formatted_value;
+
+  system precise_remainder
+    annex EMV2 {**
+      use behavior Issue2820::machine;
+      component error behavior
+        transitions
+          t: state1 -[event1]-> (state2 with 0.2, state3 with ProbabilityProperties::probability, same state with others);
+      end component;
+      properties
+        ProbabilityProperties::probability => 0.799999999999999999 applies to t;
+    **};
+  end precise_remainder;
+
+  annex EMV2 {**
+    error behavior machine
+      events
+        event1: error event;
+      states
+        state1: initial state;
+        state2: state;
+        state3: state;
+    end behavior;
+  **};
+end Issue2820;
