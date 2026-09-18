@@ -30,6 +30,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.function.Predicate;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -67,17 +68,21 @@ import org.osate.ba.aadlba.BehaviorPropertyConstant;
 import org.osate.ba.aadlba.ForOrForAllStatement;
 import org.osate.ba.aadlba.PropertyReference;
 import org.osate.ba.aadlba.PropertySetPropertyReference;
+import org.osate.ba.aadlba.util.AadlBaSwitch;
 import org.osate.ba.analyzers.AadlBaInitializationChecker;
 import org.osate.ba.analyzers.AadlBaRulesCheckersDriver;
 import org.osate.ba.analyzers.AadlBaTypeChecker;
 import org.osate.ba.analyzers.AdaLikeDataTypeChecker;
 import org.osate.ba.utils.AadlBaUtils;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.AssignmentAction;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ArrayDimension;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.AssignmentAction;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorIntegerLiteral;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorState;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorStateGroup;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTransition;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorVariable;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.CommunicationAction;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchTriggerCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ForStatement;
@@ -88,6 +93,7 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceExpression;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceSegment;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.UnaryExpression;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReferenceExpression;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.util.BehaviorAnnexSwitch;
 import org.osate.xtext.aadl2.ba.translation.DeclarativeToStrictTranslator;
 import org.osate.xtext.aadl2.ba.translation.DeclarativeToStrictTranslator.TranslationResult;
 
@@ -136,29 +142,33 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 
 	@Check(CheckType.NORMAL)
 	public void checkBehaviorAnnex(final BehaviorAnnex source) {
-		if (!(source.getContainingClassifier() instanceof ComponentClassifier owner)
-				|| !checkDeclarationNames(source, owner) || hasSyntaxOrLinkingErrors(source)
-				|| !checkCompleteModeStates(source, owner)) {
+		if (!(source.getContainingClassifier() instanceof ComponentClassifier owner)) {
+			return;
+		}
+		var checks = new DeclarativeChecks(source);
+		checks.doSwitch(source);
+		for (var contents = source.eAllContents(); contents.hasNext();) {
+			checks.doSwitch(contents.next());
+		}
+		var parseResult = ParseResultHolder.Factory.INSTANCE.adapt(source).getParseResult();
+		if (!checkDeclarationNames(checks.declarations, owner) || parseResult != null && parseResult.hasSyntaxErrors()
+				|| checks.hasUnresolvedReference || !checkCompleteModeStates(source, checks.completeStates, owner)) {
 			return;
 		}
 
 		var translation = translator.translate(source, owner);
 		// Each check describes a use no strict checker can reject, and a model can get each one wrong independently,
 		// so report them all before deciding whether the strict checkers have a model to work on.
-		var representable = checkArraySizes(source);
-		representable &= checkIteratorClassifiers(source);
-		representable &= checkInternalPortUses(source, translation);
-		representable &= checkInternalConditionPorts(source, translation);
-		representable &= checkExternalConditionTriggers(source, translation);
-		representable &= checkTimeoutResetPorts(source, translation);
-		representable &= checkIteratorTargets(source, translation);
-		representable &= checkIteratedValues(source, translation);
-		checkPortStatusValues(source, translation);
-		checkExternalConditionsInModes(source);
+		var representable = true;
+		for (var check : checks.pendingChecks) {
+			representable &= check.test(translation);
+		}
 		// The strict model does carry a property reference that denotes no value, so this one is not a gate: the strict
 		// checkers keep their model and whatever else they have to say about it.
-		checkPropertyReferenceValues(translation);
-		checkPropertyReferenceUnits(translation);
+		var propertyChecks = new PropertyReferenceChecks(translation);
+		for (var contents = translation.getStrictAnnex().eAllContents(); contents.hasNext();) {
+			propertyChecks.doSwitch(contents.next());
+		}
 		if (!representable) {
 			return;
 		}
@@ -186,6 +196,169 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	}
 
 	/**
+	 * Collects checks during the one source-model walk. Translation must wait until all declarations and unresolved
+	 * links have been checked, so the switch queues node-local checks rather than running them while visiting.
+	 * The caller owns containment traversal; switch results never prune children.
+	 */
+	private final class DeclarativeChecks extends BehaviorAnnexSwitch<Void> {
+		private final List<Declaration> declarations = new ArrayList<>();
+		private final List<BehaviorState> completeStates = new ArrayList<>();
+		private final List<Predicate<TranslationResult>> pendingChecks = new ArrayList<>();
+		private final boolean inModes;
+		private boolean hasUnresolvedReference;
+
+		private DeclarativeChecks(final BehaviorAnnex source) {
+			inModes = DeclarativeToStrictTranslator.hasInModes(source);
+		}
+
+		@Override
+		public Void doSwitch(final EObject object) {
+			hasUnresolvedReference = hasUnresolvedReference || hasUnresolvedCrossReference(object);
+			return super.doSwitch(object);
+		}
+
+		@Override
+		public Void caseBehaviorVariable(final BehaviorVariable variable) {
+			declarations.add(new Declaration(variable.getName(), variable,
+					BehaviorAnnexPackage.eINSTANCE.getBehaviorVariable_Name(), false));
+			return null;
+		}
+
+		@Override
+		public Void caseBehaviorState(final BehaviorState state) {
+			var complete = state.eContainer() instanceof BehaviorStateGroup group && group.isComplete();
+			declarations.add(new Declaration(state.getName(), state,
+					BehaviorAnnexPackage.eINSTANCE.getBehaviorState_Name(), complete));
+			if (complete) {
+				completeStates.add(state);
+			}
+			return null;
+		}
+
+		@Override
+		public Void caseBehaviorTransition(final BehaviorTransition transition) {
+			declarations.add(new Declaration(transition.getName(), transition,
+					BehaviorAnnexPackage.eINSTANCE.getBehaviorTransition_Name(), false));
+			if (inModes) {
+				pendingChecks.add(translation -> {
+					checkExternalConditionInModes(transition);
+					return true;
+				});
+			}
+			return null;
+		}
+
+		@Override
+		public Void caseArrayDimension(final ArrayDimension dimension) {
+			pendingChecks.add(translation -> checkArraySize(dimension));
+			return null;
+		}
+
+		@Override
+		public Void caseForStatement(final ForStatement loop) {
+			pendingChecks.add(translation -> checkIteratorClassifier(loop));
+			pendingChecks.add(translation -> checkIteratedValues(loop, translation));
+			return null;
+		}
+
+		@Override
+		public Void caseReference(final Reference reference) {
+			pendingChecks.add(translation -> checkInternalPortUse(reference, translation));
+			return null;
+		}
+
+		@Override
+		public Void caseInternalCondition(final InternalCondition condition) {
+			pendingChecks.add(translation -> checkInternalConditionPorts(condition, translation));
+			return null;
+		}
+
+		@Override
+		public Void caseModeSwitchTrigger(final ModeSwitchTrigger trigger) {
+			pendingChecks.add(translation -> checkExternalConditionTrigger(trigger, translation));
+			return null;
+		}
+
+		@Override
+		public Void caseDispatchTriggerCondition(final DispatchTriggerCondition timeout) {
+			pendingChecks.add(translation -> checkTimeoutResetPorts(timeout, translation));
+			return null;
+		}
+
+		@Override
+		public Void caseAssignmentAction(final AssignmentAction action) {
+			pendingChecks.add(translation -> checkIteratorTarget(action.getTarget(), translation));
+			return null;
+		}
+
+		@Override
+		public Void caseCommunicationAction(final CommunicationAction action) {
+			if (action.isDequeue()) {
+				pendingChecks.add(translation -> checkIteratorTarget(action.getTarget(), translation));
+			}
+			return null;
+		}
+
+		@Override
+		public Void caseReferenceExpression(final ReferenceExpression expression) {
+			if (expression.isCount() || expression.isFresh() || expression.isUpdated()) {
+				pendingChecks.add(translation -> {
+					checkPortStatusValue(expression, expression.getReference(), translation);
+					return true;
+				});
+			}
+			return null;
+		}
+
+		@Override
+		public Void caseUnindexedReferenceExpression(final UnindexedReferenceExpression expression) {
+			if (expression.isCount() || expression.isFresh() || expression.isUpdated()) {
+				pendingChecks.add(translation -> {
+					checkPortStatusValue(expression, expression.getReference(), translation);
+					return true;
+				});
+			}
+			return null;
+		}
+	}
+
+	/** Checks property values and units together during the one strict-model walk owned by this adapter. */
+	private final class PropertyReferenceChecks extends AadlBaSwitch<Void> {
+		private final TranslationResult translation;
+		private final Set<EObject> reportedUnits = new HashSet<>();
+
+		private PropertyReferenceChecks(final TranslationResult translation) {
+			this.translation = translation;
+		}
+
+		@Override
+		public Void casePropertySetPropertyReference(final PropertySetPropertyReference reference) {
+			checkPropertyReferenceValue(reference, translation);
+			// Continue to casePropertyReference so this same reference is also checked for units.
+			return null;
+		}
+
+		@Override
+		public Void casePropertyReference(final PropertyReference reference) {
+			if (!reference.getProperties().isEmpty()) {
+				checkPropertyReferenceUnits(reference,
+						AadlBaUtils.getPropertyType(reference.getProperties().getLast().getProperty()), translation,
+						reportedUnits);
+			}
+			return null;
+		}
+
+		@Override
+		public Void caseBehaviorPropertyConstant(final BehaviorPropertyConstant constant) {
+			if (constant.getProperty() != null) {
+				checkPropertyReferenceUnits(constant, constant.getProperty().getPropertyType(), translation,
+						reportedUnits);
+			}
+			return null;
+		}
+	}
+
+	/**
 	 * AS5506/3 Rev A D.3 requires each behavior-variable array size to be the integer value constant of D.7: an integer
 	 * literal or a property reference. The shared integer-value grammar also accepts an ordinary reference expression,
 	 * which names a value variable rather than a constant, and no strict checker constrains an array size. A reference
@@ -193,23 +366,17 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	 * reference denotes belongs to a component instance, so whether it can be read from the declarative model says
 	 * nothing about the legality of the declaration and is not checked here.
 	 *
-	 * @return {@code true} when every declared array size is an integer value constant
+	 * @return {@code true} when the declared array size is an integer value constant
 	 */
-	private boolean checkArraySizes(final BehaviorAnnex source) {
-		var accepted = true;
-		for (var contents = source.eAllContents(); contents.hasNext();) {
-			if (!(contents.next() instanceof ArrayDimension dimension)) {
-				continue;
-			}
-			var size = dimension.getSize();
-			if (size instanceof ReferenceExpression reference && reference.getProperty() == null) {
-				var written = NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(size));
-				error("Array size '" + written + "' must be an integer literal or a property reference", size, null,
-						ValidationMessageAcceptor.INSIGNIFICANT_INDEX, ARRAY_SIZE);
-				accepted = false;
-			}
+	private boolean checkArraySize(final ArrayDimension dimension) {
+		var size = dimension.getSize();
+		if (size instanceof ReferenceExpression reference && reference.getProperty() == null) {
+			var written = NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(size));
+			error("Array size '" + written + "' must be an integer literal or a property reference", size, null,
+					ValidationMessageAcceptor.INSIGNIFICANT_INDEX, ARRAY_SIZE);
+			return false;
 		}
-		return accepted;
+		return true;
 	}
 
 	/**
@@ -219,22 +386,17 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	 * classifier out altogether, letting it pass would not leave the declaration rejected either: the iterated values
 	 * would supply the iterator's type as if nothing had been written. Report it on the reference the loop writes.
 	 *
-	 * @return {@code true} when every written iterator classifier is a data classifier
+	 * @return {@code true} when the written iterator classifier is a data classifier
 	 */
-	private boolean checkIteratorClassifiers(final BehaviorAnnex source) {
-		var accepted = true;
-		for (var contents = source.eAllContents(); contents.hasNext();) {
-			if (!(contents.next() instanceof ForStatement loop) || loop.getDataClassifier() == null
-					|| loop.getDataClassifier() instanceof DataClassifier) {
-				continue;
-			}
+	private boolean checkIteratorClassifier(final ForStatement loop) {
+		if (loop.getDataClassifier() != null && !(loop.getDataClassifier() instanceof DataClassifier)) {
 			error("'" + loop.getDataClassifier().getName() + "' is not a data classifier: a for or forall iterator can"
 					+ " only name a data component classifier", loop,
 					BehaviorAnnexPackage.eINSTANCE.getForStatement_DataClassifier(),
 					ValidationMessageAcceptor.INSIGNIFICANT_INDEX, ITERATOR_CLASSIFIER);
-			accepted = false;
+			return false;
 		}
-		return accepted;
+		return true;
 	}
 
 	/**
@@ -243,27 +405,14 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	 * three suffixes, and neither D.5 nor D.7 states a corresponding legality rule. Enforce the semantics shared by the
 	 * three definitions, while accepting both incoming and bidirectional ports because both are frozen on input.
 	 */
-	private void checkPortStatusValues(final BehaviorAnnex source, final TranslationResult translation) {
-		for (var contents = source.eAllContents(); contents.hasNext();) {
-			var value = contents.next();
-			final EObject reference;
-			if (value instanceof ReferenceExpression expression
-					&& (expression.isCount() || expression.isFresh() || expression.isUpdated())) {
-				reference = expression.getReference();
-			} else if (value instanceof UnindexedReferenceExpression expression
-					&& (expression.isCount() || expression.isFresh() || expression.isUpdated())) {
-				reference = expression.getReference();
-			} else {
-				continue;
-			}
-
-			if (translation.getResolvedReference(reference) instanceof Port port
-					&& AadlBaUtils.getDirectionType(port) == DirectionType.OUT) {
-				var written = NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(value));
-				error("Port status value '" + written + "' is defined only for a port that is frozen on input, but '"
-						+ port.getName() + "' is an outgoing port. AS5506/3 Rev. A states no corresponding legality rule.",
-						value, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, PORT_STATUS_DIRECTION);
-			}
+	private void checkPortStatusValue(final EObject value, final EObject reference,
+			final TranslationResult translation) {
+		if (translation.getResolvedReference(reference) instanceof Port port
+				&& AadlBaUtils.getDirectionType(port) == DirectionType.OUT) {
+			var written = NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(value));
+			error("Port status value '" + written + "' is defined only for a port that is frozen on input, but '"
+					+ port.getName() + "' is an outgoing port. AS5506/3 Rev. A states no corresponding legality rule.",
+					value, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, PORT_STATUS_DIRECTION);
 		}
 	}
 
@@ -275,21 +424,19 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	 * value at all, and no strict checker rejects it. Report the reference as written. A reference that names a property
 	 * type keeps its own value, an enumeration literal, so it is not one of these.
 	 */
-	private void checkPropertyReferenceValues(final TranslationResult translation) {
-		for (var contents = translation.getStrictAnnex().eAllContents(); contents.hasNext();) {
-			// A property-set property reference is the translation of the alternative that names no element, and its
-			// first property name holds the default value when the property has one.
-			if (!(contents.next() instanceof PropertySetPropertyReference reference)
-					|| reference.getProperties().isEmpty()
-					|| !(reference.getProperties().getFirst().getProperty().getElement() instanceof Property property)) {
-				continue;
-			}
-			var written = sourceFor(reference, translation);
-			error("Property reference '" + NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(written))
-					+ "' has no value: property '" + property.getName() + "' has no default value and the reference"
-					+ " names no element that has a value for it", written, null,
-					ValidationMessageAcceptor.INSIGNIFICANT_INDEX, PROPERTY_REFERENCE_VALUE);
+	private void checkPropertyReferenceValue(final PropertySetPropertyReference reference,
+			final TranslationResult translation) {
+		// A property-set property reference is the translation of the alternative that names no element, and its
+		// first property name holds the default value when the property has one.
+		if (reference.getProperties().isEmpty()
+				|| !(reference.getProperties().getFirst().getProperty().getElement() instanceof Property property)) {
+			return;
 		}
+		var written = sourceFor(reference, translation);
+		error("Property reference '" + NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(written))
+				+ "' has no value: property '" + property.getName() + "' has no default value and the reference"
+				+ " names no element that has a value for it", written, null,
+				ValidationMessageAcceptor.INSIGNIFICANT_INDEX, PROPERTY_REFERENCE_VALUE);
 	}
 
 	/**
@@ -297,33 +444,22 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	 * or record field, including when its holder carries a default expression. Prefixed references stay symbolic:
 	 * neither an effective instance value nor its written unit is needed to check the declared units type.
 	 */
-	private void checkPropertyReferenceUnits(final TranslationResult translation) {
-		var reported = new HashSet<EObject>();
-		for (var contents = translation.getStrictAnnex().eAllContents(); contents.hasNext();) {
-			var value = contents.next();
-			final PropertyType declaredType;
-			if (value instanceof PropertyReference reference && !reference.getProperties().isEmpty()) {
-				declaredType = AadlBaUtils.getPropertyType(reference.getProperties().getLast().getProperty());
-			} else if (value instanceof BehaviorPropertyConstant constant && constant.getProperty() != null) {
-				declaredType = constant.getProperty().getPropertyType();
-			} else {
-				continue;
-			}
-			var type = AadlUtil.getBasePropertyType(declaredType);
-			if (type instanceof RangeType range) {
-				type = range.getNumberType();
-			}
-			if (!(type instanceof NumberType number)) {
-				continue;
-			}
-			var units = number.getUnitsType();
-			if (units != null && !"AADL_Project::Time_Units".equalsIgnoreCase(units.getQualifiedName())) {
-				var source = sourceFor(value, translation);
-				// Translation can copy a condition for multiple source states; report the written reference once.
-				if (reported.add(source)) {
-					error("Behavior Annex property references must be unitless or use AADL_Project::Time_Units", source,
-							null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, PROPERTY_REFERENCE_UNITS);
-				}
+	private void checkPropertyReferenceUnits(final EObject value, final PropertyType declaredType,
+			final TranslationResult translation, final Set<EObject> reported) {
+		var type = AadlUtil.getBasePropertyType(declaredType);
+		if (type instanceof RangeType range) {
+			type = range.getNumberType();
+		}
+		if (!(type instanceof NumberType number)) {
+			return;
+		}
+		var units = number.getUnitsType();
+		if (units != null && !"AADL_Project::Time_Units".equalsIgnoreCase(units.getQualifiedName())) {
+			var source = sourceFor(value, translation);
+			// Translation can copy a condition for multiple source states; report the written reference once.
+			if (reported.add(source)) {
+				error("Behavior Annex property references must be unitless or use AADL_Project::Time_Units", source,
+						null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, PROPERTY_REFERENCE_UNITS);
 			}
 		}
 	}
@@ -335,21 +471,17 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	 * it. Report each such reference and leave the strict-model checkers out of it, the way a linking failure already
 	 * gates them.
 	 *
-	 * @return {@code true} when the annex uses every internal port it names as the standard admits
+	 * @return {@code true} when the reference uses an internal port as the standard admits
 	 */
-	private boolean checkInternalPortUses(final BehaviorAnnex source, final TranslationResult translation) {
-		var accepted = true;
-		for (var contents = source.eAllContents(); contents.hasNext();) {
-			if (contents.next() instanceof Reference reference
-					&& translation.getResolvedReference(reference) instanceof InternalFeature internalPort
-					&& !isStandardInternalPortUse(reference)) {
-				error("'" + internalPort.getName() + "' is an internal port: it can only be an assignment or dequeue"
-						+ " target, the port of a send action, or a port of an internal condition", reference, null,
-						ValidationMessageAcceptor.INSIGNIFICANT_INDEX, INTERNAL_PORT_USE);
-				accepted = false;
-			}
+	private boolean checkInternalPortUse(final Reference reference, final TranslationResult translation) {
+		if (translation.getResolvedReference(reference) instanceof InternalFeature internalPort
+				&& !isStandardInternalPortUse(reference)) {
+			error("'" + internalPort.getName() + "' is an internal port: it can only be an assignment or dequeue"
+					+ " target, the port of a send action, or a port of an internal condition", reference, null,
+					ValidationMessageAcceptor.INSIGNIFICANT_INDEX, INTERNAL_PORT_USE);
+			return false;
 		}
-		return accepted;
+		return true;
 	}
 
 	private static boolean isStandardInternalPortUse(final Reference reference) {
@@ -370,22 +502,18 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	 * condition would otherwise reach the strict checkers silently short of the ports the user wrote. Report the name
 	 * as written, since an unresolved one has no element to name.
 	 *
-	 * @return {@code true} when every internal condition in the annex lists internal ports only
+	 * @return {@code true} when the internal condition lists internal ports only
 	 */
-	private boolean checkInternalConditionPorts(final BehaviorAnnex source, final TranslationResult translation) {
+	private boolean checkInternalConditionPorts(final InternalCondition condition,
+			final TranslationResult translation) {
 		var accepted = true;
-		for (var contents = source.eAllContents(); contents.hasNext();) {
-			if (!(contents.next() instanceof InternalCondition condition)) {
-				continue;
-			}
-			for (var port : condition.getInternalPorts()) {
-				if (!(translation.getResolvedReference(port) instanceof InternalFeature)) {
-					error("'" + NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(port)) + "' is not an"
-							+ " internal port: an internal condition can only list internal event or internal event data"
-							+ " features", port, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
-							INTERNAL_CONDITION_PORT);
-					accepted = false;
-				}
+		for (var port : condition.getInternalPorts()) {
+			if (!(translation.getResolvedReference(port) instanceof InternalFeature)) {
+				error("'" + NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(port)) + "' is not an"
+						+ " internal port: an internal condition can only list internal event or internal event data"
+						+ " features", port, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
+						INTERNAL_CONDITION_PORT);
+				accepted = false;
 			}
 		}
 		return accepted;
@@ -396,32 +524,30 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	 * subcomponent, retaining that subcomponent as the strict port holder's context. Invalid names and reference
 	 * paths cannot be represented faithfully, so report every written trigger and gate the strict checkers.
 	 */
-	private boolean checkExternalConditionTriggers(final BehaviorAnnex source, final TranslationResult translation) {
-		var representable = true;
-		for (var contents = source.eAllContents(); contents.hasNext();) {
-			if (!(contents.next() instanceof ModeSwitchTrigger trigger) || trigger.getReference() == null) {
-				continue;
-			}
+	private boolean checkExternalConditionTrigger(final ModeSwitchTrigger trigger,
+			final TranslationResult translation) {
+		if (trigger.getReference() != null) {
 			var reference = trigger.getReference();
 			var kind = externalConditionTriggerKind(reference, translation);
 			if (kind != ExternalTriggerKind.VALID) {
 				error("'" + NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(reference))
 						+ "' is not an external-condition trigger: expected an incoming event or event data port"
-						+ " of the component, or an outgoing event or event data port of a subcomponent",
-						reference, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, EXTERNAL_CONDITION_TRIGGER);
+						+ " of the component, or an outgoing event or event data port of a subcomponent", reference,
+						null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, EXTERNAL_CONDITION_TRIGGER);
 				// A wrong-direction port is still represented completely. Keep independent strict diagnostics,
 				// including the prohibition on external conditions in subprograms, whose event ports are all out.
-				representable &= kind != ExternalTriggerKind.UNREPRESENTABLE;
+				return kind != ExternalTriggerKind.UNREPRESENTABLE;
 			}
 		}
-		return representable;
+		return true;
 	}
 
 	private enum ExternalTriggerKind {
 		VALID, WRONG_DIRECTION, UNREPRESENTABLE
 	}
 
-	private static ExternalTriggerKind externalConditionTriggerKind(Reference reference, TranslationResult translation) {
+	private static ExternalTriggerKind externalConditionTriggerKind(Reference reference,
+			TranslationResult translation) {
 		var resolved = translation.getResolvedReference(reference);
 		if (!(resolved instanceof EventPort) && !(resolved instanceof EventDataPort)) {
 			return ExternalTriggerKind.UNREPRESENTABLE;
@@ -465,29 +591,27 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	 * with no time to keep them beside. Report either, and leave the strict-model checkers out of a timeout short of the
 	 * ports the user wrote. Report a name as written, since an unresolved one has no element to name.
 	 *
-	 * @return {@code true} when every reset-port list in the annex belongs to a completion relative timeout and lists
+	 * @return {@code true} when the reset-port list belongs to a completion relative timeout and lists
 	 *         event or event data ports only
 	 */
-	private boolean checkTimeoutResetPorts(final BehaviorAnnex source, final TranslationResult translation) {
+	private boolean checkTimeoutResetPorts(final DispatchTriggerCondition timeout,
+			final TranslationResult translation) {
+		if (timeout.getResetPorts().isEmpty()) {
+			return true;
+		}
 		var accepted = true;
-		for (var contents = source.eAllContents(); contents.hasNext();) {
-			if (!(contents.next() instanceof DispatchTriggerCondition timeout) || timeout.getResetPorts().isEmpty()) {
-				continue;
-			}
-			if (timeout.getTime() == null) {
-				error("A timeout with reset ports is a completion relative timeout, which must specify a behavior time",
-						timeout, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, TIMEOUT_RESET_PORT_TIME);
+		if (timeout.getTime() == null) {
+			error("A timeout with reset ports is a completion relative timeout, which must specify a behavior time",
+					timeout, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, TIMEOUT_RESET_PORT_TIME);
+			accepted = false;
+		}
+		for (var port : timeout.getResetPorts()) {
+			var resolved = translation.getResolvedReference(port);
+			if (!(resolved instanceof EventPort) && !(resolved instanceof EventDataPort)) {
+				error("'" + NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(port)) + "' is not a"
+						+ " timeout reset port: a completion relative timeout can only list event or event data"
+						+ " ports", port, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, TIMEOUT_RESET_PORT);
 				accepted = false;
-			}
-			for (var port : timeout.getResetPorts()) {
-				var resolved = translation.getResolvedReference(port);
-				if (!(resolved instanceof EventPort) && !(resolved instanceof EventDataPort)) {
-					error("'" + NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(port)) + "' is not a"
-							+ " timeout reset port: a completion relative timeout can only list event or event data"
-							+ " ports", port, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
-							TIMEOUT_RESET_PORT);
-					accepted = false;
-				}
 			}
 		}
 		return accepted;
@@ -502,24 +626,20 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	 * component references that type check. Only the first segment of a target can name an iterator, and it is the
 	 * segment the rule constrains, since writing one data element of the iterator writes part of the iterator.
 	 *
-	 * @return {@code true} when no assignment or dequeue in the annex targets an iterator
+	 * @return {@code true} when the assignment or dequeue target does not name an iterator
 	 */
-	private boolean checkIteratorTargets(final BehaviorAnnex source, final TranslationResult translation) {
-		var accepted = true;
-		for (var contents = source.eAllContents(); contents.hasNext();) {
-			var target = writtenTarget(contents.next());
-			if (target == null || target.getSegments().isEmpty()) {
-				continue;
-			}
-			var name = target.getSegments().get(0);
-			if (translation.getResolvedReference(name) instanceof ForStatement loop) {
-				error("Iterative variable '" + loop.getVariable()
-						+ "' cannot be an assignment target: Behavior Annex D.6.(L2) legality rule failed.", name, null,
-						ValidationMessageAcceptor.INSIGNIFICANT_INDEX, ITERATIVE_VARIABLE_TARGET);
-				accepted = false;
-			}
+	private boolean checkIteratorTarget(final Reference target, final TranslationResult translation) {
+		if (target == null || target.getSegments().isEmpty()) {
+			return true;
 		}
-		return accepted;
+		var name = target.getSegments().get(0);
+		if (translation.getResolvedReference(name) instanceof ForStatement loop) {
+			error("Iterative variable '" + loop.getVariable()
+					+ "' cannot be an assignment target: Behavior Annex D.6.(L2) legality rule failed.", name, null,
+					ValidationMessageAcceptor.INSIGNIFICANT_INDEX, ITERATIVE_VARIABLE_TARGET);
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -533,33 +653,18 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	 * nothing at all. Report the values as written, since an integer range never fails here and everything else is one
 	 * expression.
 	 *
-	 * @return {@code true} when every loop in the annex iterates values the strict model can carry
+	 * @return {@code true} when the loop iterates values the strict model can carry
 	 */
-	private boolean checkIteratedValues(final BehaviorAnnex source, final TranslationResult translation) {
-		var accepted = true;
-		for (var contents = source.eAllContents(); contents.hasNext();) {
-			if (!(contents.next() instanceof ForStatement loop) || loop.getValues() == null
-					|| !(translation.getStrict(loop) instanceof ForOrForAllStatement strict)
-					|| strict.getIteratedValues() != null) {
-				continue;
-			}
-			error("'" + NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(loop.getValues()))
-					+ "' cannot be iterated: a for or forall iterates an integer range, an event data port, a parameter,"
-					+ " or an array data component reference", loop.getValues(), null,
-					ValidationMessageAcceptor.INSIGNIFICANT_INDEX, ITERATED_VALUES);
-			accepted = false;
+	private boolean checkIteratedValues(final ForStatement loop, final TranslationResult translation) {
+		if (loop.getValues() == null || !(translation.getStrict(loop) instanceof ForOrForAllStatement strict)
+				|| strict.getIteratedValues() != null) {
+			return true;
 		}
-		return accepted;
-	}
-
-	/** The target an action writes, which the assignment action and the dequeue action spell the same way. */
-	private static Reference writtenTarget(final EObject action) {
-		if (action instanceof AssignmentAction assignment) {
-			return assignment.getTarget();
-		}
-		return action instanceof CommunicationAction communication && communication.isDequeue()
-				? communication.getTarget()
-				: null;
+		error("'" + NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(loop.getValues()))
+				+ "' cannot be iterated: a for or forall iterates an integer range, an event data port, a parameter,"
+				+ " or an array data component reference", loop.getValues(), null,
+				ValidationMessageAcceptor.INSIGNIFICANT_INDEX, ITERATED_VALUES);
+		return false;
 	}
 
 	/**
@@ -567,25 +672,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	 * Check the declarations before resolving references so missing classifiers cannot hide duplicate names, and
 	 * skip the strict checkers when names are ambiguous instead of validating an arbitrary resolution.
 	 */
-	private boolean checkDeclarationNames(final BehaviorAnnex source, final ComponentClassifier owner) {
-		var declarations = new ArrayList<Declaration>();
-		for (var group : source.getVariableGroups()) {
-			for (var variable : group.getVariables()) {
-				declarations.add(new Declaration(variable.getName(), variable,
-						BehaviorAnnexPackage.eINSTANCE.getBehaviorVariable_Name(), false));
-			}
-		}
-		for (var group : source.getStateGroups()) {
-			for (var state : group.getStates()) {
-				declarations.add(new Declaration(state.getName(), state,
-						BehaviorAnnexPackage.eINSTANCE.getBehaviorState_Name(), group.isComplete()));
-			}
-		}
-		for (var transition : source.getTransitions()) {
-			declarations.add(new Declaration(transition.getName(), transition,
-					BehaviorAnnexPackage.eINSTANCE.getBehaviorTransition_Name(), false));
-		}
-
+	private boolean checkDeclarationNames(final List<Declaration> declarations, final ComponentClassifier owner) {
 		Map<String, List<Declaration>> byName = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 		for (var declaration : declarations) {
 			// Transitions need not have a label; partially edited declarations may also lack a name.
@@ -617,8 +704,8 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 		for (var sameName : byName.values()) {
 			for (var declaration : sameName) {
 				if (sameName.size() > 1) {
-					error("Duplicate Behavior Annex identifier '" + declaration.name() + "'",
-							declaration.source(), declaration.feature(), DECLARATION_NAME);
+					error("Duplicate Behavior Annex identifier '" + declaration.name() + "'", declaration.source(),
+							declaration.feature(), DECLARATION_NAME);
 					valid = false;
 				}
 				// A complete state may represent a same-named mode, but cannot reuse a feature or data name.
@@ -628,7 +715,8 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 				}
 				if (enclosingKind != null) {
 					error("Behavior Annex identifier '" + declaration.name() + "' conflicts with an enclosing "
-							+ enclosingKind + " identifier", declaration.source(), declaration.feature(), DECLARATION_NAME);
+							+ enclosingKind + " identifier", declaration.source(), declaration.feature(),
+							DECLARATION_NAME);
 					valid = false;
 				}
 			}
@@ -640,7 +728,8 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	 * In a subclause without an {@code in modes} statement, one complete state that names a mode makes the subclause a
 	 * mode refinement. D.3 then requires every complete state in that subclause to name a mode.
 	 */
-	private boolean checkCompleteModeStates(final BehaviorAnnex source, final ComponentClassifier owner) {
+	private boolean checkCompleteModeStates(final BehaviorAnnex source, final List<BehaviorState> completeStates,
+			final ComponentClassifier owner) {
 		if (!DeclarativeToStrictTranslator.canRefineModes(source)) {
 			return true;
 		}
@@ -648,8 +737,6 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 		for (var mode : owner.getAllModes()) {
 			modeNames.add(mode.getName());
 		}
-		var completeStates = source.getStateGroups().stream().filter(group -> group.isComplete())
-				.flatMap(group -> group.getStates().stream()).toList();
 		var firstModeState = completeStates.stream().filter(state -> modeNames.contains(state.getName())).findFirst();
 		if (firstModeState.isEmpty()) {
 			return true;
@@ -673,17 +760,12 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	 * statement on the enclosing subclause and the strict model does not carry it, so this rule is checked here, like
 	 * the complete-state mode-refinement rule, rather than by the strict-model checkers.
 	 */
-	private void checkExternalConditionsInModes(final BehaviorAnnex source) {
-		if (!DeclarativeToStrictTranslator.hasInModes(source)) {
-			return;
-		}
-		for (var transition : source.getTransitions()) {
-			var condition = transition.getCondition();
-			if (condition != null && condition.getModeSwitch() != null) {
-				error("A Behavior Annex subclause with an in modes statement cannot use an external condition:"
-						+ " Behavior Annex D.3 consistency rule failed.", condition, null,
-						ValidationMessageAcceptor.INSIGNIFICANT_INDEX, EXTERNAL_CONDITION_IN_MODES);
-			}
+	private void checkExternalConditionInModes(final BehaviorTransition transition) {
+		var condition = transition.getCondition();
+		if (condition != null && condition.getModeSwitch() != null) {
+			error("A Behavior Annex subclause with an in modes statement cannot use an external condition:"
+					+ " Behavior Annex D.3 consistency rule failed.", condition, null,
+					ValidationMessageAcceptor.INSIGNIFICANT_INDEX, EXTERNAL_CONDITION_IN_MODES);
 		}
 	}
 
@@ -726,19 +808,6 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 			error("Cannot represent integer literal " + value + ": " + exception.getMessage(), owner, feature,
 					UNREPRESENTABLE_LITERAL);
 		}
-	}
-
-	private static boolean hasSyntaxOrLinkingErrors(final BehaviorAnnex source) {
-		var parseResult = ParseResultHolder.Factory.INSTANCE.adapt(source).getParseResult();
-		if ((parseResult != null && parseResult.hasSyntaxErrors()) || hasUnresolvedCrossReference(source)) {
-			return true;
-		}
-		for (var contents = source.eAllContents(); contents.hasNext();) {
-			if (hasUnresolvedCrossReference(contents.next())) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	private static boolean hasUnresolvedCrossReference(final EObject object) {
