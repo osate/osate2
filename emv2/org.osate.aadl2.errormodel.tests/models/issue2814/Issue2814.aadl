@@ -1,0 +1,31 @@
+package Issue2814
+public
+  system s
+  end s;
+
+  system implementation s.i
+    annex EMV2 {**
+      use types ErrorLibrary;
+      use behavior Issue2814::machine;
+      component error behavior
+        events
+          event1: error event;
+        transitions
+          state1 -[event1]-> (
+            state2 {ServiceError, ItemTimingError} with 0.4,
+            state3 {CommonErrors} with 0.6
+          );
+      end component;
+    **};
+  end s.i;
+
+  annex EMV2 {**
+    error behavior machine
+      use types ErrorLibrary;
+      states
+        state1: initial state;
+        state2: state {CommonErrors};
+        state3: state {CommonErrors};
+    end behavior;
+  **};
+end Issue2814;
