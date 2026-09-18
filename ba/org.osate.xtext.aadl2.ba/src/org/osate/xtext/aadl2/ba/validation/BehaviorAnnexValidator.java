@@ -192,7 +192,8 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 						resource -> new ValidatorErrorReporter(resource, this, translation, reported));
 				var dataTypeChecker = new AdaLikeDataTypeChecker(errorManager);
 				var typeChecker = new AadlBaTypeChecker(strictAnnex, owner, dataTypeChecker, errorManager);
-				if (typeChecker.checkTypes()) {
+				if (typeChecker.checkResolution()) {
+					typeChecker.checkResolvedTypes();
 					new AadlBaInitializationChecker(strictAnnex, errorManager).check();
 					new AadlBaRulesCheckersDriver(strictAnnex, owner, errorManager).process(strictAnnex);
 				}

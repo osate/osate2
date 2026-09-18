@@ -1024,8 +1024,9 @@ public class AadlBaUtils {
 
 			result = getTypeHolder(iv);
 
-			processArrayDataRepresentation(el, result, 0);
-
+			// This is the iterator's own declared type. Expanding its Base_Type here would turn an iterator over
+			// rows into an integer before the enclosing loop compares it with the matrix's row type. A use of
+			// the iterator as an iterable is normalized through its holder, like any other array value.
 			return result;
 		} else if (el instanceof DataClassifier) {
 			DataClassifier dc = (DataClassifier) el;
@@ -1142,6 +1143,7 @@ public class AadlBaUtils {
 			throws DimensionException {
 		// Treats only type declared as an array. Otherwise returns.
 		if (type.getDataRep() == DataRepresentation.ARRAY) {
+			var arrayClassifier = type.getKlass();
 			// Fetches the array element data type.
 			ClassifierValue cv = AadlBaUtils.getBaseType(type.getKlass());
 
@@ -1153,7 +1155,7 @@ public class AadlBaUtils {
 				type.setKlass(null);
 			}
 
-			EList<PropertyExpression> pel = PropertyUtils.findPropertyExpression(type.getKlass(),
+			EList<PropertyExpression> pel = PropertyUtils.findPropertyExpression(arrayClassifier,
 					DataModelProperties.DIMENSION);
 			int declareDimBT = 0;
 			long[] declareDimSizeBT;

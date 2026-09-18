@@ -49,8 +49,6 @@ public class TypeHolder {
 	*/
 	private long[] dimension_sizes = new long[0];
 
-	private static final String ARRAY_DIMENSION_TOKEN = "[]";
-
 	/**
 	* Builds a TypeHolder object with default attributes ({@code null}).
 	*/
@@ -79,7 +77,11 @@ public class TypeHolder {
 		}
 
 		for (int i = 0; i < getDimension(); i++) {
-			result.append(ARRAY_DIMENSION_TOKEN);
+			result.append('[');
+			if (dimension_sizes != null && i < dimension_sizes.length && dimension_sizes[i] > 0) {
+				result.append(dimension_sizes[i]);
+			}
+			result.append(']');
 		}
 
 		return result.toString();

@@ -77,17 +77,13 @@ public class Issue3174Test {
 				strictAnnex().getTransitions().stream().map(Issue3174Test::describe).toList());
 	}
 
-	/**
-	 * The wrong-typed assignment and send in the same model are not listed: they reach
-	 * {@code AdaLikeDataTypeChecker.conformsTo}, which the implementation disables for every assignment and send alike.
-	 * An internal port send compares its value against the internal event data classifier by that same path as a port
-	 * send, so re-enabling that comparison covers this model without further work.
-	 */
 	@Test
 	public void internalEventWithoutDataCarriesNoValue() throws Exception {
 		assertEquals(List.of(
 				"ERROR: internal event 'raised_event' has no data: it cannot be an assignment target",
-				"ERROR: internal event 'raised_event' has no data: its send action cannot carry a value"),
+				"ERROR: internal event 'raised_event' has no data: its send action cannot carry a value",
+				"ERROR: type error for 'assignment', 'Base_Types::Integer' expected, found 'standard string'.",
+				"ERROR: type error for 'internal port send action', 'Base_Types::Integer' expected, found 'standard string'."),
 				issues("InternalPortTypes.aadl"));
 	}
 

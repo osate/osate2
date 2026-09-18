@@ -1,0 +1,31 @@
+===== annex[0] owner=ConformingTypes::worker.impl =====
+
+\t\tvariables
+\t\t\tinteger_value : Base_Types::Integer := 0;
+\t\t\treal_value : Base_Types::Float := 0.0;
+\t\t\tfixed_value : FixedPoint := 0.0;
+\t\t\tboolean_value : Base_Types::Boolean := true;
+\t\t\ttext_value : Base_Types::String := "text";
+\t\t\tfirst_array[2], second_array[2] : Base_Types::Integer;
+\t\t\tsymbolic_array[input#Queue_Size] : Base_Types::Integer;
+\t\tstates
+\t\t\tstart : initial state;
+\t\t\tdone : final state;
+\t\ttransitions
+\t\t\tvalid : start -[]-> done {
+\t\t\t\tinteger_value := -2 ** 2;
+\t\t\t\tinteger_value := (1 + 2) * (3 - 1);
+\t\t\t\treal_value := 2.0 ** 2;
+\t\t\t\tfixed_value := 1.0 + fixed_value;
+\t\t\t\tfixed_value := fixed_value + 1.0;
+\t\t\t\tboolean_value := input'updated;
+\t\t\t\tboolean_value := true and then false or else true;
+\t\t\t\tboolean_value := text_value = "text";
+\t\t\t\tsecond_array := any;
+\t\t\t\tfirst_array := second_array;
+\t\t\t\tsymbolic_array := first_array;
+\t\t\t\tfor (element : Base_Types::Integer in 1 .. 2) { integer_value := element }
+\t\t\t};
+\t
+----- Xtext reparse -----
+reparsed

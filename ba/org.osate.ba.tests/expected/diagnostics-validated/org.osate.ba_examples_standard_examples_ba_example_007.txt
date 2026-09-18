@@ -1,7 +1,7 @@
 error | linking | 11 | 6 | 19 | Couldn't resolve reference to ModelUnit 'Behavior_Properties'.
-error | linking | 65 | 56 | 4 | Couldn't resolve reference to Property Constant, Property Definition, Enumeration or Unit literal 'LSER'. For classifier references use classifier( <ref> ).
-error | linking | 65 | 7 | 45 | Couldn't resolve reference to property definition 'Behavior_Properties::Subprogram_Call_Protocol'.
-error | linking | 67 | 56 | 4 | Couldn't resolve reference to Property Constant, Property Definition, Enumeration or Unit literal 'HSER'. For classifier references use classifier( <ref> ).
+error | linking | 67 | 56 | 4 | Couldn't resolve reference to Property Constant, Property Definition, Enumeration or Unit literal 'LSER'. For classifier references use classifier( <ref> ).
 error | linking | 67 | 7 | 45 | Couldn't resolve reference to property definition 'Behavior_Properties::Subprogram_Call_Protocol'.
-error | semantic | 54 | 12 | 1 | Behavior variable 'x' may be read before it is initialized
-error | semantic | 92 | 27 | 1 | Behavior variable 'v' may be read before it is initialized
+error | linking | 69 | 56 | 4 | Couldn't resolve reference to Property Constant, Property Definition, Enumeration or Unit literal 'HSER'. For classifier references use classifier( <ref> ).
+error | linking | 69 | 7 | 45 | Couldn't resolve reference to property definition 'Behavior_Properties::Subprogram_Call_Protocol'.
+error | semantic | 56 | 12 | 1 | Behavior variable 'x' may be read before it is initialized
+error | semantic | 95 | 27 | 1 | Behavior variable 'v' may be read before it is initialized

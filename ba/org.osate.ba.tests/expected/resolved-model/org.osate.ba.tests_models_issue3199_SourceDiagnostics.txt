@@ -1,0 +1,17 @@
+annex[0] owner=SourceDiagnostics::worker.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=flag
+      ownedValueConstant : BehaviorIntegerLiteral
+    variables[1] : BehaviorVariable name=counter
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : PortSendAction
+        port : DataPortHolder element=SourceDiagnostics::worker.output [DataPort]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=counter [BehaviorVariable]

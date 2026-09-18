@@ -19,7 +19,7 @@ This review covers the 19 issues carrying the `ba` label that were open on Septe
 | [#2669 — action blocks not fully typechecked](https://github.com/osate/osate2/issues/2669) | The reproduction determines the port's enum type from `Data_Representation` and `Enumerators`, both property values that may be overridden on a feature instance. |
 | [#3173 — omitted loop classifier](https://github.com/osate/osate2/issues/3173) | Grammar acceptance and integer-range inference are declarative. Inference from ports or arrays uses effective `Data_Representation`, `Base_Type`, and `Dimension` values and resolved prototype actuals, so that portion is instance-specific. |
 | [#3181 — communication and call signatures](https://github.com/osate/osate2/issues/3181) | Target category, parameter count and order, and direction are structural. Actual/formal type compatibility becomes instance-specific wherever it uses Data Model representation, array, range, or feature properties. |
-| [#3199 — disabled type conformance](https://github.com/osate/osate2/issues/3199) | Simple classifier-identity and literal-kind mismatches can still be checked declaratively. Operator applicability, arrays, ranges, structural data types, and property-reference typing currently consume `Data_Representation`, `Dimension`, `Integer_Range`, and related property values. The umbrella implementation plan in the issue comments therefore needs splitting into declarative and instance passes. |
+| [#3199 — declared type conformance](https://github.com/osate/osate2/issues/3199) | The source fix checks classifier identity, literal compatibility, and statically declared Data Model properties. It does not establish conformance after contained overrides or effective prototype bindings. Those checks, including instance-specific operator applicability, arrays, ranges, and property-reference values, remain [#3229](https://github.com/osate/osate2/issues/3229). |
 
 ## Issues not inherently affected
 
@@ -58,7 +58,7 @@ The current BA validation path cannot soundly evaluate effective property values
 - `InstanceObjectImpl.getPropertyValueInternal` checks those cached local values before falling back to the declarative model.
 - The BA plug-in registers parser, linker, unparser, and text-position services, but no annex instantiator or other instance-checking hook.
 
-Consequently, property-dependent checks must not produce ordinary source-validation diagnostics. They need an instance-side BA validation or analysis entry point that evaluates the declarative annex separately in each `ComponentInstance` context and reports against the affected instance, with source navigation where possible.
+Consequently, source diagnostics cannot establish conformance for effective instance properties. The #3199 source policy also checks statically declared Data Model properties; its diagnostics describe those declarations, not the values after contained overrides. Checking effective values needs an instance-side BA validation or analysis entry point under [#3229](https://github.com/osate/osate2/issues/3229) that evaluates the annex separately in each `ComponentInstance` context and reports against the affected instance, with source navigation where possible.
 
 The declarative validator should retain checks whose answer cannot vary between instances, including syntax, name resolution, structural category and direction rules, property-definition type restrictions, and property-independent portions of type checking.
 

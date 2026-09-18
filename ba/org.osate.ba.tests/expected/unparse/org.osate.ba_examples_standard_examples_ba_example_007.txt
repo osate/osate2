@@ -1,7 +1,7 @@
 ===== annex[0] owner=BA_example7::a_client =====
 
   variables
-    x, y : data_type;
+    x, y : data_type.i;
   states
     s : initial complete final state;
   transitions
@@ -25,9 +25,10 @@ reparsed
     s2 : complete state;
   transitions
     s0 -[ on dispatch long ]-> s1;
+    -- The published example assigns 1 and 0 to Boolean status. Use Boolean literals instead.
     s1 -[ ]-> s2 {\s
-        long_computation!(v, local_result); local_result.status := 1 } timeout 60ms;
-    s1 -[ timeout ]-> s2 { local_result.status := 0 };
+        long_computation!(v, local_result); local_result.status := true } timeout 60ms;
+    s1 -[ timeout ]-> s2 { local_result.status := false };
     s2 -[ on dispatch short ]-> s0 { send_result!(local_result, v) };
 ----- Xtext reparse -----
 reparsed

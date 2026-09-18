@@ -1,0 +1,2 @@
+error | semantic | 38 | 69 | 12 | type error for 'assignment', 'Base_Types::Integer[2]' expected, found 'Base_Types::Integer[3]'.
+error | semantic | 39 | 61 | 6 | type error for 'assignment', 'Base_Types::Integer[2]' expected, found 'Base_Types::Integer[2][2]'.

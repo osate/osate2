@@ -1,0 +1,4 @@
+error | semantic | 40 | 54 | 6 | type error for 'assignment', 'Base_Types::Integer' expected, found 'standard string'.
+error | semantic | 41 | 41 | 13 | type error for 'port send action', 'Base_Types::String' expected, found 'universal integer'.
+error | semantic | 42 | 51 | 10 | Invalid operand types for operator "+": left operand has type universal integer, right operand has type standard string
+error | semantic | 43 | 58 | 16 | Invalid operand types for operator "<": left operand has type Base_Types::Integer, right operand has type standard string

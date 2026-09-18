@@ -58,7 +58,7 @@ annex[1] owner=BA_example7::a_server.i
               firstExpression : SimpleExpression
                 terms[0] : Term
                   factors[0] : Factor
-                    firstValue : BehaviorIntegerLiteral
+                    firstValue : BehaviorBooleanLiteral
       timeout : BehaviorTime
         integerValue : BehaviorIntegerLiteral
     actions[1] : BehaviorActionBlock
@@ -71,7 +71,7 @@ annex[1] owner=BA_example7::a_server.i
             firstExpression : SimpleExpression
               terms[0] : Term
                 factors[0] : Factor
-                  firstValue : BehaviorIntegerLiteral
+                  firstValue : BehaviorBooleanLiteral
     actions[2] : BehaviorActionBlock
       content : SubprogramCallAction
         subprogram : SubprogramHolder element=BA_example7::send_result [SubprogramType]

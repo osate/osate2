@@ -114,9 +114,28 @@ public class AadlBaTypeChecker {
 	 * @return {@code true} when all checked types are consistent
 	 */
 	public boolean checkTypes() {
+		return checkResolution() && checkResolvedTypes();
+	}
+
+	/**
+	 * Checks the references required by strict-model checkers. Resolution failures must stop those checkers;
+	 * conformance errors must not suppress their independent diagnostics.
+	 */
+	public boolean checkResolution() {
 		boolean result = checkResolvedModel();
 		for (BehaviorVariable variable : ba.getVariables()) {
-			result &= checkBehaviorVariable(variable);
+			result &= checkBehaviorVariableResolution(variable);
+		}
+		return result;
+	}
+
+	/**
+	 * Checks conformance after {@link #checkResolution()} has succeeded, without changing the strict model.
+	 */
+	public boolean checkResolvedTypes() {
+		boolean result = true;
+		for (BehaviorVariable variable : ba.getVariables()) {
+			result &= checkBehaviorVariableInitializer(variable);
 		}
 		// Expanded multi-source transitions have condition copies and a shared action block.
 		Set<BehaviorElement> checked = Collections.newSetFromMap(new IdentityHashMap<>());
@@ -138,7 +157,7 @@ public class AadlBaTypeChecker {
 		return result;
 	}
 
-	private boolean checkBehaviorVariable(BehaviorVariable variable) {
+	private boolean checkBehaviorVariableResolution(BehaviorVariable variable) {
 		boolean result = variable.getDataClassifier() instanceof DataClassifier;
 		if (!result) {
 			reportError(variable, "behavior variable data classifier is not resolved");
@@ -149,11 +168,16 @@ public class AadlBaTypeChecker {
 				result = false;
 			}
 		}
-		if (result && variable.getOwnedValueConstant() != null) {
+		return result;
+	}
+
+	private boolean checkBehaviorVariableInitializer(BehaviorVariable variable) {
+		boolean result = true;
+		if (variable.getOwnedValueConstant() != null) {
 			var variableType = new TypeHolder(AadlBaUtils.getDataRepresentation(variable), variable.getDataClassifier());
 			variableType.setDimension(variable.getArrayDimensions().size());
 			var initializerType = getType(variable.getOwnedValueConstant());
-			if (initializerType == null || !initializerConformsTo(variableType, initializerType)) {
+			if (initializerType == null || !dataChecker.conformsTo(variableType, initializerType, true)) {
 				if (initializerType != null) {
 					reportTypeError(variable.getOwnedValueConstant(), "behavior variable initializer",
 							variableType.toString(), initializerType.toString());
@@ -162,25 +186,6 @@ public class AadlBaTypeChecker {
 			}
 		}
 		return result;
-	}
-
-	/**
-	 * General BA assignment conformance is intentionally still disabled in {@link AdaLikeDataTypeChecker}. An explicit
-	 * declaration initializer is narrower: both its constant kind and the variable's declared classifier are known
-	 * before any instance-dependent property lookup, so reject only a mismatch that is definite here.
-	 */
-	private static boolean initializerConformsTo(TypeHolder variableType, TypeHolder initializerType) {
-		if (variableType.getDimension() != initializerType.getDimension()) {
-			return false;
-		}
-		var variableRepresentation = variableType.getDataRep();
-		var initializerRepresentation = initializerType.getDataRep();
-		if (variableRepresentation != DataRepresentation.UNKNOWN
-				&& initializerRepresentation != DataRepresentation.UNKNOWN) {
-			return variableRepresentation == initializerRepresentation;
-		}
-		return variableType.getKlass() == null || initializerType.getKlass() == null
-				|| variableType.getKlass() == initializerType.getKlass();
 	}
 
 	private boolean checkBehaviorTransition(BehaviorTransition transition, Set<BehaviorElement> checked) {
