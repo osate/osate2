@@ -1,0 +1,22 @@
+package UnresolvedMode
+public
+  system s
+    modes
+      m1: initial mode;
+      m2: mode;
+    annex EMV2 {**
+      use behavior UnresolvedMode::machine;
+      component error behavior
+        mode mappings
+          state1 in modes (missing);
+      end component;
+    **} in modes (m2);
+  end s;
+
+  annex EMV2 {**
+    error behavior machine
+      states
+        state1: initial state;
+    end behavior;
+  **};
+end UnresolvedMode;
