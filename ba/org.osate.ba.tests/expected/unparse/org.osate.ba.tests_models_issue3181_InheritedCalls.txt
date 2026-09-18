@@ -1,0 +1,15 @@
+===== annex[0] owner=InheritedCalls::host.i =====
+
+\t\tvariables
+\t\t\tvalue : Base_Types::Integer := 1;
+\t\tstates
+\t\t\tstart : initial state;
+\t\t\tdone : final state;
+\t\ttransitions
+\t\t\tstart -[]-> done { derived!(1, value, true) };
+\t\t\tstart -[]-> done { typed!(1, value, true) };
+\t\t\tstart -[]-> done { untyped!(1, value) };
+\t\t\tstart -[]-> done { api.invoke!(1, api.shared, true) };
+\t
+----- Xtext reparse -----
+reparsed

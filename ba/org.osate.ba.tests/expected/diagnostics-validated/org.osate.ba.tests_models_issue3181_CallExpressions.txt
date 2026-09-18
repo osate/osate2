@@ -1,0 +1,1 @@
+error | semantic | 40 | 39 | 7 | There is no applicable operator "and" for type universal integer

@@ -1,0 +1,5 @@
+error | semantic | 44 | 42 | 1 | Actual for out parameter 'result' must be a writable target
+error | semantic | 45 | 42 | 9 | Actual for out parameter 'result' must be a writable target
+error | semantic | 46 | 42 | 5 | Actual for out parameter 'result' must be a writable target
+error | semantic | 47 | 39 | 6 | Actual for in parameter 'argument' must be readable
+error | semantic | 48 | 62 | 1 | Actual for out parameter 'result' must be a writable target

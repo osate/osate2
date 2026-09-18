@@ -1,0 +1,73 @@
+annex[0] owner=CommunicationTargets::host.i
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=value
+      ownedValueConstant : BehaviorIntegerLiteral
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition name=t0
+    transitions[1] : BehaviorTransition name=t1
+    transitions[2] : BehaviorTransition name=t2
+    transitions[3] : BehaviorTransition name=t3
+    transitions[4] : BehaviorTransition name=t4
+    transitions[5] : BehaviorTransition name=t5
+    transitions[6] : BehaviorTransition name=t6
+    transitions[7] : BehaviorTransition name=t7
+    transitions[8] : BehaviorTransition name=t8
+    transitions[9] : BehaviorTransition name=t9
+    transitions[10] : BehaviorTransition name=t10
+    transitions[11] : BehaviorTransition name=t11
+    transitions[12] : BehaviorTransition name=t12
+    transitions[13] : BehaviorTransition name=t13
+    actions[0] : BehaviorActionBlock
+      content : PortSendAction
+        port : EventDataPortHolder element=CommunicationTargets::host.input [EventDataPort]
+    actions[1] : BehaviorActionBlock
+      content : PortDequeueAction
+        port : EventDataPortHolder element=CommunicationTargets::host.output [EventDataPort]
+    actions[2] : BehaviorActionBlock
+      content : PortDequeueAction
+        port : DataPortHolder element=CommunicationTargets::host.input_data [DataPort]
+    actions[3] : BehaviorActionBlock
+      content : PortFreezeAction
+    actions[4] : BehaviorActionBlock
+      content : SubprogramCallAction
+        proxy : BehaviorVariableHolder element=value [BehaviorVariable]
+    actions[5] : BehaviorActionBlock
+      content : PortDequeueAction
+    actions[6] : BehaviorActionBlock
+      content : PortFreezeAction
+    actions[7] : BehaviorActionBlock
+      content : LockAction
+    actions[8] : BehaviorActionBlock
+      content : LockAction
+        dataAccess : DataAccessHolder element=CommunicationTargets::host.provided [DataAccess]
+    actions[9] : BehaviorActionBlock
+      content : PortSendAction
+        port : EventDataPortHolder element=CommunicationTargets::host.output [EventDataPort]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[10] : BehaviorActionBlock
+      content : PortSendAction
+        port : EventPortHolder element=CommunicationTargets::host.output_event [EventPort]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[11] : BehaviorActionBlock
+      content : PortDequeueAction
+        port : EventPortHolder element=CommunicationTargets::host.input_event [EventPort]
+        target : BehaviorVariableHolder element=value [BehaviorVariable]
+    actions[12] : BehaviorActionBlock
+      content : PortDequeueAction
+        port : EventDataPortHolder element=CommunicationTargets::host.input [EventDataPort]
+        target : DataPortHolder element=CommunicationTargets::host.input_data [DataPort]
+    actions[13] : BehaviorActionBlock
+      content : PortDequeueAction
+        port : EventDataPortHolder element=CommunicationTargets::host.input [EventDataPort]
+        target : EventPortHolder element=CommunicationTargets::host.output_event [EventPort]

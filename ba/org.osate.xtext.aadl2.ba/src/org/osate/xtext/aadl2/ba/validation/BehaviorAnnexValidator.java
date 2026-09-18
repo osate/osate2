@@ -43,10 +43,13 @@ import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.eclipse.xtext.validation.ValidationMessageAcceptor;
+import org.osate.aadl2.AccessType;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.DataSubcomponent;
+import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EventDataPort;
@@ -54,6 +57,7 @@ import org.osate.aadl2.EventPort;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.NumberType;
+import org.osate.aadl2.Parameter;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyType;
@@ -68,12 +72,14 @@ import org.osate.ba.aadlba.BehaviorPropertyConstant;
 import org.osate.ba.aadlba.ForOrForAllStatement;
 import org.osate.ba.aadlba.PropertyReference;
 import org.osate.ba.aadlba.PropertySetPropertyReference;
+import org.osate.ba.aadlba.SubprogramCallAction;
 import org.osate.ba.aadlba.util.AadlBaSwitch;
 import org.osate.ba.analyzers.AadlBaInitializationChecker;
 import org.osate.ba.analyzers.AadlBaRulesCheckersDriver;
 import org.osate.ba.analyzers.AadlBaTypeChecker;
 import org.osate.ba.analyzers.AdaLikeDataTypeChecker;
 import org.osate.ba.utils.AadlBaUtils;
+import org.osate.ba.utils.SubprogramCallUtil;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ArrayDimension;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.AssignmentAction;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
@@ -124,6 +130,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	public static final String EXTERNAL_CONDITION_IN_MODES = "org.osate.xtext.aadl2.ba.externalConditionInModes";
 	public static final String UNARY_PLUS = "org.osate.xtext.aadl2.ba.unaryPlus";
 	public static final String PORT_STATUS_DIRECTION = "org.osate.xtext.aadl2.ba.portStatusDirection";
+	public static final String COMMUNICATION_ACTION = "org.osate.xtext.aadl2.ba.communicationAction";
 	private static final URI VALIDATION_RESOURCE_URI = URI.createURI("validation:/behavior-annex.aadlba");
 
 	@Inject
@@ -205,10 +212,12 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 		private final List<BehaviorState> completeStates = new ArrayList<>();
 		private final List<Predicate<TranslationResult>> pendingChecks = new ArrayList<>();
 		private final boolean inModes;
+		private final ComponentClassifier owner;
 		private boolean hasUnresolvedReference;
 
 		private DeclarativeChecks(final BehaviorAnnex source) {
 			inModes = DeclarativeToStrictTranslator.hasInModes(source);
+			owner = (ComponentClassifier) source.getContainingClassifier();
 		}
 
 		@Override
@@ -293,6 +302,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 
 		@Override
 		public Void caseCommunicationAction(final CommunicationAction action) {
+			pendingChecks.add(translation -> checkCommunicationAction(action, translation, owner));
 			if (action.isDequeue()) {
 				pendingChecks.add(translation -> checkIteratorTarget(action.getTarget(), translation));
 			}
@@ -482,6 +492,218 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 			return false;
 		}
 		return true;
+	}
+
+	/** Checks written operands before strict translation can hide an invalid target or extra send value. */
+	private boolean checkCommunicationAction(CommunicationAction action, TranslationResult translation,
+			ComponentClassifier owner) {
+		var reference = action.getReference();
+		if (reference == null) {
+			return true; // Wildcard lock and unlock actions have no individual target.
+		}
+		var resolved = translation.getResolvedReference(reference);
+		if (resolved instanceof InternalFeature && !action.isSend()) {
+			return true; // checkInternalPortUse already diagnoses this use.
+		}
+		if (action.isLock() || action.isUnlock()) {
+			return resolved instanceof DataAccess access && isRequiredAccess(reference, access, translation)
+					|| communicationError(reference, "A lock or unlock action requires a required data access");
+		}
+		if (action.isFreeze()) {
+			return resolved instanceof Port && hasDirection(reference, translation, true)
+					|| communicationError(reference, "A freeze action requires an incoming port");
+		}
+		if (action.isDequeue()) {
+			var valid = (resolved instanceof EventPort || resolved instanceof EventDataPort)
+					&& hasDirection(reference, translation, true);
+			if (!valid) {
+				return communicationError(reference, "A dequeue action requires an incoming event or event data port");
+			}
+			if (action.getTarget() != null) {
+				if (resolved instanceof EventPort) {
+					return communicationError(action, "An event port dequeue action cannot assign a data value");
+				}
+				if (referenceRoot(action.getTarget(), translation) instanceof ForStatement) {
+					return true; // checkIteratorTarget owns the diagnostic for a dequeue into an iterator.
+				}
+				return isWritable(action.getTarget(), translation)
+						|| communicationError(action.getTarget(), "A dequeue target must be writable");
+			}
+			return true;
+		}
+		if (resolved instanceof Port || resolved instanceof InternalFeature) {
+			var valid = true;
+			if (resolved instanceof Port && !hasDirection(reference, translation, false)) {
+				valid = communicationError(reference, "A port send action requires an outgoing port");
+			}
+			if (action.getParameters().size() > 1) {
+				valid = communicationError(action, "A port send action accepts at most one value");
+			} else if (resolved instanceof EventPort && !action.getParameters().isEmpty()) {
+				valid = communicationError(action, "An event port send action cannot carry a value");
+			}
+			return valid;
+		}
+		if (!(translation.getStrict(action) instanceof SubprogramCallAction call) || call.getSubprogram() == null) {
+			return communicationError(reference,
+					"A send or call action requires a port, internal feature, or callable subprogram");
+		}
+		var classifier = SubprogramCallUtil.getClassifier(call.getSubprogram(), owner);
+		if (classifier == null) {
+			return true; // An unconstrained, unbound prototype has no signature to check yet.
+		}
+		var formals = SubprogramCallUtil.getFormals(classifier);
+		if (formals.size() != action.getParameters().size()) {
+			return communicationError(action,
+					"Subprogram call requires " + formals.size() + " actuals but has " + action.getParameters().size());
+		}
+		var valid = true;
+		for (var i = 0; i < formals.size(); i++) {
+			var formal = formals.get(i);
+			var actual = action.getParameters().get(i);
+			var actualReference = plainReference(actual);
+			if (formal instanceof Parameter parameter) {
+				if (parameter.isOut() && (actualReference == null || !isWritable(actualReference, translation))) {
+					valid = communicationError(actual, "Actual for " + parameter.getDirection().getLiteral()
+							+ " parameter '" + formal.getName() + "' must be a writable target");
+				} else if (parameter.isIn() && !isReadable(actual, translation)) {
+					valid = communicationError(actual, "Actual for " + parameter.getDirection().getLiteral()
+							+ " parameter '" + formal.getName() + "' must be readable");
+				}
+			} else if (formal instanceof DataAccess) {
+				if (actualReference == null || !isDataReference(actualReference, translation)) {
+					valid = communicationError(actual,
+							"Actual for data access '" + formal.getName() + "' must reference data");
+				}
+				// Access_Right is an effective instance property, not a source-level direction.
+			} else if (formal instanceof Port port) {
+				if (actualReference == null
+						|| !(translation.getResolvedReference(actualReference) instanceof Port actualPort)
+						|| port.eClass() != actualPort.eClass()
+						|| port.isIn() && !hasDirection(actualReference, translation, true)
+						|| port.isOut() && !hasDirection(actualReference, translation, false)) {
+					valid = communicationError(actual, "Actual for port '" + formal.getName()
+							+ "' must reference a port of the same category and direction");
+				}
+			} else {
+				// Do not omit an unrepresentable formal and shift every subsequent actual to the wrong feature.
+				valid = communicationError(actual,
+						"Feature '" + formal.getName() + "' is not supported as a Behavior Annex call parameter");
+			}
+		}
+		return valid;
+	}
+
+	private boolean communicationError(EObject source, String message) {
+		error(message, source, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, COMMUNICATION_ACTION);
+		return false;
+	}
+
+	private static Reference plainReference(org.osate.xtext.aadl2.ba.behaviorAnnex.ValueExpression expression) {
+		return expression instanceof ReferenceExpression reference && reference.getProperty() == null
+				&& !reference.isCount() && !reference.isFresh() && !reference.isUpdated() && !reference.isDequeue()
+						? reference.getReference()
+						: null;
+	}
+
+	/** Direction of an owner feature, accounting for each enclosing inverse feature group. */
+	private static boolean hasDirection(Reference reference, TranslationResult translation, boolean incoming) {
+		var inverse = featureInversion(reference, translation);
+		return inverse != null && translation.getResolvedReference(reference) instanceof DirectedFeature feature
+				&& (incoming ^ inverse ? feature.isIn() : feature.isOut());
+	}
+
+	private static boolean isRequiredAccess(Reference reference, DataAccess access, TranslationResult translation) {
+		var inverse = featureInversion(reference, translation);
+		return inverse != null && (access.getKind() == AccessType.REQUIRES) != inverse;
+	}
+
+	/** Returns null for paths that do not name a feature of the owner or its feature groups. */
+	private static Boolean featureInversion(Reference reference, TranslationResult translation) {
+		var segments = new ArrayList<>(reference.getSegments());
+		for (var tail : reference.getTails()) {
+			if (!".".equals(tail.getSeparator())) {
+				return null;
+			}
+			segments.add(tail.getSegment());
+		}
+		var inverse = false;
+		for (var i = 0; i < segments.size() - 1; i++) {
+			if (!(translation.getResolvedReference(segments.get(i)) instanceof FeatureGroup group)) {
+				return null;
+			}
+			inverse ^= group.isInverse();
+			var type = group.getAllFeatureGroupType();
+			inverse ^= type != null && type.getInverse() != null;
+		}
+		return inverse;
+	}
+
+	private static boolean isDataReference(Reference reference, TranslationResult translation) {
+		var root = referenceRoot(reference, translation);
+		return root instanceof DataSubcomponent || root instanceof DataAccess || root instanceof Parameter
+				|| root instanceof BehaviorVariable;
+	}
+
+	private static EObject referenceRoot(Reference reference, TranslationResult translation) {
+		var segments = new ArrayList<>(reference.getSegments());
+		reference.getTails().forEach(tail -> segments.add(tail.getSegment()));
+		for (var segment : segments) {
+			var resolved = translation.getResolvedReference(segment);
+			if (!(resolved instanceof FeatureGroup)) {
+				return resolved;
+			}
+		}
+		return null;
+	}
+
+	private static boolean isWritable(Reference reference, TranslationResult translation) {
+		if (!(translation.getStrict(reference) instanceof org.osate.ba.aadlba.Target)
+				|| reference.getSegments().isEmpty()
+				|| translation.getResolvedReference(reference) instanceof EventPort) {
+			return false;
+		}
+		var root = referenceRoot(reference, translation);
+		if (root instanceof ForStatement) {
+			return false;
+		}
+		if (root instanceof Parameter parameter) {
+			return parameter.isOut();
+		}
+		if (translation.getResolvedReference(reference) instanceof Port) {
+			return hasDirection(reference, translation, false);
+		}
+		return isDataReference(reference, translation)
+				|| translation.getResolvedReference(reference) instanceof org.osate.aadl2.EventDataSource;
+	}
+
+	private static boolean isReadable(org.osate.xtext.aadl2.ba.behaviorAnnex.ValueExpression expression,
+			TranslationResult translation) {
+		if (expression instanceof ReferenceExpression reference && !isReadableReference(reference, translation)) {
+			return false;
+		}
+		for (var contents = expression.eAllContents(); contents.hasNext();) {
+			if (contents.next() instanceof ReferenceExpression reference
+					&& !isReadableReference(reference, translation)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private static boolean isReadableReference(ReferenceExpression expression, TranslationResult translation) {
+		if (expression.getProperty() != null || expression.isCount() || expression.isFresh() || expression.isUpdated()
+				|| expression.isDequeue()) {
+			return true;
+		}
+		var reference = expression.getReference();
+		var root = referenceRoot(reference, translation);
+		if (root instanceof Parameter parameter) {
+			return parameter.isIn();
+		}
+		if (translation.getResolvedReference(reference) instanceof Port port) {
+			return !(port instanceof EventPort) && hasDirection(reference, translation, true);
+		}
+		return isDataReference(reference, translation) || root instanceof ForStatement;
 	}
 
 	private static boolean isStandardInternalPortUse(final Reference reference) {

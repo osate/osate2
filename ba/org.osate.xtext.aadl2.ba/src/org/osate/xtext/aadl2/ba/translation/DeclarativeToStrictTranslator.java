@@ -63,6 +63,7 @@ import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.Parameter;
+import org.osate.aadl2.Port;
 import org.osate.aadl2.PortSpecification;
 import org.osate.aadl2.ProcessorClassifier;
 import org.osate.aadl2.Property;
@@ -75,10 +76,7 @@ import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.RecordType;
 import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.SubprogramAccess;
-import org.osate.aadl2.SubprogramImplementation;
-import org.osate.aadl2.SubprogramPrototype;
 import org.osate.aadl2.SubprogramSubcomponent;
-import org.osate.aadl2.SubprogramType;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.parsesupport.ParseUtil;
 import org.osate.ba.aadlba.AadlBaFactory;
@@ -126,6 +124,7 @@ import org.osate.ba.aadlba.ValueExpression;
 import org.osate.ba.analyzers.BehaviorTransitionContext;
 import org.osate.ba.utils.AadlBaUtils;
 import org.osate.ba.utils.DimensionException;
+import org.osate.ba.utils.SubprogramCallUtil;
 import org.osate.utils.internal.Aadl2Utils;
 import org.osate.utils.internal.Aadl2Visitors;
 import org.osate.utils.internal.PropertyUtils;
@@ -858,7 +857,8 @@ public final class DeclarativeToStrictTranslator {
 					&& path.getFirst() instanceof org.osate.ba.aadlba.SubprogramHolderProxy proxy) {
 				result.setProxy(proxy);
 			}
-			final var formalParameters = getFormalParameters(result.getSubprogram());
+			final var formalParameters = SubprogramCallUtil
+					.getFormals(SubprogramCallUtil.getClassifier(result.getSubprogram(), owner));
 			for (var i = 0; i < action.getParameters().size(); i++) {
 				final var formal = i < formalParameters.size() ? formalParameters.get(i) : null;
 				result.getParameterLabels().add(toParameterLabel(action.getParameters().get(i), formal));
@@ -870,13 +870,12 @@ public final class DeclarativeToStrictTranslator {
 				final org.osate.xtext.aadl2.ba.behaviorAnnex.ValueExpression parameter, final Feature formal) {
 			final var writable = formal instanceof Parameter formalParameter
 					? formalParameter.getDirection() != DirectionType.IN
-					: formal instanceof DataAccess dataAccess
-							&& Aadl2Utils.getDataAccessRight(dataAccess) != Aadl2Utils.DataAccessRight.read_only;
+					: formal instanceof Port port ? port.isOut()
+							: formal instanceof DataAccess dataAccess
+									&& Aadl2Utils.getDataAccessRight(dataAccess) != Aadl2Utils.DataAccessRight.read_only;
 			if (writable && parameter instanceof ReferenceExpression expression) {
 				if (expression.getProperty() == null && !expression.isCount() && !expression.isFresh()
-						&& !expression.isUpdated() && !expression.isDequeue()
-						&& expression.getReference().getSegments().size()
-								+ expression.getReference().getTails().size() == 1) {
+						&& !expression.isUpdated() && !expression.isDequeue()) {
 					final var reference = toReferenceValue(expression.getReference());
 					if (reference instanceof Target target) {
 						return target;
@@ -884,46 +883,6 @@ public final class DeclarativeToStrictTranslator {
 				}
 			}
 			return toValueExpression(parameter);
-		}
-
-		private List<Feature> getFormalParameters(final CalledSubprogramHolder holder) {
-			final var classifier = getSubprogramType(holder);
-			if (classifier == null) {
-				return List.of();
-			}
-			return Aadl2Utils.orderFeatures(classifier)
-					.stream()
-					.filter(feature -> feature instanceof Parameter || feature instanceof DataAccess)
-					.toList();
-		}
-
-		private Classifier getSubprogramType(final CalledSubprogramHolder holder) {
-			if (holder == null) {
-				return null;
-			}
-			final var element = holder.getElement();
-			return switch (element) {
-			case SubprogramImplementation implementation -> implementation.getType();
-			case SubprogramType type -> type;
-			case SubprogramAccess access -> access.getClassifier();
-			case SubprogramSubcomponent subcomponent -> subcomponent.getClassifier();
-			case SubprogramPrototype prototype -> {
-				var prototypeContext = (Classifier) owner;
-				if (holder instanceof GroupableElement groupable && !groupable.getGroupHolders().isEmpty()) {
-					final var group = groupable.getGroupHolders().getLast().getElement();
-					final var groupClassifier = AadlBaUtils.getClassifier(group, owner);
-					if (groupClassifier != null) {
-						prototypeContext = groupClassifier;
-					}
-				}
-				final var boundClassifier = AadlBaUtils.getClassifier(prototype, prototypeContext);
-				if (boundClassifier instanceof SubprogramImplementation implementation) {
-					yield implementation.getType();
-				}
-				yield boundClassifier != null ? boundClassifier : prototype.getConstrainingClassifier();
-			}
-			default -> null;
-			};
 		}
 
 		private org.osate.ba.aadlba.BehaviorTime toTime(final BehaviorTime time) {

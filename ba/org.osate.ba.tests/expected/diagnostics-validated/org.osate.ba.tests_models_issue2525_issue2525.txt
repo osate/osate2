@@ -1,0 +1,2 @@
+error | semantic | 16 | 6 | 4 | A dequeue action requires an incoming event or event data port
+error | semantic | 17 | 6 | 4 | A dequeue action requires an incoming event or event data port

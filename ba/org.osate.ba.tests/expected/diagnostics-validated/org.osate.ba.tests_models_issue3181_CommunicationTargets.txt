@@ -1,0 +1,14 @@
+error | semantic | 44 | 28 | 5 | A port send action requires an outgoing port
+error | semantic | 45 | 28 | 6 | A dequeue action requires an incoming event or event data port
+error | semantic | 46 | 28 | 10 | A dequeue action requires an incoming event or event data port
+error | semantic | 47 | 28 | 6 | A freeze action requires an incoming port
+error | semantic | 48 | 28 | 5 | A send or call action requires a port, internal feature, or callable subprogram
+error | semantic | 49 | 28 | 5 | A dequeue action requires an incoming event or event data port
+error | semantic | 50 | 28 | 5 | A freeze action requires an incoming port
+error | semantic | 51 | 28 | 5 | A lock or unlock action requires a required data access
+error | semantic | 52 | 28 | 8 | A lock or unlock action requires a required data access
+error | semantic | 53 | 28 | 13 | A port send action accepts at most one value
+error | semantic | 54 | 29 | 16 | An event port send action cannot carry a value
+error | semantic | 55 | 29 | 19 | An event port dequeue action cannot assign a data value
+error | semantic | 56 | 36 | 10 | A dequeue target must be writable
+error | semantic | 57 | 36 | 12 | A dequeue target must be writable

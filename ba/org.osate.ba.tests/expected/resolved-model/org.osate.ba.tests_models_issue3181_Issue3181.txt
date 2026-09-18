@@ -1,0 +1,111 @@
+annex[0] owner=Issue3181::host.i
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=value
+      ownedValueConstant : BehaviorIntegerLiteral
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition name=t0
+    transitions[1] : BehaviorTransition name=t1
+    transitions[2] : BehaviorTransition name=t2
+    transitions[3] : BehaviorTransition name=t3
+    transitions[4] : BehaviorTransition name=t4
+    transitions[5] : BehaviorTransition name=t5
+    transitions[6] : BehaviorTransition name=t6
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : PortSendAction
+          port : EventDataPortHolder element=Issue3181::host.output [EventDataPort]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[1] : PortSendAction
+          port : EventDataPortHolder element=Issue3181::host.output [EventDataPort]
+        actions[2] : PortSendAction
+          port : EventPortHolder element=Issue3181::host.output_event [EventPort]
+        actions[3] : PortDequeueAction
+          port : EventDataPortHolder element=Issue3181::host.input [EventDataPort]
+        actions[4] : PortDequeueAction
+          port : EventDataPortHolder element=Issue3181::host.input [EventDataPort]
+          target : BehaviorVariableHolder element=value [BehaviorVariable]
+        actions[5] : PortFreezeAction
+        actions[6] : PortFreezeAction
+    actions[1] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : LockAction
+          dataAccess : DataAccessHolder element=Issue3181::host.shared [DataAccess]
+        actions[1] : UnlockAction
+          dataAccess : DataAccessHolder element=Issue3181::host.shared [DataAccess]
+    actions[2] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : PortSendAction
+          port : EventDataPortHolder element=Issue3181::outputs.channel [EventDataPort]
+            groupHolders[0] : GroupHolder element=Issue3181::host.group_output [FeatureGroup]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[1] : PortDequeueAction
+          port : EventDataPortHolder element=Issue3181::outputs.channel [EventDataPort]
+            groupHolders[0] : GroupHolder element=Issue3181::host.group_input [FeatureGroup]
+          target : BehaviorVariableHolder element=value [BehaviorVariable]
+        actions[2] : PortFreezeAction
+          groupHolders[0] : GroupHolder element=Issue3181::host.group_input [FeatureGroup]
+    actions[3] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramHolder element=Issue3181::operation [SubprogramType]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+        parameterLabels[1] : BehaviorVariableHolder element=value [BehaviorVariable]
+        parameterLabels[2] : BehaviorVariableHolder element=value [BehaviorVariable]
+        parameterLabels[3] : DataAccessHolder element=Issue3181::host.shared [DataAccess]
+        parameterLabels[4] : EventPortHolder element=Issue3181::host.output_event [EventPort]
+    actions[4] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramHolder element=Issue3181::operation.i [SubprogramImplementation]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+        parameterLabels[1] : BehaviorVariableHolder element=value [BehaviorVariable]
+        parameterLabels[2] : BehaviorVariableHolder element=value [BehaviorVariable]
+        parameterLabels[3] : DataAccessHolder element=Issue3181::host.shared [DataAccess]
+        parameterLabels[4] : EventPortHolder element=Issue3181::host.output_event [EventPort]
+    actions[5] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramAccessHolder element=Issue3181::host.call_access [SubprogramAccess]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+        parameterLabels[1] : DataComponentReference
+          data[0] : DataSubcomponentHolder element=Issue3181::host.i.record_value [DataSubcomponent]
+          data[1] : DataSubcomponentHolder element=Issue3181::record_type.i.field [DataSubcomponent]
+        parameterLabels[2] : BehaviorVariableHolder element=value [BehaviorVariable]
+        parameterLabels[3] : DataAccessHolder element=Issue3181::host.shared [DataAccess]
+        parameterLabels[4] : EventPortHolder element=Issue3181::host.output_event [EventPort]
+    actions[6] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramSubcomponentHolder element=Issue3181::host.i.local_call [SubprogramSubcomponent]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+        parameterLabels[1] : BehaviorVariableHolder element=value [BehaviorVariable]
+        parameterLabels[2] : BehaviorVariableHolder element=value [BehaviorVariable]
+        parameterLabels[3] : DataAccessHolder element=Issue3181::host.shared [DataAccess]
+        parameterLabels[4] : EventPortHolder element=Issue3181::host.output_event [EventPort]

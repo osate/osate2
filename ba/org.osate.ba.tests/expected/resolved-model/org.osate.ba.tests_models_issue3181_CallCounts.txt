@@ -1,0 +1,51 @@
+annex[0] owner=CallCounts::host.i
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=value
+      ownedValueConstant : BehaviorIntegerLiteral
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition name=t0
+    transitions[1] : BehaviorTransition name=t1
+    transitions[2] : BehaviorTransition name=t2
+    transitions[3] : BehaviorTransition name=t3
+    actions[0] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramHolder element=CallCounts::operation [SubprogramType]
+    actions[1] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramHolder element=CallCounts::operation.i [SubprogramImplementation]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[2] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramAccessHolder element=CallCounts::host.call_access [SubprogramAccess]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+        parameterLabels[1] : BehaviorVariableHolder element=value [BehaviorVariable]
+    actions[3] : BehaviorActionBlock
+      content : SubprogramCallAction
+        subprogram : SubprogramSubcomponentHolder element=CallCounts::host.i.local_call [SubprogramSubcomponent]
+        parameterLabels[0] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+        parameterLabels[1] : BehaviorVariableHolder element=value [BehaviorVariable]
+        parameterLabels[2] : BehaviorVariableHolder element=value [BehaviorVariable]
+        parameterLabels[3] : BehaviorVariableHolder element=value [BehaviorVariable]
+        parameterLabels[4] : BehaviorVariableHolder element=value [BehaviorVariable]
+        parameterLabels[5] : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=value [BehaviorVariable]

@@ -1,0 +1,3 @@
+error | semantic | 57 | 20 | 3 | Actual for out parameter 'f3' must be a writable target
+error | semantic | 57 | 25 | 3 | Actual for in out parameter 'f4' must be a writable target
+error | semantic | 59 | 11 | 3 | Actual for in out parameter 'f2' must be a writable target

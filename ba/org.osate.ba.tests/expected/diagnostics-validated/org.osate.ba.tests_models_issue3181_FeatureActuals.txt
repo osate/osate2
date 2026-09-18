@@ -1,0 +1,4 @@
+error | semantic | 54 | 56 | 1 | Actual for data access 'shared' must reference data
+error | semantic | 55 | 64 | 1 | Actual for port 'signal' must reference a port of the same category and direction
+error | semantic | 56 | 64 | 11 | Actual for port 'signal' must reference a port of the same category and direction
+error | semantic | 57 | 64 | 6 | Actual for port 'signal' must reference a port of the same category and direction

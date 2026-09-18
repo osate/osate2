@@ -1,0 +1,15 @@
+===== annex[0] owner=CallCounts::host.i =====
+
+\t\tvariables
+\t\t\tvalue : Base_Types::Integer := 1;
+\t\tstates
+\t\t\tstart : initial state;
+\t\t\tdone : final state;
+\t\ttransitions
+\t\t\tt0 : start -[]-> done { operation! };
+\t\t\tt1 : start -[]-> done { operation.i!(1) };
+\t\t\tt2 : start -[]-> done { call_access!(1, value) };
+\t\t\tt3 : start -[]-> done { local_call!(1, value, value, value, value, value) };
+\t
+----- Xtext reparse -----
+reparsed

@@ -20,19 +20,37 @@
 -- aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
 -- censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
 
-package CommunicationTargets
+package InheritedCalls
 public
 	with Base_Types;
-	abstract host
+
+	-- The extension appears first so source offsets alone cannot order inherited features.
+	subprogram derived extends original
 	features
-		input : in event data port Base_Types::Integer;
-		output : out event data port Base_Types::Integer;
-		input_data : in data port Base_Types::Integer;
-		input_event : in event port;
-		output_event : out event port;
+		result : refined to out parameter Base_Types::Integer;
+		flag : in parameter Base_Types::Boolean;
+	end derived;
+
+	subprogram original
+	features
+		argument : in parameter Base_Types::Integer;
+		result : out parameter Base_Types::Integer;
+	end original;
+
+	feature group services
+	features
+		invoke : requires subprogram access derived;
 		shared : requires data access Base_Types::Integer;
-		provided : provides data access Base_Types::Integer;
+	end services;
+
+	abstract host
+	prototypes
+		typed : subprogram derived;
+		untyped : subprogram;
+	features
+		api : feature group services;
 	end host;
+
 	abstract implementation host.i
 	annex behavior_specification {**
 		variables
@@ -41,20 +59,10 @@ public
 			start : initial state;
 			done : final state;
 		transitions
-			t0 : start -[]-> done { input! };
-			t1 : start -[]-> done { output? };
-			t2 : start -[]-> done { input_data? };
-			t3 : start -[]-> done { output>> };
-			t4 : start -[]-> done { value! };
-			t5 : start -[]-> done { value? };
-			t6 : start -[]-> done { value>> };
-			t7 : start -[]-> done { value!< };
-			t8 : start -[]-> done { provided!< };
-			t9 : start -[]-> done { output!(1, 2) };
-			t10 : start -[]-> done { output_event!(1) };
-			t11 : start -[]-> done { input_event?(value) };
-			t12 : start -[]-> done { input?(input_data) };
-			t13 : start -[]-> done { input?(output_event) };
+			start -[]-> done { derived!(1, value, true) };
+			start -[]-> done { typed!(1, value, true) };
+			start -[]-> done { untyped!(1, value) };
+			start -[]-> done { api.invoke!(1, api.shared, true) };
 	**};
 	end host.i;
-end CommunicationTargets;
+end InheritedCalls;
