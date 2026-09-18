@@ -1,0 +1,124 @@
+annex[0] owner=Issue3191::reader.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=i
+    variables[1] : BehaviorVariable name=r
+    variables[2] : BehaviorVariable name=b
+    variables[3] : BehaviorVariable name=s
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : BehaviorVariableHolder element=i [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : PropertySetPropertyReference
+                      properties[0] : PropertyNameHolder
+                        property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=b [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : PropertySetPropertyReference
+                      properties[0] : PropertyNameHolder
+                        property : PropertyExpressionHolder element=BooleanLiteral [BooleanLiteral]
+        actions[2] : AssignmentAction
+          target : BehaviorVariableHolder element=s [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : PropertySetPropertyReference
+                      properties[0] : PropertyNameHolder
+                        property : PropertyExpressionHolder element=StringLiteral [StringLiteral]
+        actions[3] : AssignmentAction
+          target : BehaviorVariableHolder element=i [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : PropertySetPropertyReference
+                      properties[0] : PropertyNameHolder
+                        property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+        actions[4] : AssignmentAction
+          target : BehaviorVariableHolder element=r [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : PropertySetPropertyReference
+                      properties[0] : PropertyNameHolder
+                        property : PropertyExpressionHolder element=RealLiteral [RealLiteral]
+        actions[5] : AssignmentAction
+          target : BehaviorVariableHolder element=i [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorPropertyConstant
+        actions[6] : AssignmentAction
+          target : BehaviorVariableHolder element=i [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : ClassifierPropertyReference
+                      properties[0] : PropertyNameHolder
+                        property : BasicPropertyHolder element=Issue3191Properties::Time_Int [Property]
+        actions[7] : AssignmentAction
+          target : BehaviorVariableHolder element=i [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : ClassifierFeaturePropertyReference
+                      properties[0] : PropertyNameHolder
+                        property : BasicPropertyHolder element=Issue3191Properties::Time_Int [Property]
+                      component : DataPortHolder element=Issue3191::reader.input [DataPort]
+        actions[8] : AssignmentAction
+          target : BehaviorVariableHolder element=i [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : ClassifierPropertyReference
+                      properties[0] : PropertyNameHolder
+                        property : BasicPropertyHolder element=Timing_Properties::Deadline [Property]
+        actions[9] : AssignmentAction
+          target : BehaviorVariableHolder element=i [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : PropertySetPropertyReference
+                      properties[0] : PropertyNameHolder
+                        property : PropertyExpressionHolder element=RecordValue [RecordValue]
+                      properties[1] : PropertyNameHolder
+                        property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+        actions[10] : AssignmentAction
+          target : BehaviorVariableHolder element=b [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : PropertySetPropertyReference
+                      properties[0] : PropertyNameHolder
+                        property : PropertyExpressionHolder element=RecordValue [RecordValue]
+                      properties[1] : PropertyNameHolder
+                        property : PropertyExpressionHolder element=BooleanLiteral [BooleanLiteral]

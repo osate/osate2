@@ -1,0 +1,25 @@
+===== annex[0] owner=DisallowedUnits::reader.impl =====
+
+\t\tvariables
+\t\t\ti : Base_Types::Integer;
+\t\t\tr : Base_Types::Float;
+\t\t\tb : Base_Types::Boolean;
+\t\t\ts : Base_Types::String;
+\t\tstates
+\t\t\tstart : initial state;
+\t\t\tdone : complete final state;
+\t\ttransitions
+\t\t\tstart -[]-> done {
+\t\t\t\ti := #Issue3191Properties::Size_Int;
+\t\t\t\tr := #Issue3191Properties::Size_Real;
+\t\t\t\ti := self#Issue3191Properties::Size_Int;
+\t\t\t\ti := input#Issue3191Properties::Size_Int;
+\t\t\t\ti := self#Issue3191Properties::Size_Without_Default;
+\t\t\t\ti := #Issue3191Properties::Size_Constant;
+\t\t\t\ti := #Issue3191Properties::Other;
+\t\t\t\ti := #Issue3191Properties::Record_Value.size;
+\t\t\t\ti := self#Issue3191Properties::Record_Without_Default.size
+\t\t\t};
+\t
+----- Xtext reparse -----
+reparsed

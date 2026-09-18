@@ -52,14 +52,20 @@ import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.EventPort;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.InternalFeature;
+import org.osate.aadl2.NumberType;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyType;
+import org.osate.aadl2.RangeType;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.errorreporting.AbstractAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.parsesupport.ParseUtil;
 import org.osate.annexsupport.ParseResultHolder;
+import org.osate.ba.aadlba.BehaviorPropertyConstant;
 import org.osate.ba.aadlba.ForOrForAllStatement;
+import org.osate.ba.aadlba.PropertyReference;
 import org.osate.ba.aadlba.PropertySetPropertyReference;
 import org.osate.ba.analyzers.AadlBaInitializationChecker;
 import org.osate.ba.analyzers.AadlBaRulesCheckersDriver;
@@ -107,6 +113,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	public static final String ITERATOR_CLASSIFIER = "org.osate.xtext.aadl2.ba.iteratorClassifier";
 	public static final String ARRAY_SIZE = "org.osate.xtext.aadl2.ba.arraySize";
 	public static final String PROPERTY_REFERENCE_VALUE = "org.osate.xtext.aadl2.ba.propertyReferenceValue";
+	public static final String PROPERTY_REFERENCE_UNITS = "org.osate.xtext.aadl2.ba.propertyReferenceUnits";
 	public static final String MODE_REFINEMENT = "org.osate.xtext.aadl2.ba.modeRefinement";
 	public static final String EXTERNAL_CONDITION_IN_MODES = "org.osate.xtext.aadl2.ba.externalConditionInModes";
 	public static final String UNARY_PLUS = "org.osate.xtext.aadl2.ba.unaryPlus";
@@ -151,6 +158,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 		// The strict model does carry a property reference that denotes no value, so this one is not a gate: the strict
 		// checkers keep their model and whatever else they have to say about it.
 		checkPropertyReferenceValues(translation);
+		checkPropertyReferenceUnits(translation);
 		if (!representable) {
 			return;
 		}
@@ -281,6 +289,42 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 					+ "' has no value: property '" + property.getName() + "' has no default value and the reference"
 					+ " names no element that has a value for it", written, null,
 					ValidationMessageAcceptor.INSIGNIFICANT_INDEX, PROPERTY_REFERENCE_VALUE);
+		}
+	}
+
+	/**
+	 * D.7 permits only unitless or time-valued property references. Inspect the declared type of the selected property
+	 * or record field, including when its holder carries a default expression. Prefixed references stay symbolic:
+	 * neither an effective instance value nor its written unit is needed to check the declared units type.
+	 */
+	private void checkPropertyReferenceUnits(final TranslationResult translation) {
+		var reported = new HashSet<EObject>();
+		for (var contents = translation.getStrictAnnex().eAllContents(); contents.hasNext();) {
+			var value = contents.next();
+			final PropertyType declaredType;
+			if (value instanceof PropertyReference reference && !reference.getProperties().isEmpty()) {
+				declaredType = AadlBaUtils.getPropertyType(reference.getProperties().getLast().getProperty());
+			} else if (value instanceof BehaviorPropertyConstant constant && constant.getProperty() != null) {
+				declaredType = constant.getProperty().getPropertyType();
+			} else {
+				continue;
+			}
+			var type = AadlUtil.getBasePropertyType(declaredType);
+			if (type instanceof RangeType range) {
+				type = range.getNumberType();
+			}
+			if (!(type instanceof NumberType number)) {
+				continue;
+			}
+			var units = number.getUnitsType();
+			if (units != null && !"AADL_Project::Time_Units".equalsIgnoreCase(units.getQualifiedName())) {
+				var source = sourceFor(value, translation);
+				// Translation can copy a condition for multiple source states; report the written reference once.
+				if (reported.add(source)) {
+					error("Behavior Annex property references must be unitless or use AADL_Project::Time_Units", source,
+							null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, PROPERTY_REFERENCE_UNITS);
+				}
+			}
 		}
 	}
 

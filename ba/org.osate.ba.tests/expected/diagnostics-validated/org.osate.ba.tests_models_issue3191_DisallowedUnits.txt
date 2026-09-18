@@ -1,0 +1,9 @@
+error | semantic | 47 | 10 | 30 | Behavior Annex property references must be unitless or use AADL_Project::Time_Units
+error | semantic | 48 | 10 | 31 | Behavior Annex property references must be unitless or use AADL_Project::Time_Units
+error | semantic | 49 | 14 | 30 | Behavior Annex property references must be unitless or use AADL_Project::Time_Units
+error | semantic | 50 | 15 | 30 | Behavior Annex property references must be unitless or use AADL_Project::Time_Units
+error | semantic | 51 | 14 | 42 | Behavior Annex property references must be unitless or use AADL_Project::Time_Units
+error | semantic | 52 | 10 | 35 | Behavior Annex property references must be unitless or use AADL_Project::Time_Units
+error | semantic | 53 | 10 | 27 | Behavior Annex property references must be unitless or use AADL_Project::Time_Units
+error | semantic | 54 | 10 | 39 | Behavior Annex property references must be unitless or use AADL_Project::Time_Units
+error | semantic | 55 | 14 | 49 | Behavior Annex property references must be unitless or use AADL_Project::Time_Units

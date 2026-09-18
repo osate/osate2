@@ -1,0 +1,27 @@
+===== annex[0] owner=Issue3191::reader.impl =====
+
+\t\tvariables
+\t\t\ti : Base_Types::Integer;
+\t\t\tr : Base_Types::Float;
+\t\t\tb : Base_Types::Boolean;
+\t\t\ts : Base_Types::String;
+\t\tstates
+\t\t\tstart : initial state;
+\t\t\tdone : complete final state;
+\t\ttransitions
+\t\t\tstart -[]-> done {
+\t\t\t\ti := #Issue3191Properties::Unitless_Int;
+\t\t\t\tb := #Issue3191Properties::Flag;
+\t\t\t\ts := #Issue3191Properties::Label;
+\t\t\t\ti := #Issue3191Properties::Time_Int;
+\t\t\t\tr := #Issue3191Properties::Time_Real;
+\t\t\t\ti := #Issue3191Properties::Time_Constant;
+\t\t\t\ti := self#Issue3191Properties::Time_Int;
+\t\t\t\ti := input#Issue3191Properties::Time_Int;
+\t\t\t\ti := self#Timing_Properties::Deadline;
+\t\t\t\ti := #Issue3191Properties::Record_Value.delay;
+\t\t\t\tb := #Issue3191Properties::Record_Value.flag
+\t\t\t};
+\t
+----- Xtext reparse -----
+reparsed
