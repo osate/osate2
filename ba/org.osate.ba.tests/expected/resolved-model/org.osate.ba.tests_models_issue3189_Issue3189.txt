@@ -1,0 +1,8 @@
+annex[0] owner=Issue3189::subject.unreleased
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=unreleased
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : LockAction
+        dataAccess : DataAccessHolder element=Issue3189::subject.d [DataAccess]

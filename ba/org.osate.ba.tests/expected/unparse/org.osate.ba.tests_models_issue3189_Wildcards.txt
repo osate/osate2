@@ -1,0 +1,31 @@
+===== annex[0] owner=Wildcards::inherited.impl =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            inheritedLock : ready -[on dispatch]-> ready { *!<; f!>; e!> };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[1] owner=Wildcards::subject.allLocked =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            allLocked : ready -[on dispatch]-> ready {
+                *!<
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[2] owner=Wildcards::subject.partialRelease =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            partialRelease : ready -[on dispatch]-> ready {
+                *!<; d!>
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed

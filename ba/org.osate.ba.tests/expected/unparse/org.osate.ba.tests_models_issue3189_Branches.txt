@@ -1,0 +1,33 @@
+===== annex[0] owner=Branches::subject.missingElse =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            missingElse : ready -[on dispatch]-> ready {
+                d!<; if (condition) { d!> } end if
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[1] owner=Branches::subject.oneBranch =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            oneBranch : ready -[on dispatch]-> ready {
+                if (condition) { d!< } else { computation(1 ms) } end if
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[2] owner=Branches::subject.elseIf =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            elseIf : ready -[on dispatch]-> ready {
+                d!<; if (condition) { d!> } elsif (condition) { computation(1 ms) } else { d!> } end if
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed

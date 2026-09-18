@@ -1,0 +1,76 @@
+annex[0] owner=PotentialFalsePositives::subject.correlated
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=condition
+      ownedValueConstant : BehaviorBooleanLiteral
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=correlated
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : IfStatement
+          behaviorActions : LockAction
+            dataAccess : DataAccessHolder element=PotentialFalsePositives::subject.d [DataAccess]
+          logicalValueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=condition [BehaviorVariable]
+        actions[1] : IfStatement
+          behaviorActions : UnlockAction
+            dataAccess : DataAccessHolder element=PotentialFalsePositives::subject.d [DataAccess]
+          logicalValueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=condition [BehaviorVariable]
+annex[1] owner=PotentialFalsePositives::subject.bothBranches
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=condition
+      ownedValueConstant : BehaviorBooleanLiteral
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=bothBranches
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : IfStatement
+        behaviorActions : LockAction
+          dataAccess : DataAccessHolder element=PotentialFalsePositives::subject.d [DataAccess]
+        logicalValueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorVariableHolder element=condition [BehaviorVariable]
+        elseStatement : ElseStatement
+          behaviorActions : LockAction
+            dataAccess : DataAccessHolder element=PotentialFalsePositives::subject.d [DataAccess]
+annex[2] owner=PotentialFalsePositives::subject.contradictory
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=condition
+      ownedValueConstant : BehaviorBooleanLiteral
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=middle
+    states[2] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=acquire
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorVariableHolder element=condition [BehaviorVariable]
+    transitions[1] : BehaviorTransition name=contradictory
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorVariableHolder element=condition [BehaviorVariable]
+    transitions[2] : BehaviorTransition name=runAgain
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : LockAction
+        dataAccess : DataAccessHolder element=PotentialFalsePositives::subject.d [DataAccess]
+    actions[1] : BehaviorActionBlock
+      content : UnlockAction
+        dataAccess : DataAccessHolder element=PotentialFalsePositives::subject.d [DataAccess]

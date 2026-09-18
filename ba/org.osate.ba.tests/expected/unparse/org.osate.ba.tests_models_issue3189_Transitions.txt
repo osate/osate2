@@ -1,0 +1,59 @@
+===== annex[0] owner=Transitions::subject.impl =====
+
+        states
+            start : initial state;
+            left, right, join, unreachable : state;
+            ready : complete final state;
+        transitions
+            -- Deliberately list consumers before predecessors to exercise the fixed point.
+            leaked : join -[condition]-> ready;
+            released : join -[otherwise]-> ready { d!> };
+            joined : left, right -[]-> join;
+            acquired : start -[condition]-> left { d!< };
+            clean : start -[otherwise]-> right;
+            ignored : unreachable -[]-> ready { d!< };
+            impossible : start -[false]-> ready { d!< };
+            redispatch : ready -[on dispatch]-> ready { d!> };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[1] owner=Transitions::subject.cycle =====
+
+        states
+            start : initial state;
+            first, second : state;
+            ready : complete final state;
+        transitions
+            exitCycle : first -[condition]-> ready;
+            entry : start -[]-> first;
+            forward : first -[otherwise]-> second;
+            back : second -[]-> first { d!< };
+            dispatchAgain : ready -[on dispatch]-> ready { d!> };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[2] owner=Transitions::subject.balanced =====
+
+        states
+            start : initial state;
+            running : state;
+            ready : complete final state;
+        transitions
+            acquire : start -[]-> running { d!< };
+            release : running -[]-> ready { d!> };
+            runAgain : ready -[on dispatch]-> ready;
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[3] owner=Transitions::subject.staticConditions =====
+
+        states
+            start : initial state;
+            ready : complete final state;
+        transitions
+            always : start -[true]-> ready { d!<; d!> };
+            never : start -[otherwise]-> ready { d!< };
+            runAgain : ready -[on dispatch]-> ready;
+\s\s\s\s
+----- Xtext reparse -----
+reparsed

@@ -1,0 +1,45 @@
+===== annex[0] owner=PotentialFalsePositives::subject.correlated =====
+
+        variables
+            condition : Base_Types::Boolean := true;
+        states
+            ready : initial complete final state;
+        transitions
+            -- The condition cannot change between these actions: this path is actually balanced.
+            correlated : ready -[on dispatch]-> ready {
+                if (condition) d!< end if;
+                if (condition) d!> end if
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[1] owner=PotentialFalsePositives::subject.bothBranches =====
+
+        variables
+            condition : Base_Types::Boolean := true;
+        states
+            ready : initial complete final state;
+        transitions
+            -- Both alternatives have the same effect, so no assumption about the condition is needed.
+            bothBranches : ready -[on dispatch]-> ready {
+                if (condition) d!< else d!< end if
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[2] owner=PotentialFalsePositives::subject.contradictory =====
+
+        variables
+            condition : Base_Types::Boolean := true;
+        states
+            start : initial state;
+            middle : state;
+            ready : complete final state;
+        transitions
+            -- The checker must retain uncertainty across transitions, even when all entries hold a lock.
+            acquire : start -[condition]-> middle { d!< };
+            contradictory : middle -[not condition]-> ready;
+            runAgain : ready -[on dispatch]-> ready { d!> };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed

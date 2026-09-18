@@ -1,0 +1,66 @@
+===== annex[0] owner=Loops::subject.whileLock =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            whileLock : ready -[on dispatch]-> ready {
+                while (condition) { d!< }
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[1] owner=Loops::subject.whileMaySkip =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            whileMaySkip : ready -[on dispatch]-> ready {
+                d!<; while (condition) { d!> }
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[2] owner=Loops::subject.doLock =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            doLock : ready -[on dispatch]-> ready {
+                do { d!< } until (condition)
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[3] owner=Loops::subject.forLock =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            forLock : ready -[on dispatch]-> ready {
+                for (i in 1 .. 2) { d!< }
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[4] owner=Loops::subject.forallLock =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            forallLock : ready -[on dispatch]-> ready {
+                forall (i in 1 .. 2) { d!< }
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed
+===== annex[5] owner=Loops::subject.emptyRelease =====
+
+        states
+            ready : initial complete final state;
+        transitions
+            emptyRelease : ready -[on dispatch]-> ready {
+                d!<; for (i in 2 .. 1) { d!> }
+            };
+\s\s\s\s
+----- Xtext reparse -----
+reparsed

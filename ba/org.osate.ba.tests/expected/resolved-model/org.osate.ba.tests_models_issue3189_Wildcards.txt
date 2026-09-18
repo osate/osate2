@@ -1,0 +1,29 @@
+annex[0] owner=Wildcards::inherited.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=inheritedLock
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : LockAction
+        actions[1] : UnlockAction
+          dataAccess : DataAccessHolder element=Wildcards::inherited.f [DataAccess]
+        actions[2] : UnlockAction
+          dataAccess : DataAccessHolder element=Wildcards::subject.e [DataAccess]
+annex[1] owner=Wildcards::subject.allLocked
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=allLocked
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : LockAction
+annex[2] owner=Wildcards::subject.partialRelease
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=ready
+    transitions[0] : BehaviorTransition name=partialRelease
+      condition : DispatchCondition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : LockAction
+        actions[1] : UnlockAction
+          dataAccess : DataAccessHolder element=Wildcards::subject.d [DataAccess]
