@@ -11,7 +11,6 @@
 		<tycho-extras.version>4.0.13</tycho-extras.version>
 		<eclipse.version>2025-12</eclipse.version>
 		<xtext.version>2.39.0</xtext.version>
-		<xsemantics.version>1.24.0</xsemantics.version>
 		<openjfx.version>17.0.2</openjfx.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<osate.version>2.20.0-SNAPSHOT</osate.version>
@@ -422,12 +421,6 @@
 								<exclude>.gitignore</exclude>
 							</excludes>
 						</fileset>
-						<fileset>
-							<directory>xsemantics-gen</directory>
-							<excludes>
-								<exclude>**/.gitignore</exclude>
-							</excludes>
-						</fileset>
 					</filesets>
 				</configuration>
 			</plugin>
@@ -552,50 +545,6 @@
 							</goals>
 						</execution>
 					</executions>
-				</plugin>
-				<plugin>
-					<groupId>org.eclipse.xtext</groupId>
-					<artifactId>xtext-maven-plugin</artifactId>
-					<version>${xtext.version}</version>
-					<executions>
-						<execution>
-							<goals>
-								<goal>generate</goal>
-							</goals>
-							<phase>generate-sources</phase>
-						</execution>
-					</executions>
-					<configuration>
-						<failOnValidationError>true</failOnValidationError>
-						<compilerSourceLevel>21</compilerSourceLevel>
-						<compilerTargetLevel>21</compilerTargetLevel>
-						<sourceRoots>
-							<sourceRoot>${basedir}/src</sourceRoot>
-						</sourceRoots>
-						<languages>
-							<language>
-								<setup>org.eclipse.xsemantics.dsl.XsemanticsStandaloneSetup</setup>
-								<outputConfigurations>
-									<outputConfiguration>
-										<outputDirectory>${basedir}/xsemantics-gen</outputDirectory>
-									</outputConfiguration>
-								</outputConfigurations>
-							</language>
-						</languages>
-					</configuration>
-					<dependencies>
-						<dependency>
-							<!-- prevent xsemantics from using 2.33.0 with Java 21 -->
-							<groupId>org.eclipse.xtext</groupId>
-							<artifactId>org.eclipse.xtext.xbase.lib</artifactId>
-							<version>${xtext.version}</version>
-						</dependency>
-						<dependency>
-							<groupId>org.eclipse.xsemantics</groupId>
-							<artifactId>org.eclipse.xsemantics.dsl</artifactId>
-							<version>${xsemantics.version}</version>
-						</dependency>
-					</dependencies>
 				</plugin>
 				<plugin>
 					<groupId>com.ruleoftech</groupId>
