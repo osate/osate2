@@ -1,0 +1,48 @@
+package ValidCompositeTargets
+public
+  system leaf
+    annex EMV2 {**
+      use behavior ValidCompositeTargets::machine;
+    **};
+  end leaf;
+
+  system parent
+    features
+      f1: in feature;
+  end parent;
+
+  system implementation parent.i
+    subcomponents
+      first: system leaf;
+      second: system leaf;
+    annex EMV2 {**
+      use types ValidCompositeTargets;
+      use behavior ValidCompositeTargets::machine;
+      error propagations
+        f1: in propagation {FirstType, SecondType};
+      end propagations;
+      composite error behavior
+        states
+          single: [in f1]-> singleState {FirstType};
+          product: [in f1]-> productState {FirstType * SecondType};
+          compound: [first.start and second.start]-> productState {FirstType * SecondType};
+          implicit: [first.start]-> start;
+          fallback: [others]-> start;
+      end composite;
+    **};
+  end parent.i;
+
+  annex EMV2 {**
+    error types
+      FirstType: type;
+      SecondType: type;
+    end types;
+    error behavior machine
+      use types ValidCompositeTargets;
+      states
+        start: initial state;
+        singleState: state {FirstType};
+        productState: state {FirstType * SecondType};
+    end behavior;
+  **};
+end ValidCompositeTargets;

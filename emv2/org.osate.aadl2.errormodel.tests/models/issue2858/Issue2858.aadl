@@ -1,0 +1,31 @@
+package Issue2858
+public
+  system s
+    features
+      f1: in feature;
+      f2: in feature;
+    annex EMV2 {**
+      use types ErrorLibrary;
+      use behavior Issue2858::machine;
+      error propagations
+        f1: in propagation {CommonErrors};
+        f2: in propagation {CommonErrors};
+      end propagations;
+      composite error behavior
+        states
+          composite1: [in f1]-> state1 {ServiceError, ItemTimingError};
+          composite2: [in f2]-> state2 {CommonErrors};
+          fallback: [others]-> state1 {CommonErrors};
+      end composite;
+    **};
+  end s;
+
+  annex EMV2 {**
+    error behavior machine
+      use types ErrorLibrary;
+      states
+        state1: initial state {CommonErrors};
+        state2: state {CommonErrors};
+    end behavior;
+  **};
+end Issue2858;
