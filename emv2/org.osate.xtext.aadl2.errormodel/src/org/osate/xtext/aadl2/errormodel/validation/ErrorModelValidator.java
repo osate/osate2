@@ -89,6 +89,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
+import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ReportingPortReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
@@ -284,12 +285,12 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 
 	@Check(CheckType.FAST)
 	public void caseRecoverEvent(RecoverEvent recoverEvent) {
-		checkRecoverEventTriggerType(recoverEvent);
+		checkEventTriggerType(recoverEvent, recoverEvent.getEventInitiator(), "Recover");
 	}
 
 	@Check(CheckType.FAST)
-	public void caseRepairEvent(RecoverEvent recoverEvent) {
-		checkRecoverEventTriggerType(recoverEvent);
+	public void caseRepairEvent(RepairEvent repairEvent) {
+		checkEventTriggerType(repairEvent, repairEvent.getEventInitiator(), "Repair");
 	}
 
 	@Check(CheckType.FAST)
@@ -422,12 +423,11 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 		checkConnectionErrorTypes(conn);
 	}
 
-	private void checkRecoverEventTriggerType(RecoverEvent recoverEvent) {
-		EList<NamedElement> cl = recoverEvent.getEventInitiator();
-		for (NamedElement namedElement : cl) {
+	private void checkEventTriggerType(ErrorBehaviorEvent event, List<NamedElement> eventInitiators, String eventKind) {
+		for (NamedElement namedElement : eventInitiators) {
 			if (!(namedElement instanceof ModeTransition || namedElement instanceof Port
 					|| namedElement instanceof InternalFeature)) {
-				error(recoverEvent, "Recover event trigger reference '" + namedElement.getName()
+				error(event, eventKind + " event trigger reference '" + namedElement.getName()
 						+ "' is not a port, component internal self event, or mode transition.");
 			}
 		}
