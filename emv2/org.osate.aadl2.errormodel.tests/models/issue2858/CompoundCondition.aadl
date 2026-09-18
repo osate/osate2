@@ -1,0 +1,33 @@
+package CompoundCondition
+public
+  system leaf
+    annex EMV2 {**
+      use behavior CompoundCondition::machine;
+    **};
+  end leaf;
+
+  system parent
+  end parent;
+
+  system implementation parent.i
+    subcomponents
+      first: system leaf;
+      second: system leaf;
+    annex EMV2 {**
+      use types ErrorLibrary;
+      use behavior CompoundCondition::machine;
+      composite error behavior
+        states
+          composite1: [first.state1 and second.state1]-> state1 {CommonErrors};
+      end composite;
+    **};
+  end parent.i;
+
+  annex EMV2 {**
+    error behavior machine
+      use types ErrorLibrary;
+      states
+        state1: initial state {CommonErrors};
+    end behavior;
+  **};
+end CompoundCondition;

@@ -304,6 +304,22 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 		checkSConditionElementType(conditionElement);
 	}
 
+	/**
+	 * @since 8.0
+	 */
+	@Check(CheckType.FAST)
+	public void caseCompositeState(CompositeState composite) {
+		var target = composite.getTypedToken();
+		if (target == null || target.getTypeTokens().isEmpty()) {
+			return;
+		}
+		var tokens = target.getTypeTokens();
+		var types = tokens.getFirst().getType();
+		if (tokens.size() > 1 || (!types.isEmpty() && !(types.getFirst() instanceof ErrorType))) {
+			error(composite, "Target error type may only have a single error type");
+		}
+	}
+
 	@Check(CheckType.FAST)
 	public void caseErrorModelSubclause(ErrorModelSubclause subclause) {
 		if (EcoreUtil2.getContainerOfType(subclause, FeatureGroupType.class) != null) {
@@ -490,25 +506,6 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 		if (es == null) {
 			return;
 		}
-
-		CompositeState compState;
-		EObject eo = conditionElement;
-		while (eo.eContainer() != null) {
-			eo = eo.eContainer();
-			if (eo instanceof CompositeState) {
-				break;
-			}
-		}
-		if (eo instanceof CompositeState) {
-			compState = (CompositeState) eo;
-			EList<TypeToken> targetTKs = compState.getTypedToken().getTypeTokens();
-			// marks error if target state has a typeset or multiple errors associated with it
-			if ((targetTKs != null && targetTKs.size() > 1) || (targetTKs.get(0).getType() != null
-					&& !(targetTKs.get(0).getType().get(0) instanceof ErrorType))) {
-				error(compState, "Target error type may only have a single error type");
-			}
-		}
-
 
 		TypeSet triggerTS = null;
 		String triggerName = "";
