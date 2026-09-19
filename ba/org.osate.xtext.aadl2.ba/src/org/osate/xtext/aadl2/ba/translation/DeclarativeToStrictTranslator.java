@@ -535,8 +535,12 @@ public final class DeclarativeToStrictTranslator {
 					}
 				}
 			}
+			// Resolve every written name so validation can diagnose the ones that cannot become strict frozen ports,
+			// but do not let invalid declarative input escape as a cast failure.
 			for (final Reference frozen : dispatch.getFrozenPorts()) {
-				result.getFrozenPorts().add((ActualPortHolder) toReferenceValue(frozen));
+				if (toReferenceValue(frozen) instanceof ActualPortHolder port) {
+					result.getFrozenPorts().add(port);
+				}
 			}
 			return result;
 		}

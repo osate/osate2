@@ -90,6 +90,7 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorStateGroup;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTransition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorVariable;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.CommunicationAction;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchTriggerCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ForStatement;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.InternalCondition;
@@ -118,6 +119,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	public static final String INTERNAL_PORT_USE = "org.osate.xtext.aadl2.ba.internalPortUse";
 	public static final String INTERNAL_CONDITION_PORT = "org.osate.xtext.aadl2.ba.internalConditionPort";
 	public static final String EXTERNAL_CONDITION_TRIGGER = "org.osate.xtext.aadl2.ba.externalConditionTrigger";
+	public static final String FROZEN_PORT = "org.osate.xtext.aadl2.ba.frozenPort";
 	public static final String TIMEOUT_RESET_PORT = "org.osate.xtext.aadl2.ba.timeoutResetPort";
 	public static final String TIMEOUT_RESET_PORT_TIME = "org.osate.xtext.aadl2.ba.timeoutResetPortTime";
 	public static final String ITERATIVE_VARIABLE_TARGET = "org.osate.xtext.aadl2.ba.iterativeVariableTarget";
@@ -286,6 +288,12 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 		@Override
 		public Void caseModeSwitchTrigger(final ModeSwitchTrigger trigger) {
 			pendingChecks.add(translation -> checkExternalConditionTrigger(trigger, translation));
+			return null;
+		}
+
+		@Override
+		public Void caseDispatchCondition(final DispatchCondition condition) {
+			pendingChecks.add(translation -> checkFrozenPorts(condition, translation));
 			return null;
 		}
 
@@ -804,6 +812,27 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 		var port = (Port) resolved;
 		var incoming = subcomponent ^ inverse ? port.isOut() : port.isIn();
 		return incoming ? ExternalTriggerKind.VALID : ExternalTriggerKind.WRONG_DIRECTION;
+	}
+
+	/**
+	 * The D.4 frozen-port list names incoming ports. A generic reference can instead resolve to a behavior variable or
+	 * another declaration that has no strict {@code ActualPortHolder} representation. Report each such name at its
+	 * source location and gate strict checking of the incomplete translated condition. Direction and the remaining D.4
+	 * dispatch compatibility rules remain outside this representation boundary.
+	 *
+	 * @return {@code true} when every frozen-list reference denotes a port
+	 */
+	private boolean checkFrozenPorts(final DispatchCondition condition, final TranslationResult translation) {
+		var accepted = true;
+		for (var port : condition.getFrozenPorts()) {
+			if (!(translation.getResolvedReference(port) instanceof Port)) {
+				error("'" + NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(port))
+						+ "' is not a frozen port: a frozen list can only name an incoming port", port, null,
+						ValidationMessageAcceptor.INSIGNIFICANT_INDEX, FROZEN_PORT);
+				accepted = false;
+			}
+		}
+		return accepted;
 	}
 
 	/**
