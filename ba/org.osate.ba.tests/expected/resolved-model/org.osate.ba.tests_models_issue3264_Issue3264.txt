@@ -1,0 +1,13 @@
+annex[0] owner=Issue3264::host.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=waiting
+    transitions[0] : BehaviorTransition name=rpc_trigger
+      condition : DispatchCondition
+        dispatchTriggerCondition : SubprogramAccessHolder element=Issue3264::host.rpc [SubprogramAccess]
+        frozenPorts[0] : DataPortHolder element=Issue3264::host.incoming [DataPort]
+    transitions[1] : BehaviorTransition name=port_trigger
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchTriggerLogicalExpression
+          dispatchConjunctions[0] : DispatchConjunction
+            dispatchTriggers[0] : EventDataPortHolder element=Issue3264::host.inp [EventDataPort]
+        frozenPorts[0] : DataPortHolder element=Issue3264::host.incoming [DataPort]
