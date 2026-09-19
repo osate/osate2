@@ -1,0 +1,12 @@
+annex[0] owner=Issue3263::host.invalid
+  (BehaviorAnnex, behavior_specification, 1882, 162)
+  (BehaviorCondition, <null>, 2009, 22)
+  (BehaviorIntegerLiteral, <null>, 1922, 1)
+  (BehaviorState, waiting, 1937, 7)
+  (BehaviorStateGroup, <null>, 1937, 33)
+  (BehaviorTransition, invalid, 1988, 56)
+  (BehaviorVariable, v, 1895, 1)
+  (BehaviorVariableGroup, <null>, 1895, 29)
+  (DispatchCondition, <null>, 2012, 19)
+  (Reference, <null>, 2029, 1)
+  (ReferenceSegment, v, 2029, 1)
