@@ -1,0 +1,37 @@
+===== annex[0] owner=Controls::stomach =====
+
+\tstates
+\t\thungry : initial state;
+\t\tnot_hungry : complete state;
+\ttransitions
+\t\thungry -[food_in = 1]-> not_hungry;
+\t\tnot_hungry -[on dispatch]-> hungry;
+----- Xtext reparse -----
+reparsed
+===== annex[1] owner=Controls::brain =====
+
+\tstates
+\t\tstart : initial state;
+\t\tfinished : final state;
+\ttransitions
+\t\tstart -[]-> finished;
+----- Xtext reparse -----
+reparsed
+===== annex[2] owner=Controls::routine =====
+
+\tstates
+\t\tstart : initial state;
+\t\tfinished : final state;
+\ttransitions
+\t\tstart -[]-> finished;
+----- Xtext reparse -----
+reparsed
+===== annex[3] owner=Controls::controller =====
+
+\tstates
+\t\tstart : initial state;
+\t\tfinished : complete final state;
+\ttransitions
+\t\tstart -[]-> finished;
+----- Xtext reparse -----
+reparsed

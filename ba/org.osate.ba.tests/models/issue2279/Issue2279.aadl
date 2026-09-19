@@ -20,33 +20,54 @@
 -- aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
 -- censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
 
-package ModalSubclauses
+package Issue2279
 public
 
-abstract modal
-end modal;
-
-abstract implementation modal.impl
+memory brain
+features
+	wake : in event port;
 modes
-	normal : initial mode;
-	backup : mode;
-annex behavior_specification {**
-states
-	whennormal : initial complete state;
-**} in modes (normal);
-annex behavior_specification {**
-states
-	whenbackup : initial complete state;
-**} in modes (backup);
-end modal.impl;
+	resting : initial mode;
+	active : mode;
+	resting -[wake]-> active;
+end brain;
 
-abstract implementation modal.always
-modes
-	normal : initial mode;
-	backup : mode;
+-- The modes come from the type, and neither state is an execution state that could block.
+memory implementation brain.missing_complete
 annex behavior_specification {**
-states
-	anymode : initial complete state;
+	states
+		start : initial state;
+		finished : final state;
+	transitions
+		start -[]-> finished;
 **};
-end modal.always;
-end ModalSubclauses;
+end brain.missing_complete;
+
+-- A complete state that represents a mode leaves on the mode's external trigger, not on dispatch.
+memory implementation brain.corrected
+annex behavior_specification {**
+	states
+		resting : initial complete state;
+		active : complete state;
+	transitions
+		resting -[on wake]-> active;
+**};
+end brain.corrected;
+
+memory inherited extends brain
+end inherited;
+
+memory implementation inherited.missing_initial
+annex behavior_specification {**
+	states
+		resting : complete state;
+**};
+end inherited.missing_initial;
+
+memory implementation brain.extended extends brain.corrected
+annex behavior_specification {**
+	states
+		start : initial final state;
+**};
+end brain.extended;
+end Issue2279;

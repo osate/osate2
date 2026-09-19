@@ -1,0 +1,30 @@
+===== annex[0] owner=MissingStates::worker =====
+
+----- Xtext reparse -----
+reparsed
+===== annex[1] owner=MissingStates::sensor =====
+
+----- Xtext reparse -----
+reparsed
+===== annex[2] owner=MissingStates::scheduler =====
+
+----- Xtext reparse -----
+reparsed
+===== annex[3] owner=MissingStates::storage =====
+
+----- Xtext reparse -----
+reparsed
+===== annex[4] owner=MissingStates::storage.impl =====
+
+\tvariables
+\t\tvalue : Base_Types::Integer := 0;
+----- Xtext reparse -----
+reparsed
+===== annex[5] owner=MissingStates::routine =====
+
+----- Xtext reparse -----
+reparsed
+===== annex[6] owner=MissingStates::nonmodal =====
+
+----- Xtext reparse -----
+reparsed

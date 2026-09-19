@@ -20,33 +20,45 @@
 -- aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
 -- censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
 
-package ModalSubclauses
+package MissingStates
 public
+with Base_Types;
 
-abstract modal
-end modal;
+thread worker
+annex behavior_specification {** **};
+end worker;
 
-abstract implementation modal.impl
+device sensor
+annex behavior_specification {** **};
+end sensor;
+
+virtual processor scheduler
+annex behavior_specification {** **};
+end scheduler;
+
+memory storage
 modes
 	normal : initial mode;
-	backup : mode;
-annex behavior_specification {**
-states
-	whennormal : initial complete state;
-**} in modes (normal);
-annex behavior_specification {**
-states
-	whenbackup : initial complete state;
-**} in modes (backup);
-end modal.impl;
+annex behavior_specification {** **};
+end storage;
 
-abstract implementation modal.always
-modes
-	normal : initial mode;
-	backup : mode;
+-- A nonempty annex can also omit its states section; these modes come from the type.
+memory implementation storage.impl
 annex behavior_specification {**
-states
-	anymode : initial complete state;
+	variables
+		value : Base_Types::Integer := 0;
 **};
-end modal.always;
-end ModalSubclauses;
+end storage.impl;
+
+-- Subprograms require initial/final states even though complete states are prohibited.
+subprogram routine
+modes
+	normal : initial mode;
+annex behavior_specification {** **};
+end routine;
+
+-- No state requirement applies to a nonmodal memory component.
+memory nonmodal
+annex behavior_specification {** **};
+end nonmodal;
+end MissingStates;

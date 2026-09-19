@@ -1,0 +1,28 @@
+annex[0] owner=Issue2279::brain.missing_complete
+  (BehaviorAnnex, behavior_specification, 2068, 94)
+  (BehaviorState, finished, 2102, 8)
+  (BehaviorState, start, 2077, 5)
+  (BehaviorStateGroup, <null>, 2077, 22)
+  (BehaviorStateGroup, <null>, 2102, 23)
+  (BehaviorTransition, <null>, 2141, 21)
+annex[1] owner=Issue2279::brain.corrected
+  (BehaviorAnnex, behavior_specification, 2368, 113)
+  (BehaviorCondition, <null>, 2463, 7)
+  (BehaviorState, active, 2413, 6)
+  (BehaviorState, resting, 2377, 7)
+  (BehaviorStateGroup, <null>, 2377, 33)
+  (BehaviorStateGroup, <null>, 2413, 24)
+  (BehaviorTransition, <null>, 2453, 28)
+  (ModeSwitchCondition, <null>, 2466, 4)
+  (ModeSwitchConjunction, <null>, 2466, 4)
+  (ModeSwitchTrigger, <null>, 2466, 4)
+  (Reference, <null>, 2466, 4)
+  (ReferenceSegment, wake, 2466, 4)
+annex[2] owner=Issue2279::inherited.missing_initial
+  (BehaviorAnnex, behavior_specification, 2638, 34)
+  (BehaviorState, resting, 2647, 7)
+  (BehaviorStateGroup, <null>, 2647, 25)
+annex[3] owner=Issue2279::brain.extended
+  (BehaviorAnnex, behavior_specification, 2805, 37)
+  (BehaviorState, start, 2814, 5)
+  (BehaviorStateGroup, <null>, 2814, 28)

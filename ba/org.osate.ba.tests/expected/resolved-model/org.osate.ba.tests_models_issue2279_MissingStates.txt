@@ -1,0 +1,16 @@
+annex[0] owner=MissingStates::worker
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+annex[1] owner=MissingStates::sensor
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+annex[2] owner=MissingStates::scheduler
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+annex[3] owner=MissingStates::storage
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+annex[4] owner=MissingStates::storage.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=value
+      ownedValueConstant : BehaviorIntegerLiteral
+annex[5] owner=MissingStates::routine
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+annex[6] owner=MissingStates::nonmodal
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification

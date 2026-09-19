@@ -20,33 +20,57 @@
 -- aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
 -- censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
 
-package ModalSubclauses
+package Controls
 public
+with Base_Types;
 
-abstract modal
-end modal;
-
-abstract implementation modal.impl
-modes
-	normal : initial mode;
-	backup : mode;
+-- The corrected device example from #2279 must accept dispatch without an explicit Dispatch_Protocol.
+device stomach
+features
+	food_in : in event data port Base_Types::Integer;
 annex behavior_specification {**
-states
-	whennormal : initial complete state;
-**} in modes (normal);
-annex behavior_specification {**
-states
-	whenbackup : initial complete state;
-**} in modes (backup);
-end modal.impl;
-
-abstract implementation modal.always
-modes
-	normal : initial mode;
-	backup : mode;
-annex behavior_specification {**
-states
-	anymode : initial complete state;
+	states
+		hungry : initial state;
+		not_hungry : complete state;
+	transitions
+		hungry -[food_in = 1]-> not_hungry;
+		not_hungry -[on dispatch]-> hungry;
 **};
-end modal.always;
-end ModalSubclauses;
+end stomach;
+
+-- Without modes or dispatch, an initialization-to-finalization behavior needs no complete state.
+memory brain
+annex behavior_specification {**
+	states
+		start : initial state;
+		finished : final state;
+	transitions
+		start -[]-> finished;
+**};
+end brain;
+
+-- Modes do not change the subprogram prohibition on complete states.
+subprogram routine
+modes
+	normal : initial mode;
+annex behavior_specification {**
+	states
+		start : initial state;
+		finished : final state;
+	transitions
+		start -[]-> finished;
+**};
+end routine;
+-- Complete states need not represent modes when none of them uses a mode's name.
+process controller
+modes
+	normal : initial mode;
+annex behavior_specification {**
+	states
+		start : initial state;
+		finished : complete final state;
+	transitions
+		start -[]-> finished;
+**};
+end controller;
+end Controls;

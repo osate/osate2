@@ -1,0 +1,32 @@
+annex[0] owner=Controls::stomach
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=hungry
+    states[1] : BehaviorState name=not_hungry
+    transitions[0] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : EventDataPortHolder element=Controls::stomach.food_in [EventDataPort]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorIntegerLiteral
+    transitions[1] : BehaviorTransition
+      condition : DispatchCondition
+annex[1] owner=Controls::brain
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=finished
+    transitions[0] : BehaviorTransition
+annex[2] owner=Controls::routine
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=finished
+    transitions[0] : BehaviorTransition
+annex[3] owner=Controls::controller
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=finished
+    transitions[0] : BehaviorTransition

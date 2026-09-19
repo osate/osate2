@@ -1,0 +1,3 @@
+error | semantic | 38 | 2 | 94 | Issue2279::brain.missing_complete has no complete state : Behavior Annex D.3.(L3) legality rule failed.
+error | semantic | 62 | 2 | 34 | Issue2279::inherited.missing_initial has no initial state : Behavior Annex D.3.(L3) legality rule failed.
+error | semantic | 69 | 2 | 37 | Issue2279::brain.extended has no complete state : Behavior Annex D.3.(L3) legality rule failed.

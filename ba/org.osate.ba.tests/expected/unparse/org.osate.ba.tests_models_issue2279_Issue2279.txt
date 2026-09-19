@@ -1,0 +1,30 @@
+===== annex[0] owner=Issue2279::brain.missing_complete =====
+
+\tstates
+\t\tstart : initial state;
+\t\tfinished : final state;
+\ttransitions
+\t\tstart -[]-> finished;
+----- Xtext reparse -----
+reparsed
+===== annex[1] owner=Issue2279::brain.corrected =====
+
+\tstates
+\t\tresting : initial complete state;
+\t\tactive : complete state;
+\ttransitions
+\t\tresting -[on wake]-> active;
+----- Xtext reparse -----
+reparsed
+===== annex[2] owner=Issue2279::inherited.missing_initial =====
+
+\tstates
+\t\tresting : complete state;
+----- Xtext reparse -----
+reparsed
+===== annex[3] owner=Issue2279::brain.extended =====
+
+\tstates
+\t\tstart : initial final state;
+----- Xtext reparse -----
+reparsed

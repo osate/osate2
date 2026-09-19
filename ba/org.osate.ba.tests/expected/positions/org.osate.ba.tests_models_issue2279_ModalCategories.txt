@@ -1,0 +1,96 @@
+annex[0] owner=ModalCategories::abstract_behavior
+  (BehaviorAnnex, behavior_specification, 1864, 37)
+  (BehaviorState, start, 1873, 5)
+  (BehaviorStateGroup, <null>, 1873, 28)
+annex[1] owner=ModalCategories::abstract_behavior.impl
+  (BehaviorAnnex, behavior_specification, 2012, 37)
+  (BehaviorState, start, 2021, 5)
+  (BehaviorStateGroup, <null>, 2021, 28)
+annex[2] owner=ModalCategories::bus_behavior
+  (BehaviorAnnex, behavior_specification, 2165, 37)
+  (BehaviorState, start, 2174, 5)
+  (BehaviorStateGroup, <null>, 2174, 28)
+annex[3] owner=ModalCategories::bus_behavior.impl
+  (BehaviorAnnex, behavior_specification, 2298, 37)
+  (BehaviorState, start, 2307, 5)
+  (BehaviorStateGroup, <null>, 2307, 28)
+annex[4] owner=ModalCategories::data_behavior
+  (BehaviorAnnex, behavior_specification, 2448, 37)
+  (BehaviorState, start, 2457, 5)
+  (BehaviorStateGroup, <null>, 2457, 28)
+annex[5] owner=ModalCategories::data_behavior.impl
+  (BehaviorAnnex, behavior_specification, 2584, 37)
+  (BehaviorState, start, 2593, 5)
+  (BehaviorStateGroup, <null>, 2593, 28)
+annex[6] owner=ModalCategories::device_behavior
+  (BehaviorAnnex, behavior_specification, 2739, 37)
+  (BehaviorState, start, 2748, 5)
+  (BehaviorStateGroup, <null>, 2748, 28)
+annex[7] owner=ModalCategories::device_behavior.impl
+  (BehaviorAnnex, behavior_specification, 2881, 37)
+  (BehaviorState, start, 2890, 5)
+  (BehaviorStateGroup, <null>, 2890, 28)
+annex[8] owner=ModalCategories::memory_behavior
+  (BehaviorAnnex, behavior_specification, 3038, 37)
+  (BehaviorState, start, 3047, 5)
+  (BehaviorStateGroup, <null>, 3047, 28)
+annex[9] owner=ModalCategories::memory_behavior.impl
+  (BehaviorAnnex, behavior_specification, 3180, 37)
+  (BehaviorState, start, 3189, 5)
+  (BehaviorStateGroup, <null>, 3189, 28)
+annex[10] owner=ModalCategories::process_behavior
+  (BehaviorAnnex, behavior_specification, 3339, 37)
+  (BehaviorState, start, 3348, 5)
+  (BehaviorStateGroup, <null>, 3348, 28)
+annex[11] owner=ModalCategories::process_behavior.impl
+  (BehaviorAnnex, behavior_specification, 3484, 37)
+  (BehaviorState, start, 3493, 5)
+  (BehaviorStateGroup, <null>, 3493, 28)
+annex[12] owner=ModalCategories::processor_behavior
+  (BehaviorAnnex, behavior_specification, 3648, 37)
+  (BehaviorState, start, 3657, 5)
+  (BehaviorStateGroup, <null>, 3657, 28)
+annex[13] owner=ModalCategories::processor_behavior.impl
+  (BehaviorAnnex, behavior_specification, 3799, 37)
+  (BehaviorState, start, 3808, 5)
+  (BehaviorStateGroup, <null>, 3808, 28)
+annex[14] owner=ModalCategories::system_behavior
+  (BehaviorAnnex, behavior_specification, 3959, 37)
+  (BehaviorState, start, 3968, 5)
+  (BehaviorStateGroup, <null>, 3968, 28)
+annex[15] owner=ModalCategories::system_behavior.impl
+  (BehaviorAnnex, behavior_specification, 4101, 37)
+  (BehaviorState, start, 4110, 5)
+  (BehaviorStateGroup, <null>, 4110, 28)
+annex[16] owner=ModalCategories::thread_behavior
+  (BehaviorAnnex, behavior_specification, 4258, 37)
+  (BehaviorState, start, 4267, 5)
+  (BehaviorStateGroup, <null>, 4267, 28)
+annex[17] owner=ModalCategories::thread_behavior.impl
+  (BehaviorAnnex, behavior_specification, 4400, 37)
+  (BehaviorState, start, 4409, 5)
+  (BehaviorStateGroup, <null>, 4409, 28)
+annex[18] owner=ModalCategories::thread_group_behavior
+  (BehaviorAnnex, behavior_specification, 4569, 37)
+  (BehaviorState, start, 4578, 5)
+  (BehaviorStateGroup, <null>, 4578, 28)
+annex[19] owner=ModalCategories::thread_group_behavior.impl
+  (BehaviorAnnex, behavior_specification, 4729, 37)
+  (BehaviorState, start, 4738, 5)
+  (BehaviorStateGroup, <null>, 4738, 28)
+annex[20] owner=ModalCategories::virtual_bus_behavior
+  (BehaviorAnnex, behavior_specification, 4902, 37)
+  (BehaviorState, start, 4911, 5)
+  (BehaviorStateGroup, <null>, 4911, 28)
+annex[21] owner=ModalCategories::virtual_bus_behavior.impl
+  (BehaviorAnnex, behavior_specification, 5059, 37)
+  (BehaviorState, start, 5068, 5)
+  (BehaviorStateGroup, <null>, 5068, 28)
+annex[22] owner=ModalCategories::virtual_processor_behavior
+  (BehaviorAnnex, behavior_specification, 5243, 37)
+  (BehaviorState, start, 5252, 5)
+  (BehaviorStateGroup, <null>, 5252, 28)
+annex[23] owner=ModalCategories::virtual_processor_behavior.impl
+  (BehaviorAnnex, behavior_specification, 5418, 37)
+  (BehaviorState, start, 5427, 5)
+  (BehaviorStateGroup, <null>, 5427, 28)

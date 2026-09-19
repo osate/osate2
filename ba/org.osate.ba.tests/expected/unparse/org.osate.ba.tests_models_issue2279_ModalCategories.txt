@@ -1,0 +1,144 @@
+===== annex[0] owner=ModalCategories::abstract_behavior =====
+
+\tstates
+\t\tstart : initial final state;
+----- Xtext reparse -----
+reparsed
+===== annex[1] owner=ModalCategories::abstract_behavior.impl =====
+
+\tstates
+\t\tstart : initial final state;
+----- Xtext reparse -----
+reparsed
+===== annex[2] owner=ModalCategories::bus_behavior =====
+
+\tstates
+\t\tstart : initial final state;
+----- Xtext reparse -----
+reparsed
+===== annex[3] owner=ModalCategories::bus_behavior.impl =====
+
+\tstates
+\t\tstart : initial final state;
+----- Xtext reparse -----
+reparsed
+===== annex[4] owner=ModalCategories::data_behavior =====
+
+\tstates
+\t\tstart : initial final state;
+----- Xtext reparse -----
+reparsed
+===== annex[5] owner=ModalCategories::data_behavior.impl =====
+
+\tstates
+\t\tstart : initial final state;
+----- Xtext reparse -----
+reparsed
+===== annex[6] owner=ModalCategories::device_behavior =====
+
+\tstates
+\t\tstart : initial final state;
+----- Xtext reparse -----
+reparsed
+===== annex[7] owner=ModalCategories::device_behavior.impl =====
+
+\tstates
+\t\tstart : initial final state;
+----- Xtext reparse -----
+reparsed
+===== annex[8] owner=ModalCategories::memory_behavior =====
+
+\tstates
+\t\tstart : initial final state;
+----- Xtext reparse -----
+reparsed
+===== annex[9] owner=ModalCategories::memory_behavior.impl =====
+
+\tstates
+\t\tstart : initial final state;
+----- Xtext reparse -----
+reparsed
+===== annex[10] owner=ModalCategories::process_behavior =====
+
+\tstates
+\t\tstart : initial final state;
+----- Xtext reparse -----
+reparsed
+===== annex[11] owner=ModalCategories::process_behavior.impl =====
+
+\tstates
+\t\tstart : initial final state;
+----- Xtext reparse -----
+reparsed
+===== annex[12] owner=ModalCategories::processor_behavior =====
+
+\tstates
+\t\tstart : initial final state;
+----- Xtext reparse -----
+reparsed
+===== annex[13] owner=ModalCategories::processor_behavior.impl =====
+
+\tstates
+\t\tstart : initial final state;
+----- Xtext reparse -----
+reparsed
+===== annex[14] owner=ModalCategories::system_behavior =====
+
+\tstates
+\t\tstart : initial final state;
+----- Xtext reparse -----
+reparsed
+===== annex[15] owner=ModalCategories::system_behavior.impl =====
+
+\tstates
+\t\tstart : initial final state;
+----- Xtext reparse -----
+reparsed
+===== annex[16] owner=ModalCategories::thread_behavior =====
+
+\tstates
+\t\tstart : initial final state;
+----- Xtext reparse -----
+reparsed
+===== annex[17] owner=ModalCategories::thread_behavior.impl =====
+
+\tstates
+\t\tstart : initial final state;
+----- Xtext reparse -----
+reparsed
+===== annex[18] owner=ModalCategories::thread_group_behavior =====
+
+\tstates
+\t\tstart : initial final state;
+----- Xtext reparse -----
+reparsed
+===== annex[19] owner=ModalCategories::thread_group_behavior.impl =====
+
+\tstates
+\t\tstart : initial final state;
+----- Xtext reparse -----
+reparsed
+===== annex[20] owner=ModalCategories::virtual_bus_behavior =====
+
+\tstates
+\t\tstart : initial final state;
+----- Xtext reparse -----
+reparsed
+===== annex[21] owner=ModalCategories::virtual_bus_behavior.impl =====
+
+\tstates
+\t\tstart : initial final state;
+----- Xtext reparse -----
+reparsed
+===== annex[22] owner=ModalCategories::virtual_processor_behavior =====
+
+\tstates
+\t\tstart : initial final state;
+----- Xtext reparse -----
+reparsed
+===== annex[23] owner=ModalCategories::virtual_processor_behavior.impl =====
+
+\tstates
+\t\tstart : initial final state;
+----- Xtext reparse -----
+reparsed
