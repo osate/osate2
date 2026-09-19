@@ -1,0 +1,171 @@
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
+-- All Rights Reserved.
+--
+-- NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+-- KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+-- OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+-- MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+--
+-- This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+-- which is available at https://www.eclipse.org/legal/epl-2.0/
+-- SPDX-License-Identifier: EPL-2.0
+--
+-- Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+--
+-- This program includes and/or can make use of certain third party source code, object code, documentation and other
+-- files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+-- configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+-- conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+-- Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+-- aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+-- censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+
+package TypeExtensions
+public
+with Data_Model;
+
+data integer_type
+properties
+	Data_Model::Data_Representation => Integer;
+end integer_type;
+
+data child_integer extends integer_type
+end child_integer;
+
+data grandchild_integer extends child_integer
+end grandchild_integer;
+
+data sibling_integer extends integer_type
+end sibling_integer;
+
+data real_type
+properties
+	Data_Model::Data_Representation => Float;
+end real_type;
+
+data child_real extends real_type
+end child_real;
+
+data boolean_type
+properties
+	Data_Model::Data_Representation => Boolean;
+end boolean_type;
+
+data child_boolean extends boolean_type
+end child_boolean;
+
+data opaque
+end opaque;
+
+data child_opaque extends opaque
+end child_opaque;
+
+data implementation opaque.impl
+end opaque.impl;
+
+data implementation opaque.extended extends opaque.impl
+end opaque.extended;
+
+subprogram operation
+features
+	argument : in parameter integer_type;
+	result : out parameter child_integer;
+	updated : in out parameter integer_type;
+end operation;
+
+abstract host
+features
+	input_base : in event data port integer_type;
+	input_child : in event data port child_integer;
+	output_base : out data port integer_type;
+	output_child : out data port child_integer;
+end host;
+
+abstract implementation host.impl
+internal features
+	raised_base : event data integer_type;
+	raised_child : event data child_integer;
+annex behavior_specification {**
+	variables
+		base_value : integer_type := 1;
+		child_value : child_integer := 2;
+		grandchild_value : grandchild_integer := 3;
+		sibling_value : sibling_integer := 0;
+		base_real : real_type := 1.0;
+		derived_real : child_real := 2.0;
+		base_flag : boolean_type := true;
+		derived_flag : child_boolean := false;
+		base_object : opaque;
+		derived_object : child_opaque;
+		base_impl : opaque.impl;
+		derived_impl : opaque.extended;
+		base_array[2] : integer_type;
+		derived_array[2] : child_integer;
+	states
+		start : initial state;
+		done : final state;
+	transitions
+		assignments : start -[]-> done {
+			base_value := grandchild_value;
+			grandchild_value := base_value;
+			base_real := derived_real;
+			derived_real := base_real;
+			base_flag := derived_flag;
+			derived_flag := base_flag;
+			base_object := any;
+			derived_object := base_object;
+			base_object := derived_object;
+			base_impl := any;
+			derived_impl := base_impl;
+			base_impl := derived_impl
+		};
+		-- A mixed expression has the base type in either operand order. Its value can then be assigned to a sibling.
+		expressions : start -[]-> done {
+			sibling_value := base_value + grandchild_value;
+			sibling_value := grandchild_value + base_value;
+			base_flag := base_value < child_value;
+			base_flag := child_value > base_value;
+			base_flag := base_flag and derived_flag;
+			base_flag := derived_flag or base_flag;
+			base_real := base_real + derived_real;
+			base_real := derived_real + base_real
+		};
+		literal_operands : start -[]-> done {
+			base_value := grandchild_value + 1;
+			base_value := 1 + grandchild_value;
+			grandchild_value := base_value + 1;
+			grandchild_value := 1 + base_value;
+			sibling_value := (1 + grandchild_value) + base_value;
+			sibling_value := base_value + (grandchild_value + 1);
+			base_real := derived_real + 1.0;
+			base_real := 1.0 + derived_real;
+			derived_real := base_real + 1.0;
+			derived_real := 1.0 + base_real;
+			base_flag := derived_flag and true;
+			base_flag := false or derived_flag;
+			derived_flag := base_flag and true;
+			derived_flag := false or base_flag;
+			base_flag := (grandchild_value + 1 > base_value) and (derived_real + 1.0 > base_real) and true;
+			derived_flag := false or ((1 + base_value < grandchild_value) and (1.0 + base_real < derived_real))
+		};
+		communications : start -[]-> done {
+			output_base!(child_value);
+			output_child!(base_value);
+			input_base?(child_value);
+			input_child?(base_value);
+			raised_base!(child_value);
+			raised_child!(base_value);
+			operation!(child_value, base_value, child_value)
+		};
+		arrays_and_ranges : start -[]-> done {
+			base_array := any;
+			derived_array := base_array;
+			base_array := derived_array;
+			for (element : child_integer in base_array) { child_value := element };
+			for (element : integer_type in derived_array) { base_value := element };
+			for (element : child_integer in base_value .. grandchild_value) { child_value := element };
+			for (element : child_integer in grandchild_value .. base_value) { child_value := element }
+		};
+**};
+end host.impl;
+end TypeExtensions;

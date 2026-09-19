@@ -55,11 +55,9 @@ public class Issue3199Test extends XtextTest {
 	private ValidationTestHelper validationHelper;
 
 	@Test
-	public void classifierNamesAndExpressionResultsMustMatch() throws Exception {
+	public void unrelatedClassifiersAndRealizationsRemainDistinct() throws Exception {
 		assertDiagnostics("ClassifierIdentity", List.of(new Expected("second",
 				"type error for 'assignment', 'ClassifierIdentity::first_type' expected, found 'ClassifierIdentity::second_type'."),
-				new Expected("child",
-						"type error for 'assignment', 'ClassifierIdentity::first_type' expected, found 'ClassifierIdentity::child_type'."),
 				new Expected("implementation",
 						"type error for 'assignment', 'ClassifierIdentity::first_type' expected, found 'ClassifierIdentity::first_type.impl'."),
 				new Expected("true and second_flag",

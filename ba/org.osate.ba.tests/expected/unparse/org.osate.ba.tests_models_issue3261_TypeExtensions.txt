@@ -1,0 +1,84 @@
+===== annex[0] owner=TypeExtensions::host.impl =====
+
+\tvariables
+\t\tbase_value : integer_type := 1;
+\t\tchild_value : child_integer := 2;
+\t\tgrandchild_value : grandchild_integer := 3;
+\t\tsibling_value : sibling_integer := 0;
+\t\tbase_real : real_type := 1.0;
+\t\tderived_real : child_real := 2.0;
+\t\tbase_flag : boolean_type := true;
+\t\tderived_flag : child_boolean := false;
+\t\tbase_object : opaque;
+\t\tderived_object : child_opaque;
+\t\tbase_impl : opaque.impl;
+\t\tderived_impl : opaque.extended;
+\t\tbase_array[2] : integer_type;
+\t\tderived_array[2] : child_integer;
+\tstates
+\t\tstart : initial state;
+\t\tdone : final state;
+\ttransitions
+\t\tassignments : start -[]-> done {
+\t\t\tbase_value := grandchild_value;
+\t\t\tgrandchild_value := base_value;
+\t\t\tbase_real := derived_real;
+\t\t\tderived_real := base_real;
+\t\t\tbase_flag := derived_flag;
+\t\t\tderived_flag := base_flag;
+\t\t\tbase_object := any;
+\t\t\tderived_object := base_object;
+\t\t\tbase_object := derived_object;
+\t\t\tbase_impl := any;
+\t\t\tderived_impl := base_impl;
+\t\t\tbase_impl := derived_impl
+\t\t};
+\t\t-- A mixed expression has the base type in either operand order. Its value can then be assigned to a sibling.
+\t\texpressions : start -[]-> done {
+\t\t\tsibling_value := base_value + grandchild_value;
+\t\t\tsibling_value := grandchild_value + base_value;
+\t\t\tbase_flag := base_value < child_value;
+\t\t\tbase_flag := child_value > base_value;
+\t\t\tbase_flag := base_flag and derived_flag;
+\t\t\tbase_flag := derived_flag or base_flag;
+\t\t\tbase_real := base_real + derived_real;
+\t\t\tbase_real := derived_real + base_real
+\t\t};
+\t\tliteral_operands : start -[]-> done {
+\t\t\tbase_value := grandchild_value + 1;
+\t\t\tbase_value := 1 + grandchild_value;
+\t\t\tgrandchild_value := base_value + 1;
+\t\t\tgrandchild_value := 1 + base_value;
+\t\t\tsibling_value := (1 + grandchild_value) + base_value;
+\t\t\tsibling_value := base_value + (grandchild_value + 1);
+\t\t\tbase_real := derived_real + 1.0;
+\t\t\tbase_real := 1.0 + derived_real;
+\t\t\tderived_real := base_real + 1.0;
+\t\t\tderived_real := 1.0 + base_real;
+\t\t\tbase_flag := derived_flag and true;
+\t\t\tbase_flag := false or derived_flag;
+\t\t\tderived_flag := base_flag and true;
+\t\t\tderived_flag := false or base_flag;
+\t\t\tbase_flag := (grandchild_value + 1 > base_value) and (derived_real + 1.0 > base_real) and true;
+\t\t\tderived_flag := false or ((1 + base_value < grandchild_value) and (1.0 + base_real < derived_real))
+\t\t};
+\t\tcommunications : start -[]-> done {
+\t\t\toutput_base!(child_value);
+\t\t\toutput_child!(base_value);
+\t\t\tinput_base?(child_value);
+\t\t\tinput_child?(base_value);
+\t\t\traised_base!(child_value);
+\t\t\traised_child!(base_value);
+\t\t\toperation!(child_value, base_value, child_value)
+\t\t};
+\t\tarrays_and_ranges : start -[]-> done {
+\t\t\tbase_array := any;
+\t\t\tderived_array := base_array;
+\t\t\tbase_array := derived_array;
+\t\t\tfor (element : child_integer in base_array) { child_value := element };
+\t\t\tfor (element : integer_type in derived_array) { base_value := element };
+\t\t\tfor (element : child_integer in base_value .. grandchild_value) { child_value := element };
+\t\t\tfor (element : child_integer in grandchild_value .. base_value) { child_value := element }
+\t\t};
+----- Xtext reparse -----
+reparsed

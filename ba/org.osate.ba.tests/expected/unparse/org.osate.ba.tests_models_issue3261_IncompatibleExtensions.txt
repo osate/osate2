@@ -1,0 +1,35 @@
+===== annex[0] owner=IncompatibleExtensions::host.impl =====
+
+\tvariables
+\t\tbase_value : integer_type := 1;
+\t\tchild_value : child_integer := 2;
+\t\tsibling_value : sibling_integer := 3;
+\t\treal_value : changed_representation := 1.0;
+\t\topaque_value : opaque;
+\t\tnumeric_value : numeric_opaque := 1;
+\t\tunrelated_real : real_type := 0.0;
+\t\tderived_flag : child_boolean := true;
+\t\tunrelated_flag : unrelated_boolean := false;
+\t\tbase_array[2] : integer_type;
+\t\tlarger_array[3], matrix[2][2] : child_integer;
+\tstates
+\t\tstart : initial state;
+\t\tdone : final state;
+\ttransitions
+\t\tsiblings : start -[]-> done { child_value := sibling_value };
+\t\tsibling_operands : start -[]-> done { base_value := child_value + sibling_value };
+\t\tchanged_child : start -[]-> done { base_value := real_value };
+\t\tchanged_parent : start -[]-> done { real_value := base_value };
+\t\tchanged_operands : start -[]-> done { base_value := base_value + real_value };
+\t\tunknown_parent : start -[]-> done { opaque_value := numeric_value };
+\t\tunknown_child : start -[]-> done { opaque_value := any; numeric_value := opaque_value };
+\t\textent : start -[]-> done { larger_array := any; base_array := larger_array };
+\t\trank : start -[]-> done { matrix := any; base_array := matrix };
+\t\tinteger_literal_left : start -[]-> done { child_value := 1 + sibling_value };
+\t\tinteger_literal_right : start -[]-> done { child_value := sibling_value + 1 };
+\t\treal_literal_left : start -[]-> done { unrelated_real := 1.0 + real_value };
+\t\treal_literal_right : start -[]-> done { unrelated_real := real_value + 1.0 };
+\t\tboolean_literal_left : start -[]-> done { unrelated_flag := true and derived_flag };
+\t\tboolean_literal_right : start -[]-> done { unrelated_flag := derived_flag or false };
+----- Xtext reparse -----
+reparsed

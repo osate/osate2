@@ -1,0 +1,107 @@
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
+-- All Rights Reserved.
+--
+-- NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+-- KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+-- OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+-- MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+--
+-- This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+-- which is available at https://www.eclipse.org/legal/epl-2.0/
+-- SPDX-License-Identifier: EPL-2.0
+--
+-- Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+--
+-- This program includes and/or can make use of certain third party source code, object code, documentation and other
+-- files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+-- configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+-- conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+-- Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+-- aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+-- censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+
+package IncompatibleExtensions
+public
+with Data_Model;
+
+data integer_type
+properties
+	Data_Model::Data_Representation => Integer;
+end integer_type;
+
+data child_integer extends integer_type
+end child_integer;
+
+data sibling_integer extends integer_type
+end sibling_integer;
+
+data changed_representation extends integer_type
+properties
+	Data_Model::Data_Representation => Float;
+end changed_representation;
+
+data opaque
+end opaque;
+
+data numeric_opaque extends opaque
+properties
+	Data_Model::Data_Representation => Integer;
+end numeric_opaque;
+
+data real_type
+properties
+	Data_Model::Data_Representation => Float;
+end real_type;
+
+data boolean_type
+properties
+	Data_Model::Data_Representation => Boolean;
+end boolean_type;
+
+data child_boolean extends boolean_type
+end child_boolean;
+
+data unrelated_boolean
+properties
+	Data_Model::Data_Representation => Boolean;
+end unrelated_boolean;
+
+abstract host
+end host;
+
+abstract implementation host.impl
+annex behavior_specification {**
+	variables
+		base_value : integer_type := 1;
+		child_value : child_integer := 2;
+		sibling_value : sibling_integer := 3;
+		real_value : changed_representation := 1.0;
+		opaque_value : opaque;
+		numeric_value : numeric_opaque := 1;
+		unrelated_real : real_type := 0.0;
+		derived_flag : child_boolean := true;
+		unrelated_flag : unrelated_boolean := false;
+		base_array[2] : integer_type;
+		larger_array[3], matrix[2][2] : child_integer;
+	states
+		start : initial state;
+		done : final state;
+	transitions
+		siblings : start -[]-> done { child_value := sibling_value };
+		sibling_operands : start -[]-> done { base_value := child_value + sibling_value };
+		changed_child : start -[]-> done { base_value := real_value };
+		changed_parent : start -[]-> done { real_value := base_value };
+		changed_operands : start -[]-> done { base_value := base_value + real_value };
+		unknown_parent : start -[]-> done { opaque_value := numeric_value };
+		unknown_child : start -[]-> done { opaque_value := any; numeric_value := opaque_value };
+		extent : start -[]-> done { larger_array := any; base_array := larger_array };
+		rank : start -[]-> done { matrix := any; base_array := matrix };
+		integer_literal_left : start -[]-> done { child_value := 1 + sibling_value };
+		integer_literal_right : start -[]-> done { child_value := sibling_value + 1 };
+		real_literal_left : start -[]-> done { unrelated_real := 1.0 + real_value };
+		real_literal_right : start -[]-> done { unrelated_real := real_value + 1.0 };
+		boolean_literal_left : start -[]-> done { unrelated_flag := true and derived_flag };
+		boolean_literal_right : start -[]-> done { unrelated_flag := derived_flag or false };
+**};
+end host.impl;
+end IncompatibleExtensions;

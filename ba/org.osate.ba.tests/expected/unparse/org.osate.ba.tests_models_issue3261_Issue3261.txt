@@ -1,0 +1,17 @@
+===== annex[0] owner=Issue3261::host.impl =====
+
+  variables
+    base_value : integer_type := 1;
+    grandchild_value : grandchild_integer := 3;
+  states
+    start : initial state;
+    done : final state;
+  transitions
+    start -[]-> done {
+      base_value := grandchild_value;
+      grandchild_value := base_value;
+      base_value := base_value + grandchild_value;
+      base_value := grandchild_value + base_value
+    };
+----- Xtext reparse -----
+reparsed
