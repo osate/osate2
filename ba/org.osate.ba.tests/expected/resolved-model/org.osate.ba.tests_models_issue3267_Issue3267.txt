@@ -1,0 +1,10 @@
+annex[0] owner=Issue3267::worker.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=waiting
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition name=first_timeout
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchRelativeTimeout
+    transitions[1] : BehaviorTransition name=second_timeout
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchRelativeTimeout
