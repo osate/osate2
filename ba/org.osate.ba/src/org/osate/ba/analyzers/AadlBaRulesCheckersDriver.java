@@ -235,11 +235,15 @@ public class AadlBaRulesCheckersDriver {
 				}
 
 				BehaviorCondition bc = _currentBt.getCondition();
-				if (bc instanceof DispatchCondition dc
-						&& dc.getDispatchTriggerCondition() instanceof CompletionRelativeTimeout timeout) {
+				if (bc instanceof DispatchCondition dc) {
 					// A multi-source declaration expands into one strict transition per source. Check uniqueness for
 					// every expansion before the shared condition is deduplicated below.
-					result &= _legality.D_4_L2_Uniqueness_Check(timeout, _currentBt);
+					// CompletionRelativeTimeout extends DispatchRelativeTimeout, so the more specific case must be first.
+					if (dc.getDispatchTriggerCondition() instanceof CompletionRelativeTimeout timeout) {
+						result &= _legality.D_4_L2_Uniqueness_Check(timeout, _currentBt);
+					} else if (dc.getDispatchTriggerCondition() instanceof DispatchRelativeTimeout timeout) {
+						result &= _legality.D_4_L1_Uniqueness_Check(timeout, _currentBt);
+					}
 				}
 
 				// D.3 says an otherwise transition should not have a priority; warn once for a shared declaration.

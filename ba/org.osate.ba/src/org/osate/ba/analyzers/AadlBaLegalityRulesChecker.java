@@ -488,6 +488,32 @@ public class AadlBaLegalityRulesChecker {
 	/**
 	 * Document: AADL Behavior Annex draft
 	 * Version : 0.94
+	 * Type : Legality rule
+	 * Section : D.4 Thread Dispatch Behavior Specification
+	 * Object : Check dispatch-relative timeout uniqueness for one expanded source transition
+	 * Keys : dispatch relative timeout condition catch complete state
+	 */
+	public boolean D_4_L1_Uniqueness_Check(DispatchRelativeTimeout tc, BehaviorTransition bt) {
+		List<BehaviorState> sourceStates = BehaviorTransitionContext.getSourceStates(bt);
+		if (sourceStates.size() == 1) {
+			BehaviorState sourceState = sourceStates.get(0);
+			BehaviorTransition previous = sourceState.isComplete()
+					? _alreadyFoundDispatchRelativeTimeoutTransition.putIfAbsent(sourceState, bt)
+					: null;
+			if (previous != null) {
+				this.reportLegalityError(tc,
+						"State '" + sourceState.getName()
+								+ "' must have at most one outgoing dispatch-relative timeout transition: "
+								+ "Behavior Annex D.4.(L1) legality rule failed");
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Document: AADL Behavior Annex draft
+	 * Version : 0.94
 	 * Type : Legality rule and Semantic rule
 	 * Section : D.4 Thread Dispatch Behavior Specification
 	 * Object : Check legality rule D.4.(L1) and semantic rule D.4.(5)
@@ -499,7 +525,7 @@ public class AadlBaLegalityRulesChecker {
 
 		if (sourceState.size() == 1) {
 			BehaviorState bs = sourceState.get(0);
-			if (false == _alreadyFoundDispatchRelativeTimeoutTransition.containsKey(bs) && bs.isComplete()) {
+			if (bs.isComplete()) {
 				// If the ba's parent container is not a Thread, the return value
 				// list will be empty.
 
@@ -521,7 +547,6 @@ public class AadlBaLegalityRulesChecker {
 							hasPeriod = period != null;
 
 							if (hasPeriod) {
-								_alreadyFoundDispatchRelativeTimeoutTransition.put(bs, bt);
 								return true;
 							} else // Error case: period property must be declared in the
 							// ba's parent container.
@@ -554,13 +579,6 @@ public class AadlBaLegalityRulesChecker {
 					_alreadyReportedErroneousTransition.add(bt);
 				}
 			}
-		} else // Error case : It must be declared in only one transition of the source state.
-		{
-			// If transition source states list is > 1, report errors for the
-			// furthers timeout catch.
-			this.reportLegalityError(tc,
-					"The dispatch relative timeout and catch" + " statement must be declared in only one transition: "
-							+ "Behavior Annex D.4.(L1) legality rule failed");
 		}
 
 		return false;
