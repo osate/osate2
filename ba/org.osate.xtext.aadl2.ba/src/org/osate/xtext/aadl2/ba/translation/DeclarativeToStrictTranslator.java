@@ -491,24 +491,26 @@ public final class DeclarativeToStrictTranslator {
 						if (resolved instanceof org.osate.ba.aadlba.DispatchTriggerCondition condition
 								&& !(resolved instanceof DispatchTrigger)) {
 							result.setDispatchTriggerCondition(condition);
-							return result;
 						}
 					}
-					final org.osate.ba.aadlba.DispatchTriggerLogicalExpression expression = trace(
-							FACTORY.createDispatchTriggerLogicalExpression(), trigger);
-					for (final org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchConjunction sourceConjunction : trigger
-							.getExpression().getConjunctions()) {
-						final DispatchConjunction conjunction = trace(FACTORY.createDispatchConjunction(),
-								sourceConjunction);
-						for (final Reference reference : sourceConjunction.getTriggers()) {
-							final var resolvedTrigger = toReferenceValue(reference);
-							if (resolvedTrigger instanceof DispatchTrigger dispatchTrigger) {
-								conjunction.getDispatchTriggers().add(dispatchTrigger);
+					// A direct subprogram trigger is already installed; event triggers still need the logical wrapper.
+					if (result.getDispatchTriggerCondition() == null) {
+						final org.osate.ba.aadlba.DispatchTriggerLogicalExpression expression = trace(
+								FACTORY.createDispatchTriggerLogicalExpression(), trigger);
+						for (final org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchConjunction sourceConjunction : trigger
+								.getExpression().getConjunctions()) {
+							final DispatchConjunction conjunction = trace(FACTORY.createDispatchConjunction(),
+									sourceConjunction);
+							for (final Reference reference : sourceConjunction.getTriggers()) {
+								final var resolvedTrigger = toReferenceValue(reference);
+								if (resolvedTrigger instanceof DispatchTrigger dispatchTrigger) {
+									conjunction.getDispatchTriggers().add(dispatchTrigger);
+								}
 							}
+							expression.getDispatchConjunctions().add(conjunction);
 						}
-						expression.getDispatchConjunctions().add(conjunction);
+						result.setDispatchTriggerCondition(expression);
 					}
-					result.setDispatchTriggerCondition(expression);
 				} else if (trigger.isStop()) {
 					result.setDispatchTriggerCondition(trace(FACTORY.createDispatchTriggerConditionStop(), trigger));
 				} else if (trigger.isTimeout()) {
