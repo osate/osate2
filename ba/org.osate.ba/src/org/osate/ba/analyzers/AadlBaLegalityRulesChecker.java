@@ -571,6 +571,33 @@ public class AadlBaLegalityRulesChecker {
 	 * Version : 0.94
 	 * Type : Legality rule
 	 * Section : D.4 Thread Dispatch Behavior Specification
+	 * Object : Check completion-relative timeout uniqueness for one expanded source transition
+	 * Keys : dispatch completion relative timeout condition catch complete
+	 * state
+	 */
+	public boolean D_4_L2_Uniqueness_Check(CompletionRelativeTimeout crtcac, BehaviorTransition bt) {
+		List<BehaviorState> sourceStates = BehaviorTransitionContext.getSourceStates(bt);
+		if (sourceStates.size() == 1) {
+			BehaviorState sourceState = sourceStates.get(0);
+			BehaviorTransition previous = sourceState.isComplete()
+					? _alreadyFoundCompletionRelativeTimeoutConditionCatchTransition.putIfAbsent(sourceState, bt)
+					: null;
+			if (previous != null) {
+				this.reportLegalityError(crtcac,
+						"The completion relative timeout "
+								+ "condition and catch statement must be declared in only one "
+								+ "transition: Behavior Annex D.4.(L2) legality rule failed");
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Document: AADL Behavior Annex draft
+	 * Version : 0.94
+	 * Type : Legality rule
+	 * Section : D.4 Thread Dispatch Behavior Specification
 	 * Object : Check legality rule D.4.(L2)
 	 * Keys : dispatch completion relative timeout condition catch complete
 	 * state
@@ -578,13 +605,10 @@ public class AadlBaLegalityRulesChecker {
 	public Boolean D_4_L2_Check(CompletionRelativeTimeout crtcac, BehaviorTransition bt) {
 		List<BehaviorState> sourceState = BehaviorTransitionContext.getSourceStates(bt);
 
-		if (!_alreadyFoundCompletionRelativeTimeoutConditionCatchTransition.containsKey(sourceState)
-				&& sourceState.size() == 1) {
+		if (sourceState.size() == 1) {
 			BehaviorState bs = sourceState.get(0);
 			// Positive case.
 			if (bs.isComplete()) {
-				_alreadyFoundCompletionRelativeTimeoutConditionCatchTransition.put(bs, bt);
-
 				EList<org.osate.aadl2.PropertyExpression> vl;
 				vl = PropertyUtils.findPropertyExpression(_baParentContainer, ThreadProperties.DISPATCH_PROTOCOL);
 				if (vl.size() > 0) {
@@ -628,17 +652,6 @@ public class AadlBaLegalityRulesChecker {
 						"The completion relative timeout" + " condition and catch statement must be declared in an "
 								+ "outgoing transition of a complete state: Behavior Annex"
 								+ " D.4.(L2) legality rule failed");
-			}
-		} else // Error case : it must be declared in at most one transition.
-		{
-			// If transition source states list is > 1, report errors for the
-			// furthers completion timeout catch.
-			if (false == _alreadyReportedErroneousTransition.contains(bt)) {
-				this.reportLegalityError(crtcac,
-						"The completion relative timeout "
-								+ "condition and catch statement must be declared in only one "
-								+ "transition: Behavior Annex D.4.(L2) legality rule failed");
-				_alreadyReportedErroneousTransition.add(bt);
 			}
 		}
 
