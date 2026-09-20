@@ -1,0 +1,1 @@
+error | semantic | 39 | 42 | 7 | State 'waiting' must have at most one outgoing dispatch-relative timeout transition: Behavior Annex D.4.(L1) legality rule failed.

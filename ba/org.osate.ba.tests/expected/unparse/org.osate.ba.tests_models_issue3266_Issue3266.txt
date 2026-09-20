@@ -1,0 +1,10 @@
+===== annex[0] owner=Issue3266::worker.impl =====
+
+\tstates
+\t\twaiting : initial complete state;
+\t\tdone : final state;
+\ttransitions
+\t\tfirst_timeout : waiting -[on dispatch timeout 1 ms]-> done;
+\t\tsecond_timeout : waiting -[on dispatch timeout 2 ms]-> done;
+----- Xtext reparse -----
+reparsed

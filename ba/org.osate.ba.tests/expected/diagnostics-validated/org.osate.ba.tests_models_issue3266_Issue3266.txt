@@ -1,0 +1,1 @@
+error | semantic | 38 | 42 | 12 | The completion relative timeout condition and catch statement must be declared in only one transition: Behavior Annex D.4.(L2) legality rule failed.

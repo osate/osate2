@@ -2,6 +2,8 @@ error | semantic | 161 | 8 | 1 | Execution state 'c' has no possibly true outgoi
 error | semantic | 165 | 2 | 2 | NamesResolutionTest::thread1.impl can't have more than one initial state : a5, a6 : Behavior Annex D.3.(L3) legality rule failed.
 error | semantic | 166 | 2 | 2 | NamesResolutionTest::thread1.impl can't have more than one initial state : a5, a6 : Behavior Annex D.3.(L3) legality rule failed.
 error | semantic | 199 | 19 | 14 | The completion relative timeout condition and catch statement must have a value greater or equal to the Period of the thread it is defined in (otherwise) timeout condition can never occur.
+error | semantic | 200 | 19 | 18 | The completion relative timeout condition and catch statement must be declared in only one transition: Behavior Annex D.4.(L2) legality rule failed.
+error | semantic | 201 | 19 | 45 | The completion relative timeout condition and catch statement must be declared in only one transition: Behavior Annex D.4.(L2) legality rule failed.
 warning | semantic | 222 | 6 | 1 | Unary plus is not part of AS5506/3 Rev. A
 warning | semantic | 226 | 6 | 1 | Unary plus is not part of AS5506/3 Rev. A
 warning | semantic | 231 | 6 | 1 | Unary plus is not part of AS5506/3 Rev. A

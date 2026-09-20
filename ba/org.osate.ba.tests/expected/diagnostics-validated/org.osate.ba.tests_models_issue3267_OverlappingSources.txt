@@ -1,0 +1,1 @@
+error | semantic | 40 | 48 | 7 | State 'second' must have at most one outgoing dispatch-relative timeout transition: Behavior Annex D.4.(L1) legality rule failed.

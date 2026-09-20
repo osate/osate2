@@ -1,0 +1,11 @@
+===== annex[0] owner=OverlappingSources::worker.impl =====
+
+\tstates
+\t\tfirst : initial complete state;
+\t\tsecond, third : complete state;
+\t\tdone : final state;
+\ttransitions
+\t\tfirst_timeout : first, second -[on dispatch timeout]-> done;
+\t\tsecond_timeout : second, third -[on dispatch timeout]-> done;
+----- Xtext reparse -----
+reparsed
