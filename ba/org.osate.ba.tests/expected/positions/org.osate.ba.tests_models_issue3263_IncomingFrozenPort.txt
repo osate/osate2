@@ -1,0 +1,9 @@
+annex[0] owner=IncomingFrozenPort::host.valid
+  (BehaviorAnnex, behavior_specification, 1946, 122)
+  (BehaviorCondition, <null>, 2026, 29)
+  (BehaviorState, waiting, 1956, 7)
+  (BehaviorStateGroup, <null>, 1956, 33)
+  (BehaviorTransition, valid, 2007, 61)
+  (DispatchCondition, <null>, 2029, 26)
+  (Reference, <null>, 2046, 8)
+  (ReferenceSegment, incoming, 2046, 8)

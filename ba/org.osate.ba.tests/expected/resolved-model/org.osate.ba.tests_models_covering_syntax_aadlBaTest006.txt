@@ -1,2 +1,144 @@
 annex[0] owner=ParseTest::t
-  <unparsed>
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=bool1
+    variables[1] : BehaviorVariable name=bool1b
+    variables[2] : BehaviorVariable name=bool1q
+    variables[3] : BehaviorVariable name=bool2
+    variables[4] : BehaviorVariable name=bool3
+    variables[5] : BehaviorVariable name=bool4
+    variables[6] : BehaviorVariable name=bool5
+    states[0] : BehaviorState name=a
+    states[1] : BehaviorState name=b
+    states[2] : BehaviorState name=c
+    states[3] : BehaviorState name=d
+    states[4] : BehaviorState name=f
+    states[5] : BehaviorState name=g
+    states[6] : BehaviorState name=h
+    states[7] : BehaviorState name=i
+    states[8] : BehaviorState name=all
+    transitions[0] : BehaviorTransition
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchTriggerLogicalExpression
+          dispatchConjunctions[0] : DispatchConjunction
+    transitions[1] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorVariableHolder element=<null>
+    transitions[2] : BehaviorTransition
+    transitions[3] : BehaviorTransition
+    transitions[4] : BehaviorTransition
+    transitions[5] : BehaviorTransition name=t
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorVariableHolder element=<null>
+    transitions[6] : BehaviorTransition name=t
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorVariableHolder element=<null>
+    transitions[7] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorVariableHolder element=<null>
+    transitions[8] : BehaviorTransition
+    transitions[9] : BehaviorTransition
+    transitions[10] : BehaviorTransition
+    transitions[11] : BehaviorTransition name=i
+    transitions[12] : BehaviorTransition
+    transitions[13] : BehaviorTransition
+    transitions[14] : BehaviorTransition
+    transitions[15] : BehaviorTransition
+    transitions[16] : BehaviorTransition
+    transitions[17] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : ValueExpression
+                  relations[0] : Relation
+                    firstExpression : SimpleExpression
+                      terms[0] : Term
+                        factors[0] : Factor
+                          firstValue : BehaviorVariableHolder element=bool2 [BehaviorVariable]
+    transitions[18] : BehaviorTransition
+    transitions[19] : BehaviorTransition
+    transitions[20] : BehaviorTransition
+    transitions[21] : BehaviorTransition
+    transitions[22] : BehaviorTransition
+    transitions[23] : BehaviorTransition
+    transitions[24] : BehaviorTransition name=i
+    transitions[25] : BehaviorTransition
+    transitions[26] : BehaviorTransition
+    transitions[27] : BehaviorTransition
+    transitions[28] : BehaviorTransition
+    transitions[29] : BehaviorTransition
+    transitions[30] : BehaviorTransition
+    transitions[31] : BehaviorTransition
+    transitions[32] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorVariableHolder element=bool2 [BehaviorVariable]
+    transitions[33] : BehaviorTransition
+    transitions[34] : BehaviorTransition
+    transitions[35] : BehaviorTransition
+    transitions[36] : BehaviorTransition
+    transitions[37] : BehaviorTransition
+    transitions[38] : BehaviorTransition
+    transitions[39] : BehaviorTransition
+    transitions[40] : BehaviorTransition
+    transitions[41] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorVariableHolder element=bool2 [BehaviorVariable]
+    transitions[42] : BehaviorTransition
+    transitions[43] : BehaviorTransition
+    transitions[44] : BehaviorTransition
+    transitions[45] : BehaviorTransition
+    transitions[46] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorVariableHolder element=<null>
+    transitions[47] : BehaviorTransition
+    transitions[48] : BehaviorTransition
+    transitions[49] : BehaviorTransition
+    transitions[50] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : BehaviorVariableHolder element=bool1 [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorBooleanLiteral
+    actions[1] : BehaviorActionBlock
+      content : AssignmentAction
+        target : BehaviorVariableHolder element=bool1 [BehaviorVariable]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorBooleanLiteral

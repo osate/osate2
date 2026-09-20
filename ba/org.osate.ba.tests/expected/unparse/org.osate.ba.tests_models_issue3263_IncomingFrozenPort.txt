@@ -1,0 +1,9 @@
+===== annex[0] owner=IncomingFrozenPort::host.valid =====
+
+\t\tstates
+\t\t\twaiting : initial complete state;
+\t\ttransitions
+\t\t\tvalid : waiting -[ on dispatch frozen (incoming) ]-> waiting;
+\t
+----- Xtext reparse -----
+reparsed

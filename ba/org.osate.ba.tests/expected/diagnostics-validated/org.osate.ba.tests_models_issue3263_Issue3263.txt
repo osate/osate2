@@ -1,0 +1,1 @@
+error | semantic | 37 | 45 | 1 | 'v' is not a frozen port: a frozen list can only name an incoming port
