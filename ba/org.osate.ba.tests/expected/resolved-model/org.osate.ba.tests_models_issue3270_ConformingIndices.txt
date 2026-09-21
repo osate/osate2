@@ -1,0 +1,70 @@
+annex[0] owner=ConformingIndices::worker.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=index
+      ownedValueConstant : BehaviorIntegerLiteral
+    variables[1] : BehaviorVariable name=items
+      arrayDimension[0] : ArrayDimension
+        size : BehaviorArraySize
+          integerValue : BehaviorIntegerLiteral
+    variables[2] : BehaviorVariable name=matrix
+      arrayDimension[0] : ArrayDimension
+        size : BehaviorArraySize
+          integerValue : BehaviorIntegerLiteral
+      arrayDimension[1] : ArrayDimension
+        size : BehaviorArraySize
+          integerValue : BehaviorIntegerLiteral
+    variables[3] : BehaviorVariable name=result
+      ownedValueConstant : BehaviorIntegerLiteral
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : BehaviorVariableHolder element=items [BehaviorVariable]
+          valueExpression : Any
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=matrix [BehaviorVariable]
+          valueExpression : Any
+        actions[2] : AssignmentAction
+          target : BehaviorVariableHolder element=items [BehaviorVariable]
+            arrayIndexes[0] : BehaviorVariableHolder element=index [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[3] : AssignmentAction
+          target : BehaviorVariableHolder element=result [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=items [BehaviorVariable]
+                      arrayIndexes[0] : BehaviorIntegerLiteral
+        actions[4] : AssignmentAction
+          target : BehaviorVariableHolder element=matrix [BehaviorVariable]
+            arrayIndexes[0] : BehaviorVariableHolder element=index [BehaviorVariable]
+            arrayIndexes[1] : PropertySetPropertyReference
+              properties[0] : PropertyNameHolder
+                property : BasicPropertyHolder element=<null>
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[5] : AssignmentAction
+          target : BehaviorVariableHolder element=result [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=matrix [BehaviorVariable]
+                      arrayIndexes[0] : PropertySetPropertyReference
+                        properties[0] : PropertyNameHolder
+                          property : BasicPropertyHolder element=<null>
+                      arrayIndexes[1] : BehaviorVariableHolder element=index [BehaviorVariable]

@@ -1,0 +1,21 @@
+===== annex[0] owner=ConformingIndices::worker.impl =====
+
+\tvariables
+\t\tindex : Base_Types::Integer := 1;
+\t\titems[2] : Base_Types::Integer;
+\t\tmatrix[2][2] : Base_Types::Integer;
+\t\tresult : Base_Types::Integer := 0;
+\tstates
+\t\tstart : initial state;
+\t\tdone : complete final state;
+\ttransitions
+\t\tstart -[]-> done {
+\t\t\titems := any;
+\t\t\tmatrix := any;
+\t\t\titems[index] := 1;
+\t\t\tresult := items[1];
+\t\t\tmatrix[index][#Issue3270Properties::Integer_Value] := 1;
+\t\t\tresult := matrix[#Issue3270Properties::Integer_Value][index]
+\t\t};
+----- Xtext reparse -----
+reparsed

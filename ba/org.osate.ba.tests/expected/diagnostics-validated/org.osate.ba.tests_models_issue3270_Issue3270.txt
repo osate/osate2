@@ -1,0 +1,4 @@
+error | semantic | 46 | 10 | 4 | Array index must have integer type, found 'Base_Types::Boolean'
+error | semantic | 47 | 20 | 4 | Array index must have integer type, found 'Base_Types::Boolean'
+error | semantic | 48 | 18 | 4 | Array index must have integer type, found 'Base_Types::Boolean'
+error | semantic | 49 | 21 | 4 | Array index must have integer type, found 'Base_Types::Boolean'

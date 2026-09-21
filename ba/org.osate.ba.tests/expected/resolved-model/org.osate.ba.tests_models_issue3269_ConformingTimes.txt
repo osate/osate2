@@ -1,0 +1,31 @@
+annex[0] owner=ConformingTimes::worker.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=duration
+      ownedValueConstant : BehaviorIntegerLiteral
+    states[0] : BehaviorState name=waiting
+    states[1] : BehaviorState name=running
+    states[2] : BehaviorState name=done
+    transitions[0] : BehaviorTransition name=dispatch_timeout
+      condition : DispatchCondition
+        dispatchTriggerCondition : CompletionRelativeTimeout
+          integerValue : BehaviorVariableHolder element=duration [BehaviorVariable]
+    transitions[1] : BehaviorTransition name=action_timeout
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorBooleanLiteral
+    transitions[2] : BehaviorTransition name=catch
+      condition : ExecutionTimeoutCatch
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionBlock
+        content : TimedAction
+          lowerTime : BehaviorTime
+            integerValue : BehaviorIntegerLiteral
+          upperTime : BehaviorTime
+            integerValue : BehaviorVariableHolder element=duration [BehaviorVariable]
+        timeout : BehaviorTime
+          integerValue : PropertySetPropertyReference
+            properties[0] : PropertyNameHolder
+              property : BasicPropertyHolder element=<null>

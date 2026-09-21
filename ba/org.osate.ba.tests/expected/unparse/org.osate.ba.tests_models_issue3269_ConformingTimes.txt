@@ -1,0 +1,15 @@
+===== annex[0] owner=ConformingTimes::worker.impl =====
+
+\tvariables
+\t\tduration : Base_Types::Integer := 1;
+\tstates
+\t\twaiting : initial complete state;
+\t\trunning : state;
+\t\tdone : final state;
+\ttransitions
+\t\tdispatch_timeout : waiting -[on dispatch timeout duration ms]-> running;
+\t\taction_timeout : running -[true]-> done
+\t\t\t{{computation(1 ms .. duration ms)} timeout #Issue3269Properties::Integer_Value ms};
+\t\tcatch : running -[timeout]-> done;
+----- Xtext reparse -----
+reparsed

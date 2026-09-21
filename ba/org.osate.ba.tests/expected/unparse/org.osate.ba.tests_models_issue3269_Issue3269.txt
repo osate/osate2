@@ -1,0 +1,15 @@
+===== annex[0] owner=Issue3269::worker.impl =====
+
+\tvariables
+\t\tflag : Base_Types::Boolean := true;
+\tstates
+\t\twaiting : initial complete state;
+\t\trunning : state;
+\t\tdone : final state;
+\ttransitions
+\t\tdispatch_timeout : waiting -[on dispatch timeout flag ms]-> running;
+\t\taction_timeout : running -[true]-> done
+\t\t\t{{computation(flag ms .. flag ms)} timeout flag ms};
+\t\tcatch : running -[timeout]-> done;
+----- Xtext reparse -----
+reparsed
