@@ -1,0 +1,2 @@
+error | linking | 27 | 6 | 19 | Couldn't resolve reference to ModelUnit 'Issue3269Properties'.
+error | linking | 33 | 2 | 34 | Couldn't resolve reference to property definition 'Issue3269Properties::Integer_Value'.

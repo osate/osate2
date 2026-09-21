@@ -1,0 +1,4 @@
+error | semantic | 43 | 52 | 4 | Behavior time must have integer type, found 'Base_Types::Boolean'
+error | semantic | 45 | 18 | 4 | Behavior time must have integer type, found 'Base_Types::Boolean'
+error | semantic | 45 | 29 | 4 | Behavior time must have integer type, found 'Base_Types::Boolean'
+error | semantic | 45 | 47 | 4 | Behavior time must have integer type, found 'Base_Types::Boolean'
