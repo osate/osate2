@@ -1,0 +1,13 @@
+===== annex[0] owner=Issue3268::worker.impl =====
+
+\tstates
+\t\tstart : initial state;
+\t\tdone : complete final state;
+\ttransitions
+\t\tstart -[]-> done {
+\t\t\tincoming := 1;
+\t\t\tqueued_in := 2;
+\t\t\tgroup_input.channel := 3
+\t\t};
+----- Xtext reparse -----
+reparsed

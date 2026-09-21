@@ -1,0 +1,68 @@
+annex[0] owner=ConformingTargets::worker.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=value
+      ownedValueConstant : BehaviorIntegerLiteral
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : DataPortHolder element=ConformingTargets::worker.outgoing [DataPort]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[1] : AssignmentAction
+          target : EventDataPortHolder element=ConformingTargets::worker.queued_out [EventDataPort]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[2] : AssignmentAction
+          target : DataPortHolder element=ConformingTargets::worker.both_ways [DataPort]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[3] : AssignmentAction
+          target : EventDataPortHolder element=ConformingTargets::signals.channel [EventDataPort]
+            groupHolders[0] : GroupHolder element=ConformingTargets::worker.group_output [FeatureGroup]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[4] : AssignmentAction
+          target : BehaviorVariableHolder element=value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataPortHolder element=ConformingTargets::worker.incoming [DataPort]
+        actions[5] : AssignmentAction
+          target : DataComponentReference
+            data[0] : DataSubcomponentHolder element=ConformingTargets::worker.impl.persistent [DataSubcomponent]
+            data[1] : DataSubcomponentHolder element=ConformingTargets::buffer.impl.field [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=value [BehaviorVariable]
+        actions[6] : AssignmentAction
+          target : DataAccessHolder element=ConformingTargets::worker.shared [DataAccess]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral

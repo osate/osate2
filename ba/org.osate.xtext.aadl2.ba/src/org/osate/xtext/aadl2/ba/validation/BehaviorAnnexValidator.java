@@ -138,6 +138,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	public static final String PORT_STATUS_DIRECTION = "org.osate.xtext.aadl2.ba.portStatusDirection";
 	public static final String COMMUNICATION_ACTION = "org.osate.xtext.aadl2.ba.communicationAction";
 	public static final String INTEGER_VALUE = "org.osate.xtext.aadl2.ba.integerValue";
+	public static final String ASSIGNMENT_TARGET_DIRECTION = "org.osate.xtext.aadl2.ba.assignmentTargetDirection";
 	private static final URI VALIDATION_RESOURCE_URI = URI.createURI("validation:/behavior-annex.aadlba");
 
 	@Inject
@@ -329,6 +330,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 		@Override
 		public Void caseAssignmentAction(final AssignmentAction action) {
 			pendingChecks.add(translation -> checkIteratorTarget(action.getTarget(), translation));
+			pendingChecks.add(translation -> checkAssignmentTargetDirection(action.getTarget(), translation));
 			return null;
 		}
 
@@ -941,6 +943,53 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 					+ "' cannot be an assignment target: Behavior Annex D.6.(L2) legality rule failed.", name, null,
 					ValidationMessageAcceptor.INSIGNIFICANT_INDEX, ITERATIVE_VARIABLE_TARGET);
 			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * The AS5506/3 Rev A D.6 target production names an outgoing_port_name, and D.6 says in words that an assignment
+	 * action assigns to an outgoing port: the action writes its target, while an incoming port holds a value the
+	 * component reads. The only strict check an assignment target reaches is the type comparison of D.6's own legality
+	 * rule, and an incoming data port of the assigned type passes it, so nothing rejects a write to a port the owner can
+	 * only read. Check the port the target path passes through rather than the element the path ends at, because writing
+	 * one data element of an incoming port's value writes that port too, and count each enclosing inverse feature group,
+	 * which exchanges the direction its owner sees. Report the segment that names the port, which is the one the
+	 * production constrains.
+	 *
+	 * @return {@code true} when the assignment target does not write a port the owner can only read
+	 */
+	private boolean checkAssignmentTargetDirection(final Reference target, final TranslationResult translation) {
+		if (target == null) {
+			return true;
+		}
+		var segments = new ArrayList<EObject>(target.getSegments());
+		for (var tail : target.getTails()) {
+			if (!".".equals(tail.getSeparator())) {
+				return true; // A qualified name denotes a package or a classifier, not a feature of the owner.
+			}
+			segments.add(tail.getSegment());
+		}
+		var inverse = false;
+		for (var segment : segments) {
+			var resolved = translation.getResolvedReference(segment);
+			if (resolved instanceof FeatureGroup group) {
+				inverse ^= group.isInverse();
+				var type = group.getAllFeatureGroupType();
+				inverse ^= type != null && type.getInverse() != null;
+			} else if (resolved instanceof Port port) {
+				if (inverse ? port.isIn() : port.isOut()) {
+					return true;
+				}
+				error("'" + port.getName() + "' is an incoming port" + (inverse ? " in an inverse feature group" : "")
+						+ ": an assignment writes its target, and the AS5506/3 Rev. A D.6 target production admits an"
+						+ " outgoing port, an internal port, an outgoing parameter, or a data component", segment, null,
+						ValidationMessageAcceptor.INSIGNIFICANT_INDEX, ASSIGNMENT_TARGET_DIRECTION);
+				return false;
+			} else {
+				// Every other target category is either checked elsewhere or has no port direction to constrain.
+				return true;
+			}
 		}
 		return true;
 	}
