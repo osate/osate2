@@ -1,0 +1,25 @@
+===== annex[0] owner=InvalidEnumerators::host.impl =====
+
+\t\t\tstates
+\t\t\t\tstart: initial state;
+\t\t\t\tdone: final state;
+\t\t\ttransitions
+\t\t\t\t-- The name is not an element of the Enumerators list.
+\t\t\t\tabsent: start -[]-> done {
+\t\t\t\t\tstate_value := direction_type#Data_Model::Enumerators.NotAnEnumerator
+\t\t\t\t};
+\t\t\t\t-- An enumerator of a different enumeration data type does not conform.
+\t\t\t\tmismatch: start -[]-> done {
+\t\t\t\t\tstate_value := signal_type#Data_Model::Enumerators.Rising
+\t\t\t\t};
+\t\t\t\t-- An enumeration value is not a numeric operand.
+\t\t\t\tnumeric: start -[]-> done {
+\t\t\t\t\tint_value := direction_type#Data_Model::Enumerators.Opening + 1
+\t\t\t\t};
+\t\t\t\t-- A diagnostic after an unresolvable property field is still reported.
+\t\t\t\tlater: start -[]-> done {
+\t\t\t\t\tint_value := other_value
+\t\t\t\t};
+\t\t
+----- Xtext reparse -----
+reparsed
