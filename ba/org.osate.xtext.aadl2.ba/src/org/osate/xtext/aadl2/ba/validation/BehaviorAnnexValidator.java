@@ -69,6 +69,7 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.parsesupport.ParseUtil;
 import org.osate.annexsupport.ParseResultHolder;
 import org.osate.ba.aadlba.BehaviorPropertyConstant;
+import org.osate.ba.aadlba.DataRepresentation;
 import org.osate.ba.aadlba.ForOrForAllStatement;
 import org.osate.ba.aadlba.PropertyReference;
 import org.osate.ba.aadlba.PropertySetPropertyReference;
@@ -79,7 +80,9 @@ import org.osate.ba.analyzers.AadlBaRulesCheckersDriver;
 import org.osate.ba.analyzers.AadlBaTypeChecker;
 import org.osate.ba.analyzers.AdaLikeDataTypeChecker;
 import org.osate.ba.utils.AadlBaUtils;
+import org.osate.ba.utils.DimensionException;
 import org.osate.ba.utils.SubprogramCallUtil;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ArrayIndex;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ArrayDimension;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.AssignmentAction;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
@@ -87,6 +90,7 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorIntegerLiteral;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorState;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorStateGroup;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTime;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorTransition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorVariable;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.CommunicationAction;
@@ -133,6 +137,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	public static final String UNARY_PLUS = "org.osate.xtext.aadl2.ba.unaryPlus";
 	public static final String PORT_STATUS_DIRECTION = "org.osate.xtext.aadl2.ba.portStatusDirection";
 	public static final String COMMUNICATION_ACTION = "org.osate.xtext.aadl2.ba.communicationAction";
+	public static final String INTEGER_VALUE = "org.osate.xtext.aadl2.ba.integerValue";
 	private static final URI VALIDATION_RESOURCE_URI = URI.createURI("validation:/behavior-annex.aadlba");
 
 	@Inject
@@ -267,6 +272,24 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 		}
 
 		@Override
+		public Void caseBehaviorTime(final BehaviorTime time) {
+			pendingChecks.add(translation -> {
+				checkIntegerValue(time.getValue(), "Behavior time", translation, owner);
+				return true;
+			});
+			return null;
+		}
+
+		@Override
+		public Void caseArrayIndex(final ArrayIndex index) {
+			pendingChecks.add(translation -> {
+				checkIntegerValue(index.getValue(), "Array index", translation, owner);
+				return true;
+			});
+			return null;
+		}
+
+		@Override
 		public Void caseForStatement(final ForStatement loop) {
 			pendingChecks.add(translation -> checkIteratorClassifier(loop));
 			pendingChecks.add(translation -> checkIteratedValues(loop, translation));
@@ -396,6 +419,34 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * D.7 uses the broad {@code integer_value} syntax for behavior-time magnitudes and array indices, so the parser can
+	 * put a reference to any value variable in either position. Check the translated value because it has the resolved
+	 * declaration and the same data-representation rules used by the strict type checker. An unknown representation is
+	 * not a proven mismatch and retains its resolution or classifier diagnostics without an additional error here.
+	 */
+	private void checkIntegerValue(final org.osate.xtext.aadl2.ba.behaviorAnnex.IntegerValue value,
+			final String position, final TranslationResult translation, final ComponentClassifier owner) {
+		var strict = translation.getStrict(value);
+		if (strict == null && value instanceof ReferenceExpression reference) {
+			strict = translation.getStrict(reference.getProperty() == null ? reference.getReference()
+					: reference.getProperty());
+		}
+		if (!(strict instanceof Element strictValue)) {
+			return;
+		}
+		try {
+			var type = AadlBaUtils.getTypeHolder(strictValue, owner);
+			if (type.getDataRep() != DataRepresentation.INTEGER
+					&& type.getDataRep() != DataRepresentation.UNKNOWN) {
+				error(position + " must have integer type, found '" + type + "'", value, null,
+						ValidationMessageAcceptor.INSIGNIFICANT_INDEX, INTEGER_VALUE);
+			}
+		} catch (DimensionException | UnsupportedOperationException exception) {
+			// Existing dimension, resolution, or unsupported-type diagnostics own values that cannot be classified here.
+		}
 	}
 
 	/**
