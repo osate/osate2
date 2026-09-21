@@ -111,14 +111,14 @@ DispatchConjunction:
     triggers+=Reference ('and' triggers+=Reference)*
 ;
 
+// D.3 and D.7 put all logical operators at one precedence level and associate them from left to right.
 ModeSwitchCondition:
     conjunctions+=ModeSwitchConjunction
-    (logicalOperators+=LogicalOrOperator conjunctions+=ModeSwitchConjunction)*
+    (logicalOperators+=LogicalOperator conjunctions+=ModeSwitchConjunction)*
 ;
 
 ModeSwitchConjunction:
     triggers+=ModeSwitchTrigger
-    (logicalOperators+=LogicalAndOperator triggers+=ModeSwitchTrigger)*
 ;
 
 ModeSwitchTrigger:

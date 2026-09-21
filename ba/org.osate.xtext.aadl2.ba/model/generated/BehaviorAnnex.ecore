@@ -103,8 +103,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="ModeSwitchConjunction">
     <eStructuralFeatures xsi:type="ecore:EReference" name="triggers" upperBound="-1"
         eType="#//ModeSwitchTrigger" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="logicalOperators" unique="false"
-        upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModeSwitchTrigger">
     <eStructuralFeatures xsi:type="ecore:EReference" name="reference" eType="#//Reference"

@@ -807,22 +807,13 @@ public interface BehaviorAnnexPackage extends EPackage
   int MODE_SWITCH_CONJUNCTION__TRIGGERS = 0;
 
   /**
-   * The feature id for the '<em><b>Logical Operators</b></em>' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MODE_SWITCH_CONJUNCTION__LOGICAL_OPERATORS = 1;
-
-  /**
    * The number of structural features of the '<em>Mode Switch Conjunction</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MODE_SWITCH_CONJUNCTION_FEATURE_COUNT = 2;
+  int MODE_SWITCH_CONJUNCTION_FEATURE_COUNT = 1;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.ModeSwitchTriggerImpl <em>Mode Switch Trigger</em>}' class.
@@ -3029,17 +3020,6 @@ public interface BehaviorAnnexPackage extends EPackage
   EReference getModeSwitchConjunction_Triggers();
 
   /**
-   * Returns the meta object for the attribute list '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchConjunction#getLogicalOperators <em>Logical Operators</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Logical Operators</em>'.
-   * @see org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchConjunction#getLogicalOperators()
-   * @see #getModeSwitchConjunction()
-   * @generated
-   */
-  EAttribute getModeSwitchConjunction_LogicalOperators();
-
-  /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchTrigger <em>Mode Switch Trigger</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -4934,14 +4914,6 @@ public interface BehaviorAnnexPackage extends EPackage
      * @generated
      */
     EReference MODE_SWITCH_CONJUNCTION__TRIGGERS = eINSTANCE.getModeSwitchConjunction_Triggers();
-
-    /**
-     * The meta object literal for the '<em><b>Logical Operators</b></em>' attribute list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute MODE_SWITCH_CONJUNCTION__LOGICAL_OPERATORS = eINSTANCE.getModeSwitchConjunction_LogicalOperators();
 
     /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.ModeSwitchTriggerImpl <em>Mode Switch Trigger</em>}' class.

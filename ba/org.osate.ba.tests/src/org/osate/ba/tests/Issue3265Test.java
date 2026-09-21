@@ -122,7 +122,7 @@ public class Issue3265Test {
 				trigger -> {
 					var nested = optionalObject(trigger, "expression");
 					return nested == null ? referenceName(object(trigger, "reference"))
-							: "(" + declarativeExpression(nested) + ")";
+							: declarativeExpression(nested);
 				});
 	}
 
@@ -135,7 +135,7 @@ public class Issue3265Test {
 		return leftAssociative(objects(conjunction, "modeSwitchTriggers"), strings(conjunction, "logicalOperators"),
 				trigger -> {
 					if ("ModeSwitchTriggerLogicalExpression".equals(trigger.eClass().getName())) {
-						return "(" + strictExpression(trigger) + ")";
+						return strictExpression(trigger);
 					}
 					return ((NamedElement) value(trigger, "element")).getName();
 				});

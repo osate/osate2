@@ -572,9 +572,9 @@ ruleModeSwitchConjunction
 	}
 	:
 	(
-		{ before(grammarAccess.getModeSwitchConjunctionAccess().getGroup()); }
-		(rule__ModeSwitchConjunction__Group__0)
-		{ after(grammarAccess.getModeSwitchConjunctionAccess().getGroup()); }
+		{ before(grammarAccess.getModeSwitchConjunctionAccess().getTriggersAssignment()); }
+		(rule__ModeSwitchConjunction__TriggersAssignment)
+		{ after(grammarAccess.getModeSwitchConjunctionAccess().getTriggersAssignment()); }
 	)
 ;
 finally {
@@ -6266,114 +6266,6 @@ rule__ModeSwitchCondition__Group_1__1__Impl
 	{ before(grammarAccess.getModeSwitchConditionAccess().getConjunctionsAssignment_1_1()); }
 	(rule__ModeSwitchCondition__ConjunctionsAssignment_1_1)
 	{ after(grammarAccess.getModeSwitchConditionAccess().getConjunctionsAssignment_1_1()); }
-)
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
-rule__ModeSwitchConjunction__Group__0
-	@init {
-		int stackSize = keepStackSize();
-	}
-:
-	rule__ModeSwitchConjunction__Group__0__Impl
-	rule__ModeSwitchConjunction__Group__1
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__ModeSwitchConjunction__Group__0__Impl
-	@init {
-		int stackSize = keepStackSize();
-	}
-:
-(
-	{ before(grammarAccess.getModeSwitchConjunctionAccess().getTriggersAssignment_0()); }
-	(rule__ModeSwitchConjunction__TriggersAssignment_0)
-	{ after(grammarAccess.getModeSwitchConjunctionAccess().getTriggersAssignment_0()); }
-)
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__ModeSwitchConjunction__Group__1
-	@init {
-		int stackSize = keepStackSize();
-	}
-:
-	rule__ModeSwitchConjunction__Group__1__Impl
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__ModeSwitchConjunction__Group__1__Impl
-	@init {
-		int stackSize = keepStackSize();
-	}
-:
-(
-	{ before(grammarAccess.getModeSwitchConjunctionAccess().getGroup_1()); }
-	(rule__ModeSwitchConjunction__Group_1__0)*
-	{ after(grammarAccess.getModeSwitchConjunctionAccess().getGroup_1()); }
-)
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
-rule__ModeSwitchConjunction__Group_1__0
-	@init {
-		int stackSize = keepStackSize();
-	}
-:
-	rule__ModeSwitchConjunction__Group_1__0__Impl
-	rule__ModeSwitchConjunction__Group_1__1
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__ModeSwitchConjunction__Group_1__0__Impl
-	@init {
-		int stackSize = keepStackSize();
-	}
-:
-(
-	{ before(grammarAccess.getModeSwitchConjunctionAccess().getLogicalOperatorsAssignment_1_0()); }
-	(rule__ModeSwitchConjunction__LogicalOperatorsAssignment_1_0)
-	{ after(grammarAccess.getModeSwitchConjunctionAccess().getLogicalOperatorsAssignment_1_0()); }
-)
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__ModeSwitchConjunction__Group_1__1
-	@init {
-		int stackSize = keepStackSize();
-	}
-:
-	rule__ModeSwitchConjunction__Group_1__1__Impl
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__ModeSwitchConjunction__Group_1__1__Impl
-	@init {
-		int stackSize = keepStackSize();
-	}
-:
-(
-	{ before(grammarAccess.getModeSwitchConjunctionAccess().getTriggersAssignment_1_1()); }
-	(rule__ModeSwitchConjunction__TriggersAssignment_1_1)
-	{ after(grammarAccess.getModeSwitchConjunctionAccess().getTriggersAssignment_1_1()); }
 )
 ;
 finally {
@@ -15058,9 +14950,9 @@ rule__ModeSwitchCondition__LogicalOperatorsAssignment_1_0
 	}
 :
 	(
-		{ before(grammarAccess.getModeSwitchConditionAccess().getLogicalOperatorsLogicalOrOperatorParserRuleCall_1_0_0()); }
-		ruleLogicalOrOperator
-		{ after(grammarAccess.getModeSwitchConditionAccess().getLogicalOperatorsLogicalOrOperatorParserRuleCall_1_0_0()); }
+		{ before(grammarAccess.getModeSwitchConditionAccess().getLogicalOperatorsLogicalOperatorParserRuleCall_1_0_0()); }
+		ruleLogicalOperator
+		{ after(grammarAccess.getModeSwitchConditionAccess().getLogicalOperatorsLogicalOperatorParserRuleCall_1_0_0()); }
 	)
 ;
 finally {
@@ -15082,45 +14974,15 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__ModeSwitchConjunction__TriggersAssignment_0
+rule__ModeSwitchConjunction__TriggersAssignment
 	@init {
 		int stackSize = keepStackSize();
 	}
 :
 	(
-		{ before(grammarAccess.getModeSwitchConjunctionAccess().getTriggersModeSwitchTriggerParserRuleCall_0_0()); }
+		{ before(grammarAccess.getModeSwitchConjunctionAccess().getTriggersModeSwitchTriggerParserRuleCall_0()); }
 		ruleModeSwitchTrigger
-		{ after(grammarAccess.getModeSwitchConjunctionAccess().getTriggersModeSwitchTriggerParserRuleCall_0_0()); }
-	)
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__ModeSwitchConjunction__LogicalOperatorsAssignment_1_0
-	@init {
-		int stackSize = keepStackSize();
-	}
-:
-	(
-		{ before(grammarAccess.getModeSwitchConjunctionAccess().getLogicalOperatorsLogicalAndOperatorParserRuleCall_1_0_0()); }
-		ruleLogicalAndOperator
-		{ after(grammarAccess.getModeSwitchConjunctionAccess().getLogicalOperatorsLogicalAndOperatorParserRuleCall_1_0_0()); }
-	)
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__ModeSwitchConjunction__TriggersAssignment_1_1
-	@init {
-		int stackSize = keepStackSize();
-	}
-:
-	(
-		{ before(grammarAccess.getModeSwitchConjunctionAccess().getTriggersModeSwitchTriggerParserRuleCall_1_1_0()); }
-		ruleModeSwitchTrigger
-		{ after(grammarAccess.getModeSwitchConjunctionAccess().getTriggersModeSwitchTriggerParserRuleCall_1_1_0()); }
+		{ after(grammarAccess.getModeSwitchConjunctionAccess().getTriggersModeSwitchTriggerParserRuleCall_0()); }
 	)
 ;
 finally {

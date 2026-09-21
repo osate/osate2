@@ -56,7 +56,7 @@ import com.google.inject.Inject;
 public class Issue3166Test {
 	private static final String MODEL = "org.osate.ba.tests/models/issue3166/Issue3166.aadl";
 	private static final String EXPRESSION =
-			"((first_event or second_event) and then third_event) xor first_event or else (second_event and third_event)";
+			"(first_event or second_event) and then third_event xor first_event or else second_event and third_event";
 
 	@Inject
 	private TestHelper<AadlPackage> testHelper;
@@ -116,7 +116,7 @@ public class Issue3166Test {
 	}
 
 	private static String declarativeConjunction(final EObject conjunction) {
-		var operators = strings(conjunction, "logicalOperators");
+		var operators = optionalStrings(conjunction, "logicalOperators");
 		var result = join(objects(conjunction, "triggers"), operators, trigger -> {
 			var nested = optionalObject(trigger, "expression");
 			return nested == null ? referenceName(object(trigger, "reference"))
@@ -171,6 +171,10 @@ public class Issue3166Test {
 		return ((List<Object>) value(object, featureName)).stream()
 				.map(value -> value instanceof Enumerator enumerator ? enumerator.getLiteral() : value.toString())
 				.toList();
+	}
+
+	private static List<String> optionalStrings(final EObject object, final String featureName) {
+		return object.eClass().getEStructuralFeature(featureName) == null ? List.of() : strings(object, featureName);
 	}
 
 	private static EObject object(final EObject owner, final String featureName) {

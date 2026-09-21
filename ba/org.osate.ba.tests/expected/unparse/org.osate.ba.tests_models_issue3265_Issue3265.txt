@@ -1,0 +1,12 @@
+===== annex[0] owner=Issue3265::worker.i =====
+
+\t\tstates
+\t\t\twaiting: initial state;
+\t\t\tfinished: final state;
+\t\ttransitions
+\t\t\tmixed: waiting -[ on a or b and c ]-> finished;
+\t\t\tgrouped: waiting -[ on a or (b and c) ]-> finished;
+\t\t\tshort_circuit: waiting -[ on a or else b and then c xor a ]-> finished;
+\t
+----- Xtext reparse -----
+reparsed
