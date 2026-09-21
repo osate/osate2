@@ -1,0 +1,29 @@
+===== annex[0] owner=Issue3282::host.impl =====
+
+\t\t\tstates
+\t\t\t\tstart: initial state;
+\t\t\t\tdone: final state;
+\t\t\ttransitions
+\t\t\t\t-- A classifier-prefixed reference names an enumerator of the classifier that declares it.
+\t\t\t\tassigned: start -[]-> done {
+\t\t\t\t\tstate_value := direction_type#Data_Model::Enumerators.Opening;
+\t\t\t\t\tstate_value := direction_type#Data_Model::Enumerators.Closing
+\t\t\t\t};
+\t\t\t\t-- An element-prefixed reference takes the enumeration from the prefix element, either through the
+\t\t\t\t-- element's own association or through its data classifier.
+\t\t\t\tprefixed: start -[]-> done {
+\t\t\t\t\tstate_value := state_value#Data_Model::Enumerators.Closing;
+\t\t\t\t\tbool_value := record_value.flag = record_value.flag#Data_Model::Enumerators.Rising
+\t\t\t\t};
+\t\t\t\t-- An enumerator is a legal relational operand and yields a boolean.
+\t\t\t\tcompared: start -[]-> done {
+\t\t\t\t\tbool_value := state_value = direction_type#Data_Model::Enumerators.Opening
+\t\t\t\t};
+\t\t\t\tguarded: start -[]-> done {
+\t\t\t\t\tif (record_value.flag = record_value.flag#Data_Model::Enumerators.Falling)
+\t\t\t\t\t\tstate_value := direction_type#Data_Model::Enumerators.Closing
+\t\t\t\t\tend if
+\t\t\t\t};
+\t\t
+----- Xtext reparse -----
+reparsed

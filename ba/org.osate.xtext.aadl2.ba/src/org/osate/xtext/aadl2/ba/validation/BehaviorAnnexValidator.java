@@ -69,6 +69,8 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.parsesupport.ParseUtil;
 import org.osate.annexsupport.ParseResultHolder;
 import org.osate.ba.aadlba.BehaviorPropertyConstant;
+import org.osate.ba.aadlba.ClassifierFeaturePropertyReference;
+import org.osate.ba.aadlba.ClassifierPropertyReference;
 import org.osate.ba.aadlba.DataRepresentation;
 import org.osate.ba.aadlba.ForOrForAllStatement;
 import org.osate.ba.aadlba.PropertyReference;
@@ -82,6 +84,7 @@ import org.osate.ba.analyzers.AdaLikeDataTypeChecker;
 import org.osate.ba.utils.AadlBaUtils;
 import org.osate.ba.utils.DimensionException;
 import org.osate.ba.utils.SubprogramCallUtil;
+import org.osate.utils.internal.names.DataModelProperties;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ArrayIndex;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ArrayDimension;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.AssignmentAction;
@@ -99,6 +102,7 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchTriggerCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ForStatement;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.InternalCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchTrigger;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.NamedPropertyField;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.Reference;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceExpression;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceSegment;
@@ -131,6 +135,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	public static final String ITERATOR_CLASSIFIER = "org.osate.xtext.aadl2.ba.iteratorClassifier";
 	public static final String ARRAY_SIZE = "org.osate.xtext.aadl2.ba.arraySize";
 	public static final String PROPERTY_REFERENCE_VALUE = "org.osate.xtext.aadl2.ba.propertyReferenceValue";
+	public static final String PROPERTY_FIELD = "org.osate.xtext.aadl2.ba.propertyField";
 	public static final String PROPERTY_REFERENCE_UNITS = "org.osate.xtext.aadl2.ba.propertyReferenceUnits";
 	public static final String MODE_REFINEMENT = "org.osate.xtext.aadl2.ba.modeRefinement";
 	public static final String EXTERNAL_CONDITION_IN_MODES = "org.osate.xtext.aadl2.ba.externalConditionInModes";
@@ -384,7 +389,10 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 
 		@Override
 		public Void casePropertyReference(final PropertyReference reference) {
-			if (!reference.getProperties().isEmpty()) {
+			if (reference.getProperties().isEmpty()) {
+				return null;
+			}
+			if (checkEnumerators(reference, translation)) {
 				checkPropertyReferenceUnits(reference,
 						AadlBaUtils.getPropertyType(reference.getProperties().getLast().getProperty()), translation,
 						reportedUnits);
@@ -509,6 +517,48 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 				+ "' has no value: property '" + property.getName() + "' has no default value and the reference"
 				+ " names no element that has a value for it", written, null,
 				ValidationMessageAcceptor.INSIGNIFICANT_INDEX, PROPERTY_REFERENCE_VALUE);
+	}
+
+	/**
+	 * A field selected on {@code Data_Model::Enumerators} names an enumerator of the prefixed enumeration, and the
+	 * enumerators are exactly the strings of that list, so a field that resolved to nothing is a name that is not one
+	 * of them. Only this property is checked: an unresolved holder is not an error in general, because a legal range
+	 * bound and a record field of a property that has no value also resolve to nothing.
+	 *
+	 * @return {@code true} when the reference selects no unknown enumerator
+	 */
+	private boolean checkEnumerators(final PropertyReference reference, final TranslationResult translation) {
+		var primary = reference.getProperties().getFirst().getProperty().getElement();
+		if (!(primary instanceof Property property)
+				|| !DataModelProperties.ENUMERATORS.equalsIgnoreCase(property.getName())) {
+			return true;
+		}
+		var resolved = true;
+		for (var holder : reference.getProperties().subList(1, reference.getProperties().size())) {
+			if (holder.getProperty() == null || holder.getProperty().getElement() != null) {
+				continue;
+			}
+			var written = sourceFor(holder, translation);
+			var name = written instanceof NamedPropertyField field ? field.getName()
+					: NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(written));
+			error("'" + name + "' is not an enumerator of '" + enumerationName(reference) + "'", written, null,
+					ValidationMessageAcceptor.INSIGNIFICANT_INDEX, PROPERTY_FIELD);
+			resolved = false;
+		}
+		return resolved;
+	}
+
+	private static String enumerationName(final PropertyReference reference) {
+		if (reference instanceof ClassifierPropertyReference classifierReference
+				&& classifierReference.getClassifier() != null) {
+			return classifierReference.getClassifier().getQualifiedName();
+		}
+		if (reference instanceof ClassifierFeaturePropertyReference featureReference
+				&& featureReference.getComponent() != null
+				&& featureReference.getComponent().getElement() != null) {
+			return featureReference.getComponent().getElement().getName();
+		}
+		return DataModelProperties.ENUMERATORS;
 	}
 
 	/**

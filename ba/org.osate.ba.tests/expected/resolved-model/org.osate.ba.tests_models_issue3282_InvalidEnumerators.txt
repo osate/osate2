@@ -1,0 +1,59 @@
+annex[0] owner=InvalidEnumerators::host.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition name=absent
+    transitions[1] : BehaviorTransition name=mismatch
+    transitions[2] : BehaviorTransition name=numeric
+    transitions[3] : BehaviorTransition name=later
+    actions[0] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataSubcomponentHolder element=InvalidEnumerators::host.impl.state_value [DataSubcomponent]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=Data_Model::Enumerators [Property]
+                    properties[1] : PropertyNameHolder
+                      property : BasicPropertyHolder element=<null>
+    actions[1] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataSubcomponentHolder element=InvalidEnumerators::host.impl.state_value [DataSubcomponent]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=Data_Model::Enumerators [Property]
+                    properties[1] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=StringLiteral [StringLiteral]
+    actions[2] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataSubcomponentHolder element=InvalidEnumerators::host.impl.int_value [DataSubcomponent]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : ClassifierPropertyReference
+                    properties[0] : PropertyNameHolder
+                      property : BasicPropertyHolder element=Data_Model::Enumerators [Property]
+                    properties[1] : PropertyNameHolder
+                      property : PropertyExpressionHolder element=StringLiteral [StringLiteral]
+              terms[1] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[3] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataSubcomponentHolder element=InvalidEnumerators::host.impl.int_value [DataSubcomponent]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DataSubcomponentHolder element=InvalidEnumerators::host.impl.other_value [DataSubcomponent]

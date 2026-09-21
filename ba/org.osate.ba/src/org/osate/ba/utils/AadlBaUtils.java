@@ -309,6 +309,16 @@ public class AadlBaUtils {
 	public static DataRepresentation getDataRepresentation(PropertyReference pr) {
 		var element = pr.getProperties().getLast().getProperty().getElement();
 
+		if (element == null) {
+			// An unresolved property field denotes no value, so there is nothing to classify. An unknown
+			// representation does not establish a mismatch, which leaves the resolution diagnostic to stand alone.
+			return DataRepresentation.UNKNOWN;
+		}
+		if (isDataModelEnumerator(element)) {
+			// A Data Model Annex enumerator is a string literal in an Enumerators list, but it denotes a value of the
+			// enumeration it belongs to, not a string.
+			return DataRepresentation.ENUM;
+		}
 		if (element instanceof BasicProperty property) {
 			return getDataRepresentation(property.getPropertyType());
 		} else if (element instanceof PropertyAssociation association) {
@@ -323,6 +333,43 @@ public class AadlBaUtils {
 			System.err.println(errorMsg);
 			throw new UnsupportedOperationException(errorMsg);
 		}
+	}
+
+	/**
+	 * Returns {@code true} when the given element is a string literal of a Data Model Annex
+	 * {@code Data_Model::Enumerators} list, which is how that annex declares an enumeration literal.
+	 *
+	 * @param element the given element or {@code null}
+	 * @return {@code true} when the element is a Data Model Annex enumerator
+	 */
+	public static boolean isDataModelEnumerator(Element element) {
+		if (!(element instanceof StringLiteral)) {
+			return false;
+		}
+		var association = enclosingPropertyAssociation(element);
+		return association != null && association.getProperty() != null
+				&& DataModelProperties.ENUMERATORS.equalsIgnoreCase(association.getProperty().getName());
+	}
+
+	/**
+	 * Returns the declaring classifier of a Data Model Annex enumerator, or {@code null} when the enumeration is
+	 * declared on an element rather than on a classifier, as an anonymous data subcomponent declares it.
+	 *
+	 * @param element a Data Model Annex enumerator
+	 * @return the declaring DataClassifier or {@code null}
+	 */
+	public static DataClassifier getDataModelEnumerationClassifier(Element element) {
+		var association = enclosingPropertyAssociation(element);
+		return association != null && association.getOwner() instanceof DataClassifier klass ? klass : null;
+	}
+
+	private static PropertyAssociation enclosingPropertyAssociation(Element element) {
+		for (var container = element.eContainer(); container != null; container = container.eContainer()) {
+			if (container instanceof PropertyAssociation association) {
+				return association;
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -930,6 +977,13 @@ public class AadlBaUtils {
 		if (v instanceof ValueVariable && (!(v instanceof PortCountValue || v instanceof PortFreshValue
 				|| v instanceof PortUpdatedValue))) {
 			result.setKlass(getDataClassifier(v, parentContainer));
+		} else if (v instanceof PropertyReference reference && !reference.getProperties().isEmpty()) {
+			// A Data Model Annex enumerator belongs to the enumeration that declares it, so carry that classifier to
+			// keep an enumerator of one enumeration from conforming to another.
+			var element = reference.getProperties().getLast().getProperty().getElement();
+			if (isDataModelEnumerator(element)) {
+				result.setKlass(getDataModelEnumerationClassifier(element));
+			}
 		}
 		// else: nothing.
 		// getDataClassifier doesn't support property constant and property reference
