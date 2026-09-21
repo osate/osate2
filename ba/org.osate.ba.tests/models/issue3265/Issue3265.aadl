@@ -1,0 +1,23 @@
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others.
+-- SPDX-License-Identifier: EPL-2.0
+package Issue3265
+public
+	abstract worker
+	features
+		a: in event port;
+		b: in event port;
+		c: in event port;
+	end worker;
+
+	abstract implementation worker.i
+	annex behavior_specification {**
+		states
+			waiting: initial state;
+			finished: final state;
+		transitions
+			mixed: waiting -[ on a or b and c ]-> finished;
+			grouped: waiting -[ on a or (b and c) ]-> finished;
+			short_circuit: waiting -[ on a or else b and then c xor a ]-> finished;
+	**};
+	end worker.i;
+end Issue3265;
