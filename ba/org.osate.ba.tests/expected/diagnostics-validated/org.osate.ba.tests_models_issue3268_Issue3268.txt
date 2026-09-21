@@ -1,0 +1,3 @@
+error | semantic | 47 | 4 | 8 | 'incoming' is an incoming port: an assignment writes its target, and the AS5506/3 Rev. A D.6 target production admits an outgoing port, an internal port, an outgoing parameter, or a data component
+error | semantic | 48 | 4 | 9 | 'queued_in' is an incoming port: an assignment writes its target, and the AS5506/3 Rev. A D.6 target production admits an outgoing port, an internal port, an outgoing parameter, or a data component
+error | semantic | 49 | 16 | 7 | 'channel' is an incoming port in an inverse feature group: an assignment writes its target, and the AS5506/3 Rev. A D.6 target production admits an outgoing port, an internal port, an outgoing parameter, or a data component
