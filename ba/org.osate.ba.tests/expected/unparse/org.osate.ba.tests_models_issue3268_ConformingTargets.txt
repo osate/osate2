@@ -1,0 +1,19 @@
+===== annex[0] owner=ConformingTargets::worker.impl =====
+
+\tvariables
+\t\tvalue : Base_Types::Integer := 0;
+\tstates
+\t\tstart : initial state;
+\t\tdone : complete final state;
+\ttransitions
+\t\tstart -[]-> done {
+\t\t\toutgoing := 1;
+\t\t\tqueued_out := 2;
+\t\t\tboth_ways := 3;
+\t\t\tgroup_output.channel := 4;
+\t\t\tvalue := incoming;
+\t\t\tpersistent.field := value;
+\t\t\tshared := 5
+\t\t};
+----- Xtext reparse -----
+reparsed
