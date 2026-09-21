@@ -880,18 +880,19 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 		private final RuleCall cConjunctionsModeSwitchConjunctionParserRuleCall_0_0 = (RuleCall)cConjunctionsAssignment_0.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Assignment cLogicalOperatorsAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
-		private final RuleCall cLogicalOperatorsLogicalOrOperatorParserRuleCall_1_0_0 = (RuleCall)cLogicalOperatorsAssignment_1_0.eContents().get(0);
+		private final RuleCall cLogicalOperatorsLogicalOperatorParserRuleCall_1_0_0 = (RuleCall)cLogicalOperatorsAssignment_1_0.eContents().get(0);
 		private final Assignment cConjunctionsAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final RuleCall cConjunctionsModeSwitchConjunctionParserRuleCall_1_1_0 = (RuleCall)cConjunctionsAssignment_1_1.eContents().get(0);
 		
+		//// D.3 and D.7 put all logical operators at one precedence level and associate them from left to right.
 		//ModeSwitchCondition:
 		//    conjunctions+=ModeSwitchConjunction
-		//    (logicalOperators+=LogicalOrOperator conjunctions+=ModeSwitchConjunction)*
+		//    (logicalOperators+=LogicalOperator conjunctions+=ModeSwitchConjunction)*
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//conjunctions+=ModeSwitchConjunction
-		//(logicalOperators+=LogicalOrOperator conjunctions+=ModeSwitchConjunction)*
+		//(logicalOperators+=LogicalOperator conjunctions+=ModeSwitchConjunction)*
 		public Group getGroup() { return cGroup; }
 		
 		//conjunctions+=ModeSwitchConjunction
@@ -900,14 +901,14 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 		//ModeSwitchConjunction
 		public RuleCall getConjunctionsModeSwitchConjunctionParserRuleCall_0_0() { return cConjunctionsModeSwitchConjunctionParserRuleCall_0_0; }
 		
-		//(logicalOperators+=LogicalOrOperator conjunctions+=ModeSwitchConjunction)*
+		//(logicalOperators+=LogicalOperator conjunctions+=ModeSwitchConjunction)*
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//logicalOperators+=LogicalOrOperator
+		//logicalOperators+=LogicalOperator
 		public Assignment getLogicalOperatorsAssignment_1_0() { return cLogicalOperatorsAssignment_1_0; }
 		
-		//LogicalOrOperator
-		public RuleCall getLogicalOperatorsLogicalOrOperatorParserRuleCall_1_0_0() { return cLogicalOperatorsLogicalOrOperatorParserRuleCall_1_0_0; }
+		//LogicalOperator
+		public RuleCall getLogicalOperatorsLogicalOperatorParserRuleCall_1_0_0() { return cLogicalOperatorsLogicalOperatorParserRuleCall_1_0_0; }
 		
 		//conjunctions+=ModeSwitchConjunction
 		public Assignment getConjunctionsAssignment_1_1() { return cConjunctionsAssignment_1_1; }
@@ -917,45 +918,19 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 	}
 	public class ModeSwitchConjunctionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.ModeSwitchConjunction");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cTriggersAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cTriggersModeSwitchTriggerParserRuleCall_0_0 = (RuleCall)cTriggersAssignment_0.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Assignment cLogicalOperatorsAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
-		private final RuleCall cLogicalOperatorsLogicalAndOperatorParserRuleCall_1_0_0 = (RuleCall)cLogicalOperatorsAssignment_1_0.eContents().get(0);
-		private final Assignment cTriggersAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cTriggersModeSwitchTriggerParserRuleCall_1_1_0 = (RuleCall)cTriggersAssignment_1_1.eContents().get(0);
+		private final Assignment cTriggersAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cTriggersModeSwitchTriggerParserRuleCall_0 = (RuleCall)cTriggersAssignment.eContents().get(0);
 		
 		//ModeSwitchConjunction:
 		//    triggers+=ModeSwitchTrigger
-		//    (logicalOperators+=LogicalAndOperator triggers+=ModeSwitchTrigger)*
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//triggers+=ModeSwitchTrigger
-		//(logicalOperators+=LogicalAndOperator triggers+=ModeSwitchTrigger)*
-		public Group getGroup() { return cGroup; }
-		
-		//triggers+=ModeSwitchTrigger
-		public Assignment getTriggersAssignment_0() { return cTriggersAssignment_0; }
+		public Assignment getTriggersAssignment() { return cTriggersAssignment; }
 		
 		//ModeSwitchTrigger
-		public RuleCall getTriggersModeSwitchTriggerParserRuleCall_0_0() { return cTriggersModeSwitchTriggerParserRuleCall_0_0; }
-		
-		//(logicalOperators+=LogicalAndOperator triggers+=ModeSwitchTrigger)*
-		public Group getGroup_1() { return cGroup_1; }
-		
-		//logicalOperators+=LogicalAndOperator
-		public Assignment getLogicalOperatorsAssignment_1_0() { return cLogicalOperatorsAssignment_1_0; }
-		
-		//LogicalAndOperator
-		public RuleCall getLogicalOperatorsLogicalAndOperatorParserRuleCall_1_0_0() { return cLogicalOperatorsLogicalAndOperatorParserRuleCall_1_0_0; }
-		
-		//triggers+=ModeSwitchTrigger
-		public Assignment getTriggersAssignment_1_1() { return cTriggersAssignment_1_1; }
-		
-		//ModeSwitchTrigger
-		public RuleCall getTriggersModeSwitchTriggerParserRuleCall_1_1_0() { return cTriggersModeSwitchTriggerParserRuleCall_1_1_0; }
+		public RuleCall getTriggersModeSwitchTriggerParserRuleCall_0() { return cTriggersModeSwitchTriggerParserRuleCall_0; }
 	}
 	public class ModeSwitchTriggerElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.ModeSwitchTrigger");
@@ -3632,9 +3607,10 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 		return getDispatchConjunctionAccess().getRule();
 	}
 	
+	//// D.3 and D.7 put all logical operators at one precedence level and associate them from left to right.
 	//ModeSwitchCondition:
 	//    conjunctions+=ModeSwitchConjunction
-	//    (logicalOperators+=LogicalOrOperator conjunctions+=ModeSwitchConjunction)*
+	//    (logicalOperators+=LogicalOperator conjunctions+=ModeSwitchConjunction)*
 	//;
 	public ModeSwitchConditionElements getModeSwitchConditionAccess() {
 		return pModeSwitchCondition;
@@ -3646,7 +3622,6 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 	
 	//ModeSwitchConjunction:
 	//    triggers+=ModeSwitchTrigger
-	//    (logicalOperators+=LogicalAndOperator triggers+=ModeSwitchTrigger)*
 	//;
 	public ModeSwitchConjunctionElements getModeSwitchConjunctionAccess() {
 		return pModeSwitchConjunction;

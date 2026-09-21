@@ -1,0 +1,32 @@
+annex[0] owner=Issue3265::worker.i
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=waiting
+    states[1] : BehaviorState name=finished
+    transitions[0] : BehaviorTransition name=mixed
+      condition : ModeSwitchTriggerLogicalExpression
+        modeSwitchConjunctions[0] : ModeSwitchConjunction
+          modeSwitchTriggers[0] : EventPortHolder element=Issue3265::worker.a [EventPort]
+        modeSwitchConjunctions[1] : ModeSwitchConjunction
+          modeSwitchTriggers[0] : EventPortHolder element=Issue3265::worker.b [EventPort]
+        modeSwitchConjunctions[2] : ModeSwitchConjunction
+          modeSwitchTriggers[0] : EventPortHolder element=Issue3265::worker.c [EventPort]
+    transitions[1] : BehaviorTransition name=grouped
+      condition : ModeSwitchTriggerLogicalExpression
+        modeSwitchConjunctions[0] : ModeSwitchConjunction
+          modeSwitchTriggers[0] : EventPortHolder element=Issue3265::worker.a [EventPort]
+        modeSwitchConjunctions[1] : ModeSwitchConjunction
+          modeSwitchTriggers[0] : ModeSwitchTriggerLogicalExpression
+            modeSwitchConjunctions[0] : ModeSwitchConjunction
+              modeSwitchTriggers[0] : EventPortHolder element=Issue3265::worker.b [EventPort]
+            modeSwitchConjunctions[1] : ModeSwitchConjunction
+              modeSwitchTriggers[0] : EventPortHolder element=Issue3265::worker.c [EventPort]
+    transitions[2] : BehaviorTransition name=short_circuit
+      condition : ModeSwitchTriggerLogicalExpression
+        modeSwitchConjunctions[0] : ModeSwitchConjunction
+          modeSwitchTriggers[0] : EventPortHolder element=Issue3265::worker.a [EventPort]
+        modeSwitchConjunctions[1] : ModeSwitchConjunction
+          modeSwitchTriggers[0] : EventPortHolder element=Issue3265::worker.b [EventPort]
+        modeSwitchConjunctions[2] : ModeSwitchConjunction
+          modeSwitchTriggers[0] : EventPortHolder element=Issue3265::worker.c [EventPort]
+        modeSwitchConjunctions[3] : ModeSwitchConjunction
+          modeSwitchTriggers[0] : EventPortHolder element=Issue3265::worker.a [EventPort]

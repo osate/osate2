@@ -1218,17 +1218,6 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
    * @generated
    */
   @Override
-  public EAttribute getModeSwitchConjunction_LogicalOperators()
-  {
-    return (EAttribute)modeSwitchConjunctionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
   public EClass getModeSwitchTrigger()
   {
     return modeSwitchTriggerEClass;
@@ -2746,7 +2735,6 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
 
     modeSwitchConjunctionEClass = createEClass(MODE_SWITCH_CONJUNCTION);
     createEReference(modeSwitchConjunctionEClass, MODE_SWITCH_CONJUNCTION__TRIGGERS);
-    createEAttribute(modeSwitchConjunctionEClass, MODE_SWITCH_CONJUNCTION__LOGICAL_OPERATORS);
 
     modeSwitchTriggerEClass = createEClass(MODE_SWITCH_TRIGGER);
     createEReference(modeSwitchTriggerEClass, MODE_SWITCH_TRIGGER__REFERENCE);
@@ -3056,7 +3044,6 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
 
     initEClass(modeSwitchConjunctionEClass, ModeSwitchConjunction.class, "ModeSwitchConjunction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getModeSwitchConjunction_Triggers(), this.getModeSwitchTrigger(), null, "triggers", null, 0, -1, ModeSwitchConjunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getModeSwitchConjunction_LogicalOperators(), theEcorePackage.getEString(), "logicalOperators", null, 0, -1, ModeSwitchConjunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(modeSwitchTriggerEClass, ModeSwitchTrigger.class, "ModeSwitchTrigger", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getModeSwitchTrigger_Reference(), this.getReference(), null, "reference", null, 0, 1, ModeSwitchTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

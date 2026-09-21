@@ -6,10 +6,12 @@ annex[0] owner=InvalidTriggers::controller.impl
     transitions[0] : BehaviorTransition
       condition : ModeSwitchTriggerLogicalExpression
         modeSwitchConjunctions[0] : ModeSwitchConjunction
-          modeSwitchTriggers[0] : EventPortHolder element=InvalidTriggers::controller.incoming [EventPort]
         modeSwitchConjunctions[1] : ModeSwitchConjunction
+          modeSwitchTriggers[0] : EventPortHolder element=InvalidTriggers::controller.incoming [EventPort]
+        modeSwitchConjunctions[2] : ModeSwitchConjunction
           modeSwitchTriggers[0] : ModeSwitchTriggerLogicalExpression
             modeSwitchConjunctions[0] : ModeSwitchConjunction
+            modeSwitchConjunctions[1] : ModeSwitchConjunction
     transitions[1] : BehaviorTransition
       condition : ModeSwitchTriggerLogicalExpression
         modeSwitchConjunctions[0] : ModeSwitchConjunction
@@ -20,8 +22,9 @@ annex[0] owner=InvalidTriggers::controller.impl
       condition : ModeSwitchTriggerLogicalExpression
         modeSwitchConjunctions[0] : ModeSwitchConjunction
           modeSwitchTriggers[0] : EventPortHolder element=InvalidTriggers::worker.incoming [EventPort] context=InvalidTriggers::controller.impl.child
-          modeSwitchTriggers[1] : EventDataPortHolder element=InvalidTriggers::worker.incoming_data [EventDataPort] context=InvalidTriggers::controller.impl.child
         modeSwitchConjunctions[1] : ModeSwitchConjunction
+          modeSwitchTriggers[0] : EventDataPortHolder element=InvalidTriggers::worker.incoming_data [EventDataPort] context=InvalidTriggers::controller.impl.child
+        modeSwitchConjunctions[2] : ModeSwitchConjunction
     transitions[3] : BehaviorTransition
       condition : ModeSwitchTriggerLogicalExpression
         modeSwitchConjunctions[0] : ModeSwitchConjunction

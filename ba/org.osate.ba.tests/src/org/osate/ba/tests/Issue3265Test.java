@@ -50,13 +50,13 @@ import org.osate.xtext.aadl2.ba.util.BehaviorAnnexUtil;
 
 import com.google.inject.Inject;
 
-/** Verifies the complete D.3 external-condition logical expression and its strict-model projection. */
+/** Verifies the D.3 single-level, left-associative logical expressions used by external conditions. */
 @RunWith(XtextRunner.class)
 @InjectWith(BehaviorAnnexInjectorProvider.class)
-public class Issue3166Test {
-	private static final String MODEL = "org.osate.ba.tests/models/issue3166/Issue3166.aadl";
-	private static final String EXPRESSION =
-			"(first_event or second_event) and then third_event xor first_event or else second_event and third_event";
+public class Issue3265Test {
+	private static final String MODEL = "org.osate.ba.tests/models/issue3265/Issue3265.aadl";
+	private static final List<String> EXPECTED_EXPRESSIONS = List.of("((a or b) and c)", "(a or (b and c))",
+			"(((a or else b) and then c) xor a)");
 
 	@Inject
 	private TestHelper<AadlPackage> testHelper;
@@ -65,17 +65,14 @@ public class Issue3166Test {
 	private ValidationTestHelper validationHelper;
 
 	@Test
-	public void allExternalConditionOperatorsSurviveTranslation() throws Exception {
+	public void externalConditionsUseOneLeftAssociativeLogicalLevel() throws Exception {
 		var root = testHelper.parseFile(MODEL);
 		validationHelper.assertNoIssues(root);
-		var annex = annex(root);
-
-		assertEquals(EXPRESSION, declarativeExpression(annex));
-		assertEquals(EXPRESSION, strictExpression(annex));
+		assertExpressions(annex(root));
 	}
 
 	@Test
-	public void groupedExternalConditionRoundTripsThroughTheUnparser() throws Exception {
+	public void externalConditionGroupingRoundTripsThroughTheUnparser() throws Exception {
 		var root = testHelper.parseFile(MODEL);
 		validationHelper.assertNoIssues(root);
 		var copy = EcoreUtil.copy(annex(root).getParsedAnnexSubclause());
@@ -90,75 +87,73 @@ public class Issue3166Test {
 			root.eResource().getContents().remove(copy);
 		}
 		var normalized = serialized.replaceAll("\\s+", " ").replace("( ", "(").replace(" )", ")");
-		assertTrue(serialized, normalized.contains(
-				"on (first_event or second_event) and then third_event xor first_event or else second_event and third_event"));
+		assertTrue(serialized, normalized.contains("on a or (b and c)"));
 
 		var source = NodeModelUtils.getNode(root).getText();
 		var reparsed = testHelper.parseString(source.substring(0, source.indexOf("{**") + 3) + serialized
 				+ source.substring(source.indexOf("**}")));
 		validationHelper.assertNoIssues(reparsed);
-		assertEquals(EXPRESSION, declarativeExpression(annex(reparsed)));
-		assertEquals(EXPRESSION, strictExpression(annex(reparsed)));
+		assertExpressions(annex(reparsed));
+	}
+
+	private static void assertExpressions(final DefaultAnnexSubclause annex) {
+		var declarative = (org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex) annex.getParsedAnnexSubclause();
+		var strict = BehaviorAnnexUtil.getStrictModel(annex);
+		assertEquals(EXPECTED_EXPRESSIONS.size(), declarative.getTransitions().size());
+		assertEquals(EXPECTED_EXPRESSIONS.size(), strict.getTransitions().size());
+		for (var i = 0; i < EXPECTED_EXPRESSIONS.size(); i++) {
+			assertEquals(EXPECTED_EXPRESSIONS.get(i),
+					declarativeExpression(declarative.getTransitions().get(i).getCondition().getModeSwitch()));
+			assertEquals(EXPECTED_EXPRESSIONS.get(i), strictExpression(strict.getTransitions().get(i).getCondition()));
+		}
 	}
 
 	private static DefaultAnnexSubclause annex(final AadlPackage root) {
 		return AnnexUtil.getAllDefaultAnnexSubclauses(root).getFirst();
 	}
 
-	private static String declarativeExpression(final DefaultAnnexSubclause annex) {
-		var source = (org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex) annex.getParsedAnnexSubclause();
-		return declarativeExpression(source.getTransitions().getFirst().getCondition().getModeSwitch());
-	}
-
 	private static String declarativeExpression(final EObject expression) {
-		return join(objects(expression, "conjunctions"), strings(expression, "logicalOperators"),
-				Issue3166Test::declarativeConjunction);
+		return leftAssociative(objects(expression, "conjunctions"), strings(expression, "logicalOperators"),
+				Issue3265Test::declarativeConjunction);
 	}
 
 	private static String declarativeConjunction(final EObject conjunction) {
-		var operators = optionalStrings(conjunction, "logicalOperators");
-		var result = join(objects(conjunction, "triggers"), operators, trigger -> {
-			var nested = optionalObject(trigger, "expression");
-			return nested == null ? referenceName(object(trigger, "reference"))
-					: "(" + declarativeExpression(nested) + ")";
-		});
-		return operators.isEmpty() ? result : "(" + result + ")";
-	}
-
-	private static String strictExpression(final DefaultAnnexSubclause annex) {
-		var strict = BehaviorAnnexUtil.getStrictModel(annex);
-		return strictExpression(strict.getTransitions().getFirst().getCondition());
+		return leftAssociative(objects(conjunction, "triggers"), optionalStrings(conjunction, "logicalOperators"),
+				trigger -> {
+					var nested = optionalObject(trigger, "expression");
+					return nested == null ? referenceName(object(trigger, "reference"))
+							: declarativeExpression(nested);
+				});
 	}
 
 	private static String strictExpression(final EObject expression) {
-		return join(objects(expression, "modeSwitchConjunctions"), strings(expression, "logicalOperators"),
-				Issue3166Test::strictConjunction);
+		return leftAssociative(objects(expression, "modeSwitchConjunctions"), strings(expression, "logicalOperators"),
+				Issue3265Test::strictConjunction);
 	}
 
 	private static String strictConjunction(final EObject conjunction) {
-		var operators = strings(conjunction, "logicalOperators");
-		var result = join(objects(conjunction, "modeSwitchTriggers"), operators, trigger -> {
-			if ("ModeSwitchTriggerLogicalExpression".equals(trigger.eClass().getName())) {
-				return "(" + strictExpression(trigger) + ")";
-			}
-			return ((NamedElement) value(trigger, "element")).getName();
-		});
-		return operators.isEmpty() ? result : "(" + result + ")";
+		return leftAssociative(objects(conjunction, "modeSwitchTriggers"), strings(conjunction, "logicalOperators"),
+				trigger -> {
+					if ("ModeSwitchTriggerLogicalExpression".equals(trigger.eClass().getName())) {
+						return strictExpression(trigger);
+					}
+					return ((NamedElement) value(trigger, "element")).getName();
+				});
 	}
 
 	private static String referenceName(final EObject reference) {
 		return (String) value(objects(reference, "segments").getFirst(), "name");
 	}
 
-	private static String join(final List<EObject> operands, final List<String> operators,
+	private static String leftAssociative(final List<EObject> operands, final List<String> operators,
 			final Function<EObject, String> formatter) {
 		assertEquals("A logical expression needs one operator between adjacent operands", operands.size() - 1,
 				operators.size());
-		var result = new StringBuilder(formatter.apply(operands.getFirst()));
+		var result = formatter.apply(operands.getFirst());
 		for (var i = 0; i < operators.size(); i++) {
-			result.append(' ').append(operators.get(i)).append(' ').append(formatter.apply(operands.get(i + 1)));
+			result = "(" + result + " " + operators.get(i) + " " + formatter.apply(operands.get(i + 1)) + ")";
 		}
-		return result.toString();
+		return result;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -169,7 +164,7 @@ public class Issue3166Test {
 	@SuppressWarnings("unchecked")
 	private static List<String> strings(final EObject object, final String featureName) {
 		return ((List<Object>) value(object, featureName)).stream()
-				.map(value -> value instanceof Enumerator enumerator ? enumerator.getLiteral() : value.toString())
+				.map(item -> item instanceof Enumerator enumerator ? enumerator.getLiteral() : item.toString())
 				.toList();
 	}
 

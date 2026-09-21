@@ -6,9 +6,11 @@ annex[0] owner=Issue3232::controller.impl
       condition : ModeSwitchTriggerLogicalExpression
         modeSwitchConjunctions[0] : ModeSwitchConjunction
           modeSwitchTriggers[0] : EventPortHolder element=Issue3232::controller.incoming [EventPort]
-          modeSwitchTriggers[1] : EventDataPortHolder element=Issue3232::controller.incoming_data [EventDataPort]
         modeSwitchConjunctions[1] : ModeSwitchConjunction
+          modeSwitchTriggers[0] : EventDataPortHolder element=Issue3232::controller.incoming_data [EventDataPort]
+        modeSwitchConjunctions[2] : ModeSwitchConjunction
           modeSwitchTriggers[0] : ModeSwitchTriggerLogicalExpression
             modeSwitchConjunctions[0] : ModeSwitchConjunction
               modeSwitchTriggers[0] : EventPortHolder element=Issue3232::controller.bidirectional [EventPort]
-              modeSwitchTriggers[1] : EventDataPortHolder element=Issue3232::controller.bidirectional_data [EventDataPort]
+            modeSwitchConjunctions[1] : ModeSwitchConjunction
+              modeSwitchTriggers[0] : EventDataPortHolder element=Issue3232::controller.bidirectional_data [EventDataPort]

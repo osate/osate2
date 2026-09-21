@@ -1202,7 +1202,7 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
 	 *     ModeSwitchCondition returns ModeSwitchCondition
 	 *
 	 * Constraint:
-	 *     (conjunctions+=ModeSwitchConjunction (logicalOperators+=LogicalOrOperator conjunctions+=ModeSwitchConjunction)*)
+	 *     (conjunctions+=ModeSwitchConjunction (logicalOperators+=LogicalOperator conjunctions+=ModeSwitchConjunction)*)
 	 * </pre>
 	 */
 	protected void sequence_ModeSwitchCondition(ISerializationContext context, ModeSwitchCondition semanticObject) {
@@ -1216,7 +1216,7 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
 	 *     ModeSwitchConjunction returns ModeSwitchConjunction
 	 *
 	 * Constraint:
-	 *     (triggers+=ModeSwitchTrigger (logicalOperators+=LogicalAndOperator triggers+=ModeSwitchTrigger)*)
+	 *     triggers+=ModeSwitchTrigger
 	 * </pre>
 	 */
 	protected void sequence_ModeSwitchConjunction(ISerializationContext context, ModeSwitchConjunction semanticObject) {

@@ -599,9 +599,6 @@ public final class DeclarativeToStrictTranslator {
 						conjunction.getModeSwitchTriggers().add(strictTrigger);
 					}
 				}
-				for (final String operator : sourceConjunction.getLogicalOperators()) {
-					conjunction.getLogicalOperators().add(logicalOperator(operator));
-				}
 				result.getModeSwitchConjunctions().add(conjunction);
 			}
 			for (final String operator : condition.getLogicalOperators()) {
