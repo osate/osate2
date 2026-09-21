@@ -75,6 +75,7 @@ import org.osate.aadl2.Prototype;
 import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.RecordType;
 import org.osate.aadl2.StringLiteral;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
@@ -1136,36 +1137,69 @@ public final class DeclarativeToStrictTranslator {
 				if (property.getDefaultValue() != null) {
 					primaryElement = property.getDefaultValue();
 				}
-			} else if (prefix != null && propertyElement == null) {
+			}
+			final var localName = localPropertyName(propertyName);
+			final var owner = prefix == null ? null : prefixOwner(prefixElement, prefixValue);
+			if (prefix != null && propertyElement == null && owner != null) {
 				// Keep an element-prefixed reference symbolic. An association is only a fallback for resolving the
 				// property definition when ordinary name lookup could not find it.
-				final NamedElement valueOwner;
-				if (prefixElement instanceof Classifier classifier) {
-					valueOwner = classifier;
-				} else if (prefixValue instanceof ElementHolder holder) {
-					valueOwner = holder.getElement();
-				} else if (prefixValue instanceof DataComponentReference reference
-						&& !reference.getData().isEmpty()) {
-					valueOwner = reference.getData().getLast().getElement();
-				} else {
-					valueOwner = null;
-				}
-				final var separator = propertyName.lastIndexOf("::");
-				final var localPropertyName = separator < 0 ? propertyName : propertyName.substring(separator + 2);
-				final var association = valueOwner == null
-						? null
-						: PropertyUtils.findPropertyAssociation(localPropertyName, valueOwner);
+				final var association = PropertyUtils.findPropertyAssociation(localName, owner);
 				if (association != null) {
 					primaryElement = association.getProperty();
 				}
 			}
 			result.getProperties().add(toPropertyNameHolder(primaryElement, indexes, traceSource));
 			var previous = primaryElement;
+			// Data_Model::Enumerators is the one property whose value is part of a type declaration rather than a value
+			// of an instance: its strings are the enumeration literals of the prefixed data classifier, and the property
+			// definition cannot explain them because its type is only a list of strings. Every other field selection
+			// denotes a value a contained association can override per instance, so it stays symbolic here (#3222).
+			final var enumerators = owner != null && DataModelProperties.ENUMERATORS.equalsIgnoreCase(localName)
+					? findEnumeratorsAssociation(owner)
+					: null;
 			for (final var field : fields) {
-				previous = resolvePropertyField(previous, field.getName());
+				var resolved = resolvePropertyField(previous, field.getName());
+				if (resolved == null && previous == primaryElement && enumerators != null) {
+					resolved = resolvePropertyField(enumerators, field.getName());
+				}
+				previous = resolved;
 				result.getProperties().add(toPropertyNameHolder(previous, field.getIndexes(), field));
 			}
 			return result;
+		}
+
+		private static String localPropertyName(final String propertyName) {
+			final var separator = propertyName.lastIndexOf("::");
+			return separator < 0 ? propertyName : propertyName.substring(separator + 2);
+		}
+
+		private NamedElement prefixOwner(final NamedElement prefixElement, final BehaviorElement prefixValue) {
+			if (prefixElement instanceof Classifier classifier) {
+				return classifier;
+			}
+			if (prefixValue instanceof ElementHolder holder) {
+				return holder.getElement();
+			}
+			if (prefixValue instanceof DataComponentReference reference && !reference.getData().isEmpty()) {
+				return reference.getData().getLast().getElement();
+			}
+			return null;
+		}
+
+		/**
+		 * An anonymous data subcomponent owns its {@code Enumerators} association, while a classifier-typed element
+		 * carries it on its classifier. {@code findPropertyAssociation} does not look through an element to its
+		 * classifier, so try the element first and then the classifier it names.
+		 */
+		private PropertyAssociation findEnumeratorsAssociation(final NamedElement owner) {
+			final var association = PropertyUtils.findPropertyAssociation(DataModelProperties.ENUMERATORS, owner);
+			if (association != null) {
+				return association;
+			}
+			final Classifier classifier = owner instanceof Subcomponent subcomponent ? subcomponent.getClassifier()
+					: owner instanceof Feature feature ? feature.getClassifier() : null;
+			return classifier == null ? null
+					: PropertyUtils.findPropertyAssociation(DataModelProperties.ENUMERATORS, classifier);
 		}
 
 		private PropertyNameHolder toPropertyNameHolder(final Element element,

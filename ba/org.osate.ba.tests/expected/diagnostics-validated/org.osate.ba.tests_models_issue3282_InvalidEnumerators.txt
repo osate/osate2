@@ -1,0 +1,4 @@
+error | semantic | 60 | 59 | 16 | 'NotAnEnumerator' is not an enumerator of 'InvalidEnumerators::direction_type'
+error | semantic | 64 | 21 | 42 | type error for 'assignment', 'InvalidEnumerators::direction_type' expected, found 'InvalidEnumerators::signal_type'.
+error | semantic | 68 | 19 | 50 | Invalid operand types for operator "+": left operand has type InvalidEnumerators::direction_type, right operand has type universal integer
+error | semantic | 72 | 19 | 11 | type error for 'assignment', 'InvalidEnumerators::int_type' expected, found 'InvalidEnumerators::signal_type'.

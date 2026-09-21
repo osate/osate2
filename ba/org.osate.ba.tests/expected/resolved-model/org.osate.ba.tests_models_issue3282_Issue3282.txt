@@ -19,7 +19,7 @@ annex[0] owner=Issue3282::host.impl
                       properties[0] : PropertyNameHolder
                         property : BasicPropertyHolder element=Data_Model::Enumerators [Property]
                       properties[1] : PropertyNameHolder
-                        property : BasicPropertyHolder element=<null>
+                        property : PropertyExpressionHolder element=StringLiteral [StringLiteral]
         actions[1] : AssignmentAction
           target : DataSubcomponentHolder element=Issue3282::host.impl.state_value [DataSubcomponent]
           valueExpression : ValueExpression
@@ -31,7 +31,7 @@ annex[0] owner=Issue3282::host.impl
                       properties[0] : PropertyNameHolder
                         property : BasicPropertyHolder element=Data_Model::Enumerators [Property]
                       properties[1] : PropertyNameHolder
-                        property : BasicPropertyHolder element=<null>
+                        property : PropertyExpressionHolder element=StringLiteral [StringLiteral]
     actions[1] : BehaviorActionBlock
       content : BehaviorActionSequence
         actions[0] : AssignmentAction
@@ -45,7 +45,7 @@ annex[0] owner=Issue3282::host.impl
                       properties[0] : PropertyNameHolder
                         property : BasicPropertyHolder element=Data_Model::Enumerators [Property]
                       properties[1] : PropertyNameHolder
-                        property : BasicPropertyHolder element=<null>
+                        property : PropertyExpressionHolder element=StringLiteral [StringLiteral]
                       component : DataSubcomponentHolder element=Issue3282::host.impl.state_value [DataSubcomponent]
         actions[1] : AssignmentAction
           target : DataSubcomponentHolder element=Issue3282::host.impl.bool_value [DataSubcomponent]
@@ -64,7 +64,7 @@ annex[0] owner=Issue3282::host.impl
                       properties[0] : PropertyNameHolder
                         property : BasicPropertyHolder element=Data_Model::Enumerators [Property]
                       properties[1] : PropertyNameHolder
-                        property : BasicPropertyHolder element=<null>
+                        property : PropertyExpressionHolder element=StringLiteral [StringLiteral]
     actions[2] : BehaviorActionBlock
       content : AssignmentAction
         target : DataSubcomponentHolder element=Issue3282::host.impl.bool_value [DataSubcomponent]
@@ -81,7 +81,7 @@ annex[0] owner=Issue3282::host.impl
                     properties[0] : PropertyNameHolder
                       property : BasicPropertyHolder element=Data_Model::Enumerators [Property]
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : PropertyExpressionHolder element=StringLiteral [StringLiteral]
     actions[3] : BehaviorActionBlock
       content : IfStatement
         behaviorActions : AssignmentAction
@@ -95,7 +95,7 @@ annex[0] owner=Issue3282::host.impl
                       properties[0] : PropertyNameHolder
                         property : BasicPropertyHolder element=Data_Model::Enumerators [Property]
                       properties[1] : PropertyNameHolder
-                        property : BasicPropertyHolder element=<null>
+                        property : PropertyExpressionHolder element=StringLiteral [StringLiteral]
         logicalValueExpression : ValueExpression
           relations[0] : Relation
             firstExpression : SimpleExpression
@@ -111,4 +111,4 @@ annex[0] owner=Issue3282::host.impl
                     properties[0] : PropertyNameHolder
                       property : BasicPropertyHolder element=Data_Model::Enumerators [Property]
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : PropertyExpressionHolder element=StringLiteral [StringLiteral]
