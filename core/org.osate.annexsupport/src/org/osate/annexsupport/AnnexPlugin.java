@@ -27,8 +27,8 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -36,7 +36,7 @@ import org.osgi.framework.BundleContext;
  * @author lwrage
  * @version $Id: AnnexPlugin.java,v 1.3 2005-12-12 21:09:29 aarong Exp $
  */
-public class AnnexPlugin extends AbstractUIPlugin {
+public class AnnexPlugin extends Plugin {
 
 	/** The ID of this plugin. */
 	public static final String PLUGIN_ID = "org.osate.annexsupport";
