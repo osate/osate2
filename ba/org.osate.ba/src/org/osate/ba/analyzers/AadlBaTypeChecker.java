@@ -177,7 +177,9 @@ public class AadlBaTypeChecker {
 			var variableType = new TypeHolder(AadlBaUtils.getDataRepresentation(variable), variable.getDataClassifier());
 			variableType.setDimension(variable.getArrayDimensions().size());
 			var initializerType = getType(variable.getOwnedValueConstant());
-			if (initializerType == null || !dataChecker.conformsTo(variableType, initializerType, true)) {
+			if (initializerType == null
+					|| !conforms(variable.getOwnedValueConstant(), "behavior variable initializer", variableType,
+							initializerType, true)) {
 				if (initializerType != null) {
 					reportTypeError(variable.getOwnedValueConstant(), "behavior variable initializer",
 							variableType.toString(), initializerType.toString());
@@ -274,7 +276,7 @@ public class AadlBaTypeChecker {
 				var actualType = getType(actual);
 				if (formalType == null || actualType == null) {
 					valid = false;
-				} else if (!dataChecker.conformsTo(formalType, actualType, true)) {
+				} else if (!conforms(actual, "actual for '" + formal.getName() + "'", formalType, actualType, true)) {
 					reportTypeError(actual, "actual for '" + formal.getName() + "'", formalType.toString(),
 							actualType.toString());
 					valid = false;
@@ -301,7 +303,7 @@ public class AadlBaTypeChecker {
 		if (targetType == null || expressionType == null) {
 			return false;
 		}
-		if (!dataChecker.conformsTo(targetType, expressionType, true)) {
+		if (!conforms(action.getValueExpression(), "assignment", targetType, expressionType, true)) {
 			reportTypeError(action.getValueExpression(), "assignment", targetType.toString(), expressionType.toString());
 			return false;
 		}
@@ -317,7 +319,7 @@ public class AadlBaTypeChecker {
 		if (portType == null || valueType == null) {
 			return false;
 		}
-		if (!dataChecker.conformsTo(portType, valueType, true)) {
+		if (!conforms(action, "port send action", portType, valueType, true)) {
 			reportTypeError(action, "port send action", portType.toString(), valueType.toString());
 			return false;
 		}
@@ -342,7 +344,7 @@ public class AadlBaTypeChecker {
 		if (portType == null || valueType == null) {
 			return false;
 		}
-		if (!dataChecker.conformsTo(portType, valueType, true)) {
+		if (!conforms(action.getValueExpression(), "internal port send action", portType, valueType, true)) {
 			reportTypeError(action.getValueExpression(), "internal port send action", portType.toString(),
 					valueType.toString());
 			return false;
@@ -359,7 +361,7 @@ public class AadlBaTypeChecker {
 		if (portType == null || targetType == null) {
 			return false;
 		}
-		if (!dataChecker.conformsTo(portType, targetType, true)) {
+		if (!conforms(action, "port dequeue action", portType, targetType, true)) {
 			reportTypeError(action, "port dequeue action", portType.toString(), targetType.toString());
 			return false;
 		}
@@ -411,7 +413,7 @@ public class AadlBaTypeChecker {
 			IntegerRange range = (IntegerRange) values;
 			TypeHolder lower = getType(range.getLowerIntegerValue());
 			TypeHolder upper = getType(range.getUpperIntegerValue());
-			if (lower == null || upper == null || !dataChecker.conformsTo(lower, upper, true)) {
+			if (lower == null || upper == null || !conforms(range, "integer range", lower, upper, true)) {
 				reportError(range, "'integer range' error type : its integer values are not consistent");
 				return false;
 			}
@@ -428,7 +430,8 @@ public class AadlBaTypeChecker {
 		}
 
 		TypeHolder variableType = getType(variable);
-		boolean result = variableType != null && dataChecker.conformsTo(valuesType, variableType, false);
+		boolean result = variableType != null
+				&& conforms(statement, "iterative variable", valuesType, variableType, false);
 		if (!result && variableType != null) {
 			reportError(statement, "'iterative variable' type error: an array of \"" + variableType
 					+ "\" expected, found \"" + valuesType + "\".");
@@ -547,6 +550,32 @@ public class AadlBaTypeChecker {
 
 	private void reportDimensionException(DimensionException exception) {
 		errManager.error(exception.getElement(), exception.getMessage());
+	}
+
+	/**
+	 * Checks conformance and records a conversion the model does not state. A conversion is accepted, so this returns
+	 * {@code true} for it; the note exists because the declared types differ and only their representations agree.
+	 *
+	 * @param element the element to report against
+	 * @param name how the position is named in a diagnostic
+	 * @param expected the type required at this position
+	 * @param found the type supplied at this position
+	 * @return {@code true} when the types conform, with or without a conversion
+	 */
+	private boolean conforms(BehaviorElement element, String name, TypeHolder expected, TypeHolder found,
+			boolean hasToCheckDimension) {
+		var conformance = dataChecker.checkConformance(expected, found, hasToCheckDimension);
+		switch (conformance) {
+		case WIDENED -> errManager.info(element, "The " + name + " widens '" + found + "' to '" + expected + "'");
+		case REPRESENTATION -> errManager.info(element, "The " + name + " relies on the shared data representation of '"
+				+ expected + "' and '" + found + "'");
+		// A narrowing keeps the model but may lose precision, which is more than a note is worth.
+		case NARROWED -> errManager.warning(element,
+				"The " + name + " narrows '" + found + "' to '" + expected + "', which may lose precision");
+		default -> {
+		}
+		}
+		return conformance.conforms();
 	}
 
 	private void reportTypeError(BehaviorElement element, String name, String expectedTypes, String typeFound) {

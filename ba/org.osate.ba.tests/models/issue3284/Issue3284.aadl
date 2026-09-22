@@ -1,0 +1,83 @@
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
+-- All Rights Reserved.
+--
+-- NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+-- KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+-- OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+-- MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+--
+-- This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+-- which is available at https://www.eclipse.org/legal/epl-2.0/
+-- SPDX-License-Identifier: EPL-2.0
+--
+-- Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+--
+-- This program includes and/or can make use of certain third party source code, object code, documentation and other
+-- files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+-- configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+-- conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+-- Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+-- aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+-- censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+
+package Issue3284
+public
+	with Data_Model;
+
+	data percent_type
+		properties
+			Data_Model::Data_Representation => Fixed;
+			Data_Model::Measurement_Unit => "Percent";
+	end percent_type;
+
+	data ratio_type
+		properties
+			Data_Model::Data_Representation => Float;
+	end ratio_type;
+
+	data flag_type
+		properties
+			Data_Model::Data_Representation => Boolean;
+	end flag_type;
+
+	abstract host
+		features
+			reading: in data port percent_type;
+			trigger: in event port;
+	end host;
+
+	abstract implementation host.impl
+		subcomponents
+			fixed_value: data percent_type;
+			float_value: data ratio_type;
+			flag_value: data flag_type;
+		annex behavior_specification {**
+			states
+				start: initial state;
+				done: final state;
+			transitions
+				-- An integer literal is a universal integer. An operator defined for the numeric representations
+				-- accepts it against a fixed point or floating point operand, in either position.
+				scaled: start -[]-> done {
+					fixed_value := reading * 2;
+					fixed_value := 2 * reading;
+					float_value := float_value / 100;
+					float_value := 100 / float_value
+				};
+				compared: start -[]-> done {
+					flag_value := reading >= 0;
+					flag_value := 0 <= reading;
+					flag_value := float_value > 1
+				};
+				-- A port count value is a universal integer too.
+				counted: start -[]-> done {
+					fixed_value := reading * trigger'count
+				};
+				-- A universal integer conforms directly, not only as an operand.
+				assigned: start -[]-> done {
+					fixed_value := 0;
+					float_value := 1
+				};
+		**};
+	end host.impl;
+end Issue3284;

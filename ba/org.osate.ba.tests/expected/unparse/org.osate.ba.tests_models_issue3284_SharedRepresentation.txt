@@ -1,0 +1,40 @@
+===== annex[0] owner=SharedRepresentation::host.impl =====
+
+\t\t\tstates
+\t\t\t\tstart: initial state;
+\t\t\t\tdone: final state;
+\t\t\ttransitions
+\t\t\t\t-- Numeric types that share a data representation conform, as a target and as operands.
+\t\t\t\tshared: start -[]-> done {
+\t\t\t\t\tint_a := int_b;
+\t\t\t\t\tfloat_a := float_b;
+\t\t\t\t\tfixed_a := fixed_b;
+\t\t\t\t\tint_a := int_b + int_a
+\t\t\t\t};
+\t\t\t\t-- An integer value widens to a floating point target.
+\t\t\t\twidened: start -[]-> done {
+\t\t\t\t\tfloat_a := int_a
+\t\t\t\t};
+\t\t\t\t-- Mixing integer and floating point operands gives a floating point result.
+\t\t\t\tpromoted: start -[]-> done {
+\t\t\t\t\tfloat_a := int_a + float_b
+\t\t\t\t};
+\t\t\t\t-- Integer, fixed point, and floating point are ordered, so a conversion up that order keeps the value.
+\t\t\t\twidened_order: start -[]-> done {
+\t\t\t\t\tfixed_a := int_a;
+\t\t\t\t\tfloat_a := fixed_a
+\t\t\t\t};
+\t\t\t\t-- A conversion down that order may lose precision, so it is a warning rather than a note.
+\t\t\t\tnarrowed: start -[]-> done {
+\t\t\t\t\tint_a := float_a;
+\t\t\t\t\tint_a := fixed_a;
+\t\t\t\t\tfixed_a := float_a
+\t\t\t\t};
+\t\t\t\t-- Booleans and enumerations are not numeric, so a shared representation is not enough for them.
+\t\t\t\tunrelaxed: start -[]-> done {
+\t\t\t\t\tflag_a := flag_b;
+\t\t\t\t\tchoice_a := choice_b
+\t\t\t\t};
+\t\t
+----- Xtext reparse -----
+reparsed

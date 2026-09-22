@@ -1,15 +1,16 @@
-error | semantic | 100 | 61 | 17 | type error for 'assignment', 'IncompatibleExtensions::child_integer' expected, found 'IncompatibleExtensions::sibling_integer'.
-error | semantic | 101 | 60 | 16 | type error for 'assignment', 'IncompatibleExtensions::real_type' expected, found 'IncompatibleExtensions::changed_representation'.
-error | semantic | 102 | 61 | 16 | type error for 'assignment', 'IncompatibleExtensions::real_type' expected, found 'IncompatibleExtensions::changed_representation'.
 error | semantic | 103 | 63 | 21 | type error for 'assignment', 'IncompatibleExtensions::unrelated_boolean' expected, found 'IncompatibleExtensions::child_boolean'.
 error | semantic | 104 | 64 | 21 | type error for 'assignment', 'IncompatibleExtensions::unrelated_boolean' expected, found 'IncompatibleExtensions::child_boolean'.
-error | semantic | 90 | 48 | 13 | type error for 'assignment', 'IncompatibleExtensions::child_integer' expected, found 'IncompatibleExtensions::sibling_integer'.
-error | semantic | 91 | 55 | 27 | Invalid operand types for operator "+": left operand has type IncompatibleExtensions::child_integer, right operand has type IncompatibleExtensions::sibling_integer
-error | semantic | 92 | 52 | 10 | type error for 'assignment', 'IncompatibleExtensions::integer_type' expected, found 'IncompatibleExtensions::changed_representation'.
-error | semantic | 93 | 53 | 10 | type error for 'assignment', 'IncompatibleExtensions::changed_representation' expected, found 'IncompatibleExtensions::integer_type'.
-error | semantic | 94 | 55 | 23 | Invalid operand types for operator "+": left operand has type IncompatibleExtensions::integer_type, right operand has type IncompatibleExtensions::changed_representation
 error | semantic | 95 | 55 | 13 | type error for 'assignment', 'IncompatibleExtensions::opaque' expected, found 'IncompatibleExtensions::numeric_opaque'.
 error | semantic | 96 | 76 | 12 | type error for 'assignment', 'IncompatibleExtensions::numeric_opaque' expected, found 'IncompatibleExtensions::opaque'.
 error | semantic | 97 | 66 | 12 | type error for 'assignment', 'IncompatibleExtensions::integer_type[2]' expected, found 'IncompatibleExtensions::child_integer[3]'.
 error | semantic | 98 | 58 | 6 | type error for 'assignment', 'IncompatibleExtensions::integer_type[2]' expected, found 'IncompatibleExtensions::child_integer[2][2]'.
-error | semantic | 99 | 60 | 17 | type error for 'assignment', 'IncompatibleExtensions::child_integer' expected, found 'IncompatibleExtensions::sibling_integer'.
+info | semantic | 100 | 61 | 17 | The assignment relies on the shared data representation of 'IncompatibleExtensions::child_integer' and 'IncompatibleExtensions::sibling_integer'
+info | semantic | 101 | 60 | 16 | The assignment relies on the shared data representation of 'IncompatibleExtensions::real_type' and 'IncompatibleExtensions::changed_representation'
+info | semantic | 102 | 61 | 16 | The assignment relies on the shared data representation of 'IncompatibleExtensions::real_type' and 'IncompatibleExtensions::changed_representation'
+info | semantic | 90 | 48 | 13 | The assignment relies on the shared data representation of 'IncompatibleExtensions::child_integer' and 'IncompatibleExtensions::sibling_integer'
+info | semantic | 91 | 55 | 27 | Operands of "+" are different types with the same data representation: IncompatibleExtensions::child_integer and IncompatibleExtensions::sibling_integer
+info | semantic | 93 | 53 | 10 | The assignment widens 'IncompatibleExtensions::integer_type' to 'IncompatibleExtensions::changed_representation'
+info | semantic | 94 | 55 | 23 | Operator "+" mixes numeric representations: IncompatibleExtensions::integer_type and IncompatibleExtensions::changed_representation, giving IncompatibleExtensions::changed_representation
+info | semantic | 99 | 60 | 17 | The assignment relies on the shared data representation of 'IncompatibleExtensions::child_integer' and 'IncompatibleExtensions::sibling_integer'
+warning | semantic | 92 | 52 | 10 | The assignment narrows 'IncompatibleExtensions::changed_representation' to 'IncompatibleExtensions::integer_type', which may lose precision
+warning | semantic | 94 | 55 | 23 | The assignment narrows 'IncompatibleExtensions::changed_representation' to 'IncompatibleExtensions::integer_type', which may lose precision

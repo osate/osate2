@@ -1,0 +1,117 @@
+annex[0] owner=Issue3284::host.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition name=scaled
+    transitions[1] : BehaviorTransition name=compared
+    transitions[2] : BehaviorTransition name=counted
+    transitions[3] : BehaviorTransition name=assigned
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : DataSubcomponentHolder element=Issue3284::host.impl.fixed_value [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataPortHolder element=Issue3284::host.reading [DataPort]
+                  factors[1] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[1] : AssignmentAction
+          target : DataSubcomponentHolder element=Issue3284::host.impl.fixed_value [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+                  factors[1] : Factor
+                    firstValue : DataPortHolder element=Issue3284::host.reading [DataPort]
+        actions[2] : AssignmentAction
+          target : DataSubcomponentHolder element=Issue3284::host.impl.float_value [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataSubcomponentHolder element=Issue3284::host.impl.float_value [DataSubcomponent]
+                  factors[1] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[3] : AssignmentAction
+          target : DataSubcomponentHolder element=Issue3284::host.impl.float_value [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+                  factors[1] : Factor
+                    firstValue : DataSubcomponentHolder element=Issue3284::host.impl.float_value [DataSubcomponent]
+    actions[1] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : DataSubcomponentHolder element=Issue3284::host.impl.flag_value [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataPortHolder element=Issue3284::host.reading [DataPort]
+              secondExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[1] : AssignmentAction
+          target : DataSubcomponentHolder element=Issue3284::host.impl.flag_value [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+              secondExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataPortHolder element=Issue3284::host.reading [DataPort]
+        actions[2] : AssignmentAction
+          target : DataSubcomponentHolder element=Issue3284::host.impl.flag_value [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataSubcomponentHolder element=Issue3284::host.impl.float_value [DataSubcomponent]
+              secondExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+    actions[2] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataSubcomponentHolder element=Issue3284::host.impl.fixed_value [DataSubcomponent]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DataPortHolder element=Issue3284::host.reading [DataPort]
+                factors[1] : Factor
+                  firstValue : PortCountValue
+    actions[3] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : DataSubcomponentHolder element=Issue3284::host.impl.fixed_value [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[1] : AssignmentAction
+          target : DataSubcomponentHolder element=Issue3284::host.impl.float_value [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral

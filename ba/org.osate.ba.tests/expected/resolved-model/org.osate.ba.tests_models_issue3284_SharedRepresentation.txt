@@ -1,0 +1,130 @@
+annex[0] owner=SharedRepresentation::host.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition name=shared
+    transitions[1] : BehaviorTransition name=widened
+    transitions[2] : BehaviorTransition name=promoted
+    transitions[3] : BehaviorTransition name=widened_order
+    transitions[4] : BehaviorTransition name=narrowed
+    transitions[5] : BehaviorTransition name=unrelaxed
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : DataSubcomponentHolder element=SharedRepresentation::host.impl.int_a [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataSubcomponentHolder element=SharedRepresentation::host.impl.int_b [DataSubcomponent]
+        actions[1] : AssignmentAction
+          target : DataSubcomponentHolder element=SharedRepresentation::host.impl.float_a [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataSubcomponentHolder element=SharedRepresentation::host.impl.float_b [DataSubcomponent]
+        actions[2] : AssignmentAction
+          target : DataSubcomponentHolder element=SharedRepresentation::host.impl.fixed_a [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataSubcomponentHolder element=SharedRepresentation::host.impl.fixed_b [DataSubcomponent]
+        actions[3] : AssignmentAction
+          target : DataSubcomponentHolder element=SharedRepresentation::host.impl.int_a [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataSubcomponentHolder element=SharedRepresentation::host.impl.int_b [DataSubcomponent]
+                terms[1] : Term
+                  factors[0] : Factor
+                    firstValue : DataSubcomponentHolder element=SharedRepresentation::host.impl.int_a [DataSubcomponent]
+    actions[1] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataSubcomponentHolder element=SharedRepresentation::host.impl.float_a [DataSubcomponent]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DataSubcomponentHolder element=SharedRepresentation::host.impl.int_a [DataSubcomponent]
+    actions[2] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataSubcomponentHolder element=SharedRepresentation::host.impl.float_a [DataSubcomponent]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DataSubcomponentHolder element=SharedRepresentation::host.impl.int_a [DataSubcomponent]
+              terms[1] : Term
+                factors[0] : Factor
+                  firstValue : DataSubcomponentHolder element=SharedRepresentation::host.impl.float_b [DataSubcomponent]
+    actions[3] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : DataSubcomponentHolder element=SharedRepresentation::host.impl.fixed_a [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataSubcomponentHolder element=SharedRepresentation::host.impl.int_a [DataSubcomponent]
+        actions[1] : AssignmentAction
+          target : DataSubcomponentHolder element=SharedRepresentation::host.impl.float_a [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataSubcomponentHolder element=SharedRepresentation::host.impl.fixed_a [DataSubcomponent]
+    actions[4] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : DataSubcomponentHolder element=SharedRepresentation::host.impl.int_a [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataSubcomponentHolder element=SharedRepresentation::host.impl.float_a [DataSubcomponent]
+        actions[1] : AssignmentAction
+          target : DataSubcomponentHolder element=SharedRepresentation::host.impl.int_a [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataSubcomponentHolder element=SharedRepresentation::host.impl.fixed_a [DataSubcomponent]
+        actions[2] : AssignmentAction
+          target : DataSubcomponentHolder element=SharedRepresentation::host.impl.fixed_a [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataSubcomponentHolder element=SharedRepresentation::host.impl.float_a [DataSubcomponent]
+    actions[5] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : AssignmentAction
+          target : DataSubcomponentHolder element=SharedRepresentation::host.impl.flag_a [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataSubcomponentHolder element=SharedRepresentation::host.impl.flag_b [DataSubcomponent]
+        actions[1] : AssignmentAction
+          target : DataSubcomponentHolder element=SharedRepresentation::host.impl.choice_a [DataSubcomponent]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : DataSubcomponentHolder element=SharedRepresentation::host.impl.choice_b [DataSubcomponent]

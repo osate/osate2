@@ -1,0 +1,52 @@
+annex[0] owner=MixedNumerics::host.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition name=mixed
+    transitions[1] : BehaviorTransition name=modulo
+    transitions[2] : BehaviorTransition name=named
+    transitions[3] : BehaviorTransition name=related
+    actions[0] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataSubcomponentHolder element=MixedNumerics::host.impl.int_value [DataSubcomponent]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+              terms[1] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorRealLiteral
+    actions[1] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataSubcomponentHolder element=MixedNumerics::host.impl.int_value [DataSubcomponent]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+                factors[1] : Factor
+                  firstValue : DataSubcomponentHolder element=MixedNumerics::host.impl.fixed_value [DataSubcomponent]
+    actions[2] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataSubcomponentHolder element=MixedNumerics::host.impl.int_value [DataSubcomponent]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DataSubcomponentHolder element=MixedNumerics::host.impl.float_value [DataSubcomponent]
+    actions[3] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataSubcomponentHolder element=MixedNumerics::host.impl.float_value [DataSubcomponent]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DataSubcomponentHolder element=MixedNumerics::host.impl.int_value [DataSubcomponent]
+              terms[1] : Term
+                factors[0] : Factor
+                  firstValue : DataSubcomponentHolder element=MixedNumerics::host.impl.float_value [DataSubcomponent]
