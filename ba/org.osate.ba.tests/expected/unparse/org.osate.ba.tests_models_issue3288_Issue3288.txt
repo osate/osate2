@@ -1,0 +1,25 @@
+===== annex[0] owner=Issue3288::holder.impl =====
+
+\t\t\tstates
+\t\t\t\tstart: initial state;
+\t\t\t\tphase_two: state;
+\t\t\t\tphase_three: state;
+\t\t\t\tdone: final state;
+\t\t\ttransitions
+\t\t\t\t-- An operator that requires a numeric representation applies to an integer field, in a transition
+\t\t\t\t-- condition and in an action.
+\t\t\t\tguarded: start -[pending.step_total > 0]-> phase_two {
+\t\t\t\t\tpending.step_total := pending.step_total - 1
+\t\t\t\t};
+\t\t\t\t-- A relational expression over integer fields assigns to a Boolean field.
+\t\t\t\tcompared: phase_two -[pending.step_total = 0]-> phase_three {
+\t\t\t\t\tpending.open_valve := pending.step_rate >= 1
+\t\t\t\t};
+\t\t\t\t-- An array field declares its element type and extent the same way, so an indexed read has the
+\t\t\t\t-- representation of the element type.
+\t\t\t\tindexed: phase_three -[]-> done {
+\t\t\t\t\tpending.step_total := pending.readings[1] + 1
+\t\t\t\t};
+\t\t
+----- Xtext reparse -----
+reparsed

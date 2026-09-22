@@ -1,0 +1,1 @@
+error | semantic | 65 | 28 | 22 | There is no applicable operator "-" for type unknown
