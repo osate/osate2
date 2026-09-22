@@ -84,15 +84,15 @@ public class Issue3199Test extends XtextTest {
 		validationHelper.assertNoIssues(testHelper.parseFile(PATH + "ConformingTypes.aadl"));
 	}
 
+	/**
+	 * Classifier-typed numerics do not widen implicitly. A classifier-less integer does, so the two cases that assign
+	 * and add a literal are accepted since #3284; {@code Issue3284Test} covers that relaxation and its limits.
+	 */
 	@Test
-	public void numericsDoNotWidenImplicitly() throws Exception {
+	public void classifierTypedNumericsDoNotWidenImplicitly() throws Exception {
 		assertDiagnostics("NumericTypes", List.of(
-				new Expected("1",
-						"type error for 'assignment', 'Base_Types::Float' expected, found 'universal integer'."),
 				new Expected("integer_value",
 						"type error for 'assignment', 'Base_Types::Float' expected, found 'Base_Types::Integer'."),
-				new Expected("1 + 1.0",
-						"Invalid operand types for operator \"+\": left operand has type universal integer, right operand has type universal real"),
 				new Expected("integer_value + real_value",
 						"Invalid operand types for operator \"+\": left operand has type Base_Types::Integer, right operand has type Base_Types::Float")));
 	}

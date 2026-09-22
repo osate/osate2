@@ -105,15 +105,26 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker {
 		if (type1.getDataRep() == DataRepresentation.UNKNOWN || type2.getDataRep() == DataRepresentation.UNKNOWN) {
 			return type1.getKlass() != null && type2.getKlass() != null;
 		}
-		// Ada universal real literals may initialize either floating or fixed-point values. This does not permit
-		// implicit conversions between classifier-typed numerics or between integer and real literals.
+		// Ada universal real literals may initialize either floating or fixed-point values, and a classifier-less
+		// integer stands for a value of any numeric representation, so it also conforms to a real one. Neither
+		// permits an implicit conversion between classifier-typed numerics.
 		return type1.getDataRep() == type2.getDataRep()
 				|| isUniversalReal(type1) && type2.getDataRep() == DataRepresentation.FIXED
-				|| isUniversalReal(type2) && type1.getDataRep() == DataRepresentation.FIXED;
+				|| isUniversalReal(type2) && type1.getDataRep() == DataRepresentation.FIXED
+				|| isUniversalInteger(type1) && isReal(type2)
+				|| isUniversalInteger(type2) && isReal(type1);
 	}
 
 	private static boolean isUniversalReal(TypeHolder type) {
 		return type.getKlass() == null && type.getDataRep() == DataRepresentation.FLOAT;
+	}
+
+	private static boolean isUniversalInteger(TypeHolder type) {
+		return type.getKlass() == null && type.getDataRep() == DataRepresentation.INTEGER;
+	}
+
+	private static boolean isReal(TypeHolder type) {
+		return type.getDataRep() == DataRepresentation.FIXED || type.getDataRep() == DataRepresentation.FLOAT;
 	}
 
 	private static boolean isExtensionOf(DataClassifier classifier, DataClassifier base) {
@@ -135,6 +146,13 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker {
 		if (type1.getKlass() != null && type2.getKlass() != null
 				&& isExtensionOf(type1.getKlass(), type2.getKlass())) {
 			source = type2;
+		}
+		// A universal integer mixed with a real denotes a real. Taking the left operand here would make the
+		// expression integral, which an integer target would then accept.
+		if (isUniversalInteger(type1) && isReal(type2)) {
+			source = type2;
+		} else if (isUniversalInteger(type2) && isReal(type1)) {
+			source = type1;
 		}
 		var result = new TypeHolder(source.getDataRep(), source.getKlass());
 		result.setDimension(source.getDimension());
@@ -191,8 +209,14 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker {
 			}
 
 			case MOD, REM -> {
+				// mod and rem are integer operations. A classifier-less integer conforms to a real, so the right
+				// operand has to be checked rather than inferred from the left.
 				if (operand1.getDataRep() == DataRepresentation.INTEGER) {
-					return getTopLevelTypeWithoutConsistencyChecking(operand1, operand2);
+					if (operand2.getDataRep() == DataRepresentation.INTEGER) {
+						return getTopLevelTypeWithoutConsistencyChecking(operand1, operand2);
+					}
+					reportErrorConsystency(e, operator, operand1, operand2);
+					return null;
 				}
 				reportErrorBinaryOperator(e, operator, operand1);
 				return null;
