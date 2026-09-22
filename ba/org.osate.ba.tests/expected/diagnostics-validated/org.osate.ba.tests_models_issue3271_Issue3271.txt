@@ -1,0 +1,1 @@
+error | semantic | 37 | 52 | 19 | 'Base_Types::Integer' is not a processor classifier: computation bindings can only name processor classifiers

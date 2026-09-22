@@ -1,0 +1,9 @@
+===== annex[0] owner=ConformingBindings::worker.impl =====
+
+\tstates
+\t\tstart : initial state;
+\t\tdone : complete final state;
+\ttransitions
+\t\tstart -[]-> done { computation(1 ms) in binding (cpu, cpu.impl) };
+----- Xtext reparse -----
+reparsed
