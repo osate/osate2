@@ -27,11 +27,13 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMapWithExpectedSize;
 import static java.util.Collections.emptyMap;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -57,11 +59,16 @@ import org.eclipse.xtext.util.TextRegion;
 import org.eclipse.xtext.util.concurrent.CancelableUnitOfWork;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.DefaultAnnexLibrary;
+import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyType;
+import org.osate.annexsupport.AnnexRegistry;
+import org.osate.annexsupport.AnnexTextPositionResolverRegistry;
+import org.osate.annexsupport.AnnexUtil;
 import org.osate.xtext.aadl2.util.Aadl2LocationInFile;
 
 import com.google.inject.Inject;
@@ -136,10 +143,11 @@ public class Aadl2OccurrenceComputer extends DefaultOccurrenceComputer {
 							}
 						};
 						referenceFinder.findReferences((TargetURIs) targetURIs, resource, acceptor, localMonitor);
+						var annexReferences = getAnnexReferenceRegions(resource, (TargetURIs) targetURIs, localMonitor);
 						operationCanceledManager.checkCanceled(cancelIndicator);
 						Map<Annotation, Position> result = newHashMapWithExpectedSize(references.size() + 1);
 						if (target.eResource() == resource) {
-							if (!references.isEmpty() || canBeReferencedLocally(target)) {
+							if (!references.isEmpty() || !annexReferences.isEmpty() || canBeReferencedLocally(target)) {
 								ITextRegion declarationRegion = locationInFileProvider.getSignificantTextRegion(target);
 								addOccurrenceAnnotation(DECLARATION_ANNOTATION_TYPE, document, declarationRegion,
 										result);
@@ -191,6 +199,15 @@ public class Aadl2OccurrenceComputer extends DefaultOccurrenceComputer {
 								// outdated index information. Ignore
 							}
 						}
+						var positions = new HashSet<>(result.values());
+						for (var region : annexReferences) {
+							if (localMonitor.isCanceled()) {
+								return emptyMap();
+							}
+							if (positions.add(new Position(region.getOffset(), region.getLength()))) {
+								addOccurrenceAnnotation(OCCURRENCE_ANNOTATION_TYPE, document, region, result);
+							}
+						}
 						return result;
 					}
 					return emptyMap();
@@ -199,6 +216,38 @@ public class Aadl2OccurrenceComputer extends DefaultOccurrenceComputer {
 		} else {
 			return emptyMap();
 		}
+	}
+
+	private static List<ITextRegion> getAnnexReferenceRegions(XtextResource resource, TargetURIs targetURIs,
+			IProgressMonitor monitor) {
+		List<ITextRegion> regions = newArrayList();
+		var registry = (AnnexTextPositionResolverRegistry) AnnexRegistry
+				.getRegistry(AnnexRegistry.ANNEX_TEXTPOSITIONRESOLVER_EXT_ID);
+		if (registry == null) {
+			return regions;
+		}
+		var contents = resource.getAllContents();
+		while (contents.hasNext()) {
+			if (monitor.isCanceled()) {
+				throw new OperationCanceledException();
+			}
+			var element = contents.next();
+			if (element instanceof DefaultAnnexSubclause || element instanceof DefaultAnnexLibrary) {
+				contents.prune();
+				var annex = AnnexUtil.getParsedAnnex(element);
+				var resolver = registry.getTextPositionResolver(((NamedElement) element).getName());
+				if (annex != null && resolver != null) {
+					resolver.collectReferencePositions(annex, position -> {
+						var target = position.getModelObject();
+						if (target != null && !target.eIsProxy()
+								&& targetURIs.contains(EcoreUtil2.getPlatformResourceOrNormalizedURI(target))) {
+							regions.add(new TextRegion(position.getOffset(), position.getLength()));
+						}
+					}, monitor);
+				}
+			}
+		}
+		return regions;
 	}
 
 	protected ITextRegion getAdjustedRegion(IXtextDocument document, ITextRegion original, String name,

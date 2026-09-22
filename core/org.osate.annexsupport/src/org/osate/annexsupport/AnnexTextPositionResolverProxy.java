@@ -23,7 +23,11 @@
  */
 package org.osate.annexsupport;
 
+import java.util.function.Consumer;
+
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.emf.ecore.EObject;
 
 public class AnnexTextPositionResolverProxy extends AnnexProxy implements AnnexTextPositionResolver {
@@ -70,6 +74,22 @@ public class AnnexTextPositionResolverProxy extends AnnexProxy implements AnnexT
 					+ configElem.getDeclaringExtension().getContributor().getName(), e);
 		}
 		return null;
+	}
+
+	@Override
+	public void collectReferencePositions(EObject annexRoot, Consumer<TextPositionInfo> acceptor,
+			IProgressMonitor monitor) {
+		AnnexTextPositionResolver resolver = getResolverService();
+		if (resolver != null) {
+			try {
+				resolver.collectReferencePositions(annexRoot, acceptor, monitor);
+			} catch (OperationCanceledException exception) {
+				throw exception;
+			} catch (Exception exception) {
+				AnnexPlugin.logError("Failed to collect reference positions in plugin "
+						+ configElem.getDeclaringExtension().getContributor().getName(), exception);
+			}
+		}
 	}
 
 	private AnnexTextPositionResolver getResolverService() {
