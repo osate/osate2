@@ -64,6 +64,7 @@ import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.ProcessorClassifier;
 import org.osate.aadl2.RangeType;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.modelsupport.errorreporting.AbstractAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
@@ -130,6 +131,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	public static final String INTERNAL_CONDITION_PORT = "org.osate.xtext.aadl2.ba.internalConditionPort";
 	public static final String EXTERNAL_CONDITION_TRIGGER = "org.osate.xtext.aadl2.ba.externalConditionTrigger";
 	public static final String FROZEN_PORT = "org.osate.xtext.aadl2.ba.frozenPort";
+	public static final String DISPATCH_TRIGGER = "org.osate.xtext.aadl2.ba.dispatchTrigger";
 	public static final String TIMEOUT_RESET_PORT = "org.osate.xtext.aadl2.ba.timeoutResetPort";
 	public static final String TIMEOUT_RESET_PORT_TIME = "org.osate.xtext.aadl2.ba.timeoutResetPortTime";
 	public static final String ITERATIVE_VARIABLE_TARGET = "org.osate.xtext.aadl2.ba.iterativeVariableTarget";
@@ -338,8 +340,9 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 		}
 
 		@Override
-		public Void caseDispatchTriggerCondition(final DispatchTriggerCondition timeout) {
-			pendingChecks.add(translation -> checkTimeoutResetPorts(timeout, translation));
+		public Void caseDispatchTriggerCondition(final DispatchTriggerCondition condition) {
+			pendingChecks.add(translation -> checkTimeoutResetPorts(condition, translation));
+			pendingChecks.add(translation -> checkDispatchTriggers(condition, translation));
 			return null;
 		}
 
@@ -964,6 +967,48 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 				error("'" + NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(port))
 						+ "' is not a frozen port: a frozen list can only name an incoming port", port, null,
 						ValidationMessageAcceptor.INSIGNIFICANT_INDEX, FROZEN_PORT);
+				accepted = false;
+			}
+		}
+		return accepted;
+	}
+
+	/**
+	 * AS5506/3 Rev A D.4 builds a dispatch trigger condition out of event and event data ports, and the strict model
+	 * represents a trigger only as an event port holder or an event data port holder, the two implementors of
+	 * {@code DispatchTrigger}. A reference to anything else translates to a holder of another kind, or to an unresolved
+	 * holder when it denotes nothing, and translation drops it: the conjunction keeps the operands it could represent
+	 * and the transition dispatches on those alone, with nothing left in the strict model for a checker to report. The
+	 * one reference that is a condition rather than a trigger is a subprogram access naming the whole condition, which
+	 * translation installs directly, so it is admitted exactly where translation admits it.
+	 * <p>
+	 * Only the kind of the referenced element is checked here. Direction and the {@code Dispatch_Protocol}
+	 * compatibility rules apply to references that are triggers and are represented completely, and remain outside this
+	 * representation boundary.
+	 *
+	 * @return {@code true} when every trigger reference denotes a dispatch trigger
+	 */
+	private boolean checkDispatchTriggers(final DispatchTriggerCondition condition,
+			final TranslationResult translation) {
+		var expression = condition.getExpression();
+		if (expression == null) {
+			return true;
+		}
+		var conjunctions = expression.getConjunctions();
+		// The subprogram access form is the whole condition, which is how translation recognizes it.
+		var soleTrigger = conjunctions.size() == 1 && conjunctions.get(0).getTriggers().size() == 1;
+		var accepted = true;
+		for (var conjunction : conjunctions) {
+			for (var trigger : conjunction.getTriggers()) {
+				var resolved = translation.getResolvedReference(trigger);
+				if (resolved instanceof EventPort || resolved instanceof EventDataPort
+						|| soleTrigger && resolved instanceof SubprogramAccess) {
+					continue;
+				}
+				error("'" + NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(trigger))
+						+ "' is not a dispatch trigger: expected an event or event data port"
+						+ (soleTrigger ? ", or a subprogram access" : ""), trigger, null,
+						ValidationMessageAcceptor.INSIGNIFICANT_INDEX, DISPATCH_TRIGGER);
 				accepted = false;
 			}
 		}

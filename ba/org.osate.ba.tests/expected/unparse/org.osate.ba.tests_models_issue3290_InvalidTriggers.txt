@@ -1,0 +1,18 @@
+===== annex[0] owner=InvalidTriggers::motor.impl =====
+
+\t\t\tstates
+\t\t\t\tready: initial complete state;
+\t\t\ttransitions
+\t\t\t\t-- A name the model declares nowhere: the feature group has no element of that name, and neither has
+\t\t\t\t-- the device.
+\t\t\t\tmissing: ready -[on dispatch signals.step_done]-> ready;
+\t\t\t\t-- A data port carries no event to dispatch on.
+\t\t\t\twrong_kind: ready -[on dispatch reading]-> ready;
+\t\t\t\t-- Neither does a data subcomponent.
+\t\t\t\tnot_a_port: ready -[on dispatch state_value]-> ready;
+\t\t\t\t-- One real event port and one name that does not exist. The conjunction must not quietly keep only
+\t\t\t\t-- the operand it can represent and dispatch on that alone.
+\t\t\t\tconjoined: ready -[on dispatch wake and signals.step_done]-> ready;
+\t\t
+----- Xtext reparse -----
+reparsed
