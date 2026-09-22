@@ -1,5 +1,6 @@
 error | semantic | 230 | 17 | 14 | Port status value 'outPortA'count' is defined only for a port that is frozen on input, but 'outPortA' is an outgoing port. AS5506/3 Rev. A states no corresponding legality rule.
 error | semantic | 237 | 23 | 14 | Port status value 'outPortA'fresh' is defined only for a port that is frozen on input, but 'outPortA' is an outgoing port. AS5506/3 Rev. A states no corresponding legality rule.
+error | semantic | 605 | 46 | 1 | 'DataTypeCheckerTest::p' is not a processor classifier: computation bindings can only name processor classifiers
 error | semantic | 609 | 26 | 3 | Actual for out parameter 'y' must be a writable target
 error | semantic | 611 | 13 | 8 | Subprogram call requires 2 actuals but has 0
 error | semantic | 612 | 13 | 23 | Subprogram call requires 0 actuals but has 2
