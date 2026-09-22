@@ -1,0 +1,25 @@
+===== annex[0] owner=MixedNumerics::host.impl =====
+
+\t\t\tstates
+\t\t\t\tstart: initial state;
+\t\t\t\tdone: final state;
+\t\t\ttransitions
+\t\t\t\t-- A universal integer mixed with a real denotes a real, so the expression must not come out
+\t\t\t\t-- integral and must not conform to an integer target.
+\t\t\t\tmixed: start -[]-> done {
+\t\t\t\t\tint_value := 1 + 1.0
+\t\t\t\t};
+\t\t\t\t-- mod and rem stay integer operations even though their left operand conforms to a real now.
+\t\t\t\tmodulo: start -[]-> done {
+\t\t\t\t\tint_value := 1 mod fixed_value
+\t\t\t\t};
+\t\t\t\t-- Classifier-typed numerics still do not mix, in an assignment or as operands.
+\t\t\t\tnamed: start -[]-> done {
+\t\t\t\t\tint_value := float_value
+\t\t\t\t};
+\t\t\t\trelated: start -[]-> done {
+\t\t\t\t\tfloat_value := int_value + float_value
+\t\t\t\t};
+\t\t
+----- Xtext reparse -----
+reparsed

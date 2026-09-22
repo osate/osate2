@@ -1,0 +1,31 @@
+===== annex[0] owner=Issue3284::host.impl =====
+
+\t\t\tstates
+\t\t\t\tstart: initial state;
+\t\t\t\tdone: final state;
+\t\t\ttransitions
+\t\t\t\t-- An integer literal is a universal integer. An operator defined for the numeric representations
+\t\t\t\t-- accepts it against a fixed point or floating point operand, in either position.
+\t\t\t\tscaled: start -[]-> done {
+\t\t\t\t\tfixed_value := reading * 2;
+\t\t\t\t\tfixed_value := 2 * reading;
+\t\t\t\t\tfloat_value := float_value / 100;
+\t\t\t\t\tfloat_value := 100 / float_value
+\t\t\t\t};
+\t\t\t\tcompared: start -[]-> done {
+\t\t\t\t\tflag_value := reading >= 0;
+\t\t\t\t\tflag_value := 0 <= reading;
+\t\t\t\t\tflag_value := float_value > 1
+\t\t\t\t};
+\t\t\t\t-- A port count value is a universal integer too.
+\t\t\t\tcounted: start -[]-> done {
+\t\t\t\t\tfixed_value := reading * trigger'count
+\t\t\t\t};
+\t\t\t\t-- A universal integer conforms directly, not only as an operand.
+\t\t\t\tassigned: start -[]-> done {
+\t\t\t\t\tfixed_value := 0;
+\t\t\t\t\tfloat_value := 1
+\t\t\t\t};
+\t\t
+----- Xtext reparse -----
+reparsed
