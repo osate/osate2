@@ -1,0 +1,22 @@
+===== annex[0] owner=ValidActionSets::host.i =====
+
+\t\tvariables
+\t\t\tvalue : Base_Types::Integer := 0;
+\t\t\tother : Base_Types::Integer := 0;
+\t\tstates
+\t\t\tstart : initial state;
+\t\t\tdone : final state;
+\t\ttransitions
+\t\t\tsequence : start -[]-> done { output!(1); output!(2); output := 3; input?(value); writer!(value); updater!(value); value := 2 };
+\t\t\tindependent : start -[]-> done { output!(1) & other_output!(2) & input?(value) & writer!(other) };
+\t\t\tno_payload : start -[]-> done { output! & output!(1) };
+\t\t\tno_dequeue_target : start -[]-> done { input? & input?(value) };
+\t\t\tinput_actual : start -[]-> done { mixed!(value, other) & value := 2 };
+\t\t\tsame_member : start -[]-> done { mixed!(value, value) & other := 2 };
+\t\t\tnested_sequence : start -[]-> done { { input?(value); writer!(value); value := 2 } & { output!(1); output!(2) } };
+\t\t\tnested_sets : start -[]-> done { { writer!(value) & writer!(other) }; { input?(value) & output!(1) } };
+\t\t\tread_only_port_argument : start -[]-> done { port_writer!(value, output) & value := 2 };
+\t\t\texplicit_independent : start -[]-> done { value := 1 & other := 2 };
+\t
+----- Xtext reparse -----
+reparsed

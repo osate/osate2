@@ -1,0 +1,238 @@
+annex[0] owner=ValidActionSets::host.i
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=value
+      ownedValueConstant : BehaviorIntegerLiteral
+    variables[1] : BehaviorVariable name=other
+      ownedValueConstant : BehaviorIntegerLiteral
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition name=sequence
+    transitions[1] : BehaviorTransition name=independent
+    transitions[2] : BehaviorTransition name=no_payload
+    transitions[3] : BehaviorTransition name=no_dequeue_target
+    transitions[4] : BehaviorTransition name=input_actual
+    transitions[5] : BehaviorTransition name=same_member
+    transitions[6] : BehaviorTransition name=nested_sequence
+    transitions[7] : BehaviorTransition name=nested_sets
+    transitions[8] : BehaviorTransition name=read_only_port_argument
+    transitions[9] : BehaviorTransition name=explicit_independent
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : PortSendAction
+          port : EventDataPortHolder element=ValidActionSets::host.output [EventDataPort]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[1] : PortSendAction
+          port : EventDataPortHolder element=ValidActionSets::host.output [EventDataPort]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[2] : AssignmentAction
+          target : EventDataPortHolder element=ValidActionSets::host.output [EventDataPort]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[3] : PortDequeueAction
+          port : EventDataPortHolder element=ValidActionSets::host.input [EventDataPort]
+          target : BehaviorVariableHolder element=value [BehaviorVariable]
+        actions[4] : SubprogramCallAction
+          subprogram : SubprogramHolder element=ValidActionSets::writer [SubprogramType]
+          parameterLabels[0] : BehaviorVariableHolder element=value [BehaviorVariable]
+        actions[5] : SubprogramCallAction
+          subprogram : SubprogramHolder element=ValidActionSets::updater [SubprogramType]
+          parameterLabels[0] : BehaviorVariableHolder element=value [BehaviorVariable]
+        actions[6] : AssignmentAction
+          target : BehaviorVariableHolder element=value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+    actions[1] : BehaviorActionBlock
+      content : BehaviorActionSet
+        actions[0] : PortSendAction
+          port : EventDataPortHolder element=ValidActionSets::host.output [EventDataPort]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[1] : PortSendAction
+          port : EventDataPortHolder element=ValidActionSets::host.other_output [EventDataPort]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[2] : PortDequeueAction
+          port : EventDataPortHolder element=ValidActionSets::host.input [EventDataPort]
+          target : BehaviorVariableHolder element=value [BehaviorVariable]
+        actions[3] : SubprogramCallAction
+          subprogram : SubprogramHolder element=ValidActionSets::writer [SubprogramType]
+          parameterLabels[0] : BehaviorVariableHolder element=other [BehaviorVariable]
+    actions[2] : BehaviorActionBlock
+      content : BehaviorActionSet
+        actions[0] : PortSendAction
+          port : EventDataPortHolder element=ValidActionSets::host.output [EventDataPort]
+        actions[1] : PortSendAction
+          port : EventDataPortHolder element=ValidActionSets::host.output [EventDataPort]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+    actions[3] : BehaviorActionBlock
+      content : BehaviorActionSet
+        actions[0] : PortDequeueAction
+          port : EventDataPortHolder element=ValidActionSets::host.input [EventDataPort]
+        actions[1] : PortDequeueAction
+          port : EventDataPortHolder element=ValidActionSets::host.input [EventDataPort]
+          target : BehaviorVariableHolder element=value [BehaviorVariable]
+    actions[4] : BehaviorActionBlock
+      content : BehaviorActionSet
+        actions[0] : SubprogramCallAction
+          subprogram : SubprogramHolder element=ValidActionSets::mixed [SubprogramType]
+          parameterLabels[0] : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=value [BehaviorVariable]
+          parameterLabels[1] : BehaviorVariableHolder element=other [BehaviorVariable]
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+    actions[5] : BehaviorActionBlock
+      content : BehaviorActionSet
+        actions[0] : SubprogramCallAction
+          subprogram : SubprogramHolder element=ValidActionSets::mixed [SubprogramType]
+          parameterLabels[0] : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=value [BehaviorVariable]
+          parameterLabels[1] : BehaviorVariableHolder element=value [BehaviorVariable]
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=other [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+    actions[6] : BehaviorActionBlock
+      content : BehaviorActionSet
+        actions[0] : BehaviorActionBlock
+          content : BehaviorActionSequence
+            actions[0] : PortDequeueAction
+              port : EventDataPortHolder element=ValidActionSets::host.input [EventDataPort]
+              target : BehaviorVariableHolder element=value [BehaviorVariable]
+            actions[1] : SubprogramCallAction
+              subprogram : SubprogramHolder element=ValidActionSets::writer [SubprogramType]
+              parameterLabels[0] : BehaviorVariableHolder element=value [BehaviorVariable]
+            actions[2] : AssignmentAction
+              target : BehaviorVariableHolder element=value [BehaviorVariable]
+              valueExpression : ValueExpression
+                relations[0] : Relation
+                  firstExpression : SimpleExpression
+                    terms[0] : Term
+                      factors[0] : Factor
+                        firstValue : BehaviorIntegerLiteral
+        actions[1] : BehaviorActionBlock
+          content : BehaviorActionSequence
+            actions[0] : PortSendAction
+              port : EventDataPortHolder element=ValidActionSets::host.output [EventDataPort]
+              valueExpression : ValueExpression
+                relations[0] : Relation
+                  firstExpression : SimpleExpression
+                    terms[0] : Term
+                      factors[0] : Factor
+                        firstValue : BehaviorIntegerLiteral
+            actions[1] : PortSendAction
+              port : EventDataPortHolder element=ValidActionSets::host.output [EventDataPort]
+              valueExpression : ValueExpression
+                relations[0] : Relation
+                  firstExpression : SimpleExpression
+                    terms[0] : Term
+                      factors[0] : Factor
+                        firstValue : BehaviorIntegerLiteral
+    actions[7] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : BehaviorActionBlock
+          content : BehaviorActionSet
+            actions[0] : SubprogramCallAction
+              subprogram : SubprogramHolder element=ValidActionSets::writer [SubprogramType]
+              parameterLabels[0] : BehaviorVariableHolder element=value [BehaviorVariable]
+            actions[1] : SubprogramCallAction
+              subprogram : SubprogramHolder element=ValidActionSets::writer [SubprogramType]
+              parameterLabels[0] : BehaviorVariableHolder element=other [BehaviorVariable]
+        actions[1] : BehaviorActionBlock
+          content : BehaviorActionSet
+            actions[0] : PortDequeueAction
+              port : EventDataPortHolder element=ValidActionSets::host.input [EventDataPort]
+              target : BehaviorVariableHolder element=value [BehaviorVariable]
+            actions[1] : PortSendAction
+              port : EventDataPortHolder element=ValidActionSets::host.output [EventDataPort]
+              valueExpression : ValueExpression
+                relations[0] : Relation
+                  firstExpression : SimpleExpression
+                    terms[0] : Term
+                      factors[0] : Factor
+                        firstValue : BehaviorIntegerLiteral
+    actions[8] : BehaviorActionBlock
+      content : BehaviorActionSet
+        actions[0] : SubprogramCallAction
+          subprogram : SubprogramHolder element=ValidActionSets::port_writer [SubprogramType]
+          parameterLabels[0] : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=value [BehaviorVariable]
+          parameterLabels[1] : EventDataPortHolder element=ValidActionSets::host.output [EventDataPort]
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+    actions[9] : BehaviorActionBlock
+      content : BehaviorActionSet
+        actions[0] : AssignmentAction
+          target : BehaviorVariableHolder element=value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=other [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral

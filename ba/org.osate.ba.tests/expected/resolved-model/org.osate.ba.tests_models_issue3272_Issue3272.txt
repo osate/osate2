@@ -1,0 +1,235 @@
+annex[0] owner=Issue3272::host.i
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=value
+      ownedValueConstant : BehaviorIntegerLiteral
+    variables[1] : BehaviorVariable name=other
+      ownedValueConstant : BehaviorIntegerLiteral
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=done
+    transitions[0] : BehaviorTransition name=send_send
+    transitions[1] : BehaviorTransition name=send_assign
+    transitions[2] : BehaviorTransition name=dequeue_assign
+    transitions[3] : BehaviorTransition name=dequeue_dequeue
+    transitions[4] : BehaviorTransition name=out_assign
+    transitions[5] : BehaviorTransition name=inout_dequeue
+    transitions[6] : BehaviorTransition name=call_call
+    transitions[7] : BehaviorTransition name=access_assign
+    transitions[8] : BehaviorTransition name=subcomponent_assign
+    transitions[9] : BehaviorTransition name=port_formal_send
+    transitions[10] : BehaviorTransition name=nested_send
+    transitions[11] : BehaviorTransition name=nested_calls
+    transitions[12] : BehaviorTransition name=nested_set
+    transitions[13] : BehaviorTransition name=explicit_assign
+    actions[0] : BehaviorActionBlock
+      content : BehaviorActionSet
+        actions[0] : PortSendAction
+          port : EventDataPortHolder element=Issue3272::host.output [EventDataPort]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[1] : PortSendAction
+          port : EventDataPortHolder element=Issue3272::host.output [EventDataPort]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+    actions[1] : BehaviorActionBlock
+      content : BehaviorActionSet
+        actions[0] : PortSendAction
+          port : EventDataPortHolder element=Issue3272::host.output [EventDataPort]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[1] : AssignmentAction
+          target : EventDataPortHolder element=Issue3272::host.output [EventDataPort]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+    actions[2] : BehaviorActionBlock
+      content : BehaviorActionSet
+        actions[0] : PortDequeueAction
+          port : EventDataPortHolder element=Issue3272::host.input [EventDataPort]
+          target : BehaviorVariableHolder element=value [BehaviorVariable]
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+    actions[3] : BehaviorActionBlock
+      content : BehaviorActionSet
+        actions[0] : PortDequeueAction
+          port : EventDataPortHolder element=Issue3272::host.input [EventDataPort]
+          target : BehaviorVariableHolder element=value [BehaviorVariable]
+        actions[1] : PortDequeueAction
+          port : EventDataPortHolder element=Issue3272::host.input [EventDataPort]
+          target : BehaviorVariableHolder element=value [BehaviorVariable]
+    actions[4] : BehaviorActionBlock
+      content : BehaviorActionSet
+        actions[0] : SubprogramCallAction
+          subprogram : SubprogramHolder element=Issue3272::writer [SubprogramType]
+          parameterLabels[0] : BehaviorVariableHolder element=value [BehaviorVariable]
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+    actions[5] : BehaviorActionBlock
+      content : BehaviorActionSet
+        actions[0] : SubprogramCallAction
+          subprogram : SubprogramHolder element=Issue3272::updater [SubprogramType]
+          parameterLabels[0] : BehaviorVariableHolder element=value [BehaviorVariable]
+        actions[1] : PortDequeueAction
+          port : EventDataPortHolder element=Issue3272::host.input [EventDataPort]
+          target : BehaviorVariableHolder element=value [BehaviorVariable]
+    actions[6] : BehaviorActionBlock
+      content : BehaviorActionSet
+        actions[0] : SubprogramCallAction
+          subprogram : SubprogramHolder element=Issue3272::writer [SubprogramType]
+          parameterLabels[0] : BehaviorVariableHolder element=value [BehaviorVariable]
+        actions[1] : SubprogramCallAction
+          subprogram : SubprogramHolder element=Issue3272::writer [SubprogramType]
+          parameterLabels[0] : BehaviorVariableHolder element=value [BehaviorVariable]
+    actions[7] : BehaviorActionBlock
+      content : BehaviorActionSet
+        actions[0] : SubprogramCallAction
+          subprogram : SubprogramAccessHolder element=Issue3272::host.call_access [SubprogramAccess]
+          parameterLabels[0] : BehaviorVariableHolder element=value [BehaviorVariable]
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+    actions[8] : BehaviorActionBlock
+      content : BehaviorActionSet
+        actions[0] : SubprogramCallAction
+          subprogram : SubprogramSubcomponentHolder element=Issue3272::host.i.local_call [SubprogramSubcomponent]
+          parameterLabels[0] : BehaviorVariableHolder element=value [BehaviorVariable]
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+    actions[9] : BehaviorActionBlock
+      content : BehaviorActionSet
+        actions[0] : SubprogramCallAction
+          subprogram : SubprogramHolder element=Issue3272::port_writer [SubprogramType]
+          parameterLabels[0] : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorVariableHolder element=value [BehaviorVariable]
+          parameterLabels[1] : EventDataPortHolder element=Issue3272::host.output [EventDataPort]
+        actions[1] : PortSendAction
+          port : EventDataPortHolder element=Issue3272::host.output [EventDataPort]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+    actions[10] : BehaviorActionBlock
+      content : BehaviorActionSet
+        actions[0] : BehaviorActionBlock
+          content : BehaviorActionSequence
+            actions[0] : PortSendAction
+              port : EventDataPortHolder element=Issue3272::host.output [EventDataPort]
+              valueExpression : ValueExpression
+                relations[0] : Relation
+                  firstExpression : SimpleExpression
+                    terms[0] : Term
+                      factors[0] : Factor
+                        firstValue : BehaviorIntegerLiteral
+            actions[1] : PortSendAction
+              port : EventDataPortHolder element=Issue3272::host.output [EventDataPort]
+              valueExpression : ValueExpression
+                relations[0] : Relation
+                  firstExpression : SimpleExpression
+                    terms[0] : Term
+                      factors[0] : Factor
+                        firstValue : BehaviorIntegerLiteral
+        actions[1] : AssignmentAction
+          target : EventDataPortHolder element=Issue3272::host.output [EventDataPort]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+    actions[11] : BehaviorActionBlock
+      content : BehaviorActionSet
+        actions[0] : BehaviorActionBlock
+          content : BehaviorActionSequence
+            actions[0] : PortDequeueAction
+              port : EventDataPortHolder element=Issue3272::host.input [EventDataPort]
+              target : BehaviorVariableHolder element=value [BehaviorVariable]
+            actions[1] : SubprogramCallAction
+              subprogram : SubprogramHolder element=Issue3272::writer [SubprogramType]
+              parameterLabels[0] : BehaviorVariableHolder element=value [BehaviorVariable]
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+    actions[12] : BehaviorActionBlock
+      content : BehaviorActionSequence
+        actions[0] : BehaviorActionBlock
+          content : BehaviorActionSet
+            actions[0] : PortDequeueAction
+              port : EventDataPortHolder element=Issue3272::host.input [EventDataPort]
+              target : BehaviorVariableHolder element=value [BehaviorVariable]
+            actions[1] : SubprogramCallAction
+              subprogram : SubprogramHolder element=Issue3272::writer [SubprogramType]
+              parameterLabels[0] : BehaviorVariableHolder element=value [BehaviorVariable]
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=other [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+    actions[13] : BehaviorActionBlock
+      content : BehaviorActionSet
+        actions[0] : AssignmentAction
+          target : BehaviorVariableHolder element=value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
+        actions[1] : AssignmentAction
+          target : BehaviorVariableHolder element=value [BehaviorVariable]
+          valueExpression : ValueExpression
+            relations[0] : Relation
+              firstExpression : SimpleExpression
+                terms[0] : Term
+                  factors[0] : Factor
+                    firstValue : BehaviorIntegerLiteral
