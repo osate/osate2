@@ -1,0 +1,15 @@
+===== annex[0] owner=Issue3273::worker.impl =====
+
+\tstates
+\t\tstart : initial state;
+\t\tsecond : state;
+\t\tthird : state;
+\t\tfourth : state;
+\t\tdone : complete final state;
+\ttransitions
+\t\tbased[16#F#] : start -[]-> second;
+\t\texponent[1e2] : second -[]-> third;
+\t\tdecimal[17] : third -[]-> fourth;
+\t\tunderscored[1_000] : fourth -[]-> done;
+----- Xtext reparse -----
+reparsed

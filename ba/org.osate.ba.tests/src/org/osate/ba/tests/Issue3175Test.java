@@ -98,7 +98,11 @@ public class Issue3175Test {
 
 	private BehaviorAnnex strictAnnex() throws Exception {
 		var root = testHelper.parseFile(MODELS + "Issue3175.aadl");
-		validationHelper.assertNoIssues(root);
+		assertEquals(List.of("WARNING: Transition priority is not standard numeral syntax: Behavior Annex D.3."),
+				validationHelper.validate(root)
+						.stream()
+						.map(issue -> issue.getSeverity() + ": " + issue.getMessage())
+						.toList());
 		return BehaviorAnnexUtil.getStrictModel(AnnexUtil.getAllDefaultAnnexSubclauses(root).getFirst());
 	}
 
