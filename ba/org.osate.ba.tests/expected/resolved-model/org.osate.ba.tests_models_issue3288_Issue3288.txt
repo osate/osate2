@@ -1,0 +1,83 @@
+annex[0] owner=Issue3288::holder.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=start
+    states[1] : BehaviorState name=phase_two
+    states[2] : BehaviorState name=phase_three
+    states[3] : BehaviorState name=done
+    transitions[0] : BehaviorTransition name=guarded
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : DataComponentReference
+                  data[0] : DataSubcomponentHolder element=Issue3288::holder.impl.pending [DataSubcomponent]
+                  data[1] : DataSubcomponentHolder element=Issue3288::position_change.fields.step_total [DataSubcomponent]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorIntegerLiteral
+    transitions[1] : BehaviorTransition name=compared
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : DataComponentReference
+                  data[0] : DataSubcomponentHolder element=Issue3288::holder.impl.pending [DataSubcomponent]
+                  data[1] : DataSubcomponentHolder element=Issue3288::position_change.fields.step_total [DataSubcomponent]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorIntegerLiteral
+    transitions[2] : BehaviorTransition name=indexed
+    actions[0] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataComponentReference
+          data[0] : DataSubcomponentHolder element=Issue3288::holder.impl.pending [DataSubcomponent]
+          data[1] : DataSubcomponentHolder element=Issue3288::position_change.fields.step_total [DataSubcomponent]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DataComponentReference
+                    data[0] : DataSubcomponentHolder element=Issue3288::holder.impl.pending [DataSubcomponent]
+                    data[1] : DataSubcomponentHolder element=Issue3288::position_change.fields.step_total [DataSubcomponent]
+              terms[1] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[1] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataComponentReference
+          data[0] : DataSubcomponentHolder element=Issue3288::holder.impl.pending [DataSubcomponent]
+          data[1] : DataSubcomponentHolder element=Issue3288::position_change.fields.open_valve [DataSubcomponent]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DataComponentReference
+                    data[0] : DataSubcomponentHolder element=Issue3288::holder.impl.pending [DataSubcomponent]
+                    data[1] : DataSubcomponentHolder element=Issue3288::position_change.fields.step_rate [DataSubcomponent]
+            secondExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral
+    actions[2] : BehaviorActionBlock
+      content : AssignmentAction
+        target : DataComponentReference
+          data[0] : DataSubcomponentHolder element=Issue3288::holder.impl.pending [DataSubcomponent]
+          data[1] : DataSubcomponentHolder element=Issue3288::position_change.fields.step_total [DataSubcomponent]
+        valueExpression : ValueExpression
+          relations[0] : Relation
+            firstExpression : SimpleExpression
+              terms[0] : Term
+                factors[0] : Factor
+                  firstValue : DataComponentReference
+                    data[0] : DataSubcomponentHolder element=Issue3288::holder.impl.pending [DataSubcomponent]
+                    data[1] : DataSubcomponentHolder element=Issue3288::position_change.fields.readings [DataSubcomponent]
+                      arrayIndexes[0] : BehaviorIntegerLiteral
+              terms[1] : Term
+                factors[0] : Factor
+                  firstValue : BehaviorIntegerLiteral

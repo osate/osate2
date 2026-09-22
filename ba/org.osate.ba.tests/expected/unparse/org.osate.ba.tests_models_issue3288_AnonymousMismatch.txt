@@ -1,0 +1,25 @@
+===== annex[0] owner=AnonymousMismatch::holder.impl =====
+
+\t\t\tstates
+\t\t\t\tstart: initial state;
+\t\t\t\tphase_two: state;
+\t\t\t\tphase_three: state;
+\t\t\t\tdone: final state;
+\t\t\ttransitions
+\t\t\t\t-- Reading the representation of a classifier-less field is what makes these mismatches visible: an
+\t\t\t\t-- integer field does not hold a Boolean value, in either direction.
+\t\t\t\tassigned: start -[]-> phase_two {
+\t\t\t\t\tpending.step_total := pending.open_valve
+\t\t\t\t};
+\t\t\t\treversed: phase_two -[]-> phase_three {
+\t\t\t\t\tpending.open_valve := pending.step_total
+\t\t\t\t};
+\t\t\t\t-- Both operands have a declared representation now, so they are checked against each other: a Boolean
+\t\t\t\t-- field does not agree with an integer literal. The diagnostic names both representations rather
+\t\t\t\t-- than reporting the field as untyped.
+\t\t\t\tcomputed: phase_three -[]-> done {
+\t\t\t\t\tpending.step_total := pending.open_valve - 1
+\t\t\t\t};
+\t\t
+----- Xtext reparse -----
+reparsed

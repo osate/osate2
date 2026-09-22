@@ -1,0 +1,3 @@
+error | semantic | 56 | 28 | 18 | type error for 'assignment', 'universal integer' expected, found 'standard boolean'.
+error | semantic | 59 | 28 | 18 | type error for 'assignment', 'standard boolean' expected, found 'universal integer'.
+error | semantic | 65 | 28 | 22 | Invalid operand types for operator "-": left operand has type standard boolean, right operand has type universal integer

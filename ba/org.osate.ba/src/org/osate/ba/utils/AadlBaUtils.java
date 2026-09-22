@@ -171,11 +171,20 @@ public class AadlBaUtils {
 	 * @return the data representation or DataRepresentation.UNKNOWN
 	 */
 	public static DataRepresentation getDataRepresentation(DataClassifier c) {
-		if (c == null) {
-			return DataRepresentation.UNKNOWN;
-		}
+		return c == null ? DataRepresentation.UNKNOWN : getDeclaredDataRepresentation(c);
+	}
 
-		var values = PropertyUtils.findPropertyExpression(c, DataModelProperties.DATA_REPRESENTATION);
+	/**
+	 * Returns the last data representation from the property stack of the element that declares the Data Model Annex
+	 * properties of a data value. That element is the data classifier when there is one, and the data subcomponent
+	 * itself when the subcomponent is declared without a classifier: the core standard lets a subcomponent declare
+	 * property associations, and a classifier-less subcomponent has nowhere else to declare its representation.
+	 *
+	 * @param element the data classifier or data subcomponent that declares the properties
+	 * @return the data representation or DataRepresentation.UNKNOWN
+	 */
+	private static DataRepresentation getDeclaredDataRepresentation(NamedElement element) {
+		var values = PropertyUtils.findPropertyExpression(element, DataModelProperties.DATA_REPRESENTATION);
 		if (values.isEmpty()) {
 			return DataRepresentation.UNKNOWN;
 		}
@@ -185,6 +194,28 @@ public class AadlBaUtils {
 		var name = ((EnumerationLiteral) namedValue.getNamedValue()).getName();
 		var result = DataRepresentation.getByName(name);
 		return result == null ? DataRepresentation.UNKNOWN : result;
+	}
+
+	/**
+	 * Returns the data subcomponent that a value or target refers to when that subcomponent is declared without a
+	 * classifier, and {@code null} in every other case, including a value that is not a data reference at all. Such a
+	 * subcomponent declares the Data Model Annex properties of the field itself, so it is the element its
+	 * representation, element type, and extent are read from.
+	 *
+	 * @param el the given Value or Target object
+	 * @return the classifier-less data subcomponent or {@code null}
+	 */
+	private static DataSubcomponent getClassifierLessDataSubcomponent(Element el) {
+		Element binded = null;
+
+		if (el instanceof DataComponentReference reference) {
+			binded = reference.getData().isEmpty() ? null : reference.getData().getLast().getElement();
+		} else if (el instanceof ElementHolder holder) {
+			binded = holder.getElement();
+		}
+
+		return binded instanceof DataSubcomponent subcomponent && subcomponent.getClassifier() == null ? subcomponent
+				: null;
 	}
 
 	/**
@@ -471,11 +502,14 @@ public class AadlBaUtils {
 				final Classifier classifier = subcompo.getClassifier();
 
 				// fixes 2401: Avoid crashing the editor when subcomponent is not resolved
-				if (classifier == null || classifier.eIsProxy()) {
+				if (classifier != null && classifier.eIsProxy()) {
 					return DataRepresentation.UNKNOWN;
 				}
 
-				return getDataRepresentation((DataClassifier) ((DataSubcomponent) el).getClassifier());
+				// A subcomponent declared without a classifier declares the properties of the field itself, so the
+				// representation is read from the subcomponent. An unresolved subcomponent declares none and stays
+				// unknown, which is what keeps 2401 fixed.
+				return getDeclaredDataRepresentation(classifier == null ? subcompo : classifier);
 			} else if (el instanceof BehaviorVariable) {
 				// Behavior case.
 				return getDataRepresentation((BehaviorVariable) el);
@@ -1197,9 +1231,17 @@ public class AadlBaUtils {
 			throws DimensionException {
 		// Treats only type declared as an array. Otherwise returns.
 		if (type.getDataRep() == DataRepresentation.ARRAY) {
-			var arrayClassifier = type.getKlass();
+			// The element type and the extent are declared next to the representation: on the array's data classifier,
+			// or on the classifier-less data subcomponent that declares the array itself.
+			NamedElement arrayDeclaration = type.getKlass() != null ? type.getKlass()
+					: getClassifierLessDataSubcomponent(el);
+
+			if (arrayDeclaration == null) {
+				return;
+			}
+
 			// Fetches the array element data type.
-			ClassifierValue cv = AadlBaUtils.getBaseType(type.getKlass());
+			ClassifierValue cv = AadlBaUtils.getDeclaredBaseType(arrayDeclaration);
 
 			if (cv != null && cv.getClassifier() instanceof DataClassifier) {
 				DataClassifier dc = (DataClassifier) cv.getClassifier();
@@ -1209,7 +1251,7 @@ public class AadlBaUtils {
 				type.setKlass(null);
 			}
 
-			EList<PropertyExpression> pel = PropertyUtils.findPropertyExpression(arrayClassifier,
+			EList<PropertyExpression> pel = PropertyUtils.findPropertyExpression(arrayDeclaration,
 					DataModelProperties.DIMENSION);
 			int declareDimBT = 0;
 			long[] declareDimSizeBT;
@@ -1234,7 +1276,11 @@ public class AadlBaUtils {
 						type.setDimension(declareDimBT - exprDim);
 						type.setDimensionSizes(declareDimSizeBT);
 					} else {
-						String msg = "must be an array but is resolved as " + type.getKlass().getQualifiedName();
+						// An array whose element type is not a data classifier has no qualified name to report, which
+						// a classifier-less subcomponent declaring no Base_Type is one way to reach.
+						String msg = "must be an array but is resolved as "
+								+ (type.getKlass() != null ? type.getKlass().getQualifiedName()
+										: arrayDeclaration.getName());
 
 						throw new DimensionException(el, msg, false);
 					}
@@ -1729,7 +1775,19 @@ public class AadlBaUtils {
 	 * @return the last value of the base type property or {@code null}
 	 */
 	public static ClassifierValue getBaseType(Classifier component) {
-		var values = PropertyUtils.findPropertyExpression(component, DataModelProperties.BASE_TYPE);
+		return getDeclaredBaseType(component);
+	}
+
+	/**
+	 * Returns the last value of the base type property declared by the given element, or {@code null} if the base type
+	 * property is not set. The element is a data classifier, or the data subcomponent that declares the properties of
+	 * an array field itself because it is declared without a classifier.
+	 *
+	 * @param element the data classifier or data subcomponent that declares the properties
+	 * @return the last value of the base type property or {@code null}
+	 */
+	private static ClassifierValue getDeclaredBaseType(NamedElement element) {
+		var values = PropertyUtils.findPropertyExpression(element, DataModelProperties.BASE_TYPE);
 		if (values != null && !values.isEmpty()) {
 			var value = values.getLast();
 
