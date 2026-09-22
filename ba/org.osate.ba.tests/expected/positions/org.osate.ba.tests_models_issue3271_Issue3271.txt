@@ -1,0 +1,11 @@
+annex[0] owner=Issue3271::worker.impl
+  (BehaviorActionBlock, <null>, 1975, 54)
+  (BehaviorAnnex, behavior_specification, 1880, 150)
+  (BehaviorIntegerLiteral, <null>, 1989, 1)
+  (BehaviorState, done, 1914, 4)
+  (BehaviorState, start, 1889, 5)
+  (BehaviorStateGroup, <null>, 1889, 22)
+  (BehaviorStateGroup, <null>, 1914, 28)
+  (BehaviorTime, <null>, 1989, 4)
+  (BehaviorTransition, <null>, 1958, 72)
+  (TimedAction, <null>, 1977, 50)

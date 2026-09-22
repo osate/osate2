@@ -61,6 +61,7 @@ import org.osate.aadl2.Parameter;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyType;
+import org.osate.aadl2.ProcessorClassifier;
 import org.osate.aadl2.RangeType;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.errorreporting.AbstractAnalysisErrorReporter;
@@ -106,6 +107,7 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.NamedPropertyField;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.Reference;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceExpression;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceSegment;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.TimedAction;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.UnaryExpression;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReferenceExpression;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.util.BehaviorAnnexSwitch;
@@ -144,6 +146,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	public static final String COMMUNICATION_ACTION = "org.osate.xtext.aadl2.ba.communicationAction";
 	public static final String INTEGER_VALUE = "org.osate.xtext.aadl2.ba.integerValue";
 	public static final String ASSIGNMENT_TARGET_DIRECTION = "org.osate.xtext.aadl2.ba.assignmentTargetDirection";
+	public static final String PROCESSOR_BINDING = "org.osate.xtext.aadl2.ba.processorBinding";
 	private static final URI VALIDATION_RESOURCE_URI = URI.createURI("validation:/behavior-annex.aadlba");
 
 	@Inject
@@ -296,6 +299,12 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 		}
 
 		@Override
+		public Void caseTimedAction(final TimedAction action) {
+			pendingChecks.add(translation -> checkProcessorBindings(action));
+			return null;
+		}
+
+		@Override
 		public Void caseForStatement(final ForStatement loop) {
 			pendingChecks.add(translation -> checkIteratorClassifier(loop));
 			pendingChecks.add(translation -> checkIteratedValues(loop, translation));
@@ -429,6 +438,27 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * AS5506/3 Rev A D.6 restricts every classifier in a computation binding to a processor classifier. The grammar
+	 * resolves a general component classifier, while the strict model can carry only processor classifiers, so reject
+	 * each invalid entry before translation's category filter can silently discard it.
+	 *
+	 * @return {@code true} when every written binding is a processor classifier
+	 */
+	private boolean checkProcessorBindings(final TimedAction action) {
+		var valid = true;
+		for (var i = 0; i < action.getProcessors().size(); i++) {
+			var classifier = action.getProcessors().get(i);
+			if (!(classifier instanceof ProcessorClassifier)) {
+				error("'" + classifier.getQualifiedName() + "' is not a processor classifier: computation bindings can only"
+						+ " name processor classifiers", action,
+						BehaviorAnnexPackage.eINSTANCE.getTimedAction_Processors(), i, PROCESSOR_BINDING);
+				valid = false;
+			}
+		}
+		return valid;
 	}
 
 	/**

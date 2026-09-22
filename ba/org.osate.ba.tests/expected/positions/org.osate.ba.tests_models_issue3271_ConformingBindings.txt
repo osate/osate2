@@ -1,0 +1,11 @@
+annex[0] owner=ConformingBindings::worker.impl
+  (BehaviorActionBlock, <null>, 2039, 48)
+  (BehaviorAnnex, behavior_specification, 1944, 144)
+  (BehaviorIntegerLiteral, <null>, 2053, 1)
+  (BehaviorState, done, 1978, 4)
+  (BehaviorState, start, 1953, 5)
+  (BehaviorStateGroup, <null>, 1953, 22)
+  (BehaviorStateGroup, <null>, 1978, 28)
+  (BehaviorTime, <null>, 2053, 4)
+  (BehaviorTransition, <null>, 2022, 66)
+  (TimedAction, <null>, 2041, 44)
