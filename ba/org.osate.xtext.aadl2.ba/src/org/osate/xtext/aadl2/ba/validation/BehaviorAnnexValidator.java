@@ -140,6 +140,8 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	public static final String MODE_REFINEMENT = "org.osate.xtext.aadl2.ba.modeRefinement";
 	public static final String EXTERNAL_CONDITION_IN_MODES = "org.osate.xtext.aadl2.ba.externalConditionInModes";
 	public static final String UNARY_PLUS = "org.osate.xtext.aadl2.ba.unaryPlus";
+	public static final String NONSTANDARD_TRANSITION_PRIORITY =
+			"org.osate.xtext.aadl2.ba.nonstandardTransitionPriority";
 	public static final String PORT_STATUS_DIRECTION = "org.osate.xtext.aadl2.ba.portStatusDirection";
 	public static final String COMMUNICATION_ACTION = "org.osate.xtext.aadl2.ba.communicationAction";
 	public static final String INTEGER_VALUE = "org.osate.xtext.aadl2.ba.integerValue";
@@ -1196,8 +1198,13 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 
 	@Check(CheckType.FAST)
 	public void checkTransitionPriority(final BehaviorTransition transition) {
-		checkIntegerLiteral(transition.getPriority(), transition,
-				BehaviorAnnexPackage.eINSTANCE.getBehaviorTransition_Priority());
+		var priority = transition.getPriority();
+		var feature = BehaviorAnnexPackage.eINSTANCE.getBehaviorTransition_Priority();
+		checkIntegerLiteral(priority, transition, feature);
+		if (priority != null && !priority.matches("[0-9]+(?:_[0-9]+)*")) {
+			warning("Transition priority is not standard numeral syntax: Behavior Annex D.3.", transition, feature,
+					NONSTANDARD_TRANSITION_PRIORITY);
+		}
 	}
 
 	private void checkIntegerLiteral(final String value, final EObject owner, final EStructuralFeature feature) {
