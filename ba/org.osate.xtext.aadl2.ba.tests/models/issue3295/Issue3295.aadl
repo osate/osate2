@@ -1,0 +1,21 @@
+package Issue3295
+public
+	with ReferenceDefinitions;
+	with Base_Types;
+	system Example extends ReferenceDefinitions::Base
+	end Example;
+	system implementation Example.i
+		annex behavior_specification {**
+			variables
+				counter: Base_Types::Integer;
+			states
+				idle: initial state;
+				done: final state;
+			transitions
+				idle -[]-> done {
+					counter := input;
+					counter := input'count
+				};
+		**};
+	end Example.i;
+end Issue3295;
