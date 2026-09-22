@@ -37,6 +37,7 @@ public interface AnnexTextPositionResolver {
 	 * Reports symbolic references not represented by structural EMF cross-references. Each position contains the
 	 * source-model target declaration and the absolute document offset and length of the reference token.
 	 * Implementations must honor cancellation and must not report unresolved references or declarations.
+	 * Return {@link AnnexReferencePosition} instances to also support semantic reference search and navigation.
 	 *
 	 * @since 4.2.2
 	 */

@@ -27,6 +27,7 @@
 package org.osate.xtext.aadl2.scoping;
 
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
@@ -39,6 +40,9 @@ import org.eclipse.xtext.resource.IReferenceDescription;
 import org.eclipse.xtext.resource.impl.DefaultResourceDescriptionStrategy;
 import org.eclipse.xtext.util.IAcceptor;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.DefaultAnnexLibrary;
+import org.osate.aadl2.DefaultAnnexSubclause;
+import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.PrivatePackageSection;
@@ -64,6 +68,23 @@ public class AnnexAwareResourceDescriptionStrategy extends DefaultResourceDescri
 
 		if (rds != null) {
 			return rds.createEObjectDescriptions(eObject, acceptor);
+		}
+		if (eObject instanceof ModelUnit) {
+			var annexNames = new LinkedHashSet<String>();
+			var contents = eObject.eAllContents();
+			while (contents.hasNext()) {
+				var element = contents.next();
+				if (element instanceof DefaultAnnexSubclause || element instanceof DefaultAnnexLibrary) {
+					contents.prune();
+					var name = ((NamedElement) element).getName();
+					if (name != null) {
+						annexNames.add(name);
+					}
+				}
+			}
+			var userData = Map.of(Aadl2IndexMetadata.ANNEX_NAMES, String.join(",", annexNames));
+			return super.createEObjectDescriptions(eObject,
+					description -> acceptor.accept(EObjectDescription.create(description.getName(), eObject, userData)));
 		}
 		var namespace = AadlUtil.getContainingTopLevelNamespace(eObject);
 		if (namespace instanceof PackageSection packageSection) {

@@ -21,18 +21,25 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.aadl2.modelsupport.scoping;
+package org.osate.annexsupport;
+
+import org.eclipse.emf.ecore.EObject;
 
 /**
- * @since 9.0
+ * A symbolic reference position with its source object for reference-search navigation. The inherited model object
+ * is the source-model target declaration. These objects are live query results, not persisted EMF references.
+ *
+ * @since 4.2.2
  */
-public final class Aadl2IndexMetadata {
-	public static final String PACKAGE_NAME = "aadl.packageName";
-	public static final String VISIBILITY = "aadl.visibility";
-	public static final String ANNEX_NAMES = "aadl.annexNames";
-	public static final String PUBLIC = "public";
-	public static final String PRIVATE = "private";
+public final class AnnexReferencePosition extends TextPositionInfo {
+	private final EObject sourceObject;
 
-	private Aadl2IndexMetadata() {
+	public AnnexReferencePosition(EObject sourceObject, EObject target, int offset, int length) {
+		super(target, offset, length);
+		this.sourceObject = sourceObject;
+	}
+
+	public EObject getSourceObject() {
+		return sourceObject;
 	}
 }

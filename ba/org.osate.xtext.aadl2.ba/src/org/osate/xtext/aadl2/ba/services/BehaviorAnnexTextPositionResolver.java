@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.annexsupport.AnnexReferencePosition;
 import org.osate.annexsupport.AnnexTextPositionResolver;
 import org.osate.annexsupport.TextPositionInfo;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
@@ -74,7 +75,7 @@ public final class BehaviorAnnexTextPositionResolver implements AnnexTextPositio
 					var target = translation.getResolvedReference(segment);
 					var node = getNameNode(segment);
 					if (target != null && !target.eIsProxy() && node != null) {
-						acceptor.accept(new TextPositionInfo(target, node.getOffset(), node.getLength()));
+						acceptor.accept(new AnnexReferencePosition(segment, target, node.getOffset(), node.getLength()));
 					}
 				}
 			}
