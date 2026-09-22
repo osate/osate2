@@ -1,2 +1,2 @@
-error | semantic | 19 | 37 | 7 | resolved behavior annex holder has no element
-error | semantic | 38 | 31 | 7 | resolved behavior annex holder has no element
+error | semantic | 19 | 23 | 6 | 'inputA' is not a dispatch trigger: expected an event or event data port, or a subprogram access
+error | semantic | 39 | 23 | 6 | 'inputB' is not a dispatch trigger: expected an event or event data port, or a subprogram access
