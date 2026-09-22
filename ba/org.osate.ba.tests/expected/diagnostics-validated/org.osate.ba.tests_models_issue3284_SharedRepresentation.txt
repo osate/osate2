@@ -1,0 +1,10 @@
+error | semantic | 116 | 16 | 6 | type error for 'assignment', 'SharedRepresentation::first_flag' expected, found 'SharedRepresentation::second_flag'.
+error | semantic | 117 | 18 | 8 | type error for 'assignment', 'SharedRepresentation::first_choice' expected, found 'SharedRepresentation::second_choice'.
+info | semantic | 101 | 15 | 5 | The assignment relies on the shared data representation of 'SharedRepresentation::first_integer' and 'SharedRepresentation::second_integer'
+info | semantic | 102 | 17 | 7 | The assignment relies on the shared data representation of 'SharedRepresentation::first_float' and 'SharedRepresentation::second_float'
+info | semantic | 103 | 17 | 7 | The assignment relies on the shared data representation of 'SharedRepresentation::first_fixed' and 'SharedRepresentation::second_fixed'
+info | semantic | 104 | 15 | 13 | Operands of "+" are different types with the same data representation: SharedRepresentation::second_integer and SharedRepresentation::first_integer
+info | semantic | 104 | 15 | 13 | The assignment relies on the shared data representation of 'SharedRepresentation::first_integer' and 'SharedRepresentation::second_integer'
+info | semantic | 108 | 17 | 5 | The assignment widens an integer value to 'SharedRepresentation::first_float'
+info | semantic | 112 | 17 | 15 | Operator "+" mixes integer and floating point operands: SharedRepresentation::first_integer and SharedRepresentation::second_float, giving SharedRepresentation::second_float
+info | semantic | 112 | 17 | 15 | The assignment relies on the shared data representation of 'SharedRepresentation::first_float' and 'SharedRepresentation::second_float'

@@ -1,2 +1,2 @@
-error | semantic | 40 | 53 | 13 | type error for 'assignment', 'Base_Types::Float' expected, found 'Base_Types::Integer'.
-error | semantic | 42 | 51 | 26 | Invalid operand types for operator "+": left operand has type Base_Types::Integer, right operand has type Base_Types::Float
+info | semantic | 40 | 53 | 13 | The assignment widens an integer value to 'Base_Types::Float'
+info | semantic | 42 | 51 | 26 | Operator "+" mixes integer and floating point operands: Base_Types::Integer and Base_Types::Float, giving Base_Types::Float

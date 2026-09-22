@@ -56,13 +56,27 @@ public interface DataTypeChecker {
 	/**
 	* Returns {@code true} if the given type1 conforms to the given type 2.
 	* Otherwise returns {@code false}.
-	* 
+	*
 	* @param type1 the given type1
 	* @param type2 the given type2
 	* @param hasToCheckDimension if {@code true}, checks type's array dimension.
 	* else it doesn't.
 	*/
-	boolean conformsTo(TypeHolder type1, TypeHolder type2, boolean hasToCheckDimension);
+	default boolean conformsTo(TypeHolder type1, TypeHolder type2, boolean hasToCheckDimension) {
+		return checkConformance(type1, type2, hasToCheckDimension).conforms();
+	}
+
+	/**
+	* Returns how the found type conforms to the expected type. Conformance is directional: a value may widen to the
+	* expected type but not narrow to it, so callers must pass the expected type first. Operand checks, where neither
+	* side is expected, try both orders.
+	*
+	* @param expected the type required at this position
+	* @param found the type supplied at this position
+	* @param hasToCheckDimension if {@code true}, checks type's array dimension. else it doesn't.
+	* @return how the types conform, never {@code null}
+	*/
+	TypeConformance checkConformance(TypeHolder expected, TypeHolder found, boolean hasToCheckDimension);
 
 	/**
 	* Checks if the type1 conforms to type2 

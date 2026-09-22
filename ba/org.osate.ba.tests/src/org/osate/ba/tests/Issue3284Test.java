@@ -43,9 +43,14 @@ import com.google.inject.Inject;
 import com.itemis.xtext.testing.XtextTest;
 
 /**
- * A classifier-less integer stands for a value of any numeric representation, so it conforms to a fixed point or
- * floating point one as well as to an integer. The relaxation is confined to classifier-less integers: classifier-typed
- * numerics still do not mix, and the result of a mixed expression is real so that an integer target rejects it.
+ * Numeric conformance. A classifier-less integer conforms to a fixed point or floating point representation as well as
+ * to an integer, and needs no note because a literal has no declared type to convert from. Classifier-typed numerics
+ * conform when they share a representation, and an integer widens to a floating point one; both are accepted and noted,
+ * because the model relies on a conversion it does not state.
+ * <p>
+ * What stays an error: narrowing a real to an integer, {@code mod} and {@code rem} on a real operand, and a shared
+ * representation between types that are not numeric. The result of a mixed expression is floating point, which is what
+ * makes the narrowing error reachable.
  */
 @RunWith(XtextRunner.class)
 @InjectWith(BehaviorAnnexInjectorProvider.class)
@@ -63,17 +68,51 @@ public class Issue3284Test extends XtextTest {
 		validationHelper.assertNoIssues(testHelper.parseFile(PATH + "Issue3284.aadl"));
 	}
 
+	/**
+	 * Narrowing stays an error. Mixing integer and floating point operands is accepted and noted, and the note is the
+	 * evidence that the result is floating point rather than integral.
+	 */
 	@Test
-	public void mixedAndNamedNumericsStayRestricted() throws Exception {
+	public void narrowingStaysAnErrorAndMixingIsNoted() throws Exception {
 		assertDiagnostics("MixedNumerics", List.of(
-				new Expected("1 + 1.0",
+				new Expected(Severity.ERROR, "1 + 1.0",
 						"type error for 'assignment', 'MixedNumerics::int_type' expected, found 'universal real'."),
-				new Expected("1 mod fixed_value",
+				new Expected(Severity.ERROR, "1 mod fixed_value",
 						"Invalid operand types for operator \"mod\": left operand has type universal integer, right operand has type MixedNumerics::percent_type"),
-				new Expected("float_value",
+				new Expected(Severity.ERROR, "float_value",
 						"type error for 'assignment', 'MixedNumerics::int_type' expected, found 'MixedNumerics::ratio_type'."),
-				new Expected("int_value + float_value",
-						"Invalid operand types for operator \"+\": left operand has type MixedNumerics::int_type, right operand has type MixedNumerics::ratio_type")));
+				new Expected(Severity.INFO, "int_value + float_value",
+						"Operator \"+\" mixes integer and floating point operands: MixedNumerics::int_type and MixedNumerics::ratio_type, giving MixedNumerics::ratio_type")));
+	}
+
+	/**
+	 * Numeric types that share only a data representation conform, and an integer widens to a floating point target.
+	 * Both are accepted and noted. Booleans and enumerations are not numeric, so a shared representation is not enough
+	 * for them and those two assignments stay errors.
+	 */
+	@Test
+	public void sharedRepresentationsAndWideningAreAcceptedWithANote() throws Exception {
+		assertDiagnostics("SharedRepresentation", List.of(
+				new Expected(Severity.INFO, "int_b",
+						"The assignment relies on the shared data representation of 'SharedRepresentation::first_integer' and 'SharedRepresentation::second_integer'"),
+				new Expected(Severity.INFO, "float_b",
+						"The assignment relies on the shared data representation of 'SharedRepresentation::first_float' and 'SharedRepresentation::second_float'"),
+				new Expected(Severity.INFO, "fixed_b",
+						"The assignment relies on the shared data representation of 'SharedRepresentation::first_fixed' and 'SharedRepresentation::second_fixed'"),
+				new Expected(Severity.INFO, "int_b + int_a",
+						"Operands of \"+\" are different types with the same data representation: SharedRepresentation::second_integer and SharedRepresentation::first_integer"),
+				new Expected(Severity.INFO, "int_b + int_a",
+						"The assignment relies on the shared data representation of 'SharedRepresentation::first_integer' and 'SharedRepresentation::second_integer'"),
+				new Expected(Severity.INFO, "int_a",
+						"The assignment widens an integer value to 'SharedRepresentation::first_float'"),
+				new Expected(Severity.INFO, "int_a + float_b",
+						"Operator \"+\" mixes integer and floating point operands: SharedRepresentation::first_integer and SharedRepresentation::second_float, giving SharedRepresentation::second_float"),
+				new Expected(Severity.INFO, "int_a + float_b",
+						"The assignment relies on the shared data representation of 'SharedRepresentation::first_float' and 'SharedRepresentation::second_float'"),
+				new Expected(Severity.ERROR, "flag_b",
+						"type error for 'assignment', 'SharedRepresentation::first_flag' expected, found 'SharedRepresentation::second_flag'."),
+				new Expected(Severity.ERROR, "choice_b",
+						"type error for 'assignment', 'SharedRepresentation::first_choice' expected, found 'SharedRepresentation::second_choice'.")));
 	}
 
 	private void assertDiagnostics(String model, List<Expected> expected) throws Exception {
@@ -81,13 +120,13 @@ public class Issue3284Test extends XtextTest {
 		var source = NodeModelUtils.getNode(root).getRootNode().getText();
 		var issues = validationHelper.validate(root).stream().sorted(Comparator.comparing(Issue::getOffset)).toList();
 		assertEquals(issues.toString(), expected.size(), issues.size());
-		assertEquals(expected, issues.stream().map(issue -> {
-			assertEquals(Severity.ERROR, issue.getSeverity());
-			return new Expected(source.substring(issue.getOffset(), issue.getOffset() + issue.getLength()),
-					issue.getMessage());
-		}).toList());
+		assertEquals(expected, issues.stream()
+				.map(issue -> new Expected(issue.getSeverity(),
+						source.substring(issue.getOffset(), issue.getOffset() + issue.getLength()),
+						issue.getMessage()))
+				.toList());
 	}
 
-	private record Expected(String target, String message) {
+	private record Expected(Severity severity, String target, String message) {
 	}
 }

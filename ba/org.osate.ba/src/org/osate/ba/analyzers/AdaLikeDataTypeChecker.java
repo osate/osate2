@@ -66,25 +66,58 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker {
 	}
 
 	@Override
-	public boolean conformsTo(TypeHolder type1, TypeHolder type2, boolean hasToCheckDimension) {
+	public TypeConformance checkConformance(TypeHolder expected, TypeHolder found, boolean hasToCheckDimension) {
+		if (!conformsToDeclaredTypes(expected, found, hasToCheckDimension)) {
+			// A relaxation only applies to types that are otherwise well formed and of the same shape.
+			if (expected == null || found == null || expected.getDataRep() == null || found.getDataRep() == null
+					|| hasToCheckDimension && !sameShape(expected, found)) {
+				return TypeConformance.NONE;
+			}
+			// Two numeric classifiers that share a representation describe the same values, so accept the model and
+			// say that the conformance rests on the representation rather than on the declared types.
+			if (isNumeric(expected) && isNumeric(found) && expected.getKlass() != null && found.getKlass() != null) {
+				if (expected.getDataRep() == found.getDataRep()) {
+					return TypeConformance.REPRESENTATION;
+				}
+				// An integer value widens to a floating point one. The reverse loses precision and is not accepted.
+				if (expected.getDataRep() == DataRepresentation.FLOAT
+						&& found.getDataRep() == DataRepresentation.INTEGER) {
+					return TypeConformance.WIDENED;
+				}
+			}
+			return TypeConformance.NONE;
+		}
+		return TypeConformance.EXACT;
+	}
+
+	private static boolean isNumeric(TypeHolder type) {
+		return Aadl2Utils.contains(type.getDataRep(), _numTypes);
+	}
+
+	/** A symbolic extent is unknown, not zero. Compare rank and each extent only when both are known. */
+	private static boolean sameShape(TypeHolder type1, TypeHolder type2) {
+		if (type1.getDimension() >= 0 && type2.getDimension() >= 0
+				&& type1.getDimension() != type2.getDimension()) {
+			return false;
+		}
+		var sizes1 = type1.getDimensionSizes();
+		var sizes2 = type2.getDimensionSizes();
+		if (sizes1 != null && sizes2 != null) {
+			for (var i = 0; i < Math.min(sizes1.length, sizes2.length); i++) {
+				if (sizes1[i] > 0 && sizes2[i] > 0 && sizes1[i] != sizes2[i]) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	private boolean conformsToDeclaredTypes(TypeHolder type1, TypeHolder type2, boolean hasToCheckDimension) {
 		if (type1 == null || type2 == null || type1.getDataRep() == null || type2.getDataRep() == null) {
 			return false;
 		}
-		if (hasToCheckDimension) {
-			// A symbolic extent is unknown, not zero. Compare rank and each extent only when both are known.
-			if (type1.getDimension() >= 0 && type2.getDimension() >= 0
-					&& type1.getDimension() != type2.getDimension()) {
-				return false;
-			}
-			var sizes1 = type1.getDimensionSizes();
-			var sizes2 = type2.getDimensionSizes();
-			if (sizes1 != null && sizes2 != null) {
-				for (var i = 0; i < Math.min(sizes1.length, sizes2.length); i++) {
-					if (sizes1[i] > 0 && sizes2[i] > 0 && sizes1[i] != sizes2[i]) {
-						return false;
-					}
-				}
-			}
+		if (hasToCheckDimension && !sameShape(type1, type2)) {
+			return false;
 		}
 		// Untyped features and unresolved references do not establish a mismatch. Let resolution diagnostics stand
 		// on their own instead of adding errors that claim an unknown type disagrees with a known one.
@@ -147,11 +180,11 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker {
 				&& isExtensionOf(type1.getKlass(), type2.getKlass())) {
 			source = type2;
 		}
-		// A universal integer mixed with a real denotes a real. Taking the left operand here would make the
-		// expression integral, which an integer target would then accept.
-		if (isUniversalInteger(type1) && isReal(type2)) {
+		// An integer mixed with a real denotes a real, whether or not the integer has a classifier. Taking the left
+		// operand here would make the expression integral, which an integer target would then accept.
+		if (type1.getDataRep() == DataRepresentation.INTEGER && isReal(type2)) {
 			source = type2;
-		} else if (isUniversalInteger(type2) && isReal(type1)) {
+		} else if (type2.getDataRep() == DataRepresentation.INTEGER && isReal(type1)) {
 			source = type1;
 		}
 		var result = new TypeHolder(source.getDataRep(), source.getKlass());
@@ -165,9 +198,19 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker {
 	public TypeHolder checkDefinition(BehaviorElement e, Enumerator operator, TypeHolder operand1,
 			TypeHolder operand2) {
 		// Operator ** has special consistency checking.
-		if (operator != BinaryNumericOperator.MULTIPLY_MULTIPLY && !conformsTo(operand1, operand2, true)) {
-			reportErrorConsystency(e, operator, operand1, operand2);
-			return null;
+		if (operator != BinaryNumericOperator.MULTIPLY_MULTIPLY) {
+			// Neither operand is the expected one, so a widening in either direction is acceptable here.
+			var conformance = checkConformance(operand1, operand2, true);
+			if (!conformance.conforms()) {
+				conformance = checkConformance(operand2, operand1, true);
+			}
+			if (!conformance.conforms()) {
+				reportErrorConsystency(e, operator, operand1, operand2);
+				return null;
+			}
+			if (conformance.isConverted()) {
+				reportOperandConversion(e, operator, operand1, operand2, conformance);
+			}
 		}
 
 		if (operator instanceof LogicalOperator) {
@@ -315,6 +358,22 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker {
 			var errorMsg = "operator : " + operator.getName() + " is not supported.";
 			System.err.println(errorMsg);
 			throw new UnsupportedOperationException(errorMsg);
+		}
+	}
+
+	/**
+	 * The model is accepted but relies on a conversion it does not state, so say which one. A widening reports the
+	 * result so the reader knows the expression is no longer integral.
+	 */
+	private void reportOperandConversion(BehaviorElement e, Enumerator operator, TypeHolder operand1,
+			TypeHolder operand2, TypeConformance conformance) {
+		if (conformance == TypeConformance.WIDENED) {
+			_errManager.info(e, "Operator \"" + operator.getLiteral() + "\" mixes integer and floating point operands: "
+					+ operand1 + " and " + operand2 + ", giving "
+					+ getTopLevelTypeWithoutConsistencyChecking(operand1, operand2));
+		} else {
+			_errManager.info(e, "Operands of \"" + operator.getLiteral()
+					+ "\" are different types with the same data representation: " + operand1 + " and " + operand2);
 		}
 	}
 

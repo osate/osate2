@@ -85,16 +85,18 @@ public class Issue3199Test extends XtextTest {
 	}
 
 	/**
-	 * Classifier-typed numerics do not widen implicitly. A classifier-less integer does, so the two cases that assign
-	 * and add a literal are accepted since #3284; {@code Issue3284Test} covers that relaxation and its limits.
+	 * Numerics widen implicitly since #3284, so none of these four cases is an error any more. The two that mix
+	 * literals report nothing at all, because a literal has no declared type to convert from; the two that mix
+	 * {@code Base_Types::Integer} with {@code Base_Types::Float} are accepted and noted. {@code Issue3284Test} covers
+	 * the rules and what still fails.
 	 */
 	@Test
-	public void classifierTypedNumericsDoNotWidenImplicitly() throws Exception {
+	public void numericWideningIsNoted() throws Exception {
 		assertDiagnostics("NumericTypes", List.of(
-				new Expected("integer_value",
-						"type error for 'assignment', 'Base_Types::Float' expected, found 'Base_Types::Integer'."),
-				new Expected("integer_value + real_value",
-						"Invalid operand types for operator \"+\": left operand has type Base_Types::Integer, right operand has type Base_Types::Float")));
+				new Expected(Severity.INFO, "integer_value",
+						"The assignment widens an integer value to 'Base_Types::Float'"),
+				new Expected(Severity.INFO, "integer_value + real_value",
+						"Operator \"+\" mixes integer and floating point operands: Base_Types::Integer and Base_Types::Float, giving Base_Types::Float")));
 	}
 
 	@Test
@@ -135,13 +137,17 @@ public class Issue3199Test extends XtextTest {
 		var source = NodeModelUtils.getNode(root).getRootNode().getText();
 		var issues = validationHelper.validate(root).stream().sorted(Comparator.comparing(Issue::getOffset)).toList();
 		assertEquals(issues.toString(), expected.size(), issues.size());
-		assertEquals(expected, issues.stream().map(issue -> {
-			assertEquals(Severity.ERROR, issue.getSeverity());
-			return new Expected(source.substring(issue.getOffset(), issue.getOffset() + issue.getLength()),
-					issue.getMessage());
-		}).toList());
+		assertEquals(expected, issues.stream()
+				.map(issue -> new Expected(issue.getSeverity(),
+						source.substring(issue.getOffset(), issue.getOffset() + issue.getLength()),
+						issue.getMessage()))
+				.toList());
 	}
 
-	private record Expected(String target, String message) {
+	private record Expected(Severity severity, String target, String message) {
+		/** Most expectations are errors; the severity is written out only where a diagnostic is a note. */
+		Expected(String target, String message) {
+			this(Severity.ERROR, target, message);
+		}
 	}
 }

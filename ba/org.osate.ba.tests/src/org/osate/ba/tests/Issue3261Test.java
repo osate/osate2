@@ -47,6 +47,15 @@ import com.itemis.xtext.testing.XtextTest;
 @InjectWith(BehaviorAnnexInjectorProvider.class)
 public class Issue3261Test extends XtextTest {
 	private static final String PATH = "org.osate.ba.tests/models/issue3261/";
+	private static final String PKG = "IncompatibleExtensions";
+	private static final String SHARED_INTEGER = "The assignment relies on the shared data representation of '"
+			+ PKG + "::child_integer' and '" + PKG + "::sibling_integer'";
+	private static final String SHARED_REAL = "The assignment relies on the shared data representation of '" + PKG
+			+ "::real_type' and '" + PKG + "::changed_representation'";
+	private static final String NARROWED = "type error for 'assignment', '" + PKG + "::integer_type' expected, found '"
+			+ PKG + "::changed_representation'.";
+	private static final String UNRELATED_BOOLEAN = "type error for 'assignment', '" + PKG
+			+ "::unrelated_boolean' expected, found '" + PKG + "::child_boolean'.";
 
 	@Inject
 	private TestHelper<AadlPackage> testHelper;
@@ -64,39 +73,44 @@ public class Issue3261Test extends XtextTest {
 		validationHelper.assertNoIssues(testHelper.parseFile(PATH + "TypeExtensions.aadl"));
 	}
 
+	/**
+	 * Since #3284 a numeric conversion is accepted and noted rather than rejected, so the sibling cases and the
+	 * integer-to-float cases are now notes. What still fails is unchanged by that relaxation: a mismatched array shape,
+	 * a classifier with no data representation, narrowing a real to an integer, and a shared representation between
+	 * types that are not numeric.
+	 */
 	@Test
-	public void extensionsAndLiteralsPreserveTypeAndShapeRestrictions() throws Exception {
+	public void numericConversionsAreNotedAndOtherMismatchesFail() throws Exception {
 		assertDiagnostics("IncompatibleExtensions", List.of(
-				new Expected("sibling_value",
-						"type error for 'assignment', 'IncompatibleExtensions::child_integer' expected, found 'IncompatibleExtensions::sibling_integer'."),
-				new Expected("child_value + sibling_value",
-						"Invalid operand types for operator \"+\": left operand has type IncompatibleExtensions::child_integer, right operand has type IncompatibleExtensions::sibling_integer"),
-				new Expected("real_value",
-						"type error for 'assignment', 'IncompatibleExtensions::integer_type' expected, found 'IncompatibleExtensions::changed_representation'."),
-				new Expected("base_value",
-						"type error for 'assignment', 'IncompatibleExtensions::changed_representation' expected, found 'IncompatibleExtensions::integer_type'."),
-				new Expected("base_value + real_value",
-						"Invalid operand types for operator \"+\": left operand has type IncompatibleExtensions::integer_type, right operand has type IncompatibleExtensions::changed_representation"),
+				new Expected(Severity.INFO, "sibling_value", SHARED_INTEGER),
+				new Expected(Severity.INFO, "child_value + sibling_value",
+						"Operands of \"+\" are different types with the same data representation: %s::child_integer and %s::sibling_integer"
+								.formatted(PKG, PKG)),
+				new Expected("real_value", NARROWED),
+				new Expected(Severity.INFO, "base_value",
+						"The assignment widens an integer value to '%s::changed_representation'".formatted(PKG)),
+				new Expected(Severity.INFO, "base_value + real_value",
+						"Operator \"+\" mixes integer and floating point operands: %s::integer_type and %s::changed_representation, giving %s::changed_representation"
+								.formatted(PKG, PKG, PKG)),
+				new Expected("base_value + real_value", NARROWED),
 				new Expected("numeric_value",
-						"type error for 'assignment', 'IncompatibleExtensions::opaque' expected, found 'IncompatibleExtensions::numeric_opaque'."),
+						"type error for 'assignment', '%s::opaque' expected, found '%s::numeric_opaque'."
+								.formatted(PKG, PKG)),
 				new Expected("opaque_value",
-						"type error for 'assignment', 'IncompatibleExtensions::numeric_opaque' expected, found 'IncompatibleExtensions::opaque'."),
+						"type error for 'assignment', '%s::numeric_opaque' expected, found '%s::opaque'."
+								.formatted(PKG, PKG)),
 				new Expected("larger_array",
-						"type error for 'assignment', 'IncompatibleExtensions::integer_type[2]' expected, found 'IncompatibleExtensions::child_integer[3]'."),
+						"type error for 'assignment', '%s::integer_type[2]' expected, found '%s::child_integer[3]'."
+								.formatted(PKG, PKG)),
 				new Expected("matrix",
-						"type error for 'assignment', 'IncompatibleExtensions::integer_type[2]' expected, found 'IncompatibleExtensions::child_integer[2][2]'."),
-				new Expected("1 + sibling_value",
-						"type error for 'assignment', 'IncompatibleExtensions::child_integer' expected, found 'IncompatibleExtensions::sibling_integer'."),
-				new Expected("sibling_value + 1",
-						"type error for 'assignment', 'IncompatibleExtensions::child_integer' expected, found 'IncompatibleExtensions::sibling_integer'."),
-				new Expected("1.0 + real_value",
-						"type error for 'assignment', 'IncompatibleExtensions::real_type' expected, found 'IncompatibleExtensions::changed_representation'."),
-				new Expected("real_value + 1.0",
-						"type error for 'assignment', 'IncompatibleExtensions::real_type' expected, found 'IncompatibleExtensions::changed_representation'."),
-				new Expected("true and derived_flag",
-						"type error for 'assignment', 'IncompatibleExtensions::unrelated_boolean' expected, found 'IncompatibleExtensions::child_boolean'."),
-				new Expected("derived_flag or false",
-						"type error for 'assignment', 'IncompatibleExtensions::unrelated_boolean' expected, found 'IncompatibleExtensions::child_boolean'.")));
+						"type error for 'assignment', '%s::integer_type[2]' expected, found '%s::child_integer[2][2]'."
+								.formatted(PKG, PKG)),
+				new Expected(Severity.INFO, "1 + sibling_value", SHARED_INTEGER),
+				new Expected(Severity.INFO, "sibling_value + 1", SHARED_INTEGER),
+				new Expected(Severity.INFO, "1.0 + real_value", SHARED_REAL),
+				new Expected(Severity.INFO, "real_value + 1.0", SHARED_REAL),
+				new Expected("true and derived_flag", UNRELATED_BOOLEAN),
+				new Expected("derived_flag or false", UNRELATED_BOOLEAN)));
 	}
 
 	private void assertDiagnostics(String model, List<Expected> expected) throws Exception {
@@ -104,13 +118,17 @@ public class Issue3261Test extends XtextTest {
 		var source = NodeModelUtils.getNode(root).getRootNode().getText();
 		var issues = validationHelper.validate(root).stream().sorted(Comparator.comparing(Issue::getOffset)).toList();
 		assertEquals(issues.toString(), expected.size(), issues.size());
-		assertEquals(expected, issues.stream().map(issue -> {
-			assertEquals(Severity.ERROR, issue.getSeverity());
-			return new Expected(source.substring(issue.getOffset(), issue.getOffset() + issue.getLength()),
-					issue.getMessage());
-		}).toList());
+		assertEquals(expected, issues.stream()
+				.map(issue -> new Expected(issue.getSeverity(),
+						source.substring(issue.getOffset(), issue.getOffset() + issue.getLength()),
+						issue.getMessage()))
+				.toList());
 	}
 
-	private record Expected(String target, String message) {
+	private record Expected(Severity severity, String target, String message) {
+		/** Most expectations are errors; the severity is written out only where a diagnostic is a note. */
+		Expected(String target, String message) {
+			this(Severity.ERROR, target, message);
+		}
 	}
 }

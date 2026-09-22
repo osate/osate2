@@ -10,7 +10,6 @@ error | semantic | 428 | 14 | 36 | mixs up AADL standard array and data model ar
 error | semantic | 429 | 14 | 29 | mixs up AADL standard array and data model array
 error | semantic | 430 | 14 | 105 | 'iterative variable' type error: an array of "Base_Types::Integer" expected, found "DataStructPrototypeTest::MyIntegerArray_A".
 error | semantic | 430 | 46 | 35 | iterated values are not an array
-error | semantic | 439 | 14 | 70 | 'iterative variable' type error: an array of "DataStructPrototypeTest::MyInteger" expected, found "Base_Types::Integer[]".
 error | semantic | 442 | 40 | 1 | type error for 'assignment', 'DataStructPrototypeTest::MyArray_Integer' expected, found 'universal integer'.
 error | semantic | 445 | 44 | 21 | type error for 'assignment', 'DataStructPrototypeTest::MyIntegerArray_A[10][10][10]' expected, found 'DataStructPrototypeTest::MyIntegerArray_B'.
 error | semantic | 447 | 14 | 33 | must be an array but is resolved as DataStructPrototypeTest::MyInteger
@@ -20,5 +19,6 @@ error | semantic | 457 | 14 | 51 | type error for 'port send action', 'Base_Type
 error | semantic | 458 | 14 | 55 | type error for 'port send action', 'DataStructPrototypeTest::MyIntegerArray_A' expected, found 'DataStructPrototypeTest::MyIntegerArray_A[15]'.
 error | semantic | 462 | 40 | 21 | type error for 'actual for 'inParam1'', 'Base_Types::Integer' expected, found 'Base_Types::Float'.
 error | semantic | 462 | 80 | 27 | type error for 'actual for 'outParam3'', 'DataStructPrototypeTest::MyIntegerArray_A' expected, found 'DataStructPrototypeTest::MyIntegerArray_A[15]'.
+info | semantic | 439 | 14 | 70 | The iterative variable relies on the shared data representation of 'Base_Types::Integer[]' and 'DataStructPrototypeTest::MyInteger'
 warning | semantic | 25 | 33 | 21 | AadlBaTestPropertySet in 'with' clause of public package section is not used.
 warning | semantic | 25 | 75 | 20 | AadlBaTestSubprogram in 'with' clause of public package section is not used.
