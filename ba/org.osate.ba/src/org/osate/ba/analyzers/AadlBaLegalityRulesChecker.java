@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.DeviceClassifier;
+import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.MetaclassReference;
@@ -69,10 +70,14 @@ import org.osate.ba.aadlba.IntegerValue;
 import org.osate.ba.aadlba.InternalCondition;
 import org.osate.ba.aadlba.InternalPortSendAction;
 import org.osate.ba.aadlba.LoopStatement;
+import org.osate.ba.aadlba.PortDequeueAction;
+import org.osate.ba.aadlba.PortSendAction;
+import org.osate.ba.aadlba.SubprogramCallAction;
 import org.osate.ba.aadlba.Target;
 import org.osate.ba.aadlba.TimedAction;
 import org.osate.ba.utils.AadlBaUtils;
 import org.osate.ba.utils.AadlBaVisitors;
+import org.osate.ba.utils.SubprogramCallUtil;
 import org.osate.utils.internal.Aadl2Visitors;
 import org.osate.utils.internal.PropertyUtils;
 import org.osate.utils.internal.names.DispatchTriggerProperties;
@@ -811,8 +816,23 @@ public class AadlBaLegalityRulesChecker {
 
 		// Basic action cases.
 		if (beActions instanceof BasicAction) {
-			if (beActions instanceof AssignmentAction) {
-				lActionSetTar.add(((AssignmentAction) beActions).getTarget());
+			if (beActions instanceof AssignmentAction assignment) {
+				lActionSetTar.add(assignment.getTarget());
+			} else if (beActions instanceof PortSendAction send && send.getValueExpression() != null
+					&& send.getPort() instanceof Target target) {
+				lActionSetTar.add(target);
+			} else if (beActions instanceof PortDequeueAction dequeue && dequeue.getTarget() != null) {
+				lActionSetTar.add(dequeue.getTarget());
+			} else if (beActions instanceof SubprogramCallAction call) {
+				var formals = SubprogramCallUtil
+						.getFormals(SubprogramCallUtil.getClassifier(call.getSubprogram(), _baParentContainer));
+				var actuals = call.getParameterLabels();
+				for (var index = 0; index < Math.min(formals.size(), actuals.size()); index++) {
+					if (formals.get(index) instanceof DirectedFeature formal && formal.isOut()
+							&& actuals.get(index) instanceof Target target) {
+						lActionSetTar.add(target);
+					}
+				}
 			}
 
 			return;
