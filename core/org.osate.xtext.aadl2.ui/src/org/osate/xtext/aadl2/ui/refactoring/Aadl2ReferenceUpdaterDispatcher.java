@@ -23,18 +23,16 @@
  */
 package org.osate.xtext.aadl2.ui.refactoring;
 
-import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.text.edits.ReplaceEdit;
+import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.resource.ILocationInFileProvider;
 import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.resource.impl.DefaultReferenceDescription;
 import org.eclipse.xtext.ui.refactoring.IRefactoringUpdateAcceptor;
 import org.eclipse.xtext.ui.refactoring.IReferenceUpdater;
 import org.eclipse.xtext.ui.refactoring.impl.ReferenceUpdaterDispatcher;
-import org.eclipse.xtext.util.ITextRegion;
 import org.osate.annexsupport.AnnexUtil;
 
 import com.google.inject.Inject;
@@ -50,16 +48,8 @@ public class Aadl2ReferenceUpdaterDispatcher extends ReferenceUpdaterDispatcher 
 	@Inject
 	private ILocationInFileProvider locations;
 
-	private static final IReferenceUpdater SYMBOLIC_UPDATER = (arguments, references, acceptor, monitor) -> {
-		for (var reference : references) {
-			if (monitor.isCanceled()) {
-				throw new OperationCanceledException();
-			}
-			var symbolic = (SymbolicReferenceDescription) reference;
-			acceptor.accept(symbolic.getSourceEObjectUri().trimFragment(),
-					new ReplaceEdit(symbolic.region.getOffset(), symbolic.region.getLength(), arguments.getNewName()));
-		}
-	};
+	@Inject
+	private IReferenceUpdater referenceUpdater;
 
 	@Override
 	protected ReferenceDescriptionAcceptor createFindReferenceAcceptor(IRefactoringUpdateAcceptor updateAcceptor) {
@@ -71,22 +61,14 @@ public class Aadl2ReferenceUpdaterDispatcher extends ReferenceUpdaterDispatcher 
 						&& targetURI != null && AnnexUtil.getAnnexRoot(source) != null) {
 					var region = locations.getSignificantTextRegion(source);
 					if (region != null && region.getLength() > 0) {
-						getReferenceUpdater2ReferenceDescriptions().put(SYMBOLIC_UPDATER,
-								new SymbolicReferenceDescription(sourceURI, targetURI, region));
+						getReferenceUpdater2ReferenceDescriptions().put(referenceUpdater,
+								new DefaultReferenceDescription(EcoreUtil2.getFragmentPathURI(source), targetURI, null,
+										-1, null));
 						return;
 					}
 				}
 				super.accept(source, sourceURI, reference, index, target, targetURI);
 			}
 		};
-	}
-
-	private static final class SymbolicReferenceDescription extends DefaultReferenceDescription {
-		private final ITextRegion region;
-
-		private SymbolicReferenceDescription(URI sourceURI, URI targetURI, ITextRegion region) {
-			super(sourceURI, targetURI, null, -1, null);
-			this.region = region;
-		}
 	}
 }
