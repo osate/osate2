@@ -1,0 +1,2 @@
+warning | semantic | 38 | 9 | 5 | Transition priority is not standard numeral syntax: Behavior Annex D.3.
+warning | semantic | 39 | 12 | 3 | Transition priority is not standard numeral syntax: Behavior Annex D.3.
