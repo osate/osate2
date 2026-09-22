@@ -1,0 +1,29 @@
+package Issue3300
+public
+	with Base_Types;
+	system Example
+		features
+			input: in event data port Base_Types::Integer;
+			output: out event data port Base_Types::Integer;
+		flows
+			path1: flow path input -> output;
+	end Example;
+	system implementation Example.i
+		subcomponents
+			DesiredPositionState: data Base_Types::Integer;
+		annex behavior_specification {**
+			variables
+				counter: Base_Types::Integer;
+			states
+				idle: initial state;
+				done: final state;
+			transitions
+				idle -[]-> done {
+					counter := input;
+					counter := input'count;
+					DesiredPositionState := counter;
+					output!(DesiredPositionState)
+				};
+		**};
+	end Example.i;
+end Issue3300;
