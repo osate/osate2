@@ -1,0 +1,19 @@
+===== annex[0] owner=Issue3290::host.impl =====
+
+\t\t\tstates
+\t\t\t\twaiting: initial complete state;
+\t\t\ttransitions
+\t\t\t\t-- An event port and an event data port of the component are dispatch triggers.
+\t\t\t\tevent_trigger: waiting -[on dispatch wake]-> waiting;
+\t\t\t\tdata_event_trigger: waiting -[on dispatch command]-> waiting;
+\t\t\t\t-- So is an incoming event port reached through a feature group.
+\t\t\t\tgroup_trigger: waiting -[on dispatch signals.completion]-> waiting;
+\t\t\t\t-- Every operand of a conjunction and of a disjunction is checked, and each of these is a port.
+\t\t\t\tconjunction: waiting -[on dispatch wake and command]-> waiting;
+\t\t\t\tdisjunction: waiting -[on dispatch wake or signals.completion]-> waiting;
+\t\t\t\t-- A subprogram access named as the whole condition is a dispatch trigger condition in its own right,
+\t\t\t\t-- which the translator installs directly instead of as a trigger of a conjunction.
+\t\t\t\tsubprogram_trigger: waiting -[on dispatch rpc]-> waiting;
+\t\t
+----- Xtext reparse -----
+reparsed

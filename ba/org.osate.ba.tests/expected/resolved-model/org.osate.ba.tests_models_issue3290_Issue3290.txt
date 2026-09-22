@@ -1,0 +1,36 @@
+annex[0] owner=Issue3290::host.impl
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    states[0] : BehaviorState name=waiting
+    transitions[0] : BehaviorTransition name=event_trigger
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchTriggerLogicalExpression
+          dispatchConjunctions[0] : DispatchConjunction
+            dispatchTriggers[0] : EventPortHolder element=Issue3290::host.wake [EventPort]
+    transitions[1] : BehaviorTransition name=data_event_trigger
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchTriggerLogicalExpression
+          dispatchConjunctions[0] : DispatchConjunction
+            dispatchTriggers[0] : EventDataPortHolder element=Issue3290::host.command [EventDataPort]
+    transitions[2] : BehaviorTransition name=group_trigger
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchTriggerLogicalExpression
+          dispatchConjunctions[0] : DispatchConjunction
+            dispatchTriggers[0] : EventPortHolder element=Issue3290::cmd_signals.completion [EventPort]
+              groupHolders[0] : GroupHolder element=Issue3290::host.signals [FeatureGroup]
+    transitions[3] : BehaviorTransition name=conjunction
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchTriggerLogicalExpression
+          dispatchConjunctions[0] : DispatchConjunction
+            dispatchTriggers[0] : EventPortHolder element=Issue3290::host.wake [EventPort]
+            dispatchTriggers[1] : EventDataPortHolder element=Issue3290::host.command [EventDataPort]
+    transitions[4] : BehaviorTransition name=disjunction
+      condition : DispatchCondition
+        dispatchTriggerCondition : DispatchTriggerLogicalExpression
+          dispatchConjunctions[0] : DispatchConjunction
+            dispatchTriggers[0] : EventPortHolder element=Issue3290::host.wake [EventPort]
+          dispatchConjunctions[1] : DispatchConjunction
+            dispatchTriggers[0] : EventPortHolder element=Issue3290::cmd_signals.completion [EventPort]
+              groupHolders[0] : GroupHolder element=Issue3290::host.signals [FeatureGroup]
+    transitions[5] : BehaviorTransition name=subprogram_trigger
+      condition : DispatchCondition
+        dispatchTriggerCondition : SubprogramAccessHolder element=Issue3290::host.rpc [SubprogramAccess]
