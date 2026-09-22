@@ -1,4 +1,0 @@
-error | semantic | 72 | 22 | 22 | There is no applicable operator ">" for type unknown
-error | semantic | 73 | 28 | 22 | There is no applicable operator "-" for type unknown
-error | semantic | 77 | 28 | 22 | There is no applicable operator ">=" for type unknown
-error | semantic | 82 | 28 | 23 | There is no applicable operator "+" for type unknown
