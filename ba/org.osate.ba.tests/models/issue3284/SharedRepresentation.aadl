@@ -111,6 +111,17 @@ public
 				promoted: start -[]-> done {
 					float_a := int_a + float_b
 				};
+				-- Integer, fixed point, and floating point are ordered, so a conversion up that order keeps the value.
+				widened_order: start -[]-> done {
+					fixed_a := int_a;
+					float_a := fixed_a
+				};
+				-- A conversion down that order may lose precision, so it is a warning rather than a note.
+				narrowed: start -[]-> done {
+					int_a := float_a;
+					int_a := fixed_a;
+					fixed_a := float_a
+				};
 				-- Booleans and enumerations are not numeric, so a shared representation is not enough for them.
 				unrelaxed: start -[]-> done {
 					flag_a := flag_b;

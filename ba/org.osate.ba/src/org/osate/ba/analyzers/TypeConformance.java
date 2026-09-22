@@ -38,8 +38,11 @@ public enum TypeConformance {
 	/** Two different numeric classifiers that share a data representation. */
 	REPRESENTATION,
 
-	/** An integer value where a floating point one is expected. */
-	WIDENED;
+	/** A numeric value where one of a wider representation is expected, which keeps its value. */
+	WIDENED,
+
+	/** A numeric value where one of a narrower representation is expected, which may lose precision. */
+	NARROWED;
 
 	/** Returns {@code true} when the types conform at all. */
 	public boolean conforms() {
@@ -48,6 +51,25 @@ public enum TypeConformance {
 
 	/** Returns {@code true} when the conformance rests on something the declared types do not state. */
 	public boolean isConverted() {
-		return this == REPRESENTATION || this == WIDENED;
+		return this == REPRESENTATION || this == WIDENED || this == NARROWED;
+	}
+
+	/**
+	 * Returns the stronger of two conformances. Neither operand of an operator is the expected one, so an operand check
+	 * tries both orders and keeps the better result: a narrowing one way is a widening the other, and the operation is
+	 * performed at the wider representation.
+	 */
+	public static TypeConformance best(TypeConformance first, TypeConformance second) {
+		return first.strength() >= second.strength() ? first : second;
+	}
+
+	private int strength() {
+		return switch (this) {
+		case EXACT -> 4;
+		case REPRESENTATION -> 3;
+		case WIDENED -> 2;
+		case NARROWED -> 1;
+		case NONE -> 0;
+		};
 	}
 }

@@ -94,9 +94,9 @@ public class Issue3199Test extends XtextTest {
 	public void numericWideningIsNoted() throws Exception {
 		assertDiagnostics("NumericTypes", List.of(
 				new Expected(Severity.INFO, "integer_value",
-						"The assignment widens an integer value to 'Base_Types::Float'"),
+						"The assignment widens 'Base_Types::Integer' to 'Base_Types::Float'"),
 				new Expected(Severity.INFO, "integer_value + real_value",
-						"Operator \"+\" mixes integer and floating point operands: Base_Types::Integer and Base_Types::Float, giving Base_Types::Float")));
+						"Operator \"+\" mixes numeric representations: Base_Types::Integer and Base_Types::Float, giving Base_Types::Float")));
 	}
 
 	@Test

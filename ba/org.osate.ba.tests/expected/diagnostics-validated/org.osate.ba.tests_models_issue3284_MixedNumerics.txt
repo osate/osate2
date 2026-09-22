@@ -1,4 +1,4 @@
-error | semantic | 58 | 19 | 7 | type error for 'assignment', 'MixedNumerics::int_type' expected, found 'universal real'.
 error | semantic | 62 | 19 | 17 | Invalid operand types for operator "mod": left operand has type universal integer, right operand has type MixedNumerics::percent_type
-error | semantic | 66 | 19 | 11 | type error for 'assignment', 'MixedNumerics::int_type' expected, found 'MixedNumerics::ratio_type'.
-info | semantic | 69 | 21 | 23 | Operator "+" mixes integer and floating point operands: MixedNumerics::int_type and MixedNumerics::ratio_type, giving MixedNumerics::ratio_type
+info | semantic | 69 | 21 | 23 | Operator "+" mixes numeric representations: MixedNumerics::int_type and MixedNumerics::ratio_type, giving MixedNumerics::ratio_type
+warning | semantic | 58 | 19 | 7 | The assignment narrows 'universal real' to 'MixedNumerics::int_type', which may lose precision
+warning | semantic | 66 | 19 | 11 | The assignment narrows 'MixedNumerics::ratio_type' to 'MixedNumerics::int_type', which may lose precision

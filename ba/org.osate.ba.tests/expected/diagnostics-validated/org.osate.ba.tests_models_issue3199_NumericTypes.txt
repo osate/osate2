@@ -1,2 +1,2 @@
-info | semantic | 40 | 53 | 13 | The assignment widens an integer value to 'Base_Types::Float'
-info | semantic | 42 | 51 | 26 | Operator "+" mixes integer and floating point operands: Base_Types::Integer and Base_Types::Float, giving Base_Types::Float
+info | semantic | 40 | 53 | 13 | The assignment widens 'Base_Types::Integer' to 'Base_Types::Float'
+info | semantic | 42 | 51 | 26 | Operator "+" mixes numeric representations: Base_Types::Integer and Base_Types::Float, giving Base_Types::Float

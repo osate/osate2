@@ -43,19 +43,20 @@ import com.google.inject.Inject;
 import com.itemis.xtext.testing.XtextTest;
 
 /**
- * Numeric conformance. A classifier-less integer conforms to a fixed point or floating point representation as well as
- * to an integer, and needs no note because a literal has no declared type to convert from. Classifier-typed numerics
- * conform when they share a representation, and an integer widens to a floating point one; both are accepted and noted,
- * because the model relies on a conversion it does not state.
+ * Numeric conformance. Integer, fixed point, and floating point are ordered by the values they hold. A conversion up
+ * that order keeps the value and is noted; a conversion down it may lose precision and is warned about. Two numeric
+ * types that share a representation conform and are noted. A classifier-less integer conforms to any of the three and
+ * is not reported at all, because a literal has no declared type to convert from.
  * <p>
- * What stays an error: narrowing a real to an integer, {@code mod} and {@code rem} on a real operand, and a shared
- * representation between types that are not numeric. The result of a mixed expression is floating point, which is what
- * makes the narrowing error reachable.
+ * What stays an error: {@code mod} or {@code rem} on a real operand, and a shared representation between types that are
+ * not numeric. A mixed expression takes the wider representation, which is what makes the narrowing diagnostic on its
+ * result reachable rather than silently integral.
  */
 @RunWith(XtextRunner.class)
 @InjectWith(BehaviorAnnexInjectorProvider.class)
 public class Issue3284Test extends XtextTest {
 	private static final String PATH = "org.osate.ba.tests/models/issue3284/";
+	private static final String PKG = "SharedRepresentation";
 
 	@Inject
 	private TestHelper<AadlPackage> testHelper;
@@ -69,50 +70,68 @@ public class Issue3284Test extends XtextTest {
 	}
 
 	/**
-	 * Narrowing stays an error. Mixing integer and floating point operands is accepted and noted, and the note is the
-	 * evidence that the result is floating point rather than integral.
+	 * Narrowing is warned about rather than rejected. The warning on the mixed literal expression is the evidence that
+	 * its result is floating point rather than integral, and {@code mod} still refuses a real operand outright.
 	 */
 	@Test
-	public void narrowingStaysAnErrorAndMixingIsNoted() throws Exception {
+	public void narrowingWarnsAndMixingIsNoted() throws Exception {
 		assertDiagnostics("MixedNumerics", List.of(
-				new Expected(Severity.ERROR, "1 + 1.0",
-						"type error for 'assignment', 'MixedNumerics::int_type' expected, found 'universal real'."),
+				new Expected(Severity.WARNING, "1 + 1.0",
+						"The assignment narrows 'universal real' to 'MixedNumerics::int_type', which may lose precision"),
 				new Expected(Severity.ERROR, "1 mod fixed_value",
 						"Invalid operand types for operator \"mod\": left operand has type universal integer, right operand has type MixedNumerics::percent_type"),
-				new Expected(Severity.ERROR, "float_value",
-						"type error for 'assignment', 'MixedNumerics::int_type' expected, found 'MixedNumerics::ratio_type'."),
+				new Expected(Severity.WARNING, "float_value",
+						"The assignment narrows 'MixedNumerics::ratio_type' to 'MixedNumerics::int_type', which may lose precision"),
 				new Expected(Severity.INFO, "int_value + float_value",
-						"Operator \"+\" mixes integer and floating point operands: MixedNumerics::int_type and MixedNumerics::ratio_type, giving MixedNumerics::ratio_type")));
+						"Operator \"+\" mixes numeric representations: MixedNumerics::int_type and MixedNumerics::ratio_type, giving MixedNumerics::ratio_type")));
 	}
 
 	/**
-	 * Numeric types that share only a data representation conform, and an integer widens to a floating point target.
-	 * Both are accepted and noted. Booleans and enumerations are not numeric, so a shared representation is not enough
-	 * for them and those two assignments stay errors.
+	 * Integer, fixed point, and floating point are ordered by the values they hold. A conversion up that order keeps the
+	 * value and is noted; a conversion down it may lose precision and is warned about. Types that share a representation
+	 * conform and are noted. Booleans and enumerations are not numeric, so a shared representation is not enough for
+	 * them and those two assignments stay errors.
 	 */
 	@Test
-	public void sharedRepresentationsAndWideningAreAcceptedWithANote() throws Exception {
+	public void numericConversionsAreNotedAndNarrowingIsWarnedAbout() throws Exception {
 		assertDiagnostics("SharedRepresentation", List.of(
-				new Expected(Severity.INFO, "int_b",
-						"The assignment relies on the shared data representation of 'SharedRepresentation::first_integer' and 'SharedRepresentation::second_integer'"),
-				new Expected(Severity.INFO, "float_b",
-						"The assignment relies on the shared data representation of 'SharedRepresentation::first_float' and 'SharedRepresentation::second_float'"),
-				new Expected(Severity.INFO, "fixed_b",
-						"The assignment relies on the shared data representation of 'SharedRepresentation::first_fixed' and 'SharedRepresentation::second_fixed'"),
+				new Expected(Severity.INFO, "int_b", shared("first_integer", "second_integer")),
+				new Expected(Severity.INFO, "float_b", shared("first_float", "second_float")),
+				new Expected(Severity.INFO, "fixed_b", shared("first_fixed", "second_fixed")),
 				new Expected(Severity.INFO, "int_b + int_a",
-						"Operands of \"+\" are different types with the same data representation: SharedRepresentation::second_integer and SharedRepresentation::first_integer"),
-				new Expected(Severity.INFO, "int_b + int_a",
-						"The assignment relies on the shared data representation of 'SharedRepresentation::first_integer' and 'SharedRepresentation::second_integer'"),
-				new Expected(Severity.INFO, "int_a",
-						"The assignment widens an integer value to 'SharedRepresentation::first_float'"),
+						"Operands of \"+\" are different types with the same data representation: %s::second_integer and %s::first_integer"
+								.formatted(PKG, PKG)),
+				new Expected(Severity.INFO, "int_b + int_a", shared("first_integer", "second_integer")),
+				new Expected(Severity.INFO, "int_a", widens("first_integer", "first_float")),
 				new Expected(Severity.INFO, "int_a + float_b",
-						"Operator \"+\" mixes integer and floating point operands: SharedRepresentation::first_integer and SharedRepresentation::second_float, giving SharedRepresentation::second_float"),
-				new Expected(Severity.INFO, "int_a + float_b",
-						"The assignment relies on the shared data representation of 'SharedRepresentation::first_float' and 'SharedRepresentation::second_float'"),
+						"Operator \"+\" mixes numeric representations: %s::first_integer and %s::second_float, giving %s::second_float"
+								.formatted(PKG, PKG, PKG)),
+				new Expected(Severity.INFO, "int_a + float_b", shared("first_float", "second_float")),
+				new Expected(Severity.INFO, "int_a", widens("first_integer", "first_fixed")),
+				new Expected(Severity.INFO, "fixed_a", widens("first_fixed", "first_float")),
+				new Expected(Severity.WARNING, "float_a", narrows("first_float", "first_integer")),
+				new Expected(Severity.WARNING, "fixed_a", narrows("first_fixed", "first_integer")),
+				new Expected(Severity.WARNING, "float_a", narrows("first_float", "first_fixed")),
 				new Expected(Severity.ERROR, "flag_b",
-						"type error for 'assignment', 'SharedRepresentation::first_flag' expected, found 'SharedRepresentation::second_flag'."),
+						"type error for 'assignment', '%s::first_flag' expected, found '%s::second_flag'."
+								.formatted(PKG, PKG)),
 				new Expected(Severity.ERROR, "choice_b",
-						"type error for 'assignment', 'SharedRepresentation::first_choice' expected, found 'SharedRepresentation::second_choice'.")));
+						"type error for 'assignment', '%s::first_choice' expected, found '%s::second_choice'."
+								.formatted(PKG, PKG))));
+	}
+
+	private static String shared(final String expected, final String found) {
+		return "The assignment relies on the shared data representation of '%s::%s' and '%s::%s'".formatted(PKG,
+				expected, PKG, found);
+	}
+
+	private static String widens(final String found, final String expected) {
+		return "The assignment widens '%s::%s' to '%s::%s'".formatted(PKG, found, PKG, expected);
+	}
+
+	private static String narrows(final String found, final String expected) {
+		return "The assignment narrows '%s::%s' to '%s::%s', which may lose precision".formatted(PKG, found, PKG,
+				expected);
 	}
 
 	private void assertDiagnostics(String model, List<Expected> expected) throws Exception {

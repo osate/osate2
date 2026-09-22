@@ -73,25 +73,35 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker {
 					|| hasToCheckDimension && !sameShape(expected, found)) {
 				return TypeConformance.NONE;
 			}
-			// Two numeric classifiers that share a representation describe the same values, so accept the model and
-			// say that the conformance rests on the representation rather than on the declared types.
-			if (isNumeric(expected) && isNumeric(found) && expected.getKlass() != null && found.getKlass() != null) {
-				if (expected.getDataRep() == found.getDataRep()) {
-					return TypeConformance.REPRESENTATION;
-				}
-				// An integer value widens to a floating point one. The reverse loses precision and is not accepted.
-				if (expected.getDataRep() == DataRepresentation.FLOAT
-						&& found.getDataRep() == DataRepresentation.INTEGER) {
-					return TypeConformance.WIDENED;
-				}
+			if (!isNumeric(expected) || !isNumeric(found)) {
+				return TypeConformance.NONE;
 			}
-			return TypeConformance.NONE;
+			if (expected.getDataRep() == found.getDataRep()) {
+				// Two numeric classifiers that share a representation describe the same values, so accept the model
+				// and say that the conformance rests on the representation rather than on the declared types. Only a
+				// declared type can do this; a universal literal is handled above and needs no conversion.
+				return expected.getKlass() != null && found.getKlass() != null ? TypeConformance.REPRESENTATION
+						: TypeConformance.NONE;
+			}
+			// Integer, fixed point, and floating point are ordered by the values they can hold, so a conversion up that
+			// order keeps the value and a conversion down it may lose precision.
+			return numericRank(found) < numericRank(expected) ? TypeConformance.WIDENED : TypeConformance.NARROWED;
 		}
 		return TypeConformance.EXACT;
 	}
 
 	private static boolean isNumeric(TypeHolder type) {
 		return Aadl2Utils.contains(type.getDataRep(), _numTypes);
+	}
+
+	/** Orders the numeric representations by the values they can hold. Returns -1 for a representation that is not numeric. */
+	private static int numericRank(TypeHolder type) {
+		return switch (type.getDataRep()) {
+		case INTEGER -> 0;
+		case FIXED -> 1;
+		case FLOAT -> 2;
+		default -> -1;
+		};
 	}
 
 	/** A symbolic extent is unknown, not zero. Compare rank and each extent only when both are known. */
@@ -180,12 +190,13 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker {
 				&& isExtensionOf(type1.getKlass(), type2.getKlass())) {
 			source = type2;
 		}
-		// An integer mixed with a real denotes a real, whether or not the integer has a classifier. Taking the left
-		// operand here would make the expression integral, which an integer target would then accept.
-		if (type1.getDataRep() == DataRepresentation.INTEGER && isReal(type2)) {
-			source = type2;
-		} else if (type2.getDataRep() == DataRepresentation.INTEGER && isReal(type1)) {
-			source = type1;
+		// The operation is performed at the wider representation, so the expression must not come out narrower than an
+		// operand: a narrower result would be accepted by a narrower target without the precision loss being reported.
+		// A universal literal does not impose its representation on a declared type, which is what lets a real literal
+		// combine with a fixed point value.
+		var other = source == type1 ? type2 : type1;
+		if (numericRank(other) > numericRank(source) && (other.getKlass() != null || source.getKlass() == null)) {
+			source = other;
 		}
 		var result = new TypeHolder(source.getDataRep(), source.getKlass());
 		result.setDimension(source.getDimension());
@@ -199,11 +210,9 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker {
 			TypeHolder operand2) {
 		// Operator ** has special consistency checking.
 		if (operator != BinaryNumericOperator.MULTIPLY_MULTIPLY) {
-			// Neither operand is the expected one, so a widening in either direction is acceptable here.
-			var conformance = checkConformance(operand1, operand2, true);
-			if (!conformance.conforms()) {
-				conformance = checkConformance(operand2, operand1, true);
-			}
+			// Neither operand is the expected one, so take the better of the two orders.
+			var conformance = TypeConformance.best(checkConformance(operand1, operand2, true),
+					checkConformance(operand2, operand1, true));
 			if (!conformance.conforms()) {
 				reportErrorConsystency(e, operator, operand1, operand2);
 				return null;
@@ -367,13 +376,13 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker {
 	 */
 	private void reportOperandConversion(BehaviorElement e, Enumerator operator, TypeHolder operand1,
 			TypeHolder operand2, TypeConformance conformance) {
-		if (conformance == TypeConformance.WIDENED) {
-			_errManager.info(e, "Operator \"" + operator.getLiteral() + "\" mixes integer and floating point operands: "
-					+ operand1 + " and " + operand2 + ", giving "
-					+ getTopLevelTypeWithoutConsistencyChecking(operand1, operand2));
-		} else {
+		if (conformance == TypeConformance.REPRESENTATION) {
 			_errManager.info(e, "Operands of \"" + operator.getLiteral()
 					+ "\" are different types with the same data representation: " + operand1 + " and " + operand2);
+		} else {
+			_errManager.info(e,
+					"Operator \"" + operator.getLiteral() + "\" mixes numeric representations: " + operand1 + " and "
+							+ operand2 + ", giving " + getTopLevelTypeWithoutConsistencyChecking(operand1, operand2));
 		}
 	}
 

@@ -52,8 +52,8 @@ public class Issue3261Test extends XtextTest {
 			+ PKG + "::child_integer' and '" + PKG + "::sibling_integer'";
 	private static final String SHARED_REAL = "The assignment relies on the shared data representation of '" + PKG
 			+ "::real_type' and '" + PKG + "::changed_representation'";
-	private static final String NARROWED = "type error for 'assignment', '" + PKG + "::integer_type' expected, found '"
-			+ PKG + "::changed_representation'.";
+	private static final String NARROWED = "The assignment narrows '" + PKG + "::changed_representation' to '" + PKG
+			+ "::integer_type', which may lose precision";
 	private static final String UNRELATED_BOOLEAN = "type error for 'assignment', '" + PKG
 			+ "::unrelated_boolean' expected, found '" + PKG + "::child_boolean'.";
 
@@ -86,13 +86,13 @@ public class Issue3261Test extends XtextTest {
 				new Expected(Severity.INFO, "child_value + sibling_value",
 						"Operands of \"+\" are different types with the same data representation: %s::child_integer and %s::sibling_integer"
 								.formatted(PKG, PKG)),
-				new Expected("real_value", NARROWED),
+				new Expected(Severity.WARNING, "real_value", NARROWED),
 				new Expected(Severity.INFO, "base_value",
-						"The assignment widens an integer value to '%s::changed_representation'".formatted(PKG)),
+						"The assignment widens '%s::integer_type' to '%s::changed_representation'".formatted(PKG, PKG)),
 				new Expected(Severity.INFO, "base_value + real_value",
-						"Operator \"+\" mixes integer and floating point operands: %s::integer_type and %s::changed_representation, giving %s::changed_representation"
+						"Operator \"+\" mixes numeric representations: %s::integer_type and %s::changed_representation, giving %s::changed_representation"
 								.formatted(PKG, PKG, PKG)),
-				new Expected("base_value + real_value", NARROWED),
+				new Expected(Severity.WARNING, "base_value + real_value", NARROWED),
 				new Expected("numeric_value",
 						"type error for 'assignment', '%s::opaque' expected, found '%s::numeric_opaque'."
 								.formatted(PKG, PKG)),

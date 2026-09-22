@@ -565,12 +565,15 @@ public class AadlBaTypeChecker {
 	private boolean conforms(BehaviorElement element, String name, TypeHolder expected, TypeHolder found,
 			boolean hasToCheckDimension) {
 		var conformance = dataChecker.checkConformance(expected, found, hasToCheckDimension);
-		if (conformance == TypeConformance.WIDENED) {
-			errManager.info(element,
-					"The " + name + " widens an integer value to '" + expected + "'");
-		} else if (conformance == TypeConformance.REPRESENTATION) {
-			errManager.info(element, "The " + name + " relies on the shared data representation of '" + expected
-					+ "' and '" + found + "'");
+		switch (conformance) {
+		case WIDENED -> errManager.info(element, "The " + name + " widens '" + found + "' to '" + expected + "'");
+		case REPRESENTATION -> errManager.info(element, "The " + name + " relies on the shared data representation of '"
+				+ expected + "' and '" + found + "'");
+		// A narrowing keeps the model but may lose precision, which is more than a note is worth.
+		case NARROWED -> errManager.warning(element,
+				"The " + name + " narrows '" + found + "' to '" + expected + "', which may lose precision");
+		default -> {
+		}
 		}
 		return conformance.conforms();
 	}

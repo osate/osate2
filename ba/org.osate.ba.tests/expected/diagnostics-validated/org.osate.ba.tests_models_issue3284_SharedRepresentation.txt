@@ -1,10 +1,15 @@
-error | semantic | 116 | 16 | 6 | type error for 'assignment', 'SharedRepresentation::first_flag' expected, found 'SharedRepresentation::second_flag'.
-error | semantic | 117 | 18 | 8 | type error for 'assignment', 'SharedRepresentation::first_choice' expected, found 'SharedRepresentation::second_choice'.
+error | semantic | 127 | 16 | 6 | type error for 'assignment', 'SharedRepresentation::first_flag' expected, found 'SharedRepresentation::second_flag'.
+error | semantic | 128 | 18 | 8 | type error for 'assignment', 'SharedRepresentation::first_choice' expected, found 'SharedRepresentation::second_choice'.
 info | semantic | 101 | 15 | 5 | The assignment relies on the shared data representation of 'SharedRepresentation::first_integer' and 'SharedRepresentation::second_integer'
 info | semantic | 102 | 17 | 7 | The assignment relies on the shared data representation of 'SharedRepresentation::first_float' and 'SharedRepresentation::second_float'
 info | semantic | 103 | 17 | 7 | The assignment relies on the shared data representation of 'SharedRepresentation::first_fixed' and 'SharedRepresentation::second_fixed'
 info | semantic | 104 | 15 | 13 | Operands of "+" are different types with the same data representation: SharedRepresentation::second_integer and SharedRepresentation::first_integer
 info | semantic | 104 | 15 | 13 | The assignment relies on the shared data representation of 'SharedRepresentation::first_integer' and 'SharedRepresentation::second_integer'
-info | semantic | 108 | 17 | 5 | The assignment widens an integer value to 'SharedRepresentation::first_float'
-info | semantic | 112 | 17 | 15 | Operator "+" mixes integer and floating point operands: SharedRepresentation::first_integer and SharedRepresentation::second_float, giving SharedRepresentation::second_float
+info | semantic | 108 | 17 | 5 | The assignment widens 'SharedRepresentation::first_integer' to 'SharedRepresentation::first_float'
+info | semantic | 112 | 17 | 15 | Operator "+" mixes numeric representations: SharedRepresentation::first_integer and SharedRepresentation::second_float, giving SharedRepresentation::second_float
 info | semantic | 112 | 17 | 15 | The assignment relies on the shared data representation of 'SharedRepresentation::first_float' and 'SharedRepresentation::second_float'
+info | semantic | 116 | 17 | 5 | The assignment widens 'SharedRepresentation::first_integer' to 'SharedRepresentation::first_fixed'
+info | semantic | 117 | 17 | 7 | The assignment widens 'SharedRepresentation::first_fixed' to 'SharedRepresentation::first_float'
+warning | semantic | 121 | 15 | 7 | The assignment narrows 'SharedRepresentation::first_float' to 'SharedRepresentation::first_integer', which may lose precision
+warning | semantic | 122 | 15 | 7 | The assignment narrows 'SharedRepresentation::first_fixed' to 'SharedRepresentation::first_integer', which may lose precision
+warning | semantic | 123 | 17 | 7 | The assignment narrows 'SharedRepresentation::first_float' to 'SharedRepresentation::first_fixed', which may lose precision
