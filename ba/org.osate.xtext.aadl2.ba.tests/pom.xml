@@ -12,4 +12,12 @@
     <artifactId>org.osate.xtext.aadl2.ba.tests</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>eclipse-test-plugin</packaging>
+
+    <repositories>
+        <repository>
+            <id>eclipse</id>
+            <url>${eclipse.repo.url}</url>
+            <layout>p2</layout>
+        </repository>
+    </repositories>
 </project>
