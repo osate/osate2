@@ -1,0 +1,21 @@
+package LspTypes
+public
+	with Base_Types;
+	data Value extends Base_Types::Integer
+	end Value;
+	system Example
+		features
+			input: in data port Value;
+	end Example;
+	system implementation Example.i
+		annex behavior_specification {**
+			variables
+				counter: LspTypes::Value;
+			states
+				idle: initial state;
+				done: final state;
+			transitions
+				idle -[]-> done { counter := input };
+		**};
+	end Example.i;
+end LspTypes;

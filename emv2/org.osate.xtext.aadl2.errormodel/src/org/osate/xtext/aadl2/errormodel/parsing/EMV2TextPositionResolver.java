@@ -34,6 +34,7 @@ import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.nodemodel.ILeafNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
@@ -47,6 +48,7 @@ import org.osate.annexsupport.TextPositionInfo;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 
 /**
  * @since 8.0
@@ -64,7 +66,8 @@ public class EMV2TextPositionResolver implements AnnexTextPositionResolver {
 			if (path.size() == tokens.size()) {
 				for (var index = 0; index < path.size(); index++) {
 					var token = tokens.get(index);
-					if (path.get(index) instanceof Feature feature && offset >= token.getOffset()
+					var feature = path.get(index);
+					if (isFeatureOrPoint(feature) && offset >= token.getOffset()
 							&& offset < token.getEndOffset()) {
 						return new TextPositionInfo(feature, token.getOffset(), token.getLength());
 					}
@@ -113,7 +116,7 @@ public class EMV2TextPositionResolver implements AnnexTextPositionResolver {
 		for (var propagation : propagations) {
 			checkCanceled(monitor);
 			if (!propagation.eIsProxy() && featurePath(propagation).stream()
-					.anyMatch(feature -> feature instanceof Feature && isTarget.test(feature))) {
+					.anyMatch(feature -> isFeatureOrPoint(feature) && isTarget.test(feature))) {
 				acceptor.accept(propagation);
 			}
 		}
@@ -121,7 +124,7 @@ public class EMV2TextPositionResolver implements AnnexTextPositionResolver {
 
 	@Override
 	public TextPositionInfo getReferencePosition(EObject source, EReference reference, int index, EObject target) {
-		if (!(target instanceof Feature) || reference == null || reference.isDerived()) {
+		if (!isFeatureOrPoint(target) || reference == null || reference.isDerived()) {
 			return null;
 		}
 		var value = source.eGet(reference);
@@ -137,7 +140,8 @@ public class EMV2TextPositionResolver implements AnnexTextPositionResolver {
 				var tokens = tokens(nodes.get(nodeIndex));
 				if (path.size() == tokens.size()) {
 					for (var segment = 0; segment < path.size(); segment++) {
-						if (path.get(segment) == target) {
+						if (EcoreUtil2.getPlatformResourceOrNormalizedURI(path.get(segment))
+								.equals(EcoreUtil2.getPlatformResourceOrNormalizedURI(target))) {
 							var token = tokens.get(segment);
 							return new TextPositionInfo(target, token.getOffset(), token.getLength());
 						}
@@ -146,6 +150,10 @@ public class EMV2TextPositionResolver implements AnnexTextPositionResolver {
 			}
 		}
 		return null;
+	}
+
+	private static boolean isFeatureOrPoint(EObject element) {
+		return element instanceof Feature || element instanceof PropagationPoint;
 	}
 
 	private static List<NamedElement> featurePath(ErrorPropagation propagation) {

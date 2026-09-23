@@ -53,7 +53,6 @@ import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.occurrences.DefaultOccurrenceComputer;
 import org.eclipse.xtext.util.CancelIndicator;
 import org.eclipse.xtext.util.ITextRegion;
-import org.eclipse.xtext.util.TextRegion;
 import org.eclipse.xtext.util.concurrent.CancelableUnitOfWork;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
@@ -62,10 +61,8 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyType;
-import org.osate.annexsupport.AnnexRegistry;
-import org.osate.annexsupport.AnnexTextPositionResolverRegistry;
-import org.osate.annexsupport.AnnexUtil;
 import org.osate.xtext.aadl2.util.Aadl2LocationInFile;
+import org.osate.xtext.aadl2.util.Aadl2ReferencePositionProvider;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -75,6 +72,8 @@ import com.google.inject.Provider;
  */
 @SuppressWarnings("restriction")
 public class Aadl2OccurrenceComputer extends DefaultOccurrenceComputer {
+	@Inject
+	private Aadl2ReferencePositionProvider referencePositions;
 
 	@Inject
 	private EObjectAtOffsetHelper eObjectAtOffsetHelper;
@@ -173,7 +172,7 @@ public class Aadl2OccurrenceComputer extends DefaultOccurrenceComputer {
 								if (localMonitor.isCanceled()) {
 									return emptyMap();
 								}
-								ITextRegion textRegion = getReferenceRegion(highlightMe.source, highlightMe.reference,
+								ITextRegion textRegion = referencePositions.getReferenceRegion(highlightMe.source, highlightMe.reference,
 										highlightMe.idx, target);
 								if (target instanceof ComponentImplementation) {
 									ComponentImplementation impl = (ComponentImplementation) target;
@@ -204,27 +203,12 @@ public class Aadl2OccurrenceComputer extends DefaultOccurrenceComputer {
 		}
 	}
 
-	private ITextRegion getReferenceRegion(EObject source, EReference reference, int index, EObject target) {
-		if (AnnexUtil.getAnnexRoot(source) instanceof NamedElement annex && annex.getName() != null) {
-			var registry = (AnnexTextPositionResolverRegistry) AnnexRegistry
-					.getRegistry(AnnexRegistry.ANNEX_TEXTPOSITIONRESOLVER_EXT_ID);
-			var resolver = registry == null ? null : registry.getTextPositionResolver(annex.getName());
-			if (resolver != null) {
-				var position = resolver.getReferencePosition(source, reference, index, target);
-				if (position != null && position.getLength() > 0) {
-					return new TextRegion(position.getOffset(), position.getLength());
-				}
-			}
-		}
-		return locationInFileProvider.getSignificantTextRegion(source, reference, index);
-	}
-
 	protected ITextRegion getAdjustedRegion(IXtextDocument document, ITextRegion original, String name,
 			ITextRegion notFound)
 			throws BadLocationException {
 		String text = document.get(original.getOffset(), original.getLength());
-		int offset = text.indexOf(name);
-		return (offset < 0) ? notFound : new TextRegion(original.getOffset() + offset, name.length());
+		var region = referencePositions.getNameRegion(original, text, name);
+		return region == null ? notFound : region;
 	}
 
 }

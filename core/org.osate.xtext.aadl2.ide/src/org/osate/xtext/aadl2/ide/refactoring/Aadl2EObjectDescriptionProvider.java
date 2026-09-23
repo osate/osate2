@@ -21,56 +21,43 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.xtext.aadl2.ide;
+package org.osate.xtext.aadl2.ide.refactoring;
 
-import org.eclipse.xtext.ide.editor.syntaxcoloring.ISemanticHighlightingCalculator;
-import org.eclipse.xtext.ide.refactoring.IRenameStrategy2;
-import org.eclipse.xtext.ide.serializer.hooks.IEObjectDescriptionProvider;
-import org.eclipse.xtext.ide.server.occurrences.IDocumentHighlightService;
-import org.eclipse.xtext.ide.server.rename.IRenameService2;
-import org.eclipse.xtext.ide.server.symbol.DocumentSymbolService;
-import org.osate.xtext.aadl2.ide.highlighting.Aadl2DocumentHighlightService;
-import org.osate.xtext.aadl2.ide.refactoring.Aadl2EObjectDescriptionProvider;
-import org.osate.xtext.aadl2.ide.refactoring.Aadl2IdeRenameStrategy;
-import org.osate.xtext.aadl2.ide.refactoring.Aadl2RenameService;
+import java.util.ArrayList;
+import java.util.HashSet;
+
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.xtext.ide.serializer.impl.EObjectDescriptionProvider;
+import org.eclipse.xtext.naming.QualifiedName;
+import org.eclipse.xtext.resource.EObjectDescription;
+import org.eclipse.xtext.resource.IEObjectDescription;
+import org.osate.aadl2.NamedElement;
+import org.osate.annexsupport.AnnexUtil;
 
 /**
- * Use this class to register ide components.
+ * Records local AADL names for serializer deltas without exporting them to the
+ * workspace index. Features, modes, and subcomponents intentionally have no
+ * global qualified-name description.
  */
-public class Aadl2IdeModule extends AbstractAadl2IdeModule {
-
-	public Class<? extends ISemanticHighlightingCalculator> bindSemanticHighlightingCalculator() {
-		return org.osate.xtext.aadl2.ide.highlighting.Aadl2SemanticHighlightingCalculator.class;
-	}
-
+public class Aadl2EObjectDescriptionProvider extends EObjectDescriptionProvider {
 	@Override
-	public Class<? extends IRenameStrategy2> bindIRenameStrategy2() {
-		return Aadl2IdeRenameStrategy.class;
-	}
-
-	/**
-	 * @since 2.1
-	 */
-	public Class<? extends IEObjectDescriptionProvider> bindIEObjectDescriptionProvider() {
-		return Aadl2EObjectDescriptionProvider.class;
-	}
-
-	@Override
-	public Class<? extends IRenameService2> bindIRenameService2() {
-		return Aadl2RenameService.class;
-	}
-
-	/**
-	 * @since 2.1
-	 */
-	public Class<? extends IDocumentHighlightService> bindIDocumentHighlightService() {
-		return Aadl2DocumentHighlightService.class;
-	}
-
-	/**
-	 * @since 2.1
-	 */
-	public Class<? extends DocumentSymbolService> bindDocumentSymbolService() {
-		return Aadl2DocumentSymbolService.class;
+	public Iterable<IEObjectDescription> getEObjectDescriptions(Resource resource) {
+		var result = new ArrayList<IEObjectDescription>();
+		var described = new HashSet<EObject>();
+		for (var description : super.getEObjectDescriptions(resource)) {
+			result.add(description);
+			described.add(description.getEObjectOrProxy());
+		}
+		var contents = resource.getAllContents();
+		while (contents.hasNext()) {
+			var object = contents.next();
+			if (AnnexUtil.getAnnexRoot(object) != null) {
+				contents.prune();
+			} else if (object instanceof NamedElement named && named.getName() != null && !described.contains(object)) {
+				result.add(EObjectDescription.create(QualifiedName.create(named.getName()), object));
+			}
+		}
+		return result;
 	}
 }
