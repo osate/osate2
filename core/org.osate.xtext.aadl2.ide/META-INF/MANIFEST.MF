@@ -6,6 +6,8 @@ Bundle-Version: 2.0.0.qualifier
 Bundle-SymbolicName: org.osate.xtext.aadl2.ide;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext;bundle-version="[2.20.0,3.0.0)",
+ org.eclipse.lsp4j,
+ org.eclipse.lsp4j.jsonrpc,
  org.eclipse.xtext.ide;bundle-version="[2.20.0,3.0.0)",
  org.eclipse.xtext.xbase.lib;bundle-version="[2.20.0,3.0.0)",
  org.eclipse.xtext.util;bundle-version="[2.20.0,3.0.0)",

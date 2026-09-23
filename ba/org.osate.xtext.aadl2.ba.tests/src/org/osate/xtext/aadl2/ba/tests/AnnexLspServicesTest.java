@@ -25,6 +25,8 @@ package org.osate.xtext.aadl2.ba.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayInputStream;
@@ -48,6 +50,8 @@ import org.eclipse.lsp4j.InitializeParams;
 import org.eclipse.lsp4j.InitializeResult;
 import org.eclipse.lsp4j.PrepareRenameParams;
 import org.eclipse.lsp4j.Range;
+import org.eclipse.lsp4j.ReferenceContext;
+import org.eclipse.lsp4j.ReferenceParams;
 import org.eclipse.lsp4j.RenameOptions;
 import org.eclipse.lsp4j.RenameParams;
 import org.eclipse.lsp4j.ServerCapabilities;
@@ -63,7 +67,9 @@ import org.eclipse.xtext.ide.server.symbol.DocumentSymbolService;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
+import org.eclipse.xtext.resource.impl.ChunkedResourceDescriptions;
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsData;
+import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
 import org.eclipse.xtext.resource.persistence.SerializableResourceDescription;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
@@ -174,6 +180,52 @@ public class AnnexLspServicesTest extends XtextTest {
 		assertHighlights(load("issue3300", "Issue3300.aadl"), "counter", 1, 4);
 	}
 
+	@Test
+	public void renamesPropagationPointAndSyntheticUses() throws Exception {
+		assertRename(load("issue3302", "PropagationPoints.aadl"), "up1", 0, "renamed_point");
+	}
+
+	@Test
+	public void preservesCoreClassifierRename() throws Exception {
+		assertRename(load("issue3300", "Issue3300.aadl"), "Example", 0, "RenamedExample");
+	}
+
+	@Test
+	public void doesNotPrepareRenameOnAnnexKeyword() throws Exception {
+		var resource = load("issue3300", "Issue3300.aadl");
+		var options = new IRenameService2.PrepareRenameOptions();
+		options.setLanguageServerAccess(new Access());
+		options.setCancelIndicator(CancelIndicator.NullImpl);
+		options.setParams(new PrepareRenameParams(new TextDocumentIdentifier(resource.getURI().toString()),
+				document(resource.getURI()).getPosition(offset(resource, "states", 0))));
+		assertNull(injector.getInstance(IRenameService2.class).prepareRename(options));
+	}
+
+	@Test
+	public void honorsHighlightCancellation() throws Exception {
+		var resource = load("issue3300", "Issue3300.aadl");
+		var doc = document(resource.getURI());
+		var params = new DocumentHighlightParams(new TextDocumentIdentifier(resource.getURI().toString()),
+				doc.getPosition(offset(resource, "counter", 1)));
+		assertThrows(org.eclipse.core.runtime.OperationCanceledException.class, () -> injector
+				.getInstance(IDocumentHighlightService.class).getDocumentHighlights(doc, resource, params, () -> true));
+	}
+
+	@Test
+	public void includesBehaviorDeclarationInReferenceSearch() throws Exception {
+		assertReferences(load("issue3300", "Issue3300.aadl"), "counter", 0, 4, true);
+	}
+
+	@Test
+	public void includesCoreDeclarationFromEmv2Flow() throws Exception {
+		assertReferences(load("issue3308", "Qualified.aadl"), "left", 2, 3, true);
+	}
+
+	@Test
+	public void preservesQualifiedAnnexClassifierReference() throws Exception {
+		assertRename(load("lspServices", "QualifiedTypes.aadl"), "Value", 0, "NewValue");
+	}
+
 	private XtextResource load(String project, String primary, String... additional) throws Exception {
 		String prefix = "org.osate.xtext.aadl2.ba.tests/models/" + project + "/";
 		var pkg = helper.parseFile(prefix + primary,
@@ -218,8 +270,17 @@ public class AnnexLspServicesTest extends XtextTest {
 	}
 
 	private void assertReferences(XtextResource resource, String token, int occurrence, int expected) {
-		var result = injector.getInstance(DocumentSymbolService.class).getReferences(resource,
-				offset(resource, token, occurrence), new IReferenceFinder.IResourceAccess() {
+		assertReferences(resource, token, occurrence, expected, false);
+	}
+
+	private void assertReferences(XtextResource resource, String token, int occurrence, int expected,
+			boolean includeDeclaration) {
+		var result = injector.getInstance(DocumentSymbolService.class).getReferences(document(resource.getURI()),
+				resource,
+				new ReferenceParams(new TextDocumentIdentifier(resource.getURI().toString()),
+						document(resource.getURI()).getPosition(offset(resource, token, occurrence)),
+						new ReferenceContext(includeDeclaration)),
+				new IReferenceFinder.IResourceAccess() {
 					@Override
 					public <T> T readOnly(URI uri, IUnitOfWork<T, ResourceSet> work) {
 						try {
@@ -355,7 +416,8 @@ public class AnnexLspServicesTest extends XtextTest {
 		@Override
 		public ResourceSet newLiveScopeResourceSet(URI uri) {
 			var result = freshResourceSet();
-			ResourceDescriptionsData.ResourceSetAdapter.installResourceDescriptionsData(result, index);
+			new ChunkedResourceDescriptions(Map.of("test", index), result);
+			result.getLoadOptions().put(ResourceDescriptionsProvider.LIVE_SCOPE, Boolean.TRUE);
 			return result;
 		}
 		@Override
