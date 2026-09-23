@@ -62,6 +62,9 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyType;
+import org.osate.annexsupport.AnnexRegistry;
+import org.osate.annexsupport.AnnexTextPositionResolverRegistry;
+import org.osate.annexsupport.AnnexUtil;
 import org.osate.xtext.aadl2.util.Aadl2LocationInFile;
 
 import com.google.inject.Inject;
@@ -170,8 +173,8 @@ public class Aadl2OccurrenceComputer extends DefaultOccurrenceComputer {
 								if (localMonitor.isCanceled()) {
 									return emptyMap();
 								}
-								ITextRegion textRegion = locationInFileProvider.getSignificantTextRegion(
-										highlightMe.source, highlightMe.reference, highlightMe.idx);
+								ITextRegion textRegion = getReferenceRegion(highlightMe.source, highlightMe.reference,
+										highlightMe.idx, target);
 								if (target instanceof ComponentImplementation) {
 									ComponentImplementation impl = (ComponentImplementation) target;
 									textRegion = getAdjustedRegion(document, textRegion, impl.getImplementationName(),
@@ -199,6 +202,21 @@ public class Aadl2OccurrenceComputer extends DefaultOccurrenceComputer {
 		} else {
 			return emptyMap();
 		}
+	}
+
+	private ITextRegion getReferenceRegion(EObject source, EReference reference, int index, EObject target) {
+		if (AnnexUtil.getAnnexRoot(source) instanceof NamedElement annex && annex.getName() != null) {
+			var registry = (AnnexTextPositionResolverRegistry) AnnexRegistry
+					.getRegistry(AnnexRegistry.ANNEX_TEXTPOSITIONRESOLVER_EXT_ID);
+			var resolver = registry == null ? null : registry.getTextPositionResolver(annex.getName());
+			if (resolver != null) {
+				var position = resolver.getReferencePosition(source, reference, index, target);
+				if (position != null && position.getLength() > 0) {
+					return new TextRegion(position.getOffset(), position.getLength());
+				}
+			}
+		}
+		return locationInFileProvider.getSignificantTextRegion(source, reference, index);
 	}
 
 	protected ITextRegion getAdjustedRegion(IXtextDocument document, ITextRegion original, String name,

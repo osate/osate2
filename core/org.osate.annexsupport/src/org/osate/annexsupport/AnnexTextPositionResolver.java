@@ -24,9 +24,11 @@
 package org.osate.annexsupport;
 
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 
 public interface AnnexTextPositionResolver {
 	TextPositionInfo resolveElementAt(EObject annexRoot, int offset);
@@ -43,5 +45,25 @@ public interface AnnexTextPositionResolver {
 	 */
 	default void collectReferencePositions(EObject annexRoot, Consumer<TextPositionInfo> acceptor,
 			IProgressMonitor monitor) {
+	}
+
+	/**
+	 * Reports annex elements whose structural references also refer to a selected declaration. The caller retains
+	 * the actual reference metadata and searches only its requested scope. Implementations must honor cancellation.
+	 *
+	 * @since 4.2.2
+	 */
+	default void collectRelatedReferenceTargets(EObject annexRoot, Predicate<EObject> isTarget,
+			Consumer<EObject> acceptor, IProgressMonitor monitor) {
+	}
+
+	/**
+	 * Returns the token representing a selected declaration inside an annex reference, or null for the ordinary
+	 * feature-based text region. This can distinguish segments of a qualified reference to a related annex element.
+	 *
+	 * @since 4.2.2
+	 */
+	default TextPositionInfo getReferencePosition(EObject source, EReference reference, int index, EObject target) {
+		return null;
 	}
 }

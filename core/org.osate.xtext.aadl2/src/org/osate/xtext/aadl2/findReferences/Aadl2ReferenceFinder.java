@@ -23,6 +23,7 @@
  */
 package org.osate.xtext.aadl2.findReferences;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -105,7 +106,7 @@ public class Aadl2ReferenceFinder extends ReferenceFinder {
 		return !hasMetadata && "aadl".equalsIgnoreCase(description.getURI().fileExtension());
 	}
 
-	private static void findAnnexReferences(Predicate<URI> targetURIs, EObject scope, Acceptor acceptor,
+	private void findAnnexReferences(Predicate<URI> targetURIs, EObject scope, Acceptor acceptor,
 			IProgressMonitor monitor) {
 		var annexRoot = AnnexUtil.getAnnexRoot(scope);
 		if (annexRoot != null) {
@@ -128,7 +129,7 @@ public class Aadl2ReferenceFinder extends ReferenceFinder {
 		}
 	}
 
-	private static void findAnnexReferences(Predicate<URI> targetURIs, EObject scope, EObject annex, Acceptor acceptor,
+	private void findAnnexReferences(Predicate<URI> targetURIs, EObject scope, EObject annex, Acceptor acceptor,
 			IProgressMonitor monitor) {
 		var registry = getResolverRegistry();
 		if (registry == null) {
@@ -137,6 +138,22 @@ public class Aadl2ReferenceFinder extends ReferenceFinder {
 		var name = ((NamedElement) annex).getName();
 		var resolver = name == null ? null : registry.getTextPositionResolver(name);
 		if (resolver != null) {
+			var relatedTargets = new LinkedHashSet<URI>();
+			resolver.collectRelatedReferenceTargets(annex,
+					target -> target != null && !target.eIsProxy()
+							&& targetURIs.apply(EcoreUtil2.getPlatformResourceOrNormalizedURI(target)),
+					target -> {
+						if (target != null && !target.eIsProxy()) {
+							var uri = EcoreUtil2.getPlatformResourceOrNormalizedURI(target);
+							if (!targetURIs.apply(uri)) {
+								relatedTargets.add(uri);
+							}
+						}
+					}, monitor);
+			if (!relatedTargets.isEmpty()) {
+				super.findReferences(relatedTargets::contains, EcoreUtil.isAncestor(scope, annex) ? annex : scope,
+						acceptor, monitor);
+			}
 			resolver.collectReferencePositions(annex, position -> {
 				if (position instanceof AnnexReferencePosition reference) {
 					var source = reference.getSourceObject();
