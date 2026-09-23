@@ -42,8 +42,8 @@ import org.eclipse.xtext.ui.editor.model.XtextDocumentProvider;
 import org.eclipse.xtext.ui.editor.model.edit.ITextEditComposer;
 import org.eclipse.xtext.ui.refactoring.IDependentElementsCalculator;
 import org.eclipse.xtext.ui.refactoring.IReferenceUpdater;
-import org.eclipse.xtext.ui.refactoring.impl.ReferenceUpdaterDispatcher;
 import org.eclipse.xtext.ui.refactoring.impl.RefactoringCrossReferenceSerializer;
+import org.eclipse.xtext.ui.refactoring.impl.ReferenceUpdaterDispatcher;
 import org.eclipse.xtext.ui.resource.IStorage2UriMapper;
 import org.eclipse.xtext.ui.shared.Access;
 import org.osate.xtext.aadl2.ide.highlighting.Aadl2SemanticHighlightingCalculator;
@@ -60,9 +60,9 @@ import org.osate.xtext.aadl2.ui.editor.model.edit.FormattingTextEditComposer;
 import org.osate.xtext.aadl2.ui.editor.occurrences.Aadl2OccurrenceComputer;
 import org.osate.xtext.aadl2.ui.outline.Aadl2OutlinePage;
 import org.osate.xtext.aadl2.ui.refactoring.Aadl2DependentElementsCalculator;
+import org.osate.xtext.aadl2.ui.refactoring.Aadl2RefactoringCrossReferenceSerializer;
 import org.osate.xtext.aadl2.ui.refactoring.Aadl2ReferenceUpdater;
 import org.osate.xtext.aadl2.ui.refactoring.Aadl2ReferenceUpdaterDispatcher;
-import org.osate.xtext.aadl2.ui.refactoring.Aadl2RefactoringCrossReferenceSerializer;
 import org.osate.xtext.aadl2.ui.refactoring.impl.Aadl2RenameStrategy;
 import org.osate.xtext.aadl2.ui.resource.Aadl2Storage2UriMapper;
 
@@ -111,14 +111,21 @@ public class Aadl2UiModule extends org.osate.xtext.aadl2.ui.AbstractAadl2UiModul
 		return Aadl2RenameStrategy.class;
 	}
 
+	/**
+	 * @since 10.0
+	 */
 	public Class<? extends ReferenceUpdaterDispatcher> bindReferenceUpdaterDispatcher() {
 		return Aadl2ReferenceUpdaterDispatcher.class;
 	}
 
+	@Override
 	public Class<? extends IReferenceUpdater> bindIReferenceUpdater() {
 		return Aadl2ReferenceUpdater.class;
 	}
 
+	/**
+	 * @since 10.0
+	 */
 	public Class<? extends RefactoringCrossReferenceSerializer> bindRefactoringCrossReferenceSerializer() {
 		return Aadl2RefactoringCrossReferenceSerializer.class;
 	}

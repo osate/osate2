@@ -41,7 +41,7 @@ public interface AnnexTextPositionResolver {
 	 * Implementations must honor cancellation and must not report unresolved references or declarations.
 	 * Return {@link AnnexReferencePosition} instances to also support semantic reference search and navigation.
 	 *
-	 * @since 4.2.2
+	 * @since 5.0
 	 */
 	default void collectReferencePositions(EObject annexRoot, Consumer<TextPositionInfo> acceptor,
 			IProgressMonitor monitor) {
@@ -51,7 +51,7 @@ public interface AnnexTextPositionResolver {
 	 * Reports annex elements whose structural references also refer to a selected declaration. The caller retains
 	 * the actual reference metadata and searches only its requested scope. Implementations must honor cancellation.
 	 *
-	 * @since 4.2.2
+	 * @since 5.0
 	 */
 	default void collectRelatedReferenceTargets(EObject annexRoot, Predicate<EObject> isTarget,
 			Consumer<EObject> acceptor, IProgressMonitor monitor) {
@@ -61,7 +61,7 @@ public interface AnnexTextPositionResolver {
 	 * Returns the token representing a selected declaration inside an annex reference, or null for the ordinary
 	 * feature-based text region. This can distinguish segments of a qualified reference to a related annex element.
 	 *
-	 * @since 4.2.2
+	 * @since 5.0
 	 */
 	default TextPositionInfo getReferencePosition(EObject source, EReference reference, int index, EObject target) {
 		return null;

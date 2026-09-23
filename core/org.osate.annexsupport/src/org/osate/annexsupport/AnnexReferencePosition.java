@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  * A symbolic reference position with its source object for reference-search navigation. The inherited model object
  * is the source-model target declaration. These objects are live query results, not persisted EMF references.
  *
- * @since 4.2.2
+ * @since 5.0
  */
 public final class AnnexReferencePosition extends TextPositionInfo {
 	private final EObject sourceObject;

@@ -48,6 +48,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 
+/**
+ * @since 8.0
+ */
 public class EMV2TextPositionResolver implements AnnexTextPositionResolver {
 	@Override
 	public TextPositionInfo resolveElementAt(EObject annexRoot, int offset) {
