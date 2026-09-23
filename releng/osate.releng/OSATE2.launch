@@ -26,17 +26,13 @@
         <setEntry value="org.osate.assure.resolute.tests"/>
         <setEntry value="org.osate.assure.tests"/>
         <setEntry value="org.osate.ba.tests"/>
-        <setEntry value="org.osate.categories.tests"/>
         <setEntry value="org.osate.core.tests"/>
         <setEntry value="org.osate.ge.ba.tests"/>
         <setEntry value="org.osate.ge.tests"/>
         <setEntry value="org.osate.modelstats.tests"/>
-        <setEntry value="org.osate.organization.tests"/>
         <setEntry value="org.osate.propertiescodegen.tests"/>
-        <setEntry value="org.osate.reqspec.tests"/>
         <setEntry value="org.osate.slicer.tests"/>
         <setEntry value="org.osate.ui.tests"/>
-        <setEntry value="org.osate.verify.tests"/>
         <setEntry value="org.osate.xtext.aadl2.ba.tests"/>
     </setAttribute>
     <stringAttribute key="featureDefaultLocation" value="workspace"/>
