@@ -507,7 +507,7 @@ implements PrototypesEditorModel<EditablePrototype, NamedElementOrDescription> {
 		if (value) {
 			// Create refinement
 			modifySelectedClassifier("Refine Prototype", prototype, c -> {
-				final Prototype refinement = (Prototype) c.createOwnedPrototype(prototype.prototype.eClass());
+				final Prototype refinement = c.createOwnedPrototype(prototype.prototype.eClass());
 				refinement.setRefined(prototype.prototype);
 				if (refinement instanceof FeaturePrototype) {
 					final FeaturePrototype fpRefinement = ((FeaturePrototype) refinement);

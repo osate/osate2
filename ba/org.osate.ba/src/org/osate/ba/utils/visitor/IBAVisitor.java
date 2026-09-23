@@ -104,10 +104,19 @@ public interface IBAVisitor {
 
 	void visit(EventDataPortHolder edph);
 
+	/**
+	 * @since 9.0
+	 */
 	void visit(EventDataSourceHolder edsh);
 
+	/**
+	 * @since 9.0
+	 */
 	void visit(EventPortHolder eph);
 
+	/**
+	 * @since 9.0
+	 */
 	void visit(EventSourceHolder esh);
 
 	void visit(ExecuteCondition ec);
@@ -136,14 +145,29 @@ public interface IBAVisitor {
 
 	void visit(IntegerValue iv);
 
+	/**
+	 * @since 9.0
+	 */
 	void visit(IntegerValueConstant ivc);
 
+	/**
+	 * @since 9.0
+	 */
 	void visit(IntegerValueVariable ivv);
 
+	/**
+	 * @since 9.0
+	 */
 	void visit(InternalCondition ic);
 
+	/**
+	 * @since 9.0
+	 */
 	void visit(InternalPortHolder iph);
 
+	/**
+	 * @since 9.0
+	 */
 	void visit(InternalPortSendAction ipsa);
 
 	void visit(IterativeVariable iv);
@@ -170,10 +194,16 @@ public interface IBAVisitor {
 
 	void visit(PortDequeueAction pda);
 
+	/**
+	 * @since 9.0
+	 */
 	void visit(PortDequeueValue pdv);
 
 	void visit(PortFreezeAction pfa);
 
+	/**
+	 * @since 9.0
+	 */
 	void visit(PortFreshValue pfv);
 
 	void visit(PortHolder ph);
@@ -182,6 +212,9 @@ public interface IBAVisitor {
 
 	void visit(PortSendAction psa);
 
+	/**
+	 * @since 9.0
+	 */
 	void visit(PortUpdatedValue puv);
 
 	void visit(PropertyAssociationHolder pah);
@@ -216,12 +249,21 @@ public interface IBAVisitor {
 
 	void visit(SubprogramAccessHolder sah);
 
+	/**
+	 * @since 9.0
+	 */
 	void visit(SubprogramCallAction sca);
 
+	/**
+	 * @since 9.0
+	 */
 	void visit(SubprogramHolder sh);
 
 	void visit(SubprogramHolderProxy shp);
 
+	/**
+	 * @since 9.0
+	 */
 	void visit(SubprogramPrototypeHolder sph);
 
 	void visit(SubprogramSubcomponentHolder ssh);
@@ -232,6 +274,9 @@ public interface IBAVisitor {
 
 	void visit(TimedAction ta);
 
+	/**
+	 * @since 9.0
+	 */
 	void visit(TimeoutResetPort trp);
 
 	void visit(UnlockAction ua);

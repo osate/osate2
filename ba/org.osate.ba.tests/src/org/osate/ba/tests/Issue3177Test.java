@@ -183,7 +183,7 @@ public class Issue3177Test {
 		assertEquals(
 				List.of("left or middle and right", "left and (middle or right)", "-2 ** 2", "-total mod 3",
 						"(total ** 2) ** 3"),
-				actions.stream().map(action -> strict((ValueExpression) action.getValueExpression())).toList());
+				actions.stream().map(action -> strict(action.getValueExpression())).toList());
 	}
 
 	private AadlPackage parse() throws Exception {
@@ -235,7 +235,7 @@ public class Issue3177Test {
 	}
 
 	private static String strictExpression(final AadlPackage root, final int index) {
-		return strict((ValueExpression) strictAssignments(root).get(index).getValueExpression());
+		return strict(strictAssignments(root).get(index).getValueExpression());
 	}
 
 	private static List<AssignmentAction> strictAssignments(final AadlPackage root) {

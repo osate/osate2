@@ -53,7 +53,7 @@ public class FirstQuery<T> extends DefaultQuery<T> {
 			currentCount = 1;
 			state.cache.put(this, currentCount);
 		} else {
-			currentCount = ((int)currentCountInteger) + 1;
+			currentCount = (currentCountInteger) + 1;
 			state.cache.put(this, currentCount);
 		}
 

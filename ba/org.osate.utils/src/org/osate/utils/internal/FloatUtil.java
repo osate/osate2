@@ -22,6 +22,7 @@
 package org.osate.utils.internal;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  * BigDecimal framework front end for arithmetic operations on float values.
@@ -72,7 +73,7 @@ public class FloatUtil {
 		try {
 			return iLeft.divide(iRight).floatValue();
 		} catch (Exception e) {
-			return iLeft.divide(iRight, BigDecimal.ROUND_HALF_DOWN).floatValue();
+			return iLeft.divide(iRight, RoundingMode.HALF_DOWN).floatValue();
 		}
 	}
 

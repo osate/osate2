@@ -24,6 +24,7 @@ package org.osate.ba.analyzers;
 /**
  * How one type conforms to another. A conformance that rests on something other than the declared types is reported, so
  * that a model which relies on it says so; the type check still accepts it.
+ * @since 9.0
  */
 public enum TypeConformance {
 	/** The types do not conform. */

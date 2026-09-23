@@ -48,7 +48,7 @@ public class FeatureInstanceTooltipContributor implements TooltipContributor {
 		ctx.getBusinessObjectContext().getBusinessObject(FeatureInstance.class).ifPresent(featureInstance -> {
 			final Feature feature = featureInstance.getFeature();
 
-			if(feature instanceof Feature || feature instanceof InternalFeature || feature instanceof ProcessorFeature) {
+			if(feature != null || feature instanceof InternalFeature || feature instanceof ProcessorFeature) {
 				// Determine the feature classifier
 				final Classifier featureClassifier;
 				if(feature instanceof EventDataSource) {
@@ -60,11 +60,9 @@ public class FeatureInstanceTooltipContributor implements TooltipContributor {
 				} else if(feature instanceof SubprogramProxy) {
 					final SubprogramProxy aadlFeature = (SubprogramProxy)feature;
 					featureClassifier = aadlFeature.getSubprogramClassifier();
-				} else if(feature instanceof Feature) {
-					final Feature aadlFeature = (Feature)feature;
-					featureClassifier = aadlFeature.getAllClassifier();
 				} else {
-					featureClassifier = null;
+					final Feature aadlFeature = feature;
+					featureClassifier = aadlFeature.getAllClassifier();
 				}
 
 				// Build the text to contribute to the tooltip

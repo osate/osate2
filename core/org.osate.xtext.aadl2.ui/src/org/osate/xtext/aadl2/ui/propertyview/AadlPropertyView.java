@@ -349,7 +349,8 @@ public class AadlPropertyView extends ViewPart {
 		patternFilter.setPattern("org.eclipse.ui.keys.optimization.false");
 
 		var treeColumnLayout = new TreeColumnLayout();
-		var filteredTree = new FilteredTree(treeViewerComposite, SWT.BORDER | SWT.FULL_SELECTION, patternFilter, true) {
+		var filteredTree = new FilteredTree(treeViewerComposite, SWT.BORDER | SWT.FULL_SELECTION, patternFilter, true,
+				true) {
 			@Override
 			protected TreeViewer doCreateTreeViewer(Composite parent, int style) {
 				var viewer = super.doCreateTreeViewer(parent, style);

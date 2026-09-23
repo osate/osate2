@@ -185,7 +185,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 						createFlowDialog.getFlow().ifPresent(endToEndFlow -> {
 							if (createFlowDialog.eteFlowToEdit != null) {
 								// Editing end to end flow
-								final EndToEndFlow endToEndFlowToEdit = (EndToEndFlow) createFlowDialog.eteFlowToEdit;
+								final EndToEndFlow endToEndFlowToEdit = createFlowDialog.eteFlowToEdit;
 								aadlModService.modify(endToEndFlowToEdit, eTEFlowToEdit -> {
 									eTEFlowToEdit.getAllFlowSegments().clear();
 									eTEFlowToEdit.getAllFlowSegments().addAll(endToEndFlow.getAllFlowSegments());
@@ -303,7 +303,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 							"Multiple elements selected. Select a single element. " + " " + getDialogMessage());
 				} else if (selectedBocs.size() == 1) {
 					// Get the selected boc
-					final BusinessObjectContext selectedBoc = (BusinessObjectContext) selectedBocs.get(0);
+					final BusinessObjectContext selectedBoc = selectedBocs.get(0);
 					if (!modeFeatureSelections.contains(selectedBoc)
 							&& createFlowDialog.addSelectedElement(selectedBoc)) {
 						// Insert flow segments before first mode feature

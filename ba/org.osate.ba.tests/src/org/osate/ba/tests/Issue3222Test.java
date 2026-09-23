@@ -110,6 +110,6 @@ public class Issue3222Test {
 		var association = element.getPropertyValue(property).first();
 		assertNotNull(element.getName(), association);
 		var expression = association.getOwnedValues().getFirst().getOwnedValue();
-		return (long) ((IntegerLiteral) expression).getValue();
+		return ((IntegerLiteral) expression).getValue();
 	}
 }

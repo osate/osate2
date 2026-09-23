@@ -55,7 +55,6 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.FeatureGroupType;
-import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.aadl2.AadlImportsUtil;
 import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
@@ -126,39 +125,39 @@ public class SetExtendedClassifierPropertySection extends AbstractPropertySectio
 						? (Classifier) EcoreUtil.resolve(((EObject) dlg.getFirstSelectedElement()),
 								classifier.eResource())
 								: (Classifier) dlg.getFirstSelectedElement();
-						selectedBos.modify(Classifier.class, classifierToModify -> {
-							if (classifierToExtend != null) {
-								AadlImportsUtil.ensurePackageIsImportedForClassifier(classifierToModify, classifierToExtend);
+				selectedBos.modify(Classifier.class, classifierToModify -> {
+					if (classifierToExtend != null) {
+						AadlImportsUtil.ensurePackageIsImportedForClassifier(classifierToModify, classifierToExtend);
 
-								// Don't create an extension if the classifier hasn't changed. Creating identical extensions
-								// can cause xtext validation errors regardless of whether the old extension is removed first.
-								if (classifierToModify.getExtended() == null
-										|| !Objects.equal(classifierToModify.getExtended().getQualifiedName(),
-												classifierToExtend.getQualifiedName())) {
+						// Don't create an extension if the classifier hasn't changed. Creating identical extensions
+						// can cause xtext validation errors regardless of whether the old extension is removed first.
+						if (classifierToModify.getExtended() == null
+								|| !Objects.equal(classifierToModify.getExtended().getQualifiedName(),
+										classifierToExtend.getQualifiedName())) {
 
-									// Extend the classifier
-									if (classifierToModify instanceof ComponentType) {
-										((ComponentType) classifierToModify).createOwnedExtension()
-										.setExtended((ComponentType) classifierToExtend);
-									} else if (classifierToModify instanceof ComponentImplementation) {
-										((ComponentImplementation) classifierToModify).createOwnedExtension()
-										.setExtended((ComponentImplementation) classifierToExtend);
-									} else if (classifierToModify instanceof FeatureGroupType) {
-										((FeatureGroupType) classifierToModify).createOwnedExtension()
-										.setExtended((FeatureGroupType) classifierToExtend);
-									}
-								}
-							} else {
-								// Extend the classifier
-								if (classifierToModify instanceof ComponentType) {
-									removeIfNotNull(((ComponentType) classifierToModify).getOwnedExtension());
-								} else if (classifierToModify instanceof ComponentImplementation) {
-									removeIfNotNull(((ComponentImplementation) classifierToModify).getOwnedExtension());
-								} else if (classifierToModify instanceof FeatureGroupType) {
-									removeIfNotNull(((FeatureGroupType) classifierToModify).getOwnedExtension());
-								}
+							// Extend the classifier
+							if (classifierToModify instanceof ComponentType) {
+								((ComponentType) classifierToModify).createOwnedExtension()
+								.setExtended((ComponentType) classifierToExtend);
+							} else if (classifierToModify instanceof ComponentImplementation) {
+								((ComponentImplementation) classifierToModify).createOwnedExtension()
+								.setExtended((ComponentImplementation) classifierToExtend);
+							} else if (classifierToModify instanceof FeatureGroupType) {
+								((FeatureGroupType) classifierToModify).createOwnedExtension()
+								.setExtended((FeatureGroupType) classifierToExtend);
 							}
-						});
+						}
+					} else {
+						// Extend the classifier
+						if (classifierToModify instanceof ComponentType) {
+							removeIfNotNull(((ComponentType) classifierToModify).getOwnedExtension());
+						} else if (classifierToModify instanceof ComponentImplementation) {
+							removeIfNotNull(((ComponentImplementation) classifierToModify).getOwnedExtension());
+						} else if (classifierToModify instanceof FeatureGroupType) {
+							removeIfNotNull(((FeatureGroupType) classifierToModify).getOwnedExtension());
+						}
+					}
+				});
 			}
 		}
 	};
@@ -196,10 +195,8 @@ public class SetExtendedClassifierPropertySection extends AbstractPropertySectio
 	private static String getClassifierName(final Classifier c) {
 		if (c == null) {
 			return "<None>";
-		} else if (c instanceof NamedElement) {
-			return Strings.emptyIfNull(((NamedElement) c).getQualifiedName());
 		} else {
-			return "";
+			return Strings.emptyIfNull(c.getQualifiedName());
 		}
 	}
 

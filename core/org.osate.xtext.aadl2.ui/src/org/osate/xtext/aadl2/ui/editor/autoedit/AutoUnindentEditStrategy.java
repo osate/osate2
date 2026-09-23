@@ -72,7 +72,6 @@ public class AutoUnindentEditStrategy extends AbstractTerminalsEditStrategy {
 	@SuppressWarnings("unused")
 	private final static Logger log = Logger.getLogger(AutoUnindentEditStrategy.class);
 
-	private String indentationString;
 	private IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
 
 	public AutoUnindentEditStrategy(String terminal) {
@@ -81,7 +80,6 @@ public class AutoUnindentEditStrategy extends AbstractTerminalsEditStrategy {
 
 	public AutoUnindentEditStrategy(String terminal, String indentationString) {
 		super(terminal, terminal);
-		this.indentationString = indentationString;
 	}
 
 	@Override

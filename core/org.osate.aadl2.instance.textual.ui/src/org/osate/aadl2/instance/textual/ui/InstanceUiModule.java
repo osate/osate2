@@ -24,8 +24,8 @@
 package org.osate.aadl2.instance.textual.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.xtext.ide.editor.syntaxcoloring.ISemanticHighlightingCalculator;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
-import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
 import org.osate.aadl2.instance.textual.ui.editor.syntaxcoloring.InstanceHighlightingConfiguration;
 import org.osate.aadl2.instance.textual.ui.editor.syntaxcoloring.InstanceSemanticHighlightingCalculator;
 
@@ -36,11 +36,11 @@ public class InstanceUiModule extends AbstractInstanceUiModule {
 	public InstanceUiModule(AbstractUIPlugin plugin) {
 		super(plugin);
 	}
-	
+
 	public Class<? extends IHighlightingConfiguration> bindIHighlightingConfiguration() {
 		return InstanceHighlightingConfiguration.class;
 	}
-	
+
 	public Class<? extends ISemanticHighlightingCalculator> bindISemanticHighlightingCalculator() {
 		return InstanceSemanticHighlightingCalculator.class;
 	}

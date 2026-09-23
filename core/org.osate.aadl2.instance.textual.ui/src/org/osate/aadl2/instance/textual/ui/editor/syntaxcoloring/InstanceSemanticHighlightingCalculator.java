@@ -24,8 +24,10 @@
 package org.osate.aadl2.instance.textual.ui.editor.syntaxcoloring;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.ui.editor.syntaxcoloring.DefaultSemanticHighlightingCalculator;
-import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightedPositionAcceptor;
+import org.eclipse.xtext.ide.editor.syntaxcoloring.DefaultSemanticHighlightingCalculator;
+import org.eclipse.xtext.ide.editor.syntaxcoloring.IHighlightedPositionAcceptor;
+import org.eclipse.xtext.service.OperationCanceledManager;
+import org.eclipse.xtext.util.CancelIndicator;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.ContainmentPathElement;
@@ -42,9 +44,17 @@ import org.osate.aadl2.instance.PropertyAssociationInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 
+import com.google.inject.Inject;
+
 public class InstanceSemanticHighlightingCalculator extends DefaultSemanticHighlightingCalculator {
+
+	@Inject
+	private OperationCanceledManager operationCanceledManager;
+
 	@Override
-	protected boolean highlightElement(EObject object, IHighlightedPositionAcceptor acceptor) {
+	protected boolean highlightElement(EObject object, IHighlightedPositionAcceptor acceptor,
+			CancelIndicator cancelIndicator) {
+		operationCanceledManager.checkCanceled(cancelIndicator);
 		if (object instanceof SystemInstance) {
 			highlightFeature(acceptor, object, Aadl2Package.eINSTANCE.getNamedElement_Name(),
 					InstanceHighlightingConfiguration.NAME_ID);

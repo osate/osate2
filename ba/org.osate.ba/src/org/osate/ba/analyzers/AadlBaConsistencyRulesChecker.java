@@ -1,13 +1,13 @@
 /**
  * AADL-BA-FrontEnd
- * 
+ *
  * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
- * This program is free software: you can redistribute it and/or modify 
+ *
+ * This program is free software: you can redistribute it and/or modify
  * it under the terms of the Eclipse Public License as published by Eclipse,
  * either version 2.0 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful,
@@ -15,7 +15,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * Eclipse Public License for more details.
  * You should have received a copy of the Eclipse Public License
- * along with this program.  If not, see 
+ * along with this program.  If not, see
  * https://www.eclipse.org/legal/epl-2.0/
  */
 
@@ -27,12 +27,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
-import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
-import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.ba.aadlba.ActualPortHolder;
@@ -43,7 +40,6 @@ import org.osate.ba.aadlba.BehaviorElement;
 import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ba.aadlba.DispatchCondition;
-import org.osate.ba.aadlba.DispatchTrigger;
 import org.osate.ba.aadlba.DispatchTriggerLogicalExpression;
 import org.osate.ba.aadlba.Factor;
 import org.osate.ba.aadlba.ModeSwitchConjunction;
@@ -57,7 +53,6 @@ import org.osate.ba.aadlba.Term;
 import org.osate.ba.aadlba.UnaryBooleanOperator;
 import org.osate.ba.aadlba.Value;
 import org.osate.ba.aadlba.ValueExpression;
-import org.osate.ba.utils.AadlBaUtils;
 import org.osate.ba.utils.AadlBaVisitors;
 import org.osate.utils.internal.Aadl2Utils;
 import org.osate.utils.internal.Aadl2Visitors;
@@ -72,6 +67,9 @@ public class AadlBaConsistencyRulesChecker {
 		this(ba, AadlBaVisitors.getParentComponent(ba), errManager);
 	}
 
+	/**
+	 * @since 9.0
+	 */
 	public AadlBaConsistencyRulesChecker(BehaviorAnnex ba, ComponentClassifier parentContainer,
 			AnalysisErrorReporterManager errManager) {
 		_ba = ba;
@@ -89,6 +87,7 @@ public class AadlBaConsistencyRulesChecker {
 	 * literals and operators. A runtime-dependent expression or any non-value condition makes the result unknown and
 	 * is accepted conservatively.
 	 * Keys    : execution state execute condition nonblocking
+	 * @since 9.0
 	 */
 	public boolean D_3_C3_Check(BehaviorAnnex ba) {
 		var result = true;
@@ -207,9 +206,10 @@ public class AadlBaConsistencyRulesChecker {
 	 * Document: AADL Behavior Annex draft
 	 * Version : 0.94
 	 * Type    : Consistency rule
-	 * Section : D.3 Behavior Specification 
+	 * Section : D.3 Behavior Specification
 	 * Object  : Check consistency rule D.3.(C4)
 	 * Keys    : complete state mode behavior condition mode transition triggers
+	 * @since 9.0
 	 */
 	public boolean D_3_C4_Check(BehaviorTransition btOwner, BehaviorState srcState) {
 		// [OPTIM] -------------------------------------------------------------
@@ -326,6 +326,7 @@ public class AadlBaConsistencyRulesChecker {
 	 * execute, dispatch, and internal conditions instead. The rule is cited by section rather than by number because
 	 * the numbered rule list this class follows comes from the 0.94 draft, which orders the D.3 rules differently.
 	 * Keys    : external condition thread subprogram component category
+	 * @since 9.0
 	 */
 	public boolean D_3_External_Condition_Category_Check(BehaviorTransition bt) {
 		if (!(bt.getCondition() instanceof ModeSwitchTriggerCondition)) {
@@ -355,6 +356,7 @@ public class AadlBaConsistencyRulesChecker {
 	 * way every conflicting otherwise transition of a state is. Cited by section for the reason given on
 	 * {@link #D_3_External_Condition_Category_Check(BehaviorTransition)}.
 	 * Keys    : external condition dispatch condition device complete state
+	 * @since 9.0
 	 */
 	public boolean D_3_Device_Condition_Check(BehaviorAnnex ba) {
 		if (_baParentContainer.getCategory() != ComponentCategory.DEVICE) {

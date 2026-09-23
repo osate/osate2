@@ -74,7 +74,6 @@ import org.osate.aadl2.FeaturePrototypeBinding;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.ListValue;
-import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
@@ -372,6 +371,7 @@ public class AadlBaUtils {
 	 *
 	 * @param element the given element or {@code null}
 	 * @return {@code true} when the element is a Data Model Annex enumerator
+	 * @since 9.0
 	 */
 	public static boolean isDataModelEnumerator(Element element) {
 		if (!(element instanceof StringLiteral)) {
@@ -388,6 +388,7 @@ public class AadlBaUtils {
 	 *
 	 * @param element a Data Model Annex enumerator
 	 * @return the declaring DataClassifier or {@code null}
+	 * @since 9.0
 	 */
 	public static DataClassifier getDataModelEnumerationClassifier(Element element) {
 		var association = enclosingPropertyAssociation(element);
@@ -1053,6 +1054,7 @@ public class AadlBaUtils {
 	 *
 	 * @param iv the given IterativeVariable object
 	 * @return the data representation or DataRepresentation.UNKNOWN
+	 * @since 9.0
 	 */
 	public static DataRepresentation getDataRepresentation(IterativeVariable iv) {
 		if (iv.getDataClassifier() != null) {
@@ -1392,8 +1394,8 @@ public class AadlBaUtils {
 			IntegerValue iv2 = behT2.getIntegerValue();
 
 			if (iv1 instanceof BehaviorIntegerLiteral && iv2 instanceof BehaviorIntegerLiteral) {
-				double d1 = new Long(((BehaviorIntegerLiteral) iv1).getValue()).doubleValue();
-				double d2 = new Long(((BehaviorIntegerLiteral) iv2).getValue()).doubleValue();
+				double d1 = Long.valueOf(((BehaviorIntegerLiteral) iv1).getValue()).doubleValue();
+				double d2 = Long.valueOf(((BehaviorIntegerLiteral) iv2).getValue()).doubleValue();
 
 				UnitLiteral unit1 = behT1.getUnit();
 				UnitLiteral unit2 = behT2.getUnit();
@@ -1668,6 +1670,7 @@ public class AadlBaUtils {
 			boolean isRequired = as.getKind() == AccessType.REQUIRES;
 
 			switch (as.getCategory()) {
+			case VIRTUAL_BUS:
 			case BUS: {
 				return (isRequired) ? FeatureType.REQUIRES_BUS_ACCESS_PROTOTYPE
 						: FeatureType.PROVIDES_BUS_ACCESS_PROTOTYPE;
@@ -1687,6 +1690,8 @@ public class AadlBaUtils {
 				return (isRequired) ? FeatureType.REQUIRES_SUBPROGRAM_GROUP_ACCESS_PROTOTYPE
 						: FeatureType.PROVIDES_SUBPROGRAM_GROUP_ACCESS_PROTOTYPE;
 			}
+			default:
+				break;
 
 			}
 		} else if (fpa instanceof PortSpecification) {

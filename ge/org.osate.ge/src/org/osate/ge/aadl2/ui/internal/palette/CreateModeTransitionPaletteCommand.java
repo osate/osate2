@@ -56,7 +56,7 @@ public class CreateModeTransitionPaletteCommand extends BasePaletteCommand imple
 	private static final ExecutableQuery<Object> CONTAINER_QUERY = ExecutableQuery
 			.create(root -> root.ancestors()
 					.filter(fa -> fa.getBusinessObject() instanceof ComponentClassifier
-					|| fa.getBusinessObject() instanceof Subcomponent).first());
+							|| fa.getBusinessObject() instanceof Subcomponent).first());
 
 	public CreateModeTransitionPaletteCommand() {
 		super("Mode Transition", AadlCategories.MODES,
@@ -165,7 +165,7 @@ public class CreateModeTransitionPaletteCommand extends BasePaletteCommand imple
 
 		return AadlUiUtil.getPotentialComponentClassifiers(bo)
 				.stream()
-				.filter(tmpBo -> tmpBo instanceof ComponentClassifier && !(tmpBo.isDerivedModes()))
+				.filter(tmpBo -> !(tmpBo.isDerivedModes()))
 				.filter(cc -> hasModeWithName(cc, modeName)).collect(Collectors.toList());
 	}
 

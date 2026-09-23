@@ -47,7 +47,6 @@ public class AutoUnindentComponentContentsEditStrategy extends AbstractTerminals
 	@SuppressWarnings("unused")
 	private final static Logger log = Logger.getLogger(AutoUnindentComponentContentsEditStrategy.class);
 
-	private String indentationString;
 	private IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
 
 	private String[] contentCategories = { "prototypes", "features", "flows", "modes", "properties", "subcomponents",
@@ -81,7 +80,6 @@ public class AutoUnindentComponentContentsEditStrategy extends AbstractTerminals
 
 	public AutoUnindentComponentContentsEditStrategy(String terminal, String indentationString) {
 		super(terminal, indentationString);
-		this.indentationString = indentationString;
 	}
 
 	@Override

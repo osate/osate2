@@ -126,7 +126,6 @@
             <topic href="api-docs/javadoc/org/osate/assure/evaluator/package-summary.html" label="org.osate.assure.evaluator"/>
             <topic href="api-docs/javadoc/org/osate/assure/generator/package-summary.html" label="org.osate.assure.generator"/>
             <topic href="api-docs/javadoc/org/osate/assure/util/package-summary.html" label="org.osate.assure.util"/>
-            <topic href="api-docs/javadoc/org/osate/ba/package-summary.html" label="org.osate.ba"/>
             <topic href="api-docs/javadoc/org/osate/ba/aadlba/package-summary.html" label="org.osate.ba.aadlba"/>
             <topic href="api-docs/javadoc/org/osate/ba/aadlba/impl/package-summary.html" label="org.osate.ba.aadlba.impl"/>
             <topic href="api-docs/javadoc/org/osate/ba/aadlba/provider/package-summary.html" label="org.osate.ba.aadlba.provider"/>
@@ -296,6 +295,34 @@
             <topic href="api-docs/javadoc/org/osate/verify/verify/util/package-summary.html" label="org.osate.verify.verify.util"/>
             <topic href="api-docs/javadoc/org/osate/workspace/package-summary.html" label="org.osate.workspace"/>
             <topic href="api-docs/javadoc/org/osate/xtext/aadl2/package-summary.html" label="org.osate.xtext.aadl2"/>
+            <topic href="api-docs/javadoc/org/osate/xtext/aadl2/ba/package-summary.html" label="org.osate.xtext.aadl2.ba"/>
+            <topic href="api-docs/javadoc/org/osate/xtext/aadl2/ba/behaviorAnnex/package-summary.html" label="org.osate.xtext.aadl2.ba.behaviorAnnex"/>
+            <topic href="api-docs/javadoc/org/osate/xtext/aadl2/ba/behaviorAnnex/impl/package-summary.html" label="org.osate.xtext.aadl2.ba.behaviorAnnex.impl"/>
+            <topic href="api-docs/javadoc/org/osate/xtext/aadl2/ba/behaviorAnnex/provider/package-summary.html" label="org.osate.xtext.aadl2.ba.behaviorAnnex.provider"/>
+            <topic href="api-docs/javadoc/org/osate/xtext/aadl2/ba/behaviorAnnex/util/package-summary.html" label="org.osate.xtext.aadl2.ba.behaviorAnnex.util"/>
+            <topic href="api-docs/javadoc/org/osate/xtext/aadl2/ba/formatting2/package-summary.html" label="org.osate.xtext.aadl2.ba.formatting2"/>
+            <topic href="api-docs/javadoc/org/osate/xtext/aadl2/ba/ide/package-summary.html" label="org.osate.xtext.aadl2.ba.ide"/>
+            <topic href="api-docs/javadoc/org/osate/xtext/aadl2/ba/ide/contentassist/package-summary.html" label="org.osate.xtext.aadl2.ba.ide.contentassist"/>
+            <topic href="api-docs/javadoc/org/osate/xtext/aadl2/ba/ide/contentassist/antlr/package-summary.html" label="org.osate.xtext.aadl2.ba.ide.contentassist.antlr"/>
+            <topic href="api-docs/javadoc/org/osate/xtext/aadl2/ba/ide/contentassist/antlr/internal/package-summary.html" label="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal"/>
+            <topic href="api-docs/javadoc/org/osate/xtext/aadl2/ba/ide/contentassist/antlr/lexer/package-summary.html" label="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer"/>
+            <topic href="api-docs/javadoc/org/osate/xtext/aadl2/ba/naming/package-summary.html" label="org.osate.xtext.aadl2.ba.naming"/>
+            <topic href="api-docs/javadoc/org/osate/xtext/aadl2/ba/parser/antlr/package-summary.html" label="org.osate.xtext.aadl2.ba.parser.antlr"/>
+            <topic href="api-docs/javadoc/org/osate/xtext/aadl2/ba/parser/antlr/internal/package-summary.html" label="org.osate.xtext.aadl2.ba.parser.antlr.internal"/>
+            <topic href="api-docs/javadoc/org/osate/xtext/aadl2/ba/parser/antlr/lexer/package-summary.html" label="org.osate.xtext.aadl2.ba.parser.antlr.lexer"/>
+            <topic href="api-docs/javadoc/org/osate/xtext/aadl2/ba/parsing/package-summary.html" label="org.osate.xtext.aadl2.ba.parsing"/>
+            <topic href="api-docs/javadoc/org/osate/xtext/aadl2/ba/scoping/package-summary.html" label="org.osate.xtext.aadl2.ba.scoping"/>
+            <topic href="api-docs/javadoc/org/osate/xtext/aadl2/ba/serializer/package-summary.html" label="org.osate.xtext.aadl2.ba.serializer"/>
+            <topic href="api-docs/javadoc/org/osate/xtext/aadl2/ba/services/package-summary.html" label="org.osate.xtext.aadl2.ba.services"/>
+            <topic href="api-docs/javadoc/org/osate/xtext/aadl2/ba/translation/package-summary.html" label="org.osate.xtext.aadl2.ba.translation"/>
+            <topic href="api-docs/javadoc/org/osate/xtext/aadl2/ba/ui/package-summary.html" label="org.osate.xtext.aadl2.ba.ui"/>
+            <topic href="api-docs/javadoc/org/osate/xtext/aadl2/ba/ui/contentassist/package-summary.html" label="org.osate.xtext.aadl2.ba.ui.contentassist"/>
+            <topic href="api-docs/javadoc/org/osate/xtext/aadl2/ba/ui/internal/package-summary.html" label="org.osate.xtext.aadl2.ba.ui.internal"/>
+            <topic href="api-docs/javadoc/org/osate/xtext/aadl2/ba/ui/labeling/package-summary.html" label="org.osate.xtext.aadl2.ba.ui.labeling"/>
+            <topic href="api-docs/javadoc/org/osate/xtext/aadl2/ba/ui/outline/package-summary.html" label="org.osate.xtext.aadl2.ba.ui.outline"/>
+            <topic href="api-docs/javadoc/org/osate/xtext/aadl2/ba/ui/quickfix/package-summary.html" label="org.osate.xtext.aadl2.ba.ui.quickfix"/>
+            <topic href="api-docs/javadoc/org/osate/xtext/aadl2/ba/util/package-summary.html" label="org.osate.xtext.aadl2.ba.util"/>
+            <topic href="api-docs/javadoc/org/osate/xtext/aadl2/ba/validation/package-summary.html" label="org.osate.xtext.aadl2.ba.validation"/>
             <topic href="api-docs/javadoc/org/osate/xtext/aadl2/errormodel/package-summary.html" label="org.osate.xtext.aadl2.errormodel"/>
             <topic href="api-docs/javadoc/org/osate/xtext/aadl2/errormodel/errorModel/package-summary.html" label="org.osate.xtext.aadl2.errormodel.errorModel"/>
             <topic href="api-docs/javadoc/org/osate/xtext/aadl2/errormodel/errorModel/impl/package-summary.html" label="org.osate.xtext.aadl2.errormodel.errorModel.impl"/>
@@ -303,6 +330,7 @@
             <topic href="api-docs/javadoc/org/osate/xtext/aadl2/errormodel/errorModel/util/package-summary.html" label="org.osate.xtext.aadl2.errormodel.errorModel.util"/>
             <topic href="api-docs/javadoc/org/osate/xtext/aadl2/errormodel/formatting2/package-summary.html" label="org.osate.xtext.aadl2.errormodel.formatting2"/>
             <topic href="api-docs/javadoc/org/osate/xtext/aadl2/errormodel/ide/package-summary.html" label="org.osate.xtext.aadl2.errormodel.ide"/>
+            <topic href="api-docs/javadoc/org/osate/xtext/aadl2/errormodel/ide/refactoring/package-summary.html" label="org.osate.xtext.aadl2.errormodel.ide.refactoring"/>
             <topic href="api-docs/javadoc/org/osate/xtext/aadl2/errormodel/naming/package-summary.html" label="org.osate.xtext.aadl2.errormodel.naming"/>
             <topic href="api-docs/javadoc/org/osate/xtext/aadl2/errormodel/parser/antlr/package-summary.html" label="org.osate.xtext.aadl2.errormodel.parser.antlr"/>
             <topic href="api-docs/javadoc/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/package-summary.html" label="org.osate.xtext.aadl2.errormodel.parser.antlr.internal"/>
@@ -324,6 +352,7 @@
             <topic href="api-docs/javadoc/org/osate/xtext/aadl2/formatting2/package-summary.html" label="org.osate.xtext.aadl2.formatting2"/>
             <topic href="api-docs/javadoc/org/osate/xtext/aadl2/formatting2/regionaccess/package-summary.html" label="org.osate.xtext.aadl2.formatting2.regionaccess"/>
             <topic href="api-docs/javadoc/org/osate/xtext/aadl2/ide/package-summary.html" label="org.osate.xtext.aadl2.ide"/>
+            <topic href="api-docs/javadoc/org/osate/xtext/aadl2/ide/highlighting/package-summary.html" label="org.osate.xtext.aadl2.ide.highlighting"/>
             <topic href="api-docs/javadoc/org/osate/xtext/aadl2/linking/package-summary.html" label="org.osate.xtext.aadl2.linking"/>
             <topic href="api-docs/javadoc/org/osate/xtext/aadl2/naming/package-summary.html" label="org.osate.xtext.aadl2.naming"/>
             <topic href="api-docs/javadoc/org/osate/xtext/aadl2/parser/antlr/package-summary.html" label="org.osate.xtext.aadl2.parser.antlr"/>

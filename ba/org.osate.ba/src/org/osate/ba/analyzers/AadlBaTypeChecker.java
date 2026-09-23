@@ -33,7 +33,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.Property;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.ba.aadlba.Any;
 import org.osate.ba.aadlba.AssignmentAction;
@@ -99,6 +98,7 @@ public class AadlBaTypeChecker {
 	 * @param parentContainer the component which owns the behavior annex
 	 * @param dataChecker the data type checker
 	 * @param errManager the error reporter manager
+	 * @since 9.0
 	 */
 	public AadlBaTypeChecker(BehaviorAnnex ba, ComponentClassifier parentContainer, DataTypeChecker dataChecker,
 			AnalysisErrorReporterManager errManager) {
@@ -120,6 +120,7 @@ public class AadlBaTypeChecker {
 	/**
 	 * Checks the references required by strict-model checkers. Resolution failures must stop those checkers;
 	 * conformance errors must not suppress their independent diagnostics.
+	 * @since 9.0
 	 */
 	public boolean checkResolution() {
 		boolean result = checkResolvedModel();
@@ -131,6 +132,7 @@ public class AadlBaTypeChecker {
 
 	/**
 	 * Checks conformance after {@link #checkResolution()} has succeeded, without changing the strict model.
+	 * @since 9.0
 	 */
 	public boolean checkResolvedTypes() {
 		boolean result = true;
@@ -158,12 +160,12 @@ public class AadlBaTypeChecker {
 	}
 
 	private boolean checkBehaviorVariableResolution(BehaviorVariable variable) {
-		boolean result = variable.getDataClassifier() instanceof DataClassifier;
+		boolean result = variable.getDataClassifier() != null;
 		if (!result) {
 			reportError(variable, "behavior variable data classifier is not resolved");
 		}
 		for (org.osate.aadl2.PropertyAssociation association : variable.getOwnedPropertyAssociations()) {
-			if (!(association.getProperty() instanceof Property)) {
+			if (!(association.getProperty() != null)) {
 				reportError(variable, "behavior variable property association is not resolved");
 				result = false;
 			}
@@ -205,7 +207,7 @@ public class AadlBaTypeChecker {
 	private boolean checkExecuteCondition(ExecuteCondition condition) {
 		if (condition instanceof ValueExpression) {
 			TypeHolder type = checkValueExpression((ValueExpression) condition);
-			return checkRepresentation((BehaviorElement) condition, "the execute condition", type,
+			return checkRepresentation(condition, "the execute condition", type,
 					DataRepresentation.BOOLEAN);
 		}
 		return true;
@@ -375,7 +377,7 @@ public class AadlBaTypeChecker {
 			result &= checkBehaviorActions(ifStatement.getBehaviorActions());
 			ElseStatement elseStatement = ifStatement.getElseStatement();
 			if (elseStatement != null) {
-				result &= elseStatement instanceof IfStatement ? checkConditionalStatement((IfStatement) elseStatement)
+				result &= elseStatement instanceof IfStatement ? checkConditionalStatement(elseStatement)
 						: checkBehaviorActions(elseStatement.getBehaviorActions());
 			}
 			return result;

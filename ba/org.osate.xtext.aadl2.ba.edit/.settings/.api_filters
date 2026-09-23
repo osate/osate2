@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.osate.xtext.aadl2.ba.edit" version="2">
+    <resource path="">
+        <filter comment="emf generated" id="1462763580"/>
+    </resource>
+</component>

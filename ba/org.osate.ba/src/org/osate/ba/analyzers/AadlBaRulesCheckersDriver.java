@@ -1,13 +1,13 @@
 /**
  * AADL-BA-FrontEnd
- * 
+ *
  * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
- * This program is free software: you can redistribute it and/or modify 
+ *
+ * This program is free software: you can redistribute it and/or modify
  * it under the terms of the Eclipse Public License as published by Eclipse,
  * either version 2.0 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful,
@@ -15,7 +15,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * Eclipse Public License for more details.
  * You should have received a copy of the Eclipse Public License
- * along with this program.  If not, see 
+ * along with this program.  If not, see
  * https://www.eclipse.org/legal/epl-2.0/
  */
 
@@ -80,6 +80,9 @@ public class AadlBaRulesCheckersDriver {
 		this(ba, org.osate.ba.utils.AadlBaVisitors.getParentComponent(ba), errManager);
 	}
 
+	/**
+	 * @since 9.0
+	 */
 	public AadlBaRulesCheckersDriver(BehaviorAnnex ba, ComponentClassifier parentContainer,
 			AnalysisErrorReporterManager errManager) {
 		_ba = ba;
@@ -101,10 +104,11 @@ public class AadlBaRulesCheckersDriver {
 
 			// As default super methods return null, translate null to true means
 			// nothing to check.
-			if (result == null)
+			if (result == null) {
 				return true;
-			else
+			} else {
 				return result;
+			}
 		} else {
 			// Declarative objects are not supported.
 			System.err.println("the given element -" + theElement.getClass().getSimpleName()
@@ -113,7 +117,7 @@ public class AadlBaRulesCheckersDriver {
 		}
 	}
 
-	/** 
+	/**
 	 * This method checks notCancelled() after each element in the
 	 * list, and terminates the processing if the traversal has been cancelled.
 	 */
@@ -134,9 +138,10 @@ public class AadlBaRulesCheckersDriver {
 	protected void initSwitches() {
 		aadlbaSwitch = new AadlBaSwitch<Boolean>() {
 			/**
-			 * Top-level method to check "behavior_specification" 
+			 * Top-level method to check "behavior_specification"
 			 * annexsubclause
 			 */
+			@Override
 			public Boolean caseAnnexSubclause(AnnexSubclause object) {
 				boolean result = true;
 
@@ -213,6 +218,7 @@ public class AadlBaRulesCheckersDriver {
 				return result;
 			}
 
+			@Override
 			public Boolean caseBehaviorTransition(BehaviorTransition tmp) {
 				return checkBehaviorTransition(tmp, Collections.newSetFromMap(new IdentityHashMap<>()));
 			}
@@ -285,14 +291,17 @@ public class AadlBaRulesCheckersDriver {
 				return result;
 			}
 
+			@Override
 			public Boolean caseBehaviorActionBlock(BehaviorActionBlock bab) {
 				return process(bab.getContent());
 			}
 
+			@Override
 			public Boolean caseBehaviorActionCollection(BehaviorActionCollection bac) {
 				return processEList(bac.getActions());
 			}
 
+			@Override
 			public Boolean caseIfStatement(IfStatement stat) {
 				boolean result = process(stat.getBehaviorActions());
 
@@ -303,18 +312,22 @@ public class AadlBaRulesCheckersDriver {
 				return result;
 			}
 
+			@Override
 			public Boolean caseElseStatement(ElseStatement elseStat) {
 				return process(elseStat.getBehaviorActions());
 			}
 
+			@Override
 			public Boolean caseLoopStatement(LoopStatement stat) {
 				return process(stat.getBehaviorActions());
 			}
 
+			@Override
 			public Boolean caseTimedAction(TimedAction ta) {
 				return _legality.D_6_L8_Check(ta);
 			}
 
+			@Override
 			public Boolean caseDispatchCondition(DispatchCondition dc) {
 				boolean result = _legality.D_3_L5_Check(dc);
 
@@ -325,14 +338,17 @@ public class AadlBaRulesCheckersDriver {
 				return result;
 			}
 
+			@Override
 			public Boolean caseDispatchRelativeTimeout(DispatchRelativeTimeout tc) {
 				return _legality.D_4_L1_Check(tc, _currentBt);
 			}
 
+			@Override
 			public Boolean caseCompletionRelativeTimeout(CompletionRelativeTimeout crtcac) {
 				return _legality.D_4_L2_Check(crtcac, _currentBt);
 			}
 
+			@Override
 			public Boolean caseDispatchTriggerConditionStop(DispatchTriggerConditionStop dtcs) {
 				EList<BehaviorTransition> allTransitions = _ba.getTransitions();
 

@@ -21,7 +21,8 @@ import org.osate.ba.aadlba.BehaviorCondition;
 import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ba.aadlba.BehaviorTransition;
 
-/** Provides transition state and shared condition context for the strict Behavior Annex model. */
+/** Provides transition state and shared condition context for the strict Behavior Annex model.
+ * @since 9.0*/
 public final class BehaviorTransitionContext {
 	private BehaviorTransitionContext() {
 	}

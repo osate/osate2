@@ -274,7 +274,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 										.anyMatch(childRef::equals);
 							}).filter(this::includeHiddenBusinessObjectContext).forEachOrdered(children::add);
 						}
-					} else if (parent instanceof BusinessObjectContext) {
+					} else if (parent != null) {
 						// The parent is another type of business object context which is not included in the diagram
 
 						// Add children which are hidden based on user preference

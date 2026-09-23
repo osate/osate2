@@ -132,7 +132,7 @@ public class PackageHandler extends AadlBusinessObjectHandler implements RawDele
 	public void delete(final RawDeleteContext ctx) {
 		ctx.getBusinessObject(AadlPackage.class).ifPresent(pkg -> {
 			try {
-				((AadlPackage) pkg).eResource().delete(Collections.emptyMap());
+				pkg.eResource().delete(Collections.emptyMap());
 			} catch (final IOException e) {
 				throw new RuntimeException(e);
 			}

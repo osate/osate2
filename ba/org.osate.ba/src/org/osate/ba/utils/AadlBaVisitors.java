@@ -43,7 +43,6 @@ import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ba.aadlba.BehaviorVariable;
-import org.osate.ba.aadlba.DispatchConjunction;
 import org.osate.ba.aadlba.DispatchTrigger;
 import org.osate.ba.aadlba.DispatchTriggerLogicalExpression;
 import org.osate.ba.aadlba.ElseStatement;
@@ -158,6 +157,7 @@ public class AadlBaVisitors {
 	 * @param ba the behavior annex
 	 * @param fallback the component classifier to use for a detached annex
 	 * @return the package sections related to the behavior annex
+	 * @since 9.0
 	 */
 	public static PackageSection[] getBaPackageSections(BehaviorAnnex ba, ComponentClassifier fallback) {
 		PackageSection result[];
@@ -253,6 +253,7 @@ public class AadlBaVisitors {
 	 * @param ba the behavior annex
 	 * @param fallback the component classifier to use for a detached annex
 	 * @return the behavior annex's parent component
+	 * @since 9.0
 	 */
 	public static ComponentClassifier getParentComponent(BehaviorAnnex ba, ComponentClassifier fallback) {
 		var result = (ComponentClassifier) ba.getContainingClassifier();

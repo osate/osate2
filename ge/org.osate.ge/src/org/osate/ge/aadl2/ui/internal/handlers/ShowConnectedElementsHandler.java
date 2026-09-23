@@ -308,7 +308,7 @@ public class ShowConnectedElementsHandler extends AbstractHandler {
 	// Create ancestor nodes
 	private void enableAncestorNodes(final Map<Object, BusinessObjectNode> ancestorToNode,
 			final Queue<Element> ancestors, final Element ancestor) {
-		BusinessObjectNode ancestorNode = (BusinessObjectNode) ancestorToNode.get(ancestor);
+		BusinessObjectNode ancestorNode = ancestorToNode.get(ancestor);
 		for (final Element ancestorToEnable : ancestors) {
 			final RelativeBusinessObjectReference ancestorRef = getRelativeBusinessObjectReference(ancestorToEnable);
 			final BusinessObjectNode tmpNode = ancestorNode.getChild(ancestorRef);

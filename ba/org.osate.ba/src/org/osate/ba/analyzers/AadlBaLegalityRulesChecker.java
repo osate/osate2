@@ -100,6 +100,9 @@ public class AadlBaLegalityRulesChecker {
 		this(ba, AadlBaVisitors.getParentComponent(ba), errManager);
 	}
 
+	/**
+	 * @since 9.0
+	 */
 	public AadlBaLegalityRulesChecker(BehaviorAnnex ba, ComponentClassifier parentContainer,
 			AnalysisErrorReporterManager errManager) {
 		_ba = ba;
@@ -208,13 +211,13 @@ public class AadlBaLegalityRulesChecker {
 		/*
 		 * // As the user can add component which have initialization and finalization
 		 * // entrypoints, fetches the component list.
-		 * 
+		 *
 		 * PackageSection[] contextsTab =AadlBaVisitors.getBaPackageSections(_ba);
-		 * 
+		 *
 		 * PropertiesLinkingService pls = new PropertiesLinkingService() ;
-		 * 
+		 *
 		 * EReference reference = Aadl2Package.eINSTANCE.getNamedValue_NamedValue();
-		 * 
+		 *
 		 * EObject ne=pls.findNamedElementInPredeclaredPropertySets(
 		 * AadlBaVisitors.INITIALIZE_ENTRYPOINT_PROPERTY_NAME,
 		 * contextsTab[0], reference);
@@ -226,17 +229,17 @@ public class AadlBaLegalityRulesChecker {
 		 * ne = ps.findNamedElement(AadlBaVisitors.
 		 * INITIALIZE_ENTRYPOINT_PROPERTY_NAME);
 		 * }
-		 * 
+		 *
 		 * ArrayList<Class<? extends org.osate.aadl2.Element>> klassl =
 		 * new ArrayList<Class<? extends org.osate.aadl2.Element>>() ;
-		 * 
+		 *
 		 * Class<? extends org.osate.aadl2.Element> klass ;
-		 * 
+		 *
 		 * StringBuilder klassName = new StringBuilder();
-		 * 
+		 *
 		 * String firstChar ;
 		 * int firstCharIndex ;
-		 * 
+		 *
 		 * if (ne != null)
 		 * {
 		 * EList<PropertyOwner> pol = ((Property) ne).getAppliesTos() ;
@@ -247,25 +250,25 @@ public class AadlBaLegalityRulesChecker {
 		 * {
 		 * klassName.append(AadlBaVisitors.SEI_AADL2_PACKAGE_NAME);
 		 * klassName.append('.');
-		 * 
+		 *
 		 * firstCharIndex = klassName.length() ;
-		 * 
+		 *
 		 * klassName.append(((MetaclassReference) p).getMetaclass().getName()) ;
-		 * 
+		 *
 		 * firstChar = klassName.substring(firstCharIndex, firstCharIndex+1) ;
-		 * 
+		 *
 		 * // Transform the first char of the property name to upper case.
 		 * firstChar.toUpperCase() ;
-		 * 
+		 *
 		 * klassName.setCharAt(firstCharIndex, firstChar.charAt(0)) ;
-		 * 
+		 *
 		 * klassName.append(AadlBaVisitors.SEI_AADL2_CLASSIFIER_SUFFIX);
-		 * 
+		 *
 		 * try
 		 * {
 		 * klass = (Class<? extends org.osate.aadl2.Element>)
 		 * Class.forName(klassName.toString()) ;
-		 * 
+		 *
 		 * klassl.add(klass);
 		 * }
 		 * catch (java.lang.ClassNotFoundException e)
@@ -277,14 +280,14 @@ public class AadlBaLegalityRulesChecker {
 		 * klassName.setLength(0) ;
 		 * }
 		 * }
-		 * 
+		 *
 		 * // Checks the rule for the given component list.
 		 * for(Class<? extends org.osate.aadl2.Element> tmp : klassl)
 		 * {
 		 * if(tmp.isAssignableFrom(_baParentContainer.getClass()))
 		 * {
 		 * String reportElements = null ;
-		 * 
+		 *
 		 * if(initialStates.size() > 1)
 		 * {
 		 * result = false ;
@@ -304,7 +307,7 @@ public class AadlBaLegalityRulesChecker {
 		 * + " has no initial state : " +
 		 * "Behavior Annex D.3.(L4) legality rule warning") ;
 		 * }
-		 * 
+		 *
 		 * if(finalStates.size() == 0)
 		 * {
 		 * result = false ;
@@ -313,7 +316,7 @@ public class AadlBaLegalityRulesChecker {
 		 * " has no final state : Behavior Annex D.3.(L4)"+
 		 * " legality rules warning") ;
 		 * }
-		 * 
+		 *
 		 * return result ;
 		 * }
 		 * }
@@ -321,7 +324,7 @@ public class AadlBaLegalityRulesChecker {
 		 * else
 		 * {
 		 * String reportElements = null ;
-		 * 
+		 *
 		 * if(initialStates.size() > 1)
 		 * {
 		 * result = false ;
@@ -340,7 +343,7 @@ public class AadlBaLegalityRulesChecker {
 		 * + " has no initial state : " +
 		 * "Behavior Annex D.3.(L4) legality rule failed") ;
 		 * }
-		 * 
+		 *
 		 * if(finalStates.size() == 0)
 		 * {
 		 * result = false ;
@@ -349,7 +352,7 @@ public class AadlBaLegalityRulesChecker {
 		 * " has no final state : Behavior Annex D.3.(L4)"+
 		 * " legality rules failed") ;
 		 * }
-		 * 
+		 *
 		 * return result ;
 		 * }
 		 */
@@ -408,6 +411,7 @@ public class AadlBaLegalityRulesChecker {
 	 * Section : D.3 Behavior Specification
 	 * Object : Check legality rule D.3.(L6)
 	 * Keys : transition complete state dispatch condition
+	 * @since 9.0
 	 */
 	public boolean D_3_L6_Check(BehaviorTransition bt, BehaviorState sourceState) {
 		// D.3.(L6) error case.
@@ -430,6 +434,7 @@ public class AadlBaLegalityRulesChecker {
 	 * Section : D.3 Behavior Specification
 	 * Object : Check legality rule D.3.(L7)
 	 * Keys : transition complete state dispatch condition
+	 * @since 9.0
 	 */
 	public boolean D_3_L7_Check(BehaviorTransition bt, BehaviorState sourceState) {
 		// D.3.(L7) error case.
@@ -452,6 +457,7 @@ public class AadlBaLegalityRulesChecker {
 	 * Section : D.3 Behavior Specification
 	 * Object : Check legality rule D.3.(L8)
 	 * Keys : transition out final state
+	 * @since 9.0
 	 */
 	public boolean D_3_L8_Check(BehaviorTransition bt, BehaviorState sourceState) {
 		// D.3.(L8) error case.
@@ -474,6 +480,7 @@ public class AadlBaLegalityRulesChecker {
 	 * which the D.3 legality rules are ordered differently, so no number can be carried over for a rule the draft
 	 * numbering does not already cover.
 	 * Keys : transition execution state internal condition
+	 * @since 9.0
 	 */
 	public boolean D_3_Internal_Condition_Check(BehaviorTransition bt, BehaviorState sourceState) {
 		// A state carrying any qualifier is not an execution state.
@@ -497,6 +504,7 @@ public class AadlBaLegalityRulesChecker {
 	 * Section : D.4 Thread Dispatch Behavior Specification
 	 * Object : Check dispatch-relative timeout uniqueness for one expanded source transition
 	 * Keys : dispatch relative timeout condition catch complete state
+	 * @since 9.0
 	 */
 	public boolean D_4_L1_Uniqueness_Check(DispatchRelativeTimeout tc, BehaviorTransition bt) {
 		List<BehaviorState> sourceStates = BehaviorTransitionContext.getSourceStates(bt);
@@ -524,6 +532,7 @@ public class AadlBaLegalityRulesChecker {
 	 * Object : Check legality rule D.4.(L1) and semantic rule D.4.(5)
 	 * Keys : dispatch relative timeout condition catch timed thread complete
 	 * state period property
+	 * @since 9.0
 	 */
 	public boolean D_4_L1_Check(DispatchRelativeTimeout tc, BehaviorTransition bt) {
 		List<BehaviorState> sourceState = BehaviorTransitionContext.getSourceStates(bt);
@@ -597,6 +606,7 @@ public class AadlBaLegalityRulesChecker {
 	 * Object : Check completion-relative timeout uniqueness for one expanded source transition
 	 * Keys : dispatch completion relative timeout condition catch complete
 	 * state
+	 * @since 9.0
 	 */
 	public boolean D_4_L2_Uniqueness_Check(CompletionRelativeTimeout crtcac, BehaviorTransition bt) {
 		List<BehaviorState> sourceStates = BehaviorTransitionContext.getSourceStates(bt);
@@ -624,6 +634,7 @@ public class AadlBaLegalityRulesChecker {
 	 * Object : Check legality rule D.4.(L2)
 	 * Keys : dispatch completion relative timeout condition catch complete
 	 * state
+	 * @since 9.0
 	 */
 	public Boolean D_4_L2_Check(CompletionRelativeTimeout crtcac, BehaviorTransition bt) {
 		List<BehaviorState> sourceState = BehaviorTransitionContext.getSourceStates(bt);
@@ -734,6 +745,7 @@ public class AadlBaLegalityRulesChecker {
 	 * declarative multi-source transition into one strict transition per source while sharing the action block, so the
 	 * driver calls this method for every expanded transition. This ensures that every source has its own timeout-catch
 	 * transition.
+	 * @since 9.0
 	 */
 	public boolean D_3_And_D_6_Action_Timeout_Check(BehaviorTransition transition) {
 		var actionBlock = transition.getActionBlock();
@@ -1009,6 +1021,7 @@ public class AadlBaLegalityRulesChecker {
 	 * Internal conditions and sends on internal features belong to two separate abstractions of the same behavior, one
 	 * describing when an internal feature is raised and the other reacting to it. Reports on each internal condition,
 	 * which is what the rule's own wording forbids in a subclause that also sends an internal feature.
+	 * @since 9.0
 	 */
 	public boolean D_6_L11_Check(BehaviorAnnex ba) {
 		List<InternalCondition> conditions = new ArrayList<InternalCondition>();

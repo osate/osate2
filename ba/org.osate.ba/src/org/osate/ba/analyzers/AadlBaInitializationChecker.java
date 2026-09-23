@@ -39,7 +39,6 @@ import org.osate.ba.aadlba.BehaviorActionSet;
 import org.osate.ba.aadlba.BehaviorActions;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
-import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ba.aadlba.BehaviorVariable;
 import org.osate.ba.aadlba.BehaviorVariableHolder;
 import org.osate.ba.aadlba.DataComponentReference;
@@ -61,6 +60,7 @@ import org.osate.ba.aadlba.WhileOrDoUntilStatement;
  * Performs the declarative part of AS5506/3 Rev. A D.7 definite-initialization analysis. Local behavior variables are
  * tracked through action control flow and the behavior-state graph. Data-component initialization through a prefixed
  * {@code Data_Model::Initial_Value} is instance-dependent and deliberately remains outside this checker.
+ * @since 9.0
  */
 public final class AadlBaInitializationChecker {
 	private static final String INITIAL_VALUE = "Data_Model::Initial_Value";
@@ -231,12 +231,12 @@ public final class AadlBaInitializationChecker {
 			return;
 		}
 		if (target instanceof IndexableElement indexable) {
-			indexable.getArrayIndexes().forEach(index -> checkReads((EObject) index, initialized, valid));
+			indexable.getArrayIndexes().forEach(index -> checkReads(index, initialized, valid));
 		}
 		if (target instanceof DataComponentReference reference) {
 			for (var holder : reference.getData()) {
 				if (holder instanceof IndexableElement indexable) {
-					indexable.getArrayIndexes().forEach(index -> checkReads((EObject) index, initialized, valid));
+					indexable.getArrayIndexes().forEach(index -> checkReads(index, initialized, valid));
 				}
 			}
 		}

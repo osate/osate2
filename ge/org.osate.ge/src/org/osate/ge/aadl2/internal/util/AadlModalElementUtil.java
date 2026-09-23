@@ -90,7 +90,7 @@ public class AadlModalElementUtil {
 
 	public static List<ModeFeature> getAllInModesOrTransitions(final ModalElement modalElement) {
 		final Stream<? extends ModeFeature> inModeFeatures = modalElement instanceof ModalPath
-				? Stream.concat(((ModalPath) modalElement).getAllInModes().stream(),
+				? Stream.concat(modalElement.getAllInModes().stream(),
 						((ModalPath) modalElement).getAllInModeTransitions().stream())
 				: modalElement.getAllInModes().stream();
 				return inModeFeatures.collect(Collectors.toList());

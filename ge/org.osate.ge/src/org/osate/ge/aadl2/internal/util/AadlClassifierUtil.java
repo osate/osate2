@@ -76,8 +76,7 @@ public class AadlClassifierUtil {
 		} else if (bo instanceof ComponentImplementation) {
 			ci = (ComponentImplementation) bo;
 		} else if (bo instanceof Subcomponent) {
-			final ComponentClassifier scClassifier = ((Subcomponent) bo).getAllClassifier();
-			ci = scClassifier instanceof ComponentClassifier ? scClassifier : null;
+			ci = ((Subcomponent) bo).getAllClassifier();
 		} else {
 			ci = null;
 		}

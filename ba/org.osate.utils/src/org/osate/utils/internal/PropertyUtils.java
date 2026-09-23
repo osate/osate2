@@ -44,7 +44,6 @@ import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.StringLiteral;
-import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceReferenceValue;
 

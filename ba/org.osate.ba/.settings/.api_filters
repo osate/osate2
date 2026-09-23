@@ -1,0 +1,811 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.osate.ba" version="2">
+    <resource path="src/org/osate/ba/aadlba/AadlBaFactory.java" type="org.osate.ba.aadlba.AadlBaFactory">
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="createBehaviorArraySize()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="createEventDataSourceHolder()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="createEventSourceHolder()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="createInternalCondition()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="createInternalPortSendAction()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="createPortUpdatedValue()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/AadlBaPackage.java">
+        <filter comment="emf generated" id="0"/>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/AadlBaPackage.java" type="org.osate.ba.aadlba.AadlBaPackage">
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="ACTUAL_PORT_HOLDER__CONTEXT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="BEHAVIOR_ARRAY_SIZE"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="BEHAVIOR_ARRAY_SIZE_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="BEHAVIOR_ARRAY_SIZE__INTEGER_VALUE"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="BEHAVIOR_ARRAY_SIZE__OWNED_COMMENT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="BEHAVIOR_ARRAY_SIZE__OWNED_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="BEHAVIOR_ARRAY_SIZE__SIZE"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="BEHAVIOR_ARRAY_SIZE__SIZE_PROPERTY"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="COMPLETION_RELATIVE_TIMEOUT__RESET_PORTS"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="DATA_PORT_HOLDER__CONTEXT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="EVENT_DATA_PORT_HOLDER__CONTEXT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="EVENT_DATA_SOURCE_HOLDER"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="EVENT_DATA_SOURCE_HOLDER_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="EVENT_DATA_SOURCE_HOLDER__ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="EVENT_DATA_SOURCE_HOLDER__OWNED_COMMENT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="EVENT_DATA_SOURCE_HOLDER__OWNED_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="EVENT_PORT_HOLDER__CONTEXT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="EVENT_SOURCE_HOLDER"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="EVENT_SOURCE_HOLDER_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="EVENT_SOURCE_HOLDER__ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="EVENT_SOURCE_HOLDER__OWNED_COMMENT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="EVENT_SOURCE_HOLDER__OWNED_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="INTERNAL_CONDITION"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="INTERNAL_CONDITION_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="INTERNAL_CONDITION__INTERNAL_PORTS"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="INTERNAL_CONDITION__OWNED_COMMENT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="INTERNAL_CONDITION__OWNED_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="INTERNAL_PORT_HOLDER"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="INTERNAL_PORT_HOLDER_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="INTERNAL_PORT_HOLDER__ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="INTERNAL_PORT_HOLDER__OWNED_COMMENT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="INTERNAL_PORT_HOLDER__OWNED_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="INTERNAL_PORT_SEND_ACTION"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="INTERNAL_PORT_SEND_ACTION_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="INTERNAL_PORT_SEND_ACTION__OWNED_COMMENT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="INTERNAL_PORT_SEND_ACTION__OWNED_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="MODE_SWITCH_CONJUNCTION__LOGICAL_OPERATORS"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="MODE_SWITCH_TRIGGER_LOGICAL_EXPRESSION__LOGICAL_OPERATORS"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="PORT_COUNT_VALUE__CONTEXT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="PORT_DEQUEUE_VALUE__CONTEXT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="PORT_FREEZE_ACTION__CONTEXT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="PORT_FRESH_VALUE__CONTEXT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="PORT_UPDATED_VALUE"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="PORT_UPDATED_VALUE_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="PORT_UPDATED_VALUE__ARRAY_INDEXES"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="PORT_UPDATED_VALUE__CONTEXT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="PORT_UPDATED_VALUE__ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="PORT_UPDATED_VALUE__GROUP_HOLDERS"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="PORT_UPDATED_VALUE__OWNED_COMMENT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="PORT_UPDATED_VALUE__OWNED_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="TIMEOUT_RESET_PORT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="TIMEOUT_RESET_PORT_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="TIMEOUT_RESET_PORT__OWNED_COMMENT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="TIMEOUT_RESET_PORT__OWNED_ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="getActualPortHolder_Context()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="getBehaviorArraySize()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="getBehaviorArraySize_IntegerValue()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="getCompletionRelativeTimeout_ResetPorts()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="getEventDataSourceHolder()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="getEventSourceHolder()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="getInternalCondition()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="getInternalCondition_InternalPorts()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="getInternalPortHolder()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="getInternalPortSendAction()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="getInternalPortSendAction_InternalPort()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="getInternalPortSendAction_ValueExpression()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="getModeSwitchConjunction_LogicalOperators()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="getModeSwitchTriggerLogicalExpression_LogicalOperators()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="getPortUpdatedValue()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="getTimeoutResetPort()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/AadlBaPackage.java" type="org.osate.ba.aadlba.AadlBaPackage$Literals">
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="ACTUAL_PORT_HOLDER__CONTEXT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="BEHAVIOR_ARRAY_SIZE"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="BEHAVIOR_ARRAY_SIZE__INTEGER_VALUE"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="COMPLETION_RELATIVE_TIMEOUT__RESET_PORTS"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="EVENT_DATA_SOURCE_HOLDER"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="EVENT_SOURCE_HOLDER"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="INTERNAL_CONDITION"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="INTERNAL_CONDITION__INTERNAL_PORTS"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="INTERNAL_PORT_HOLDER"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="INTERNAL_PORT_SEND_ACTION"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="INTERNAL_PORT_SEND_ACTION__INTERNAL_PORT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="INTERNAL_PORT_SEND_ACTION__VALUE_EXPRESSION"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="MODE_SWITCH_CONJUNCTION__LOGICAL_OPERATORS"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="MODE_SWITCH_TRIGGER_LOGICAL_EXPRESSION__LOGICAL_OPERATORS"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="PORT_UPDATED_VALUE"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="TIMEOUT_RESET_PORT"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/ActualPortHolder.java" type="org.osate.ba.aadlba.ActualPortHolder">
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="getContext()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="setContext(Subcomponent)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/BehaviorArraySize.java" type="org.osate.ba.aadlba.BehaviorArraySize">
+        <filter comment="emf generated" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.ba.aadlba.BehaviorArraySize"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/CompletionRelativeTimeout.java" type="org.osate.ba.aadlba.CompletionRelativeTimeout">
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="getResetPorts()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="isSetResetPorts()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="unsetResetPorts()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/EventDataSourceHolder.java" type="org.osate.ba.aadlba.EventDataSourceHolder">
+        <filter comment="emf generated" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.ba.aadlba.EventDataSourceHolder"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/EventSourceHolder.java" type="org.osate.ba.aadlba.EventSourceHolder">
+        <filter comment="emf generated" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.ba.aadlba.EventSourceHolder"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/InternalCondition.java">
+        <filter comment="emf generated" id="0"/>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/InternalCondition.java" type="org.osate.ba.aadlba.InternalCondition">
+        <filter comment="emf generated" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.ba.aadlba.InternalCondition"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/InternalPortHolder.java" type="org.osate.ba.aadlba.InternalPortHolder">
+        <filter comment="emf generated" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.ba.aadlba.InternalPortHolder"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/InternalPortSendAction.java">
+        <filter comment="emf generated" id="0"/>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/InternalPortSendAction.java" type="org.osate.ba.aadlba.InternalPortSendAction">
+        <filter comment="emf generated" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.ba.aadlba.InternalPortSendAction"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/LogicalOperator.java" type="org.osate.ba.aadlba.LogicalOperator">
+        <filter comment="emf generated" id="1177550852">
+            <message_arguments>
+                <message_argument value="AND_THEN"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1177550852">
+            <message_arguments>
+                <message_argument value="AND_THEN_VALUE"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1177550852">
+            <message_arguments>
+                <message_argument value="OR_ELSE"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1177550852">
+            <message_arguments>
+                <message_argument value="OR_ELSE_VALUE"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/ModeSwitchConjunction.java" type="org.osate.ba.aadlba.ModeSwitchConjunction">
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="getLogicalOperators()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="isSetLogicalOperators()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="unsetLogicalOperators()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/ModeSwitchTriggerLogicalExpression.java" type="org.osate.ba.aadlba.ModeSwitchTriggerLogicalExpression">
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="getLogicalOperators()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="isSetLogicalOperators()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="unsetLogicalOperators()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/PortUpdatedValue.java" type="org.osate.ba.aadlba.PortUpdatedValue">
+        <filter comment="emf generated" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.ba.aadlba.PortUpdatedValue"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/TimeoutResetPort.java" type="org.osate.ba.aadlba.TimeoutResetPort">
+        <filter comment="emf generated" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.ba.aadlba.TimeoutResetPort"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/impl/ActualPortHolderImpl.java" type="org.osate.ba.aadlba.impl.ActualPortHolderImpl">
+        <filter comment="emf generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="basicGetContext()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="context"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/impl/BehaviorArraySizeImpl.java" type="org.osate.ba.aadlba.impl.BehaviorArraySizeImpl">
+        <filter comment="emf generated" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.ba.aadlba.impl.BehaviorArraySizeImpl"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/impl/CompletionRelativeTimeoutImpl.java" type="org.osate.ba.aadlba.impl.CompletionRelativeTimeoutImpl">
+        <filter comment="emf generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="resetPorts"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/impl/EventDataSourceHolderImpl.java">
+        <filter comment="emf generated" id="0"/>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/impl/EventDataSourceHolderImpl.java" type="org.osate.ba.aadlba.impl.EventDataSourceHolderImpl">
+        <filter comment="emf generated" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.ba.aadlba.impl.EventDataSourceHolderImpl"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/impl/EventSourceHolderImpl.java" type="org.osate.ba.aadlba.impl.EventSourceHolderImpl">
+        <filter comment="emf generated" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.ba.aadlba.impl.EventSourceHolderImpl"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/impl/InternalConditionImpl.java" type="org.osate.ba.aadlba.impl.InternalConditionImpl">
+        <filter comment="emf generated" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.ba.aadlba.impl.InternalConditionImpl"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/impl/InternalPortHolderImpl.java" type="org.osate.ba.aadlba.impl.InternalPortHolderImpl">
+        <filter comment="emf generated" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.ba.aadlba.impl.InternalPortHolderImpl"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/impl/InternalPortSendActionImpl.java">
+        <filter comment="emf generated" id="0"/>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/impl/InternalPortSendActionImpl.java" type="org.osate.ba.aadlba.impl.InternalPortSendActionImpl">
+        <filter comment="emf generated" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.ba.aadlba.impl.InternalPortSendActionImpl"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/impl/ModeSwitchConjunctionImpl.java" type="org.osate.ba.aadlba.impl.ModeSwitchConjunctionImpl">
+        <filter comment="emf generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="logicalOperators"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/impl/ModeSwitchTriggerLogicalExpressionImpl.java" type="org.osate.ba.aadlba.impl.ModeSwitchTriggerLogicalExpressionImpl">
+        <filter comment="emf generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="logicalOperators"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/impl/PortUpdatedValueImpl.java" type="org.osate.ba.aadlba.impl.PortUpdatedValueImpl">
+        <filter comment="emf generated" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.ba.aadlba.impl.PortUpdatedValueImpl"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/util/AadlBaAdapterFactory.java" type="org.osate.ba.aadlba.util.AadlBaAdapterFactory">
+        <filter comment="emf generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="createArraySizeAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="createBehaviorArraySizeAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="createEventDataSourceHolderAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="createEventSourceHolderAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="createInternalConditionAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="createInternalPortHolderAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="createInternalPortSendActionAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="createPortUpdatedValueAdapter()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="createTimeoutResetPortAdapter()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ba/aadlba/util/AadlBaSwitch.java" type="org.osate.ba.aadlba.util.AadlBaSwitch">
+        <filter comment="emf generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="caseArraySize(ArraySize)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="caseBehaviorArraySize(BehaviorArraySize)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="caseEventDataSourceHolder(EventDataSourceHolder)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="caseEventSourceHolder(EventSourceHolder)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="caseInternalCondition(InternalCondition)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="caseInternalPortHolder(InternalPortHolder)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="caseInternalPortSendAction(InternalPortSendAction)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="casePortUpdatedValue(PortUpdatedValue)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="emf generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="caseTimeoutResetPort(TimeoutResetPort)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>

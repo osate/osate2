@@ -699,7 +699,7 @@ public class AgeDiagram extends DiagramNode {
 				break;
 
 			case RELATIVE_REFERENCE:
-				((AgeDiagramModification) m).setRelativeReference(element, (RelativeBusinessObjectReference) value);
+				m.setRelativeReference(element, (RelativeBusinessObjectReference) value);
 				break;
 
 			case EMBEDDED_BUSINESS_OBJECT:

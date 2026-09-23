@@ -1,13 +1,13 @@
 /**
  * AADL-BA-FrontEnd
- * 
+ *
  * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
- * This program is free software: you can redistribute it and/or modify 
+ *
+ * This program is free software: you can redistribute it and/or modify
  * it under the terms of the Eclipse Public License as published by Eclipse,
  * either version 2.0 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful,
@@ -15,7 +15,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * Eclipse Public License for more details.
  * You should have received a copy of the Eclipse Public License
- * along with this program.  If not, see 
+ * along with this program.  If not, see
  * https://www.eclipse.org/legal/epl-2.0/
  */
 
@@ -29,10 +29,10 @@ import org.osate.ba.aadlba.BehaviorElement;
  */
 public interface DataTypeChecker {
 	/**
-	* Checks if the given binary operator is defined for the given operands.  
+	* Checks if the given binary operator is defined for the given operands.
 	* Returns the type of the result (top level type) but on error, reports error
 	* and returns null.
-	* 
+	*
 	* @param e the behavior element that the given operator belongs to
 	* @param operator the given operator
 	* @param operand1 the left operand
@@ -42,10 +42,10 @@ public interface DataTypeChecker {
 	TypeHolder checkDefinition(BehaviorElement e, Enumerator operator, TypeHolder operand1, TypeHolder operand2);
 
 	/**
-	* Checks if the given unary operator is defined for the given operand.  
+	* Checks if the given unary operator is defined for the given operand.
 	* Returns the type of the result (top level type) but on error, reports error
 	* and returns null.
-	* 
+	*
 	* @param e the behavior element that the given operator belongs to
 	* @param operator the given operator
 	* @param operand the given operand
@@ -75,17 +75,18 @@ public interface DataTypeChecker {
 	* @param found the type supplied at this position
 	* @param hasToCheckDimension if {@code true}, checks type's array dimension. else it doesn't.
 	* @return how the types conform, never {@code null}
+	 * @since 9.0
 	*/
 	TypeConformance checkConformance(TypeHolder expected, TypeHolder found, boolean hasToCheckDimension);
 
 	/**
-	* Checks if the type1 conforms to type2 
-	* (see {@link #conformsTo(TypeHolder, TypeHolder)}) and returns the top 
-	* level type of the given types. 
-	* 
+	* Checks if the type1 conforms to type2
+	* (see {@link #conformsTo(TypeHolder, TypeHolder)}) and returns the top
+	* level type of the given types.
+	*
 	* @param type1 the given type1
 	* @param type2 the given type2
-	* @return the top level type of the given types. 
+	* @return the top level type of the given types.
 	*/
 	TypeHolder getTopLevelType(TypeHolder type1, TypeHolder type2);
 }

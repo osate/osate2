@@ -23,7 +23,6 @@
 */
 package org.osate.ge.tests.endToEnd.util;
 
-import static org.eclipse.swtbot.swt.finder.SWTBotAssert.*;
 import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.*;
 import static org.junit.Assert.*;
 

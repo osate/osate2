@@ -38,7 +38,8 @@ import org.osate.aadl2.Feature;
 import org.osate.aadl2.SubprogramClassifier;
 import org.osate.ba.aadlba.CalledSubprogramHolder;
 
-/** Shared, read-only signature lookup for translation and validation of BA calls. */
+/** Shared, read-only signature lookup for translation and validation of BA calls.
+ * @since 9.0*/
 public final class SubprogramCallUtil {
 	private SubprogramCallUtil() {
 	}

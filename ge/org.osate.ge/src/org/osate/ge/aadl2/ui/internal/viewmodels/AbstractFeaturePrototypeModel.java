@@ -109,7 +109,7 @@ implements SingleSelectorModel<Set<FeaturePrototype>> {
 				return "<None>";
 			}
 
-			return Strings.nullToEmpty(((FeaturePrototype) element).getQualifiedName());
+			return Strings.nullToEmpty(element.getQualifiedName());
 		} else {
 			return "<Multiple>";
 		}

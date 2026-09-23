@@ -363,7 +363,7 @@ public class ShowFlowContributionItem extends ControlContribution {
 			}
 
 			private void enableFlowEnd(final FlowEnd flowEnd, BusinessObjectNode containerNode) {
-				final Feature feature = (Feature) flowEnd.getFeature();
+				final Feature feature = flowEnd.getFeature();
 				if (flowEnd.getContext() != null) {
 					containerNode = ensureEnabledChild(flowEnd.getContext(),
 							containerNode);

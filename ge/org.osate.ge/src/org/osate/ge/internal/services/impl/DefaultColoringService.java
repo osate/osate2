@@ -344,8 +344,8 @@ public class DefaultColoringService implements ColoringService {
 						}
 
 						// Check for derived modes
-						if (ci.getSubcomponent() instanceof Subcomponent) {
-							final Subcomponent subcomponent = (Subcomponent) ci.getSubcomponent();
+						if (ci.getSubcomponent() != null) {
+							final Subcomponent subcomponent = ci.getSubcomponent();
 							if (isDerived(subcomponent)) {
 								return getDerivedSubcomponentInModes(selectedModeFeature, child);
 							}
@@ -542,7 +542,7 @@ public class DefaultColoringService implements ColoringService {
 	public void setHighlightedFlow(final NamedElement highlightedFlow, final BusinessObjectContext flowsContainerBoc) {
 		this.flowsContainerBoc = flowsContainerBoc;
 		highlightFlowImplSpecName = highlightedFlow instanceof FlowSpecification
-				? ((FlowSpecification) highlightedFlow).getName()
+				? highlightedFlow.getName()
 						: null;
 		highlightEndToEndFlowName = highlightedFlow instanceof EndToEndFlow
 				|| highlightedFlow instanceof EndToEndFlowInstance ? highlightedFlow.getName() : null;

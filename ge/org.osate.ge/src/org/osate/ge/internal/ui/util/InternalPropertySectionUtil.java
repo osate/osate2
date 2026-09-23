@@ -353,7 +353,7 @@ public final class InternalPropertySectionUtil {
 			if (!tableViewer.getStructuredSelection().isEmpty()) {
 				final DragAndDropElement dNDElement = (DragAndDropElement) tableViewer.getStructuredSelection()
 						.getFirstElement();
-				final boolean direction = (boolean) ((Button) e.widget).getData();
+				final boolean direction = (boolean) e.widget.getData();
 				final int targetIndex = dNDElement.getIndex() + (direction ? -1 : 1);
 				final int newIndex = getNewIndex(tableViewer.getTable().getItemCount(), targetIndex);
 				executeChangeOrder.apply(newIndex, dNDElement.getIndex() - 1, dNDElement);

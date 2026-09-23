@@ -293,7 +293,7 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 							&& (mp.getAllInModeTransitions().size() > 0 || mp.getAllInModes().size() > 0)) {
 						return true;
 					}
-				} else if (modalElement instanceof ModalElement) {
+				} else if (modalElement != null) {
 					if (modalElement.getInModes().size() == 0 && modalElement.getAllInModes().size() > 0) {
 						return true;
 					}

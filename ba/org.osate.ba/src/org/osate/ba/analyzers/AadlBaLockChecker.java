@@ -23,10 +23,10 @@
  */
 package org.osate.ba.analyzers;
 
+import static org.osate.ba.analyzers.AadlBaConsistencyRulesChecker.staticTruth;
 import static org.osate.ba.analyzers.AadlBaConsistencyRulesChecker.StaticTruth.FALSE;
 import static org.osate.ba.analyzers.AadlBaConsistencyRulesChecker.StaticTruth.TRUE;
 import static org.osate.ba.analyzers.AadlBaConsistencyRulesChecker.StaticTruth.UNKNOWN;
-import static org.osate.ba.analyzers.AadlBaConsistencyRulesChecker.staticTruth;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -72,6 +72,7 @@ import org.osate.ba.utils.AadlBaVisitors;
  * leaving an incoming lock untouched and acquiring a new lock, which is necessary for unordered action sets.
  * Runtime-dependent guards and iteration bounds are conservative; this is not a symbolic execution of data values.
  * A second traversal excludes those assumptions to distinguish established violations from informational findings.
+ * @since 9.0
  */
 public final class AadlBaLockChecker {
 	private final BehaviorAnnex annex;

@@ -46,9 +46,9 @@ class IfElseQuery<T> extends DefaultQuery<T> {
 		this.cond = Objects.requireNonNull(cond, "cond must not be null");
 		Objects.requireNonNull(trueQuerySupplier, "trueQuerySupplier must not be null");
 		Objects.requireNonNull(falseQuerySupplier, "falseQuerySupplier must not be null");
-		this.trueQuery = (DefaultQuery<T>) Objects.requireNonNull(trueQuerySupplier.apply((Query<T>) innerRootQuery),
+		this.trueQuery = (DefaultQuery<T>) Objects.requireNonNull(trueQuerySupplier.apply(innerRootQuery),
 				"trueQuery must not be null");
-		this.falseQuery = (DefaultQuery<T>) Objects.requireNonNull(falseQuerySupplier.apply((Query<T>) innerRootQuery),
+		this.falseQuery = (DefaultQuery<T>) Objects.requireNonNull(falseQuerySupplier.apply(innerRootQuery),
 				"falseQuery must not be null");
 	}
 

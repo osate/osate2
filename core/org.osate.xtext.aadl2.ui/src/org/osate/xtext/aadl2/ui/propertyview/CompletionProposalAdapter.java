@@ -98,7 +98,7 @@ public class CompletionProposalAdapter implements ICompletionListener {
 	/*
 	 * The list of IContentProposalListener2 listeners.
 	 */
-	private ListenerList proposalListeners2 = new ListenerList();
+	private ListenerList<ICompletionProposalListener> proposalListeners2 = new ListenerList<>();
 
 	/*
 	 * Flag that indicates whether the adapter is enabled. In some cases,

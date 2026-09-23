@@ -31,9 +31,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -502,109 +500,10 @@ public class BehaviorAnnexCharacterizationTest {
 		return result;
 	}
 
-	private static final class StageMessages {
-		private final Map<MessageKey, List<String>> origins = new HashMap<>();
-		private final List<Object> strongLocationReferences = new ArrayList<>();
-
-		void retainLocations(final EObject root) {
-			retainLocation(root);
-			for (final Iterator<EObject> contents = root.eAllContents(); contents.hasNext();) {
-				retainLocation(contents.next());
-			}
-		}
-
-		private void retainLocation(final EObject object) {
-			if (object instanceof Element element) {
-				final var location = element.getLocationReference();
-				if (location != null) {
-					strongLocationReferences.add(location);
-				}
-			}
-		}
-
-		void add(final String origin, final List<Message> messages) {
-			for (final Message message : messages) {
-				final MessageKey key = new MessageKey(message.kind, message.line, message.message);
-				List<String> values = origins.get(key);
-				if (values == null) {
-					values = new ArrayList<>();
-					origins.put(key, values);
-				}
-				values.add(origin);
-			}
-		}
-
-		String takeOrigin(final Issue issue) {
-			final MessageKey key = new MessageKey(severityKind(issue), issue.getLineNumber().intValue(),
-					issue.getMessage());
-			final List<String> values = origins.get(key);
-			if (values != null && !values.isEmpty()) {
-				return values.remove(0);
-			}
-			if (Diagnostic.LINKING_DIAGNOSTIC.equals(issue.getCode())) {
-				return "linking";
-			}
-			return issue.isSyntaxError() ? "syntax" : "semantic";
-		}
-
-		private static String severityKind(final Issue issue) {
-			switch (issue.getSeverity()) {
-			case ERROR:
-				return QueuingParseErrorReporter.ERROR;
-			case WARNING:
-				return QueuingParseErrorReporter.WARNING;
-			case INFO:
-			default:
-				return QueuingParseErrorReporter.INFO;
-			}
-		}
-	}
-
-	private static final class MessageKey {
-		private final String kind;
-		private final int line;
-		private final String message;
-
-		MessageKey(final String kind, final int line, final String message) {
-			this.kind = kind;
-			this.line = line;
-			this.message = message;
-		}
-
-		@Override
-		public int hashCode() {
-			int result = 17;
-			result = 31 * result + (kind == null ? 0 : kind.hashCode());
-			result = 31 * result + line;
-			result = 31 * result + (message == null ? 0 : message.hashCode());
-			return result;
-		}
-
-		@Override
-		public boolean equals(final Object obj) {
-			if (this == obj) {
-				return true;
-			}
-			if (!(obj instanceof MessageKey)) {
-				return false;
-			}
-			final MessageKey other = (MessageKey) obj;
-			return line == other.line && equal(kind, other.kind) && equal(message, other.message);
-		}
-
-		private static boolean equal(final Object left, final Object right) {
-			return left == null ? right == null : left.equals(right);
-		}
-	}
-
 	private static final class RoundTripResult {
-		private final String first;
-		private final String second;
 		private final List<Message> parseMessages;
 
 		RoundTripResult(final String first, final String second, final List<Message> parseMessages) {
-			this.first = first;
-			this.second = second;
 			this.parseMessages = parseMessages;
 		}
 	}
