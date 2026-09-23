@@ -1,0 +1,42 @@
+package Scopes
+public
+	with Base_Types;
+	annex EMV2 {**
+		error types
+			Failure: type;
+			Excluded: type;
+		end types;
+	**};
+	system Example
+		features
+			Commanded_Position: in event data port Base_Types::Integer;
+			result: out event data port Base_Types::Integer;
+		flows
+			path1: flow path Commanded_Position -> result;
+		annex EMV2 {**
+			use types Scopes;
+			error propagations
+				Commanded_Position: in propagation {Failure};
+				Commanded_Position: not in propagation {Excluded};
+				result: out propagation {Failure};
+				result: not out propagation {Excluded};
+			flows
+				error_path: error path Commanded_Position -> result;
+				error_sink: error sink Commanded_Position;
+				error_source: error source result;
+			end propagations;
+		**};
+	end Example;
+system Other
+	features
+		Commanded_Position: in event data port Base_Types::Integer;
+	annex EMV2 {**
+		use types Scopes;
+		error propagations
+			Commanded_Position: in propagation {Failure};
+		flows
+			sink1: error sink Commanded_Position;
+		end propagations;
+	**};
+end Other;
+end Scopes;

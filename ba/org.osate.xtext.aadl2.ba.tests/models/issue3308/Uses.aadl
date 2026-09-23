@@ -1,0 +1,14 @@
+package SearchUses
+public
+	with SearchDefinitions;
+	system Example extends SearchDefinitions::Base
+		annex EMV2 {**
+			error propagations
+			flows
+				path1: error path input -> output;
+				sink1: error sink input;
+				source1: error source output;
+			end propagations;
+		**};
+	end Example;
+end SearchUses;
