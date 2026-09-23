@@ -1,0 +1,32 @@
+package Issue3306
+public
+	thread Controller
+		features
+			tick: in event port;
+			finish_request: in event port;
+		properties
+			Dispatch_Protocol => Aperiodic;
+	end Controller;
+	thread implementation Controller.first
+		annex behavior_specification {**
+			states
+				Ready: initial complete state;
+				Busy: complete state;
+				Done: final state;
+			transitions
+				advance: Ready -[on dispatch tick]-> Busy;
+				reset: Busy -[on dispatch tick]-> Ready;
+				finish: Ready, Busy -[on dispatch finish_request]-> Done;
+		**};
+	end Controller.first;
+	thread implementation Controller.other
+		annex behavior_specification {**
+			states
+				Ready: initial complete state;
+				Done: final state;
+			transitions
+				Ready -[on dispatch tick]-> Ready;
+				Ready -[on dispatch finish_request]-> Done;
+		**};
+	end Controller.other;
+end Issue3306;
