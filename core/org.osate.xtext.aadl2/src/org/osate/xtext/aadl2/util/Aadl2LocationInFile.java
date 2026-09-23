@@ -28,6 +28,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode;
@@ -42,6 +43,16 @@ import org.osate.aadl2.parsesupport.AObject;
 import org.osate.aadl2.parsesupport.LocationReference;
 
 public class Aadl2LocationInFile extends DefaultLocationInFileProvider {
+	@Override
+	public ITextRegion getSignificantTextRegion(EObject owner, EStructuralFeature feature, int indexInList) {
+		return feature == null ? getSignificantTextRegion(owner)
+				: super.getSignificantTextRegion(owner, feature, indexInList);
+	}
+
+	@Override
+	public ITextRegion getFullTextRegion(EObject owner, EStructuralFeature feature, int indexInList) {
+		return feature == null ? getFullTextRegion(owner) : super.getFullTextRegion(owner, feature, indexInList);
+	}
 
 	@Override
 	protected ITextRegion getTextRegion(EObject obj, boolean isSignificant) {

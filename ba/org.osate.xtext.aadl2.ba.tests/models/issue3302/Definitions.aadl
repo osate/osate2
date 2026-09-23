@@ -1,0 +1,9 @@
+package RenameDefinitions
+public
+	with Base_Types;
+	system Base
+		features
+			input: in event data port Base_Types::Integer;
+			output: out event data port Base_Types::Integer;
+	end Base;
+end RenameDefinitions;

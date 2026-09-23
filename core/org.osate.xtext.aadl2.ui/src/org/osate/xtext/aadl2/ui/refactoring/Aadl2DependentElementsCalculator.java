@@ -31,10 +31,15 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
+import org.eclipse.xtext.resource.IResourceServiceProvider;
+import org.eclipse.xtext.ui.refactoring.IDependentElementsCalculator;
 import org.eclipse.xtext.ui.refactoring.impl.DefaultDependentElementsCalculator;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.Feature;
+import org.osate.annexsupport.AnnexRegistry;
+import org.osate.annexsupport.AnnexUtil;
 
 /**
  * @author lw
@@ -54,6 +59,26 @@ public class Aadl2DependentElementsCalculator extends DefaultDependentElementsCa
 					.filter(impl -> impl.getType() == baseElement)
 					.map(EcoreUtil::getURI)
 					.forEach(dependentElementURIs::add);
+		}
+		if (baseElement instanceof Feature) {
+			var registry = AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_PARSER_EXT_ID);
+			for (var annexName : registry.getExtensions()) {
+				if (monitor.isCanceled()) {
+					throw new OperationCanceledException();
+				}
+				var injector = AnnexUtil.getInjector(annexName);
+				if (injector != null) {
+					var calculator = injector.getInstance(IResourceServiceProvider.class)
+							.get(IDependentElementsCalculator.class);
+					if (calculator != null && !(calculator instanceof Aadl2DependentElementsCalculator)) {
+						for (var uri : calculator.getDependentElementURIs(baseElement, monitor)) {
+							if (!dependentElementURIs.contains(uri)) {
+								dependentElementURIs.add(uri);
+							}
+						}
+					}
+				}
+			}
 		}
 		if (monitor.isCanceled()) {
 			throw new OperationCanceledException();

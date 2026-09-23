@@ -1,0 +1,25 @@
+package Issue3293
+public
+	with Base_Types;
+	system Example
+	end Example;
+	system implementation Example.i
+		subcomponents
+			DesiredPositionState: data Base_Types::Integer;
+			CommandedPositionState: data Base_Types::Integer;
+		annex behavior_specification {**
+			states
+				idle: initial state;
+				done: final state;
+			transitions
+				idle -[]-> done {
+					DesiredPositionState := 0;
+					if (DesiredPositionState > 0) {
+						CommandedPositionState := 1
+					} elsif (DesiredPositionState < 0) {
+						CommandedPositionState := 2
+					} end if
+				};
+		**};
+	end Example.i;
+end Issue3293;

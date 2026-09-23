@@ -29,6 +29,7 @@ package org.osate.aadl2.modelsupport.scoping;
 public final class Aadl2IndexMetadata {
 	public static final String PACKAGE_NAME = "aadl.packageName";
 	public static final String VISIBILITY = "aadl.visibility";
+	public static final String ANNEX_NAMES = "aadl.annexNames";
 	public static final String PUBLIC = "public";
 	public static final String PRIVATE = "private";
 

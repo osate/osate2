@@ -11,6 +11,8 @@
          and is intended to be supported by annex sublanguage parsers.
          For xtext based annexes the parser can adapt the annex library or subclause with the ParseResult.
          See the Error model EMV2 as example.
+         Implementations may also report reference token positions and their resolved declarations
+         for symbolic references that are not represented by structural EMF cross-references.
       </documentation>
    </annotation>
 

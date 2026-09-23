@@ -1,0 +1,28 @@
+package Qualified
+public
+	with Base_Types;
+	annex EMV2 {**
+		error types
+			Failure: type;
+		end types;
+	**};
+	feature group Signals
+		features
+			value: out event data port Base_Types::Integer;
+	end Signals;
+	system Example
+		features
+			left: feature group Signals;
+			right: feature group Signals;
+		annex EMV2 {**
+			use types Qualified;
+			error propagations
+				left.value: out propagation {Failure};
+				right.value: out propagation {Failure};
+			flows
+				emit_left: error source left.value;
+				emit_right: error source right.value;
+			end propagations;
+		**};
+	end Example;
+end Qualified;

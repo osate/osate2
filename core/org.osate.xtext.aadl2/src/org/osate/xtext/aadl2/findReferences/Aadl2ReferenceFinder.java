@@ -23,13 +23,30 @@
  */
 package org.osate.xtext.aadl2.findReferences;
 
+import java.util.LinkedHashSet;
+import java.util.List;
+
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.findReferences.ReferenceFinder;
+import org.eclipse.xtext.findReferences.TargetURIs;
+import org.eclipse.xtext.resource.IResourceDescription;
+import org.osate.aadl2.AnnexLibrary;
+import org.osate.aadl2.AnnexSubclause;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.modelsupport.scoping.Aadl2IndexMetadata;
+import org.osate.annexsupport.AnnexReferencePosition;
+import org.osate.annexsupport.AnnexRegistry;
+import org.osate.annexsupport.AnnexTextPositionResolverRegistry;
+import org.osate.annexsupport.AnnexUtil;
 
 import com.google.common.base.Predicate;
 import com.google.inject.Inject;
@@ -40,6 +57,122 @@ public class Aadl2ReferenceFinder extends ReferenceFinder {
 	@Inject
 	public Aadl2ReferenceFinder() {
 		super();
+	}
+
+	@Override
+	public void findReferences(Predicate<URI> targetURIs, EObject scope, Acceptor acceptor, IProgressMonitor monitor) {
+		super.findReferences(targetURIs, scope, acceptor, monitor);
+		findAnnexReferences(targetURIs, scope, acceptor, monitor == null ? new NullProgressMonitor() : monitor);
+	}
+
+	@Override
+	protected void findReferencesInDescription(TargetURIs targetURIs, IResourceDescription description,
+			IResourceAccess resourceAccess, Acceptor acceptor, IProgressMonitor monitor) {
+		super.findReferencesInDescription(targetURIs, description, resourceAccess, acceptor, monitor);
+		if (resourceAccess != null && requiresAnnexSearch(description)) {
+			var effectiveMonitor = monitor == null ? new NullProgressMonitor() : monitor;
+			if (effectiveMonitor.isCanceled()) {
+				throw new OperationCanceledException();
+			}
+			resourceAccess.readOnly(description.getURI(), resourceSet -> {
+				var resource = resourceSet.getResource(description.getURI(), true);
+				if (resource != null) {
+					for (var root : resource.getContents()) {
+						findAnnexReferences(targetURIs, root, acceptor, effectiveMonitor);
+					}
+				}
+				return null;
+			});
+		}
+	}
+
+	private static boolean requiresAnnexSearch(IResourceDescription description) {
+		var registry = getResolverRegistry();
+		if (registry == null) {
+			return false;
+		}
+		boolean hasMetadata = false;
+		for (var exported : description.getExportedObjects()) {
+			var names = exported.getUserData(Aadl2IndexMetadata.ANNEX_NAMES);
+			if (names != null) {
+				hasMetadata = true;
+				for (var name : names.split(",")) {
+					if (!name.isEmpty() && registry.getTextPositionResolver(name) != null) {
+						return true;
+					}
+				}
+			}
+		}
+		return !hasMetadata && "aadl".equalsIgnoreCase(description.getURI().fileExtension());
+	}
+
+	private void findAnnexReferences(Predicate<URI> targetURIs, EObject scope, Acceptor acceptor,
+			IProgressMonitor monitor) {
+		var annexRoot = AnnexUtil.getAnnexRoot(scope);
+		if (annexRoot != null) {
+			findAnnexReferences(targetURIs, scope, annexRoot, acceptor, monitor);
+			return;
+		}
+		var contents = EcoreUtil.<EObject>getAllContents(List.of(scope));
+		while (contents.hasNext()) {
+			if (monitor.isCanceled()) {
+				throw new OperationCanceledException();
+			}
+			var element = contents.next();
+			if (element instanceof AnnexSubclause || element instanceof AnnexLibrary) {
+				contents.prune();
+				var annex = AnnexUtil.getParsedAnnex(element);
+				if (annex != null) {
+					findAnnexReferences(targetURIs, scope, annex, acceptor, monitor);
+				}
+			}
+		}
+	}
+
+	private void findAnnexReferences(Predicate<URI> targetURIs, EObject scope, EObject annex, Acceptor acceptor,
+			IProgressMonitor monitor) {
+		var registry = getResolverRegistry();
+		if (registry == null) {
+			return;
+		}
+		var name = ((NamedElement) annex).getName();
+		var resolver = name == null ? null : registry.getTextPositionResolver(name);
+		if (resolver != null) {
+			var relatedTargets = new LinkedHashSet<URI>();
+			resolver.collectRelatedReferenceTargets(annex,
+					target -> target != null && !target.eIsProxy()
+							&& targetURIs.apply(EcoreUtil2.getPlatformResourceOrNormalizedURI(target)),
+					target -> {
+						if (target != null && !target.eIsProxy()) {
+							var uri = EcoreUtil2.getPlatformResourceOrNormalizedURI(target);
+							if (!targetURIs.apply(uri)) {
+								relatedTargets.add(uri);
+							}
+						}
+					}, monitor);
+			if (!relatedTargets.isEmpty()) {
+				super.findReferences(relatedTargets::contains, EcoreUtil.isAncestor(scope, annex) ? annex : scope,
+						acceptor, monitor);
+			}
+			resolver.collectReferencePositions(annex, position -> {
+				if (position instanceof AnnexReferencePosition reference) {
+					var source = reference.getSourceObject();
+					var target = reference.getModelObject();
+					if (source != null && target != null && !target.eIsProxy() && EcoreUtil.isAncestor(scope, source)) {
+						var targetURI = EcoreUtil2.getPlatformResourceOrNormalizedURI(target);
+						if (targetURIs.apply(targetURI)) {
+							acceptor.accept(source, EcoreUtil2.getPlatformResourceOrNormalizedURI(source), null, -1,
+									target, targetURI);
+						}
+					}
+				}
+			}, monitor);
+		}
+	}
+
+	private static AnnexTextPositionResolverRegistry getResolverRegistry() {
+		return (AnnexTextPositionResolverRegistry) AnnexRegistry
+				.getRegistry(AnnexRegistry.ANNEX_TEXTPOSITIONRESOLVER_EXT_ID);
 	}
 
 	@Override

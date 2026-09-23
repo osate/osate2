@@ -1,0 +1,21 @@
+package SearchDefinitions
+public
+	with Base_Types;
+	annex EMV2 {**
+		error types
+			Failure: type;
+		end types;
+	**};
+	system Base
+		features
+			input: in event data port Base_Types::Integer;
+			output: out event data port Base_Types::Integer;
+		annex EMV2 {**
+			use types SearchDefinitions;
+			error propagations
+				input: in propagation {Failure};
+				output: out propagation {Failure};
+			end propagations;
+		**};
+	end Base;
+end SearchDefinitions;

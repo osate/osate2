@@ -1,0 +1,6 @@
+package PlainReferences
+public
+	with ReferenceDefinitions;
+	system Example extends ReferenceDefinitions::Base
+	end Example;
+end PlainReferences;

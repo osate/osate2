@@ -1,0 +1,35 @@
+package References
+public
+	with Base_Types;
+	data Payload
+	end Payload;
+	data implementation Payload.i
+		subcomponents
+			field: data Base_Types::Integer;
+	end Payload.i;
+	system Example
+		features
+			input: in event data port Base_Types::Integer;
+			output: out event data port Base_Types::Integer;
+	end Example;
+	system implementation Example.i
+		subcomponents
+			storage: data Payload.i;
+		annex behavior_specification {**
+			variables
+				counter: Base_Types::Integer;
+				samples[2]: Base_Types::Integer;
+			states
+				idle: initial state;
+				done: final state;
+			transitions
+				idle -[]-> done {
+					counter := input;
+					counter := input'count;
+					samples[counter] := storage.field;
+					output!(counter);
+					counter := 0
+				};
+		**};
+	end Example.i;
+end References;

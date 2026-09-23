@@ -1,0 +1,27 @@
+package Emv2Only
+public
+	with Base_Types;
+	annex EMV2 {**
+		error types
+			Failure: type;
+		end types;
+	**};
+	system Example
+		features
+			input: in event data port Base_Types::Integer;
+			output: out event data port Base_Types::Integer;
+		flows
+			path1: flow path input -> output;
+		annex EMV2 {**
+			use types Emv2Only;
+			error propagations
+				input: in propagation {Failure};
+				output: out propagation {Failure};
+			flows
+				error_path: error path input -> output;
+				error_sink: error sink input;
+				error_source: error source output;
+			end propagations;
+		**};
+	end Example;
+end Emv2Only;

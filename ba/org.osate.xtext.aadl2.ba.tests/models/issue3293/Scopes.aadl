@@ -1,0 +1,28 @@
+package Scopes
+public
+	with Base_Types;
+	system Example
+	end Example;
+	system implementation Example.first
+		annex behavior_specification {**
+			variables
+				counter: Base_Types::Integer;
+			states
+				idle: initial state;
+				done: final state;
+			transitions
+				idle -[]-> done { counter := 0 };
+		**};
+	end Example.first;
+	system implementation Example.second
+		annex behavior_specification {**
+			variables
+				counter: Base_Types::Integer;
+			states
+				idle: initial state;
+				done: final state;
+			transitions
+				idle -[]-> done { counter := 1 };
+		**};
+	end Example.second;
+end Scopes;

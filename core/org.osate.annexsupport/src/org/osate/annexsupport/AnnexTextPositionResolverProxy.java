@@ -23,8 +23,14 @@
  */
 package org.osate.annexsupport;
 
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 
 public class AnnexTextPositionResolverProxy extends AnnexProxy implements AnnexTextPositionResolver {
 
@@ -68,6 +74,52 @@ public class AnnexTextPositionResolverProxy extends AnnexProxy implements AnnexT
 		} catch (Exception e) {
 			AnnexPlugin.logError("Failed to resolve a cross reference for an element " + " in plugin "
 					+ configElem.getDeclaringExtension().getContributor().getName(), e);
+		}
+		return null;
+	}
+
+	@Override
+	public void collectReferencePositions(EObject annexRoot, Consumer<TextPositionInfo> acceptor,
+			IProgressMonitor monitor) {
+		AnnexTextPositionResolver resolver = getResolverService();
+		if (resolver != null) {
+			try {
+				resolver.collectReferencePositions(annexRoot, acceptor, monitor);
+			} catch (OperationCanceledException exception) {
+				throw exception;
+			} catch (Exception exception) {
+				AnnexPlugin.logError("Failed to collect reference positions in plugin "
+						+ configElem.getDeclaringExtension().getContributor().getName(), exception);
+			}
+		}
+	}
+
+	@Override
+	public void collectRelatedReferenceTargets(EObject annexRoot, Predicate<EObject> isTarget,
+			Consumer<EObject> acceptor, IProgressMonitor monitor) {
+		var resolver = getResolverService();
+		if (resolver != null) {
+			try {
+				resolver.collectRelatedReferenceTargets(annexRoot, isTarget, acceptor, monitor);
+			} catch (OperationCanceledException exception) {
+				throw exception;
+			} catch (Exception exception) {
+				AnnexPlugin.logError("Failed to collect related reference targets in plugin "
+						+ configElem.getDeclaringExtension().getContributor().getName(), exception);
+			}
+		}
+	}
+
+	@Override
+	public TextPositionInfo getReferencePosition(EObject source, EReference reference, int index, EObject target) {
+		var resolver = getResolverService();
+		if (resolver != null) {
+			try {
+				return resolver.getReferencePosition(source, reference, index, target);
+			} catch (Exception exception) {
+				AnnexPlugin.logError("Failed to locate a reference in plugin "
+						+ configElem.getDeclaringExtension().getContributor().getName(), exception);
+			}
 		}
 		return null;
 	}

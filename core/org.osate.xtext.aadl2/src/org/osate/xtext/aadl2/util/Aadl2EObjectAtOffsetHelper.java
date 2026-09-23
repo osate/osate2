@@ -89,6 +89,10 @@ public class Aadl2EObjectAtOffsetHelper extends org.eclipse.xtext.resource.EObje
 			// now try xtext based annexes via adapted ParseResult
 			annexLeaf = getLeafInParsedAnnex((ILeafNode) annexLeaf, offset);
 			if (annexLeaf != null) {
+				var crossReference = findCrossReferenceNode(annexLeaf);
+				if (crossReference != null) {
+					return getCrossReferencedElement(crossReference);
+				}
 				return NodeModelUtils.findActualSemanticObjectFor(annexLeaf);
 			} else {
 				return obj;

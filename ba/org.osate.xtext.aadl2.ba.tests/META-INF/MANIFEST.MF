@@ -6,9 +6,13 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: org.osate.xtext.aadl2.ba.tests;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.ltk.core.refactoring,
+ org.eclipse.text,
  org.eclipse.emf.ecore,
  org.eclipse.xtext,
  org.eclipse.xtext.testing,
+ org.eclipse.xtext.ui.shared,
  org.eclipse.xtext.xbase.lib,
  org.junit,
  org.osate.aadl2,
@@ -16,6 +20,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.osate.testsupport,
  org.osate.xtext.aadl2,
  org.osate.xtext.aadl2.ui,
+ org.osate.xtext.aadl2.errormodel,
+ org.osate.xtext.aadl2.errormodel.ui,
  org.osate.xtext.aadl2.ba;bundle-version="[1.0.0,2.0.0)",
  org.osate.xtext.aadl2.ba.ui;bundle-version="[1.0.0,2.0.0)",
  org.osate.ba;bundle-version="[9.0.0,10.0.0)"

@@ -1,0 +1,14 @@
+package OccurrenceEmv2
+public
+	annex EMV2 {**
+		error behavior machine
+			events
+				event1: error event;
+			states
+				state1: initial state;
+				state2: state;
+			transitions
+				state1 -[event1]-> state2;
+		end behavior;
+	**};
+end OccurrenceEmv2;

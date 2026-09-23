@@ -23,6 +23,8 @@
  */
 package org.osate.xtext.aadl2.resource;
 
+import java.util.Locale;
+
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.EcoreUtil2;
@@ -32,6 +34,8 @@ import org.eclipse.xtext.resource.IResourceServiceProvider.Registry;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.NamedElement;
+import org.osate.annexsupport.AnnexParserRegistry;
+import org.osate.annexsupport.AnnexRegistry;
 
 import com.google.inject.Inject;
 
@@ -50,9 +54,11 @@ public class Aadl2ResourceServiceProvider extends IGlobalServiceProvider.Resourc
 			annex = EcoreUtil2.getContainerOfType(eObject, DefaultAnnexSubclause.class);
 		}
 		if (annex != null) {
-			// assumes that the annex file extension is the same as
-			// the annex name in the AADL sources
-			URI uri = URI.createURI("dummy." + annex.getName().toLowerCase());
+			var parserRegistry = (AnnexParserRegistry) AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_PARSER_EXT_ID);
+			var parser = parserRegistry == null ? null : parserRegistry.getAnnexParser(annex.getName());
+			var extension = parser == null ? null : parser.getFileExtension();
+			URI uri = URI.createURI("dummy."
+					+ (extension == null ? annex.getName().toLowerCase(Locale.ROOT) : extension));
 			return findService(uri, serviceClazz);
 		} else {
 			return super.findService(eObject, serviceClazz);
