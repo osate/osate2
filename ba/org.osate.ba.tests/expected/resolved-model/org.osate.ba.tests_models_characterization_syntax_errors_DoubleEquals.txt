@@ -1,2 +1,14 @@
 annex[0] owner=DoubleEquals::t
-  <unparsed>
+  parsedAnnexSubclause : BehaviorAnnex name=behavior_specification
+    variables[0] : BehaviorVariable name=x
+    states[0] : BehaviorState name=s
+    transitions[0] : BehaviorTransition
+      condition : ValueExpression
+        relations[0] : Relation
+          firstExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
+                firstValue : BehaviorVariableHolder element=x [BehaviorVariable]
+          secondExpression : SimpleExpression
+            terms[0] : Term
+              factors[0] : Factor
