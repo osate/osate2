@@ -701,6 +701,7 @@
     </setupTask>
     <setupTask
         xsi:type="setup.p2:P2Task"
+        disabled="true"
         label="Core Dependencies">
       <requirement
           name="org.eclipse.emf.compare.ide.ui.feature.group"/>
@@ -975,7 +976,7 @@
       xsi:type="pde:APIBaselineTask"
       id="api.baseline"
       name="OSATE-API"
-      version="2.19.0"
+      version="2.20.0"
       remoteURI="https://osate-build.sei.cmu.edu/download/osate/stable/${api.baseline.version}-vfinal/osate.repository-${api.baseline.version}.vfinal.zip">
     <description></description>
   </setupTask>
