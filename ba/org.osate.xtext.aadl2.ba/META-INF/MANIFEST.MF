@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: AADL Behavior Annex Xtext Runtime
 Bundle-Vendor: CMU/SEI
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.0.1.qualifier
 Bundle-SymbolicName: org.osate.xtext.aadl2.ba;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext;bundle-version="[2.20.0,3.0.0)";visibility:=reexport,
@@ -18,7 +18,7 @@ Require-Bundle: org.eclipse.xtext;bundle-version="[2.20.0,3.0.0)";visibility:=re
  org.eclipse.xtext.xbase.lib;bundle-version="[2.20.0,3.0.0)",
  org.osate.aadl2;bundle-version="[7.0.0,8.0.0)",
  org.osate.annexsupport;bundle-version="[5.0.0,6.0.0)",
- org.osate.xtext.aadl2;bundle-version="[9.0.0,10.0.0)",
+ org.osate.xtext.aadl2;bundle-version="[9.1.0,10.0.0)",
  org.osate.xtext.aadl2.properties;bundle-version="[4.0.0,5.0.0)";visibility:=reexport,
  org.eclipse.core.runtime;bundle-version="[3.7.0,4.0.0)",
  org.osate.aadl2.modelsupport;bundle-version="[9.0.0,10.0.0)",
