@@ -63,4 +63,235 @@ public class BehaviorAnnexFormatterTest {
 					""");
 		});
 	}
+
+	@Test
+	public void indentsBranchesWithoutAnActionBlockOnLinesOfTheirOwn() {
+		formatter.assertFormatted(request -> {
+			request.setUseSerializer(false);
+			request.setAllowUnformattedWhitespace(false);
+			request.setToBeFormatted("variables counter:Base_Types::Integer;states idle:initial state;"
+					+ "transitions start:idle-[]->idle{if(counter=1)"
+					+ "counter:=2 elsif(counter=2)counter:=3 else counter:=4 end if};");
+			request.setExpectation("""
+					variables
+						counter: Base_Types::Integer;
+					states
+						idle: initial state;
+					transitions
+						start: idle -[]-> idle {
+							if (counter = 1)
+								counter := 2
+							elsif (counter = 2)
+								counter := 3
+							else
+								counter := 4
+							end if
+						};
+					""");
+		});
+	}
+
+	@Test
+	public void startsTheFirstSectionWithoutLeadingWhitespace() {
+		formatter.assertFormatted(request -> {
+			request.setUseSerializer(false);
+			request.setAllowUnformattedWhitespace(false);
+			request.setToBeFormatted("   states idle:initial state;");
+			request.setExpectation("""
+					states
+						idle: initial state;
+					""");
+		});
+	}
+
+	@Test
+	public void keepsTheCaseOfKeywordsThatAreNotWrittenInLowerCase() {
+		formatter.assertFormatted(request -> {
+			request.setUseSerializer(false);
+			request.setAllowUnformattedWhitespace(false);
+			request.setToBeFormatted("VaRiAbLeS counter:Base_Types::Integer;StAtEs idle:INITIAL state;");
+			request.setExpectation("""
+					VaRiAbLeS
+						counter: Base_Types::Integer;
+					StAtEs
+						idle: INITIAL state;
+					""");
+		});
+	}
+
+	@Test
+	public void hugsUnaryOperatorsToTheirOperand() {
+		formatter.assertFormatted(request -> {
+			request.setUseSerializer(false);
+			request.setAllowUnformattedWhitespace(false);
+			request.setToBeFormatted("variables counter:Base_Types::Integer;states idle:initial state;"
+					+ "transitions start:idle-[]->idle{counter:=-1;counter:=-counter+1};");
+			request.setExpectation("""
+					variables
+						counter: Base_Types::Integer;
+					states
+						idle: initial state;
+					transitions
+						start: idle -[]-> idle {
+							counter := -1;
+							counter := -counter + 1
+						};
+					""");
+		});
+	}
+
+	@Test
+	public void startsANestedActionBlockOnALineOfItsOwn() {
+		formatter.assertFormatted(request -> {
+			request.setUseSerializer(false);
+			request.setAllowUnformattedWhitespace(false);
+			request.setToBeFormatted("variables counter:Base_Types::Integer;states idle:initial state;"
+					+ "transitions start:idle-[]->idle{{counter:=1}};");
+			request.setExpectation("""
+					variables
+						counter: Base_Types::Integer;
+					states
+						idle: initial state;
+					transitions
+						start: idle -[]-> idle {
+							{
+								counter := 1
+							}
+						};
+					""");
+		});
+	}
+
+	@Test
+	public void separatesTheTimeoutKeywordFromAPropertyValue() {
+		formatter.assertFormatted(request -> {
+			request.setUseSerializer(false);
+			request.setAllowUnformattedWhitespace(false);
+			request.setToBeFormatted("variables counter:Base_Types::Integer;states idle:initial state;"
+					+ "transitions start:idle-[]->idle{counter:=1}timeout#ps::c ms;");
+			request.setExpectation("""
+					variables
+						counter: Base_Types::Integer;
+					states
+						idle: initial state;
+					transitions
+						start: idle -[]-> idle {
+							counter := 1
+						} timeout #ps::c ms;
+					""");
+		});
+	}
+
+	@Test
+	public void leavesPropertyValuesToTheAadlFormatter() {
+		formatter.assertFormatted(request -> {
+			request.setUseSerializer(false);
+			request.setAllowUnformattedWhitespace(false);
+			request.setToBeFormatted("variables counter:Base_Types::Integer:=0"
+					+ "{Data_Model::Initial_Value => (\"1\");};states idle:initial state;");
+			request.setExpectation("""
+					variables
+						counter: Base_Types::Integer := 0 {
+							Data_Model::Initial_Value => ("1");
+						};
+					states
+						idle: initial state;
+					""");
+		});
+	}
+
+	@Test
+	public void hugsTheNumberSignOfAPropertyReferenceOnlyWhenItFollowsAReference() {
+		formatter.assertFormatted(request -> {
+			request.setUseSerializer(false);
+			request.setAllowUnformattedWhitespace(false);
+			request.setToBeFormatted("variables counter:Base_Types::Integer;states idle:initial state;"
+					+ "transitions start:idle-[]->idle{counter:=#ps::p;counter:=counter#ps::p;"
+					+ "counter:=counter+#ps::p};");
+			request.setExpectation("""
+					variables
+						counter: Base_Types::Integer;
+					states
+						idle: initial state;
+					transitions
+						start: idle -[]-> idle {
+							counter := #ps::p;
+							counter := counter#ps::p;
+							counter := counter + #ps::p
+						};
+					""");
+		});
+	}
+
+	@Test
+	public void putsNoSpaceInsideTheLockAllAction() {
+		formatter.assertFormatted(request -> {
+			request.setUseSerializer(false);
+			request.setAllowUnformattedWhitespace(false);
+			request.setToBeFormatted("variables counter:Base_Types::Integer;states idle:initial state;"
+					+ "transitions start:idle-[]->idle{*!<;*!>};");
+			request.setExpectation("""
+					variables
+						counter: Base_Types::Integer;
+					states
+						idle: initial state;
+					transitions
+						start: idle -[]-> idle {
+							*!<;
+							*!>
+						};
+					""");
+		});
+	}
+
+	@Test
+	public void indentsANestedIfStatementInsideItsBranch() {
+		formatter.assertFormatted(request -> {
+			request.setUseSerializer(false);
+			request.setAllowUnformattedWhitespace(false);
+			request.setToBeFormatted("variables counter:Base_Types::Integer;states idle:initial state;"
+					+ "transitions start:idle-[]->idle{if(counter=1)if(counter=2)counter:=3 end if end if};");
+			request.setExpectation("""
+					variables
+						counter: Base_Types::Integer;
+					states
+						idle: initial state;
+					transitions
+						start: idle -[]-> idle {
+							if (counter = 1)
+								if (counter = 2)
+									counter := 3
+								end if
+							end if
+						};
+					""");
+		});
+	}
+
+	@Test
+	public void keepsTheOpeningBraceOfABranchOnTheLineOfItsCondition() {
+		formatter.assertFormatted(request -> {
+			request.setUseSerializer(false);
+			request.setAllowUnformattedWhitespace(false);
+			request.setToBeFormatted("variables counter:Base_Types::Integer;states idle:initial state;"
+					+ "transitions start:idle-[]->idle{if(counter=1)"
+					+ "{counter:=2}elsif(counter=2){counter:=3}else{counter:=4}end if};");
+			request.setExpectation("""
+					variables
+						counter: Base_Types::Integer;
+					states
+						idle: initial state;
+					transitions
+						start: idle -[]-> idle {
+							if (counter = 1) {
+								counter := 2
+							} elsif (counter = 2) {
+								counter := 3
+							} else {
+								counter := 4
+							} end if
+						};
+					""");
+		});
+	}
 }
