@@ -901,6 +901,11 @@ public final class DeclarativeToStrictTranslator {
 		}
 
 	private org.osate.ba.aadlba.IntegerValue toIntegerValue(final IntegerValue value) {
+			if (value == null) {
+				// Recovered array indices and range bounds can be missing. An unresolved holder also preserves
+				// the index position in the strict model's containment list, which cannot contain null.
+				return FACTORY.createBehaviorVariableHolder();
+			}
 			if (value instanceof BehaviorIntegerLiteral literal) {
 				return toIntegerLiteral(literal);
 			}
@@ -1024,6 +1029,11 @@ public final class DeclarativeToStrictTranslator {
 		 * same way rather than losing its operator.
 		 */
 		private Value toValue(final org.osate.xtext.aadl2.ba.behaviorAnnex.ValueExpression expression) {
+			// Reference services also translate incomplete editor models. Preserve a missing operand instead of
+			// sending null through the expression conversion chain again.
+			if (expression == null) {
+				return null;
+			}
 			if (expression instanceof ParenthesizedExpression group) {
 				return toValueExpression(group.getExpression(), group);
 			}
