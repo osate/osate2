@@ -59,9 +59,9 @@ import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.NumberType;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.Port;
+import org.osate.aadl2.ProcessorClassifier;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyType;
-import org.osate.aadl2.ProcessorClassifier;
 import org.osate.aadl2.RangeType;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramAccess;
@@ -87,8 +87,8 @@ import org.osate.ba.utils.AadlBaUtils;
 import org.osate.ba.utils.DimensionException;
 import org.osate.ba.utils.SubprogramCallUtil;
 import org.osate.utils.internal.names.DataModelProperties;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.ArrayIndex;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ArrayDimension;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ArrayIndex;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.AssignmentAction;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage;
@@ -167,7 +167,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 		return false;
 	}
 
-	@Check(CheckType.NORMAL)
+	@Check(CheckType.FAST)
 	public void checkBehaviorAnnex(final BehaviorAnnex source) {
 		if (!(source.getContainingClassifier() instanceof ComponentClassifier owner)) {
 			return;
