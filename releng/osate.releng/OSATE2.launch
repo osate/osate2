@@ -27,7 +27,6 @@
         <setEntry value="org.osate.assure.tests"/>
         <setEntry value="org.osate.ba.tests"/>
         <setEntry value="org.osate.core.tests"/>
-        <setEntry value="org.osate.ge.ba.tests"/>
         <setEntry value="org.osate.ge.tests"/>
         <setEntry value="org.osate.modelstats.tests"/>
         <setEntry value="org.osate.propertiescodegen.tests"/>
@@ -118,7 +117,6 @@
         <setEntry value="com.google.inject@default:default"/>
         <setEntry value="com.google.javascript@default:default"/>
         <setEntry value="com.google.protobuf@default:default"/>
-        <setEntry value="com.googlecode.javaewah.JavaEWAH@default:default"/>
         <setEntry value="com.ibm.icu@default:default"/>
         <setEntry value="com.jcraft.jsch@default:default"/>
         <setEntry value="com.sun.jna.platform@default:default"/>
@@ -129,11 +127,11 @@
         <setEntry value="de.libutzki.xtext.semanticmodeloutline.ui@default:default"/>
         <setEntry value="io.github.classgraph.classgraph@default:default"/>
         <setEntry value="jakarta.activation-api@default:default"/>
-        <setEntry value="jakarta.activation@default:default"/>
         <setEntry value="jakarta.annotation-api@default:default"/>
         <setEntry value="jakarta.inject.jakarta.inject-api@default:default"/>
         <setEntry value="jakarta.xml.bind-api@default:default"/>
         <setEntry value="jakarta.xml.bind@default:default"/>
+        <setEntry value="javaewah@default:default"/>
         <setEntry value="javax.activation@default:default"/>
         <setEntry value="javax.annotation@default:default"/>
         <setEntry value="javax.inject@default:default"/>
@@ -753,6 +751,7 @@
         <setEntry value="org.osate.core.tests.log4j@default:false"/>
         <setEntry value="org.osate.core@default:default"/>
         <setEntry value="org.osate.examples@default:default"/>
+        <setEntry value="org.osate.ge.ba.tests@default:default"/>
         <setEntry value="org.osate.ge.ba@default:default"/>
         <setEntry value="org.osate.ge.diagram@default:default"/>
         <setEntry value="org.osate.ge.doc@default:default"/>
