@@ -93,6 +93,9 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 		List<IEObjectDescription> renameScopeElements = new ArrayList<>();
 		for (var rename : packageSection.getOwnedComponentTypeRenames()) {
 			var renamedComponentType = rename.getRenamedComponentType();
+			if (renamedComponentType == null || renamedComponentType.eIsProxy()) {
+				continue;
+			}
 			if (reference.getEReferenceType().isSuperTypeOf(renamedComponentType.eClass())) {
 				var name = rename.getName() == null ? renamedComponentType.getName() : rename.getName();
 				renameScopeElements
@@ -102,13 +105,20 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 		if (reference.getEReferenceType().isSuperTypeOf(Aadl2Package.eINSTANCE.getFeatureGroupType())) {
 			for (var rename : packageSection.getOwnedFeatureGroupTypeRenames()) {
 				var renamedFeatureGroupType = rename.getRenamedFeatureGroupType();
+				if (renamedFeatureGroupType == null || renamedFeatureGroupType.eIsProxy()) {
+					continue;
+				}
 				var name = rename.getName() == null ? renamedFeatureGroupType.getName() : rename.getName();
 				renameScopeElements
 						.add(new EObjectDescription(QualifiedName.create(name), renamedFeatureGroupType, null));
 			}
 		}
 		for (var packageRename : packageSection.getOwnedPackageRenames()) {
-			for (var classifier : packageRename.getRenamedPackage().getPublicSection().getOwnedClassifiers()) {
+			var renamedPackage = packageRename.getRenamedPackage();
+			if (renamedPackage == null || renamedPackage.eIsProxy() || renamedPackage.getPublicSection() == null) {
+				continue;
+			}
+			for (var classifier : renamedPackage.getPublicSection().getOwnedClassifiers()) {
 				if (reference.getEReferenceType().isSuperTypeOf(classifier.eClass())) {
 					var name = packageRename.isRenameAll() ? QualifiedName.create(classifier.getName())
 							: QualifiedName.create(packageRename.getName(), classifier.getName());
