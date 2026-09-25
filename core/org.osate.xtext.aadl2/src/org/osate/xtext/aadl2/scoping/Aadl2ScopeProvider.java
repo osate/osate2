@@ -32,6 +32,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
@@ -757,7 +758,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 		return switch (classifier) {
 		case ComponentClassifier componentClassifier -> componentClassifier.getAllPrototypes();
 		case FeatureGroupType featureGroupType -> featureGroupType.getAllPrototypes();
-		case null, default -> null;
+		case null, default -> ECollections.emptyEList();
 		};
 	}
 
