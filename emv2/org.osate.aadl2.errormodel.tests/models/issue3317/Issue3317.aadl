@@ -1,0 +1,17 @@
+package Issue3317
+public
+    system S
+        features
+            x: in event port;
+        annex EMV2 {**
+            error propagations
+                x: in propagation {ErrorLibrary::AboveRange};
+            end propagations;
+        **};
+    end S;
+
+    system implementation S.impl
+        subcomponents
+            child: system S;
+    end S.impl;
+end Issue3317;
