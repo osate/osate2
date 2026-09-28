@@ -1,0 +1,3 @@
+property set Earlier_Properties is
+    Padding: aadlinteger applies to (system);
+end Earlier_Properties;

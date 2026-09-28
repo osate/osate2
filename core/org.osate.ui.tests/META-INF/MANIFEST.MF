@@ -17,3 +17,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-21
 Automatic-Module-Name: org.osate.ui.tests
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: CMU/SEI
+Import-Package: org.slf4j
