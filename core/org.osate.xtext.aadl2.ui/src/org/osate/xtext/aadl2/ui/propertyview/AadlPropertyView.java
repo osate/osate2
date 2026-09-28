@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +39,8 @@ import java.util.Set;
 import java.util.function.Function;
 
 import org.eclipse.core.runtime.Adapters;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.URI;
@@ -66,7 +69,9 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.ITreeViewerListener;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.viewers.TreeExpansionEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.TreeViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
@@ -78,6 +83,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchActionConstants;
@@ -86,6 +92,7 @@ import org.eclipse.ui.dialogs.FilteredTree;
 import org.eclipse.ui.dialogs.PatternFilter;
 import org.eclipse.ui.part.PageBook;
 import org.eclipse.ui.part.ViewPart;
+import org.eclipse.ui.progress.WorkbenchJob;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
 import org.eclipse.xtext.resource.IResourceDescriptionsProvider;
@@ -232,6 +239,14 @@ public class AadlPropertyView extends ViewPart {
 
 	private Set<URI> filteredPropertySets;
 
+	// These are property-definition URIs, independent of the selected model element and its property values.
+	private final Set<URI> expandedPropertySets = new HashSet<>();
+
+	private ScrollAnchor scrollAnchor;
+
+	// Expansion and scrolling performed by the search filter are temporary.
+	private boolean searching;
+
 	private final ISelectionListener selectionListener = this::updateSelection;
 
 	private final IPartListener partListener = new IPartListener() {
@@ -352,6 +367,33 @@ public class AadlPropertyView extends ViewPart {
 		var filteredTree = new FilteredTree(treeViewerComposite, SWT.BORDER | SWT.FULL_SELECTION, patternFilter, true,
 				true) {
 			@Override
+			protected WorkbenchJob doCreateRefreshJob() {
+				var refreshJob = super.doCreateRefreshJob();
+				return new WorkbenchJob("Refresh Filter") {
+					@Override
+					public IStatus runInUIThread(IProgressMonitor monitor) {
+						var tree = getViewer().getTree();
+						if (tree.isDisposed()) {
+							return Status.CANCEL_STATUS;
+						}
+						rememberScrollPosition();
+						var filter = getFilterString();
+						searching = filter != null && !filter.isEmpty() && !filter.equals(getInitialText());
+						tree.setRedraw(false);
+						try {
+							var status = refreshJob.runInUIThread(monitor);
+							if (!searching) {
+								restoreTreeState();
+							}
+							return status;
+						} finally {
+							tree.setRedraw(true);
+						}
+					}
+				};
+			}
+
+			@Override
 			protected TreeViewer doCreateTreeViewer(Composite parent, int style) {
 				var viewer = super.doCreateTreeViewer(parent, style);
 				viewer.getControl().setLayoutData(null);
@@ -389,6 +431,17 @@ public class AadlPropertyView extends ViewPart {
 		treeViewer.getTree().setHeaderVisible(true);
 		treeViewer.setUseHashlookup(true);
 		treeViewer.setContentProvider(new PropertyViewContentProvider(this));
+		treeViewer.addTreeListener(new ITreeViewerListener() {
+			@Override
+			public void treeExpanded(TreeExpansionEvent event) {
+				rememberExpansion(event, true);
+			}
+
+			@Override
+			public void treeCollapsed(TreeExpansionEvent event) {
+				rememberExpansion(event, false);
+			}
+		});
 		treeViewer.addFilter(new ViewerFilter() {
 			@Override
 			public boolean select(Viewer viewer, Object parentElement, Object element) {
@@ -489,6 +542,8 @@ public class AadlPropertyView extends ViewPart {
 		var collapseAllAction = new Action("Collapse All") {
 			@Override
 			public void run() {
+				expandedPropertySets.clear();
+				scrollAnchor = null;
 				treeViewer.collapseAll();
 			}
 		};
@@ -505,7 +560,7 @@ public class AadlPropertyView extends ViewPart {
 				} else {
 					currentPropertyGroup.clear();
 				}
-				treeViewer.refresh();
+				refreshTree();
 			}
 		};
 		showOnlyImportedPropertiesAction.setEnabled(false);
@@ -518,7 +573,7 @@ public class AadlPropertyView extends ViewPart {
 			@Override
 			public void run() {
 				setToolTipText(isChecked() ? HIDE_UNDEFINED_TOOL_TIP : SHOW_UNDEFINED_TOOL_TIP);
-				treeViewer.refresh();
+				refreshTree();
 			}
 		};
 		showUndefinedAction
@@ -530,7 +585,7 @@ public class AadlPropertyView extends ViewPart {
 			@Override
 			public void run() {
 				setToolTipText(isChecked() ? HIDE_DEFAULT_TOOL_TIP : SHOW_DEFAULT_TOOL_TIP);
-				treeViewer.refresh();
+				refreshTree();
 			}
 		};
 		showDefaultAction
@@ -553,7 +608,7 @@ public class AadlPropertyView extends ViewPart {
 						filteredPropertySets);
 				if (dialog.open() == Window.OK) {
 					filteredPropertySets = dialog.getSelectedPropertySets();
-					treeViewer.refresh();
+					refreshTree();
 				}
 			}
 		};
@@ -1134,6 +1189,7 @@ public class AadlPropertyView extends ViewPart {
 	}
 
 	private void clearSelection() {
+		rememberScrollPosition();
 		synchronized (jobLock) {
 			if (cachePropertyLookupJob != null) {
 				cachePropertyLookupJob.cancel();
@@ -1187,13 +1243,96 @@ public class AadlPropertyView extends ViewPart {
 
 	private CachePropertyLookupJob createCachePropertyLookupJob(URI elementURI, Object objectToSelect) {
 		return new CachePropertyLookupJob(elementURI, this, getSite().getShell().getDisplay(), scopeProvider,
-				() -> pageBook.showPage(populatingViewLabel), () -> {
-					treeViewer.setInput(elementURI);
-					if (objectToSelect != null) {
-						treeViewer.setSelection(new StructuredSelection(objectToSelect), true);
+				() -> {
+					rememberScrollPosition();
+					pageBook.showPage(populatingViewLabel);
+				}, () -> {
+					var tree = treeViewer.getTree();
+					tree.setRedraw(false);
+					try {
+						treeViewer.setInput(elementURI);
+						pageBook.showPage(treeViewerComposite);
+						restoreTreeState();
+						// Explicit navigation to a property in the editor takes precedence over the saved viewport.
+						if (objectToSelect != null) {
+							treeViewer.setSelection(new StructuredSelection(objectToSelect), true);
+						}
+					} finally {
+						tree.setRedraw(true);
 					}
-					pageBook.showPage(treeViewerComposite);
 				});
+	}
+
+	private void rememberExpansion(TreeExpansionEvent event, boolean expanded) {
+		if (!searching && event.getElement() instanceof TreeEntry entry && entry.getParent() instanceof URI
+				&& entry.getTreeElement() instanceof URI propertySetURI) {
+			if (expanded) {
+				expandedPropertySets.add(propertySetURI);
+			} else {
+				expandedPropertySets.remove(propertySetURI);
+			}
+		}
+	}
+
+	private void rememberScrollPosition() {
+		if (searching || !treeViewer.getTree().isVisible()) {
+			return;
+		}
+		var top = treeViewer.getTree().getTopItem();
+		if (top == null) {
+			return;
+		}
+		// Nested values belong to a property, but their value URIs are specific to the selected element.
+		while (top.getParentItem() != null && top.getParentItem().getParentItem() != null) {
+			top = top.getParentItem();
+		}
+		var parent = top.getParentItem();
+		scrollAnchor = parent == null ? new ScrollAnchor(treeElementURI(top), null)
+				: new ScrollAnchor(treeElementURI(parent), treeElementURI(top));
+	}
+
+	private void refreshTree() {
+		rememberScrollPosition();
+		var tree = treeViewer.getTree();
+		tree.setRedraw(false);
+		try {
+			treeViewer.refresh();
+			restoreTreeState();
+		} finally {
+			tree.setRedraw(true);
+		}
+	}
+
+	private void restoreTreeState() {
+		var tree = treeViewer.getTree();
+		TreeItem top = null;
+		for (var propertySet : tree.getItems()) {
+			var propertySetURI = treeElementURI(propertySet);
+			treeViewer.setExpandedState(propertySet.getData(),
+					searching || expandedPropertySets.contains(propertySetURI));
+			if (!searching && scrollAnchor != null && Objects.equals(scrollAnchor.propertySet(), propertySetURI)) {
+				// The set heading is also the fallback if the property is absent or its set was collapsed.
+				top = propertySet;
+				if (propertySet.getExpanded() && scrollAnchor.property() != null) {
+					for (var property : propertySet.getItems()) {
+						if (Objects.equals(scrollAnchor.property(), treeElementURI(property))) {
+							top = property;
+							break;
+						}
+					}
+				}
+			}
+		}
+		if (top != null) {
+			tree.setTopItem(top);
+		}
+	}
+
+	private static URI treeElementURI(TreeItem item) {
+		return item.getData() instanceof TreeEntry entry && entry.getTreeElement() instanceof URI uri ? uri : null;
+	}
+
+	private record ScrollAnchor(URI propertySet, URI property) {
 	}
 
 	PropertyStatus getPropertyStatus(URI propertySetURI, URI propertyURI) {

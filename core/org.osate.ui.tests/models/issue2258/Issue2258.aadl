@@ -1,0 +1,145 @@
+package Issue2258
+public
+    with Earlier_Properties, Watch_Properties;
+
+    system S
+    end S;
+
+    system implementation S.First
+    properties
+        Earlier_Properties::Padding => 1;
+        Watch_Properties::P00 => 0;
+        Watch_Properties::P01 => 1;
+        Watch_Properties::P02 => 2;
+        Watch_Properties::P03 => 3;
+        Watch_Properties::P04 => 4;
+        Watch_Properties::P05 => 5;
+        Watch_Properties::P06 => 6;
+        Watch_Properties::P07 => 7;
+        Watch_Properties::P08 => 8;
+        Watch_Properties::P09 => 9;
+        Watch_Properties::P10 => 10;
+        Watch_Properties::P11 => 11;
+        Watch_Properties::P12 => 12;
+        Watch_Properties::P13 => 13;
+        Watch_Properties::P14 => 14;
+        Watch_Properties::P15 => 15;
+        Watch_Properties::P16 => 16;
+        Watch_Properties::P17 => 17;
+        Watch_Properties::P18 => 18;
+        Watch_Properties::P19 => 19;
+        Watch_Properties::P20 => 20;
+        Watch_Properties::P21 => 21;
+        Watch_Properties::P22 => 22;
+        Watch_Properties::P23 => 23;
+        Watch_Properties::P24 => 24;
+        Watch_Properties::P25 => 25;
+        Watch_Properties::P26 => 26;
+        Watch_Properties::P27 => 27;
+        Watch_Properties::P28 => 28;
+        Watch_Properties::P29 => 29;
+        Watch_Properties::P30 => 30;
+        Watch_Properties::P31 => 31;
+        Watch_Properties::P32 => 32;
+        Watch_Properties::P33 => 33;
+        Watch_Properties::P34 => 34;
+        Watch_Properties::P35 => 35;
+        Watch_Properties::P36 => 36;
+        Watch_Properties::P37 => 37;
+        Watch_Properties::P38 => 38;
+        Watch_Properties::P39 => 39;
+        Watch_Properties::P40 => 40;
+        Watch_Properties::P41 => 41;
+        Watch_Properties::P42 => 42;
+        Watch_Properties::P43 => 43;
+        Watch_Properties::P44 => 44;
+        Watch_Properties::P45 => 45;
+        Watch_Properties::P46 => 46;
+        Watch_Properties::P47 => 47;
+        Watch_Properties::P48 => 48;
+        Watch_Properties::P49 => 49;
+        Watch_Properties::P50 => 50;
+        Watch_Properties::P51 => 51;
+        Watch_Properties::P52 => 52;
+        Watch_Properties::P53 => 53;
+        Watch_Properties::P54 => 54;
+        Watch_Properties::P55 => 55;
+        Watch_Properties::P56 => 56;
+        Watch_Properties::P57 => 57;
+        Watch_Properties::P58 => 58;
+        Watch_Properties::P59 => 59;
+    end S.First;
+
+    system implementation S.Second
+    properties
+        Watch_Properties::P00 => 0;
+        Watch_Properties::P01 => 1;
+        Watch_Properties::P02 => 2;
+        Watch_Properties::P03 => 3;
+        Watch_Properties::P04 => 4;
+        Watch_Properties::P05 => 5;
+        Watch_Properties::P06 => 6;
+        Watch_Properties::P07 => 7;
+        Watch_Properties::P08 => 8;
+        Watch_Properties::P09 => 9;
+        Watch_Properties::P10 => 10;
+        Watch_Properties::P11 => 11;
+        Watch_Properties::P12 => 12;
+        Watch_Properties::P13 => 13;
+        Watch_Properties::P14 => 14;
+        Watch_Properties::P15 => 15;
+        Watch_Properties::P16 => 16;
+        Watch_Properties::P17 => 17;
+        Watch_Properties::P18 => 18;
+        Watch_Properties::P19 => 19;
+        Watch_Properties::P20 => 20;
+        Watch_Properties::P21 => 21;
+        Watch_Properties::P22 => 22;
+        Watch_Properties::P23 => 23;
+        Watch_Properties::P24 => 24;
+        Watch_Properties::P25 => 25;
+        Watch_Properties::P26 => 26;
+        Watch_Properties::P27 => 27;
+        Watch_Properties::P28 => 28;
+        Watch_Properties::P29 => 29;
+        Watch_Properties::P30 => 30;
+        Watch_Properties::P31 => 31;
+        Watch_Properties::P32 => 32;
+        Watch_Properties::P33 => 33;
+        Watch_Properties::P34 => 34;
+        Watch_Properties::P35 => 35;
+        Watch_Properties::P36 => 36;
+        Watch_Properties::P37 => 37;
+        Watch_Properties::P38 => 38;
+        Watch_Properties::P39 => 39;
+        Watch_Properties::P40 => 40;
+        Watch_Properties::P41 => 41;
+        Watch_Properties::P42 => 42;
+        Watch_Properties::P43 => 43;
+        Watch_Properties::P44 => 44;
+        Watch_Properties::P45 => 45;
+        Watch_Properties::P46 => 46;
+        Watch_Properties::P47 => 47;
+        Watch_Properties::P48 => 48;
+        Watch_Properties::P49 => 49;
+        Watch_Properties::P50 => 50;
+        Watch_Properties::P51 => 51;
+        Watch_Properties::P52 => 52;
+        Watch_Properties::P53 => 53;
+        Watch_Properties::P54 => 54;
+        Watch_Properties::P55 => 55;
+        Watch_Properties::P56 => 56;
+        Watch_Properties::P57 => 57;
+        Watch_Properties::P58 => 58;
+        Watch_Properties::P59 => 59;
+    end S.Second;
+
+    system implementation S.Sparse
+    properties
+        Watch_Properties::P00 => 0;
+    end S.Sparse;
+
+    system implementation S.Empty
+    end S.Empty;
+
+end Issue2258;
