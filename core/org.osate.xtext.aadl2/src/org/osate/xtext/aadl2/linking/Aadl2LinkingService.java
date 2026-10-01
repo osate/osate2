@@ -171,7 +171,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 		} else if (Aadl2Package.eINSTANCE.getFeatureClassifier().isSuperTypeOf(requiredType)) {
 			// prototype for feature or component, or data,bus,subprogram, subprogram group classifier
 			EObject e = findClassifierOrProxy(context, reference, name);
-			if (Aadl2Util.isNull(e) && !(context instanceof Generalization)
+			if (e == null && !(context instanceof Generalization)
 					&& !Aadl2Package.eINSTANCE.getComponentType().isSuperTypeOf(requiredType)) {
 				// look for prototype
 				e = AadlUtil.getContainingClassifier(context).findNamedElement(name);
