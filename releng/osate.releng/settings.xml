@@ -50,13 +50,6 @@
 			<layout>p2</layout>
 			<mirrorOfLayouts>p2</mirrorOfLayouts>
 		</mirror>
-		<mirror>
-			<id>eclipse-mirror</id>
-			<mirrorOf>https://download.eclipse.org/</mirrorOf>
-			<url>https://ftp2.osuosl.org/pub/eclipse/</url>
-			<layout>p2</layout>
-			<mirrorOfLayouts>p2</mirrorOfLayouts>
-		</mirror>
 	</mirrors>
 	
 </settings>

@@ -2,12 +2,12 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Alisa Categories
 Bundle-Vendor: CMU/SEI
-Bundle-Version: 3.2.3.qualifier
+Bundle-Version: 3.2.4.qualifier
 Bundle-SymbolicName: org.osate.categories; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext;bundle-version="[2.20.0,3.0.0)";visibility:=reexport,
  org.eclipse.xtext.xtext.generator;bundle-version="[2.20.0,3.0.0)";resolution:=optional,
- org.apache.commons.logging;bundle-version="[1.0.4,2.0.0)";resolution:=optional,
+ org.apache.commons.commons-logging;bundle-version="[1.3.5,2.0.0)";resolution:=optional,
  org.eclipse.emf.codegen.ecore;bundle-version="[2.20.0,3.0.0)";resolution:=optional,
  org.eclipse.emf.mwe.utils;bundle-version="[1.5.0,2.0.0)";resolution:=optional,
  org.eclipse.emf.mwe2.launch;bundle-version="[2.11.0,3.0.0)";resolution:=optional,

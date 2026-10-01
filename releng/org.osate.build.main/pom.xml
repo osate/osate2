@@ -7,8 +7,8 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho.version>4.0.13</tycho.version>
-		<tycho-extras.version>4.0.13</tycho-extras.version>
+		<tycho.version>5.0.4</tycho.version>
+		<tycho-extras.version>5.0.4</tycho-extras.version>
 		<eclipse.version>2025-12</eclipse.version>
 		<xtext.version>2.39.0</xtext.version>
 		<openjfx.version>17.0.2</openjfx.version>
@@ -376,7 +376,7 @@
 						<configuration>
 							<rules>
 								<requireMavenVersion>
-									<version>3.9.0</version>
+									<version>3.9.9</version>
 								</requireMavenVersion>
 							</rules>
 						</configuration>

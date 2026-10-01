@@ -47,6 +47,7 @@ Run with
             <iu id="org.eclipse.equinox.executable.feature.group"/>
             <iu id="org.eclipse.equinox.p2.core.feature.feature.group"/>
             <iu id="org.eclipse.equinox.p2.discovery.feature.feature.group"/>
+            <iu id="org.apache.commons.commons-logging"/>
             <iu id="org.eclipse.equinox.p2.extras.feature.feature.group"/>
             <iu id="org.eclipse.equinox.p2.rcp.feature.feature.group"/>
             <iu id="org.eclipse.equinox.p2.user.ui.feature.group"/>
@@ -90,7 +91,6 @@ Run with
             </source>
             <destination location="${target.dir}/releases/2025-06"/>
     	    <iu id="org.apache.commons.io"/>
-    	    <iu id="org.apache.commons.logging"/>
         </p2.mirror>
 
     	<p2.mirror>
