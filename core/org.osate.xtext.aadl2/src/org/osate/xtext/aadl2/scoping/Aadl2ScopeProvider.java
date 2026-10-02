@@ -475,7 +475,8 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	}
 
 	// Reference is from PortConnection, AccessConnection, FeatureGroupConnection, FeatureConnection, and
-	// ParameterConnection in Aadl2.xtext
+	// ParameterConnection in Aadl2.xtext. Also used by the default linking service: only inherited connections
+	// are visible, and an intermediate refinement hides the original declaration.
 	public IScope scope_Connection_refined(ComponentImplementation context, EReference reference) {
 		var extended = context.getExtended();
 		return extended == null ? IScope.NULLSCOPE : scopeFor(filterRefined(extended.getAllConnections()));

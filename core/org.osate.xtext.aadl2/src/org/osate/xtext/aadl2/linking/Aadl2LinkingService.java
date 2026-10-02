@@ -44,7 +44,6 @@ import org.osate.aadl2.ComponentPrototype;
 import org.osate.aadl2.ComponentPrototypeActual;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ConnectedElement;
-import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DataPrototype;
@@ -461,22 +460,6 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			}
 			return Collections.<EObject> emptyList();
 
-		} else if (Aadl2Package.eINSTANCE.getConnection() == requiredType) {
-			// refined to, flow elements
-			Classifier ns = AadlUtil.getContainingClassifier(context);
-			if (context instanceof Connection) {
-				// we need to resolve a refinement
-				if (ns.getExtended() != null) {
-					ns = ns.getExtended();
-				} else {
-					return Collections.emptyList();
-				}
-			}
-			EObject searchResult = ns.findNamedElement(name);
-			if (searchResult != null && searchResult instanceof Connection) {
-				return Collections.singletonList(searchResult);
-			}
-			return Collections.<EObject> emptyList();
 		} else if (Aadl2Package.eINSTANCE.getFeatureType() == requiredType) {
 			// feature group type or prototype
 			FeatureGroupType fgt = findFeatureGroupType(context, name, reference);
