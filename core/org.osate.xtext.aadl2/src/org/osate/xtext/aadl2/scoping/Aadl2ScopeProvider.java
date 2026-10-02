@@ -519,19 +519,22 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 		return classifier == null ? IScope.NULLSCOPE : scopeFor(filterRefined(classifier.getAllFeatures()));
 	}
 
-	// Reference is from FlowSpecRefinement in Aadl2.xtext
+	// Reference is from FlowSpecRefinement in Aadl2.xtext. The default linker uses only inherited specifications,
+	// with intermediate refinements hiding their original declarations.
 	public IScope scope_FlowSpecification_refined(ComponentType context, EReference reference) {
 		var extended = context.getExtended();
 		return extended == null ? IScope.NULLSCOPE : scopeFor(filterRefined(extended.getAllFlowSpecifications()));
 	}
 
-	// Reference is from FlowSourceImpl, FlowSinkImpl, and FlowPathImpl in Aadl2.xtext
+	// Reference is from FlowSourceImpl, FlowSinkImpl, and FlowPathImpl in Aadl2.xtext. The default linker resolves
+	// the specification from the implemented type, including its inherited and refined specifications.
 	public IScope scope_FlowImplementation_specification(ComponentImplementation context, EReference reference) {
 		var type = context.getType();
 		return type == null ? IScope.NULLSCOPE : scopeFor(filterRefined(type.getAllFlowSpecifications()));
 	}
 
-	// Reference is from EndToEndFlow in Aadl2.xtext
+	// Reference is from EndToEndFlow in Aadl2.xtext. The default linker uses only inherited end-to-end flows,
+	// with intermediate refinements hiding their original declarations.
 	public IScope scope_EndToEndFlow_refined(ComponentImplementation context, EReference reference) {
 		var extended = context.getExtended();
 		return extended == null ? IScope.NULLSCOPE : scopeFor(filterRefined(extended.getAllEndToEndFlows()));

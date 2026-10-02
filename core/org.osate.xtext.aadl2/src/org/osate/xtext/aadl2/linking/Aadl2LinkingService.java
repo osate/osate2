@@ -47,7 +47,6 @@ import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DataPrototype;
-import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.EndToEndFlowElement;
 import org.osate.aadl2.EndToEndFlowSegment;
 import org.osate.aadl2.Feature;
@@ -59,7 +58,6 @@ import org.osate.aadl2.FeaturePrototype;
 import org.osate.aadl2.FeatureType;
 import org.osate.aadl2.FlowElement;
 import org.osate.aadl2.FlowSegment;
-import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Generalization;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
@@ -409,44 +407,6 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			// referenced by in modes
 			EObject searchResult = AadlUtil.getContainingClassifier(context).findNamedElement(name);
 			if (searchResult != null && searchResult instanceof ModeTransition) {
-				return Collections.singletonList(searchResult);
-			}
-			return Collections.<EObject> emptyList();
-
-		} else if (Aadl2Package.eINSTANCE.getFlowSpecification() == requiredType) {
-			// refined flow spec
-			// referenced by flow implementation
-			// also referenced in flow elements in impl and etef
-			Classifier ns = AadlUtil.getContainingClassifier(context);
-			if (context instanceof FlowSpecification) {
-				// we need to resolve a refinement
-				if (ns.getExtended() != null) {
-					ns = ns.getExtended();
-				} else {
-					return Collections.emptyList();
-				}
-			}
-			EObject searchResult = ns.findNamedElement(name);
-			if (searchResult != null && searchResult instanceof FlowSpecification) {
-				return Collections.singletonList(searchResult);
-			}
-			return Collections.<EObject> emptyList();
-
-		} else if (Aadl2Package.eINSTANCE.getEndToEndFlow() == requiredType) {
-			// refined flow spec
-			// referenced by flow implementation
-			// also referenced in flow elements in impl and etef
-			Classifier ns = AadlUtil.getContainingClassifier(context);
-			if (context instanceof EndToEndFlow) {
-				// we need to resolve a refinement
-				if (ns.getExtended() != null) {
-					ns = ns.getExtended();
-				} else {
-					return Collections.emptyList();
-				}
-			}
-			EObject searchResult = ns.findNamedElement(name);
-			if (searchResult != null && searchResult instanceof EndToEndFlow) {
 				return Collections.singletonList(searchResult);
 			}
 			return Collections.<EObject> emptyList();
