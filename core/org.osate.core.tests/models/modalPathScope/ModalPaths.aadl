@@ -1,0 +1,103 @@
+-------------------------------------------------------------------------------
+-- Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
+-- All Rights Reserved.
+--
+-- NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+-- KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+-- OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+-- MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+--
+-- This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+-- which is available at https://www.eclipse.org/legal/epl-2.0/
+-- SPDX-License-Identifier: EPL-2.0
+--
+-- Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+--
+-- This program includes and/or can make use of certain third party source code, object code, documentation and other
+-- files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+-- configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+-- conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+-- Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party beneficiaries
+-- to this license with respect to the terms applicable to their Third Party Software. Third Party Software licenses
+-- only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+-------------------------------------------------------------------------------
+
+package ModalPathScope
+public
+	system Worker
+	features
+		input: in event port;
+		output: out event port;
+	flows
+		path1: flow path input -> output;
+		source1: flow source output;
+		sink1: flow sink input;
+	end Worker;
+
+	system Base
+	features
+		input: in event port;
+		output: out event port;
+		tick: in event port;
+	flows
+		path1: flow path input -> output in modes (idle, activate);
+	modes
+		idle: initial mode;
+		active: mode;
+		activate: idle -[tick]-> active;
+	end Base;
+
+	system Derived extends Base
+	flows
+		path2: flow path input -> output in modes (IDLE, ACTIVATE);
+	end Derived;
+
+	system implementation Derived.base
+	subcomponents
+		worker1: system Worker;
+		source1: system Worker;
+		sink1: system Worker;
+	connections
+		incoming: port input -> worker1.input in modes (IDLE, ACTIVATE);
+		outgoing: port worker1.output -> output in modes (IDLE, ACTIVATE);
+		link1: port source1.output -> sink1.input in modes (IDLE, ACTIVATE);
+	flows
+		path1: flow path input -> incoming -> worker1.path1 -> outgoing -> output
+			in modes (IDLE, ACTIVATE);
+		ete1: end to end flow source1.source1 -> link1 -> sink1.sink1 in modes (IDLE, ACTIVATE);
+	end Derived.base;
+
+	system implementation Derived.leaf extends Derived.base
+	connections
+		incoming: refined to port in modes (IDLE, ACTIVE, ACTIVATE);
+	end Derived.leaf;
+
+	system ImplementationModes
+	features
+		tick: in event port;
+	end ImplementationModes;
+
+	system implementation ImplementationModes.base
+	subcomponents
+		source1: system Worker;
+		sink1: system Worker;
+	connections
+		link1: port source1.output -> sink1.input in modes (waiting, advance);
+	modes
+		waiting: initial mode;
+		running: mode;
+		advance: waiting -[tick]-> running;
+	end ImplementationModes.base;
+
+	system implementation ImplementationModes.leaf extends ImplementationModes.base
+	connections
+		link1: refined to port in modes (WAITING, ADVANCE);
+	flows
+		ete1: end to end flow source1.source1 -> link1 -> sink1.sink1 in modes (WAITING, ADVANCE);
+	end ImplementationModes.leaf;
+
+	system Other
+	modes
+		foreign_mode: initial mode;
+	end Other;
+end ModalPathScope;

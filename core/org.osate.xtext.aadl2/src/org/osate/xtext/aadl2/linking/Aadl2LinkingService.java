@@ -61,7 +61,6 @@ import org.osate.aadl2.FlowElement;
 import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Generalization;
-import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.NamedElement;
@@ -410,14 +409,6 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			// referenced by in modes
 			EObject searchResult = AadlUtil.getContainingClassifier(context).findNamedElement(name);
 			if (searchResult != null && searchResult instanceof ModeTransition) {
-				return Collections.singletonList(searchResult);
-			}
-			return Collections.<EObject> emptyList();
-
-		} else if (Aadl2Package.eINSTANCE.getModeFeature() == requiredType) {
-			// referenced by inmodes in connections and flows
-			EObject searchResult = AadlUtil.getContainingClassifier(context).findNamedElement(name);
-			if (searchResult != null && searchResult instanceof ModeFeature) {
 				return Collections.singletonList(searchResult);
 			}
 			return Collections.<EObject> emptyList();

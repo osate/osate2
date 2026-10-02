@@ -484,7 +484,8 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 
 	/*
 	 * Reference is from PortConnection, AccessConnection, FeatureGroupConnection, FeatureConnection,
-	 * ParameterConnection, FlowSpecification, FlowImplementation, and EndToEndFlow in Aadl2.xtext
+	 * ParameterConnection, FlowSpecification, FlowImplementation, and EndToEndFlow in Aadl2.xtext.
+	 * The default linking service uses this scope to resolve both modes and named transitions, including inherited ones.
 	 */
 	public SimpleScope scope_ModalPath_inModeOrTransition(ComponentClassifier context, EReference reference) {
 		return scopeFor(Stream
