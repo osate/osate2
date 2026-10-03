@@ -24,12 +24,13 @@
 package org.osate.xtext.aadl2.linking;
 
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtext.linking.impl.DefaultLinkingService;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.util.IResourceScopeCache;
@@ -37,35 +38,23 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.CallContext;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.ComponentImplementationReference;
 import org.osate.aadl2.ComponentPrototype;
-import org.osate.aadl2.ComponentPrototypeActual;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.ConnectionEnd;
-import org.osate.aadl2.Context;
 import org.osate.aadl2.DataPrototype;
 import org.osate.aadl2.EndToEndFlowElement;
 import org.osate.aadl2.EndToEndFlowSegment;
-import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupPrototype;
-import org.osate.aadl2.FeatureGroupPrototypeActual;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeaturePrototype;
-import org.osate.aadl2.FeatureType;
 import org.osate.aadl2.FlowElement;
 import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.Generalization;
-import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.Port;
-import org.osate.aadl2.Prototype;
-import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.SubcomponentType;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.SubprogramGroupSubcomponent;
@@ -82,6 +71,28 @@ import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 import com.google.inject.Inject;
 
 public class Aadl2LinkingService extends PropertiesLinkingService {
+	/*
+	 * These references have local scopes. Dispatch explicitly to Xtext's linker because some would otherwise be
+	 * intercepted by the inherited PropertiesLinkingService. Global and contextual lookup is still handled below.
+	 */
+	private static final Set<EReference> SCOPE_LINKED_REFERENCES = Set.of(
+			Aadl2Package.eINSTANCE.getPrototypeBinding_Formal(),
+			Aadl2Package.eINSTANCE.getPrototype_Refined(),
+			Aadl2Package.eINSTANCE.getAbstractFeature_FeaturePrototype(),
+			Aadl2Package.eINSTANCE.getFeaturePrototypeReference_Prototype(),
+			Aadl2Package.eINSTANCE.getFeature_Refined(),
+			Aadl2Package.eINSTANCE.getSubcomponent_Refined(),
+			Aadl2Package.eINSTANCE.getConnectedElement_Context(),
+			Aadl2Package.eINSTANCE.getFlowSegment_Context(),
+			Aadl2Package.eINSTANCE.getEndToEndFlowSegment_Context(),
+			Aadl2Package.eINSTANCE.getModeTransitionTrigger_Context(),
+			Aadl2Package.eINSTANCE.getModeTransition_Source(),
+			Aadl2Package.eINSTANCE.getModeTransition_Destination(),
+			Aadl2Package.eINSTANCE.getModeBinding_ParentMode(),
+			Aadl2Package.eINSTANCE.getUnitLiteral_BaseUnit());
+
+	@Inject
+	private DefaultLinkingService defaultLinkingService;
 
 	@Inject
 	IResourceScopeCache linkingCache;
@@ -125,6 +136,12 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 				}
 			}
 			return Collections.<EObject> emptyList();
+		}
+
+		if (SCOPE_LINKED_REFERENCES.contains(reference)
+				|| (reference == Aadl2Package.eINSTANCE.getModalElement_InMode()
+						&& AadlUtil.getContainingPropertyAssociation(context) == null)) {
+			return defaultLinkingService.getLinkedObjects(context, reference, node);
 		}
 
 		final EClass requiredType = reference.getEReferenceType();
@@ -180,14 +197,6 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 				return Collections.singletonList(e);
 			}
 			return Collections.<EObject> emptyList();
-		} else if (Aadl2Package.eINSTANCE.getFeaturePrototype() == requiredType) {
-			// look for prototype
-			EObject e = AadlUtil.getContainingClassifier(context).findNamedElement(name);
-			// TODO-phf: this can be removed if the FeatureClassifier class handles it
-			if (e instanceof FeaturePrototype) {
-				return Collections.singletonList(e);
-			}
-			return Collections.<EObject> emptyList();
 		} else if (Aadl2Package.eINSTANCE.getConnectionEnd() == requiredType) {
 			// resolve connection end
 			ConnectionEnd ce = null;
@@ -215,48 +224,6 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 				}
 			}
 			return Collections.emptyList();
-		} else if (Aadl2Package.eINSTANCE.getPort().isSuperTypeOf(requiredType)) {
-			Classifier ns = AadlUtil.getContainingClassifier(context);
-			if (context instanceof Feature) {
-				// we need to resolve a feature refinement, thus look up the feature in the
-				// component being extended
-				if (ns.getExtended() != null) {
-					ns = ns.getExtended();
-				} else {
-					return Collections.emptyList();
-				}
-//			} else if (context instanceof ModeTransitionTrigger){
-//				// we are a mode transition trigger
-//				Context triggerContext = ((ModeTransitionTrigger)context).getContext();
-//				if (triggerContext instanceof Subcomponent){
-//					// look up the feature in the ComponentType
-//					ComponentType ct = ((Subcomponent)triggerContext).getComponentType();
-//					if (ct != null)
-//						ns = ct;
-//				}
-//				if (triggerContext instanceof FeatureGroup){
-//					// look up the feature in the FeaturegroupType
-//					 FeatureGroupType ct = ((FeatureGroup)triggerContext).getFeatureGroupType();
-//					if (ct != null)
-//						ns = ct;
-//				}
-			}
-			EObject searchResult = AadlUtil.findNamedElementInList(ns.getAllFeatures(), name);
-			if (searchResult != null && searchResult instanceof Port) {
-				return Collections.singletonList(searchResult);
-			}
-			return Collections.<EObject> emptyList();
-
-		} else if (Aadl2Package.eINSTANCE.getContext() == requiredType) {
-			// represents connection source/dest context as well as flowspec
-			// context
-			// also used in triggerport
-			EObject searchResult = AadlUtil.getContainingClassifier(context).findNamedElement(name);
-			if (searchResult instanceof Context) {
-				return Collections.singletonList(searchResult);
-			}
-			return Collections.<EObject> emptyList();
-
 		} else if (Aadl2Package.eINSTANCE.getCallContext() == requiredType) {
 			EObject searchResult = AadlUtil.getContainingClassifier(context).findNamedElement(name);
 			if (searchResult != null && requiredType.isSuperTypeOf(searchResult.eClass())) {
@@ -343,47 +310,6 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 
 			return Collections.<EObject> emptyList();
 
-		} else if (Aadl2Package.eINSTANCE.getPrototype() == requiredType) {
-			// if context prototype then find in extension source (refined)
-			// prototype binding as context
-			EObject searchResult = null;
-			Classifier ns = null;
-			if (context.eContainer() instanceof Subcomponent) {
-				Subcomponent sub = (Subcomponent) context.eContainer();
-				ns = sub.getAllClassifier();
-				if (!Aadl2Util.isNull(ns)) {
-					searchResult = ns.findNamedElement(name);
-				}
-			} else if (context.eContainer() instanceof ComponentPrototypeActual) {
-				ComponentPrototypeActual cpa = (ComponentPrototypeActual) context.eContainer();
-				SubcomponentType subT = cpa.getSubcomponentType();
-				if (subT instanceof ComponentClassifier) {
-					searchResult = ((ComponentClassifier) subT).findNamedElement(name);
-				}
-			} else if (context.eContainer() instanceof FeatureGroupPrototypeActual) {
-				FeatureGroupPrototypeActual cpa = (FeatureGroupPrototypeActual) context.eContainer();
-				FeatureType subT = cpa.getFeatureType();
-				if (subT instanceof FeatureGroupType) {
-					searchResult = ((FeatureGroupType) subT).findNamedElement(name);
-				}
-			} else if (context.eContainer() instanceof ComponentImplementationReference) {
-				ns = ((ComponentImplementationReference) context.eContainer()).getImplementation();
-				if (!Aadl2Util.isNull(ns)) {
-					searchResult = ns.findNamedElement(name);
-				}
-			} else {
-				// If resolving a prototype binding formal, don't resolve to a local prototype. Go to the generals.
-				// We could be in a prototype refinement. Go to the generals so that we don't resolve to context.
-				ns = AadlUtil.getContainingClassifier(context);
-				for (Iterator<Classifier> iter = ns.getGenerals().iterator(); searchResult == null && iter.hasNext();) {
-					searchResult = iter.next().findNamedElement(name);
-				}
-			}
-			if (!Aadl2Util.isNull(searchResult) && searchResult instanceof Prototype) {
-				return Collections.singletonList(searchResult);
-			}
-			return Collections.<EObject> emptyList();
-
 		} else if (Aadl2Package.eINSTANCE.getFlowElement() == requiredType) {
 			// look for flow element in flow segment
 			FlowSegment fs = (FlowSegment) context;
@@ -400,14 +326,6 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 					EndToEndFlowElement.class);
 			if (flowElement != null) {
 				return Collections.singletonList((EObject) flowElement);
-			}
-			return Collections.<EObject> emptyList();
-
-		} else if (Aadl2Package.eINSTANCE.getModeTransition() == requiredType) {
-			// referenced by in modes
-			EObject searchResult = AadlUtil.getContainingClassifier(context).findNamedElement(name);
-			if (searchResult != null && searchResult instanceof ModeTransition) {
-				return Collections.singletonList(searchResult);
 			}
 			return Collections.<EObject> emptyList();
 

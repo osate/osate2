@@ -230,9 +230,8 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	 * FeaturePrototype in Aadl2.xtext
 	 */
 	public IScope scope_Prototype_refined(Classifier context, EReference reference) {
-		var extended = context.getExtended();
-		var prototypes = extended == null ? null : allPrototypes(extended);
-		return prototypes == null ? IScope.NULLSCOPE : scopeFor(filterRefined(prototypes));
+		// An implementation may refine a prototype from its type as well as from its extended implementation.
+		return scope_PrototypeBinding_formal(context, reference);
 	}
 
 	// Reference is from FeaturePrototype in Aadl2.xtext
