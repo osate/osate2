@@ -35,45 +35,33 @@ import org.eclipse.xtext.linking.impl.IllegalNodeException;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.util.IResourceScopeCache;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.AccessType;
 import org.osate.aadl2.CallContext;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentPrototype;
 import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.ConnectedElement;
-import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.DataPrototype;
-import org.osate.aadl2.EndToEndFlowElement;
-import org.osate.aadl2.EndToEndFlowSegment;
-import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupPrototype;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeaturePrototype;
-import org.osate.aadl2.FlowElement;
-import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.Generalization;
-import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.SubprogramCall;
-import org.osate.aadl2.SubprogramGroupAccess;
-import org.osate.aadl2.SubprogramGroupSubcomponent;
-import org.osate.aadl2.SubprogramGroupSubcomponentType;
 import org.osate.aadl2.SubprogramType;
-import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.annexsupport.AnnexLinkingService;
 import org.osate.annexsupport.AnnexLinkingServiceRegistry;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
+import org.osate.xtext.aadl2.scoping.Aadl2ReferenceScopeProvider;
 
 import com.google.inject.Inject;
 
 public class Aadl2LinkingService extends PropertiesLinkingService {
 	/*
-	 * These references have local scopes. Dispatch explicitly to Xtext's linker because some would otherwise be
-	 * intercepted by the inherited PropertiesLinkingService. Global and contextual lookup is still handled below.
+	 * These references have local or contextual scopes. Dispatch explicitly to Xtext's linker because some would
+	 * otherwise be intercepted by the inherited PropertiesLinkingService. Global lookup is still handled below.
 	 */
 	private static final Set<EReference> SCOPE_LINKED_REFERENCES = Set.of(
 			Aadl2Package.eINSTANCE.getPrototypeBinding_Formal(),
@@ -89,10 +77,26 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			Aadl2Package.eINSTANCE.getModeTransition_Source(),
 			Aadl2Package.eINSTANCE.getModeTransition_Destination(),
 			Aadl2Package.eINSTANCE.getModeBinding_ParentMode(),
-			Aadl2Package.eINSTANCE.getUnitLiteral_BaseUnit());
+			Aadl2Package.eINSTANCE.getUnitLiteral_BaseUnit(),
+			Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd(),
+			Aadl2Package.eINSTANCE.getModeTransitionTrigger_TriggerPort(),
+			Aadl2Package.eINSTANCE.getFlowEnd_Feature(),
+			Aadl2Package.eINSTANCE.getFlowSegment_FlowElement(),
+			Aadl2Package.eINSTANCE.getEndToEndFlowSegment_FlowElement(),
+			Aadl2Package.eINSTANCE.getModeBinding_DerivedMode(),
+			Aadl2Package.eINSTANCE.getModalElement_InMode(),
+			Aadl2Package.eINSTANCE.getContainmentPathElement_NamedElement(),
+			Aadl2Package.eINSTANCE.getBasicPropertyAssociation_Property(),
+			Aadl2Package.eINSTANCE.getNumberValue_Unit());
+
+	private DefaultLinkingService defaultLinkingService;
 
 	@Inject
-	private DefaultLinkingService defaultLinkingService;
+	private void configureDefaultLinkingService(DefaultLinkingService linkingService,
+			Aadl2ReferenceScopeProvider scopeProvider) {
+		linkingService.setScopeProvider(scopeProvider);
+		defaultLinkingService = linkingService;
+	}
 
 	@Inject
 	IResourceScopeCache linkingCache;
@@ -139,8 +143,9 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 		}
 
 		if (SCOPE_LINKED_REFERENCES.contains(reference)
-				|| (reference == Aadl2Package.eINSTANCE.getModalElement_InMode()
-						&& AadlUtil.getContainingPropertyAssociation(context) == null)) {
+				|| (reference == Aadl2Package.eINSTANCE.getSubprogramCall_CalledSubprogram()
+						&& context instanceof SubprogramCall call && call.getContext() != null
+						&& !(call.getContext() instanceof ComponentType))) {
 			return defaultLinkingService.getLinkedObjects(context, reference, node);
 		}
 
@@ -197,33 +202,6 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 				return Collections.singletonList(e);
 			}
 			return Collections.<EObject> emptyList();
-		} else if (Aadl2Package.eINSTANCE.getConnectionEnd() == requiredType) {
-			// resolve connection end
-			ConnectionEnd ce = null;
-			if (context.eContainer() instanceof ConnectedElement) {
-				ConnectedElement contextParent = (ConnectedElement) context.eContainer();
-				if (contextParent.getConnectionEnd() instanceof FeatureGroup) {
-					ce = findElementInContext(contextParent, (FeatureGroup) contextParent.getConnectionEnd(), name,
-							ConnectionEnd.class);
-				}
-			} else {
-				ConnectedElement connectedElement = (ConnectedElement) context;
-				ce = findElementInContext(connectedElement, connectedElement.getContext(), name, ConnectionEnd.class);
-			}
-			if (ce != null) {
-				return Collections.singletonList((EObject) ce);
-			}
-			return Collections.<EObject> emptyList();
-
-		} else if (Aadl2Package.eINSTANCE.getTriggerPort() == requiredType) {
-			if (context instanceof ModeTransitionTrigger) {
-				ModeTransitionTrigger trigger = (ModeTransitionTrigger) context;
-				TriggerPort triggerPort = findElementInContext(trigger, trigger.getContext(), name, TriggerPort.class);
-				if (triggerPort != null) {
-					return Collections.singletonList((EObject) triggerPort);
-				}
-			}
-			return Collections.emptyList();
 		} else if (Aadl2Package.eINSTANCE.getCallContext() == requiredType) {
 			EObject searchResult = AadlUtil.getContainingClassifier(context).findNamedElement(name);
 			if (searchResult != null && requiredType.isSuperTypeOf(searchResult.eClass())) {
@@ -272,26 +250,6 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 						return Collections.singletonList(searchResult);
 					}
 					ns = (ComponentType) callContext;
-				} else if (callContext instanceof SubprogramGroupSubcomponent) {
-					ns = ((SubprogramGroupSubcomponent) callContext).getComponentType();
-					if (Aadl2Util.isNull(ns)) {
-						return Collections.<EObject> emptyList();
-					}
-				} else if (callContext instanceof SubprogramGroupAccess
-						&& ((SubprogramGroupAccess) callContext).getKind() == AccessType.REQUIRES) {
-					SubprogramGroupSubcomponentType sst = ((SubprogramGroupAccess) callContext)
-							.getSubprogramGroupFeatureClassifier();
-					if (sst instanceof Classifier) {
-						ns = (Classifier) sst;
-					}
-					if (Aadl2Util.isNull(ns)) {
-						return Collections.<EObject> emptyList();
-					}
-				} else if (callContext instanceof FeatureGroup) {
-					ns = ((FeatureGroup) callContext).getFeatureGroupType();
-					if (Aadl2Util.isNull(ns)) {
-						return Collections.<EObject> emptyList();
-					}
 				}
 				searchResult = ns.findNamedElement(name);
 				if (!Aadl2Util.isNull(searchResult) && requiredType.isSuperTypeOf(searchResult.eClass())) {
@@ -308,25 +266,6 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 				}
 			}
 
-			return Collections.<EObject> emptyList();
-
-		} else if (Aadl2Package.eINSTANCE.getFlowElement() == requiredType) {
-			// look for flow element in flow segment
-			FlowSegment fs = (FlowSegment) context;
-			FlowElement flowElement = findElementInContext(fs, fs.getContext(), name, FlowElement.class);
-			if (flowElement != null) {
-				return Collections.singletonList((EObject) flowElement);
-			}
-			return Collections.<EObject> emptyList();
-
-		} else if (Aadl2Package.eINSTANCE.getEndToEndFlowElement() == requiredType) {
-			// look for flow element in flow segment
-			EndToEndFlowSegment fs = (EndToEndFlowSegment) context;
-			EndToEndFlowElement flowElement = findElementInContext(fs, fs.getContext(), name,
-					EndToEndFlowElement.class);
-			if (flowElement != null) {
-				return Collections.singletonList((EObject) flowElement);
-			}
 			return Collections.<EObject> emptyList();
 
 		} else if (Aadl2Package.eINSTANCE.getFeatureType() == requiredType) {
