@@ -25,9 +25,7 @@ package org.osate.xtext.aadl2.linking;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.linking.impl.DefaultLinkingService;
@@ -35,21 +33,8 @@ import org.eclipse.xtext.linking.impl.IllegalNodeException;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.util.IResourceScopeCache;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.CallContext;
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.ComponentPrototype;
-import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.DataPrototype;
-import org.osate.aadl2.FeatureGroupPrototype;
-import org.osate.aadl2.FeatureGroupType;
-import org.osate.aadl2.FeaturePrototype;
-import org.osate.aadl2.Generalization;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.SubprogramCall;
-import org.osate.aadl2.SubprogramType;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.aadl2.util.Aadl2Util;
 import org.osate.annexsupport.AnnexLinkingService;
 import org.osate.annexsupport.AnnexLinkingServiceRegistry;
 import org.osate.annexsupport.AnnexRegistry;
@@ -59,36 +44,6 @@ import org.osate.xtext.aadl2.scoping.Aadl2ReferenceScopeProvider;
 import com.google.inject.Inject;
 
 public class Aadl2LinkingService extends PropertiesLinkingService {
-	/*
-	 * These references have local or contextual scopes. Dispatch explicitly to Xtext's linker because some would
-	 * otherwise be intercepted by the inherited PropertiesLinkingService. Global lookup is still handled below.
-	 */
-	private static final Set<EReference> SCOPE_LINKED_REFERENCES = Set.of(
-			Aadl2Package.eINSTANCE.getPrototypeBinding_Formal(),
-			Aadl2Package.eINSTANCE.getPrototype_Refined(),
-			Aadl2Package.eINSTANCE.getAbstractFeature_FeaturePrototype(),
-			Aadl2Package.eINSTANCE.getFeaturePrototypeReference_Prototype(),
-			Aadl2Package.eINSTANCE.getFeature_Refined(),
-			Aadl2Package.eINSTANCE.getSubcomponent_Refined(),
-			Aadl2Package.eINSTANCE.getConnectedElement_Context(),
-			Aadl2Package.eINSTANCE.getFlowSegment_Context(),
-			Aadl2Package.eINSTANCE.getEndToEndFlowSegment_Context(),
-			Aadl2Package.eINSTANCE.getModeTransitionTrigger_Context(),
-			Aadl2Package.eINSTANCE.getModeTransition_Source(),
-			Aadl2Package.eINSTANCE.getModeTransition_Destination(),
-			Aadl2Package.eINSTANCE.getModeBinding_ParentMode(),
-			Aadl2Package.eINSTANCE.getUnitLiteral_BaseUnit(),
-			Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd(),
-			Aadl2Package.eINSTANCE.getModeTransitionTrigger_TriggerPort(),
-			Aadl2Package.eINSTANCE.getFlowEnd_Feature(),
-			Aadl2Package.eINSTANCE.getFlowSegment_FlowElement(),
-			Aadl2Package.eINSTANCE.getEndToEndFlowSegment_FlowElement(),
-			Aadl2Package.eINSTANCE.getModeBinding_DerivedMode(),
-			Aadl2Package.eINSTANCE.getModalElement_InMode(),
-			Aadl2Package.eINSTANCE.getContainmentPathElement_NamedElement(),
-			Aadl2Package.eINSTANCE.getBasicPropertyAssociation_Property(),
-			Aadl2Package.eINSTANCE.getNumberValue_Unit());
-
 	private DefaultLinkingService defaultLinkingService;
 
 	@Inject
@@ -142,158 +97,6 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			return Collections.<EObject> emptyList();
 		}
 
-		if (SCOPE_LINKED_REFERENCES.contains(reference)
-				|| (reference == Aadl2Package.eINSTANCE.getSubprogramCall_CalledSubprogram()
-						&& context instanceof SubprogramCall call && call.getContext() != null
-						&& !(call.getContext() instanceof ComponentType))) {
-			return defaultLinkingService.getLinkedObjects(context, reference, node);
-		}
-
-		final EClass requiredType = reference.getEReferenceType();
-		if (requiredType == null) {
-			return Collections.<EObject> emptyList();
-		}
-
-		Aadl2Package.eINSTANCE.getPropertyType();
-		final EClass cl = Aadl2Package.eINSTANCE.getClassifier();
-		final EClass sct = Aadl2Package.eINSTANCE.getSubcomponentType();
-		final String name = getCrossRefNodeAsString(node);
-		if (sct.isSuperTypeOf(requiredType) || cl.isSuperTypeOf(requiredType)) {
-			// XXX: this code can be replicated in Aadl2LinkingService as it is called often in the core
-			// resolve classifier reference
-			EObject e = findClassifierOrProxy(context, reference, name);
-			if (e != null) {
-				// the result satisfied the expected class
-				return Collections.singletonList(e);
-			}
-			if (!(context instanceof Generalization) && sct.isSuperTypeOf(requiredType)) {
-				// need to resolve prototype
-				Classifier containingClassifier = AadlUtil.getContainingClassifier(context);
-				/*
-				 * This test was put here as a quick and dirty fix to a NullPointerException that was
-				 * being thrown while typing up a component type renames statement. Need to figure out
-				 * what we should really be doing for renames.
-				 */
-				if (containingClassifier != null) {
-					EObject res = AadlUtil.getContainingClassifier(context).findNamedElement(name);
-					if (Aadl2Package.eINSTANCE.getDataPrototype() == reference) {
-						if (res instanceof DataPrototype) {
-							return Collections.singletonList(res);
-						}
-					} else if (res instanceof ComponentPrototype) {
-						return Collections.singletonList(res);
-					}
-				}
-			}
-			return Collections.emptyList();
-		} else if (Aadl2Package.eINSTANCE.getFeatureClassifier().isSuperTypeOf(requiredType)) {
-			// prototype for feature or component, or data,bus,subprogram, subprogram group classifier
-			EObject e = findClassifierOrProxy(context, reference, name);
-			if (e == null && !(context instanceof Generalization)
-					&& !Aadl2Package.eINSTANCE.getComponentType().isSuperTypeOf(requiredType)) {
-				// look for prototype
-				e = AadlUtil.getContainingClassifier(context).findNamedElement(name);
-				// TODO-phf: this can be removed if the FeatureClassifier class handles it
-				if (!(e instanceof FeaturePrototype || e instanceof ComponentPrototype)) {
-					e = null;
-				}
-			}
-			if (e != null && requiredType.isSuperTypeOf(e.eClass())) {
-				return Collections.singletonList(e);
-			}
-			return Collections.<EObject> emptyList();
-		} else if (Aadl2Package.eINSTANCE.getCallContext() == requiredType) {
-			EObject searchResult = AadlUtil.getContainingClassifier(context).findNamedElement(name);
-			if (searchResult != null && requiredType.isSuperTypeOf(searchResult.eClass())) {
-				return Collections.singletonList(searchResult);
-			}
-			searchResult = findClassifierOrProxy(context, reference, name);
-			if (searchResult != null) {
-				return Collections.singletonList(searchResult);
-			}
-			return Collections.<EObject> emptyList();
-
-		} else if (Aadl2Package.eINSTANCE.getCalledSubprogram() == requiredType) {
-			Classifier ns = AadlUtil.getContainingClassifier(context);
-			EObject searchResult;
-			if (!(context instanceof SubprogramCall)
-					|| (context instanceof SubprogramCall && ((SubprogramCall) context).getContext() == null)) {
-				// first check whether it is a reference to a classifier
-				searchResult = findClassifierOrProxy(context, reference, name);
-				if (searchResult != null && requiredType.isSuperTypeOf(searchResult.eClass())) {
-					return Collections.singletonList(searchResult);
-				}
-				// if it was a qualified component type name it would have been found before
-				if (name.contains("::")) {
-					// Qualified classifier should have been found before
-					return Collections.<EObject> emptyList();
-				}
-				// no package qualifier. Look up in local name space, e.g., subprogram access feature or subprogram subcomponent
-				searchResult = ns.findNamedElement(name);
-				if (searchResult != null && requiredType.isSuperTypeOf(searchResult.eClass())) {
-					return Collections.singletonList(searchResult);
-				}
-			}
-			// we have a name with context
-			// lets first find it in its context
-			if (context instanceof SubprogramCall) {
-				// we have a context
-				// lets set it and find the called subprogram
-				SubprogramCall callSpec = (SubprogramCall) context;
-				CallContext callContext = callSpec.getContext();
-				if (callContext instanceof ComponentType) {
-					// first try to find subprogram implementation
-					ComponentType ct = (ComponentType) callContext;
-					String implname = ct.getQualifiedName() + "." + name;
-					searchResult = findClassifierOrProxy(context, reference, implname);
-					if (searchResult != null && searchResult instanceof ComponentImplementation) {
-						return Collections.singletonList(searchResult);
-					}
-					ns = (ComponentType) callContext;
-				}
-				searchResult = ns.findNamedElement(name);
-				if (!Aadl2Util.isNull(searchResult) && requiredType.isSuperTypeOf(searchResult.eClass())) {
-					return Collections.singletonList(searchResult);
-				}
-				// it might be a component implementation. The type is already recorded in the context
-				if (callContext instanceof SubprogramType) {
-					String contextName = ((SubprogramType) callContext).getName();
-					searchResult = findClassifierOrProxy(context, reference, contextName + "." + name);
-					if (!Aadl2Util.isNull(searchResult)) {
-						return Collections.singletonList(searchResult);
-					}
-					return Collections.<EObject> emptyList();
-				}
-			}
-
-			return Collections.<EObject> emptyList();
-
-		} else if (Aadl2Package.eINSTANCE.getFeatureType() == requiredType) {
-			// feature group type or prototype
-			FeatureGroupType fgt = findFeatureGroupType(context, name, reference);
-			if (Aadl2Util.isNull(fgt)) {
-				// need to resolve prototype
-				EObject res = AadlUtil.getContainingClassifier(context).findNamedElement(name);
-				if (res instanceof FeatureGroupPrototype) {
-					return Collections.singletonList(res);
-				}
-			} else {
-				return Collections.singletonList((EObject) fgt);
-			}
-			return Collections.<EObject> emptyList();
-		} else if (Aadl2Package.eINSTANCE.getArraySizeProperty() == requiredType) {
-			// reference to a property constant or property
-			// look for property definition in property set
-			List<EObject> result = findPropertyDefinitionAsList(context, reference, name);
-			if (result.isEmpty()) {
-				result = findPropertyConstant(context, reference, name);
-
-			}
-			return result;
-		} else {
-
-			List<EObject> res = super.getLinkedObjects(context, reference, node);
-			return res;
-		}
+		return defaultLinkingService.getLinkedObjects(context, reference, node);
 	}
 }

@@ -26,12 +26,47 @@ package org.osate.xtext.aadl2.scoping;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
+import org.eclipse.xtext.resource.IResourceServiceProvider;
+import org.eclipse.xtext.resource.ISelectable;
+import org.eclipse.xtext.scoping.Scopes;
 import org.eclipse.xtext.scoping.impl.ImportNormalizer;
+import org.eclipse.xtext.scoping.impl.MultimapBasedSelectable;
 import org.eclipse.xtext.scoping.impl.ImportedNamespaceAwareLocalScopeProvider;
+import org.eclipse.xtext.util.IResourceScopeCache;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 
+import com.google.inject.Inject;
+
 public class Aadl2ImportedNamespaceAwareLocalScopeProvider extends ImportedNamespaceAwareLocalScopeProvider {
+	@Inject
+	private IResourceScopeCache aadlCache;
+
+	@Override
+	protected ISelectable getAllDescriptions(Resource resource) {
+		// Annex languages can share the resource but use different qualified-name providers. Keep AADL descriptions
+		// independent of whichever annex first populates Xtext's default resource-description cache.
+		return aadlCache.get(Aadl2ImportedNamespaceAwareLocalScopeProvider.class, resource,
+				() -> internalGetAllDescriptions(resource));
+	}
+
+	@Override
+	protected ISelectable internalGetAllDescriptions(Resource resource) {
+		var services = resource.getURI() == null ? null
+				: IResourceServiceProvider.Registry.INSTANCE.getResourceServiceProvider(resource.getURI());
+		var names = services == null ? null : services.get(IQualifiedNameProvider.class);
+		if (names == null) {
+			return super.internalGetAllDescriptions(resource);
+		}
+		// Embedded annexes share their host resource. Its provider includes AADL names and delegates annex names.
+		Iterable<EObject> contents = () -> EcoreUtil.getAllContents(resource, false);
+		return new MultimapBasedSelectable(Scopes.scopedElementsFor(contents, names));
+	}
+
 	@Override
 	protected List<ImportNormalizer> getImplicitImports(boolean ignoreCase) {
 		var importNormalizers = new ArrayList<ImportNormalizer>();

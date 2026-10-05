@@ -26,6 +26,8 @@ package org.osate.ba.tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
@@ -35,11 +37,13 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexUnparserRegistry;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 
 import com.google.inject.Inject;
 
+/** Verifies same-file qualified classifier linking and unparsing without enabling BA semantic validation. */
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
 public class Issue2236Test {
@@ -63,6 +67,9 @@ public class Issue2236Test {
 				.getAnnexUnparser("behavior_specification");
 		var unparsed = unparser.unparseAnnexSubclause(annex.getParsedAnnexSubclause(), " ");
 		assertFalse(unparsed, unparsed.isBlank());
-		assertEquals(1, result.getIssues().size());
+		assertTrue(result.getIssues().toString(), result.getIssues().isEmpty());
+		var behavior = (BehaviorAnnex) annex.getParsedAnnexSubclause();
+		assertSame(pkg.getPublicSection().getOwnedClassifiers().getFirst(),
+				behavior.getVariableGroups().getFirst().getDataClassifier());
 	}
 }

@@ -23,24 +23,46 @@
  */
 package org.osate.xtext.aadl2.scoping;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Function;
+import java.util.function.Supplier;
+import java.util.stream.StreamSupport;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.EcoreUtil2;
+import org.eclipse.xtext.naming.IQualifiedNameConverter;
+import org.eclipse.xtext.naming.QualifiedName;
+import org.eclipse.xtext.resource.IEObjectDescription;
+import org.eclipse.xtext.resource.impl.AliasedEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
+import org.eclipse.xtext.scoping.impl.AbstractScope;
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.BasicPropertyAssociation;
+import org.osate.aadl2.CalledSubprogram;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FlowEnd;
+import org.osate.aadl2.PackageSection;
+import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.PropertyAssociation;
+import org.osate.aadl2.Prototype;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubprogramCall;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
+
+import com.google.inject.Inject;
 
 /**
  * Scopes for existing references used by linking and serialization. Content assist continues to use
@@ -51,6 +73,212 @@ import org.osate.aadl2.Subcomponent;
 public class Aadl2ReferenceScopeProvider extends Aadl2ScopeProvider {
 	private static final Function<Classifier, Iterable<? extends EObject>> CONNECTION_END_COLLECTOR = //
 			classifier -> filterRefined(allConnectionEnds(classifier));
+
+	@Inject
+	private IQualifiedNameConverter qualifiedNameConverter;
+
+	@Override
+	public IScope getScope(EObject context, EReference reference) {
+		IScope scope = super.getScope(context, reference);
+		if (isPropertyReference(reference.getEReferenceType())) {
+			scope = new PropertyScope(scope, context, reference);
+		}
+		boolean global = isGlobalReference(reference.getEReferenceType());
+		if (reference == Aadl2Package.eINSTANCE.getSubprogramCall_CalledSubprogram()
+				&& context instanceof SubprogramCall call && call.getContext() != null
+				&& !(call.getContext() instanceof ComponentType)) {
+			global = false;
+		}
+		return global ? new Aadl2GlobalScope(scope, context, reference) : scope;
+	}
+
+	@Override
+	public IScope scope_NamedValue_namedValue(Element context, EReference reference) {
+		Supplier<IScope> literals = () -> super.scope_NamedValue_namedValue(context, reference);
+		return new AbstractScope(delegateGetScope(context, reference), true) {
+			@Override
+			protected Iterable<IEObjectDescription> getLocalElementsByName(QualifiedName name) {
+				// Qualified constants and properties do not need their containing value's property type resolved.
+				return name.getSegmentCount() > 1 ? List.of()
+						: () -> StreamSupport.stream(literals.get().getElements(name).spliterator(), false)
+								.filter(PropertyScope::isLocalLiteral).iterator();
+			}
+
+			@Override
+			protected Iterable<IEObjectDescription> getAllLocalElements() {
+				return () -> StreamSupport.stream(literals.get().getAllElements().spliterator(), false)
+						.filter(PropertyScope::isLocalLiteral).iterator();
+			}
+		};
+	}
+
+	@Override
+	public IScope scope_Classifier(Element context, EReference reference) {
+		var scope = super.scope_Classifier(context, reference);
+		var section = EcoreUtil2.getContainerOfType(context, PackageSection.class);
+		if (section instanceof PrivatePackageSection) {
+			var publicSection = ((AadlPackage) section.getOwner()).getPublicSection();
+			if (publicSection != null) {
+				// Public aliases remain visible from the private section, after its own declarations and aliases.
+				return new FallbackScope(scope, super.scope_Classifier(publicSection, reference));
+			}
+		}
+		return scope;
+	}
+
+	// Abstract features may refer to a component prototype as their classifier, in addition to a global classifier.
+	public IScope scope_AbstractFeature_abstractFeatureClassifier(Element context, EReference reference) {
+		var classifier = EcoreUtil2.getContainerOfType(context, Classifier.class);
+		List<Prototype> prototypes = switch (classifier) {
+		case ComponentClassifier component -> component.getAllPrototypes();
+		case FeatureGroupType group -> group.getAllPrototypes();
+		case null, default -> List.of();
+		};
+		return scopeFor(filterRefined(prototypes.stream().filter(reference.getEReferenceType()::isInstance).toList()),
+				scope_Classifier(context, reference));
+	}
+
+	@Override
+	public IScope scope_SubprogramCall_calledSubprogram(Element context, EReference reference) {
+		var call = EcoreUtil2.getContainerOfType(context, SubprogramCall.class);
+		if (call != null && call.getContext() instanceof ComponentType type) {
+			var members = type.getMembers().stream().filter(CalledSubprogram.class::isInstance).toList();
+			return new ImplementationScope(delegateGetScope(context, reference),
+					qualifiedNameConverter.toQualifiedName(type.getQualifiedName()), scopeFor(filterRefined(members)));
+		}
+		return super.scope_SubprogramCall_calledSubprogram(context, reference);
+	}
+
+	private static boolean isGlobalReference(EClass type) {
+		var aadl = Aadl2Package.eINSTANCE;
+		return isPropertyReference(type) || (type != null && (aadl.getClassifier().isSuperTypeOf(type)
+				|| aadl.getSubcomponentType().isSuperTypeOf(type) || aadl.getFeatureClassifier().isSuperTypeOf(type)
+				|| aadl.getFeatureType().isSuperTypeOf(type) || aadl.getModelUnit().isSuperTypeOf(type)
+				|| type == aadl.getCallContext() || type == aadl.getCalledSubprogram()));
+	}
+
+	private static boolean isPropertyReference(EClass type) {
+		var aadl = Aadl2Package.eINSTANCE;
+		return type != null && (aadl.getPropertyType().isSuperTypeOf(type) || type == aadl.getProperty()
+				|| type == aadl.getPropertyConstant() || type == aadl.getAbstractNamedValue()
+				|| type == aadl.getArraySizeProperty());
+	}
+
+	private static class FallbackScope extends AbstractScope {
+		private final IScope primary;
+
+		FallbackScope(IScope primary, IScope fallback) {
+			super(fallback, true);
+			this.primary = primary;
+		}
+
+		@Override
+		protected Iterable<IEObjectDescription> getAllLocalElements() {
+			return primary.getAllElements();
+		}
+
+		@Override
+		protected Iterable<IEObjectDescription> getLocalElementsByName(QualifiedName name) {
+			return primary.getElements(name);
+		}
+	}
+
+	/** Exposes a type's implementation names from descriptions, without resolving implementation objects. */
+	private static final class ImplementationScope extends AbstractScope {
+		private final IScope classifiers;
+		private final QualifiedName typeName;
+
+		ImplementationScope(IScope classifiers, QualifiedName typeName, IScope members) {
+			super(members, true);
+			this.classifiers = classifiers;
+			this.typeName = typeName;
+		}
+
+		@Override
+		protected Iterable<IEObjectDescription> getLocalElementsByName(QualifiedName name) {
+			if (name.getSegmentCount() != 1) {
+				return List.of();
+			}
+			var qualified = typeName.skipLast(1).append(typeName.getLastSegment() + "." + name.getLastSegment());
+			return () -> StreamSupport.stream(classifiers.getElements(qualified).spliterator(), false)
+					.filter(description -> Aadl2Package.eINSTANCE.getComponentImplementation().isSuperTypeOf(description.getEClass()))
+					.<IEObjectDescription>map(description -> new AliasedEObjectDescription(name, description)).iterator();
+		}
+
+		@Override
+		protected Iterable<IEObjectDescription> getAllLocalElements() {
+			String prefix = typeName.getLastSegment() + ".";
+			return () -> StreamSupport.stream(classifiers.getAllElements().spliterator(), false)
+					.filter(description -> Aadl2Package.eINSTANCE.getComponentImplementation().isSuperTypeOf(description.getEClass()))
+					.filter(description -> description.getName().equals(description.getQualifiedName()))
+					.filter(description -> description.getName().getSegmentCount() == typeName.getSegmentCount()
+							&& description.getName().skipLast(1).equalsIgnoreCase(typeName.skipLast(1))
+							&& description.getName().getLastSegment().regionMatches(true, 0, prefix, 0, prefix.length()))
+					.<IEObjectDescription>map(description -> new AliasedEObjectDescription(
+							QualifiedName.create(description.getName().getLastSegment().substring(prefix.length())), description))
+					.iterator();
+		}
+	}
+
+	/** Unqualified property names search the predeclared sets in their established order. */
+	private static final class PropertyScope extends AbstractScope {
+		private final IScope descriptions;
+		private final Aadl2GlobalScope visible;
+
+		PropertyScope(IScope descriptions, EObject context, EReference reference) {
+			super(IScope.NULLSCOPE, true);
+			this.descriptions = descriptions;
+			visible = new Aadl2GlobalScope(descriptions, context, reference);
+		}
+
+		@Override
+		protected Iterable<IEObjectDescription> getLocalElementsByName(QualifiedName name) {
+			if (name.getSegmentCount() > 1) {
+				return filterProperties(descriptions.getElements(name));
+			}
+			List<IEObjectDescription> literals = new ArrayList<>();
+			for (var description : descriptions.getElements(name)) {
+				if (isLocalLiteral(description)) {
+					literals.add(description);
+				}
+			}
+			if (!literals.isEmpty()) {
+				return literals;
+			}
+			for (var propertySet : AadlUtil.getPredeclaredPropertySetNames()) {
+				var description = visible.getSingleElement(QualifiedName.create(propertySet, name.getFirstSegment()));
+				if (description != null && isProperty(description)) {
+					return List.of(new AliasedEObjectDescription(name, description));
+				}
+			}
+			return List.of();
+		}
+
+		@Override
+		protected Iterable<IEObjectDescription> getAllLocalElements() {
+			return () -> StreamSupport.stream(descriptions.getAllElements().spliterator(), false)
+					.filter(description -> isLocalLiteral(description) || (isProperty(description)
+							&& (description.getName().getSegmentCount() > 1
+									|| AadlUtil.isPredeclaredPropertySet(description.getQualifiedName().getFirstSegment()))))
+					.iterator();
+		}
+
+		private static Iterable<IEObjectDescription> filterProperties(Iterable<IEObjectDescription> descriptions) {
+			return () -> StreamSupport.stream(descriptions.spliterator(), false).filter(PropertyScope::isProperty).iterator();
+		}
+
+		private static boolean isProperty(IEObjectDescription description) {
+			var aadl = Aadl2Package.eINSTANCE;
+			var type = description.getEClass();
+			return aadl.getProperty().isSuperTypeOf(type) || aadl.getPropertyConstant().isSuperTypeOf(type)
+					|| aadl.getPropertyType().isSuperTypeOf(type);
+		}
+
+		private static boolean isLocalLiteral(IEObjectDescription description) {
+			return description.getQualifiedName().getSegmentCount() == 1
+					&& Aadl2Package.eINSTANCE.getEnumerationLiteral().isSuperTypeOf(description.getEClass());
+		}
+	}
 
 	// Reference is from ConnectedElement in Aadl2.xtext
 	@Override
