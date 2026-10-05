@@ -31,8 +31,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import org.eclipse.xtext.linking.impl.IllegalNodeException;
-import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.eclipse.xtext.testing.validation.ValidationTestHelper;
@@ -45,15 +46,14 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.SystemType;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
-import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
+import org.osate.xtext.aadl2.properties.util.PropertiesLookupHelper;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
 /**
- * Tests two concurrent index lookups that pause after supplying different names but before the
- * synthetic nodes are read. The coordinated interleaving matters because a shared mutable node can
- * make one thread resolve the other thread's name, producing intermittent and incorrect links.
+ * Tests two concurrent index lookups that pause after supplying different names and before querying
+ * the scope. Each lookup must retain its own reference text.
  */
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
@@ -76,7 +76,7 @@ public class Issue3120Test {
 		var system = (SystemType) pkg.getOwnedPublicSection().getOwnedClassifiers().get(0);
 		var portD = findPort(system, "d");
 		var portE = findPort(system, "e");
-		var linkingService = injector.getInstance(CoordinatedPropertiesLinkingService.class);
+		var linkingService = injector.getInstance(CoordinatedPropertiesLookupHelper.class);
 		var reference = Aadl2Package.eINSTANCE.getDataPort_DataFeatureClassifier();
 
 		try (var executor = Executors.newFixedThreadPool(2)) {
@@ -96,11 +96,11 @@ public class Issue3120Test {
 				.orElseThrow();
 	}
 
-	public static class CoordinatedPropertiesLinkingService extends PropertiesLinkingService {
+	public static class CoordinatedPropertiesLookupHelper extends PropertiesLookupHelper {
 		private final CyclicBarrier barrier = new CyclicBarrier(2);
 
 		@Override
-		public String getCrossRefNodeAsString(INode node) throws IllegalNodeException {
+		public Iterable<IEObjectDescription> getIndexedObjects(EObject context, EReference reference, String name) {
 			try {
 				barrier.await(10, TimeUnit.SECONDS);
 			} catch (InterruptedException e) {
@@ -109,7 +109,7 @@ public class Issue3120Test {
 			} catch (BrokenBarrierException | TimeoutException e) {
 				throw new AssertionError(e);
 			}
-			return super.getCrossRefNodeAsString(node);
+			return super.getIndexedObjects(context, reference, name);
 		}
 	}
 }

@@ -106,7 +106,7 @@ import org.osate.aadl2.VirtualBusSubcomponentType;
 import org.osate.aadl2.VirtualProcessorSubcomponentType;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.parsesupport.AObject;
-import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
+import org.osate.xtext.aadl2.properties.util.PropertiesLookupHelper;
 import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider;
 
 /**
@@ -896,17 +896,17 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 
 	private static FeatureGroupType findFeatureGroupTypeForFeatureGroupPrototype(FeatureGroupPrototype prototype,
 			Classifier containingClassifier) {
-		return PropertiesLinkingService.findFeatureGroupTypeForFeatureGroupPrototype(containingClassifier, prototype);
+		return PropertiesLookupHelper.findFeatureGroupTypeForFeatureGroupPrototype(containingClassifier, prototype);
 	}
 
 	private static ComponentClassifier findClassifierForComponentPrototype(ComponentPrototype prototype,
 			Classifier containingClassifier) {
-		return PropertiesLinkingService.findClassifierForComponentPrototype(containingClassifier, prototype);
+		return PropertiesLookupHelper.findClassifierForComponentPrototype(containingClassifier, prototype);
 	}
 
 	private static ComponentClassifier findClassifierForComponentPrototype(ComponentPrototype prototype,
 			Classifier classifierPrototypeContext, Subcomponent subcomponentPrototypeContext) {
-		return PropertiesLinkingService.findClassifierForComponentPrototype(classifierPrototypeContext,
+		return PropertiesLookupHelper.findClassifierForComponentPrototype(classifierPrototypeContext,
 				subcomponentPrototypeContext, prototype);
 	}
 

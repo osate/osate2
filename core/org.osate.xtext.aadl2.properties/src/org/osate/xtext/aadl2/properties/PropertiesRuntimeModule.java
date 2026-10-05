@@ -37,10 +37,6 @@ public class PropertiesRuntimeModule extends org.osate.xtext.aadl2.properties.Ab
 		return PropertiesValueConverter.class;
 	}
 
-//	@Override
-//	public Class<? extends org.eclipse.xtext.linking.ILinkingService> bindILinkingService() {
-//		return org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService.class;
-//	}
 	@Override
 	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameProvider> bindIQualifiedNameProvider() {
 		return org.osate.xtext.aadl2.properties.naming.PropertiesQualifiedNameProvider.class;

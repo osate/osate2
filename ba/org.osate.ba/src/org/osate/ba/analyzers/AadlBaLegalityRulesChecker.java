@@ -81,7 +81,7 @@ import org.osate.ba.utils.SubprogramCallUtil;
 import org.osate.utils.internal.Aadl2Visitors;
 import org.osate.utils.internal.PropertyUtils;
 import org.osate.utils.internal.names.DispatchTriggerProperties;
-import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
+import org.osate.xtext.aadl2.properties.util.PropertiesLookupHelper;
 import org.osate.xtext.aadl2.properties.util.ThreadProperties;
 import org.osate.xtext.aadl2.properties.util.TimingProperties;
 
@@ -214,7 +214,7 @@ public class AadlBaLegalityRulesChecker {
 		 *
 		 * PackageSection[] contextsTab =AadlBaVisitors.getBaPackageSections(_ba);
 		 *
-		 * PropertiesLinkingService pls = new PropertiesLinkingService() ;
+		 * PropertiesLookupHelper pls = new PropertiesLookupHelper() ;
 		 *
 		 * EReference reference = Aadl2Package.eINSTANCE.getNamedValue_NamedValue();
 		 *
@@ -371,7 +371,7 @@ public class AadlBaLegalityRulesChecker {
 		boolean canBeDispatched = false;
 		// Only accept dispatch conditions on components for which a Dispatch_Protocl can be associated
 		PackageSection[] contextsTab = AadlBaVisitors.getBaPackageSections(_ba, _baParentContainer);
-		PropertiesLinkingService pls = Aadl2Visitors.getPropertiesLinkingService(contextsTab[0]);
+		PropertiesLookupHelper pls = Aadl2Visitors.getPropertiesLookupHelper(contextsTab[0]);
 
 		Property dispatchProtocolProperty = pls.findPropertyDefinition(_baParentContainer,
 				AadlBaVisitors.DISPATCH_PROTOCOL_PROPERTY_NAME);

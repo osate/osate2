@@ -71,7 +71,6 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.properties.PropertyAcc;
 import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
-import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
 public class GetProperties {
 	@SuppressWarnings("unused")
@@ -390,7 +389,7 @@ public class GetProperties {
 	 *         definition does not have a unit
 	 */
 	public static UnitLiteral findUnitLiteral(Property pd, String literalname) {
-		return PropertiesLinkingService.findUnitLiteral(pd, literalname);
+		return PropertiesLookupHelper.findUnitLiteral(pd, literalname);
 	}
 
 	public static UnitLiteral findUnitLiteral(Element context, String unitsType, String literal) {
@@ -402,7 +401,7 @@ public class GetProperties {
 	}
 
 	public static EnumerationLiteral findEnumerationLiteral(Property pd, String literalname) {
-		return PropertiesLinkingService.findEnumerationLiteral(pd, literalname);
+		return PropertiesLookupHelper.findEnumerationLiteral(pd, literalname);
 	}
 
 	public static EnumerationLiteral findEnumerationLiteral(Element context, String enumerationType, String literal) {
@@ -826,12 +825,12 @@ public class GetProperties {
 	}
 
 	public static double scaleValueToMicroSecond(final NumberValue nv) {
-		UnitLiteral microSecond = PropertiesLinkingService.findUnitLiteral(nv, AadlProject.US_LITERAL);
+		UnitLiteral microSecond = PropertiesLookupHelper.findUnitLiteral(nv, AadlProject.US_LITERAL);
 		return nv.getScaledValue(microSecond);
 	}
 
 	public static double scaleValueToSecond(final NumberValue nv) {
-		UnitLiteral second = PropertiesLinkingService.findUnitLiteral(nv, AadlProject.SEC_LITERAL);
+		UnitLiteral second = PropertiesLookupHelper.findUnitLiteral(nv, AadlProject.SEC_LITERAL);
 		return nv.getScaledValue(second);
 	}
 
@@ -1698,19 +1697,19 @@ public class GetProperties {
 
 	public static double getMaximumLatencyinMilliSec(final NamedElement ne) {
 		Property Latency = lookupPropertyDefinition(ne, CommunicationProperties._NAME, CommunicationProperties.LATENCY);
-		UnitLiteral milliSecond = PropertiesLinkingService.findUnitLiteral(Latency, AadlProject.MS_LITERAL);
+		UnitLiteral milliSecond = PropertiesLookupHelper.findUnitLiteral(Latency, AadlProject.MS_LITERAL);
 		return PropertyUtils.getScaledRangeMaximum(ne, Latency, milliSecond, 0.0);
 	}
 
 	public static double getMinimumLatencyinMilliSec(final NamedElement ne) {
 		Property Latency = lookupPropertyDefinition(ne, CommunicationProperties._NAME, CommunicationProperties.LATENCY);
-		UnitLiteral milliSecond = PropertiesLinkingService.findUnitLiteral(Latency, AadlProject.MS_LITERAL);
+		UnitLiteral milliSecond = PropertiesLookupHelper.findUnitLiteral(Latency, AadlProject.MS_LITERAL);
 		return PropertyUtils.getScaledRangeMinimum(ne, Latency, milliSecond, 0.0);
 	}
 
 	public static double getLatencyinMicroSec(final NamedElement ne) {
 		Property Latency = lookupPropertyDefinition(ne, CommunicationProperties._NAME, CommunicationProperties.LATENCY);
-		UnitLiteral microSecond = PropertiesLinkingService.findUnitLiteral(Latency, AadlProject.US_LITERAL);
+		UnitLiteral microSecond = PropertiesLookupHelper.findUnitLiteral(Latency, AadlProject.US_LITERAL);
 		return PropertyUtils.getScaledRangeMaximum(ne, Latency, microSecond, 0.0);
 	}
 
@@ -1721,7 +1720,7 @@ public class GetProperties {
 		}
 		Property Latency = lookupPropertyDefinition(aci, CommunicationProperties._NAME,
 				CommunicationProperties.LATENCY);
-		UnitLiteral milliSecond = PropertiesLinkingService.findUnitLiteral(Latency, AadlProject.MS_LITERAL);
+		UnitLiteral milliSecond = PropertiesLookupHelper.findUnitLiteral(Latency, AadlProject.MS_LITERAL);
 		return PropertyUtils.getScaledRangeMaximum(aci, Latency, milliSecond, 0.0);
 	}
 
@@ -1732,7 +1731,7 @@ public class GetProperties {
 		}
 		Property Latency = lookupPropertyDefinition(aci, CommunicationProperties._NAME,
 				CommunicationProperties.LATENCY);
-		UnitLiteral microSecond = PropertiesLinkingService.findUnitLiteral(Latency, AadlProject.US_LITERAL);
+		UnitLiteral microSecond = PropertiesLookupHelper.findUnitLiteral(Latency, AadlProject.US_LITERAL);
 		return PropertyUtils.getScaledRangeMaximum(aci, Latency, microSecond, 0.0);
 	}
 

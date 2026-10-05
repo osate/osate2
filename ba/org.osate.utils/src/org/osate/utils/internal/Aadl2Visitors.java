@@ -27,7 +27,7 @@ import java.util.Set;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
+import org.eclipse.xtext.resource.XtextResource;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
@@ -40,7 +40,7 @@ import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.Subcomponent;
-import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
+import org.osate.xtext.aadl2.properties.util.PropertiesLookupHelper;
 
 /**
  * A collection of AADL2 visitors.
@@ -206,18 +206,16 @@ public class Aadl2Visitors {
 	}
 
 	/**
-	 * Fetch the service associated to the given package section.
-	 * If the package section's resource is a lazy load resource, it gives the
-	 * resource's service.
+	 * Fetch an injected lookup helper from the language services of the package section.
 	 *
 	 * @param context the given package section
-	 * @return the service associated to the given package section
+	 * @return the helper associated with the given package section
 	 */
-	public static PropertiesLinkingService getPropertiesLinkingService(PackageSection context) {
-		if (context.eResource() instanceof LazyLinkingResource) {
-			return (PropertiesLinkingService) ((LazyLinkingResource) context.eResource()).getLinkingService();
+	public static PropertiesLookupHelper getPropertiesLookupHelper(PackageSection context) {
+		if (context.eResource() instanceof XtextResource resource) {
+			return resource.getResourceServiceProvider().get(PropertiesLookupHelper.class);
 		} else {
-			return new PropertiesLinkingService();
+			return new PropertiesLookupHelper();
 		}
 	}
 
@@ -237,7 +235,7 @@ public class Aadl2Visitors {
 
 		String currentNamespace = rootContainer.getName();
 
-		PropertiesLinkingService pls = Aadl2Visitors.getPropertiesLinkingService(context);
+		PropertiesLookupHelper pls = Aadl2Visitors.getPropertiesLookupHelper(context);
 
 		if (packageName == null || currentNamespace == null || currentNamespace.equalsIgnoreCase(packageName)) {
 			// The element is declared into the current context.
@@ -264,7 +262,7 @@ public class Aadl2Visitors {
 			PackageSection context) {
 		NamedElement result = null;
 
-		PropertiesLinkingService pls = Aadl2Visitors.getPropertiesLinkingService(context);
+		PropertiesLookupHelper pls = Aadl2Visitors.getPropertiesLookupHelper(context);
 
 		// First in the predeclared propertysets.
 
