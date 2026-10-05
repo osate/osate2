@@ -144,6 +144,8 @@ public class Issue2861Test {
 		assertFalse(dialog.bot().button("Disable").isEnabled());
 		assertFalse(dialog.bot().button("Override...").isEnabled());
 		assertFalse(dialog.bot().button("Restore").isEnabled());
+		assertEquals("AADL_Project.aadl", group.getNode("Predeclared_Property_Sets").expand()
+				.getItems()[0].getText());
 		find(group, "AADL_Project.aadl").select();
 		assertFalse(dialog.bot().button("Disable").isEnabled());
 		assertTrue(dialog.bot().button("Override...").isEnabled());
@@ -164,6 +166,8 @@ public class Issue2861Test {
 		dialog.bot().button("Disable").click();
 		dialog.bot().button("Apply").click();
 		assertTrue(PredeclaredProperties.getDisabledContributions().contains(contribution("SEI.aadl")));
+		dialog.bot().button("Restore Defaults").click();
+		assertTrue(select("SEI.aadl").cell(1).startsWith("Contributed by "));
 		closeDialog("Cancel");
 		openDialog();
 		assertEquals("Disabled", select("SEI.aadl").cell(1));

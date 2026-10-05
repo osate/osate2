@@ -7,65 +7,41 @@ This guide covers advanced features that most users won't ever need to deal with
 The AADL standard defines several standard property sets, such as `AADL_Project` and `Timing_Properties`.  In OSATE these are made available in the workspace as plug-in contributions.  They are literally
 provided to OSATE by an Eclipse plug-in.  They are globally available within the workspace, that is you do not need to explicitly copy them into your project to use them.  These contributions are visible in the `AADL Navigator` under the `Plug-in Contributions` heading.
 
-Occasionally it may be necessary to "override" a contribution, for example to customize property constant values or to correct errors.  OSATE enables this via the `OSATE > Contributed Resources` preference pane.  
+Use **OSATE > Contributed Resources** in Preferences to choose which contributions are used throughout the workspace. The tree lists contributed property sets and packages. Its **Status** column shows each resource's current state:
 
-![Contributed Resources Preference Pane](images/ContributedResourcesPreferencePane.png)
+- **Contributed by *plug-in***: the original resource supplied by that plug-in is enabled.
+- **Disabled**: the contribution is excluded from processing in every project.
+- **Overridden by */project/file.aadl***: the specified workspace file replaces the contribution.
 
-The top of the pane shows a tree that closely mimics the sub-tree shown below the `Plug-in Contributions` item in the `AADL Navigator`.  Selecting an item in the tree shows the Xtext URI of the contributed resource.  
-Double-clicking on an item or pressing the `Override` button brings up a selection dialog box.  This dialog is used to select an resource in the workspace that will be used to override the plug-in contributed resource.
-The overriding resource must have the same filename as the original resource; the selection dialog only shows those files in the workspace that have the same name.  The below selection dialog shows the replacement 
-resource for `AADL_Project` being selected:
+Select a resource, then choose one of these actions:
 
-![Selecting a Replacement Resource from the Workspace](images/Selection.png)
+- **Disable** excludes an unnecessary contribution. An overridden resource cannot be disabled; first use **Restore** to remove its override. `AADL_Project` cannot be disabled.
+- **Override...** selects a workspace file to use instead of the original contribution, for example to customize property constants or correct errors. The replacement must have the same filename as the original resource. The selection dialog shows only matching files in open projects. Choosing a replacement also enables a previously disabled contribution. Double-clicking a resource opens the same dialog.
+- **Restore** enables the original plug-in contribution and removes any workspace override. It is available for both disabled and overridden resources.
 
-When a contributed resource is overridden, the tree marks it as such, and the URI shows the workspace URI of the overriding resource:
+These actions apply to individual resources, not folders. **Restore Defaults** enables all original contributions and removes all overrides.
 
-![An Overridden Resource](images/Contributed2.png)
+Changes take effect when you choose **Apply** or **Apply and Close**. OSATE closes and reopens the open projects to rebuild them with the updated contributions. **Cancel** discards changes made since the last Apply. The `AADL Navigator` also identifies overridden resources and shows disabled status in its status line.
 
-To restore an overridden resource to its original contributed URI, select it in the tree and press the "Restore" button. 
-
-All property sets and packages contributed by plug-ins are added to each build by default. Many models only need the predeclared properties and maybe the EMV2 library. To increase performance there's an option to exclude unnecessary contributions.
-
-![An Overridden Resource](images/ContributedIgnored.png)
-
-In example above, `AADL Project, Communication Properties and ARP4761` property sets are disabled.
+When reading older workspace settings that both disable and override a resource, OSATE preserves the disabled state and discards the override. Any old setting that disables `AADL_Project` is ignored; its original resource or enabled workspace replacement remains available.
 
 # Managing Ignored Property Sets
 
-Within AADL, predeclared and user defined property, property types and property constant declarations are contained in property sets.
+Property declarations, property types, and property constants belong to property sets. The **OSATE > Property Sets** preference page controls diagnostics for references to property sets that are not available in the workspace.
 
-OSATE provides predeclared property sets, however you can add your own property sets. In the event when you need to ignore errors associated with user defined property set, you can use Ignored Property Set Preference page and type in the name of the property set to ignore. 
+Use **Add** to enter the name of a missing, user-defined property set whose unresolved references should not be reported as errors. With **Show warnings** selected, those references produce warnings instead; clearing it suppresses the warnings as well. **Delete** removes a name from the list and restores normal diagnostics.
 
-Predeclared properties should not be added to ignored list, as they are always included in OSATE installation and are necessary for proper execution of model analysis.
+This setting does not disable or replace contributed resources. Use **OSATE > Contributed Resources** for that purpose. Predeclared property sets cannot be added to the ignored list.
 
-By default, all property sets are enabled and evaluated.
-
-![Property Set Preference Pane](images/IgnoredPropertySetPreferencePane.png)
-
-In example below property MILS::testMe is used but property set MILS is not included in the project. By default, this AADL package will produce an error
+For example, a reference to `MILS::testMe` produces an error when the `MILS` property set is unavailable:
 
 ![Example AADL File](images/IgnoredPropertySetExampleError.png)
 
-To add a property set to ignored list
-- Click Add
-- Enter the name of property set
-- Click Ok
-
-![Property Set Preference Pane](images/AddPropertySet.png)
-
-Once added, typed in property set will show up in ignored list
-
-![Property Set Preference Pane](images/IgnoredPropertySetAdded.png)
-
-At this point, error in following example will be replaced with a warning:
+Choose **Add**, enter `MILS`, and choose **OK**. With **Show warnings** selected, the error becomes a warning:
 
 ![Example AADL File with Warning](images/IgnoredPropertySetExampleWarning.png)
 
-There's also an option to disable the warning by unchecking "Show warnings" checkbox on Property Set Preference Page
-
-![Property Set Preference Pane without Warning](images/IgnoredPropertySetPaneNoWarning.png)
-
-Example will look like this:
+Clear **Show warnings** to suppress that diagnostic:
 
 ![Example AADL File without Warning](images/IgnoredPropertySetExampleIgnored.png)
 

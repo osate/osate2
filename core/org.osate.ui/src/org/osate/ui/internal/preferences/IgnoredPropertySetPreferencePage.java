@@ -82,9 +82,13 @@ public class IgnoredPropertySetPreferencePage extends PreferencePage implements 
 		final Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(2, true));
 
-		org.eclipse.swt.widgets.Label lbl_Warning = new org.eclipse.swt.widgets.Label(composite, SWT.NONE);
-		lbl_Warning.setText("Check property sets that should be ignored");
-		lbl_Warning.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false, 2, 2));
+		org.eclipse.swt.widgets.Label lbl_Warning = new org.eclipse.swt.widgets.Label(composite, SWT.WRAP);
+		lbl_Warning.setText("Suppress errors for references to property sets that are not available in the workspace. "
+				+ "Add their names below. Show warnings reports these references as warnings instead. "
+				+ "To disable or replace a plug-in contribution, use OSATE > Contributed Resources.");
+		final var explanationLayout = new GridData(SWT.FILL, SWT.TOP, true, false, 2, 1);
+		explanationLayout.widthHint = 600;
+		lbl_Warning.setLayoutData(explanationLayout);
 
 		// create a preference checkbox to track if warnings for ignored property sets need to be shown
 		checkBox = new Button(composite, SWT.CHECK);

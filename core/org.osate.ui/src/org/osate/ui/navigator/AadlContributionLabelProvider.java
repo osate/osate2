@@ -87,7 +87,8 @@ public class AadlContributionLabelProvider extends LabelProvider implements IDes
 				description = uriToNavigatorPath(overridesURI) + " (contributed by " + overridesURI.segment(1)
 						+ ") (Overridden by " + uriToWorkspacePath(uri) + ")";
 			} else {
-				description = uriToNavigatorPath(uri) + " (contributed by " + uri.segment(1) + ")";
+				description = uriToNavigatorPath(uri) + " (contributed by " + uri.segment(1) + ")"
+						+ (PredeclaredProperties.getDisabledContributions().contains(uri) ? " (Disabled)" : "");
 			}
 		}
 		return description;

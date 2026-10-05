@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -86,6 +87,7 @@ public final class PredeclaredProperties {
 	/** Inverse of the above */
 	private static volatile Map<URI, URI> overriddingResources;
 	private static volatile List<URI> effectiveContributedResources;
+	private static volatile List<URI> disabledContributions;
 
 	/*
 	 * These are used to control the updating of preference properties and prevent harmful or
@@ -110,7 +112,8 @@ public final class PredeclaredProperties {
 				final String propName = e.getProperty();
 				if (propName.startsWith(NUMBER_OF_WORKSPACE_OVERRIDES)
 						|| propName.startsWith(WORKSPACE_OVERRIDE_KEY_PREFIX)
-						|| propName.equals(WORKSPACE_OVERRIDE_VALUE_PREFIX)) {
+						|| propName.startsWith(WORKSPACE_OVERRIDE_VALUE_PREFIX)
+						|| propName.startsWith(WORKSPACE_DISABLED_CONTRIBUTIONS_VALUE_PREFIX)) {
 					isChanged = true;
 				}
 			}
@@ -118,7 +121,7 @@ public final class PredeclaredProperties {
 	}
 
 	private static synchronized void buildContributedResources() {
-		final List<URI> disabled = getDisabledContributions();
+		final List<URI> storedDisabled = readDisabledContributions();
 
 		List<URI> contributed = PluginSupportUtil.getContributedAadl();
 
@@ -129,14 +132,19 @@ public final class PredeclaredProperties {
 			final URI key = URI.createURI(preferenceStore.getString(WORKSPACE_OVERRIDE_KEY_PREFIX + i));
 			final URI value = URI.createURI(preferenceStore.getString(WORKSPACE_OVERRIDE_VALUE_PREFIX + i));
 			replaced.put(key, value);
-			replaces.put(value, key);
 		}
+
+		// Older workspaces can disable both the contribution and its replacement. Preserve the
+		// disabled behavior, but expose only one state and always keep AADL_Project enabled.
+		final List<URI> disabled = normalizeDisabledContributions(storedDisabled, replaced);
+		replaced.keySet().removeAll(disabled);
+		replaced.forEach((key, value) -> replaces.put(value, key));
 
 		final List<URI> effective = new ArrayList<>(contributed.size());
 		for (final URI key : contributed) {
 			final URI value = replaced.get(key);
 
-			if (!disabled.contains(key) && !disabled.contains(value)) { // do not include into processing if it is disabled
+			if (!disabled.contains(key)) {
 				effective.add(value == null ? key : value);
 			}
 		}
@@ -144,7 +152,8 @@ public final class PredeclaredProperties {
 		contributedResources = Collections.unmodifiableList(contributed);
 		overriddenResources = Collections.unmodifiableMap(replaced);
 		overriddingResources = Collections.unmodifiableMap(replaces);
-		effectiveContributedResources = Collections.unmodifiableList(effective); // filter out disabled here
+		effectiveContributedResources = Collections.unmodifiableList(effective);
+		disabledContributions = Collections.unmodifiableList(disabled);
 		isChanged = false;
 	}
 
@@ -168,6 +177,11 @@ public final class PredeclaredProperties {
 	 * @since 7.1
 	 */
 	public synchronized static List<URI> getDisabledContributions() {
+		updateCachedState();
+		return new ArrayList<>(disabledContributions);
+	}
+
+	private static List<URI> readDisabledContributions() {
 		List<URI> result = new ArrayList<URI>();
 		final int size = preferenceStore.getInt(NUMBER_OF_WORKSPACE_DISABLED_CONTRIBUTIONS_OVERRIDES);
 		for (int i = 0; i < size; i++) {
@@ -206,69 +220,86 @@ public final class PredeclaredProperties {
 	 * Return <code>null</code> if the workspace URI doesn't override anything.
 	 */
 	public static URI getOverridesURI(final URI workspaceURI) {
+		updateCachedState();
 		return overriddingResources.get(workspaceURI);
 	}
 
 	/**
-	 * @since 7.1
+	 * Whether a contribution is required even when older workspace preferences disable it.
+	 * @since 7.3
 	 */
-	public synchronized static void setDisabledContributions(List<URI> disabled) {
-		/*
-		 * First clean up the old settings. This isn't strictly necessary, but things can bet confusing if the
-		 * number of overrides shrinks but the old key and value preferences are still left hanging around.
-		 */
-		final int oldSize = preferenceStore.getInt(NUMBER_OF_WORKSPACE_DISABLED_CONTRIBUTIONS_OVERRIDES);
-		for (int i = 0; i < oldSize; i++) {
-			final String valueName = WORKSPACE_DISABLED_CONTRIBUTIONS_VALUE_PREFIX + i;
-			preferenceStore.setToDefault(valueName);
-		}
-		preferenceStore.setToDefault(NUMBER_OF_WORKSPACE_DISABLED_CONTRIBUTIONS_OVERRIDES);
+	public static boolean isRequiredContribution(final URI uri) {
+		return "AADL_Project.aadl".equalsIgnoreCase(uri.lastSegment());
+	}
 
-		/* Now set the new values */
-		int i = 0;
-		for (URI disabledURI : disabled) {
-			if (!disabledURI.isEmpty()) {
-				final String valueName = WORKSPACE_DISABLED_CONTRIBUTIONS_VALUE_PREFIX + i++;
-				preferenceStore.setValue(valueName, disabledURI.toString());
+	private static List<URI> normalizeDisabledContributions(final List<URI> disabled,
+			final Map<URI, URI> overrides) {
+		final var result = new LinkedHashSet<URI>();
+		for (final URI uri : disabled) {
+			if (!uri.isEmpty() && !isRequiredContribution(uri)) {
+				result.add(uri);
 			}
 		}
-
-		preferenceStore.setValue(NUMBER_OF_WORKSPACE_DISABLED_CONTRIBUTIONS_OVERRIDES, i);
+		for (final var entry : overrides.entrySet()) {
+			if (disabled.contains(entry.getValue())) {
+				result.remove(entry.getValue());
+				if (!isRequiredContribution(entry.getKey())) {
+					result.add(entry.getKey());
+				}
+			}
+		}
+		return new ArrayList<>(result);
 	}
 
 	/**
-	 * Update the overridden contributed resources in the the stored properties.
+	 * Disable contributions, removing any overrides for them. Replacement URIs from older
+	 * callers are converted to the original contribution URI. AADL_Project remains enabled.
+	 * @since 7.1
+	 */
+	public static synchronized void setDisabledContributions(final List<URI> disabled) {
+		final var overrides = new HashMap<>(getOverriddenResources());
+		final var normalized = normalizeDisabledContributions(disabled, overrides);
+		overrides.keySet().removeAll(normalized);
+		storeConfiguration(overrides, normalized);
+	}
+
+	/**
+	 * Update the overridden resources. Overriding a contribution enables its replacement.
 	 */
 	public static synchronized void setOverriddenResources(final Map<URI, URI> replaced) {
+		final var disabled = getDisabledContributions();
+		disabled.removeAll(replaced.keySet());
+		disabled.removeAll(replaced.values());
+		storeConfiguration(replaced, disabled);
+	}
+
+	private static void storeConfiguration(final Map<URI, URI> overrides, final List<URI> disabled) {
 		selfUpdating = true;
+		try {
+			final int oldDisabledSize = preferenceStore.getInt(NUMBER_OF_WORKSPACE_DISABLED_CONTRIBUTIONS_OVERRIDES);
+			for (int i = 0; i < oldDisabledSize; i++) {
+				preferenceStore.setToDefault(WORKSPACE_DISABLED_CONTRIBUTIONS_VALUE_PREFIX + i);
+			}
+			for (int i = 0; i < disabled.size(); i++) {
+				preferenceStore.setValue(WORKSPACE_DISABLED_CONTRIBUTIONS_VALUE_PREFIX + i, disabled.get(i).toString());
+			}
+			preferenceStore.setValue(NUMBER_OF_WORKSPACE_DISABLED_CONTRIBUTIONS_OVERRIDES, disabled.size());
 
-		/*
-		 * First clean up the old settings. This isn't strictly necessary, but things can bet confusing if the
-		 * number of overrides shrinks but the old key and value preferences are still left hanging around.
-		 */
-		final int oldSize = preferenceStore.getInt(NUMBER_OF_WORKSPACE_OVERRIDES);
-		for (int i = 0; i < oldSize; i++) {
-			final String keyName = WORKSPACE_OVERRIDE_KEY_PREFIX + i;
-			preferenceStore.setToDefault(keyName);
-
-			final String valueName = WORKSPACE_OVERRIDE_VALUE_PREFIX + i;
-			preferenceStore.setToDefault(valueName);
+			final int oldOverrideSize = preferenceStore.getInt(NUMBER_OF_WORKSPACE_OVERRIDES);
+			for (int i = 0; i < oldOverrideSize; i++) {
+				preferenceStore.setToDefault(WORKSPACE_OVERRIDE_KEY_PREFIX + i);
+				preferenceStore.setToDefault(WORKSPACE_OVERRIDE_VALUE_PREFIX + i);
+			}
+			int i = 0;
+			for (final var entry : overrides.entrySet()) {
+				preferenceStore.setValue(WORKSPACE_OVERRIDE_KEY_PREFIX + i, entry.getKey().toString());
+				preferenceStore.setValue(WORKSPACE_OVERRIDE_VALUE_PREFIX + i++, entry.getValue().toString());
+			}
+			preferenceStore.setValue(NUMBER_OF_WORKSPACE_OVERRIDES, overrides.size());
+		} finally {
+			isChanged = true;
+			selfUpdating = false;
 		}
-		preferenceStore.setToDefault(NUMBER_OF_WORKSPACE_OVERRIDES);
-
-		/* Now set the new values */
-		final int size = replaced.size();
-		preferenceStore.setValue(NUMBER_OF_WORKSPACE_OVERRIDES, size);
-		int i = 0;
-		for (Map.Entry<URI, URI> entry : replaced.entrySet()) {
-			final String keyName = WORKSPACE_OVERRIDE_KEY_PREFIX + i;
-			preferenceStore.setValue(keyName, entry.getKey().toString());
-
-			final String valueName = WORKSPACE_OVERRIDE_VALUE_PREFIX + i++;
-			preferenceStore.setValue(valueName, entry.getValue().toString());
-		}
-		isChanged = true;
-		selfUpdating = false;
 	}
 
 	/**
