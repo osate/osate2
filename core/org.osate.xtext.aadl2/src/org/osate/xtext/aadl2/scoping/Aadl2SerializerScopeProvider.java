@@ -23,57 +23,10 @@
  */
 package org.osate.xtext.aadl2.scoping;
 
-import java.util.function.Function;
-
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.xtext.EcoreUtil2;
-import org.eclipse.xtext.scoping.IScope;
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ConnectedElement;
-import org.osate.aadl2.ContainedNamedElement;
-import org.osate.aadl2.ContainmentPathElement;
-import org.osate.aadl2.Context;
-import org.osate.aadl2.PropertyAssociation;
-
 /**
- * This class contains custom scoping description.
- *
- * see : http://www.eclipse.org/Xtext/documentation/latest/xtext.html#scoping on
- * how and when to use it
+ * Scopes for serializing existing AADL references.
  *
  * @since 2.0
  */
-public class Aadl2SerializerScopeProvider extends Aadl2ScopeProvider {
-	private static final Function<Classifier, Iterable<? extends EObject>> CONNECTION_END_COLLECTOR = //
-			classifier -> filterRefined(allConnectionEnds(classifier));
-
-	// Reference is from ConnectedElement in Aadl2.xtext
-	@Override
-	public IScope scope_ConnectedElement_connectionEnd(ConnectedElement context, EReference reference) {
-		var classifier = EcoreUtil2.getContainerOfType(context, Classifier.class);
-		if (context.eContainer() instanceof ConnectedElement previous) {
-			return previous.getConnectionEnd() instanceof Context previousContext
-					? scopeForElementsOfContext(previousContext, classifier, CONNECTION_END_COLLECTOR)
-					: IScope.NULLSCOPE;
-		}
-		return context.getContext() == null ? scopeFor(filterRefined(allConnectionEnds(classifier)))
-				: scopeForElementsOfContext(context.getContext(), classifier, CONNECTION_END_COLLECTOR);
-	}
-
-	public IScope scope_ContainmentPathElement_namedElement(ContainmentPathElement context, EReference reference) {
-		return switch (context.getOwner()) {
-		case ContainmentPathElement previous -> {
-			var namespace = getClassifierForPreviousContainmentPathElement(previous);
-			yield namespace == null ? IScope.NULLSCOPE : scopeFor(filterRefined(allMembers(namespace)));
-		}
-		case null, default -> null;
-		};
-	}
-
-	public IScope scope_ContainmentPathElement_namedElement(ContainedNamedElement context, EReference reference) {
-		var propertyAssociation = EcoreUtil2.getContainerOfType(context, PropertyAssociation.class);
-		var namespace = namespaceForPropertyAssociation(propertyAssociation);
-		return namespace == null ? IScope.NULLSCOPE : scopeFor(filterRefined(allMembers(namespace)));
-	}
+public class Aadl2SerializerScopeProvider extends Aadl2ReferenceScopeProvider {
 }

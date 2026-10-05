@@ -230,9 +230,8 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	 * FeaturePrototype in Aadl2.xtext
 	 */
 	public IScope scope_Prototype_refined(Classifier context, EReference reference) {
-		var extended = context.getExtended();
-		var prototypes = extended == null ? null : allPrototypes(extended);
-		return prototypes == null ? IScope.NULLSCOPE : scopeFor(filterRefined(prototypes));
+		// An implementation may refine a prototype from its type as well as from its extended implementation.
+		return scope_PrototypeBinding_formal(context, reference);
 	}
 
 	// Reference is from FeaturePrototype in Aadl2.xtext
@@ -475,7 +474,8 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	}
 
 	// Reference is from PortConnection, AccessConnection, FeatureGroupConnection, FeatureConnection, and
-	// ParameterConnection in Aadl2.xtext
+	// ParameterConnection in Aadl2.xtext. Also used by the default linking service: only inherited connections
+	// are visible, and an intermediate refinement hides the original declaration.
 	public IScope scope_Connection_refined(ComponentImplementation context, EReference reference) {
 		var extended = context.getExtended();
 		return extended == null ? IScope.NULLSCOPE : scopeFor(filterRefined(extended.getAllConnections()));
@@ -483,7 +483,8 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 
 	/*
 	 * Reference is from PortConnection, AccessConnection, FeatureGroupConnection, FeatureConnection,
-	 * ParameterConnection, FlowSpecification, FlowImplementation, and EndToEndFlow in Aadl2.xtext
+	 * ParameterConnection, FlowSpecification, FlowImplementation, and EndToEndFlow in Aadl2.xtext.
+	 * The default linking service uses this scope to resolve both modes and named transitions, including inherited ones.
 	 */
 	public SimpleScope scope_ModalPath_inModeOrTransition(ComponentClassifier context, EReference reference) {
 		return scopeFor(Stream
@@ -517,19 +518,22 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 		return classifier == null ? IScope.NULLSCOPE : scopeFor(filterRefined(classifier.getAllFeatures()));
 	}
 
-	// Reference is from FlowSpecRefinement in Aadl2.xtext
+	// Reference is from FlowSpecRefinement in Aadl2.xtext. The default linker uses only inherited specifications,
+	// with intermediate refinements hiding their original declarations.
 	public IScope scope_FlowSpecification_refined(ComponentType context, EReference reference) {
 		var extended = context.getExtended();
 		return extended == null ? IScope.NULLSCOPE : scopeFor(filterRefined(extended.getAllFlowSpecifications()));
 	}
 
-	// Reference is from FlowSourceImpl, FlowSinkImpl, and FlowPathImpl in Aadl2.xtext
+	// Reference is from FlowSourceImpl, FlowSinkImpl, and FlowPathImpl in Aadl2.xtext. The default linker resolves
+	// the specification from the implemented type, including its inherited and refined specifications.
 	public IScope scope_FlowImplementation_specification(ComponentImplementation context, EReference reference) {
 		var type = context.getType();
 		return type == null ? IScope.NULLSCOPE : scopeFor(filterRefined(type.getAllFlowSpecifications()));
 	}
 
-	// Reference is from EndToEndFlow in Aadl2.xtext
+	// Reference is from EndToEndFlow in Aadl2.xtext. The default linker uses only inherited end-to-end flows,
+	// with intermediate refinements hiding their original declarations.
 	public IScope scope_EndToEndFlow_refined(ComponentImplementation context, EReference reference) {
 		var extended = context.getExtended();
 		return extended == null ? IScope.NULLSCOPE : scopeFor(filterRefined(extended.getAllEndToEndFlows()));
