@@ -31,6 +31,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.EcoreUtil2;
+import org.eclipse.xtext.linking.impl.DefaultLinkingService;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.testing.InjectWith;
@@ -50,7 +51,6 @@ import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
-import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 import org.osate.xtext.aadl2.scoping.Aadl2ReferenceScopeProvider;
 
 import com.google.inject.Inject;
@@ -69,7 +69,7 @@ public class Issue3323Test extends XtextTest {
 	@Inject
 	private ISerializer serializer;
 	@Inject
-	private PropertiesLinkingService linkingService;
+	private DefaultLinkingService linkingService;
 	@Inject
 	private Aadl2ReferenceScopeProvider scopeProvider;
 
@@ -122,7 +122,7 @@ public class Issue3323Test extends XtextTest {
 	}
 
 	@Test
-	public void propertiesLinkerAndReferenceScopesSelectTheSameTargets() throws Exception {
+	public void defaultLinkerAndReferenceScopesSelectTheSameTargets() throws Exception {
 		var pkg = parse();
 		linkingService.setScopeProvider(scopeProvider);
 		int count = 0;

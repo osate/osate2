@@ -38,12 +38,11 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.annexsupport.AnnexLinkingService;
 import org.osate.annexsupport.AnnexLinkingServiceRegistry;
 import org.osate.annexsupport.AnnexRegistry;
-import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 import org.osate.xtext.aadl2.scoping.Aadl2ReferenceScopeProvider;
 
 import com.google.inject.Inject;
 
-public class Aadl2LinkingService extends PropertiesLinkingService {
+public class Aadl2LinkingService extends DefaultLinkingService {
 	private DefaultLinkingService defaultLinkingService;
 
 	@Inject

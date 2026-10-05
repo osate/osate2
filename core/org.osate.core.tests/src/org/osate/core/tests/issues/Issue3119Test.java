@@ -50,7 +50,7 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.DataPort;
 import org.osate.aadl2.SystemType;
 import org.osate.testsupport.Aadl2InjectorProvider;
-import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
+import org.osate.xtext.aadl2.properties.util.PropertiesLookupHelper;
 
 /**
  * Tests AADL linking against serialized descriptions from an earlier build while the target package
@@ -89,7 +89,7 @@ public class Issue3119Test extends AbstractIncrementalBuilderTest {
 		LazyLinkingResource resource = (LazyLinkingResource) staged.referenceResourceSet()
 				.getResource(staged.referenceUri(), false);
 		DataPort port = findDataPort(staged.referenceResourceSet(), staged.referenceUri());
-		var linkingService = (PropertiesLinkingService) resource.getLinkingService();
+		var linkingService = resource.getResourceServiceProvider().get(PropertiesLookupHelper.class);
 		var reference = Aadl2Package.eINSTANCE.getDataPort_DataFeatureClassifier();
 
 		EObject proxy = linkingService.getIndexedObjectOrProxy(port, reference, "Other::D");

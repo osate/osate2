@@ -49,7 +49,7 @@ import org.osate.aadl2.PublicPackageSection;
 import org.osate.aadl2.SystemSubcomponent;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
-import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
+import org.osate.xtext.aadl2.properties.util.PropertiesLookupHelper;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -94,7 +94,7 @@ public class Issue1836Test extends XtextTest {
 		AadlPackage library = getLibrary(client);
 		SystemSubcomponent external = findSubcomponent(client.getOwnedPublicSection(), "Top.i", "external");
 		SystemSubcomponent internal = findSubcomponent(library.getOwnedPrivateSection(), "Holder.i", "local_service");
-		var service = injector.getInstance(ExposedPropertiesLinkingService.class);
+		var service = injector.getInstance(ExposedPropertiesLookupHelper.class);
 		var reference = Aadl2Package.eINSTANCE.getSystemSubcomponent_SystemSubcomponentType();
 		List<IEObjectDescription> descriptions = new ArrayList<>();
 		service.getIndexedObjects(external, reference, "Library::Service.i").forEach(descriptions::add);
@@ -119,7 +119,7 @@ public class Issue1836Test extends XtextTest {
 				.get(0);
 	}
 
-	private static void assertSelections(ExposedPropertiesLinkingService service, EObject external, EObject internal,
+	private static void assertSelections(ExposedPropertiesLookupHelper service, EObject external, EObject internal,
 			EReference reference, List<IEObjectDescription> descriptions, URI publicUri, URI privateUri) {
 		assertEquals(publicUri, service.select(external, reference, descriptions).getEObjectURI());
 		assertEquals(privateUri, service.select(internal, reference, descriptions).getEObjectURI());
@@ -143,7 +143,7 @@ public class Issue1836Test extends XtextTest {
 				.orElseThrow();
 	}
 
-	public static class ExposedPropertiesLinkingService extends PropertiesLinkingService {
+	public static class ExposedPropertiesLookupHelper extends PropertiesLookupHelper {
 		public IEObjectDescription select(EObject context, EReference reference,
 				Iterable<IEObjectDescription> descriptions) {
 			return selectIndexedDescription(context, reference, descriptions);
