@@ -36,10 +36,11 @@ package org.osate.internal.ui.preferences;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.OptionalInt;
+import java.util.Set;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -52,19 +53,18 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.layout.TreeColumnLayout;
 import org.eclipse.jface.preference.PreferencePage;
+import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.ColumnWeightData;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
-import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.TreeViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
@@ -73,11 +73,8 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swt.widgets.TreeColumn;
-import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
@@ -91,95 +88,83 @@ import org.osate.pluginsupport.PredeclaredProperties;
 import org.osate.ui.OsateUiPlugin;
 
 /**
- * This class represents the OSATE > Instantiation workspace preferences.
+ * This class represents the OSATE > Contributed Resources workspace preferences.
  * @since 5.0
  */
 public final class ContributedResourcesPreferencePage extends PreferencePage
 		implements IWorkbenchPreferencePage {
-	private Map<URI, URI> originalOverriddenAadl;
 	private final Map<URI, URI> overriddenAadl = new HashMap<>();
-	private List<URI> disabledContribResources = new ArrayList<URI>();
+	private final Set<URI> disabledContribResources = new HashSet<>();
 
 	private TreeViewer tree;
+	private Button disableButton;
 	private Button overrideButton;
 	private Button restoreButton;
 	private TreeNode selectedNode;
-	private Label uriLabel;
 
 	public ContributedResourcesPreferencePage() {
 		super("Contributed Resources");
 	}
 
-	/**
-	 * Create the field editors.
-	 */
 	@Override
 	public Control createContents(final Composite parent) {
-		// Save original settings, and initialize the local copy
-		originalOverriddenAadl = PredeclaredProperties.getOverriddenResources();
-		overriddenAadl.putAll(originalOverriddenAadl);
+		overriddenAadl.clear();
+		overriddenAadl.putAll(PredeclaredProperties.getOverriddenResources());
+		disabledContribResources.clear();
+		disabledContribResources.addAll(PredeclaredProperties.getDisabledContributions());
 
-		final Composite composite = new Composite(parent, SWT.NONE);
-		composite.setLayout(new GridLayout(2, true));
+		final var composite = new Composite(parent, SWT.NONE);
+		composite.setLayout(new GridLayout(1, false));
 
-		Label disabledContribLabel = new Label(composite, SWT.NONE);
-		disabledContribLabel.setLayoutData(new GridData(2, SWT.FILL, true, true));
-		disabledContribLabel.setText(
-				"All property sets and packages contributed by plug-ins are added to each build by default. To exclude unnecessary contributions, set a checkbox below to checked");
+		final var explanation = new Label(composite, SWT.WRAP);
+		final var explanationLayout = new GridData(SWT.FILL, SWT.TOP, true, false);
+		explanationLayout.widthHint = 650;
+		explanation.setLayoutData(explanationLayout);
+		explanation.setText("Plug-ins contribute property sets and packages to every project in the workspace. "
+				+ "Select a resource to disable it, override it with a workspace file, or restore the original contribution. "
+				+ "A resource cannot be both disabled and overridden. AADL_Project cannot be disabled.");
 
-		SashForm sashForm = new SashForm(composite, SWT.HORIZONTAL);
-		GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1);
-		sashForm.setLayoutData(gd);
-		initializeDialogUnits(sashForm);
-
-		tree = createTree(sashForm);
-		tree.setLabelProvider(new FileLabelProvider(null, null));
+		tree = createTree(composite);
 		tree.setContentProvider(new TreeContentProvider());
 		tree.setAutoExpandLevel(3);
-
 		tree.setInput(createTreeHierarchy());
 		tree.setComparator(new ViewerComparator());
-
-		Sorter sort = new Sorter();
-		tree.setSorter(sort);
-
-		setCheckBoxesDisabledContributions();
-
+		tree.setSorter(new Sorter());
 		tree.addSelectionChangedListener(event -> {
-			IStructuredSelection selection = (IStructuredSelection) event.getSelection();
-
-			if (selection.isEmpty()) {
-				restoreButton.setEnabled(false);
-				uriLabel.setText("");
-			}
-
-			for (final Iterator<?> iter = selection.iterator(); iter.hasNext();) {
-				final Object object = iter.next();
-				if (object instanceof TreeNode) {
-					selectedNode = (TreeNode) object;
-					restoreButton.setEnabled(selectedNode.overridden);
-					overrideButton.setEnabled(selectedNode.canOverride());
-					uriLabel.setText(selectedNode.path);
-				}
-			}
+			final var selection = (IStructuredSelection) event.getSelection();
+			selectedNode = selection.getFirstElement() instanceof TreeNode node ? node : null;
+			updateButtons();
 		});
 		tree.addDoubleClickListener(event -> {
-			final TreeViewer viewer = (TreeViewer) event.getViewer();
-			final IStructuredSelection thisSelection = (IStructuredSelection) event.getSelection();
-			final TreeNode selectedNode = (TreeNode) thisSelection.getFirstElement();
-			if (selectedNode != null) {
-				if (selectedNode.getNode().isEmpty()) {
-					doOverrideAction(selectedNode);
+			final var selection = (IStructuredSelection) event.getSelection();
+			if (selection.getFirstElement() instanceof TreeNode node) {
+				if (node.canOverride()) {
+					doOverrideAction(node);
 				} else {
-					viewer.setExpandedState(selectedNode, !viewer.getExpandedState(selectedNode));
+					tree.setExpandedState(node, !tree.getExpandedState(node));
 				}
 			}
 		});
 
-		overrideButton = new Button(composite, SWT.PUSH);
-		overrideButton.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, false, false));
-		overrideButton.setText("Override");
-		overrideButton.setToolTipText("Override the URI of the contributed resource with a URI from the workspace.");
+		final var actions = new Composite(composite, SWT.NONE);
+		actions.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
+		actions.setLayout(new GridLayout(3, false));
+		disableButton = new Button(actions, SWT.PUSH);
+		disableButton.setText("Disable");
+		disableButton.setToolTipText("Exclude this contribution from all projects in the workspace.");
+		disableButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(final SelectionEvent e) {
+				if (canDisableSelection()) {
+					disabledContribResources.add(URI.createURI(selectedNode.path));
+					refreshState();
+				}
+			}
+		});
+
+		overrideButton = new Button(actions, SWT.PUSH);
+		overrideButton.setText("Override...");
+		overrideButton.setToolTipText("Use a workspace file instead of the contributed resource.");
 		overrideButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
@@ -189,97 +174,56 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 			}
 		});
 
-		restoreButton = new Button(composite, SWT.PUSH);
-		restoreButton.setLayoutData(new GridData(SWT.LEFT, SWT.FILL, false, false));
+		restoreButton = new Button(actions, SWT.PUSH);
 		restoreButton.setText("Restore");
-		restoreButton.setToolTipText("Restore contributed resource to its plugin-specified URI.");
+		restoreButton.setToolTipText("Enable the original contribution and remove any workspace override.");
 		restoreButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				if (selectedNode != null) {
-					URI uri = URI.createURI(selectedNode.path);
-					if (uri != null) {
-						overriddenAadl.remove(uri);
-						restoreButton.setEnabled(false);
-
-						if (disabledContribResources != null) {
-							disabledContribResources.remove(uri); // remove override from disabled list as well
-						}
-
-						selectedNode.overridden = false;
-						tree.refresh();
-						uriLabel.setText(uriToReadable(uri));
-					}
+				if (selectedNode != null && selectedNode.canOverride()) {
+					final var uri = URI.createURI(selectedNode.path);
+					overriddenAadl.remove(uri);
+					disabledContribResources.remove(uri);
+					refreshState();
 				}
 			}
 		});
-
-		final Group labelGroup = new Group(composite, SWT.SHADOW_ETCHED_IN);
-		labelGroup.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
-		labelGroup.setLayout(new GridLayout(1, true));
-
-		labelGroup.setText("Contributed URI");
-		uriLabel = new Label(labelGroup, SWT.NONE);
-		uriLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		uriLabel.setText("");
-
+		updateButtons();
 		return composite;
 	}
 
-	private void setCheckBoxesDisabledContributions() {
-		disabledContribResources = PredeclaredProperties.getDisabledContributions();
-		for (TreeItem node : tree.getTree().getItems()) {
-			setCheckBox(node, false);
+	private boolean canDisableSelection() {
+		if (selectedNode == null || !selectedNode.canOverride()) {
+			return false;
 		}
+		final var uri = URI.createURI(selectedNode.path);
+		return !PredeclaredProperties.isRequiredContribution(uri) && !overriddenAadl.containsKey(uri)
+				&& !disabledContribResources.contains(uri);
 	}
 
-	private void setCheckBox(TreeItem node, Boolean defaultSetting) {
-		Object obj = node.getData();
-		if (obj instanceof TreeNode) {
-			String uriPath = ((TreeNode) obj).path;
-			if (uriPath != null && !uriPath.isEmpty()) {
-				URI uri = URI.createURI(uriPath);
-				if (((TreeNode) obj).overridden) {
-					uri = overriddenAadl.get(uri);
-				}
+	private void updateButtons() {
+		final var uri = selectedNode != null && selectedNode.canOverride() ? URI.createURI(selectedNode.path) : null;
+		disableButton.setEnabled(canDisableSelection());
+		overrideButton.setEnabled(uri != null);
+		restoreButton.setEnabled(uri != null
+				&& (overriddenAadl.containsKey(uri) || disabledContribResources.contains(uri)));
+	}
 
-				Boolean disabled = defaultSetting || disabledContribResources.contains(uri)
-						|| (overriddenAadl.containsKey(uri)
-								&& disabledContribResources.contains(overriddenAadl.get(uri)));
-				node.setChecked(disabled);
+	private void refreshState() {
+		tree.refresh();
+		updateButtons();
+	}
+
+	private void doOverrideAction(final TreeNode node) {
+		if (node.canOverride()) {
+			final var uri = URI.createURI(node.path);
+			final var replacement = getWorkspaceContributedResource(uri.lastSegment());
+			if (replacement != null) {
+				overriddenAadl.put(uri, replacement);
+				disabledContribResources.remove(uri);
+				refreshState();
 			}
 		}
-
-		for (TreeItem child : node.getItems()) {
-			setCheckBox(child, node.getChecked());
-		}
-	}
-
-	private void doOverrideAction(final TreeNode selectedNode) {
-		if (selectedNode.canOverride()) {
-			URI uri = URI.createURI(selectedNode.path);
-			if (uri != null) {
-				final URI newURI = getWorkspaceContributedResource(uri.lastSegment());
-				if (newURI != null) {
-					overriddenAadl.put(uri, newURI);
-					restoreButton.setEnabled(true);
-					selectedNode.overridden = true;
-					tree.refresh();
-					uriLabel.setText(uriToReadable(newURI));
-				}
-			}
-		}
-	}
-
-	private static URI getURIFromSelection(final ISelection selection) {
-		return (URI) ((IStructuredSelection) selection).getFirstElement();
-	}
-
-	private static String uriToReadable(final URI uri) {
-		final String uriAsString = uri.toString();
-		final int firstSlash = uriAsString.indexOf('/');
-		final int secondSlash = uriAsString.indexOf('/', firstSlash + 1);
-		return uriAsString.substring(secondSlash + 1);
 	}
 
 	@Override
@@ -288,56 +232,26 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 	}
 
 	@Override
-	public boolean performOk() {
-		final boolean ok = super.performOk();
-
-		/* Check if the preferences changed. Don't want to rebuild the workspace if they didn't */
-		boolean changed = false;
-
-		if (!originalOverriddenAadl.equals(overriddenAadl)) {
-			PredeclaredProperties.setOverriddenResources(overriddenAadl);
-			changed = true;
-		}
-
-		disabledContribResources = new ArrayList<URI>();
-		for (TreeItem pluginContribNode : tree.getTree().getItems()) {
-			buildDisabledContributionsList(pluginContribNode);
-		}
-
-		List<URI> oldDisabledContrib = PredeclaredProperties.getDisabledContributions();
-		if (disabledContribResources.size() != oldDisabledContrib.size()
-				|| !disabledContribResources.equals(oldDisabledContrib)) {
-			// save disabled contribution resources to workspace preferences
-			PredeclaredProperties.setDisabledContributions(disabledContribResources);
-			changed = true;
-		}
-
-		if (changed) {
-			PredeclaredProperties.closeAndReopenProjects();
-		}
-
-		return ok;
+	protected void performDefaults() {
+		overriddenAadl.clear();
+		disabledContribResources.clear();
+		refreshState();
+		super.performDefaults();
 	}
 
-	private void buildDisabledContributionsList(TreeItem node) {
-		if (node.getChecked()) {
-			Object obj = node.getData();
-			if (obj instanceof TreeNode) {
-				String uriPath = ((TreeNode) obj).path;
-				if (uriPath != null && !uriPath.isEmpty()) {
-					URI uri = URI.createURI(uriPath);
-					disabledContribResources.add(uri); // both URIs should be ignored
-					// check if overridden
-					if (overriddenAadl.containsKey(uri)) {
-						disabledContribResources.add(overriddenAadl.get(uri));
-					}
-				}
-			}
+	@Override
+	public boolean performOk() {
+		if (!super.performOk()) {
+			return false;
 		}
-
-		for (TreeItem child : node.getItems()) {
-			buildDisabledContributionsList(child);
+		if (!PredeclaredProperties.getOverriddenResources().equals(overriddenAadl)
+				|| !new HashSet<>(PredeclaredProperties.getDisabledContributions()).equals(disabledContribResources)) {
+			// Save disabled resources first: setting an override enables its replacement.
+			PredeclaredProperties.setDisabledContributions(new ArrayList<>(disabledContribResources));
+			PredeclaredProperties.setOverriddenResources(overriddenAadl);
+			PredeclaredProperties.closeAndReopenProjects();
 		}
+		return true;
 	}
 
 	@Override
@@ -369,7 +283,8 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		dialog.setMessage(
 				"Choose a file named \"" + fileName
 						+ "\" in the workspace to override the contributed resource." + System.lineSeparator()
-						+ "Only acceptable replacements are shown below.");
+						+ "Only files with the same name are shown. The replacement will be enabled; "
+						+ "an overridden resource cannot be disabled.");
 		dialog.setInput(ResourcesPlugin.getWorkspace().getRoot());
 
 		final Map<Object, Boolean> visible = new HashMap<>();
@@ -410,31 +325,43 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 	}
 
 	protected TreeViewer createTree(Composite parent) {
-		GridData compLayout = new GridData(GridData.FILL_BOTH);
-		compLayout.heightHint = 200;
-		compLayout.widthHint = 200;
+		final var treeComposite = new Composite(parent, SWT.NONE);
+		final var layoutData = new GridData(SWT.FILL, SWT.FILL, true, true);
+		layoutData.widthHint = 650;
+		layoutData.heightHint = 300;
+		treeComposite.setLayoutData(layoutData);
 
-		Composite treeComposite = new Composite(parent, SWT.NONE);
-		treeComposite.setLayoutData(compLayout);
-
-		GridData dataLayout = new GridData(GridData.FILL_BOTH);
-		dataLayout.heightHint = compLayout.heightHint;
-		dataLayout.widthHint = compLayout.widthHint;
-
-		int style = SWT.SINGLE | SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL | SWT.CHECK;
-		Tree tree = new Tree(treeComposite, style);
-		tree.setLayoutData(dataLayout);
-		tree.setLinesVisible(true);
-		tree.setHeaderVisible(false);
-		tree.setFont(parent.getFont());
-
-		TreeColumn col = new TreeColumn(tree, SWT.LEFT);
-
-		TreeColumnLayout treeLayout = new TreeColumnLayout();
-		treeLayout.setColumnData(col, new ColumnWeightData(dataLayout.widthHint));
-		treeComposite.setLayout(treeLayout);
-
-		return new TreeViewer(tree);
+		final var widget = new Tree(treeComposite, SWT.SINGLE | SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
+		widget.setLinesVisible(true);
+		widget.setHeaderVisible(true);
+		widget.setFont(parent.getFont());
+		final var viewer = new TreeViewer(widget);
+		final var resourceColumn = new TreeViewerColumn(viewer, SWT.LEFT);
+		resourceColumn.getColumn().setText("Resource");
+		final var statusColumn = new TreeViewerColumn(viewer, SWT.LEFT);
+		statusColumn.getColumn().setText("Status");
+		// Set the default after creating the columns; the sorter also uses it for resource names.
+		viewer.setLabelProvider(new FileLabelProvider(null, null));
+		statusColumn.setLabelProvider(new ColumnLabelProvider() {
+			@Override
+			public String getText(Object element) {
+				if (!(element instanceof TreeNode node) || !node.canOverride()) {
+					return "";
+				}
+				final var uri = URI.createURI(node.path);
+				if (disabledContribResources.contains(uri)) {
+					return "Disabled";
+				}
+				final var replacement = overriddenAadl.get(uri);
+				return replacement == null ? "Contributed by " + uri.segment(1)
+						: "Overridden by " + replacement.toPlatformString(true);
+			}
+		});
+		final var layout = new TreeColumnLayout();
+		layout.setColumnData(resourceColumn.getColumn(), new ColumnWeightData(45, 250));
+		layout.setColumnData(statusColumn.getColumn(), new ColumnWeightData(55, 300));
+		treeComposite.setLayout(layout);
+		return viewer;
 	}
 
 	protected TreeNode createTreeHierarchy() {
@@ -454,11 +381,9 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 
 		for (URI fullPath : contributedAadl) {
 			if (isInPropSet.containsKey(fullPath) && isInPropSet.get(fullPath)) {
-				pSet.addNode(new TreeNode(fullPath.toString(), fullPath.lastSegment(),
-						overriddenAadl.containsKey(fullPath)));
+				pSet.addNode(new TreeNode(fullPath.toString(), fullPath.lastSegment()));
 			} else {
-				cont.addNode(new TreeNode(fullPath.toString(), fullPath.lastSegment(),
-						overriddenAadl.containsKey(fullPath)));
+				cont.addNode(new TreeNode(fullPath.toString(), fullPath.lastSegment()));
 			}
 		}
 
@@ -510,7 +435,7 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		}
 	}
 
-	public class FileLabelProvider extends LabelProvider {
+	public class FileLabelProvider extends ColumnLabelProvider {
 		public FileLabelProvider(Image fileImg, Image categoryImg) {
 			super();
 		}
@@ -554,34 +479,31 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		public TreeNode() {
 		}
 
-		public TreeNode(String path, String label, Boolean overridden) {
+		public TreeNode(String path, String label) {
 			this.path = path;
 			this.label = label;
-			this.overridden = overridden;
 			this.imageType = 2;
 		}
 
 		public TreeNode(String label, int imageType) {
 			this.label = label;
-			this.overridden = false;
 			this.imageType = imageType;
 			this.path = "";
 		}
 
 		private String label;
 		public String path;
-		public Boolean overridden;
 		public int imageType;
 
 		protected List<TreeNode> nodes = new ArrayList<>();
 		protected TreeNode parent;
 
 		public Boolean canOverride() {
-			return this.path != null && this.path.contains(".");
+			return this.path != null && !this.path.isEmpty();
 		}
 
 		public String getLabel() {
-			return (this.overridden ? "[Overridden] " : "") + this.label;
+			return this.label;
 		}
 
 		public List<TreeNode> getNode() {
