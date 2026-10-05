@@ -1,0 +1,3 @@
+property set SEI is
+  Example : aadlboolean applies to (all);
+end SEI;
