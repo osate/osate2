@@ -1,0 +1,167 @@
+package Issue3326
+public
+	processor CPU
+	end CPU;
+
+	bus Link
+	properties
+		Latency => 500 us .. 500 us;
+	end Link;
+
+	thread Producer
+	features
+		output: out data port;
+	flows
+		f: flow source output;
+	properties
+		Dispatch_Protocol => Periodic;
+		Period => 3 ms;
+		Deadline => 1 ms;
+		Compute_Execution_Time => 1 ms .. 1 ms;
+	end Producer;
+
+	thread Consumer
+	features
+		input: in data port;
+	flows
+		f: flow sink input;
+	properties
+		Dispatch_Protocol => Periodic;
+		Period => 3 ms;
+		Deadline => 500 us;
+		Compute_Execution_Time => 500 us .. 500 us;
+	end Consumer;
+
+	process Stage
+	features
+		input: in data port;
+		output: out data port;
+	flows
+		f: flow path input -> output { Latency => 1 ms .. 1 ms; };
+	end Stage;
+
+	process ProducerProcess
+	features
+		output: out data port;
+	flows
+		f: flow source output;
+	end ProducerProcess;
+	process implementation ProducerProcess.impl
+	subcomponents
+		t: thread Producer;
+	connections
+		c: port t.output -> output;
+	flows
+		f: flow source t.f -> c -> output;
+	end ProducerProcess.impl;
+
+	process ConsumerProcess
+	features
+		input: in data port;
+	flows
+		f: flow sink input;
+	end ConsumerProcess;
+	process implementation ConsumerProcess.impl
+	subcomponents
+		t: thread Consumer;
+	connections
+		c: port input -> t.input;
+	flows
+		f: flow sink input -> c -> t.f;
+	end ConsumerProcess.impl;
+
+	system Top
+	end Top;
+	system implementation Top.receiver_stage
+	subcomponents
+		producer: process ProducerProcess.impl;
+		consumer: process ConsumerProcess.impl;
+		stage: process Stage;
+		cpu1: processor CPU;
+		cpu2: processor CPU;
+		link: bus Link;
+	connections
+		c1: port producer.output -> stage.input;
+		c2: port stage.output -> consumer.input;
+	flows
+		f: end to end flow producer.f -> c1 -> stage.f -> c2 -> consumer.f
+			{ Latency => 0 ms .. 10 ms; };
+	properties
+		Actual_Processor_Binding => (reference(cpu1)) applies to producer;
+		Actual_Processor_Binding => (reference(cpu2)) applies to consumer, stage;
+		Actual_Connection_Binding => (reference(link)) applies to c1;
+		Reference_Time => reference(cpu1) applies to cpu1;
+		Reference_Time => reference(cpu2) applies to cpu2;
+	end Top.receiver_stage;
+	system implementation Top.sender_stage
+	subcomponents
+		producer: process ProducerProcess.impl;
+		consumer: process ConsumerProcess.impl;
+		stage: process Stage;
+		cpu1: processor CPU;
+		cpu2: processor CPU;
+		link: bus Link;
+	connections
+		c1: port producer.output -> stage.input;
+		c2: port stage.output -> consumer.input;
+	flows
+		f: end to end flow producer.f -> c1 -> stage.f -> c2 -> consumer.f
+			{ Latency => 0 ms .. 10 ms; };
+	properties
+		Actual_Processor_Binding => (reference(cpu1)) applies to producer, stage;
+		Actual_Processor_Binding => (reference(cpu2)) applies to consumer;
+		Actual_Connection_Binding => (reference(link)) applies to c2;
+		Reference_Time => reference(cpu1) applies to cpu1;
+		Reference_Time => reference(cpu2) applies to cpu2;
+	end Top.sender_stage;
+	system implementation Top.shared_clock
+	subcomponents
+		producer: process ProducerProcess.impl;
+		consumer: process ConsumerProcess.impl;
+		stage: process Stage;
+		cpu1: processor CPU;
+		cpu2: processor CPU;
+		link: bus Link;
+	connections
+		c1: port producer.output -> stage.input;
+		c2: port stage.output -> consumer.input;
+	flows
+		f: end to end flow producer.f -> c1 -> stage.f -> c2 -> consumer.f
+			{ Latency => 0 ms .. 10 ms; };
+	properties
+		Actual_Processor_Binding => (reference(cpu1)) applies to producer;
+		Actual_Processor_Binding => (reference(cpu2)) applies to consumer, stage;
+		Actual_Connection_Binding => (reference(link)) applies to c1;
+		Reference_Time => reference(cpu1) applies to cpu1;
+		Reference_Time => reference(cpu1) applies to cpu2;
+	end Top.shared_clock;
+	system implementation Top.unknown_clock
+	subcomponents
+		producer: process ProducerProcess.impl;
+		consumer: process ConsumerProcess.impl;
+		stage: process Stage;
+		cpu1: processor CPU;
+		cpu2: processor CPU;
+		link: bus Link;
+	connections
+		c1: port producer.output -> stage.input;
+		c2: port stage.output -> consumer.input;
+	flows
+		f: end to end flow producer.f -> c1 -> stage.f -> c2 -> consumer.f
+			{ Latency => 0 ms .. 10 ms; };
+	properties
+		Actual_Processor_Binding => (reference(cpu1)) applies to producer;
+		Actual_Processor_Binding => (reference(cpu2)) applies to consumer, stage;
+		Actual_Connection_Binding => (reference(link)) applies to c1;
+	end Top.unknown_clock;
+
+	system implementation Top.periodic_stage extends Top.receiver_stage
+	properties
+		Period => 3 ms applies to stage;
+	end Top.periodic_stage;
+
+	system implementation Top.sampled_bus extends Top.receiver_stage
+	properties
+		Period => 2500 us applies to link;
+	end Top.sampled_bus;
+end Issue3326;
