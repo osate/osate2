@@ -49,13 +49,12 @@ import org.osate.testsupport.Aadl2InjectorProvider;
 public class SystemOperationModeInstantiationTest extends AbstractComponentInstantiationTest {
 	private static final String FILE = "SystemOperationModes.aadl";
 
-	/** A model without modes gets the one system operation mode that stands for the normal state. */
+	/** A model without modes has no system operation modes. */
 	@Test
-	public void modelWithoutModesGetsTheNormalSystemOperationMode() throws Exception {
+	public void modelWithoutModesHasNoSystemOperationModes() throws Exception {
 		var result = instantiate(FILE, "NonModal.i");
 
-		assertEquals(List.of(InstantiateModel.NORMAL_SOM_NAME), somNames(result.instance()));
-		assertTrue(result.instance().getSystemOperationModes().get(0).getCurrentModes().isEmpty());
+		assertTrue(result.instance().getSystemOperationModes().isEmpty());
 		assertEquals(List.of(), diagnostics(result));
 	}
 

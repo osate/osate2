@@ -24,6 +24,7 @@
 package org.osate.aadl2.instantiation;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -288,7 +289,8 @@ public class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithPro
 	 */
 	private void checkConsistencyAlongConnection(final ConnectionInstance conni, final PropertyAssociation setPA,
 			final PropertyAssociation newPA) {
-		for (var som : conni.getSystemInstance().getSystemOperationModes()) {
+		var modes = conni.getSystemInstance().getSystemOperationModes();
+		for (var som : modes.isEmpty() ? Collections.<SystemOperationMode>singletonList(null) : modes) {
 			if (!newPA.valueInMode(som).sameAs(setPA.valueInMode(som))) {
 				error(conni, "Value for property " + setPA.getProperty().getQualifiedName()
 						+ " not consistent along connection");

@@ -124,8 +124,9 @@ public class SOMChooserDialog extends TitleAreaDialog {
 		flags |= SWT.RESIZE;
 		setShellStyle(flags);
 		setHelpAvailable(false);
-		if (systemInstance.getSystemOperationModes().size() == 1
-				&& systemInstance.getSystemOperationModes().get(0).getName().equals("No Modes")) {
+		if (systemInstance.getSystemOperationModes().isEmpty()
+				|| (systemInstance.getSystemOperationModes().size() == 1
+						&& systemInstance.getSystemOperationModes().get(0).getName().equals("No Modes"))) {
 			throw new IllegalArgumentException("Cannot create a SOMChooserDialog for the SystemInstance "
 					+ systemInstance.getName() + " because it does not contain multiple SystemOperationModes.");
 		}

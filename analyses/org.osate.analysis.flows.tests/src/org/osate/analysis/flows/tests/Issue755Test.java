@@ -23,20 +23,23 @@
  */
 package org.osate.analysis.flows.tests;
 
-import java.util.Optional;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.eclipse.xtext.testing.validation.ValidationTestHelper;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.analysis.flows.FlowLatencyAnalysisSwitch;
+import org.osate.result.AnalysisResult;
+import org.osate.result.util.ResultUtil;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 
@@ -45,35 +48,48 @@ import com.itemis.xtext.testing.XtextTest;
 
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
-public class Issue2912Test extends XtextTest {
-
-	private static final String FILE = "org.osate.analysis.flows.tests/models/issue2912/Issue2912.aadl";
-
+public class Issue755Test extends XtextTest {
 	@Inject
-	TestHelper<AadlPackage> testHelper;
+	private TestHelper<AadlPackage> testHelper;
 
 	@Inject
 	private ValidationTestHelper validationHelper;
 
 	@Test
-	public void testAnalysis() throws Exception {
-		AadlPackage pkg = testHelper.parseFile(FILE);
-
-		validationHelper.assertNoIssues(pkg);
-
-		Optional<Classifier> impl = pkg.getOwnedPublicSection()
-				.getOwnedClassifiers()
-				.stream()
-				.filter(c -> c.getName().equals("S.i"))
-				.findFirst();
-
-		SystemInstance instance = InstantiateModel.instantiate((ComponentImplementation) impl.get());
-		Assert.assertEquals("S_i_Instance", instance.getName());
-
-		// check flow latency
-		var som = instance.getInitialSystemOperationMode();
-		var checker = new FlowLatencyAnalysisSwitch();
-		checker.invoke(instance, som, true, true, true, true, true);
+	public void analyzeNonModalSystem() throws Exception {
+		var instance = instantiate();
+		assertLatency(instance, new FlowLatencyAnalysisSwitch(instance).invoke(instance, null,
+				true, true, true, true, false));
 	}
 
+	@Test
+	public void analyzeNonModalComponent() throws Exception {
+		var instance = instantiate();
+		assertLatency(instance, new FlowLatencyAnalysisSwitch(instance).invoke((ComponentInstance) instance, null,
+				true, true, true, true, false));
+	}
+
+	@Test
+	public void analyzeNonModalFlow() throws Exception {
+		var instance = instantiate();
+		var flow = instance.getEndToEndFlows().getFirst();
+		assertTrue(flow.isActive(null));
+		assertLatency(instance, new FlowLatencyAnalysisSwitch(instance).invoke(flow, null,
+				true, true, true, true, false));
+	}
+
+	private void assertLatency(SystemInstance instance, AnalysisResult result) {
+		assertEquals(1, result.getResults().size());
+		var flowResult = result.getResults().getFirst();
+		assertSame(instance.getEndToEndFlows().getFirst(), flowResult.getModelElement());
+		assertEquals(5.0, ResultUtil.getReal(flowResult, 2), 0.0);
+	}
+
+	private SystemInstance instantiate() throws Exception {
+		var pkg = testHelper.parseFile("org.osate.analysis.flows.tests/models/issue755/Issue755.aadl");
+		validationHelper.assertNoIssues(pkg);
+		var implementation = (ComponentImplementation) pkg.getOwnedPublicSection().getOwnedClassifiers().stream()
+				.filter(classifier -> classifier.getName().equals("Top.i")).findFirst().orElseThrow();
+		return InstantiateModel.instantiate(implementation);
+	}
 }

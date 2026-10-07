@@ -121,7 +121,7 @@ public interface SystemInstance extends ComponentInstance {
 	 * instances in the model match that state.
 	 *
 	 * @param som SystemOperationMode whose values are used to set the
-	 *            currentMode in the instance model
+	 *            currentMode in the instance model, or {@code null} to clear the mode state
 	 * @see #clearCurrentSystemOperationMode()
 	 * @see #getCurrentSystemOperationMode()
 	 */
@@ -176,6 +176,10 @@ public interface SystemInstance extends ComponentInstance {
 	 */
 	List<SystemOperationMode> getSystemOperationModesFor(ModeInstance mi);
 
+	/**
+	 * @return the initial system operation mode, or {@code null} if the instance has no SOMs
+	 * @throws IllegalStateException if the instance has SOMs but none is initial
+	 */
 	SystemOperationMode getInitialSystemOperationMode();
 
 } // SystemInstance

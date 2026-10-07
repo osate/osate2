@@ -68,7 +68,7 @@ public class Issue3011Test extends XtextTest {
 				.orElseThrow();
 		SystemInstance instance = InstantiateModel.instantiate(top);
 		AnalysisResult analysis = new FlowLatencyAnalysisSwitch(instance).invoke(instance,
-				instance.getSystemOperationModes().get(0), true, true, true, true, false);
+				instance.getInitialSystemOperationMode(), true, true, true, true, false);
 
 		assertEquals(2, analysis.getResults().size());
 		for (Result flow : analysis.getResults()) {
