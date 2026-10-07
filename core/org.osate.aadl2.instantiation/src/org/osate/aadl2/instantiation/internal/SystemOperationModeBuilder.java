@@ -35,7 +35,6 @@ import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
-import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 
 /**
@@ -43,8 +42,7 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
  * component that the mode maps of the model allow. A component that is not active in the mode of its
  * containing component contributes no mode of its own to a combination.
  * <p>
- * A system with no modal component at all gets the single system operation mode
- * {@link InstantiateModel#NORMAL_SOM_NAME}.
+ * A system with no modal components has no system operation modes.
  * <p>
  * The number of combinations grows with the product of the mode counts, so enumeration stops at a
  * limit. One builder enumerates the modes of one system instance once.
@@ -129,15 +127,7 @@ public final class SystemOperationModeBuilder {
 		rootNode.state = new State(true);
 		initWorkState(root, rootNode);
 		modalCount = workState.size();
-		if (modalCount == 0) {
-			/*
-			 * We have no modal components, but we need to create a special SOM to
-			 * represent our single normal operating state.
-			 */
-			final SystemOperationMode som = InstanceFactory.eINSTANCE.createSystemOperationMode();
-			som.setName(InstantiateModel.NORMAL_SOM_NAME);
-			root.getSystemOperationModes().add(som);
-		} else {
+		if (modalCount > 0) {
 			enumerateSoms(0);
 		}
 		if (limitReached) {

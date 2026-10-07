@@ -152,7 +152,6 @@ public class Serializer2Test extends AbstractSerializerTest {
 				end to end flow etef3 s4_sub[0].f6 -> connection#0 -> s3_sub[0].s1_sub[0] -> s3_sub[0].connection#0 -> s3_sub[0].s2_sub[0].f2 : pkg1::s5.i:etef3
 				end to end flow etef4 s4_sub[0].f6 -> connection#0 -> s3_sub[0].s1_sub[0] : pkg1::s5.i:etef4
 				end to end flow etef5 etef4 -> connection#1 -> s4_sub[0].f7 : pkg1::s5.i:etef5
-				som "No Modes"
 			}""");
 		//@formatter:on
 	}
@@ -906,7 +905,6 @@ public class Serializer2Test extends AbstractSerializerTest {
 		//@formatter:off
 		assertSerialize(pkg1, "s.i", """
 				system s_i_Instance : pkg1::s.i {
-					som "No Modes"
 					ps1::bool1 => true : pkg1::s:property#0
 					ps1::string1 => "value" : pkg1::s:property#1
 					ps1::int1 => 42 : pkg1::s:property#2

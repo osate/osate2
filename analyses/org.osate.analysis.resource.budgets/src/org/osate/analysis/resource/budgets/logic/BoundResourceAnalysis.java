@@ -154,19 +154,20 @@ public class BoundResourceAnalysis extends AbstractResourceAnalysis {
 		EList<ComponentInstance> boundComponents = InstanceModelUtil.getBoundSWComponents(curProcessor);
 
 		if (boundComponents.size() == 0 && MIPScapacity > 0) {
-			errManager.infoSummary(curProcessor, som.getName(),
+			errManager.infoSummary(curProcessor, som == null ? null : som.getName(),
 					"No application components bound to " + curProcessor.getComponentInstancePath()
 							+ " with MIPS capacity " + toStringScaled(MIPScapacity, ProcessorSpeedUnits.MIPS));
 			return;
 		}
 		if (MIPScapacity == 0 && InstanceModelUtil.isVirtualProcessor(curProcessor)) {
-			errManager.warningSummary(curProcessor, som.getName(), "Virtual processor "
+			errManager.warningSummary(curProcessor, som == null ? null : som.getName(), "Virtual processor "
 					+ curProcessor.getComponentInstancePath() + " has no MIPS capacity or budget.");
 			return;
 		}
 		if (MIPScapacity == 0 && InstanceModelUtil.isProcessor(curProcessor)) {
-			errManager.errorSummary(curProcessor, som.getName(), "Processor " + curProcessor.getComponentInstancePath()
-					+ " has no MIPS capacity but has bound components.");
+			errManager.errorSummary(curProcessor, som == null ? null : som.getName(),
+					"Processor " + curProcessor.getComponentInstancePath()
+							+ " has no MIPS capacity but has bound components.");
 		}
 		if (InstanceModelUtil.isVirtualProcessor(curProcessor)) {
 			logHeader("\n\nDetailed Workload Report: " + Aadl2Util.getPrintableSOMName(som) + " for Virtual Processor "

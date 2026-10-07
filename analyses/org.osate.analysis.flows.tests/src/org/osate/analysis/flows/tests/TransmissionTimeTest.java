@@ -67,7 +67,7 @@ public class TransmissionTimeTest extends XtextTest {
 		assertEquals("s1_i1_Instance", instance.getName());
 
 		// check flow latency
-		var som = instance.getSystemOperationModes().getFirst();
+		var som = instance.getInitialSystemOperationMode();
 		var checker = new FlowLatencyAnalysisSwitch();
 		var latencyResult = checker.invoke(instance, som, true, true, true, true, false);
 		var etefResult = latencyResult.getResults().get(1);

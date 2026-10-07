@@ -71,7 +71,7 @@ public class Issue2912Test extends XtextTest {
 		Assert.assertEquals("S_i_Instance", instance.getName());
 
 		// check flow latency
-		var som = instance.getSystemOperationModes().get(0);
+		var som = instance.getInitialSystemOperationMode();
 		var checker = new FlowLatencyAnalysisSwitch();
 		checker.invoke(instance, som, true, true, true, true, true);
 	}

@@ -181,7 +181,7 @@ public class Issue1148Test extends XtextTest {
 		SystemInstance instance = InstantiateModel.instantiate(implementation);
 
 		// check flow latency
-		var som = instance.getSystemOperationModes().getFirst();
+		var som = instance.getInitialSystemOperationMode();
 		var checker = new FlowLatencyAnalysisSwitch();
 		return checker.invoke(instance, som, true, true, true, true, false);
 	}
