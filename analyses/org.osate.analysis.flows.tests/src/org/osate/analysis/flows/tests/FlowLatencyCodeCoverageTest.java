@@ -65,7 +65,7 @@ public class FlowLatencyCodeCoverageTest {
 		for (var pkgName : PACKAGE_NAMES) {
 			var instance = instantiate(pkgName);
 			var analysis = new FlowLatencyAnalysisSwitch();
-			var actual = analysis.invoke(instance, instance.getSystemOperationModes().getFirst(), true, true, true,
+			var actual = analysis.invoke(instance, instance.getInitialSystemOperationMode(), true, true, true,
 					true, false);
 
 			var resultPath = DIR_NAME + "results/testFlowLatency/" + pkgName + ".result";
@@ -78,7 +78,7 @@ public class FlowLatencyCodeCoverageTest {
 		var pkgName = "empty";
 		var instance = instantiate(pkgName);
 		var analysis = new FlowLatencyAnalysisSwitch();
-		var actual = analysis.invoke(instance, instance.getSystemOperationModes().getFirst(), true, true, true, true,
+		var actual = analysis.invoke(instance, instance.getInitialSystemOperationMode(), true, true, true, true,
 				false);
 
 		var resultPath = DIR_NAME + "results/testWithLatencyReport/" + pkgName + ".result";
@@ -90,7 +90,7 @@ public class FlowLatencyCodeCoverageTest {
 		var pkgName = "execution_time";
 		var instance = instantiate(pkgName);
 		var analysis = new FlowLatencyAnalysisSwitch();
-		var actual = analysis.invoke(instance, instance.getSystemOperationModes().getFirst(), true, true, false, true,
+		var actual = analysis.invoke(instance, instance.getInitialSystemOperationMode(), true, true, false, true,
 				false);
 
 		var resultPath = DIR_NAME + "results/testWorstCaseExecutionTime/" + pkgName + ".result";
@@ -102,7 +102,7 @@ public class FlowLatencyCodeCoverageTest {
 		var pkgName = "queuing";
 		var instance = instantiate(pkgName);
 		var analysis = new FlowLatencyAnalysisSwitch();
-		var actual = analysis.invoke(instance, instance.getSystemOperationModes().getFirst(), true, true, true, false,
+		var actual = analysis.invoke(instance, instance.getInitialSystemOperationMode(), true, true, true, false,
 				false);
 
 		var resultPath = DIR_NAME + "results/testBestCaseFullQueue/" + pkgName + ".result";

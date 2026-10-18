@@ -1,0 +1,27 @@
+package Issue755
+public
+  system NonModal
+  end NonModal;
+
+  system implementation NonModal.i
+  end NonModal.i;
+
+  system Modal
+    modes
+      first: initial mode;
+      second: mode;
+  end Modal;
+
+  system implementation Modal.i
+  end Modal.i;
+
+  device Endpoint
+    features
+      outgoing: out event port { Required_Connection => true; };
+  end Endpoint;
+
+  system implementation NonModal.required
+    subcomponents
+      endpoint: device Endpoint;
+  end NonModal.required;
+end Issue755;

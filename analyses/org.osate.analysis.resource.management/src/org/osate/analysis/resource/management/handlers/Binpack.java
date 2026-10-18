@@ -71,6 +71,7 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
+import org.osate.aadl2.util.Aadl2Util;
 import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelReadOnlyHandler;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
@@ -457,7 +458,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 				 */
 				boolean selected = true;
 
-				if (som.getCurrentModes().size() > 0) {
+				if (som != null && !som.getCurrentModes().isEmpty()) {
 					selected = false;
 					for (ModeInstance mi : ci.getInModes()) {
 						if (mi == som.getCurrentModes().get(0)) {
@@ -684,7 +685,8 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 
 	public void showNoResults(final SystemOperationMode som) {
 		org.osate.ui.dialogs.Dialog.showError("Application Binding Results",
-				"In system operation mode " + som.getName() + "the application system is not schedulable");
+				(Aadl2Util.isNoModes(som) ? "" : "In system operation mode " + som.getName() + ", ")
+						+ "the application system is not schedulable");
 	}
 
 	private Map getThreadBindings(final Set hardware) {
@@ -713,7 +715,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 		final Map threadsToProc = getThreadBindings(result.getProblem().getHardwareGraph());
 
 		logInfo("\nBinpacking results"
-				+ (!som.getName().equalsIgnoreCase("No Modes") ? " for SOM " + som.getName() : "") + ": "
+				+ (!Aadl2Util.isNoModes(som) ? " for SOM " + som.getName() : "") + ": "
 				+ (result.isSuccess() ? "Success" : "FAILED"));
 		for (final Iterator i = result.getProblem().getHardwareGraph().iterator(); i.hasNext();) {
 			final HardwareNode hn = (HardwareNode) i.next();

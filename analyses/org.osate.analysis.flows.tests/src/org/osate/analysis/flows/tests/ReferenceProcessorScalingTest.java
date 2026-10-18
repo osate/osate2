@@ -75,7 +75,7 @@ public class ReferenceProcessorScalingTest extends XtextTest {
 		var instance = InstantiateModel.instantiate(implementation);
 
 		// check flow latency
-		var som = instance.getSystemOperationModes().getFirst();
+		var som = instance.getInitialSystemOperationMode();
 		var checker = new FlowLatencyAnalysisSwitch();
 		var latencyResult = checker.invoke(instance, som, true, true, false, true, false);
 		return latencyResult.getResults().get(0);
