@@ -51,6 +51,23 @@ jobs:
           distribution: temurin
           java-version: 21
 
+      # Tycho 5.0.4 uses nested-jar paths as classifiers, which Maven 3.10 rejects.
+      # https://github.com/eclipse-tycho/tycho/issues/6399
+      - name: Set up Maven 3.9.11
+        shell: bash
+        env:
+          MAVEN_VERSION: 3.9.11
+          MAVEN_SHA512: bcfe4fe305c962ace56ac7b5fc7a08b87d5abd8b7e89027ab251069faebee516b0ded8961445d6d91ec1985dfe30f8153268843c89aa392733d1a3ec956c9978
+        run: |
+          archive="${RUNNER_TEMP}/apache-maven-${MAVEN_VERSION}-bin.tar.gz"
+          curl --fail --silent --show-error --location --retry 3 \
+            "https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/${MAVEN_VERSION}/apache-maven-${MAVEN_VERSION}-bin.tar.gz" \
+            --output "${archive}"
+          echo "${MAVEN_SHA512}  ${archive}" | shasum --algorithm 512 --check
+          tar -xzf "${archive}" -C "${RUNNER_TEMP}"
+          echo "${RUNNER_TEMP}/apache-maven-${MAVEN_VERSION}/bin" >> "$GITHUB_PATH"
+          "${RUNNER_TEMP}/apache-maven-${MAVEN_VERSION}/bin/mvn" --version
+
       - name: Set cache generation
         id: cache-generation
         shell: bash
