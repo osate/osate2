@@ -30,7 +30,6 @@ import java.util.List;
 import java.util.StringJoiner;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
@@ -40,8 +39,6 @@ import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.NamedElement;
-import org.osate.annexsupport.AnnexRegistry;
-import org.osate.annexsupport.AnnexUnparserRegistry;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorTime;
@@ -104,17 +101,8 @@ public class Issue3168Test {
 	public void resetPortsRoundTripThroughTheUnparser() throws Exception {
 		var root = testHelper.parseFile(MODELS + "Issue3168.aadl");
 		validationHelper.assertNoIssues(root);
-		var copy = EcoreUtil.copy(AnnexUtil.getAllDefaultAnnexSubclauses(root).getFirst().getParsedAnnexSubclause());
-
-		final String serialized;
-		root.eResource().getContents().add(copy);
-		try {
-			serialized = ((AnnexUnparserRegistry) AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_UNPARSER_EXT_ID))
-					.getAnnexUnparser("behavior_specification")
-					.unparseAnnexSubclause(copy, "");
-		} finally {
-			root.eResource().getContents().remove(copy);
-		}
+		var serialized = BehaviorAnnexTestUtil
+				.serializeCopy(AnnexUtil.getAllDefaultAnnexSubclauses(root).getFirst().getParsedAnnexSubclause());
 		var normalized = serialized.replaceAll("\\s+", " ").replace("( ", "(").replace(" )", ")");
 		assertTrue(serialized, normalized.contains("timeout (heartbeat) 20 ms"));
 		assertTrue(serialized, normalized.contains("timeout (reading or alarm or heartbeat) 30 ms"));

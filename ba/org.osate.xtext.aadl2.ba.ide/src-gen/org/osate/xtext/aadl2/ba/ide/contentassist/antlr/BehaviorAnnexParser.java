@@ -78,10 +78,11 @@ public class BehaviorAnnexParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getBehaviorBooleanLiteralAccess().getAlternatives_1(), "rule__BehaviorBooleanLiteral__Alternatives_1");
 			builder.put(grammarAccess.getReferenceExpressionAccess().getAlternatives_1(), "rule__ReferenceExpression__Alternatives_1");
 			builder.put(grammarAccess.getReferenceExpressionAccess().getAlternatives_1_2_1(), "rule__ReferenceExpression__Alternatives_1_2_1");
+			builder.put(grammarAccess.getNamedPropertyFieldAccess().getAlternatives_1(), "rule__NamedPropertyField__Alternatives_1");
+			builder.put(grammarAccess.getRangeSelectorAccess().getAlternatives(), "rule__RangeSelector__Alternatives");
 			builder.put(grammarAccess.getPropertyIndexValueAccess().getAlternatives(), "rule__PropertyIndexValue__Alternatives");
 			builder.put(grammarAccess.getUnindexedReferenceExpressionAccess().getAlternatives_1(), "rule__UnindexedReferenceExpression__Alternatives_1");
 			builder.put(grammarAccess.getUnindexedReferenceExpressionAccess().getAlternatives_1_1_1(), "rule__UnindexedReferenceExpression__Alternatives_1_1_1");
-			builder.put(grammarAccess.getReferenceSeparatorAccess().getAlternatives(), "rule__ReferenceSeparator__Alternatives");
 			builder.put(grammarAccess.getContainedPropertyAssociationAccess().getAlternatives_1(), "rule__ContainedPropertyAssociation__Alternatives_1");
 			builder.put(grammarAccess.getPropertyAssociationAccess().getAlternatives_1(), "rule__PropertyAssociation__Alternatives_1");
 			builder.put(grammarAccess.getPropertyExpressionAccess().getAlternatives(), "rule__PropertyExpression__Alternatives");
@@ -360,7 +361,8 @@ public class BehaviorAnnexParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getPropertyReferenceTailAccess().getPropertyAssignment_1(), "rule__PropertyReferenceTail__PropertyAssignment_1");
 			builder.put(grammarAccess.getPropertyReferenceTailAccess().getIndexesAssignment_2(), "rule__PropertyReferenceTail__IndexesAssignment_2");
 			builder.put(grammarAccess.getPropertyReferenceTailAccess().getFieldsAssignment_3(), "rule__PropertyReferenceTail__FieldsAssignment_3");
-			builder.put(grammarAccess.getNamedPropertyFieldAccess().getNameAssignment_1(), "rule__NamedPropertyField__NameAssignment_1");
+			builder.put(grammarAccess.getNamedPropertyFieldAccess().getNameAssignment_1_0(), "rule__NamedPropertyField__NameAssignment_1_0");
+			builder.put(grammarAccess.getNamedPropertyFieldAccess().getSelectorAssignment_1_1(), "rule__NamedPropertyField__SelectorAssignment_1_1");
 			builder.put(grammarAccess.getNamedPropertyFieldAccess().getIndexesAssignment_2(), "rule__NamedPropertyField__IndexesAssignment_2");
 			builder.put(grammarAccess.getPropertyArrayIndexAccess().getValueAssignment_1(), "rule__PropertyArrayIndex__ValueAssignment_1");
 			builder.put(grammarAccess.getPropertyIndexPropertyReferenceAccess().getPropertyAssignment_1(), "rule__PropertyIndexPropertyReference__PropertyAssignment_1");

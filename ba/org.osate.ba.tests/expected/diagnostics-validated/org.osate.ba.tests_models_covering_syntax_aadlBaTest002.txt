@@ -7,7 +7,6 @@ error | semantic | 612 | 13 | 23 | Subprogram call requires 0 actuals but has 2
 error | semantic | 614 | 13 | 14 | Subprogram call requires 2 actuals but has 0
 error | semantic | 615 | 13 | 10 | A send or call action requires a port, internal feature, or callable subprogram
 error | semantic | 618 | 30 | 1 | Actual for out parameter 'y' must be a writable target
-warning | semantic | 25 | 33 | 21 | AadlBaTestPropertySet in 'with' clause of public package section is not used.
 warning | semantic | 25 | 75 | 20 | AadlBaTestSubprogram in 'with' clause of public package section is not used.
 warning | semantic | 426 | 21 | 1 | Unary plus is not part of AS5506/3 Rev. A
 warning | semantic | 428 | 21 | 1 | Unary plus is not part of AS5506/3 Rev. A

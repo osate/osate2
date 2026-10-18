@@ -31,12 +31,15 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.osate.aadl2.NamedElement;
 
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.HashPropertyReference;
@@ -61,24 +64,14 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyArrayIndex;
 public class HashPropertyReferenceImpl extends IntegerValueImpl implements HashPropertyReference
 {
   /**
-   * The default value of the '{@link #getProperty() <em>Property</em>}' attribute.
+   * The cached value of the '{@link #getProperty() <em>Property</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getProperty()
    * @generated
    * @ordered
    */
-  protected static final String PROPERTY_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getProperty() <em>Property</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getProperty()
-   * @generated
-   * @ordered
-   */
-  protected String property = PROPERTY_EDEFAULT;
+  protected NamedElement property;
 
   /**
    * The cached value of the '{@link #getIndexes() <em>Indexes</em>}' containment reference list.
@@ -127,7 +120,27 @@ public class HashPropertyReferenceImpl extends IntegerValueImpl implements HashP
    * @generated
    */
   @Override
-  public String getProperty()
+  public NamedElement getProperty()
+  {
+    if (property != null && ((EObject)property).eIsProxy())
+    {
+      InternalEObject oldProperty = (InternalEObject)property;
+      property = (NamedElement)eResolveProxy(oldProperty);
+      if (property != oldProperty)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, BehaviorAnnexPackage.HASH_PROPERTY_REFERENCE__PROPERTY, oldProperty, property));
+      }
+    }
+    return property;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NamedElement basicGetProperty()
   {
     return property;
   }
@@ -138,9 +151,9 @@ public class HashPropertyReferenceImpl extends IntegerValueImpl implements HashP
    * @generated
    */
   @Override
-  public void setProperty(String newProperty)
+  public void setProperty(NamedElement newProperty)
   {
-    String oldProperty = property;
+    NamedElement oldProperty = property;
     property = newProperty;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, BehaviorAnnexPackage.HASH_PROPERTY_REFERENCE__PROPERTY, oldProperty, property));
@@ -205,7 +218,8 @@ public class HashPropertyReferenceImpl extends IntegerValueImpl implements HashP
     switch (featureID)
     {
       case BehaviorAnnexPackage.HASH_PROPERTY_REFERENCE__PROPERTY:
-        return getProperty();
+        if (resolve) return getProperty();
+        return basicGetProperty();
       case BehaviorAnnexPackage.HASH_PROPERTY_REFERENCE__INDEXES:
         return getIndexes();
       case BehaviorAnnexPackage.HASH_PROPERTY_REFERENCE__FIELDS:
@@ -226,7 +240,7 @@ public class HashPropertyReferenceImpl extends IntegerValueImpl implements HashP
     switch (featureID)
     {
       case BehaviorAnnexPackage.HASH_PROPERTY_REFERENCE__PROPERTY:
-        setProperty((String)newValue);
+        setProperty((NamedElement)newValue);
         return;
       case BehaviorAnnexPackage.HASH_PROPERTY_REFERENCE__INDEXES:
         getIndexes().clear();
@@ -251,7 +265,7 @@ public class HashPropertyReferenceImpl extends IntegerValueImpl implements HashP
     switch (featureID)
     {
       case BehaviorAnnexPackage.HASH_PROPERTY_REFERENCE__PROPERTY:
-        setProperty(PROPERTY_EDEFAULT);
+        setProperty((NamedElement)null);
         return;
       case BehaviorAnnexPackage.HASH_PROPERTY_REFERENCE__INDEXES:
         getIndexes().clear();
@@ -274,30 +288,13 @@ public class HashPropertyReferenceImpl extends IntegerValueImpl implements HashP
     switch (featureID)
     {
       case BehaviorAnnexPackage.HASH_PROPERTY_REFERENCE__PROPERTY:
-        return PROPERTY_EDEFAULT == null ? property != null : !PROPERTY_EDEFAULT.equals(property);
+        return property != null;
       case BehaviorAnnexPackage.HASH_PROPERTY_REFERENCE__INDEXES:
         return indexes != null && !indexes.isEmpty();
       case BehaviorAnnexPackage.HASH_PROPERTY_REFERENCE__FIELDS:
         return fields != null && !fields.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuilder result = new StringBuilder(super.toString());
-    result.append(" (property: ");
-    result.append(property);
-    result.append(')');
-    return result.toString();
   }
 
 } //HashPropertyReferenceImpl

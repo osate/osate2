@@ -25,6 +25,8 @@ package org.osate.xtext.aadl2.ba.behaviorAnnex;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.osate.aadl2.NamedElement;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Hash Property Reference</b></em>'.
@@ -46,26 +48,26 @@ import org.eclipse.emf.common.util.EList;
 public interface HashPropertyReference extends IntegerValue, ValueConstant
 {
   /**
-   * Returns the value of the '<em><b>Property</b></em>' attribute.
+   * Returns the value of the '<em><b>Property</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Property</em>' attribute.
-   * @see #setProperty(String)
+   * @return the value of the '<em>Property</em>' reference.
+   * @see #setProperty(NamedElement)
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage#getHashPropertyReference_Property()
    * @model
    * @generated
    */
-  String getProperty();
+  NamedElement getProperty();
 
   /**
-   * Sets the value of the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.HashPropertyReference#getProperty <em>Property</em>}' attribute.
+   * Sets the value of the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.HashPropertyReference#getProperty <em>Property</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Property</em>' attribute.
+   * @param value the new value of the '<em>Property</em>' reference.
    * @see #getProperty()
    * @generated
    */
-  void setProperty(String value);
+  void setProperty(NamedElement value);
 
   /**
    * Returns the value of the '<em><b>Indexes</b></em>' containment reference list.

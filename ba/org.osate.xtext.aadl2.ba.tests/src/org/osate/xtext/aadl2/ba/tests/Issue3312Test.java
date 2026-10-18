@@ -32,7 +32,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.diagnostics.Severity;
+import org.eclipse.xtext.findReferences.IReferenceFinder;
+import org.eclipse.xtext.findReferences.TargetURIs;
+import org.eclipse.xtext.resource.ILocationInFileProvider;
+import org.eclipse.xtext.resource.IReferenceDescription;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
@@ -52,6 +60,7 @@ import org.osate.xtext.aadl2.ba.services.BehaviorAnnexTextPositionResolver;
 import org.osate.xtext.aadl2.ba.util.BehaviorAnnexUtil;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.itemis.xtext.testing.XtextTest;
 
 /** An incremental edit may leave an operand absent while reference services translate the recovered annex. */
@@ -69,8 +78,7 @@ public class Issue3312Test extends XtextTest {
 		var resource = removeOperand();
 		var source = sourceAnnex(resource);
 		var positions = new ArrayList<TextPositionInfo>();
-		new BehaviorAnnexTextPositionResolver().collectReferencePositions(source, positions::add,
-				new NullProgressMonitor());
+		collectReferencePositions(source, positions);
 		assertEquals(List.of(text(resource).indexOf("distance >"), text(resource).indexOf("distance :=")),
 				positions.stream().filter(position -> position.getModelObject()
 						== source.getVariableGroups().getFirst().getVariables().getFirst())
@@ -127,12 +135,40 @@ public class Issue3312Test extends XtextTest {
 		assertRecoveredReferences("in 1 .. 2", "1");
 	}
 
+	@Inject
+	private IReferenceFinder referenceFinder;
+
+	@Inject
+	private Provider<TargetURIs> referenceTargets;
+
+	@Inject
+	private ILocationInFileProvider locations;
+
+	private void collectReferencePositions(BehaviorAnnex source, List<TextPositionInfo> positions) {
+		var variable = source.getVariableGroups().getFirst().getVariables().getFirst();
+		var targets = referenceTargets.get();
+		targets.addURI(EcoreUtil2.getPlatformResourceOrNormalizedURI(variable));
+		referenceFinder.findReferences(targets, source, new IReferenceFinder.Acceptor() {
+			@Override
+			public void accept(IReferenceDescription description) {
+				throw new AssertionError("Expected a live reference");
+			}
+
+			@Override
+			public void accept(EObject object, URI sourceURI,
+					EReference reference, int index, EObject target,
+					URI targetURI) {
+				var region = locations.getSignificantTextRegion(object, reference, index);
+				positions.add(new TextPositionInfo(target, region.getOffset(), region.getLength()));
+			}
+		}, new NullProgressMonitor());
+	}
+
 	private void assertRecoveredReferences(String context, String operand) throws Exception {
 		var resource = removeOperand("ExpressionContexts.aadl", context, operand);
 		var source = sourceAnnex(resource);
 		var positions = new ArrayList<TextPositionInfo>();
-		new BehaviorAnnexTextPositionResolver().collectReferencePositions(source, positions::add,
-				new NullProgressMonitor());
+		collectReferencePositions(source, positions);
 		assertTrue(positions.stream().anyMatch(position -> position.getModelObject()
 				== source.getVariableGroups().getFirst().getVariables().getFirst()));
 		var offset = text(resource).indexOf(context.replace(operand, "")) + context.indexOf(operand);

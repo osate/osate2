@@ -41,7 +41,6 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
@@ -110,8 +109,8 @@ public class ReferenceSegmentItemProvider
          BehaviorAnnexPackage.Literals.REFERENCE_SEGMENT__NAME,
          true,
          false,
-         false,
-         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+         true,
+         null,
          null,
          null));
   }
@@ -170,10 +169,7 @@ public class ReferenceSegmentItemProvider
   @Override
   public String getText(Object object)
   {
-    String label = ((ReferenceSegment)object).getName();
-    return label == null || label.length() == 0 ?
-      getString("_UI_ReferenceSegment_type") :
-      getString("_UI_ReferenceSegment_type") + " " + label;
+    return getString("_UI_ReferenceSegment_type");
   }
 
 
@@ -191,9 +187,6 @@ public class ReferenceSegmentItemProvider
 
     switch (notification.getFeatureID(ReferenceSegment.class))
     {
-      case BehaviorAnnexPackage.REFERENCE_SEGMENT__NAME:
-        fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-        return;
       case BehaviorAnnexPackage.REFERENCE_SEGMENT__INDEXES:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
         return;

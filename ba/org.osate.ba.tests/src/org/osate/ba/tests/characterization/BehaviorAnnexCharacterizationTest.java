@@ -37,6 +37,7 @@ import java.util.TreeSet;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.xtext.diagnostics.Diagnostic;
 import org.eclipse.xtext.nodemodel.INode;
@@ -48,13 +49,16 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AnnexSubclause;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.modelsupport.errorreporting.QueuingParseErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.QueuingParseErrorReporter.Message;
+import org.osate.annexsupport.AnnexParser;
 import org.osate.annexsupport.AnnexParserRegistry;
 import org.osate.annexsupport.AnnexRegistry;
+import org.osate.annexsupport.AnnexUnparser;
 import org.osate.annexsupport.AnnexUnparserRegistry;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.ba.aadlba.AadlBaPackage;
@@ -62,6 +66,8 @@ import org.osate.ba.aadlba.ActualPortHolder;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 import org.osate.xtext.aadl2.ba.BehaviorAnnexStandaloneSetup;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
+import org.osate.xtext.aadl2.ba.scoping.BehaviorAnnexReferences;
 import org.osate.xtext.aadl2.ba.translation.DeclarativeToStrictTranslator;
 
 import com.google.inject.Inject;
@@ -178,7 +184,7 @@ public class BehaviorAnnexCharacterizationTest {
 			}
 			for (final DefaultAnnexSubclause annex : AnnexUtil.getAllDefaultAnnexSubclauses(root)) {
 				if (annex.getParsedAnnexSubclause() instanceof
-						org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex) {
+				BehaviorAnnex) {
 					final String serialized = getUnparser().unparseAnnexSubclause(
 							annex.getParsedAnnexSubclause(), "");
 					assertRoundTrip(annex, serialized);
@@ -203,9 +209,9 @@ public class BehaviorAnnexCharacterizationTest {
 				if (annex.getParsedAnnexSubclause() != null) {
 					assertNoDetachedChildren(annex.getParsedAnnexSubclause());
 					if (annex.getParsedAnnexSubclause() instanceof
-							org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex source) {
+					BehaviorAnnex source) {
 						assertNoDetachedChildren(translator.translate(source,
-								(org.osate.aadl2.ComponentClassifier) annex.getContainingClassifier())
+								(ComponentClassifier) annex.getContainingClassifier())
 								.getStrictAnnex());
 					}
 				}
@@ -257,10 +263,10 @@ public class BehaviorAnnexCharacterizationTest {
 		final List<EObject> owners = new ArrayList<>();
 		for (final DefaultAnnexSubclause defaultAnnex : annexes) {
 			if (defaultAnnex.getParsedAnnexSubclause() instanceof
-					org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex source) {
+			BehaviorAnnex source) {
 				try {
 					models.add(translator.translate(source,
-							(org.osate.aadl2.ComponentClassifier) defaultAnnex.getContainingClassifier())
+							(ComponentClassifier) defaultAnnex.getContainingClassifier())
 							.getStrictAnnex());
 				} catch (RuntimeException | StackOverflowError e) {
 					models.add(null);
@@ -336,7 +342,7 @@ public class BehaviorAnnexCharacterizationTest {
 			result.append("===== annex[").append(i).append("] owner=")
 					.append(qualifiedName(defaultAnnex.getContainingClassifier())).append(" =====\n");
 			if (!(defaultAnnex.getParsedAnnexSubclause() instanceof
-					org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex)) {
+			BehaviorAnnex)) {
 				result.append("<unparsed>\n");
 				continue;
 			}
@@ -384,18 +390,18 @@ public class BehaviorAnnexCharacterizationTest {
 					defaultAnnex.eResource().getURI().lastSegment(), 1, AnnexUtil.getAnnexOffset(defaultAnnex),
 					reporter);
 			if (reporter.getNumErrors() != 0 || !(reparsed instanceof
-					org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex)) {
+			BehaviorAnnex)) {
 				return new RoundTripResult(first, null, reporter.getErrors());
 			}
 			return new RoundTripResult(first, first, List.of());
 	}
 
-	private static org.osate.annexsupport.AnnexParser getParser() {
+	private static AnnexParser getParser() {
 		return ((AnnexParserRegistry) AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_PARSER_EXT_ID))
 				.getAnnexParser(ANNEX_NAME);
 	}
 
-	private static org.osate.annexsupport.AnnexUnparser getUnparser() {
+	private static AnnexUnparser getUnparser() {
 		return ((AnnexUnparserRegistry) AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_UNPARSER_EXT_ID))
 				.getAnnexUnparser(ANNEX_NAME);
 	}
@@ -416,7 +422,7 @@ public class BehaviorAnnexCharacterizationTest {
 			result.append("annex[").append(i).append("] owner=")
 					.append(qualifiedName(defaultAnnex.getContainingClassifier())).append('\n');
 			if (!(defaultAnnex.getParsedAnnexSubclause() instanceof
-					org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex)) {
+			BehaviorAnnex)) {
 				result.append("  <unparsed>\n");
 				continue;
 			}
@@ -463,6 +469,9 @@ public class BehaviorAnnexCharacterizationTest {
 		}
 		final EStructuralFeature nameFeature = object.eClass().getEStructuralFeature("name");
 		if (nameFeature != null) {
+			if (nameFeature instanceof EReference) {
+				return BehaviorAnnexReferences.writtenName(object);
+			}
 			final Object value = object.eGet(nameFeature, false);
 			return value == null ? null : value.toString();
 		}

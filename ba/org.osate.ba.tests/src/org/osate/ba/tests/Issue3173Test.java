@@ -30,7 +30,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.testing.InjectWith;
@@ -40,8 +39,6 @@ import org.eclipse.xtext.validation.Issue;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
-import org.osate.annexsupport.AnnexRegistry;
-import org.osate.annexsupport.AnnexUnparserRegistry;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.ForOrForAllStatement;
@@ -133,24 +130,15 @@ public class Issue3173Test {
 	public void omittedIteratorClassifierRoundTripsThroughTheUnparser() throws Exception {
 		var root = testHelper.parseFile(MODELS + "Issue3173.aadl");
 		validationHelper.assertNoIssues(root);
-		var copy = EcoreUtil.copy(AnnexUtil.getAllDefaultAnnexSubclauses(root).getFirst().getParsedAnnexSubclause());
-
-		final String serialized;
-		root.eResource().getContents().add(copy);
-		try {
-			serialized = ((AnnexUnparserRegistry) AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_UNPARSER_EXT_ID))
-					.getAnnexUnparser("behavior_specification")
-					.unparseAnnexSubclause(copy, "");
-		} finally {
-			root.eResource().getContents().remove(copy);
-		}
+		var serialized = BehaviorAnnexTestUtil
+				.serializeCopy(AnnexUtil.getAllDefaultAnnexSubclauses(root).getFirst().getParsedAnnexSubclause());
 		// The serializer emits one flat line with a space around every token, so the assertions run on normalized text.
 		var normalized = serialized.replaceAll("\\s+", " ").replace("( ", "(").replace(" )", ")");
 		assertTrue(serialized, normalized.contains("for (step in 0 .. 2)"));
 		assertTrue(serialized, normalized.contains("forall (other in 0 .. 2)"));
 		assertTrue(serialized, normalized.contains("for (sample in readings)"));
 		assertTrue(serialized, normalized.contains("forall (entry in pairs)"));
-		assertTrue(serialized, normalized.contains("for (typed : Base_Types::Integer in 0 .. 2)"));
+		assertTrue(serialized, normalized.contains("for (typed: Base_Types::Integer in 0 .. 2)"));
 
 		var source = NodeModelUtils.getNode(root).getText();
 		var reparsed = testHelper.parseString(source.substring(0, source.indexOf("{**") + 3) + serialized

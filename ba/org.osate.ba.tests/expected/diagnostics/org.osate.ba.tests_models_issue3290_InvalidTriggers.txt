@@ -1,0 +1,2 @@
+error | linking | 51 | 42 | 9 | Couldn't resolve reference to EObject 'step_done'.
+error | linking | 58 | 53 | 9 | Couldn't resolve reference to EObject 'step_done'.

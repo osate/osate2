@@ -39,12 +39,9 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
-import org.eclipse.emf.edit.provider.ViewerNotification;
 
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReferenceSegment;
 
 /**
  * This is the item provider adapter for a {@link org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReferenceSegment} object.
@@ -107,8 +104,8 @@ public class UnindexedReferenceSegmentItemProvider
          BehaviorAnnexPackage.Literals.UNINDEXED_REFERENCE_SEGMENT__NAME,
          true,
          false,
-         false,
-         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+         true,
+         null,
          null,
          null));
   }
@@ -134,10 +131,7 @@ public class UnindexedReferenceSegmentItemProvider
   @Override
   public String getText(Object object)
   {
-    String label = ((UnindexedReferenceSegment)object).getName();
-    return label == null || label.length() == 0 ?
-      getString("_UI_UnindexedReferenceSegment_type") :
-      getString("_UI_UnindexedReferenceSegment_type") + " " + label;
+    return getString("_UI_UnindexedReferenceSegment_type");
   }
 
 
@@ -152,13 +146,6 @@ public class UnindexedReferenceSegmentItemProvider
   public void notifyChanged(Notification notification)
   {
     updateChildren(notification);
-
-    switch (notification.getFeatureID(UnindexedReferenceSegment.class))
-    {
-      case BehaviorAnnexPackage.UNINDEXED_REFERENCE_SEGMENT__NAME:
-        fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-        return;
-    }
     super.notifyChanged(notification);
   }
 

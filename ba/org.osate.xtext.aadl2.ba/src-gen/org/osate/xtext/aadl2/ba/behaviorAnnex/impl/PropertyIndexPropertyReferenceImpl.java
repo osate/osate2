@@ -26,8 +26,12 @@ package org.osate.xtext.aadl2.ba.behaviorAnnex.impl;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import org.osate.aadl2.NamedElement;
 
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyIndexPropertyReference;
@@ -48,24 +52,14 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyIndexPropertyReference;
 public class PropertyIndexPropertyReferenceImpl extends PropertyIndexValueImpl implements PropertyIndexPropertyReference
 {
   /**
-   * The default value of the '{@link #getProperty() <em>Property</em>}' attribute.
+   * The cached value of the '{@link #getProperty() <em>Property</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getProperty()
    * @generated
    * @ordered
    */
-  protected static final String PROPERTY_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getProperty() <em>Property</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getProperty()
-   * @generated
-   * @ordered
-   */
-  protected String property = PROPERTY_EDEFAULT;
+  protected NamedElement property;
 
   /**
    * <!-- begin-user-doc -->
@@ -94,7 +88,27 @@ public class PropertyIndexPropertyReferenceImpl extends PropertyIndexValueImpl i
    * @generated
    */
   @Override
-  public String getProperty()
+  public NamedElement getProperty()
+  {
+    if (property != null && ((EObject)property).eIsProxy())
+    {
+      InternalEObject oldProperty = (InternalEObject)property;
+      property = (NamedElement)eResolveProxy(oldProperty);
+      if (property != oldProperty)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, BehaviorAnnexPackage.PROPERTY_INDEX_PROPERTY_REFERENCE__PROPERTY, oldProperty, property));
+      }
+    }
+    return property;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NamedElement basicGetProperty()
   {
     return property;
   }
@@ -105,9 +119,9 @@ public class PropertyIndexPropertyReferenceImpl extends PropertyIndexValueImpl i
    * @generated
    */
   @Override
-  public void setProperty(String newProperty)
+  public void setProperty(NamedElement newProperty)
   {
-    String oldProperty = property;
+    NamedElement oldProperty = property;
     property = newProperty;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, BehaviorAnnexPackage.PROPERTY_INDEX_PROPERTY_REFERENCE__PROPERTY, oldProperty, property));
@@ -124,7 +138,8 @@ public class PropertyIndexPropertyReferenceImpl extends PropertyIndexValueImpl i
     switch (featureID)
     {
       case BehaviorAnnexPackage.PROPERTY_INDEX_PROPERTY_REFERENCE__PROPERTY:
-        return getProperty();
+        if (resolve) return getProperty();
+        return basicGetProperty();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -140,7 +155,7 @@ public class PropertyIndexPropertyReferenceImpl extends PropertyIndexValueImpl i
     switch (featureID)
     {
       case BehaviorAnnexPackage.PROPERTY_INDEX_PROPERTY_REFERENCE__PROPERTY:
-        setProperty((String)newValue);
+        setProperty((NamedElement)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -157,7 +172,7 @@ public class PropertyIndexPropertyReferenceImpl extends PropertyIndexValueImpl i
     switch (featureID)
     {
       case BehaviorAnnexPackage.PROPERTY_INDEX_PROPERTY_REFERENCE__PROPERTY:
-        setProperty(PROPERTY_EDEFAULT);
+        setProperty((NamedElement)null);
         return;
     }
     super.eUnset(featureID);
@@ -174,26 +189,9 @@ public class PropertyIndexPropertyReferenceImpl extends PropertyIndexValueImpl i
     switch (featureID)
     {
       case BehaviorAnnexPackage.PROPERTY_INDEX_PROPERTY_REFERENCE__PROPERTY:
-        return PROPERTY_EDEFAULT == null ? property != null : !PROPERTY_EDEFAULT.equals(property);
+        return property != null;
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuilder result = new StringBuilder(super.toString());
-    result.append(" (property: ");
-    result.append(property);
-    result.append(')');
-    return result.toString();
   }
 
 } //PropertyIndexPropertyReferenceImpl

@@ -985,8 +985,7 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 		private final Assignment cInternalPortsAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
 		private final RuleCall cInternalPortsReferenceParserRuleCall_2_1_0 = (RuleCall)cInternalPortsAssignment_2_1.eContents().get(0);
 		
-		//// The listed names are internal event or event data features of the containing component. Like every other name in
-		//// the annex they stay symbolic here; the translator resolves them against the owner.
+		//// The listed names refer to internal event or event data features of the containing component.
 		//InternalCondition:
 		//    'internal' internalPorts+=Reference ('or' internalPorts+=Reference)*
 		//;
@@ -2744,28 +2743,32 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cNumberSignKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cPropertyAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cPropertyQualifiedNameParserRuleCall_1_0 = (RuleCall)cPropertyAssignment_1.eContents().get(0);
+		private final CrossReference cPropertyNamedElementCrossReference_1_0 = (CrossReference)cPropertyAssignment_1.eContents().get(0);
+		private final RuleCall cPropertyNamedElementQualifiedNameParserRuleCall_1_0_1 = (RuleCall)cPropertyNamedElementCrossReference_1_0.eContents().get(1);
 		private final Assignment cIndexesAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cIndexesPropertyArrayIndexParserRuleCall_2_0 = (RuleCall)cIndexesAssignment_2.eContents().get(0);
 		private final Assignment cFieldsAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cFieldsNamedPropertyFieldParserRuleCall_3_0 = (RuleCall)cFieldsAssignment_3.eContents().get(0);
 		
 		//HashPropertyReference:
-		//    '#' property=QualifiedName indexes+=PropertyArrayIndex* fields+=NamedPropertyField*
+		//    '#' property=[aadl2::NamedElement|QualifiedName] indexes+=PropertyArrayIndex* fields+=NamedPropertyField*
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'#' property=QualifiedName indexes+=PropertyArrayIndex* fields+=NamedPropertyField*
+		//'#' property=[aadl2::NamedElement|QualifiedName] indexes+=PropertyArrayIndex* fields+=NamedPropertyField*
 		public Group getGroup() { return cGroup; }
 		
 		//'#'
 		public Keyword getNumberSignKeyword_0() { return cNumberSignKeyword_0; }
 		
-		//property=QualifiedName
+		//property=[aadl2::NamedElement|QualifiedName]
 		public Assignment getPropertyAssignment_1() { return cPropertyAssignment_1; }
 		
+		//[aadl2::NamedElement|QualifiedName]
+		public CrossReference getPropertyNamedElementCrossReference_1_0() { return cPropertyNamedElementCrossReference_1_0; }
+
 		//QualifiedName
-		public RuleCall getPropertyQualifiedNameParserRuleCall_1_0() { return cPropertyQualifiedNameParserRuleCall_1_0; }
+		public RuleCall getPropertyNamedElementQualifiedNameParserRuleCall_1_0_1() { return cPropertyNamedElementQualifiedNameParserRuleCall_1_0_1; }
 		
 		//indexes+=PropertyArrayIndex*
 		public Assignment getIndexesAssignment_2() { return cIndexesAssignment_2; }
@@ -2784,28 +2787,32 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cNumberSignKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cPropertyAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cPropertyQualifiedNameParserRuleCall_1_0 = (RuleCall)cPropertyAssignment_1.eContents().get(0);
+		private final CrossReference cPropertyPropertyCrossReference_1_0 = (CrossReference)cPropertyAssignment_1.eContents().get(0);
+		private final RuleCall cPropertyPropertyQualifiedNameParserRuleCall_1_0_1 = (RuleCall)cPropertyPropertyCrossReference_1_0.eContents().get(1);
 		private final Assignment cIndexesAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cIndexesPropertyArrayIndexParserRuleCall_2_0 = (RuleCall)cIndexesAssignment_2.eContents().get(0);
 		private final Assignment cFieldsAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cFieldsNamedPropertyFieldParserRuleCall_3_0 = (RuleCall)cFieldsAssignment_3.eContents().get(0);
 		
 		//PropertyReferenceTail:
-		//    '#' property=QualifiedName indexes+=PropertyArrayIndex* fields+=NamedPropertyField*
+		//    '#' property=[aadl2::Property|QualifiedName] indexes+=PropertyArrayIndex* fields+=NamedPropertyField*
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'#' property=QualifiedName indexes+=PropertyArrayIndex* fields+=NamedPropertyField*
+		//'#' property=[aadl2::Property|QualifiedName] indexes+=PropertyArrayIndex* fields+=NamedPropertyField*
 		public Group getGroup() { return cGroup; }
 		
 		//'#'
 		public Keyword getNumberSignKeyword_0() { return cNumberSignKeyword_0; }
 		
-		//property=QualifiedName
+		//property=[aadl2::Property|QualifiedName]
 		public Assignment getPropertyAssignment_1() { return cPropertyAssignment_1; }
 		
+		//[aadl2::Property|QualifiedName]
+		public CrossReference getPropertyPropertyCrossReference_1_0() { return cPropertyPropertyCrossReference_1_0; }
+
 		//QualifiedName
-		public RuleCall getPropertyQualifiedNameParserRuleCall_1_0() { return cPropertyQualifiedNameParserRuleCall_1_0; }
+		public RuleCall getPropertyPropertyQualifiedNameParserRuleCall_1_0_1() { return cPropertyPropertyQualifiedNameParserRuleCall_1_0_1; }
 		
 		//indexes+=PropertyArrayIndex*
 		public Assignment getIndexesAssignment_2() { return cIndexesAssignment_2; }
@@ -2823,33 +2830,71 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.NamedPropertyField");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cFullStopKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
+		private final Assignment cNameAssignment_1_0 = (Assignment)cAlternatives_1.eContents().get(0);
+		private final CrossReference cNameEObjectCrossReference_1_0_0 = (CrossReference)cNameAssignment_1_0.eContents().get(0);
+		private final RuleCall cNameEObjectIDTerminalRuleCall_1_0_0_1 = (RuleCall)cNameEObjectCrossReference_1_0_0.eContents().get(1);
+		private final Assignment cSelectorAssignment_1_1 = (Assignment)cAlternatives_1.eContents().get(1);
+		private final RuleCall cSelectorRangeSelectorParserRuleCall_1_1_0 = (RuleCall)cSelectorAssignment_1_1.eContents().get(0);
 		private final Assignment cIndexesAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cIndexesPropertyArrayIndexParserRuleCall_2_0 = (RuleCall)cIndexesAssignment_2.eContents().get(0);
 		
+		//// Record fields and declared enumeration literals have declaration targets. Data_Model enumerators can refer to
+		//// their declaring string literals, so EObject is the common target type. Range bounds are built-in selectors.
 		//NamedPropertyField:
-		//    '.' name=ID indexes+=PropertyArrayIndex*
+		//    '.' (name=[ecore::EObject|ID] | selector=RangeSelector) indexes+=PropertyArrayIndex*
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'.' name=ID indexes+=PropertyArrayIndex*
+		//'.' (name=[ecore::EObject|ID] | selector=RangeSelector) indexes+=PropertyArrayIndex*
 		public Group getGroup() { return cGroup; }
 		
 		//'.'
 		public Keyword getFullStopKeyword_0() { return cFullStopKeyword_0; }
 		
-		//name=ID
-		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+		//(name=[ecore::EObject|ID] | selector=RangeSelector)
+		public Alternatives getAlternatives_1() { return cAlternatives_1; }
+
+		//name=[ecore::EObject|ID]
+		public Assignment getNameAssignment_1_0() { return cNameAssignment_1_0; }
+
+		//[ecore::EObject|ID]
+		public CrossReference getNameEObjectCrossReference_1_0_0() { return cNameEObjectCrossReference_1_0_0; }
 		
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
+		public RuleCall getNameEObjectIDTerminalRuleCall_1_0_0_1() { return cNameEObjectIDTerminalRuleCall_1_0_0_1; }
+
+		//selector=RangeSelector
+		public Assignment getSelectorAssignment_1_1() { return cSelectorAssignment_1_1; }
+
+		//RangeSelector
+		public RuleCall getSelectorRangeSelectorParserRuleCall_1_1_0() { return cSelectorRangeSelectorParserRuleCall_1_1_0; }
 		
 		//indexes+=PropertyArrayIndex*
 		public Assignment getIndexesAssignment_2() { return cIndexesAssignment_2; }
 		
 		//PropertyArrayIndex
 		public RuleCall getIndexesPropertyArrayIndexParserRuleCall_2_0() { return cIndexesPropertyArrayIndexParserRuleCall_2_0; }
+	}
+	public class RangeSelectorElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.RangeSelector");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Keyword cUpper_boundKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
+		private final Keyword cLower_boundKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
+
+		//RangeSelector returns ecore::EString:
+		//    'upper_bound' | 'lower_bound'
+		//;
+		@Override public ParserRule getRule() { return rule; }
+
+		//'upper_bound' | 'lower_bound'
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//'upper_bound'
+		public Keyword getUpper_boundKeyword_0() { return cUpper_boundKeyword_0; }
+
+		//'lower_bound'
+		public Keyword getLower_boundKeyword_1() { return cLower_boundKeyword_1; }
 	}
 	public class PropertyArrayIndexElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.PropertyArrayIndex");
@@ -2912,24 +2957,28 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cNumberSignKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cPropertyAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cPropertyQualifiedNameParserRuleCall_1_0 = (RuleCall)cPropertyAssignment_1.eContents().get(0);
+		private final CrossReference cPropertyNamedElementCrossReference_1_0 = (CrossReference)cPropertyAssignment_1.eContents().get(0);
+		private final RuleCall cPropertyNamedElementQualifiedNameParserRuleCall_1_0_1 = (RuleCall)cPropertyNamedElementCrossReference_1_0.eContents().get(1);
 		
 		//PropertyIndexPropertyReference:
-		//    '#' property=QualifiedName
+		//    '#' property=[aadl2::NamedElement|QualifiedName]
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'#' property=QualifiedName
+		//'#' property=[aadl2::NamedElement|QualifiedName]
 		public Group getGroup() { return cGroup; }
 		
 		//'#'
 		public Keyword getNumberSignKeyword_0() { return cNumberSignKeyword_0; }
 		
-		//property=QualifiedName
+		//property=[aadl2::NamedElement|QualifiedName]
 		public Assignment getPropertyAssignment_1() { return cPropertyAssignment_1; }
 		
+		//[aadl2::NamedElement|QualifiedName]
+		public CrossReference getPropertyNamedElementCrossReference_1_0() { return cPropertyNamedElementCrossReference_1_0; }
+
 		//QualifiedName
-		public RuleCall getPropertyQualifiedNameParserRuleCall_1_0() { return cPropertyQualifiedNameParserRuleCall_1_0; }
+		public RuleCall getPropertyNamedElementQualifiedNameParserRuleCall_1_0_1() { return cPropertyNamedElementQualifiedNameParserRuleCall_1_0_1; }
 	}
 	public class UnindexedReferenceExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.UnindexedReferenceExpression");
@@ -3062,18 +3111,22 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 	public class UnindexedReferenceSegmentElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.UnindexedReferenceSegment");
 		private final Assignment cNameAssignment = (Assignment)rule.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_0 = (RuleCall)cNameAssignment.eContents().get(0);
+		private final CrossReference cNameEObjectCrossReference_0 = (CrossReference)cNameAssignment.eContents().get(0);
+		private final RuleCall cNameEObjectQualifiedNameParserRuleCall_0_1 = (RuleCall)cNameEObjectCrossReference_0.eContents().get(1);
 		
 		//UnindexedReferenceSegment:
-		//    name=ID
+		//    name=[ecore::EObject|QualifiedName]
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//name=ID
+		//name=[ecore::EObject|QualifiedName]
 		public Assignment getNameAssignment() { return cNameAssignment; }
 		
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_0() { return cNameIDTerminalRuleCall_0; }
+		//[ecore::EObject|QualifiedName]
+		public CrossReference getNameEObjectCrossReference_0() { return cNameEObjectCrossReference_0; }
+
+		//QualifiedName
+		public RuleCall getNameEObjectQualifiedNameParserRuleCall_0_1() { return cNameEObjectQualifiedNameParserRuleCall_0_1; }
 	}
 	public class QualifiedNameElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.QualifiedName");
@@ -3163,45 +3216,43 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 	}
 	public class ReferenceSeparatorElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.ReferenceSeparator");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Keyword cColonColonKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
-		private final Keyword cFullStopKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
+		private final Keyword cFullStopKeyword = (Keyword)rule.eContents().get(1);
 		
 		//ReferenceSeparator returns ecore::EString:
-		//    '::' | '.'
+		//    '.'
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'::' | '.'
-		public Alternatives getAlternatives() { return cAlternatives; }
-		
-		//'::'
-		public Keyword getColonColonKeyword_0() { return cColonColonKeyword_0; }
-		
 		//'.'
-		public Keyword getFullStopKeyword_1() { return cFullStopKeyword_1; }
+		public Keyword getFullStopKeyword() { return cFullStopKeyword; }
 	}
 	public class ReferenceSegmentElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.ba.BehaviorAnnex.ReferenceSegment");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
+		private final CrossReference cNameEObjectCrossReference_0_0 = (CrossReference)cNameAssignment_0.eContents().get(0);
+		private final RuleCall cNameEObjectQualifiedNameParserRuleCall_0_0_1 = (RuleCall)cNameEObjectCrossReference_0_0.eContents().get(1);
 		private final Assignment cIndexesAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cIndexesArrayIndexParserRuleCall_1_0 = (RuleCall)cIndexesAssignment_1.eContents().get(0);
 		
+		//// Keep package qualification within one reference and scope dotted member paths separately. EObject includes local
+		//// BA variables and iterator declarations as well as AADL declarations and Data_Model element-name literals.
 		//ReferenceSegment:
-		//    name=ID indexes+=ArrayIndex*
+		//    name=[ecore::EObject|QualifiedName] indexes+=ArrayIndex*
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//name=ID indexes+=ArrayIndex*
+		//name=[ecore::EObject|QualifiedName] indexes+=ArrayIndex*
 		public Group getGroup() { return cGroup; }
 		
-		//name=ID
+		//name=[ecore::EObject|QualifiedName]
 		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
 		
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
+		//[ecore::EObject|QualifiedName]
+		public CrossReference getNameEObjectCrossReference_0_0() { return cNameEObjectCrossReference_0_0; }
+
+		//QualifiedName
+		public RuleCall getNameEObjectQualifiedNameParserRuleCall_0_0_1() { return cNameEObjectQualifiedNameParserRuleCall_0_0_1; }
 		
 		//indexes+=ArrayIndex*
 		public Assignment getIndexesAssignment_1() { return cIndexesAssignment_1; }
@@ -3297,6 +3348,7 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 	private final HashPropertyReferenceElements pHashPropertyReference;
 	private final PropertyReferenceTailElements pPropertyReferenceTail;
 	private final NamedPropertyFieldElements pNamedPropertyField;
+	private final RangeSelectorElements pRangeSelector;
 	private final PropertyArrayIndexElements pPropertyArrayIndex;
 	private final PropertyIndexValueElements pPropertyIndexValue;
 	private final PropertyIndexPropertyReferenceElements pPropertyIndexPropertyReference;
@@ -3378,6 +3430,7 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 		this.pHashPropertyReference = new HashPropertyReferenceElements();
 		this.pPropertyReferenceTail = new PropertyReferenceTailElements();
 		this.pNamedPropertyField = new NamedPropertyFieldElements();
+		this.pRangeSelector = new RangeSelectorElements();
 		this.pPropertyArrayIndex = new PropertyArrayIndexElements();
 		this.pPropertyIndexValue = new PropertyIndexValueElements();
 		this.pPropertyIndexPropertyReference = new PropertyIndexPropertyReferenceElements();
@@ -3643,8 +3696,7 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 		return getModeSwitchTriggerAccess().getRule();
 	}
 	
-	//// The listed names are internal event or event data features of the containing component. Like every other name in
-	//// the annex they stay symbolic here; the translator resolves them against the owner.
+	//// The listed names refer to internal event or event data features of the containing component.
 	//InternalCondition:
 	//    'internal' internalPorts+=Reference ('or' internalPorts+=Reference)*
 	//;
@@ -4117,7 +4169,7 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 	}
 	
 	//HashPropertyReference:
-	//    '#' property=QualifiedName indexes+=PropertyArrayIndex* fields+=NamedPropertyField*
+	//    '#' property=[aadl2::NamedElement|QualifiedName] indexes+=PropertyArrayIndex* fields+=NamedPropertyField*
 	//;
 	public HashPropertyReferenceElements getHashPropertyReferenceAccess() {
 		return pHashPropertyReference;
@@ -4128,7 +4180,7 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 	}
 	
 	//PropertyReferenceTail:
-	//    '#' property=QualifiedName indexes+=PropertyArrayIndex* fields+=NamedPropertyField*
+	//    '#' property=[aadl2::Property|QualifiedName] indexes+=PropertyArrayIndex* fields+=NamedPropertyField*
 	//;
 	public PropertyReferenceTailElements getPropertyReferenceTailAccess() {
 		return pPropertyReferenceTail;
@@ -4138,8 +4190,10 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 		return getPropertyReferenceTailAccess().getRule();
 	}
 	
+	//// Record fields and declared enumeration literals have declaration targets. Data_Model enumerators can refer to
+	//// their declaring string literals, so EObject is the common target type. Range bounds are built-in selectors.
 	//NamedPropertyField:
-	//    '.' name=ID indexes+=PropertyArrayIndex*
+	//    '.' (name=[ecore::EObject|ID] | selector=RangeSelector) indexes+=PropertyArrayIndex*
 	//;
 	public NamedPropertyFieldElements getNamedPropertyFieldAccess() {
 		return pNamedPropertyField;
@@ -4149,6 +4203,17 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 		return getNamedPropertyFieldAccess().getRule();
 	}
 	
+	//RangeSelector returns ecore::EString:
+	//    'upper_bound' | 'lower_bound'
+	//;
+	public RangeSelectorElements getRangeSelectorAccess() {
+		return pRangeSelector;
+	}
+
+	public ParserRule getRangeSelectorRule() {
+		return getRangeSelectorAccess().getRule();
+	}
+
 	//PropertyArrayIndex:
 	//    '[' value=PropertyIndexValue ']'
 	//;
@@ -4174,7 +4239,7 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 	}
 	
 	//PropertyIndexPropertyReference:
-	//    '#' property=QualifiedName
+	//    '#' property=[aadl2::NamedElement|QualifiedName]
 	//;
 	public PropertyIndexPropertyReferenceElements getPropertyIndexPropertyReferenceAccess() {
 		return pPropertyIndexPropertyReference;
@@ -4220,7 +4285,7 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 	}
 	
 	//UnindexedReferenceSegment:
-	//    name=ID
+	//    name=[ecore::EObject|QualifiedName]
 	//;
 	public UnindexedReferenceSegmentElements getUnindexedReferenceSegmentAccess() {
 		return pUnindexedReferenceSegment;
@@ -4265,7 +4330,7 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 	}
 	
 	//ReferenceSeparator returns ecore::EString:
-	//    '::' | '.'
+	//    '.'
 	//;
 	public ReferenceSeparatorElements getReferenceSeparatorAccess() {
 		return pReferenceSeparator;
@@ -4275,8 +4340,10 @@ public class BehaviorAnnexGrammarAccess extends AbstractElementFinder.AbstractGr
 		return getReferenceSeparatorAccess().getRule();
 	}
 	
+	//// Keep package qualification within one reference and scope dotted member paths separately. EObject includes local
+	//// BA variables and iterator declarations as well as AADL declarations and Data_Model element-name literals.
 	//ReferenceSegment:
-	//    name=ID indexes+=ArrayIndex*
+	//    name=[ecore::EObject|QualifiedName] indexes+=ArrayIndex*
 	//;
 	public ReferenceSegmentElements getReferenceSegmentAccess() {
 		return pReferenceSegment;

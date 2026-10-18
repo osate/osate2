@@ -1,3 +1,4 @@
+error | linking | 41 | 24 | 5 | Couldn't resolve reference to EObject 'value'.
 error | semantic | 34 | 12 | 5 | Behavior Annex identifier 'VALUE' conflicts with an enclosing feature identifier
 error | semantic | 34 | 12 | 5 | Duplicate Behavior Annex identifier 'VALUE'
 error | semantic | 34 | 5 | 5 | Behavior Annex identifier 'value' conflicts with an enclosing feature identifier

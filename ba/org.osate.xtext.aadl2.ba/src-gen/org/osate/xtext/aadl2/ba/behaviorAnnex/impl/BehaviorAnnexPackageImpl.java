@@ -2076,9 +2076,9 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
    * @generated
    */
   @Override
-  public EAttribute getHashPropertyReference_Property()
+  public EReference getHashPropertyReference_Property()
   {
-    return (EAttribute)hashPropertyReferenceEClass.getEStructuralFeatures().get(0);
+    return (EReference)hashPropertyReferenceEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -2120,9 +2120,9 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
    * @generated
    */
   @Override
-  public EAttribute getPropertyReferenceTail_Property()
+  public EReference getPropertyReferenceTail_Property()
   {
-    return (EAttribute)propertyReferenceTailEClass.getEStructuralFeatures().get(0);
+    return (EReference)propertyReferenceTailEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -2164,9 +2164,20 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
    * @generated
    */
   @Override
-  public EAttribute getNamedPropertyField_Name()
+  public EReference getNamedPropertyField_Name()
   {
-    return (EAttribute)namedPropertyFieldEClass.getEStructuralFeatures().get(0);
+    return (EReference)namedPropertyFieldEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EAttribute getNamedPropertyField_Selector()
+  {
+    return (EAttribute)namedPropertyFieldEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -2177,7 +2188,7 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
   @Override
   public EReference getNamedPropertyField_Indexes()
   {
-    return (EReference)namedPropertyFieldEClass.getEStructuralFeatures().get(1);
+    return (EReference)namedPropertyFieldEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -2230,9 +2241,9 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
    * @generated
    */
   @Override
-  public EAttribute getPropertyIndexPropertyReference_Property()
+  public EReference getPropertyIndexPropertyReference_Property()
   {
-    return (EAttribute)propertyIndexPropertyReferenceEClass.getEStructuralFeatures().get(0);
+    return (EReference)propertyIndexPropertyReferenceEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -2384,9 +2395,9 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
    * @generated
    */
   @Override
-  public EAttribute getUnindexedReferenceSegment_Name()
+  public EReference getUnindexedReferenceSegment_Name()
   {
-    return (EAttribute)unindexedReferenceSegmentEClass.getEStructuralFeatures().get(0);
+    return (EReference)unindexedReferenceSegmentEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -2472,9 +2483,9 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
    * @generated
    */
   @Override
-  public EAttribute getReferenceSegment_Name()
+  public EReference getReferenceSegment_Name()
   {
-    return (EAttribute)referenceSegmentEClass.getEStructuralFeatures().get(0);
+    return (EReference)referenceSegmentEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -2838,17 +2849,18 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
     createEAttribute(referenceExpressionEClass, REFERENCE_EXPRESSION__UPDATED);
 
     hashPropertyReferenceEClass = createEClass(HASH_PROPERTY_REFERENCE);
-    createEAttribute(hashPropertyReferenceEClass, HASH_PROPERTY_REFERENCE__PROPERTY);
+    createEReference(hashPropertyReferenceEClass, HASH_PROPERTY_REFERENCE__PROPERTY);
     createEReference(hashPropertyReferenceEClass, HASH_PROPERTY_REFERENCE__INDEXES);
     createEReference(hashPropertyReferenceEClass, HASH_PROPERTY_REFERENCE__FIELDS);
 
     propertyReferenceTailEClass = createEClass(PROPERTY_REFERENCE_TAIL);
-    createEAttribute(propertyReferenceTailEClass, PROPERTY_REFERENCE_TAIL__PROPERTY);
+    createEReference(propertyReferenceTailEClass, PROPERTY_REFERENCE_TAIL__PROPERTY);
     createEReference(propertyReferenceTailEClass, PROPERTY_REFERENCE_TAIL__INDEXES);
     createEReference(propertyReferenceTailEClass, PROPERTY_REFERENCE_TAIL__FIELDS);
 
     namedPropertyFieldEClass = createEClass(NAMED_PROPERTY_FIELD);
-    createEAttribute(namedPropertyFieldEClass, NAMED_PROPERTY_FIELD__NAME);
+    createEReference(namedPropertyFieldEClass, NAMED_PROPERTY_FIELD__NAME);
+    createEAttribute(namedPropertyFieldEClass, NAMED_PROPERTY_FIELD__SELECTOR);
     createEReference(namedPropertyFieldEClass, NAMED_PROPERTY_FIELD__INDEXES);
 
     propertyArrayIndexEClass = createEClass(PROPERTY_ARRAY_INDEX);
@@ -2857,7 +2869,7 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
     propertyIndexValueEClass = createEClass(PROPERTY_INDEX_VALUE);
 
     propertyIndexPropertyReferenceEClass = createEClass(PROPERTY_INDEX_PROPERTY_REFERENCE);
-    createEAttribute(propertyIndexPropertyReferenceEClass, PROPERTY_INDEX_PROPERTY_REFERENCE__PROPERTY);
+    createEReference(propertyIndexPropertyReferenceEClass, PROPERTY_INDEX_PROPERTY_REFERENCE__PROPERTY);
 
     unindexedReferenceExpressionEClass = createEClass(UNINDEXED_REFERENCE_EXPRESSION);
     createEReference(unindexedReferenceExpressionEClass, UNINDEXED_REFERENCE_EXPRESSION__REFERENCE);
@@ -2875,7 +2887,7 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
     createEReference(unindexedReferenceTailEClass, UNINDEXED_REFERENCE_TAIL__SEGMENT);
 
     unindexedReferenceSegmentEClass = createEClass(UNINDEXED_REFERENCE_SEGMENT);
-    createEAttribute(unindexedReferenceSegmentEClass, UNINDEXED_REFERENCE_SEGMENT__NAME);
+    createEReference(unindexedReferenceSegmentEClass, UNINDEXED_REFERENCE_SEGMENT__NAME);
 
     referenceEClass = createEClass(REFERENCE);
     createEReference(referenceEClass, REFERENCE__SEGMENTS);
@@ -2886,7 +2898,7 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
     createEReference(referenceTailEClass, REFERENCE_TAIL__SEGMENT);
 
     referenceSegmentEClass = createEClass(REFERENCE_SEGMENT);
-    createEAttribute(referenceSegmentEClass, REFERENCE_SEGMENT__NAME);
+    createEReference(referenceSegmentEClass, REFERENCE_SEGMENT__NAME);
     createEReference(referenceSegmentEClass, REFERENCE_SEGMENT__INDEXES);
 
     arrayIndexEClass = createEClass(ARRAY_INDEX);
@@ -3147,17 +3159,18 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
     initEAttribute(getReferenceExpression_Updated(), theEcorePackage.getEBoolean(), "updated", null, 0, 1, ReferenceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(hashPropertyReferenceEClass, HashPropertyReference.class, "HashPropertyReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getHashPropertyReference_Property(), theEcorePackage.getEString(), "property", null, 0, 1, HashPropertyReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getHashPropertyReference_Property(), theAadl2Package.getNamedElement(), null, "property", null, 0, 1, HashPropertyReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getHashPropertyReference_Indexes(), this.getPropertyArrayIndex(), null, "indexes", null, 0, -1, HashPropertyReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getHashPropertyReference_Fields(), this.getNamedPropertyField(), null, "fields", null, 0, -1, HashPropertyReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(propertyReferenceTailEClass, PropertyReferenceTail.class, "PropertyReferenceTail", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getPropertyReferenceTail_Property(), theEcorePackage.getEString(), "property", null, 0, 1, PropertyReferenceTail.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPropertyReferenceTail_Property(), theAadl2Package.getProperty(), null, "property", null, 0, 1, PropertyReferenceTail.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getPropertyReferenceTail_Indexes(), this.getPropertyArrayIndex(), null, "indexes", null, 0, -1, PropertyReferenceTail.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getPropertyReferenceTail_Fields(), this.getNamedPropertyField(), null, "fields", null, 0, -1, PropertyReferenceTail.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(namedPropertyFieldEClass, NamedPropertyField.class, "NamedPropertyField", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getNamedPropertyField_Name(), theEcorePackage.getEString(), "name", null, 0, 1, NamedPropertyField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getNamedPropertyField_Name(), theEcorePackage.getEObject(), null, "name", null, 0, 1, NamedPropertyField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getNamedPropertyField_Selector(), theEcorePackage.getEString(), "selector", null, 0, 1, NamedPropertyField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getNamedPropertyField_Indexes(), this.getPropertyArrayIndex(), null, "indexes", null, 0, -1, NamedPropertyField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(propertyArrayIndexEClass, PropertyArrayIndex.class, "PropertyArrayIndex", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3166,7 +3179,7 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
     initEClass(propertyIndexValueEClass, PropertyIndexValue.class, "PropertyIndexValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(propertyIndexPropertyReferenceEClass, PropertyIndexPropertyReference.class, "PropertyIndexPropertyReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getPropertyIndexPropertyReference_Property(), theEcorePackage.getEString(), "property", null, 0, 1, PropertyIndexPropertyReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPropertyIndexPropertyReference_Property(), theAadl2Package.getNamedElement(), null, "property", null, 0, 1, PropertyIndexPropertyReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(unindexedReferenceExpressionEClass, UnindexedReferenceExpression.class, "UnindexedReferenceExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getUnindexedReferenceExpression_Reference(), this.getUnindexedReference(), null, "reference", null, 0, 1, UnindexedReferenceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3184,7 +3197,7 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
     initEReference(getUnindexedReferenceTail_Segment(), this.getUnindexedReferenceSegment(), null, "segment", null, 0, 1, UnindexedReferenceTail.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(unindexedReferenceSegmentEClass, UnindexedReferenceSegment.class, "UnindexedReferenceSegment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getUnindexedReferenceSegment_Name(), theEcorePackage.getEString(), "name", null, 0, 1, UnindexedReferenceSegment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUnindexedReferenceSegment_Name(), theEcorePackage.getEObject(), null, "name", null, 0, 1, UnindexedReferenceSegment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(referenceEClass, Reference.class, "Reference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getReference_Segments(), this.getReferenceSegment(), null, "segments", null, 0, -1, Reference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3195,7 +3208,7 @@ public class BehaviorAnnexPackageImpl extends EPackageImpl implements BehaviorAn
     initEReference(getReferenceTail_Segment(), this.getReferenceSegment(), null, "segment", null, 0, 1, ReferenceTail.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(referenceSegmentEClass, ReferenceSegment.class, "ReferenceSegment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getReferenceSegment_Name(), theEcorePackage.getEString(), "name", null, 0, 1, ReferenceSegment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getReferenceSegment_Name(), theEcorePackage.getEObject(), null, "name", null, 0, 1, ReferenceSegment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getReferenceSegment_Indexes(), this.getArrayIndex(), null, "indexes", null, 0, -1, ReferenceSegment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(arrayIndexEClass, ArrayIndex.class, "ArrayIndex", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

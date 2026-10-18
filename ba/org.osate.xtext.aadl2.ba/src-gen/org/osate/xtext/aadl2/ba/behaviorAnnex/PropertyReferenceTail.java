@@ -27,6 +27,8 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.osate.aadl2.Property;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Property Reference Tail</b></em>'.
@@ -48,26 +50,26 @@ import org.eclipse.emf.ecore.EObject;
 public interface PropertyReferenceTail extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Property</b></em>' attribute.
+   * Returns the value of the '<em><b>Property</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Property</em>' attribute.
-   * @see #setProperty(String)
+   * @return the value of the '<em>Property</em>' reference.
+   * @see #setProperty(Property)
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage#getPropertyReferenceTail_Property()
    * @model
    * @generated
    */
-  String getProperty();
+  Property getProperty();
 
   /**
-   * Sets the value of the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyReferenceTail#getProperty <em>Property</em>}' attribute.
+   * Sets the value of the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyReferenceTail#getProperty <em>Property</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Property</em>' attribute.
+   * @param value the new value of the '<em>Property</em>' reference.
    * @see #getProperty()
    * @generated
    */
-  void setProperty(String value);
+  void setProperty(Property value);
 
   /**
    * Returns the value of the '<em><b>Indexes</b></em>' containment reference list.
