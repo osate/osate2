@@ -23,28 +23,22 @@
  */
 package org.osate.xtext.aadl2.ba.services;
 
-import java.util.function.Consumer;
-
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.ComponentClassifier;
-import org.osate.annexsupport.AnnexReferencePosition;
 import org.osate.annexsupport.AnnexTextPositionResolver;
 import org.osate.annexsupport.TextPositionInfo;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceSegment;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReferenceSegment;
-import org.osate.xtext.aadl2.ba.translation.DeclarativeToStrictTranslator;
+import org.osate.xtext.aadl2.ba.scoping.BehaviorAnnexReferences;
 
 /**
- * Resolves the symbolic BA reference segments that intentionally remain attributes in the Xtext model. Ordinary Xtext
- * cross-references fall through to the generic nested-annex offset support.
+ * Preserves the annex offset service for reference segments using their linked declarations. Other cross-references
+ * fall through to the generic nested-annex offset support; neither path constructs a strict annex.
  */
 public final class BehaviorAnnexTextPositionResolver implements AnnexTextPositionResolver {
-	private final DeclarativeToStrictTranslator translator = new DeclarativeToStrictTranslator();
 
 	@Override
 	public TextPositionInfo resolveElementAt(final EObject annexRoot, final int offset) {
@@ -54,32 +48,6 @@ public final class BehaviorAnnexTextPositionResolver implements AnnexTextPositio
 	@Override
 	public TextPositionInfo resolveCrossReferencedElementAt(final EObject annexRoot, final int offset) {
 		return resolveSymbolicReference(annexRoot, offset);
-	}
-
-	@Override
-	public void collectReferencePositions(final EObject annexRoot, final Consumer<TextPositionInfo> acceptor,
-			final IProgressMonitor monitor) {
-		if (monitor.isCanceled()) {
-			throw new OperationCanceledException();
-		}
-		if (annexRoot instanceof BehaviorAnnex annex
-				&& annex.getContainingClassifier() instanceof ComponentClassifier owner) {
-			var translation = translator.translate(annex, owner);
-			var contents = annex.eAllContents();
-			while (contents.hasNext()) {
-				if (monitor.isCanceled()) {
-					throw new OperationCanceledException();
-				}
-				var segment = contents.next();
-				if (segment instanceof ReferenceSegment || segment instanceof UnindexedReferenceSegment) {
-					var target = translation.getResolvedReference(segment);
-					var node = getNameNode(segment);
-					if (target != null && !target.eIsProxy() && node != null) {
-						acceptor.accept(new AnnexReferencePosition(segment, target, node.getOffset(), node.getLength()));
-					}
-				}
-			}
-		}
 	}
 
 	private TextPositionInfo resolveSymbolicReference(final EObject annexRoot, final int offset) {
@@ -95,7 +63,7 @@ public final class BehaviorAnnexTextPositionResolver implements AnnexTextPositio
 		if (nameNode == null || offset < nameNode.getOffset() || offset >= nameNode.getEndOffset()) {
 			return new TextPositionInfo(null, offset, 0);
 		}
-		var target = translator.translate(annex, owner).getResolvedReference(segment);
+		var target = BehaviorAnnexReferences.target(segment);
 		return new TextPositionInfo(target, nameNode.getOffset(), nameNode.getLength());
 	}
 

@@ -28,9 +28,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
@@ -41,8 +41,6 @@ import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.IntegerLiteral;
-import org.osate.annexsupport.AnnexRegistry;
-import org.osate.annexsupport.AnnexUnparserRegistry;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.ba.aadlba.AssignmentAction;
 import org.osate.ba.aadlba.BehaviorActionSequence;
@@ -59,6 +57,7 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorIntegerLiteral;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BinaryExpression;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceExpression;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.UnaryExpression;
+import org.osate.xtext.aadl2.ba.scoping.BehaviorAnnexReferences;
 import org.osate.xtext.aadl2.ba.util.BehaviorAnnexUtil;
 
 import com.google.inject.Inject;
@@ -130,28 +129,23 @@ public class Issue3177Test {
 	@Test
 	public void groupingSurvivesTheUnparserRoundTrip() throws Exception {
 		var root = parse();
-		var copy = EcoreUtil.copy(annex(root).getParsedAnnexSubclause());
-
-		final String serialized;
-		root.eResource().getContents().add(copy);
-		try {
-			serialized = ((AnnexUnparserRegistry) AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_UNPARSER_EXT_ID))
-					.getAnnexUnparser("behavior_specification")
-					.unparseAnnexSubclause(copy, "");
-		} finally {
-			root.eResource().getContents().remove(copy);
-		}
+		var serialized = BehaviorAnnexTestUtil.serializeCopy(annex(root).getParsedAnnexSubclause());
 		var normalized = serialized.replaceAll("\\s+", " ").replace("( ", "(").replace(" )", ")");
 		assertTrue(serialized, normalized.contains("left and (middle or right)"));
 		assertTrue(serialized, normalized.contains("(total ** 2) ** 3"));
 
 		var source = NodeModelUtils.getNode(root).getText();
+		// parseString unloads the previous test resource, so capture values before its references become proxies.
+		var expectedDeclarative = IntStream.range(0, 5)
+				.mapToObj(index -> declarativeExpression(root, index)).toList();
+		var expectedStrict = IntStream.range(0, 5)
+				.mapToObj(index -> strictExpression(root, index)).toList();
 		var reparsed = testHelper.parseString(source.substring(0, source.indexOf("{**") + 3) + serialized
 				+ source.substring(source.indexOf("**}")));
 		validationHelper.assertNoIssues(reparsed);
 		for (var index = 0; index < 5; index++) {
-			assertEquals(declarativeExpression(root, index), declarativeExpression(reparsed, index));
-			assertEquals(strictExpression(root, index), strictExpression(reparsed, index));
+			assertEquals(expectedDeclarative.get(index), declarativeExpression(reparsed, index));
+			assertEquals(expectedStrict.get(index), strictExpression(reparsed, index));
 		}
 	}
 
@@ -229,7 +223,8 @@ public class Issue3177Test {
 			return literal.getValue();
 		}
 		if (expression instanceof ReferenceExpression reference) {
-			return reference.getReference().getSegments().getFirst().getName();
+			return BehaviorAnnexReferences.name(
+					reference.getReference().getSegments().getFirst().getName());
 		}
 		return expression.eClass().getName();
 	}

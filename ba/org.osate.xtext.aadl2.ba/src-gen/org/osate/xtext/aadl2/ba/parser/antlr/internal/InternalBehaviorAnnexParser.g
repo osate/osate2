@@ -4280,18 +4280,15 @@ ruleHashPropertyReference returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getHashPropertyReferenceAccess().getPropertyQualifiedNameParserRuleCall_1_0());
-				}
-				lv_property_1_0=ruleQualifiedName
-				{
 					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getHashPropertyReferenceRule());
+						$current = createModelElement(grammarAccess.getHashPropertyReferenceRule());
 					}
-					set(
-						$current,
-						"property",
-						lv_property_1_0,
-						"org.osate.xtext.aadl2.ba.BehaviorAnnex.QualifiedName");
+				}
+				{
+					newCompositeNode(grammarAccess.getHashPropertyReferenceAccess().getPropertyNamedElementCrossReference_1_0());
+				}
+				ruleQualifiedName
+				{
 					afterParserOrEnumRuleCall();
 				}
 			)
@@ -4360,18 +4357,15 @@ rulePropertyReferenceTail returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getPropertyReferenceTailAccess().getPropertyQualifiedNameParserRuleCall_1_0());
-				}
-				lv_property_1_0=ruleQualifiedName
-				{
 					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getPropertyReferenceTailRule());
+						$current = createModelElement(grammarAccess.getPropertyReferenceTailRule());
 					}
-					set(
-						$current,
-						"property",
-						lv_property_1_0,
-						"org.osate.xtext.aadl2.ba.BehaviorAnnex.QualifiedName");
+				}
+				{
+					newCompositeNode(grammarAccess.getPropertyReferenceTailAccess().getPropertyPropertyCrossReference_1_0());
+				}
+				ruleQualifiedName
+				{
 					afterParserOrEnumRuleCall();
 				}
 			)
@@ -4439,20 +4433,37 @@ ruleNamedPropertyField returns [EObject current=null]
 		}
 		(
 			(
-				lv_name_1_0=RULE_ID
-				{
-					newLeafNode(lv_name_1_0, grammarAccess.getNamedPropertyFieldAccess().getNameIDTerminalRuleCall_1_0());
-				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getNamedPropertyFieldRule());
+				(
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getNamedPropertyFieldRule());
+						}
 					}
-					setWithLastConsumed(
-						$current,
-						"name",
-						lv_name_1_0,
-						"org.osate.xtext.aadl2.properties.Properties.ID");
-				}
+					otherlv_1=RULE_ID
+					{
+						newLeafNode(otherlv_1, grammarAccess.getNamedPropertyFieldAccess().getNameEObjectCrossReference_1_0_0());
+					}
+				)
+			)
+			    |
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getNamedPropertyFieldAccess().getSelectorRangeSelectorParserRuleCall_1_1_0());
+					}
+					lv_selector_2_0=ruleRangeSelector
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getNamedPropertyFieldRule());
+						}
+						set(
+							$current,
+							"selector",
+							lv_selector_2_0,
+							"org.osate.xtext.aadl2.ba.BehaviorAnnex.RangeSelector");
+						afterParserOrEnumRuleCall();
+					}
+				)
 			)
 		)
 		(
@@ -4460,7 +4471,7 @@ ruleNamedPropertyField returns [EObject current=null]
 				{
 					newCompositeNode(grammarAccess.getNamedPropertyFieldAccess().getIndexesPropertyArrayIndexParserRuleCall_2_0());
 				}
-				lv_indexes_2_0=rulePropertyArrayIndex
+				lv_indexes_3_0=rulePropertyArrayIndex
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getNamedPropertyFieldRule());
@@ -4468,12 +4479,42 @@ ruleNamedPropertyField returns [EObject current=null]
 					add(
 						$current,
 						"indexes",
-						lv_indexes_2_0,
+						lv_indexes_3_0,
 						"org.osate.xtext.aadl2.ba.BehaviorAnnex.PropertyArrayIndex");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)*
+	)
+;
+
+// Entry rule entryRuleRangeSelector
+entryRuleRangeSelector returns [String current=null]:
+	{ newCompositeNode(grammarAccess.getRangeSelectorRule()); }
+	iv_ruleRangeSelector=ruleRangeSelector
+	{ $current=$iv_ruleRangeSelector.current.getText(); }
+	EOF;
+
+// Rule RangeSelector
+ruleRangeSelector returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		kw=Upper_bound
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getRangeSelectorAccess().getUpper_boundKeyword_0());
+		}
+		    |
+		kw=Lower_bound
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getRangeSelectorAccess().getLower_boundKeyword_1());
+		}
 	)
 ;
 
@@ -4591,18 +4632,15 @@ rulePropertyIndexPropertyReference returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getPropertyIndexPropertyReferenceAccess().getPropertyQualifiedNameParserRuleCall_1_0());
-				}
-				lv_property_1_0=ruleQualifiedName
-				{
 					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getPropertyIndexPropertyReferenceRule());
+						$current = createModelElement(grammarAccess.getPropertyIndexPropertyReferenceRule());
 					}
-					set(
-						$current,
-						"property",
-						lv_property_1_0,
-						"org.osate.xtext.aadl2.ba.BehaviorAnnex.QualifiedName");
+				}
+				{
+					newCompositeNode(grammarAccess.getPropertyIndexPropertyReferenceAccess().getPropertyNamedElementCrossReference_1_0());
+				}
+				ruleQualifiedName
+				{
 					afterParserOrEnumRuleCall();
 				}
 			)
@@ -4848,19 +4886,17 @@ ruleUnindexedReferenceSegment returns [EObject current=null]
 }:
 	(
 		(
-			lv_name_0_0=RULE_ID
-			{
-				newLeafNode(lv_name_0_0, grammarAccess.getUnindexedReferenceSegmentAccess().getNameIDTerminalRuleCall_0());
-			}
 			{
 				if ($current==null) {
 					$current = createModelElement(grammarAccess.getUnindexedReferenceSegmentRule());
 				}
-				setWithLastConsumed(
-					$current,
-					"name",
-					lv_name_0_0,
-					"org.osate.xtext.aadl2.properties.Properties.ID");
+			}
+			{
+				newCompositeNode(grammarAccess.getUnindexedReferenceSegmentAccess().getNameEObjectCrossReference_0());
+			}
+			ruleQualifiedName
+			{
+				afterParserOrEnumRuleCall();
 			}
 		)
 	)
@@ -5035,19 +5071,11 @@ ruleReferenceSeparator returns [AntlrDatatypeRuleToken current=new AntlrDatatype
 @after {
 	leaveRule();
 }:
-	(
-		kw=ColonColon
-		{
-			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getReferenceSeparatorAccess().getColonColonKeyword_0());
-		}
-		    |
-		kw=FullStop
-		{
-			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getReferenceSeparatorAccess().getFullStopKeyword_1());
-		}
-	)
+	kw=FullStop
+	{
+		$current.merge(kw);
+		newLeafNode(kw, grammarAccess.getReferenceSeparatorAccess().getFullStopKeyword());
+	}
 ;
 
 // Entry rule entryRuleReferenceSegment
@@ -5068,19 +5096,17 @@ ruleReferenceSegment returns [EObject current=null]
 	(
 		(
 			(
-				lv_name_0_0=RULE_ID
-				{
-					newLeafNode(lv_name_0_0, grammarAccess.getReferenceSegmentAccess().getNameIDTerminalRuleCall_0_0());
-				}
 				{
 					if ($current==null) {
 						$current = createModelElement(grammarAccess.getReferenceSegmentRule());
 					}
-					setWithLastConsumed(
-						$current,
-						"name",
-						lv_name_0_0,
-						"org.osate.xtext.aadl2.properties.Properties.ID");
+				}
+				{
+					newCompositeNode(grammarAccess.getReferenceSegmentAccess().getNameEObjectCrossReference_0_0());
+				}
+				ruleQualifiedName
+				{
+					afterParserOrEnumRuleCall();
 				}
 			)
 		)

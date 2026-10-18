@@ -31,6 +31,7 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -38,6 +39,8 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.osate.aadl2.Property;
 
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.NamedPropertyField;
@@ -62,24 +65,14 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyReferenceTail;
 public class PropertyReferenceTailImpl extends MinimalEObjectImpl.Container implements PropertyReferenceTail
 {
   /**
-   * The default value of the '{@link #getProperty() <em>Property</em>}' attribute.
+   * The cached value of the '{@link #getProperty() <em>Property</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getProperty()
    * @generated
    * @ordered
    */
-  protected static final String PROPERTY_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getProperty() <em>Property</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getProperty()
-   * @generated
-   * @ordered
-   */
-  protected String property = PROPERTY_EDEFAULT;
+  protected Property property;
 
   /**
    * The cached value of the '{@link #getIndexes() <em>Indexes</em>}' containment reference list.
@@ -128,7 +121,27 @@ public class PropertyReferenceTailImpl extends MinimalEObjectImpl.Container impl
    * @generated
    */
   @Override
-  public String getProperty()
+  public Property getProperty()
+  {
+    if (property != null && ((EObject)property).eIsProxy())
+    {
+      InternalEObject oldProperty = (InternalEObject)property;
+      property = (Property)eResolveProxy(oldProperty);
+      if (property != oldProperty)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, BehaviorAnnexPackage.PROPERTY_REFERENCE_TAIL__PROPERTY, oldProperty, property));
+      }
+    }
+    return property;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Property basicGetProperty()
   {
     return property;
   }
@@ -139,9 +152,9 @@ public class PropertyReferenceTailImpl extends MinimalEObjectImpl.Container impl
    * @generated
    */
   @Override
-  public void setProperty(String newProperty)
+  public void setProperty(Property newProperty)
   {
-    String oldProperty = property;
+    Property oldProperty = property;
     property = newProperty;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, BehaviorAnnexPackage.PROPERTY_REFERENCE_TAIL__PROPERTY, oldProperty, property));
@@ -206,7 +219,8 @@ public class PropertyReferenceTailImpl extends MinimalEObjectImpl.Container impl
     switch (featureID)
     {
       case BehaviorAnnexPackage.PROPERTY_REFERENCE_TAIL__PROPERTY:
-        return getProperty();
+        if (resolve) return getProperty();
+        return basicGetProperty();
       case BehaviorAnnexPackage.PROPERTY_REFERENCE_TAIL__INDEXES:
         return getIndexes();
       case BehaviorAnnexPackage.PROPERTY_REFERENCE_TAIL__FIELDS:
@@ -227,7 +241,7 @@ public class PropertyReferenceTailImpl extends MinimalEObjectImpl.Container impl
     switch (featureID)
     {
       case BehaviorAnnexPackage.PROPERTY_REFERENCE_TAIL__PROPERTY:
-        setProperty((String)newValue);
+        setProperty((Property)newValue);
         return;
       case BehaviorAnnexPackage.PROPERTY_REFERENCE_TAIL__INDEXES:
         getIndexes().clear();
@@ -252,7 +266,7 @@ public class PropertyReferenceTailImpl extends MinimalEObjectImpl.Container impl
     switch (featureID)
     {
       case BehaviorAnnexPackage.PROPERTY_REFERENCE_TAIL__PROPERTY:
-        setProperty(PROPERTY_EDEFAULT);
+        setProperty((Property)null);
         return;
       case BehaviorAnnexPackage.PROPERTY_REFERENCE_TAIL__INDEXES:
         getIndexes().clear();
@@ -275,30 +289,13 @@ public class PropertyReferenceTailImpl extends MinimalEObjectImpl.Container impl
     switch (featureID)
     {
       case BehaviorAnnexPackage.PROPERTY_REFERENCE_TAIL__PROPERTY:
-        return PROPERTY_EDEFAULT == null ? property != null : !PROPERTY_EDEFAULT.equals(property);
+        return property != null;
       case BehaviorAnnexPackage.PROPERTY_REFERENCE_TAIL__INDEXES:
         return indexes != null && !indexes.isEmpty();
       case BehaviorAnnexPackage.PROPERTY_REFERENCE_TAIL__FIELDS:
         return fields != null && !fields.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuilder result = new StringBuilder(super.toString());
-    result.append(" (property: ");
-    result.append(property);
-    result.append(')');
-    return result.toString();
   }
 
 } //PropertyReferenceTailImpl

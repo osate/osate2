@@ -32,7 +32,6 @@ import java.util.function.Function;
 
 import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
@@ -42,10 +41,10 @@ import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.NamedElement;
-import org.osate.annexsupport.AnnexRegistry;
-import org.osate.annexsupport.AnnexUnparserRegistry;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.testsupport.TestHelper;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
+import org.osate.xtext.aadl2.ba.scoping.BehaviorAnnexReferences;
 import org.osate.xtext.aadl2.ba.util.BehaviorAnnexUtil;
 
 import com.google.inject.Inject;
@@ -78,17 +77,7 @@ public class Issue3166Test {
 	public void groupedExternalConditionRoundTripsThroughTheUnparser() throws Exception {
 		var root = testHelper.parseFile(MODEL);
 		validationHelper.assertNoIssues(root);
-		var copy = EcoreUtil.copy(annex(root).getParsedAnnexSubclause());
-
-		final String serialized;
-		root.eResource().getContents().add(copy);
-		try {
-			serialized = ((AnnexUnparserRegistry) AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_UNPARSER_EXT_ID))
-					.getAnnexUnparser("behavior_specification")
-					.unparseAnnexSubclause(copy, "");
-		} finally {
-			root.eResource().getContents().remove(copy);
-		}
+		var serialized = BehaviorAnnexTestUtil.serializeCopy(annex(root).getParsedAnnexSubclause());
 		var normalized = serialized.replaceAll("\\s+", " ").replace("( ", "(").replace(" )", ")");
 		assertTrue(serialized, normalized.contains(
 				"on (first_event or second_event) and then third_event xor first_event or else second_event and third_event"));
@@ -106,7 +95,7 @@ public class Issue3166Test {
 	}
 
 	private static String declarativeExpression(final DefaultAnnexSubclause annex) {
-		var source = (org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex) annex.getParsedAnnexSubclause();
+		var source = (BehaviorAnnex) annex.getParsedAnnexSubclause();
 		return declarativeExpression(source.getTransitions().getFirst().getCondition().getModeSwitch());
 	}
 
@@ -147,7 +136,8 @@ public class Issue3166Test {
 	}
 
 	private static String referenceName(final EObject reference) {
-		return (String) value(objects(reference, "segments").getFirst(), "name");
+		return BehaviorAnnexReferences.name(
+				(EObject) value(objects(reference, "segments").getFirst(), "name"));
 	}
 
 	private static String join(final List<EObject> operands, final List<String> operators,

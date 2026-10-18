@@ -26,6 +26,8 @@ package org.osate.xtext.aadl2.ba.behaviorAnnex.impl;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
@@ -49,24 +51,14 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReferenceSegment;
 public class UnindexedReferenceSegmentImpl extends MinimalEObjectImpl.Container implements UnindexedReferenceSegment
 {
   /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * The cached value of the '{@link #getName() <em>Name</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getName()
    * @generated
    * @ordered
    */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
+  protected EObject name;
 
   /**
    * <!-- begin-user-doc -->
@@ -95,7 +87,27 @@ public class UnindexedReferenceSegmentImpl extends MinimalEObjectImpl.Container 
    * @generated
    */
   @Override
-  public String getName()
+  public EObject getName()
+  {
+    if (name != null && name.eIsProxy())
+    {
+      InternalEObject oldName = (InternalEObject)name;
+      name = eResolveProxy(oldName);
+      if (name != oldName)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, BehaviorAnnexPackage.UNINDEXED_REFERENCE_SEGMENT__NAME, oldName, name));
+      }
+    }
+    return name;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EObject basicGetName()
   {
     return name;
   }
@@ -106,9 +118,9 @@ public class UnindexedReferenceSegmentImpl extends MinimalEObjectImpl.Container 
    * @generated
    */
   @Override
-  public void setName(String newName)
+  public void setName(EObject newName)
   {
-    String oldName = name;
+    EObject oldName = name;
     name = newName;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, BehaviorAnnexPackage.UNINDEXED_REFERENCE_SEGMENT__NAME, oldName, name));
@@ -125,7 +137,8 @@ public class UnindexedReferenceSegmentImpl extends MinimalEObjectImpl.Container 
     switch (featureID)
     {
       case BehaviorAnnexPackage.UNINDEXED_REFERENCE_SEGMENT__NAME:
-        return getName();
+        if (resolve) return getName();
+        return basicGetName();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -141,7 +154,7 @@ public class UnindexedReferenceSegmentImpl extends MinimalEObjectImpl.Container 
     switch (featureID)
     {
       case BehaviorAnnexPackage.UNINDEXED_REFERENCE_SEGMENT__NAME:
-        setName((String)newValue);
+        setName((EObject)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -158,7 +171,7 @@ public class UnindexedReferenceSegmentImpl extends MinimalEObjectImpl.Container 
     switch (featureID)
     {
       case BehaviorAnnexPackage.UNINDEXED_REFERENCE_SEGMENT__NAME:
-        setName(NAME_EDEFAULT);
+        setName((EObject)null);
         return;
     }
     super.eUnset(featureID);
@@ -175,26 +188,9 @@ public class UnindexedReferenceSegmentImpl extends MinimalEObjectImpl.Container 
     switch (featureID)
     {
       case BehaviorAnnexPackage.UNINDEXED_REFERENCE_SEGMENT__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+        return name != null;
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuilder result = new StringBuilder(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(')');
-    return result.toString();
   }
 
 } //UnindexedReferenceSegmentImpl

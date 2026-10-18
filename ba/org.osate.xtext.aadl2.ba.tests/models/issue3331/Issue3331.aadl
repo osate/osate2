@@ -47,11 +47,13 @@ public
         ready -[on dispatch]-> ready {
           counter := storage.field;
           counter := #Issue3331_Properties::Values[#Issue3331_Properties::Index];
+          counter := #Issue3331_Properties::Values[counter];
           counter := input#Queue_Size;
           for (item: Base_Types::Integer in 1 .. 2) {
             counter := item
           };
           counter := self.input;
+          counter := self.storage.field;
           counter := #Issue3331_Properties::Record_Value.amount
         };
     **};

@@ -23,6 +23,7 @@
  */
 package org.osate.xtext.aadl2.ba.behaviorAnnex;
 
+import org.osate.aadl2.NamedElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -43,25 +44,25 @@ package org.osate.xtext.aadl2.ba.behaviorAnnex;
 public interface PropertyIndexPropertyReference extends PropertyIndexValue
 {
   /**
-   * Returns the value of the '<em><b>Property</b></em>' attribute.
+   * Returns the value of the '<em><b>Property</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Property</em>' attribute.
-   * @see #setProperty(String)
+   * @return the value of the '<em>Property</em>' reference.
+   * @see #setProperty(NamedElement)
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage#getPropertyIndexPropertyReference_Property()
    * @model
    * @generated
    */
-  String getProperty();
+  NamedElement getProperty();
 
   /**
-   * Sets the value of the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyIndexPropertyReference#getProperty <em>Property</em>}' attribute.
+   * Sets the value of the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyIndexPropertyReference#getProperty <em>Property</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Property</em>' attribute.
+   * @param value the new value of the '<em>Property</em>' reference.
    * @see #getProperty()
    * @generated
    */
-  void setProperty(String value);
+  void setProperty(NamedElement value);
 
 } // PropertyIndexPropertyReference
