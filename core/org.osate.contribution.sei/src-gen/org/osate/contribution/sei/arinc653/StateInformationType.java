@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -30,7 +30,6 @@ import java.util.OptionalLong;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.osate.aadl2.Aadl2Factory;
-import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
@@ -46,10 +45,10 @@ public class StateInformationType extends GeneratedRecord {
 	public static final String DESCRIPTION__NAME = "Description";
 	public static final URI IDENTIFIER__URI = URI.createURI("platform:/plugin/org.osate.contribution.sei/resources/properties/ARINC653.aadl#/0/@ownedPropertyType.6/@ownedField.0");
 	public static final URI DESCRIPTION__URI = URI.createURI("platform:/plugin/org.osate.contribution.sei/resources/properties/ARINC653.aadl#/0/@ownedPropertyType.6/@ownedField.1");
-	
+
 	private final OptionalLong identifier;
 	private final Optional<String> description;
-	
+
 	public StateInformationType(
 			OptionalLong identifier,
 			Optional<String> description
@@ -57,25 +56,25 @@ public class StateInformationType extends GeneratedRecord {
 		this.identifier = identifier;
 		this.description = description;
 	}
-	
+
 	public StateInformationType(PropertyExpression propertyExpression, NamedElement lookupContext, Optional<Mode> mode) {
-		RecordValue recordValue = (RecordValue) propertyExpression;
-		
+		var recordValue = (RecordValue) propertyExpression;
+
 		OptionalLong identifier_local;
 		try {
 			identifier_local = findFieldValue(recordValue, IDENTIFIER__NAME).map(field -> {
-				PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+				var resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 				return ((IntegerLiteral) resolved).getValue();
 			}).map(OptionalLong::of).orElse(OptionalLong.empty());
 		} catch (PropertyNotPresentException e) {
 			identifier_local = OptionalLong.empty();
 		}
 		this.identifier = identifier_local;
-		
+
 		Optional<String> description_local;
 		try {
 			description_local = findFieldValue(recordValue, DESCRIPTION__NAME).map(field -> {
-				PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+				var resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 				return ((StringLiteral) resolved).getValue();
 			});
 		} catch (PropertyNotPresentException e) {
@@ -83,25 +82,25 @@ public class StateInformationType extends GeneratedRecord {
 		}
 		this.description = description_local;
 	}
-	
+
 	public StateInformationType(PropertyExpression propertyExpression) {
-		RecordValue recordValue = (RecordValue) propertyExpression;
-		
+		var recordValue = (RecordValue) propertyExpression;
+
 		OptionalLong identifier_local;
 		try {
 			identifier_local = findFieldValue(recordValue, IDENTIFIER__NAME).map(field -> {
-				PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+				var resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
 				return ((IntegerLiteral) resolved).getValue();
 			}).map(OptionalLong::of).orElse(OptionalLong.empty());
 		} catch (PropertyNotPresentException e) {
 			identifier_local = OptionalLong.empty();
 		}
 		this.identifier = identifier_local;
-		
+
 		Optional<String> description_local;
 		try {
 			description_local = findFieldValue(recordValue, DESCRIPTION__NAME).map(field -> {
-				PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+				var resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
 				return ((StringLiteral) resolved).getValue();
 			});
 		} catch (PropertyNotPresentException e) {
@@ -109,36 +108,36 @@ public class StateInformationType extends GeneratedRecord {
 		}
 		this.description = description_local;
 	}
-	
+
 	public OptionalLong getIdentifier() {
 		return identifier;
 	}
-	
+
 	public Optional<String> getDescription() {
 		return description;
 	}
-	
+
 	@Override
 	public RecordValue toPropertyExpression(ResourceSet resourceSet) {
-		if (!identifier.isPresent()
-				&& !description.isPresent()
+		if (identifier.isEmpty()
+				&& description.isEmpty()
 		) {
 			throw new IllegalStateException("Record must have at least one field set.");
 		}
-		RecordValue recordValue = Aadl2Factory.eINSTANCE.createRecordValue();
+		var recordValue = Aadl2Factory.eINSTANCE.createRecordValue();
 		identifier.ifPresent(field -> {
-			BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
+			var fieldAssociation = recordValue.createOwnedFieldValue();
 			fieldAssociation.setProperty(loadField(resourceSet, IDENTIFIER__URI, IDENTIFIER__NAME));
 			fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field));
 		});
 		description.ifPresent(field -> {
-			BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
+			var fieldAssociation = recordValue.createOwnedFieldValue();
 			fieldAssociation.setProperty(loadField(resourceSet, DESCRIPTION__URI, DESCRIPTION__NAME));
 			fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field));
 		});
 		return recordValue;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(
@@ -146,23 +145,22 @@ public class StateInformationType extends GeneratedRecord {
 				description
 		);
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
 		}
-		if (!(obj instanceof StateInformationType)) {
+		if (!(obj instanceof StateInformationType other)) {
 			return false;
 		}
-		StateInformationType other = (StateInformationType) obj;
 		return Objects.equals(this.identifier, other.identifier)
 				&& Objects.equals(this.description, other.description);
 	}
-	
+
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
+		var builder = new StringBuilder();
 		builder.append('[');
 		this.identifier.ifPresent(field -> {
 			builder.append(IDENTIFIER__NAME);

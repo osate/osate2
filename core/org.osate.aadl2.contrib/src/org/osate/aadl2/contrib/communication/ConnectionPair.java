@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -31,7 +31,6 @@ import java.util.stream.Collectors;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.osate.aadl2.Aadl2Factory;
-import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.Mode;
@@ -47,10 +46,10 @@ public class ConnectionPair extends GeneratedRecord {
 	public static final String DST__NAME = "dst";
 	public static final URI SRC__URI = URI.createURI("platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Communication_Properties.aadl#/0/@ownedPropertyType.0/@ownedField.0");
 	public static final URI DST__URI = URI.createURI("platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Communication_Properties.aadl#/0/@ownedPropertyType.0/@ownedField.1");
-	
+
 	private final Optional<List<Long>> src;
 	private final Optional<List<Long>> dst;
-	
+
 	public ConnectionPair(
 			Optional<List<Long>> src,
 			Optional<List<Long>> dst
@@ -58,16 +57,16 @@ public class ConnectionPair extends GeneratedRecord {
 		this.src = src;
 		this.dst = dst;
 	}
-	
+
 	public ConnectionPair(PropertyExpression propertyExpression, NamedElement lookupContext, Optional<Mode> mode) {
-		RecordValue recordValue = (RecordValue) propertyExpression;
-		
+		var recordValue = (RecordValue) propertyExpression;
+
 		Optional<List<Long>> src_local;
 		try {
 			src_local = findFieldValue(recordValue, SRC__NAME).map(field -> {
-				PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+				var resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 				return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
-					PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
+					var resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 					return ((IntegerLiteral) resolved1).getValue();
 				}).collect(Collectors.toList());
 			});
@@ -75,13 +74,13 @@ public class ConnectionPair extends GeneratedRecord {
 			src_local = Optional.empty();
 		}
 		this.src = src_local;
-		
+
 		Optional<List<Long>> dst_local;
 		try {
 			dst_local = findFieldValue(recordValue, DST__NAME).map(field -> {
-				PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+				var resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 				return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
-					PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
+					var resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 					return ((IntegerLiteral) resolved1).getValue();
 				}).collect(Collectors.toList());
 			});
@@ -90,16 +89,16 @@ public class ConnectionPair extends GeneratedRecord {
 		}
 		this.dst = dst_local;
 	}
-	
+
 	public ConnectionPair(PropertyExpression propertyExpression) {
-		RecordValue recordValue = (RecordValue) propertyExpression;
-		
+		var recordValue = (RecordValue) propertyExpression;
+
 		Optional<List<Long>> src_local;
 		try {
 			src_local = findFieldValue(recordValue, SRC__NAME).map(field -> {
-				PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+				var resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
 				return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
-					PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+					var resolved1 = CodeGenUtil.resolveNamedValue(element1);
 					return ((IntegerLiteral) resolved1).getValue();
 				}).collect(Collectors.toList());
 			});
@@ -107,13 +106,13 @@ public class ConnectionPair extends GeneratedRecord {
 			src_local = Optional.empty();
 		}
 		this.src = src_local;
-		
+
 		Optional<List<Long>> dst_local;
 		try {
 			dst_local = findFieldValue(recordValue, DST__NAME).map(field -> {
-				PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+				var resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
 				return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
-					PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+					var resolved1 = CodeGenUtil.resolveNamedValue(element1);
 					return ((IntegerLiteral) resolved1).getValue();
 				}).collect(Collectors.toList());
 			});
@@ -122,40 +121,36 @@ public class ConnectionPair extends GeneratedRecord {
 		}
 		this.dst = dst_local;
 	}
-	
+
 	public Optional<List<Long>> getSrc() {
 		return src;
 	}
-	
+
 	public Optional<List<Long>> getDst() {
 		return dst;
 	}
-	
+
 	@Override
 	public RecordValue toPropertyExpression(ResourceSet resourceSet) {
-		if (!src.isPresent()
-				&& !dst.isPresent()
+		if (src.isEmpty()
+				&& dst.isEmpty()
 		) {
 			throw new IllegalStateException("Record must have at least one field set.");
 		}
-		RecordValue recordValue = Aadl2Factory.eINSTANCE.createRecordValue();
+		var recordValue = Aadl2Factory.eINSTANCE.createRecordValue();
 		src.ifPresent(field -> {
-			BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
+			var fieldAssociation = recordValue.createOwnedFieldValue();
 			fieldAssociation.setProperty(loadField(resourceSet, SRC__URI, SRC__NAME));
-			fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field, element1 -> {
-				return CodeGenUtil.toPropertyExpression(element1);
-			}));
+			fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field, element1 -> CodeGenUtil.toPropertyExpression(element1)));
 		});
 		dst.ifPresent(field -> {
-			BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
+			var fieldAssociation = recordValue.createOwnedFieldValue();
 			fieldAssociation.setProperty(loadField(resourceSet, DST__URI, DST__NAME));
-			fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field, element1 -> {
-				return CodeGenUtil.toPropertyExpression(element1);
-			}));
+			fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field, element1 -> CodeGenUtil.toPropertyExpression(element1)));
 		});
 		return recordValue;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(
@@ -163,23 +158,22 @@ public class ConnectionPair extends GeneratedRecord {
 				dst
 		);
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
 		}
-		if (!(obj instanceof ConnectionPair)) {
+		if (!(obj instanceof ConnectionPair other)) {
 			return false;
 		}
-		ConnectionPair other = (ConnectionPair) obj;
 		return Objects.equals(this.src, other.src)
 				&& Objects.equals(this.dst, other.dst);
 	}
-	
+
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
+		var builder = new StringBuilder();
 		builder.append('[');
 		this.src.ifPresent(field -> {
 			builder.append(SRC__NAME);

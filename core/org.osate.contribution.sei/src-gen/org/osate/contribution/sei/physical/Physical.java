@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -39,41 +39,41 @@ import org.osate.pluginsupport.properties.RealWithUnits;
 
 public final class Physical {
 	public static final String PHYSICAL__NAME = "Physical";
-	
+
 	private Physical() {}
-	
+
 	// Lookup methods for Physical::Voltage
-	
+
 	public static final String VOLTAGE__NAME = "Voltage";
-	
+
 	public static boolean acceptsVoltage(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getVoltage_Property(lookupContext));
 	}
-	
+
 	public static Optional<RealWithUnits<VoltageUnits>> getVoltage(NamedElement lookupContext) {
 		return getVoltage(lookupContext, Optional.empty());
 	}
-	
+
 	public static Optional<RealWithUnits<VoltageUnits>> getVoltage(NamedElement lookupContext, Mode mode) {
 		return getVoltage(lookupContext, Optional.of(mode));
 	}
-	
+
 	public static Optional<RealWithUnits<VoltageUnits>> getVoltage(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getVoltage_Property(lookupContext);
+		var property = getVoltage_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new RealWithUnits<>(resolved, VoltageUnits.class));
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
-	
+
 	public static Property getVoltage_Property(EObject lookupContext) {
-		String name = PHYSICAL__NAME + "::" + VOLTAGE__NAME;
+		var name = PHYSICAL__NAME + "::" + VOLTAGE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
-	
+
 	public static PropertyExpression getVoltage_EObject(NamedElement lookupContext) {
 		return lookupContext.getNonModalPropertyValue(getVoltage_Property(lookupContext));
 	}

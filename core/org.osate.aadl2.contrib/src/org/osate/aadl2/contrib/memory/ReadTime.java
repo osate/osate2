@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -29,7 +29,6 @@ import java.util.Optional;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.osate.aadl2.Aadl2Factory;
-import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PropertyExpression;
@@ -45,10 +44,10 @@ public class ReadTime extends GeneratedRecord {
 	public static final String PERBYTE__NAME = "PerByte";
 	public static final URI FIXED__URI = URI.createURI("platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#/0/@ownedProperty.6/@ownedPropertyType/@ownedField.0");
 	public static final URI PERBYTE__URI = URI.createURI("platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#/0/@ownedProperty.6/@ownedPropertyType/@ownedField.1");
-	
+
 	private final Optional<IntegerRangeWithUnits<TimeUnits>> fixed;
 	private final Optional<IntegerRangeWithUnits<TimeUnits>> perbyte;
-	
+
 	public ReadTime(
 			Optional<IntegerRangeWithUnits<TimeUnits>> fixed,
 			Optional<IntegerRangeWithUnits<TimeUnits>> perbyte
@@ -56,25 +55,25 @@ public class ReadTime extends GeneratedRecord {
 		this.fixed = fixed;
 		this.perbyte = perbyte;
 	}
-	
+
 	public ReadTime(PropertyExpression propertyExpression, NamedElement lookupContext, Optional<Mode> mode) {
-		RecordValue recordValue = (RecordValue) propertyExpression;
-		
+		var recordValue = (RecordValue) propertyExpression;
+
 		Optional<IntegerRangeWithUnits<TimeUnits>> fixed_local;
 		try {
 			fixed_local = findFieldValue(recordValue, FIXED__NAME).map(field -> {
-				PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+				var resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 				return new IntegerRangeWithUnits<>(resolved, TimeUnits.class, lookupContext, mode);
 			});
 		} catch (PropertyNotPresentException e) {
 			fixed_local = Optional.empty();
 		}
 		this.fixed = fixed_local;
-		
+
 		Optional<IntegerRangeWithUnits<TimeUnits>> perbyte_local;
 		try {
 			perbyte_local = findFieldValue(recordValue, PERBYTE__NAME).map(field -> {
-				PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+				var resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 				return new IntegerRangeWithUnits<>(resolved, TimeUnits.class, lookupContext, mode);
 			});
 		} catch (PropertyNotPresentException e) {
@@ -82,25 +81,25 @@ public class ReadTime extends GeneratedRecord {
 		}
 		this.perbyte = perbyte_local;
 	}
-	
+
 	public ReadTime(PropertyExpression propertyExpression) {
-		RecordValue recordValue = (RecordValue) propertyExpression;
-		
+		var recordValue = (RecordValue) propertyExpression;
+
 		Optional<IntegerRangeWithUnits<TimeUnits>> fixed_local;
 		try {
 			fixed_local = findFieldValue(recordValue, FIXED__NAME).map(field -> {
-				PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+				var resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
 				return new IntegerRangeWithUnits<>(resolved, TimeUnits.class);
 			});
 		} catch (PropertyNotPresentException e) {
 			fixed_local = Optional.empty();
 		}
 		this.fixed = fixed_local;
-		
+
 		Optional<IntegerRangeWithUnits<TimeUnits>> perbyte_local;
 		try {
 			perbyte_local = findFieldValue(recordValue, PERBYTE__NAME).map(field -> {
-				PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+				var resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
 				return new IntegerRangeWithUnits<>(resolved, TimeUnits.class);
 			});
 		} catch (PropertyNotPresentException e) {
@@ -108,36 +107,36 @@ public class ReadTime extends GeneratedRecord {
 		}
 		this.perbyte = perbyte_local;
 	}
-	
+
 	public Optional<IntegerRangeWithUnits<TimeUnits>> getFixed() {
 		return fixed;
 	}
-	
+
 	public Optional<IntegerRangeWithUnits<TimeUnits>> getPerbyte() {
 		return perbyte;
 	}
-	
+
 	@Override
 	public RecordValue toPropertyExpression(ResourceSet resourceSet) {
-		if (!fixed.isPresent()
-				&& !perbyte.isPresent()
+		if (fixed.isEmpty()
+				&& perbyte.isEmpty()
 		) {
 			throw new IllegalStateException("Record must have at least one field set.");
 		}
-		RecordValue recordValue = Aadl2Factory.eINSTANCE.createRecordValue();
+		var recordValue = Aadl2Factory.eINSTANCE.createRecordValue();
 		fixed.ifPresent(field -> {
-			BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
+			var fieldAssociation = recordValue.createOwnedFieldValue();
 			fieldAssociation.setProperty(loadField(resourceSet, FIXED__URI, FIXED__NAME));
 			fieldAssociation.setOwnedValue(field.toPropertyExpression(resourceSet));
 		});
 		perbyte.ifPresent(field -> {
-			BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
+			var fieldAssociation = recordValue.createOwnedFieldValue();
 			fieldAssociation.setProperty(loadField(resourceSet, PERBYTE__URI, PERBYTE__NAME));
 			fieldAssociation.setOwnedValue(field.toPropertyExpression(resourceSet));
 		});
 		return recordValue;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(
@@ -145,23 +144,22 @@ public class ReadTime extends GeneratedRecord {
 				perbyte
 		);
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
 		}
-		if (!(obj instanceof ReadTime)) {
+		if (!(obj instanceof ReadTime other)) {
 			return false;
 		}
-		ReadTime other = (ReadTime) obj;
 		return Objects.equals(this.fixed, other.fixed)
 				&& Objects.equals(this.perbyte, other.perbyte);
 	}
-	
+
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
+		var builder = new StringBuilder();
 		builder.append('[');
 		this.fixed.ifPresent(field -> {
 			builder.append(FIXED__NAME);
