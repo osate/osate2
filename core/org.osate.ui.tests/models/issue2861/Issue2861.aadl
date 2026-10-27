@@ -1,0 +1,5 @@
+package Issue2861
+public
+  system S
+  end S;
+end Issue2861;

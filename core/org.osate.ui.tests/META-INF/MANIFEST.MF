@@ -12,7 +12,11 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jface,
  org.eclipse.jface.text,
  org.eclipse.ui.workbench.texteditor,
- org.eclipse.swtbot.go;bundle-version="2.6.0"
+ org.eclipse.swtbot.go;bundle-version="2.6.0",
+ org.eclipse.emf.common,
+ org.osate.pluginsupport,
+ org.osate.ui,
+ org.osate.xtext.aadl2.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-21
 Automatic-Module-Name: org.osate.ui.tests
 Bundle-ActivationPolicy: lazy
