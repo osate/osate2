@@ -226,7 +226,7 @@ public final class PredeclaredProperties {
 
 	/**
 	 * Whether a contribution is required even when older workspace preferences disable it.
-	 * @since 7.3
+	 * @since 7.4
 	 */
 	public static boolean isRequiredContribution(final URI uri) {
 		return "AADL_Project.aadl".equalsIgnoreCase(uri.lastSegment());

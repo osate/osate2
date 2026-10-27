@@ -210,6 +210,7 @@ public class Aadl2Visitors {
 	 *
 	 * @param context the given package section
 	 * @return the helper associated with the given package section
+	 * @since 4.0
 	 */
 	public static PropertiesLookupHelper getPropertiesLookupHelper(PackageSection context) {
 		if (context.eResource() instanceof XtextResource resource) {

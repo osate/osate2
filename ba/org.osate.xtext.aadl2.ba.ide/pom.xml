@@ -10,6 +10,6 @@
     </parent>
     <groupId>org.osate</groupId>
     <artifactId>org.osate.xtext.aadl2.ba.ide</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>2.0.0-SNAPSHOT</version>
     <packaging>eclipse-plugin</packaging>
 </project>

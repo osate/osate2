@@ -87,7 +87,7 @@ import com.google.inject.Inject;
  * Name-based lookup utilities for clients outside Xtext cross-reference linking.
  * The injected scope provider supplies indexed candidates; reference linking itself uses Xtext scopes.
  *
- * @since 4.0.1
+ * @since 5.0
  */
 public class PropertiesLookupHelper {
 	private static final Logger LOG = Logger.getLogger(PropertiesLookupHelper.class);

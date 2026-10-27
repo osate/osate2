@@ -6,6 +6,7 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.osate.ui.tests.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.ide,
+ org.eclipse.ui.navigator;bundle-version="3.13.300",
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.eclipse.swt,

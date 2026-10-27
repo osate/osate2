@@ -30,6 +30,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.EObjectDescription;
@@ -124,15 +125,24 @@ public class BehaviorAnnexScopeProvider extends AbstractBehaviorAnnexScopeProvid
 				.toList());
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public IScope scope_HashPropertyReference_property(HashPropertyReference context, EReference reference) {
 		return propertyScope(context, reference, true);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public IScope scope_PropertyIndexPropertyReference_property(PropertyIndexPropertyReference context,
 			EReference reference) {
 		return propertyScope(context, reference, true);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public IScope scope_PropertyReferenceTail_property(PropertyReferenceTail context, EReference reference) {
 		var global = propertyScope(context, reference, false);
 		if (!(context.eContainer() instanceof ReferenceExpression expression)) {
@@ -189,6 +199,9 @@ public class BehaviorAnnexScopeProvider extends AbstractBehaviorAnnexScopeProvid
 		}
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	private IScope propertyScope(EObject context, EReference reference, boolean constants) {
 		return new FilteringScope(delegateGetScope(context, reference), description -> Aadl2Package.eINSTANCE
 				.getProperty().isSuperTypeOf(description.getEClass())
@@ -196,10 +209,16 @@ public class BehaviorAnnexScopeProvider extends AbstractBehaviorAnnexScopeProvid
 						|| Aadl2Package.eINSTANCE.getPropertyType().isSuperTypeOf(description.getEClass())));
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public IScope scope_ReferenceSegment_name(EObject context, EReference reference) {
 		return segmentScope(context, reference);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public IScope scope_UnindexedReferenceSegment_name(EObject context, EReference reference) {
 		return segmentScope(context, reference);
 	}
@@ -250,7 +269,7 @@ public class BehaviorAnnexScopeProvider extends AbstractBehaviorAnnexScopeProvid
 		var loops = new ArrayList<ForStatement>();
 		for (var current = context; current != null && current != annex; current = current.eContainer()) {
 			if (current instanceof ForStatement loop && loop.getActions() != null
-					&& EcoreUtil2.isAncestor(loop.getActions(), context)) {
+					&& EcoreUtil.isAncestor(loop.getActions(), context)) {
 				loops.add(loop);
 			}
 		}
@@ -263,6 +282,9 @@ public class BehaviorAnnexScopeProvider extends AbstractBehaviorAnnexScopeProvid
 				: new SimpleScope(result, List.of(EObjectDescription.create("self", owner)), true);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	private IScope memberScope(EObject context, EReference reference, EObject segment) {
 		var target = BehaviorAnnexReferences.target(segment);
 		var classifier = BehaviorAnnexReferences.segmentClassifier(segment);
@@ -302,6 +324,9 @@ public class BehaviorAnnexScopeProvider extends AbstractBehaviorAnnexScopeProvid
 		return new SimpleScope(result, aliases, true);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public IScope scope_NamedPropertyField_name(EObject context, EReference reference) {
 		var container = context instanceof NamedPropertyField ? context.eContainer() : context;
 		List<NamedPropertyField> fields;

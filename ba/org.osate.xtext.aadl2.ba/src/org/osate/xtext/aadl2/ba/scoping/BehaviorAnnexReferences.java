@@ -56,7 +56,8 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReference;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReferenceSegment;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReferenceTail;
 
-/** Declarative reference and type operations shared by scoping and strict-model construction. */
+/** Declarative reference and type operations shared by scoping and strict-model construction.
+ * @since 2.0*/
 public final class BehaviorAnnexReferences {
 	private BehaviorAnnexReferences() {
 	}

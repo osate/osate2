@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.xtext.aadl2.ba.ui" version="2">
-    <resource path="">
-        <filter comment="emf generated" id="1462763580"/>
+    <resource path="src-gen/org/osate/xtext/aadl2/ba/ui/contentassist/AbstractBehaviorAnnexProposalProvider.java" type="org.osate.xtext.aadl2.ba.ui.contentassist.AbstractBehaviorAnnexProposalProvider">
+        <filter comment="generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="completeNamedPropertyField_Selector(EObject, Assignment, ContentAssistContext, ICompletionProposalAcceptor)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="complete_RangeSelector(EObject, RuleCall, ContentAssistContext, ICompletionProposalAcceptor)"/>
+            </message_arguments>
+        </filter>
     </resource>
     <resource path="src/org/osate/xtext/aadl2/ba/ui/quickfix/BehaviorAnnexQuickfixProvider.java" type="org.osate.xtext.aadl2.ba.ui.quickfix.BehaviorAnnexQuickfixProvider">
         <filter comment="emf generated" id="576720909">

@@ -1,13 +1,1074 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.xtext.aadl2.ba.ide" version="2">
-    <resource path="">
-        <filter comment="emf generated" id="1462763580"/>
-    </resource>
     <resource path="src-gen/org/osate/xtext/aadl2/ba/ide/AbstractBehaviorAnnexIdeModule.java" type="org.osate.xtext.aadl2.ba.ide.AbstractBehaviorAnnexIdeModule">
         <filter comment="emf generated" id="576720909">
             <message_arguments>
                 <message_argument value="DefaultIdeModule"/>
                 <message_argument value="AbstractBehaviorAnnexIdeModule"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/ba/ide/contentassist/antlr/internal/InternalBehaviorAnnexParser.java" type="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser">
+        <filter comment="xtext generated" id="336658481">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Lower_bound"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="336658481">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Upper_bound"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="336658481">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="dfa34"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="dfa33"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="rule__NamedPropertyField__NameAssignment_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="rule__ReferenceSeparator__Alternatives()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Abs"/>
+                <message_argument value="39"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Ampersand"/>
+                <message_argument value="68"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="And"/>
+                <message_argument value="40"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Any"/>
+                <message_argument value="41"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Apostrophe"/>
+                <message_argument value="69"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Applies"/>
+                <message_argument value="14"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Asterisk"/>
+                <message_argument value="72"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="AsteriskAsterisk"/>
+                <message_argument value="51"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Binding"/>
+                <message_argument value="15"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Classifier"/>
+                <message_argument value="6"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Colon"/>
+                <message_argument value="78"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="ColonColon"/>
+                <message_argument value="54"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="ColonEqualsSign"/>
+                <message_argument value="55"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Comma"/>
+                <message_argument value="74"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Complete"/>
+                <message_argument value="10"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Compute"/>
+                <message_argument value="16"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Constant"/>
+                <message_argument value="11"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Count"/>
+                <message_argument value="23"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Delta"/>
+                <message_argument value="24"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Dispatch"/>
+                <message_argument value="12"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Do"/>
+                <message_argument value="60"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Else"/>
+                <message_argument value="33"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Elsif"/>
+                <message_argument value="25"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="End"/>
+                <message_argument value="42"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="EqualsSign"/>
+                <message_argument value="81"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="EqualsSignGreaterThanSign"/>
+                <message_argument value="57"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="ExclamationMark"/>
+                <message_argument value="66"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="ExclamationMarkEqualsSign"/>
+                <message_argument value="49"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="ExclamationMarkGreaterThanSign"/>
+                <message_argument value="50"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="ExclamationMarkLessThanSign"/>
+                <message_argument value="48"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="False"/>
+                <message_argument value="26"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Final"/>
+                <message_argument value="27"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="For"/>
+                <message_argument value="43"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Forall"/>
+                <message_argument value="20"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Fresh"/>
+                <message_argument value="28"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Frozen"/>
+                <message_argument value="21"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="FullStop"/>
+                <message_argument value="76"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="FullStopFullStop"/>
+                <message_argument value="53"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="GreaterThanSign"/>
+                <message_argument value="82"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="GreaterThanSignEqualsSign"/>
+                <message_argument value="58"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="GreaterThanSignGreaterThanSign"/>
+                <message_argument value="59"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="HyphenMinus"/>
+                <message_argument value="75"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="HyphenMinusLeftSquareBracket"/>
+                <message_argument value="52"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="If"/>
+                <message_argument value="61"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="In"/>
+                <message_argument value="62"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Initial"/>
+                <message_argument value="17"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Internal"/>
+                <message_argument value="13"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="LeftCurlyBracket"/>
+                <message_argument value="86"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="LeftParenthesis"/>
+                <message_argument value="70"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="LeftSquareBracket"/>
+                <message_argument value="84"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="LessThanSign"/>
+                <message_argument value="80"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="LessThanSignEqualsSign"/>
+                <message_argument value="56"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Mod"/>
+                <message_argument value="44"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Modes"/>
+                <message_argument value="29"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Not"/>
+                <message_argument value="45"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="NumberSign"/>
+                <message_argument value="67"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="On"/>
+                <message_argument value="63"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Or"/>
+                <message_argument value="64"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Otherwise"/>
+                <message_argument value="7"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="PlusSign"/>
+                <message_argument value="73"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="PlusSignEqualsSignGreaterThanSign"/>
+                <message_argument value="37"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="QuestionMark"/>
+                <message_argument value="83"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="RULE_BASED_INTEGER"/>
+                <message_argument value="93"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="RULE_DIGIT"/>
+                <message_argument value="89"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="RULE_EXPONENT"/>
+                <message_argument value="90"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="RULE_EXTENDED_DIGIT"/>
+                <message_argument value="95"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="RULE_ID"/>
+                <message_argument value="97"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="RULE_INTEGER_LIT"/>
+                <message_argument value="94"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="RULE_INT_EXPONENT"/>
+                <message_argument value="91"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="RULE_REAL_LIT"/>
+                <message_argument value="92"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="RULE_SL_COMMENT"/>
+                <message_argument value="88"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="RULE_STRING"/>
+                <message_argument value="96"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="RULE_WS"/>
+                <message_argument value="98"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Reference"/>
+                <message_argument value="8"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Rem"/>
+                <message_argument value="46"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="RightCurlyBracket"/>
+                <message_argument value="87"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="RightParenthesis"/>
+                <message_argument value="71"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="RightSquareBracket"/>
+                <message_argument value="85"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="RightSquareBracketHyphenMinusGreaterThanSign"/>
+                <message_argument value="38"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Semicolon"/>
+                <message_argument value="79"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Solidus"/>
+                <message_argument value="77"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="State"/>
+                <message_argument value="30"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="States"/>
+                <message_argument value="22"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Stop"/>
+                <message_argument value="34"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Then"/>
+                <message_argument value="35"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Timeout"/>
+                <message_argument value="18"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="To"/>
+                <message_argument value="65"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Transitions"/>
+                <message_argument value="5"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="True"/>
+                <message_argument value="36"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Until"/>
+                <message_argument value="31"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Updated"/>
+                <message_argument value="19"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Variables"/>
+                <message_argument value="9"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="While"/>
+                <message_argument value="32"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.internal.InternalBehaviorAnnexParser"/>
+                <message_argument value="Xor"/>
+                <message_argument value="47"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="Lower_bound"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="Upper_bound"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="dfa34"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="entryRuleRangeSelector()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="ruleRangeSelector()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="rule__NamedPropertyField__Alternatives_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="rule__NamedPropertyField__NameAssignment_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="rule__NamedPropertyField__SelectorAssignment_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="rule__RangeSelector__Alternatives()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/ba/ide/contentassist/antlr/lexer/InternalBehaviorAnnexLexer.java" type="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer">
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="Abs"/>
+                <message_argument value="39"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="Apostrophe"/>
+                <message_argument value="69"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="Classifier"/>
+                <message_argument value="6"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="ColonColon"/>
+                <message_argument value="54"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="Comma"/>
+                <message_argument value="74"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="Complete"/>
+                <message_argument value="10"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="Count"/>
+                <message_argument value="23"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="Dispatch"/>
+                <message_argument value="12"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="Elsif"/>
+                <message_argument value="25"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="EqualsSignGreaterThanSign"/>
+                <message_argument value="57"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="ExclamationMark"/>
+                <message_argument value="66"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="ExclamationMarkGreaterThanSign"/>
+                <message_argument value="50"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="ExclamationMarkLessThanSign"/>
+                <message_argument value="48"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="False"/>
+                <message_argument value="26"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="Final"/>
+                <message_argument value="27"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="Fresh"/>
+                <message_argument value="28"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="Frozen"/>
+                <message_argument value="21"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="FullStop"/>
+                <message_argument value="76"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="GreaterThanSign"/>
+                <message_argument value="82"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="GreaterThanSignEqualsSign"/>
+                <message_argument value="58"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="HyphenMinus"/>
+                <message_argument value="75"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="If"/>
+                <message_argument value="61"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="In"/>
+                <message_argument value="62"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="Internal"/>
+                <message_argument value="13"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="LeftParenthesis"/>
+                <message_argument value="70"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="LeftSquareBracket"/>
+                <message_argument value="84"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="LessThanSign"/>
+                <message_argument value="80"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="LessThanSignEqualsSign"/>
+                <message_argument value="56"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="Modes"/>
+                <message_argument value="29"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="Or"/>
+                <message_argument value="64"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="Otherwise"/>
+                <message_argument value="7"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="PlusSign"/>
+                <message_argument value="73"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="PlusSignEqualsSignGreaterThanSign"/>
+                <message_argument value="37"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="RULE_DIGIT"/>
+                <message_argument value="89"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="RULE_ID"/>
+                <message_argument value="97"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="RULE_REAL_LIT"/>
+                <message_argument value="92"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="RightCurlyBracket"/>
+                <message_argument value="87"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="Solidus"/>
+                <message_argument value="77"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="States"/>
+                <message_argument value="22"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="Stop"/>
+                <message_argument value="34"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="Then"/>
+                <message_argument value="35"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="Transitions"/>
+                <message_argument value="5"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.ba.ide.contentassist.antlr.lexer.InternalBehaviorAnnexLexer"/>
+                <message_argument value="Xor"/>
+                <message_argument value="47"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="Lower_bound"/>
+            </message_arguments>
+        </filter>
+        <filter comment="generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="Upper_bound"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="mLower_bound()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="mUpper_bound()"/>
             </message_arguments>
         </filter>
     </resource>
