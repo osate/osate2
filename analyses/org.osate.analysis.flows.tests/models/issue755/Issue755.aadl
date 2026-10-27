@@ -1,0 +1,31 @@
+package Issue755
+public
+  abstract Producer
+    features
+      output: out feature;
+    flows
+      source1: flow source output;
+  end Producer;
+
+  abstract Consumer
+    features
+      input: in feature;
+    flows
+      sink1: flow sink input;
+  end Consumer;
+
+  system Top
+  end Top;
+
+  system implementation Top.i
+    subcomponents
+      producer: abstract Producer;
+      consumer: abstract Consumer;
+    connections
+      c: feature producer.output -> consumer.input {
+        Communication_Properties::Latency => 5 ms .. 5 ms;
+      };
+    flows
+      f: end to end flow producer.source1 -> c -> consumer.sink1;
+  end Top.i;
+end Issue755;
