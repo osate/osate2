@@ -23,6 +23,7 @@
  */
 package org.osate.aadl2.modelsupport.modeltraversal;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -31,7 +32,8 @@ import org.osate.aadl2.instance.SystemOperationMode;
 
 /**
  *
- * This iterator allows a user to iterate through different mode combinations of a modal system
+ * Iterates through the mode combinations of a system. For a non-modal system with no SOMs,
+ * yields {@code null} once so analyses still visit its single operating state.
  * @author phf
  */
 public class SOMIterator implements Iterator<SystemOperationMode> {
@@ -43,7 +45,8 @@ public class SOMIterator implements Iterator<SystemOperationMode> {
 
 	/**
 	 * The iterator we are wrapping up.  This comes from
-	 * <code>root.getSystemOperationModes().iterator()</code>.
+	 * <code>root.getSystemOperationModes().iterator()</code>, or contains a single
+	 * {@code null} for a non-modal system.
 	 */
 	private final Iterator<SystemOperationMode> modesIterator;
 
@@ -59,7 +62,9 @@ public class SOMIterator implements Iterator<SystemOperationMode> {
 	 */
 	public SOMIterator(final SystemInstance si) {
 		root = si;
-		modesIterator = root.getSystemOperationModes().iterator();
+		modesIterator = root.getSystemOperationModes().isEmpty()
+				? Collections.<SystemOperationMode>singletonList(null).iterator()
+				: root.getSystemOperationModes().iterator();
 		currentSOM = null;
 	}
 
@@ -75,7 +80,7 @@ public class SOMIterator implements Iterator<SystemOperationMode> {
 	/**
 	 * Get the next system operation mode and update the modal adapters
 	 * to refer to it.
-	 * @return The next system operation mode
+	 * @return The next system operation mode, or {@code null} for a non-modal system
 	 */
 	@Override
 	public SystemOperationMode next() {
@@ -95,7 +100,7 @@ public class SOMIterator implements Iterator<SystemOperationMode> {
 	/**
 	 * Get the next system operation mode and update the modal adapters
 	 * to refer to it.
-	 * @return The next system operation mode
+	 * @return The next system operation mode, or {@code null} for a non-modal system
 	 */
 	public SystemOperationMode nextSOM() {
 		return next();

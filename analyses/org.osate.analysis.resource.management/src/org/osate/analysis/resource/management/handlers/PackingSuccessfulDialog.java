@@ -46,6 +46,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.aadl2.util.Aadl2Util;
 
 import EAnalysis.BinPacking.HardwareNode;
 import EAnalysis.BinPacking.Link;
@@ -64,7 +65,7 @@ public class PackingSuccessfulDialog extends MessageDialog {
 
 	private static final String TITLE = "Thread Binding Results";
 	private static final String MODE_PREFIX = "In system operation mode ";
-	private static final String MESSAGE = ", all threads successfully bound to processors.";
+	private static final String MESSAGE = "All threads successfully bound to processors.";
 	private static final String OVERLOADMESSAGE = ", processor overload: add more processors or consider processor speed ";
 	private static final String OKAY_LABEL = "Okay (Do nothing)";
 	private static final String INSTANCE_LABEL = "Set &Instance Properties";
@@ -82,7 +83,7 @@ public class PackingSuccessfulDialog extends MessageDialog {
 //				0 );
 		// XXX: Don't use the declarative label any more?
 		super(parentShell, TITLE, null,
-				MODE_PREFIX + som.getName()
+				(Aadl2Util.isNoModes(som) ? "" : MODE_PREFIX + som.getName() + ": ")
 						+ (MESSAGE + (availableCycles(hwGraph)
 								? "\nAlso check that your processors are connected through a Bus" : "")),
 				INFORMATION, new String[] { OKAY_LABEL, INSTANCE_LABEL }, 0);

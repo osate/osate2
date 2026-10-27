@@ -549,7 +549,8 @@ public class InstanceUtil {
 	public static final String NORMAL_SOM_NAME = "No Modes";
 
 	public static boolean isNoMode(SystemOperationMode som) {
-		return som.getName().equalsIgnoreCase(NORMAL_SOM_NAME) || som.getName().equalsIgnoreCase("NoModes");
+		return som == null || NORMAL_SOM_NAME.equalsIgnoreCase(som.getName())
+				|| "NoModes".equalsIgnoreCase(som.getName());
 	}
 
 	/**

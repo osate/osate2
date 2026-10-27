@@ -284,6 +284,9 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 
 	public void setCurrentSystemOperationMode(SystemOperationMode som) {
 		clearCurrentSystemOperationMode();
+		if (som == null) {
+			return;
+		}
 		for (final Iterator<ModeInstance> i = som.getCurrentModes().iterator(); i.hasNext();) {
 			final ModeInstance mi = i.next();
 			final ComponentInstance ci = (ComponentInstance) mi.eContainer();
@@ -422,6 +425,9 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	private SystemOperationMode initialMode = null;
 
 	public final SystemOperationMode getInitialSystemOperationMode() {
+		if (getSystemOperationModes().isEmpty()) {
+			return null;
+		}
 		if (initialMode == null) {
 			final List<SystemOperationMode> soms = getSystemOperationModes();
 			for (SystemOperationMode som : soms) {
