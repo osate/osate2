@@ -27,59 +27,29 @@ import java.util.List;
 import java.util.TreeSet;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.EcoreUtil2;
-import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.NamedElement;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.ForStatement;
+import org.osate.aadl2.Aadl2Package;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage;
+import org.osate.xtext.aadl2.ba.scoping.BehaviorAnnexScopeProvider;
 
-/**
- * Computes case-insensitive first-segment proposals for the symbolic BA {@code Reference} rules. The same service is
- * used by Eclipse and generic IDE/LSP completion so both environments expose the same model-aware candidates.
- */
+import com.google.inject.Inject;
+
+/** Compatibility access to local root proposals; editor completion uses these scopes directly. */
 public final class BehaviorAnnexReferenceProposalService {
+	@Inject
+	private BehaviorAnnexScopeProvider scopes;
+
 	public List<String> getRootProposals(final EObject context) {
 		var names = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
 		names.add("self");
-
-		var annex = context instanceof BehaviorAnnex behaviorAnnex ? behaviorAnnex
-				: EcoreUtil2.getContainerOfType(context, BehaviorAnnex.class);
-		if (annex == null) {
-			return List.copyOf(names);
-		}
-
-		annex.getVariableGroups()
-				.stream()
-				.flatMap(group -> group.getVariables().stream())
-				.map(variable -> variable.getName())
-				.forEach(names::add);
-
-		for (var current = context; current != null && current != annex; current = current.eContainer()) {
-			if (current instanceof ForStatement statement && statement.getVariable() != null) {
-				names.add(statement.getVariable());
-			}
-		}
-
-		if (annex.getContainingClassifier() instanceof ComponentClassifier owner) {
-			addNames(names, owner.getAllFeatures());
-			addNames(names, owner.getAllModes());
-			addNames(names, owner.getAllPrototypes());
-			if (owner instanceof ComponentImplementation implementation) {
-				addNames(names, implementation.getAllSubcomponents());
-				// An internal feature is not a feature, so it needs its own contribution. The D.3 internal_condition
-				// and the D.6 target and communication_action productions all name one.
-				addNames(names, implementation.getAllInternalFeatures());
+		if (context != null) {
+			for (var description : scopes.getScope(context, BehaviorAnnexPackage.Literals.REFERENCE_SEGMENT__NAME)
+					.getAllElements()) {
+				if (description.getName().getSegmentCount() == 1
+						&& !Aadl2Package.eINSTANCE.getClassifier().isSuperTypeOf(description.getEClass())) {
+					names.add(description.getName().getFirstSegment());
+				}
 			}
 		}
 		return List.copyOf(names);
-	}
-
-	private static void addNames(final TreeSet<String> names, final Iterable<? extends NamedElement> elements) {
-		for (var element : elements) {
-			if (element.getName() != null) {
-				names.add(element.getName());
-			}
-		}
 	}
 }

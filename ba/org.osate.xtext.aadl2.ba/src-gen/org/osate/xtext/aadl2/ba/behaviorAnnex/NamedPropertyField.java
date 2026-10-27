@@ -37,6 +37,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.NamedPropertyField#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.NamedPropertyField#getSelector <em>Selector</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.NamedPropertyField#getIndexes <em>Indexes</em>}</li>
  * </ul>
  *
@@ -47,26 +48,48 @@ import org.eclipse.emf.ecore.EObject;
 public interface NamedPropertyField extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute.
+   * Returns the value of the '<em><b>Name</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
+   * @return the value of the '<em>Name</em>' reference.
+   * @see #setName(EObject)
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage#getNamedPropertyField_Name()
    * @model
    * @generated
    */
-  String getName();
+  EObject getName();
 
   /**
-   * Sets the value of the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.NamedPropertyField#getName <em>Name</em>}' attribute.
+   * Sets the value of the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.NamedPropertyField#getName <em>Name</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' attribute.
+   * @param value the new value of the '<em>Name</em>' reference.
    * @see #getName()
    * @generated
    */
-  void setName(String value);
+  void setName(EObject value);
+
+  /**
+   * Returns the value of the '<em><b>Selector</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Selector</em>' attribute.
+   * @see #setSelector(String)
+   * @see org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage#getNamedPropertyField_Selector()
+   * @model
+   * @generated
+   */
+  String getSelector();
+
+  /**
+   * Sets the value of the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.NamedPropertyField#getSelector <em>Selector</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Selector</em>' attribute.
+   * @see #getSelector()
+   * @generated
+   */
+  void setSelector(String value);
 
   /**
    * Returns the value of the '<em><b>Indexes</b></em>' containment reference list.

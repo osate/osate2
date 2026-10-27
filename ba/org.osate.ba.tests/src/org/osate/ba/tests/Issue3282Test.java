@@ -31,6 +31,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.diagnostics.Diagnostic;
 import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.testing.InjectWith;
@@ -133,7 +134,10 @@ public class Issue3282Test extends XtextTest {
 	private void assertDiagnostics(String model, List<Expected> expected) throws Exception {
 		var root = testHelper.parseFile(PATH + model + ".aadl");
 		var source = NodeModelUtils.getNode(root).getRootNode().getText();
-		var issues = validationHelper.validate(root).stream().sorted(Comparator.comparing(Issue::getOffset)).toList();
+		var issues = validationHelper.validate(root).stream()
+				// These regressions check semantic legality; #3331 separately checks native linking diagnostics.
+				.filter(issue -> !Diagnostic.LINKING_DIAGNOSTIC.equals(issue.getCode()))
+				.sorted(Comparator.comparing(Issue::getOffset)).toList();
 		assertEquals(issues.toString(), expected.size(), issues.size());
 		assertEquals(expected, issues.stream().map(issue -> {
 			assertEquals(Severity.ERROR, issue.getSeverity());

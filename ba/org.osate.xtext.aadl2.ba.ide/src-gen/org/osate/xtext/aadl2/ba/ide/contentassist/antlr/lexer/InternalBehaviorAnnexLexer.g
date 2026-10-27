@@ -33,7 +33,11 @@ import org.eclipse.xtext.ide.editor.contentassist.antlr.internal.Lexer;
 
 Computation : ('C'|'c')('O'|'o')('M'|'m')('P'|'p')('U'|'u')('T'|'t')('A'|'a')('T'|'t')('I'|'i')('O'|'o')('N'|'n');
 
+Lower_bound : ('L'|'l')('O'|'o')('W'|'w')('E'|'e')('R'|'r')'_'('B'|'b')('O'|'o')('U'|'u')('N'|'n')('D'|'d');
+
 Transitions : ('T'|'t')('R'|'r')('A'|'a')('N'|'n')('S'|'s')('I'|'i')('T'|'t')('I'|'i')('O'|'o')('N'|'n')('S'|'s');
+
+Upper_bound : ('U'|'u')('P'|'p')('P'|'p')('E'|'e')('R'|'r')'_'('B'|'b')('O'|'o')('U'|'u')('N'|'n')('D'|'d');
 
 Classifier : ('C'|'c')('L'|'l')('A'|'a')('S'|'s')('S'|'s')('I'|'i')('F'|'f')('I'|'i')('E'|'e')('R'|'r');
 

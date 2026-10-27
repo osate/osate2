@@ -1759,7 +1759,7 @@ public interface BehaviorAnnexPackage extends EPackage
   int HASH_PROPERTY_REFERENCE = 40;
 
   /**
-   * The feature id for the '<em><b>Property</b></em>' attribute.
+   * The feature id for the '<em><b>Property</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -1805,7 +1805,7 @@ public interface BehaviorAnnexPackage extends EPackage
   int PROPERTY_REFERENCE_TAIL = 41;
 
   /**
-   * The feature id for the '<em><b>Property</b></em>' attribute.
+   * The feature id for the '<em><b>Property</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -1851,7 +1851,7 @@ public interface BehaviorAnnexPackage extends EPackage
   int NAMED_PROPERTY_FIELD = 42;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * The feature id for the '<em><b>Name</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -1860,13 +1860,22 @@ public interface BehaviorAnnexPackage extends EPackage
   int NAMED_PROPERTY_FIELD__NAME = 0;
 
   /**
+   * The feature id for the '<em><b>Selector</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NAMED_PROPERTY_FIELD__SELECTOR = 1;
+
+  /**
    * The feature id for the '<em><b>Indexes</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int NAMED_PROPERTY_FIELD__INDEXES = 1;
+  int NAMED_PROPERTY_FIELD__INDEXES = 2;
 
   /**
    * The number of structural features of the '<em>Named Property Field</em>' class.
@@ -1875,7 +1884,7 @@ public interface BehaviorAnnexPackage extends EPackage
    * @generated
    * @ordered
    */
-  int NAMED_PROPERTY_FIELD_FEATURE_COUNT = 2;
+  int NAMED_PROPERTY_FIELD_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.PropertyArrayIndexImpl <em>Property Array Index</em>}' class.
@@ -1935,7 +1944,7 @@ public interface BehaviorAnnexPackage extends EPackage
   int PROPERTY_INDEX_PROPERTY_REFERENCE = 45;
 
   /**
-   * The feature id for the '<em><b>Property</b></em>' attribute.
+   * The feature id for the '<em><b>Property</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -2101,7 +2110,7 @@ public interface BehaviorAnnexPackage extends EPackage
   int UNINDEXED_REFERENCE_SEGMENT = 49;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * The feature id for the '<em><b>Name</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -2203,7 +2212,7 @@ public interface BehaviorAnnexPackage extends EPackage
   int REFERENCE_SEGMENT = 52;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * The feature id for the '<em><b>Name</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -3853,15 +3862,15 @@ public interface BehaviorAnnexPackage extends EPackage
   EClass getHashPropertyReference();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.HashPropertyReference#getProperty <em>Property</em>}'.
+   * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.HashPropertyReference#getProperty <em>Property</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Property</em>'.
+   * @return the meta object for the reference '<em>Property</em>'.
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.HashPropertyReference#getProperty()
    * @see #getHashPropertyReference()
    * @generated
    */
-  EAttribute getHashPropertyReference_Property();
+  EReference getHashPropertyReference_Property();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.HashPropertyReference#getIndexes <em>Indexes</em>}'.
@@ -3896,15 +3905,15 @@ public interface BehaviorAnnexPackage extends EPackage
   EClass getPropertyReferenceTail();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyReferenceTail#getProperty <em>Property</em>}'.
+   * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyReferenceTail#getProperty <em>Property</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Property</em>'.
+   * @return the meta object for the reference '<em>Property</em>'.
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyReferenceTail#getProperty()
    * @see #getPropertyReferenceTail()
    * @generated
    */
-  EAttribute getPropertyReferenceTail_Property();
+  EReference getPropertyReferenceTail_Property();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyReferenceTail#getIndexes <em>Indexes</em>}'.
@@ -3939,15 +3948,26 @@ public interface BehaviorAnnexPackage extends EPackage
   EClass getNamedPropertyField();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.NamedPropertyField#getName <em>Name</em>}'.
+   * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.NamedPropertyField#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
+   * @return the meta object for the reference '<em>Name</em>'.
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.NamedPropertyField#getName()
    * @see #getNamedPropertyField()
    * @generated
    */
-  EAttribute getNamedPropertyField_Name();
+  EReference getNamedPropertyField_Name();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.NamedPropertyField#getSelector <em>Selector</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Selector</em>'.
+   * @see org.osate.xtext.aadl2.ba.behaviorAnnex.NamedPropertyField#getSelector()
+   * @see #getNamedPropertyField()
+   * @generated
+   */
+  EAttribute getNamedPropertyField_Selector();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.NamedPropertyField#getIndexes <em>Indexes</em>}'.
@@ -4002,15 +4022,15 @@ public interface BehaviorAnnexPackage extends EPackage
   EClass getPropertyIndexPropertyReference();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyIndexPropertyReference#getProperty <em>Property</em>}'.
+   * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyIndexPropertyReference#getProperty <em>Property</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Property</em>'.
+   * @return the meta object for the reference '<em>Property</em>'.
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyIndexPropertyReference#getProperty()
    * @see #getPropertyIndexPropertyReference()
    * @generated
    */
-  EAttribute getPropertyIndexPropertyReference_Property();
+  EReference getPropertyIndexPropertyReference_Property();
 
   /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReferenceExpression <em>Unindexed Reference Expression</em>}'.
@@ -4152,15 +4172,15 @@ public interface BehaviorAnnexPackage extends EPackage
   EClass getUnindexedReferenceSegment();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReferenceSegment#getName <em>Name</em>}'.
+   * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReferenceSegment#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
+   * @return the meta object for the reference '<em>Name</em>'.
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReferenceSegment#getName()
    * @see #getUnindexedReferenceSegment()
    * @generated
    */
-  EAttribute getUnindexedReferenceSegment_Name();
+  EReference getUnindexedReferenceSegment_Name();
 
   /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.Reference <em>Reference</em>}'.
@@ -4237,15 +4257,15 @@ public interface BehaviorAnnexPackage extends EPackage
   EClass getReferenceSegment();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceSegment#getName <em>Name</em>}'.
+   * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceSegment#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
+   * @return the meta object for the reference '<em>Name</em>'.
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceSegment#getName()
    * @see #getReferenceSegment()
    * @generated
    */
-  EAttribute getReferenceSegment_Name();
+  EReference getReferenceSegment_Name();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceSegment#getIndexes <em>Indexes</em>}'.
@@ -5590,12 +5610,12 @@ public interface BehaviorAnnexPackage extends EPackage
     EClass HASH_PROPERTY_REFERENCE = eINSTANCE.getHashPropertyReference();
 
     /**
-     * The meta object literal for the '<em><b>Property</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Property</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute HASH_PROPERTY_REFERENCE__PROPERTY = eINSTANCE.getHashPropertyReference_Property();
+    EReference HASH_PROPERTY_REFERENCE__PROPERTY = eINSTANCE.getHashPropertyReference_Property();
 
     /**
      * The meta object literal for the '<em><b>Indexes</b></em>' containment reference list feature.
@@ -5624,12 +5644,12 @@ public interface BehaviorAnnexPackage extends EPackage
     EClass PROPERTY_REFERENCE_TAIL = eINSTANCE.getPropertyReferenceTail();
 
     /**
-     * The meta object literal for the '<em><b>Property</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Property</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute PROPERTY_REFERENCE_TAIL__PROPERTY = eINSTANCE.getPropertyReferenceTail_Property();
+    EReference PROPERTY_REFERENCE_TAIL__PROPERTY = eINSTANCE.getPropertyReferenceTail_Property();
 
     /**
      * The meta object literal for the '<em><b>Indexes</b></em>' containment reference list feature.
@@ -5658,12 +5678,20 @@ public interface BehaviorAnnexPackage extends EPackage
     EClass NAMED_PROPERTY_FIELD = eINSTANCE.getNamedPropertyField();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Name</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute NAMED_PROPERTY_FIELD__NAME = eINSTANCE.getNamedPropertyField_Name();
+    EReference NAMED_PROPERTY_FIELD__NAME = eINSTANCE.getNamedPropertyField_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Selector</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute NAMED_PROPERTY_FIELD__SELECTOR = eINSTANCE.getNamedPropertyField_Selector();
 
     /**
      * The meta object literal for the '<em><b>Indexes</b></em>' containment reference list feature.
@@ -5712,12 +5740,12 @@ public interface BehaviorAnnexPackage extends EPackage
     EClass PROPERTY_INDEX_PROPERTY_REFERENCE = eINSTANCE.getPropertyIndexPropertyReference();
 
     /**
-     * The meta object literal for the '<em><b>Property</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Property</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute PROPERTY_INDEX_PROPERTY_REFERENCE__PROPERTY = eINSTANCE.getPropertyIndexPropertyReference_Property();
+    EReference PROPERTY_INDEX_PROPERTY_REFERENCE__PROPERTY = eINSTANCE.getPropertyIndexPropertyReference_Property();
 
     /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.UnindexedReferenceExpressionImpl <em>Unindexed Reference Expression</em>}' class.
@@ -5832,12 +5860,12 @@ public interface BehaviorAnnexPackage extends EPackage
     EClass UNINDEXED_REFERENCE_SEGMENT = eINSTANCE.getUnindexedReferenceSegment();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Name</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute UNINDEXED_REFERENCE_SEGMENT__NAME = eINSTANCE.getUnindexedReferenceSegment_Name();
+    EReference UNINDEXED_REFERENCE_SEGMENT__NAME = eINSTANCE.getUnindexedReferenceSegment_Name();
 
     /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.ReferenceImpl <em>Reference</em>}' class.
@@ -5902,12 +5930,12 @@ public interface BehaviorAnnexPackage extends EPackage
     EClass REFERENCE_SEGMENT = eINSTANCE.getReferenceSegment();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Name</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute REFERENCE_SEGMENT__NAME = eINSTANCE.getReferenceSegment_Name();
+    EReference REFERENCE_SEGMENT__NAME = eINSTANCE.getReferenceSegment_Name();
 
     /**
      * The meta object literal for the '<em><b>Indexes</b></em>' containment reference list feature.

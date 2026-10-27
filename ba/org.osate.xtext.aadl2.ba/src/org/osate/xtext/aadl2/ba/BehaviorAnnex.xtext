@@ -126,8 +126,7 @@ ModeSwitchTrigger:
     | '(' expression=ModeSwitchCondition ')'
 ;
 
-// The listed names are internal event or event data features of the containing component. Like every other name in
-// the annex they stay symbolic here; the translator resolves them against the owner.
+// The listed names refer to internal event or event data features of the containing component.
 InternalCondition:
     'internal' internalPorts+=Reference ('or' internalPorts+=Reference)*
 ;
@@ -341,15 +340,21 @@ ReferenceExpression:
 ;
 
 HashPropertyReference:
-    '#' property=QualifiedName indexes+=PropertyArrayIndex* fields+=NamedPropertyField*
+    '#' property=[aadl2::NamedElement|QualifiedName] indexes+=PropertyArrayIndex* fields+=NamedPropertyField*
 ;
 
 PropertyReferenceTail:
-    '#' property=QualifiedName indexes+=PropertyArrayIndex* fields+=NamedPropertyField*
+    '#' property=[aadl2::Property|QualifiedName] indexes+=PropertyArrayIndex* fields+=NamedPropertyField*
 ;
 
+// Record fields and declared enumeration literals have declaration targets. Data_Model enumerators can refer to
+// their declaring string literals, so EObject is the common target type. Range bounds are built-in selectors.
 NamedPropertyField:
-    '.' name=ID indexes+=PropertyArrayIndex*
+    '.' (name=[ecore::EObject|ID] | selector=RangeSelector) indexes+=PropertyArrayIndex*
+;
+
+RangeSelector returns ecore::EString:
+    'upper_bound' | 'lower_bound'
 ;
 
 PropertyArrayIndex:
@@ -363,7 +368,7 @@ PropertyIndexValue:
 ;
 
 PropertyIndexPropertyReference:
-    '#' property=QualifiedName
+    '#' property=[aadl2::NamedElement|QualifiedName]
 ;
 
 UnindexedReferenceExpression:
@@ -381,7 +386,7 @@ UnindexedReferenceTail:
 ;
 
 UnindexedReferenceSegment:
-    name=ID
+    name=[ecore::EObject|QualifiedName]
 ;
 
 QualifiedName returns ecore::EString:
@@ -398,11 +403,13 @@ ReferenceTail:
 ;
 
 ReferenceSeparator returns ecore::EString:
-    '::' | '.'
+    '.'
 ;
 
+// Keep package qualification within one reference and scope dotted member paths separately. EObject includes local
+// BA variables and iterator declarations as well as AADL declarations and Data_Model element-name literals.
 ReferenceSegment:
-    name=ID indexes+=ArrayIndex*
+    name=[ecore::EObject|QualifiedName] indexes+=ArrayIndex*
 ;
 
 ArrayIndex:

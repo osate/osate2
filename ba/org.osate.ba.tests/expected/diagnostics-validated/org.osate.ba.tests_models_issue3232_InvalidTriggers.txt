@@ -1,3 +1,4 @@
+error | linking | 56 | 15 | 7 | Couldn't resolve reference to EObject 'unknown'.
 error | semantic | 53 | 15 | 5 | 'value' is not an external-condition trigger: expected an incoming event or event data port of the component, or an outgoing event or event data port of a subcomponent
 error | semantic | 53 | 38 | 6 | 'stored' is not an external-condition trigger: expected an incoming event or event data port of the component, or an outgoing event or event data port of a subcomponent
 error | semantic | 53 | 49 | 11 | 'local_value' is not an external-condition trigger: expected an incoming event or event data port of the component, or an outgoing event or event data port of a subcomponent

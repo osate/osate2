@@ -32,11 +32,8 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ViewerNotification;
 
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage;
-import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyIndexPropertyReference;
 
 /**
  * This is the item provider adapter for a {@link org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyIndexPropertyReference} object.
@@ -92,8 +89,8 @@ public class PropertyIndexPropertyReferenceItemProvider extends PropertyIndexVal
          BehaviorAnnexPackage.Literals.PROPERTY_INDEX_PROPERTY_REFERENCE__PROPERTY,
          true,
          false,
-         false,
-         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+         true,
+         null,
          null,
          null));
   }
@@ -119,10 +116,7 @@ public class PropertyIndexPropertyReferenceItemProvider extends PropertyIndexVal
   @Override
   public String getText(Object object)
   {
-    String label = ((PropertyIndexPropertyReference)object).getProperty();
-    return label == null || label.length() == 0 ?
-      getString("_UI_PropertyIndexPropertyReference_type") :
-      getString("_UI_PropertyIndexPropertyReference_type") + " " + label;
+    return getString("_UI_PropertyIndexPropertyReference_type");
   }
 
 
@@ -137,13 +131,6 @@ public class PropertyIndexPropertyReferenceItemProvider extends PropertyIndexVal
   public void notifyChanged(Notification notification)
   {
     updateChildren(notification);
-
-    switch (notification.getFeatureID(PropertyIndexPropertyReference.class))
-    {
-      case BehaviorAnnexPackage.PROPERTY_INDEX_PROPERTY_REFERENCE__PROPERTY:
-        fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-        return;
-    }
     super.notifyChanged(notification);
   }
 

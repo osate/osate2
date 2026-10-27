@@ -1,3 +1,5 @@
+error | linking | 51 | 42 | 9 | Couldn't resolve reference to EObject 'step_done'.
+error | linking | 58 | 53 | 9 | Couldn't resolve reference to EObject 'step_done'.
 error | semantic | 51 | 34 | 17 | 'signals.step_done' is not a dispatch trigger: expected an event or event data port, or a subprogram access
 error | semantic | 53 | 37 | 7 | 'reading' is not a dispatch trigger: expected an event or event data port, or a subprogram access
 error | semantic | 55 | 37 | 11 | 'state_value' is not a dispatch trigger: expected an event or event data port, or a subprogram access

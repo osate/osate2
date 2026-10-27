@@ -31,6 +31,7 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -60,24 +61,14 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceSegment;
 public class ReferenceSegmentImpl extends MinimalEObjectImpl.Container implements ReferenceSegment
 {
   /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * The cached value of the '{@link #getName() <em>Name</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getName()
    * @generated
    * @ordered
    */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
+  protected EObject name;
 
   /**
    * The cached value of the '{@link #getIndexes() <em>Indexes</em>}' containment reference list.
@@ -116,7 +107,27 @@ public class ReferenceSegmentImpl extends MinimalEObjectImpl.Container implement
    * @generated
    */
   @Override
-  public String getName()
+  public EObject getName()
+  {
+    if (name != null && name.eIsProxy())
+    {
+      InternalEObject oldName = (InternalEObject)name;
+      name = eResolveProxy(oldName);
+      if (name != oldName)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, BehaviorAnnexPackage.REFERENCE_SEGMENT__NAME, oldName, name));
+      }
+    }
+    return name;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EObject basicGetName()
   {
     return name;
   }
@@ -127,9 +138,9 @@ public class ReferenceSegmentImpl extends MinimalEObjectImpl.Container implement
    * @generated
    */
   @Override
-  public void setName(String newName)
+  public void setName(EObject newName)
   {
-    String oldName = name;
+    EObject oldName = name;
     name = newName;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, BehaviorAnnexPackage.REFERENCE_SEGMENT__NAME, oldName, name));
@@ -177,7 +188,8 @@ public class ReferenceSegmentImpl extends MinimalEObjectImpl.Container implement
     switch (featureID)
     {
       case BehaviorAnnexPackage.REFERENCE_SEGMENT__NAME:
-        return getName();
+        if (resolve) return getName();
+        return basicGetName();
       case BehaviorAnnexPackage.REFERENCE_SEGMENT__INDEXES:
         return getIndexes();
     }
@@ -196,7 +208,7 @@ public class ReferenceSegmentImpl extends MinimalEObjectImpl.Container implement
     switch (featureID)
     {
       case BehaviorAnnexPackage.REFERENCE_SEGMENT__NAME:
-        setName((String)newValue);
+        setName((EObject)newValue);
         return;
       case BehaviorAnnexPackage.REFERENCE_SEGMENT__INDEXES:
         getIndexes().clear();
@@ -217,7 +229,7 @@ public class ReferenceSegmentImpl extends MinimalEObjectImpl.Container implement
     switch (featureID)
     {
       case BehaviorAnnexPackage.REFERENCE_SEGMENT__NAME:
-        setName(NAME_EDEFAULT);
+        setName((EObject)null);
         return;
       case BehaviorAnnexPackage.REFERENCE_SEGMENT__INDEXES:
         getIndexes().clear();
@@ -237,28 +249,11 @@ public class ReferenceSegmentImpl extends MinimalEObjectImpl.Container implement
     switch (featureID)
     {
       case BehaviorAnnexPackage.REFERENCE_SEGMENT__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+        return name != null;
       case BehaviorAnnexPackage.REFERENCE_SEGMENT__INDEXES:
         return indexes != null && !indexes.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuilder result = new StringBuilder(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(')');
-    return result.toString();
   }
 
 } //ReferenceSegmentImpl

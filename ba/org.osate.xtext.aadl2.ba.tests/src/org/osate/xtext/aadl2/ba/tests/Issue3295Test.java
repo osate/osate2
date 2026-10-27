@@ -114,7 +114,7 @@ public class Issue3295Test extends XtextTest {
 	public void respectsTheRequestedSubtree() {
 		var source = load();
 		var segment = EcoreUtil2.getAllContentsOfType(source, ReferenceSegment.class).stream()
-				.filter(reference -> reference.getName().equals("input")).findFirst().orElseThrow();
+				.filter(reference -> reference.getName() == input(source)).findFirst().orElseThrow();
 		var matches = new Matches();
 		finder.findReferences(targets(input(source)), segment, matches, new NullProgressMonitor());
 		assertMatches(source.eResource().getResourceSet(), matches, "input", 1);

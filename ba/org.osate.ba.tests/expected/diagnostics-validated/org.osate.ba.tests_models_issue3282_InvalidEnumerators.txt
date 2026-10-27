@@ -1,3 +1,4 @@
+error | linking | 60 | 60 | 15 | Couldn't resolve reference to EObject 'NotAnEnumerator'.
 error | semantic | 60 | 59 | 16 | 'NotAnEnumerator' is not an enumerator of 'InvalidEnumerators::direction_type'
 error | semantic | 64 | 21 | 42 | type error for 'assignment', 'InvalidEnumerators::direction_type' expected, found 'InvalidEnumerators::signal_type'.
 error | semantic | 68 | 19 | 50 | Invalid operand types for operator "+": left operand has type InvalidEnumerators::direction_type, right operand has type universal integer

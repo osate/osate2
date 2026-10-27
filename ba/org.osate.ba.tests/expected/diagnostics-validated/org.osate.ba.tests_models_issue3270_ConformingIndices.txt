@@ -1,2 +1,4 @@
 error | linking | 27 | 6 | 19 | Couldn't resolve reference to ModelUnit 'Issue3270Properties'.
 error | linking | 31 | 2 | 34 | Couldn't resolve reference to property definition 'Issue3270Properties::Integer_Value'.
+error | linking | 50 | 19 | 34 | Couldn't resolve reference to 'Issue3270Properties::Integer_Value'.
+error | linking | 51 | 22 | 34 | Couldn't resolve reference to 'Issue3270Properties::Integer_Value'.

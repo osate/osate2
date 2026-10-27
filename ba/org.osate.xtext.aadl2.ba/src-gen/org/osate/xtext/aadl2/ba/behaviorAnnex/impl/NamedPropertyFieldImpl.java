@@ -31,6 +31,7 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -52,6 +53,7 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyArrayIndex;
  * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.NamedPropertyFieldImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.NamedPropertyFieldImpl#getSelector <em>Selector</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.ba.behaviorAnnex.impl.NamedPropertyFieldImpl#getIndexes <em>Indexes</em>}</li>
  * </ul>
  *
@@ -60,24 +62,34 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyArrayIndex;
 public class NamedPropertyFieldImpl extends MinimalEObjectImpl.Container implements NamedPropertyField
 {
   /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * The cached value of the '{@link #getName() <em>Name</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getName()
    * @generated
    * @ordered
    */
-  protected static final String NAME_EDEFAULT = null;
+  protected EObject name;
 
   /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * The default value of the '{@link #getSelector() <em>Selector</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
+   * @see #getSelector()
    * @generated
    * @ordered
    */
-  protected String name = NAME_EDEFAULT;
+  protected static final String SELECTOR_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getSelector() <em>Selector</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSelector()
+   * @generated
+   * @ordered
+   */
+  protected String selector = SELECTOR_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getIndexes() <em>Indexes</em>}' containment reference list.
@@ -116,7 +128,27 @@ public class NamedPropertyFieldImpl extends MinimalEObjectImpl.Container impleme
    * @generated
    */
   @Override
-  public String getName()
+  public EObject getName()
+  {
+    if (name != null && name.eIsProxy())
+    {
+      InternalEObject oldName = (InternalEObject)name;
+      name = eResolveProxy(oldName);
+      if (name != oldName)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, BehaviorAnnexPackage.NAMED_PROPERTY_FIELD__NAME, oldName, name));
+      }
+    }
+    return name;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EObject basicGetName()
   {
     return name;
   }
@@ -127,12 +159,37 @@ public class NamedPropertyFieldImpl extends MinimalEObjectImpl.Container impleme
    * @generated
    */
   @Override
-  public void setName(String newName)
+  public void setName(EObject newName)
   {
-    String oldName = name;
+    EObject oldName = name;
     name = newName;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, BehaviorAnnexPackage.NAMED_PROPERTY_FIELD__NAME, oldName, name));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String getSelector()
+  {
+    return selector;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void setSelector(String newSelector)
+  {
+    String oldSelector = selector;
+    selector = newSelector;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, BehaviorAnnexPackage.NAMED_PROPERTY_FIELD__SELECTOR, oldSelector, selector));
   }
 
   /**
@@ -177,7 +234,10 @@ public class NamedPropertyFieldImpl extends MinimalEObjectImpl.Container impleme
     switch (featureID)
     {
       case BehaviorAnnexPackage.NAMED_PROPERTY_FIELD__NAME:
-        return getName();
+        if (resolve) return getName();
+        return basicGetName();
+      case BehaviorAnnexPackage.NAMED_PROPERTY_FIELD__SELECTOR:
+        return getSelector();
       case BehaviorAnnexPackage.NAMED_PROPERTY_FIELD__INDEXES:
         return getIndexes();
     }
@@ -196,7 +256,10 @@ public class NamedPropertyFieldImpl extends MinimalEObjectImpl.Container impleme
     switch (featureID)
     {
       case BehaviorAnnexPackage.NAMED_PROPERTY_FIELD__NAME:
-        setName((String)newValue);
+        setName((EObject)newValue);
+        return;
+      case BehaviorAnnexPackage.NAMED_PROPERTY_FIELD__SELECTOR:
+        setSelector((String)newValue);
         return;
       case BehaviorAnnexPackage.NAMED_PROPERTY_FIELD__INDEXES:
         getIndexes().clear();
@@ -217,7 +280,10 @@ public class NamedPropertyFieldImpl extends MinimalEObjectImpl.Container impleme
     switch (featureID)
     {
       case BehaviorAnnexPackage.NAMED_PROPERTY_FIELD__NAME:
-        setName(NAME_EDEFAULT);
+        setName((EObject)null);
+        return;
+      case BehaviorAnnexPackage.NAMED_PROPERTY_FIELD__SELECTOR:
+        setSelector(SELECTOR_EDEFAULT);
         return;
       case BehaviorAnnexPackage.NAMED_PROPERTY_FIELD__INDEXES:
         getIndexes().clear();
@@ -237,7 +303,9 @@ public class NamedPropertyFieldImpl extends MinimalEObjectImpl.Container impleme
     switch (featureID)
     {
       case BehaviorAnnexPackage.NAMED_PROPERTY_FIELD__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+        return name != null;
+      case BehaviorAnnexPackage.NAMED_PROPERTY_FIELD__SELECTOR:
+        return SELECTOR_EDEFAULT == null ? selector != null : !SELECTOR_EDEFAULT.equals(selector);
       case BehaviorAnnexPackage.NAMED_PROPERTY_FIELD__INDEXES:
         return indexes != null && !indexes.isEmpty();
     }
@@ -255,8 +323,8 @@ public class NamedPropertyFieldImpl extends MinimalEObjectImpl.Container impleme
     if (eIsProxy()) return super.toString();
 
     StringBuilder result = new StringBuilder(super.toString());
-    result.append(" (name: ");
-    result.append(name);
+    result.append(" (selector: ");
+    result.append(selector);
     result.append(')');
     return result.toString();
   }

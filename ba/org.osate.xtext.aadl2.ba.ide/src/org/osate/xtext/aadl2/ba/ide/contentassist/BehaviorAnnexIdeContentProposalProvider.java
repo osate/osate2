@@ -23,40 +23,8 @@
  */
 package org.osate.xtext.aadl2.ba.ide.contentassist;
 
-import org.eclipse.xtext.Assignment;
-import org.eclipse.xtext.EcoreUtil2;
-import org.eclipse.xtext.ParserRule;
-import org.eclipse.xtext.ide.editor.contentassist.ContentAssistContext;
-import org.eclipse.xtext.ide.editor.contentassist.ContentAssistEntry;
-import org.eclipse.xtext.ide.editor.contentassist.IIdeContentProposalAcceptor;
 import org.eclipse.xtext.ide.editor.contentassist.IdeContentProposalProvider;
-import org.osate.xtext.aadl2.ba.services.BehaviorAnnexReferenceProposalService;
 
-import com.google.inject.Inject;
-
-/**
- * Adds model-aware proposals for the non-cross-reference {@code ReferenceSegment} rules used throughout BA.
- */
-public final class BehaviorAnnexIdeContentProposalProvider extends IdeContentProposalProvider {
-	@Inject
-	private BehaviorAnnexReferenceProposalService proposals;
-
-	@Override
-	protected void _createProposals(final Assignment assignment, final ContentAssistContext context,
-			final IIdeContentProposalAcceptor acceptor) {
-		var rule = EcoreUtil2.getContainerOfType(assignment, ParserRule.class);
-		if ("name".equals(assignment.getFeature()) && rule != null
-				&& ("ReferenceSegment".equals(rule.getName()) || "UnindexedReferenceSegment".equals(rule.getName()))) {
-			var model = context.getCurrentModel() != null ? context.getCurrentModel() : context.getRootModel();
-			for (var proposal : proposals.getRootProposals(model)) {
-				ContentAssistEntry entry = getProposalCreator().createProposal(proposal, context,
-						it -> it.setKind(ContentAssistEntry.KIND_REFERENCE));
-				if (entry != null) {
-					acceptor.accept(entry, getProposalPriorities().getDefaultPriority(entry));
-				}
-			}
-			return;
-		}
-		super._createProposals(assignment, context, acceptor);
-	}
+/** Uses the same declaration scopes for completion and linking, including typed member paths. */
+public class BehaviorAnnexIdeContentProposalProvider extends IdeContentProposalProvider {
 }

@@ -1,1 +1,2 @@
+error | linking | 8 | 27 | 4 | Couldn't resolve reference to EObject 'call'.
 error | syntax | 8 | 35 | 1 | extraneous input '2' expecting ')'

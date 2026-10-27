@@ -28,7 +28,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
@@ -37,11 +36,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.DefaultAnnexSubclause;
-import org.osate.annexsupport.AnnexRegistry;
-import org.osate.annexsupport.AnnexUnparserRegistry;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.ba.aadlba.ValueExpression;
 import org.osate.testsupport.TestHelper;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BinaryExpression;
 import org.osate.xtext.aadl2.ba.util.BehaviorAnnexUtil;
 
@@ -77,17 +75,7 @@ public class Issue3169Test {
 	public void shortCircuitOperatorsRoundTripThroughTheUnparser() throws Exception {
 		var root = testHelper.parseFile(MODELS + "Issue3169.aadl");
 		validationHelper.assertNoIssues(root);
-		var copy = EcoreUtil.copy(annex(root).getParsedAnnexSubclause());
-
-		final String serialized;
-		root.eResource().getContents().add(copy);
-		try {
-			serialized = ((AnnexUnparserRegistry) AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_UNPARSER_EXT_ID))
-					.getAnnexUnparser("behavior_specification")
-					.unparseAnnexSubclause(copy, "");
-		} finally {
-			root.eResource().getContents().remove(copy);
-		}
+		var serialized = BehaviorAnnexTestUtil.serializeCopy(annex(root).getParsedAnnexSubclause());
 		var normalized = serialized.replaceAll("\\s+", " ");
 		assertTrue(serialized, normalized.contains("left and then right"));
 		assertTrue(serialized, normalized.contains("left or else right"));
@@ -117,7 +105,7 @@ public class Issue3169Test {
 	}
 
 	private static List<String> declarativeOperators(final DefaultAnnexSubclause annex) {
-		var source = (org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex) annex.getParsedAnnexSubclause();
+		var source = (BehaviorAnnex) annex.getParsedAnnexSubclause();
 		return source.getTransitions()
 				.stream()
 				.map(transition -> (BinaryExpression) transition.getCondition().getExecute().getValue())

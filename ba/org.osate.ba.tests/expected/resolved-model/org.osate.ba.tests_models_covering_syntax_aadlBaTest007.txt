@@ -955,7 +955,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                       property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.listRec [BasicProperty]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     properties[2] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::simpleRecordType.int [BasicProperty]
     actions[51] : BehaviorActionBlock
       content : AssignmentAction
         target : BehaviorVariableHolder element=int [BehaviorVariable]
@@ -969,7 +969,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                       property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexList [Property]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.int [BasicProperty]
     actions[52] : BehaviorActionBlock
       content : AssignmentAction
         target : BehaviorVariableHolder element=int [BehaviorVariable]
@@ -983,10 +983,10 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                       property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexList [Property]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.listRec [BasicProperty]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     properties[2] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::simpleRecordType.int [BasicProperty]
     actions[53] : BehaviorActionBlock
       content : AssignmentAction
         target : BehaviorVariableHolder element=int [BehaviorVariable]
@@ -1000,7 +1000,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                       property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexList [Property]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.listRec [BasicProperty]
                     properties[2] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[3] : PropertyNameHolder
@@ -1071,7 +1071,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                         arrayIndexes[0] : BehaviorIntegerLiteral
                         arrayIndexes[1] : BehaviorIntegerLiteral
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.int [BasicProperty]
     actions[58] : BehaviorActionBlock
       content : AssignmentAction
         target : BehaviorVariableHolder element=int [BehaviorVariable]
@@ -1086,10 +1086,10 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                         arrayIndexes[0] : BehaviorIntegerLiteral
                         arrayIndexes[1] : BehaviorIntegerLiteral
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.listRec [BasicProperty]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     properties[2] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::simpleRecordType.int [BasicProperty]
     actions[59] : BehaviorActionBlock
       content : AssignmentAction
         target : BehaviorVariableHolder element=int [BehaviorVariable]
@@ -1104,7 +1104,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                         arrayIndexes[0] : BehaviorIntegerLiteral
                         arrayIndexes[1] : BehaviorIntegerLiteral
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.listRec [BasicProperty]
                     properties[2] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[3] : PropertyNameHolder
@@ -1171,7 +1171,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleValue [Property]
                     component : BehaviorVariableHolder element=local_var [BehaviorVariable]
     actions[64] : BehaviorActionBlock
       content : AssignmentAction
@@ -1183,7 +1183,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aRange [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     component : BehaviorVariableHolder element=local_var [BehaviorVariable]
@@ -1197,7 +1197,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aRange [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     component : BehaviorVariableHolder element=local_var [BehaviorVariable]
@@ -1218,7 +1218,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aEnum [Property]
                     component : BehaviorVariableHolder element=local_var [BehaviorVariable]
             secondExpression : SimpleExpression
               terms[0] : Term
@@ -1245,7 +1245,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aEnum [Property]
                     component : BehaviorVariableHolder element=local_var [BehaviorVariable]
             secondExpression : SimpleExpression
               terms[0] : Term
@@ -1263,7 +1263,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleList [Property]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     component : BehaviorVariableHolder element=local_var [BehaviorVariable]
     actions[69] : BehaviorActionBlock
@@ -1276,7 +1276,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleList [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     component : BehaviorVariableHolder element=local_var [BehaviorVariable]
@@ -1290,9 +1290,9 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleRecord [Property]
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::simpleRecordType.int [BasicProperty]
                     component : BehaviorVariableHolder element=local_var [BehaviorVariable]
     actions[71] : BehaviorActionBlock
       content : AssignmentAction
@@ -1304,9 +1304,9 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleRecordDefined [Property]
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
                     component : BehaviorVariableHolder element=local_var [BehaviorVariable]
     actions[72] : BehaviorActionBlock
       content : AssignmentAction
@@ -1318,9 +1318,9 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexRecord [Property]
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.int [BasicProperty]
                     component : BehaviorVariableHolder element=local_var [BehaviorVariable]
     actions[73] : BehaviorActionBlock
       content : AssignmentAction
@@ -1332,9 +1332,9 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexRecord [Property]
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.listRec [BasicProperty]
                     properties[2] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[3] : PropertyNameHolder
@@ -1350,12 +1350,12 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexRecord [Property]
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.listRec [BasicProperty]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     properties[2] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::simpleRecordType.int [BasicProperty]
                     component : BehaviorVariableHolder element=local_var [BehaviorVariable]
     actions[75] : BehaviorActionBlock
       content : AssignmentAction
@@ -1367,10 +1367,10 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexList [Property]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.int [BasicProperty]
                     component : BehaviorVariableHolder element=local_var [BehaviorVariable]
     actions[76] : BehaviorActionBlock
       content : AssignmentAction
@@ -1382,13 +1382,13 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexList [Property]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.listRec [BasicProperty]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     properties[2] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::simpleRecordType.int [BasicProperty]
                     component : BehaviorVariableHolder element=local_var [BehaviorVariable]
     actions[77] : BehaviorActionBlock
       content : AssignmentAction
@@ -1400,10 +1400,10 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexList [Property]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.listRec [BasicProperty]
                     properties[2] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[3] : PropertyNameHolder
@@ -1419,7 +1419,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexList [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[2] : PropertyNameHolder
@@ -1435,7 +1435,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexList [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[2] : PropertyNameHolder
@@ -1454,7 +1454,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexList [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[2] : PropertyNameHolder
@@ -1474,11 +1474,11 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexListOfList [Property]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                         arrayIndexes[1] : BehaviorIntegerLiteral
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.int [BasicProperty]
                     component : BehaviorVariableHolder element=local_var [BehaviorVariable]
     actions[82] : BehaviorActionBlock
       content : AssignmentAction
@@ -1490,14 +1490,14 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexListOfList [Property]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                         arrayIndexes[1] : BehaviorIntegerLiteral
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.listRec [BasicProperty]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     properties[2] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::simpleRecordType.int [BasicProperty]
                     component : BehaviorVariableHolder element=local_var [BehaviorVariable]
     actions[83] : BehaviorActionBlock
       content : AssignmentAction
@@ -1509,11 +1509,11 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexListOfList [Property]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                         arrayIndexes[1] : BehaviorIntegerLiteral
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.listRec [BasicProperty]
                     properties[2] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[3] : PropertyNameHolder
@@ -1529,7 +1529,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexListOfList [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[2] : PropertyNameHolder
@@ -1545,7 +1545,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexListOfList [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[2] : PropertyNameHolder
@@ -1564,7 +1564,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexListOfList [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[2] : PropertyNameHolder
@@ -1584,7 +1584,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleValue [Property]
                     component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyFeatureGroup.myDataPrototype [FeaturePrototype]
                       groupHolders[0] : GroupHolder element=PropertyReferenceTest::MyThread.featGrp [FeatureGroup]
     actions[88] : BehaviorActionBlock
@@ -1597,10 +1597,12 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleRecordDefined [Property]
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
-                    component : BehaviorVariableHolder element=<null>
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
+                    component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyFeatureGroup.myDataPrototype [FeaturePrototype]
+                      groupHolders[0] : GroupHolder element=PropertyReferenceTest::MyThread.featGrp [FeatureGroup]
+                      groupHolders[1] : GroupPrototypeHolder element=PropertyReferenceTest::MyFeatureGroup.nestedGroup [FeatureGroupPrototype]
     actions[89] : BehaviorActionBlock
       content : AssignmentAction
         target : BehaviorVariableHolder element=int [BehaviorVariable]
@@ -1611,7 +1613,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleValue [Property]
                     component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
     actions[90] : BehaviorActionBlock
       content : AssignmentAction
@@ -1623,7 +1625,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aRange [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
@@ -1637,7 +1639,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aRange [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
@@ -1658,7 +1660,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aEnum [Property]
                     component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
             secondExpression : SimpleExpression
               terms[0] : Term
@@ -1685,7 +1687,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aEnum [Property]
                     component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
             secondExpression : SimpleExpression
               terms[0] : Term
@@ -1703,7 +1705,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleList [Property]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
     actions[95] : BehaviorActionBlock
@@ -1716,7 +1718,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleList [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
@@ -1730,9 +1732,9 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleRecord [Property]
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::simpleRecordType.int [BasicProperty]
                     component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
     actions[97] : BehaviorActionBlock
       content : AssignmentAction
@@ -1744,9 +1746,9 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleRecordDefined [Property]
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
                     component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
     actions[98] : BehaviorActionBlock
       content : AssignmentAction
@@ -1758,9 +1760,9 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexRecord [Property]
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.int [BasicProperty]
                     component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
     actions[99] : BehaviorActionBlock
       content : AssignmentAction
@@ -1772,9 +1774,9 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexRecord [Property]
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.listRec [BasicProperty]
                     properties[2] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[3] : PropertyNameHolder
@@ -1790,12 +1792,12 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexRecord [Property]
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.listRec [BasicProperty]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     properties[2] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::simpleRecordType.int [BasicProperty]
                     component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
     actions[101] : BehaviorActionBlock
       content : AssignmentAction
@@ -1807,10 +1809,10 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexList [Property]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.int [BasicProperty]
                     component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
     actions[102] : BehaviorActionBlock
       content : AssignmentAction
@@ -1822,13 +1824,13 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexList [Property]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.listRec [BasicProperty]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     properties[2] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::simpleRecordType.int [BasicProperty]
                     component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
     actions[103] : BehaviorActionBlock
       content : AssignmentAction
@@ -1840,10 +1842,10 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexList [Property]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.listRec [BasicProperty]
                     properties[2] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[3] : PropertyNameHolder
@@ -1859,7 +1861,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexList [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[2] : PropertyNameHolder
@@ -1875,7 +1877,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexList [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[2] : PropertyNameHolder
@@ -1894,7 +1896,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexList [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[2] : PropertyNameHolder
@@ -1914,11 +1916,11 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexListOfList [Property]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                         arrayIndexes[1] : BehaviorIntegerLiteral
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.int [BasicProperty]
                     component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
     actions[108] : BehaviorActionBlock
       content : AssignmentAction
@@ -1930,14 +1932,14 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexListOfList [Property]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                         arrayIndexes[1] : BehaviorIntegerLiteral
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.listRec [BasicProperty]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     properties[2] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::simpleRecordType.int [BasicProperty]
                     component : DataAccessPrototypeHolder element=PropertyReferenceTest::MyThread.myDataPrototype [FeaturePrototype]
     actions[109] : BehaviorActionBlock
       content : AssignmentAction
@@ -1949,11 +1951,11 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexListOfList [Property]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                         arrayIndexes[1] : BehaviorIntegerLiteral
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.listRec [BasicProperty]
                     properties[2] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[3] : PropertyNameHolder
@@ -1969,7 +1971,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexListOfList [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[2] : PropertyNameHolder
@@ -1985,7 +1987,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexListOfList [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[2] : PropertyNameHolder
@@ -2004,7 +2006,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexListOfList [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[2] : PropertyNameHolder
@@ -2024,7 +2026,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleValue [Property]
                     component : DataPortHolder element=PropertyReferenceTest::MyFeatureGroup.portMyData [DataPort]
                       groupHolders[0] : GroupHolder element=PropertyReferenceTest::MyThread.featGrp [FeatureGroup]
     actions[114] : BehaviorActionBlock
@@ -2037,8 +2039,10 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
-                    component : BehaviorVariableHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleValue [Property]
+                    component : DataPortHolder element=PropertyReferenceTest::MyFeatureGroup.portMyData [DataPort]
+                      groupHolders[0] : GroupHolder element=PropertyReferenceTest::MyThread.featGrp [FeatureGroup]
+                      groupHolders[1] : GroupPrototypeHolder element=PropertyReferenceTest::MyFeatureGroup.nestedGroup [FeatureGroupPrototype]
     actions[115] : BehaviorActionBlock
       content : AssignmentAction
         target : BehaviorVariableHolder element=int [BehaviorVariable]
@@ -2061,7 +2065,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aRange [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
@@ -2075,7 +2079,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aRange [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
@@ -2096,7 +2100,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aEnum [Property]
                     component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
             secondExpression : SimpleExpression
               terms[0] : Term
@@ -2123,7 +2127,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aEnum [Property]
                     component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
             secondExpression : SimpleExpression
               terms[0] : Term
@@ -2141,7 +2145,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleList [Property]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
     actions[121] : BehaviorActionBlock
@@ -2154,7 +2158,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleList [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
@@ -2168,9 +2172,9 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleRecord [Property]
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::simpleRecordType.int [BasicProperty]
                     component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
     actions[123] : BehaviorActionBlock
       content : AssignmentAction
@@ -2182,9 +2186,9 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleRecordDefined [Property]
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
                     component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
     actions[124] : BehaviorActionBlock
       content : AssignmentAction
@@ -2196,9 +2200,9 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexRecord [Property]
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.int [BasicProperty]
                     component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
     actions[125] : BehaviorActionBlock
       content : AssignmentAction
@@ -2210,9 +2214,9 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexRecord [Property]
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.listRec [BasicProperty]
                     properties[2] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[3] : PropertyNameHolder
@@ -2228,12 +2232,12 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexRecord [Property]
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.listRec [BasicProperty]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     properties[2] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::simpleRecordType.int [BasicProperty]
                     component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
     actions[127] : BehaviorActionBlock
       content : AssignmentAction
@@ -2245,10 +2249,10 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexList [Property]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.int [BasicProperty]
                     component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
     actions[128] : BehaviorActionBlock
       content : AssignmentAction
@@ -2260,13 +2264,13 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexList [Property]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.listRec [BasicProperty]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     properties[2] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::simpleRecordType.int [BasicProperty]
                     component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
     actions[129] : BehaviorActionBlock
       content : AssignmentAction
@@ -2278,10 +2282,10 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexList [Property]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.listRec [BasicProperty]
                     properties[2] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[3] : PropertyNameHolder
@@ -2297,7 +2301,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexList [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[2] : PropertyNameHolder
@@ -2313,7 +2317,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexList [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[2] : PropertyNameHolder
@@ -2332,7 +2336,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexList [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[2] : PropertyNameHolder
@@ -2352,11 +2356,11 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexListOfList [Property]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                         arrayIndexes[1] : BehaviorIntegerLiteral
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.int [BasicProperty]
                     component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
     actions[134] : BehaviorActionBlock
       content : AssignmentAction
@@ -2368,14 +2372,14 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexListOfList [Property]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                         arrayIndexes[1] : BehaviorIntegerLiteral
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.listRec [BasicProperty]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     properties[2] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::simpleRecordType.int [BasicProperty]
                     component : DataPortHolder element=PropertyReferenceTest::MyThread.portMyData [DataPort]
     actions[135] : BehaviorActionBlock
       content : AssignmentAction
@@ -2387,11 +2391,11 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexListOfList [Property]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                         arrayIndexes[1] : BehaviorIntegerLiteral
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.listRec [BasicProperty]
                     properties[2] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[3] : PropertyNameHolder
@@ -2407,7 +2411,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexListOfList [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[2] : PropertyNameHolder
@@ -2423,7 +2427,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexListOfList [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[2] : PropertyNameHolder
@@ -2442,7 +2446,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexListOfList [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[2] : PropertyNameHolder
@@ -2474,7 +2478,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aRange [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
@@ -2488,7 +2492,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aRange [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
@@ -2509,7 +2513,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aEnum [Property]
                     component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
             secondExpression : SimpleExpression
               terms[0] : Term
@@ -2536,7 +2540,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aEnum [Property]
                     component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
             secondExpression : SimpleExpression
               terms[0] : Term
@@ -2554,7 +2558,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleList [Property]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
     actions[145] : BehaviorActionBlock
@@ -2567,7 +2571,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleList [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
@@ -2581,9 +2585,9 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleRecord [Property]
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::simpleRecordType.int [BasicProperty]
                     component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
     actions[147] : BehaviorActionBlock
       content : AssignmentAction
@@ -2595,9 +2599,9 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aSimpleRecordDefined [Property]
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : PropertyExpressionHolder element=IntegerLiteral [IntegerLiteral]
                     component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
     actions[148] : BehaviorActionBlock
       content : AssignmentAction
@@ -2609,9 +2613,9 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexRecord [Property]
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.int [BasicProperty]
                     component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
     actions[149] : BehaviorActionBlock
       content : AssignmentAction
@@ -2623,9 +2627,9 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexRecord [Property]
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.listRec [BasicProperty]
                     properties[2] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[3] : PropertyNameHolder
@@ -2641,12 +2645,12 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexRecord [Property]
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.listRec [BasicProperty]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     properties[2] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::simpleRecordType.int [BasicProperty]
                     component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
     actions[151] : BehaviorActionBlock
       content : AssignmentAction
@@ -2658,10 +2662,10 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexList [Property]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.int [BasicProperty]
                     component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
     actions[152] : BehaviorActionBlock
       content : AssignmentAction
@@ -2673,13 +2677,13 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexList [Property]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.listRec [BasicProperty]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     properties[2] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::simpleRecordType.int [BasicProperty]
                     component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
     actions[153] : BehaviorActionBlock
       content : AssignmentAction
@@ -2691,10 +2695,10 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexList [Property]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.listRec [BasicProperty]
                     properties[2] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[3] : PropertyNameHolder
@@ -2710,7 +2714,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexList [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[2] : PropertyNameHolder
@@ -2726,7 +2730,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexList [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[2] : PropertyNameHolder
@@ -2745,7 +2749,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexList [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[2] : PropertyNameHolder
@@ -2765,11 +2769,11 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexListOfList [Property]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                         arrayIndexes[1] : BehaviorIntegerLiteral
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.int [BasicProperty]
                     component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
     actions[158] : BehaviorActionBlock
       content : AssignmentAction
@@ -2781,14 +2785,14 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexListOfList [Property]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                         arrayIndexes[1] : BehaviorIntegerLiteral
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.listRec [BasicProperty]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                     properties[2] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::simpleRecordType.int [BasicProperty]
                     component : DataSubcomponentHolder element=PropertyReferenceTest::MyThreadv2.impl.subMyData [DataSubcomponent]
     actions[159] : BehaviorActionBlock
       content : AssignmentAction
@@ -2800,11 +2804,11 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexListOfList [Property]
                         arrayIndexes[0] : BehaviorIntegerLiteral
                         arrayIndexes[1] : BehaviorIntegerLiteral
                     properties[1] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::complexRecordType.listRec [BasicProperty]
                     properties[2] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[3] : PropertyNameHolder
@@ -2820,7 +2824,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexListOfList [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[2] : PropertyNameHolder
@@ -2836,7 +2840,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexListOfList [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[2] : PropertyNameHolder
@@ -2855,7 +2859,7 @@ annex[0] owner=PropertyReferenceTest::MyThreadv2.impl
                 factors[0] : Factor
                   firstValue : ClassifierFeaturePropertyReference
                     properties[0] : PropertyNameHolder
-                      property : BasicPropertyHolder element=<null>
+                      property : BasicPropertyHolder element=AadlBaTestPropertySet::aComplexListOfList [Property]
                     properties[1] : PropertyNameHolder
                       property : BasicPropertyHolder element=<null>
                     properties[2] : PropertyNameHolder

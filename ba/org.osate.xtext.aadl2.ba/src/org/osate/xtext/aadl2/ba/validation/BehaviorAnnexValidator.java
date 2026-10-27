@@ -53,6 +53,7 @@ import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EventDataPort;
+import org.osate.aadl2.EventDataSource;
 import org.osate.aadl2.EventPort;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.InternalFeature;
@@ -102,16 +103,23 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.CommunicationAction;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchTriggerCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ForStatement;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.HashPropertyReference;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.IntegerValue;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.InternalCondition;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchTrigger;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.NamedPropertyField;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyIndexPropertyReference;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.PropertyReferenceTail;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.Reference;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceExpression;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceSegment;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.TimedAction;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.UnaryExpression;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReferenceExpression;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReferenceSegment;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.ValueExpression;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.util.BehaviorAnnexSwitch;
+import org.osate.xtext.aadl2.ba.scoping.BehaviorAnnexReferences;
 import org.osate.xtext.aadl2.ba.translation.DeclarativeToStrictTranslator;
 import org.osate.xtext.aadl2.ba.translation.DeclarativeToStrictTranslator.TranslationResult;
 
@@ -243,7 +251,15 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 
 		@Override
 		public Void doSwitch(final EObject object) {
-			hasUnresolvedReference = hasUnresolvedReference || hasUnresolvedCrossReference(object);
+			if (object instanceof ReferenceSegment || object instanceof UnindexedReferenceSegment
+					|| object instanceof HashPropertyReference || object instanceof NamedPropertyField
+					|| object instanceof PropertyReferenceTail
+					|| object instanceof PropertyIndexPropertyReference) {
+				// These uses were already tolerated by translation when symbolic. Keep independent semantic
+				// diagnostics; Xtext reports their unresolved links separately.
+			} else {
+				hasUnresolvedReference |= hasUnresolvedCrossReference(object);
+			}
 			return super.doSwitch(object);
 		}
 
@@ -472,7 +488,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 	 * declaration and the same data-representation rules used by the strict type checker. An unknown representation is
 	 * not a proven mismatch and retains its resolution or classifier diagnostics without an additional error here.
 	 */
-	private void checkIntegerValue(final org.osate.xtext.aadl2.ba.behaviorAnnex.IntegerValue value,
+	private void checkIntegerValue(final IntegerValue value,
 			final String position, final TranslationResult translation, final ComponentClassifier owner) {
 		var strict = translation.getStrict(value);
 		if (strict == null && value instanceof ReferenceExpression reference) {
@@ -574,7 +590,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 				continue;
 			}
 			var written = sourceFor(holder, translation);
-			var name = written instanceof NamedPropertyField field ? field.getName()
+			var name = written instanceof NamedPropertyField field ? BehaviorAnnexReferences.writtenName(field)
 					: NodeModelUtils.getTokenText(NodeModelUtils.findActualNodeFor(written));
 			error("'" + name + "' is not an enumerator of '" + enumerationName(reference) + "'", written, null,
 					ValidationMessageAcceptor.INSIGNIFICANT_INDEX, PROPERTY_FIELD);
@@ -745,7 +761,7 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 		return false;
 	}
 
-	private static Reference plainReference(org.osate.xtext.aadl2.ba.behaviorAnnex.ValueExpression expression) {
+	private static Reference plainReference(ValueExpression expression) {
 		return expression instanceof ReferenceExpression reference && reference.getProperty() == null
 				&& !reference.isCount() && !reference.isFresh() && !reference.isUpdated() && !reference.isDequeue()
 						? reference.getReference()
@@ -820,10 +836,10 @@ public final class BehaviorAnnexValidator extends AbstractBehaviorAnnexValidator
 			return hasDirection(reference, translation, false);
 		}
 		return isDataReference(reference, translation)
-				|| translation.getResolvedReference(reference) instanceof org.osate.aadl2.EventDataSource;
+				|| translation.getResolvedReference(reference) instanceof EventDataSource;
 	}
 
-	private static boolean isReadable(org.osate.xtext.aadl2.ba.behaviorAnnex.ValueExpression expression,
+	private static boolean isReadable(ValueExpression expression,
 			TranslationResult translation) {
 		if (expression instanceof ReferenceExpression reference && !isReadableReference(reference, translation)) {
 			return false;

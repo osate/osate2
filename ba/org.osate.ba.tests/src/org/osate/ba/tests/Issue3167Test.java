@@ -28,7 +28,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
@@ -39,11 +38,10 @@ import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.ThreadImplementation;
-import org.osate.annexsupport.AnnexRegistry;
-import org.osate.annexsupport.AnnexUnparserRegistry;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnex;
+import org.osate.xtext.aadl2.ba.scoping.BehaviorAnnexReferences;
 
 import com.google.inject.Inject;
 import com.itemis.xtext.testing.XtextTest;
@@ -68,9 +66,7 @@ public class Issue3167Test extends XtextTest {
 		assertFrozenPorts(annex);
 
 		// Copy away the node model so the registered unparser must serialize instead of returning source text.
-		var unparser = ((AnnexUnparserRegistry) AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_UNPARSER_EXT_ID))
-				.getAnnexUnparser("behavior_specification");
-		var serialized = unparser.unparseAnnexSubclause(EcoreUtil.copy(annex), "");
+		var serialized = BehaviorAnnexTestUtil.serializeCopy(annex);
 		var compact = serialized.replaceAll("\\s+", "");
 		assertTrue(serialized, compact.contains("frozen(sampled_input)"));
 		assertTrue(serialized, compact.contains("frozen(sampled_input,second_input)"));
@@ -118,7 +114,7 @@ public class Issue3167Test extends XtextTest {
 		for (var i = 0; i < expected.size(); i++) {
 			var dispatch = annex.getTransitions().get(i).getCondition().getDispatch();
 			assertEquals(expected.get(i), dispatch.getFrozenPorts().stream()
-					.map(port -> port.getSegments().getFirst().getName()).toList());
+					.map(port -> BehaviorAnnexReferences.name(port.getSegments().getFirst().getName())).toList());
 		}
 	}
 }

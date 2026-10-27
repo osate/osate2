@@ -44,25 +44,25 @@ import org.eclipse.emf.ecore.EObject;
 public interface UnindexedReferenceSegment extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute.
+   * Returns the value of the '<em><b>Name</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
+   * @return the value of the '<em>Name</em>' reference.
+   * @see #setName(EObject)
    * @see org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexPackage#getUnindexedReferenceSegment_Name()
    * @model
    * @generated
    */
-  String getName();
+  EObject getName();
 
   /**
-   * Sets the value of the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReferenceSegment#getName <em>Name</em>}' attribute.
+   * Sets the value of the '{@link org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReferenceSegment#getName <em>Name</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' attribute.
+   * @param value the new value of the '<em>Name</em>' reference.
    * @see #getName()
    * @generated
    */
-  void setName(String value);
+  void setName(EObject value);
 
 } // UnindexedReferenceSegment

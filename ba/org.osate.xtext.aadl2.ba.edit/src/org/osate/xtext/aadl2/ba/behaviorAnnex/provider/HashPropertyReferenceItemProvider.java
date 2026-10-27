@@ -34,7 +34,6 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 import org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorAnnexFactory;
@@ -95,8 +94,8 @@ public class HashPropertyReferenceItemProvider extends IntegerValueItemProvider
          BehaviorAnnexPackage.Literals.HASH_PROPERTY_REFERENCE__PROPERTY,
          true,
          false,
-         false,
-         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+         true,
+         null,
          null,
          null));
   }
@@ -156,10 +155,7 @@ public class HashPropertyReferenceItemProvider extends IntegerValueItemProvider
   @Override
   public String getText(Object object)
   {
-    String label = ((HashPropertyReference)object).getProperty();
-    return label == null || label.length() == 0 ?
-      getString("_UI_HashPropertyReference_type") :
-      getString("_UI_HashPropertyReference_type") + " " + label;
+    return getString("_UI_HashPropertyReference_type");
   }
 
 
@@ -177,9 +173,6 @@ public class HashPropertyReferenceItemProvider extends IntegerValueItemProvider
 
     switch (notification.getFeatureID(HashPropertyReference.class))
     {
-      case BehaviorAnnexPackage.HASH_PROPERTY_REFERENCE__PROPERTY:
-        fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-        return;
       case BehaviorAnnexPackage.HASH_PROPERTY_REFERENCE__INDEXES:
       case BehaviorAnnexPackage.HASH_PROPERTY_REFERENCE__FIELDS:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));

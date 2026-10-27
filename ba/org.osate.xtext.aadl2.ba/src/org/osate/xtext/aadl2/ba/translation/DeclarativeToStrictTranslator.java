@@ -29,8 +29,10 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.TreeMap;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -39,7 +41,6 @@ import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.AccessSpecification;
 import org.osate.aadl2.BasicProperty;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DataClassifier;
@@ -49,16 +50,15 @@ import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
-import org.osate.aadl2.EnumerationType;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.EventDataSource;
 import org.osate.aadl2.EventPort;
 import org.osate.aadl2.EventSource;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FeatureGroupPrototype;
 import org.osate.aadl2.FeaturePrototype;
 import org.osate.aadl2.FeaturePrototypeBinding;
-import org.osate.aadl2.ListValue;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NumberValue;
@@ -71,16 +71,23 @@ import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertySet;
+import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.PrototypeBinding;
-import org.osate.aadl2.RecordType;
 import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramAccess;
+import org.osate.aadl2.SubprogramClassifier;
+import org.osate.aadl2.SubprogramGroupAccess;
+import org.osate.aadl2.SubprogramGroupPrototype;
+import org.osate.aadl2.SubprogramGroupSubcomponent;
+import org.osate.aadl2.SubprogramPrototype;
 import org.osate.aadl2.SubprogramSubcomponent;
-import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.ThreadGroupPrototype;
+import org.osate.aadl2.ThreadGroupSubcomponent;
 import org.osate.aadl2.parsesupport.ParseUtil;
 import org.osate.ba.aadlba.AadlBaFactory;
+import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.ActualPortHolder;
 import org.osate.ba.aadlba.BehaviorAction;
 import org.osate.ba.aadlba.BehaviorActions;
@@ -92,27 +99,44 @@ import org.osate.ba.aadlba.BehaviorVariable;
 import org.osate.ba.aadlba.BinaryAddingOperator;
 import org.osate.ba.aadlba.BinaryNumericOperator;
 import org.osate.ba.aadlba.CalledSubprogramHolder;
+import org.osate.ba.aadlba.ClassifierFeatureHolder;
+import org.osate.ba.aadlba.CompletionRelativeTimeout;
 import org.osate.ba.aadlba.DataComponentReference;
 import org.osate.ba.aadlba.DataHolder;
-import org.osate.ba.aadlba.DataRepresentation;
 import org.osate.ba.aadlba.DispatchConjunction;
 import org.osate.ba.aadlba.DispatchTrigger;
+import org.osate.ba.aadlba.DispatchTriggerCondition;
+import org.osate.ba.aadlba.DispatchTriggerLogicalExpression;
 import org.osate.ba.aadlba.ElementHolder;
 import org.osate.ba.aadlba.ElementValues;
 import org.osate.ba.aadlba.ElseStatement;
 import org.osate.ba.aadlba.Factor;
+import org.osate.ba.aadlba.ForOrForAllStatement;
 import org.osate.ba.aadlba.GroupHolder;
 import org.osate.ba.aadlba.GroupableElement;
 import org.osate.ba.aadlba.IndexableElement;
 import org.osate.ba.aadlba.InternalPortHolder;
+import org.osate.ba.aadlba.InternalPortSendAction;
+import org.osate.ba.aadlba.IterativeVariable;
 import org.osate.ba.aadlba.LogicalOperator;
+import org.osate.ba.aadlba.ModeSwitchConjunction;
+import org.osate.ba.aadlba.ModeSwitchTriggerLogicalExpression;
 import org.osate.ba.aadlba.MultiplyingOperator;
 import org.osate.ba.aadlba.ParameterLabel;
+import org.osate.ba.aadlba.PortDequeueAction;
+import org.osate.ba.aadlba.PortFreezeAction;
+import org.osate.ba.aadlba.PortSendAction;
 import org.osate.ba.aadlba.PropertyElementHolder;
 import org.osate.ba.aadlba.PropertyNameHolder;
+import org.osate.ba.aadlba.PropertyReference;
+import org.osate.ba.aadlba.PrototypeHolder;
 import org.osate.ba.aadlba.Relation;
 import org.osate.ba.aadlba.RelationalOperator;
+import org.osate.ba.aadlba.SharedDataAction;
 import org.osate.ba.aadlba.SimpleExpression;
+import org.osate.ba.aadlba.StructUnionElement;
+import org.osate.ba.aadlba.SubprogramCallAction;
+import org.osate.ba.aadlba.SubprogramHolderProxy;
 import org.osate.ba.aadlba.Target;
 import org.osate.ba.aadlba.Term;
 import org.osate.ba.aadlba.TimeoutResetPort;
@@ -166,7 +190,10 @@ import org.osate.xtext.aadl2.ba.behaviorAnnex.Reference;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.ReferenceExpression;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.TimedAction;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.UnaryExpression;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReference;
+import org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReferenceExpression;
 import org.osate.xtext.aadl2.ba.behaviorAnnex.WhileStatement;
+import org.osate.xtext.aadl2.ba.scoping.BehaviorAnnexReferences;
 
 /**
  * Builds the public strict BA model from the stable Xtext parse model. Translation is additive: it never reparents or
@@ -273,6 +300,10 @@ public final class DeclarativeToStrictTranslator {
 		 * @return the AADL declaration, BA declaration, iterative declaration owner, or {@code null}
 		 */
 		public EObject getResolvedReference(final EObject sourceSegment) {
+			var linked = BehaviorAnnexReferences.target(sourceSegment);
+			if (linked != null) {
+				return linked;
+			}
 			var target = resolvedReferences.get(sourceSegment);
 			var declarativeTarget = strictToDeclarative.get(target);
 			return declarativeTarget == null ? target : declarativeTarget;
@@ -304,8 +335,6 @@ public final class DeclarativeToStrictTranslator {
 		private final IdentityHashMap<EObject, EObject> strictToDeclarative = new IdentityHashMap<>();
 		private final IdentityHashMap<org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorState, BehaviorState> states =
 				new IdentityHashMap<>();
-		private final Map<String, BehaviorVariable> variables = new java.util.TreeMap<>(String.CASE_INSENSITIVE_ORDER);
-		private final List<Map<String, org.osate.ba.aadlba.IterativeVariable>> iterativeScopes = new ArrayList<>();
 		private final IdentityHashMap<EObject, List<ElementHolder>> resolvedPaths = new IdentityHashMap<>();
 		private final IdentityHashMap<EObject, NamedElement> resolvedReferences = new IdentityHashMap<>();
 
@@ -345,9 +374,7 @@ public final class DeclarativeToStrictTranslator {
 						result.getOwnedPropertyAssociations().add(toPropertyAssociation(association));
 					}
 					strict.getVariables().add(result);
-					// Retain every declaration, but leave an ambiguous name unresolved. A null value also
-					// prevents a later duplicate or an enclosing feature from becoming the selected target.
-					variables.put(result.getName(), variables.containsKey(result.getName()) ? null : result);
+
 				}
 			}
 		}
@@ -373,7 +400,7 @@ public final class DeclarativeToStrictTranslator {
 				result.setSize(parseInteger(literal.getValue(), 0));
 			} else if (declaredSize instanceof HashPropertyReference reference && reference.getIndexes().isEmpty()
 					&& reference.getFields().isEmpty()
-					&& resolveQualified(reference.getProperty(), true) instanceof PropertyConstant constant) {
+					&& reference.getProperty() instanceof PropertyConstant constant) {
 				result.setSizeProperty(constant);
 			}
 			return result;
@@ -392,7 +419,7 @@ public final class DeclarativeToStrictTranslator {
 		}
 
 		private void translateStates(final BehaviorAnnex strict) {
-			Map<String, Mode> modes = new java.util.TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+			Map<String, Mode> modes = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 			if (modeRefinement) {
 				for (final var mode : owner.getAllModes()) {
 					modes.put(mode.getName(), mode);
@@ -489,14 +516,14 @@ public final class DeclarativeToStrictTranslator {
 					if (sourceConjunctions.size() == 1 && sourceConjunctions.getFirst().getTriggers().size() == 1) {
 						final BehaviorElement resolved = toReferenceValue(
 								sourceConjunctions.getFirst().getTriggers().getFirst());
-						if (resolved instanceof org.osate.ba.aadlba.DispatchTriggerCondition condition
+						if (resolved instanceof DispatchTriggerCondition condition
 								&& !(resolved instanceof DispatchTrigger)) {
 							result.setDispatchTriggerCondition(condition);
 						}
 					}
 					// A direct subprogram trigger is already installed; event triggers still need the logical wrapper.
 					if (result.getDispatchTriggerCondition() == null) {
-						final org.osate.ba.aadlba.DispatchTriggerLogicalExpression expression = trace(
+						final DispatchTriggerLogicalExpression expression = trace(
 								FACTORY.createDispatchTriggerLogicalExpression(), trigger);
 						for (final org.osate.xtext.aadl2.ba.behaviorAnnex.DispatchConjunction sourceConjunction : trigger
 								.getExpression().getConjunctions()) {
@@ -528,7 +555,7 @@ public final class DeclarativeToStrictTranslator {
 						}
 					}
 					if (trigger.getTime() != null) {
-						final org.osate.ba.aadlba.CompletionRelativeTimeout timeout = trace(
+						final CompletionRelativeTimeout timeout = trace(
 								FACTORY.createCompletionRelativeTimeout(), trigger);
 						copyTime(trigger.getTime(), timeout);
 						timeout.getResetPorts().addAll(resetPorts);
@@ -569,13 +596,13 @@ public final class DeclarativeToStrictTranslator {
 			return toModeSwitchExpression(condition, traceSource);
 		}
 
-		private org.osate.ba.aadlba.ModeSwitchTriggerLogicalExpression toModeSwitchExpression(
+		private ModeSwitchTriggerLogicalExpression toModeSwitchExpression(
 				final ModeSwitchCondition condition, final EObject traceSource) {
-			final org.osate.ba.aadlba.ModeSwitchTriggerLogicalExpression result = trace(
+			final ModeSwitchTriggerLogicalExpression result = trace(
 					FACTORY.createModeSwitchTriggerLogicalExpression(), traceSource);
 			for (final org.osate.xtext.aadl2.ba.behaviorAnnex.ModeSwitchConjunction sourceConjunction : condition
 					.getConjunctions()) {
-				final org.osate.ba.aadlba.ModeSwitchConjunction conjunction = trace(
+				final ModeSwitchConjunction conjunction = trace(
 						FACTORY.createModeSwitchConjunction(), sourceConjunction);
 				for (final ModeSwitchTrigger sourceTrigger : sourceConjunction.getTriggers()) {
 					final org.osate.ba.aadlba.ModeSwitchTrigger strictTrigger;
@@ -587,7 +614,7 @@ public final class DeclarativeToStrictTranslator {
 						if (resolvedTrigger instanceof ActualPortHolder port
 								&& !sourceTrigger.getReference().getSegments().isEmpty()
 								&& resolvedReferences.get(sourceTrigger.getReference().getSegments().getFirst())
-										instanceof org.osate.aadl2.Subcomponent context) {
+								instanceof Subcomponent context) {
 							port.setContext(context);
 							// A thread group is also represented as a GroupHolder by the generic resolver. Its
 							// subcomponent identity belongs in context, not in the feature-group path as well.
@@ -725,7 +752,7 @@ public final class DeclarativeToStrictTranslator {
 			return result;
 		}
 
-		private org.osate.ba.aadlba.ForOrForAllStatement toForStatement(final ForStatement statement) {
+		private ForOrForAllStatement toForStatement(final ForStatement statement) {
 			final var result = trace(FACTORY.createForOrForAllStatement(), statement);
 			result.setForAll(statement.isForall());
 			final var variable = trace(FACTORY.createIterativeVariable(), statement);
@@ -734,23 +761,13 @@ public final class DeclarativeToStrictTranslator {
 				variable.setDataClassifier(dataClassifier);
 			}
 			result.setIterativeVariable(variable);
-			final var scope = new java.util.TreeMap<String, org.osate.ba.aadlba.IterativeVariable>(
-					String.CASE_INSENSITIVE_ORDER);
-			scope.put(variable.getName(), variable);
-			iterativeScopes.add(scope);
-			try {
-				if (statement.getValues() != null) {
-					result.setIteratedValues(toElementValues(statement.getValues()));
-				}
-				// Resolve the classifier before the body, because a data element reached through the iterator needs the
-				// iterator's own type to resolve.
-				if (statement.getDataClassifier() == null) {
-					variable.setDataClassifier(iteratedElementClassifier(result));
-				}
-				result.setBehaviorActions(toActions(statement.getActions()));
-			} finally {
-				iterativeScopes.remove(iterativeScopes.size() - 1);
+			if (statement.getValues() != null) {
+				result.setIteratedValues(toElementValues(statement.getValues()));
 			}
+			if (statement.getDataClassifier() == null) {
+				variable.setDataClassifier(iteratedElementClassifier(result));
+			}
+			result.setBehaviorActions(toActions(statement.getActions()));
 			return result;
 		}
 
@@ -768,7 +785,7 @@ public final class DeclarativeToStrictTranslator {
 		 * declaration is reported as written instead.
 		 * </p>
 		 */
-		private DataClassifier iteratedElementClassifier(final org.osate.ba.aadlba.ForOrForAllStatement loop) {
+		private DataClassifier iteratedElementClassifier(final ForOrForAllStatement loop) {
 			if (!(loop.getIteratedValues() instanceof Element iterated)) {
 				return null;
 			}
@@ -803,7 +820,7 @@ public final class DeclarativeToStrictTranslator {
 			}
 			final BehaviorElement referenced = toReferenceValue(action.getReference());
 			if (action.isLock() || action.isUnlock()) {
-				final org.osate.ba.aadlba.SharedDataAction result = action.isLock()
+				final SharedDataAction result = action.isLock()
 						? trace(FACTORY.createLockAction(), action)
 						: trace(FACTORY.createUnlockAction(), action);
 				if (referenced instanceof org.osate.ba.aadlba.DataAccessHolder dataAccess) {
@@ -812,14 +829,14 @@ public final class DeclarativeToStrictTranslator {
 				return result;
 			}
 			if (action.isFreeze()) {
-				final org.osate.ba.aadlba.PortFreezeAction result = trace(FACTORY.createPortFreezeAction(), action);
+				final PortFreezeAction result = trace(FACTORY.createPortFreezeAction(), action);
 				if (referenced instanceof ElementHolder holder) {
 					copyHolder(holder, result);
 				}
 				return result;
 			}
 			if (action.isDequeue()) {
-				final org.osate.ba.aadlba.PortDequeueAction result = trace(FACTORY.createPortDequeueAction(), action);
+				final PortDequeueAction result = trace(FACTORY.createPortDequeueAction(), action);
 				if (referenced instanceof ActualPortHolder port) {
 					result.setPort(port);
 				}
@@ -834,7 +851,7 @@ public final class DeclarativeToStrictTranslator {
 			if (referenced instanceof InternalPortHolder internalPort) {
 				// AS5506/3 Rev A D.6 gives an internal port its own communication action: it is neither a port send
 				// nor a subprogram call.
-				final org.osate.ba.aadlba.InternalPortSendAction result = trace(
+				final InternalPortSendAction result = trace(
 						FACTORY.createInternalPortSendAction(), action);
 				result.setInternalPort(internalPort);
 				if (!action.getParameters().isEmpty()) {
@@ -843,22 +860,22 @@ public final class DeclarativeToStrictTranslator {
 				return result;
 			}
 			if (referenced instanceof ActualPortHolder port) {
-				final org.osate.ba.aadlba.PortSendAction result = trace(FACTORY.createPortSendAction(), action);
+				final PortSendAction result = trace(FACTORY.createPortSendAction(), action);
 				result.setPort(port);
 				if (!action.getParameters().isEmpty()) {
 					result.setValueExpression(toValueExpression(action.getParameters().get(0)));
 				}
 				return result;
 			}
-			final org.osate.ba.aadlba.SubprogramCallAction result = trace(FACTORY.createSubprogramCallAction(), action);
+			final SubprogramCallAction result = trace(FACTORY.createSubprogramCallAction(), action);
 			if (referenced instanceof CalledSubprogramHolder subprogram) {
 				result.setSubprogram(subprogram);
-			} else if (referenced instanceof org.osate.ba.aadlba.SubprogramHolderProxy proxy) {
+			} else if (referenced instanceof SubprogramHolderProxy proxy) {
 				result.setProxy(proxy);
 			}
 			final List<ElementHolder> path = resolvedPaths.get(action.getReference());
 			if (path != null && !path.isEmpty()
-					&& path.getFirst() instanceof org.osate.ba.aadlba.SubprogramHolderProxy proxy) {
+					&& path.getFirst() instanceof SubprogramHolderProxy proxy) {
 				result.setProxy(proxy);
 			}
 			final var formalParameters = SubprogramCallUtil
@@ -1108,9 +1125,9 @@ public final class DeclarativeToStrictTranslator {
 					reference);
 		}
 
-		private ValueConstant toPropertyReference(final Reference prefix, final String propertyName,
+		private ValueConstant toPropertyReference(final Reference prefix, final NamedElement declaration,
 				final List<PropertyArrayIndex> indexes, final List<NamedPropertyField> fields, final EObject traceSource) {
-			final var propertyElement = resolveQualified(propertyName, true);
+			final var propertyElement = declaration == null || declaration.eIsProxy() ? null : declaration;
 			final var prefixValue = prefix == null ? null : toReferenceValue(prefix);
 			final var prefixElement = prefix == null ? null : resolvedReferences.get(prefix);
 			if (propertyElement instanceof PropertyConstant constant) {
@@ -1122,7 +1139,7 @@ public final class DeclarativeToStrictTranslator {
 				}
 				return result;
 			}
-			final org.osate.ba.aadlba.PropertyReference result;
+			final PropertyReference result;
 			if (prefix == null) {
 				final var propertyReference = trace(
 						FACTORY.createPropertySetPropertyReference(), traceSource);
@@ -1137,7 +1154,7 @@ public final class DeclarativeToStrictTranslator {
 			} else {
 				final var propertyReference = trace(
 						FACTORY.createClassifierFeaturePropertyReference(), traceSource);
-				if (prefixValue instanceof org.osate.ba.aadlba.ClassifierFeatureHolder component) {
+				if (prefixValue instanceof ClassifierFeatureHolder component) {
 					propertyReference.setComponent(component);
 				}
 				result = propertyReference;
@@ -1148,16 +1165,8 @@ public final class DeclarativeToStrictTranslator {
 					primaryElement = property.getDefaultValue();
 				}
 			}
-			final var localName = localPropertyName(propertyName);
+			final var localName = propertyElement == null ? "" : propertyElement.getName();
 			final var owner = prefix == null ? null : prefixOwner(prefixElement, prefixValue);
-			if (prefix != null && propertyElement == null && owner != null) {
-				// Keep an element-prefixed reference symbolic. An association is only a fallback for resolving the
-				// property definition when ordinary name lookup could not find it.
-				final var association = PropertyUtils.findPropertyAssociation(localName, owner);
-				if (association != null) {
-					primaryElement = association.getProperty();
-				}
-			}
 			result.getProperties().add(toPropertyNameHolder(primaryElement, indexes, traceSource));
 			var previous = primaryElement;
 			// Data_Model::Enumerators is the one property whose value is part of a type declaration rather than a value
@@ -1168,19 +1177,14 @@ public final class DeclarativeToStrictTranslator {
 					? findEnumeratorsAssociation(owner)
 					: null;
 			for (final var field : fields) {
-				var resolved = resolvePropertyField(previous, field.getName());
+				var resolved = selectPropertyFieldValue(previous, field);
 				if (resolved == null && previous == primaryElement && enumerators != null) {
-					resolved = resolvePropertyField(enumerators, field.getName());
+					resolved = selectPropertyFieldValue(enumerators, field);
 				}
 				previous = resolved;
 				result.getProperties().add(toPropertyNameHolder(previous, field.getIndexes(), field));
 			}
 			return result;
-		}
-
-		private static String localPropertyName(final String propertyName) {
-			final var separator = propertyName.lastIndexOf("::");
-			return separator < 0 ? propertyName : propertyName.substring(separator + 2);
 		}
 
 		private NamedElement prefixOwner(final NamedElement prefixElement, final BehaviorElement prefixValue) {
@@ -1230,7 +1234,7 @@ public final class DeclarativeToStrictTranslator {
 				type = "BasicPropertyHolder";
 			} else if (element instanceof EnumerationLiteral) {
 				type = "EnumLiteralHolder";
-			} else if (element instanceof org.osate.aadl2.PropertyType) {
+			} else if (element instanceof PropertyType) {
 				type = "PropertyTypeHolder";
 			} else if (element instanceof PropertyAssociation) {
 				type = "PropertyAssociationHolder";
@@ -1252,31 +1256,30 @@ public final class DeclarativeToStrictTranslator {
 				return (org.osate.ba.aadlba.IntegerValue) toPropertyReference(null, reference.getProperty(), List.of(),
 						List.of(), reference);
 			}
-			final org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReferenceExpression reference =
-					(org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReferenceExpression) value;
+			final UnindexedReferenceExpression reference = (UnindexedReferenceExpression) value;
 			return (org.osate.ba.aadlba.IntegerValue) toReferenceValue(reference.getReference());
 		}
 
 		private BehaviorElement toReferenceValue(final Reference reference) {
 			final List<Segment> segments = new ArrayList<>();
 			for (final var segment : reference.getSegments()) {
-				segments.add(new Segment(segment.getName(), segment.getIndexes(), segment, null));
+				segments.add(new Segment(segment.getName(), segment.getIndexes(), segment));
 			}
 			for (final var tail : reference.getTails()) {
-				segments.add(new Segment(tail.getSegment().getName(), tail.getSegment().getIndexes(), tail.getSegment(),
-						tail.getSeparator()));
+				segments.add(
+						new Segment(tail.getSegment().getName(), tail.getSegment().getIndexes(), tail.getSegment()));
 			}
 			return toReferenceValue(segments, reference);
 		}
 
 		private BehaviorElement toReferenceValue(
-				final org.osate.xtext.aadl2.ba.behaviorAnnex.UnindexedReference reference) {
+				final UnindexedReference reference) {
 			final List<Segment> segments = new ArrayList<>();
 			for (final var segment : reference.getSegments()) {
-				segments.add(new Segment(segment.getName(), List.of(), segment, null));
+				segments.add(new Segment(segment.getName(), List.of(), segment));
 			}
 			for (final var tail : reference.getTails()) {
-				segments.add(new Segment(tail.getSegment().getName(), List.of(), tail.getSegment(), tail.getSeparator()));
+				segments.add(new Segment(tail.getSegment().getName(), List.of(), tail.getSegment()));
 			}
 			return toReferenceValue(segments, reference);
 		}
@@ -1285,32 +1288,14 @@ public final class DeclarativeToStrictTranslator {
 			final List<ElementHolder> holders = new ArrayList<>();
 			final List<GroupHolder> groups = new ArrayList<>();
 			NamedElement current = null;
-			int firstElement = 0;
-			int qualifiedEnd = 0;
-			while (qualifiedEnd + 1 < segments.size() && "::".equals(segments.get(qualifiedEnd + 1).separator)) {
-				qualifiedEnd++;
-			}
-			if (qualifiedEnd > 0) {
-				final String qualifiedName = segments.subList(0, qualifiedEnd + 1)
-						.stream()
-						.map(Segment::name)
-						.collect(java.util.stream.Collectors.joining("::"));
-				final Segment segment = segments.get(qualifiedEnd);
-				current = resolveQualified(qualifiedName, false);
-				for (var i = 0; i <= qualifiedEnd; i++) {
-					resolvedReferences.put(segments.get(i).source, current);
-				}
-				addResolvedSegment(current, segment, holders, groups);
-				firstElement = qualifiedEnd + 1;
-			}
-			for (int i = firstElement; i < segments.size(); i++) {
-				final Segment segment = segments.get(i);
-				if (i == 0 && "self".equalsIgnoreCase(segment.name)) {
-					current = owner;
+			for (final Segment segment : segments) {
+				current = strictDeclaration(segment.target);
+				// The containing classifier supplies the path context; it is not a data component in that path.
+				// Use the linked identity so copied or programmatically constructed models need no source nodes.
+				if (segment.target == owner) {
 					resolvedReferences.put(segment.source, current);
 					continue;
 				}
-				current = i == 0 ? resolveFirst(segment.name) : resolveNested(current, segment.name);
 				addResolvedSegment(current, segment, holders, groups);
 			}
 			if (holders.isEmpty()) {
@@ -1363,91 +1348,24 @@ public final class DeclarativeToStrictTranslator {
 			}
 		}
 
-		private NamedElement resolveFirst(final String name) {
-			for (int i = iterativeScopes.size() - 1; i >= 0; i--) {
-				final org.osate.ba.aadlba.IterativeVariable variable = iterativeScopes.get(i).get(name);
-				if (variable != null) {
-					return variable;
-				}
-			}
-			if (variables.containsKey(name)) {
-				return variables.get(name);
-			}
-			final var prototypeBinding = Aadl2Visitors.findPrototypeBindingInComponent(owner, name);
-			if (prototypeBinding != null) {
-				return prototypeBinding.getFormal();
-			}
-			final NamedElement ownedElement = owner.findNamedElement(name);
-			return ownedElement == null ? resolveQualified(name, false) : ownedElement;
-		}
-
-		private NamedElement resolveNested(final NamedElement current, final String name) {
-			if (current == null) {
+		private NamedElement strictDeclaration(final EObject declaration) {
+			if (declaration == null || declaration.eIsProxy()) {
 				return null;
 			}
-			if (current instanceof Classifier classifier) {
-				final var qualifiedClassifier = resolveQualified(classifier.getQualifiedName() + "." + name, false);
-				if (qualifiedClassifier != null) {
-					return qualifiedClassifier;
-				}
+			if (declaration instanceof ForStatement
+					&& declarativeToStrict.get(declaration) instanceof ForOrForAllStatement loop) {
+				return loop.getIterativeVariable();
 			}
-			try {
-				final Classifier classifier = AadlBaUtils.getClassifier(current, owner);
-				if (classifier == null) {
-					return null;
-				}
-				if (name.equalsIgnoreCase(classifier.getName())
-						|| classifier.getName().regionMatches(true,
-								Math.max(0, classifier.getName().length() - name.length()), name, 0, name.length())) {
-					return classifier;
-				}
-				final var prototypeBinding = Aadl2Visitors.findPrototypeBindingInComponent(classifier, name);
-				if (prototypeBinding != null) {
-					return prototypeBinding.getFormal();
-				}
-				final var nested = classifier.findNamedElement(name);
-				return nested == null && classifier instanceof DataClassifier dataClassifier
-						? resolveDataElement(dataClassifier, name)
-						: nested;
-			} catch (final UnsupportedOperationException exception) {
-				return current instanceof Classifier ? ((Classifier) current).findNamedElement(name) : null;
+			if (declaration instanceof org.osate.xtext.aadl2.ba.behaviorAnnex.BehaviorVariable) {
+				return declarativeToStrict.get(declaration) instanceof NamedElement named ? named : null;
 			}
-		}
-
-		private NamedElement resolveDataElement(final DataClassifier classifier, final String name) {
-			final var representation = AadlBaUtils.getDataRepresentation(classifier);
-			if (representation == DataRepresentation.ARRAY) {
-				final var baseType = AadlBaUtils.getBaseType(classifier);
-				return baseType != null && baseType.getClassifier() instanceof DataClassifier dataClassifier
-						? resolveDataElement(dataClassifier, name)
-						: null;
+			if (declaration instanceof StringLiteral literal) {
+				final var result = FACTORY.createStructUnionElement();
+				result.setName(literal.getValue());
+				result.setDataClassifier(BehaviorAnnexReferences.structMemberClassifier(literal));
+				return result;
 			}
-			if (representation != DataRepresentation.STRUCT && representation != DataRepresentation.UNION) {
-				return null;
-			}
-
-			final var elementNames = PropertyUtils.findPropertyExpression(classifier,
-					DataModelProperties.ELEMENT_NAMES);
-			final var baseTypes = PropertyUtils.findPropertyExpression(classifier, DataModelProperties.BASE_TYPE);
-			for (var listIndex = 0; listIndex < elementNames.size() && listIndex < baseTypes.size(); listIndex++) {
-				if (!(elementNames.get(listIndex) instanceof ListValue names)
-						|| !(baseTypes.get(listIndex) instanceof ListValue types)) {
-					continue;
-				}
-				for (var elementIndex = 0; elementIndex < names.getOwnedListElements().size()
-						&& elementIndex < types.getOwnedListElements().size(); elementIndex++) {
-					if (names.getOwnedListElements().get(elementIndex) instanceof StringLiteral elementName
-							&& name.equalsIgnoreCase(elementName.getValue())
-							&& types.getOwnedListElements().get(elementIndex) instanceof ClassifierValue classifierValue
-							&& classifierValue.getClassifier() instanceof DataClassifier dataClassifier) {
-						final var result = FACTORY.createStructUnionElement();
-						result.setName(name);
-						result.setDataClassifier(dataClassifier);
-						return result;
-					}
-				}
-			}
-			return null;
+			return declaration instanceof NamedElement named ? named : null;
 		}
 
 		private ElementHolder createHolder(final NamedElement element, final EObject traceSource,
@@ -1455,7 +1373,7 @@ public final class DeclarativeToStrictTranslator {
 			final String type;
 			if (element instanceof BehaviorVariable) {
 				type = "BehaviorVariableHolder";
-			} else if (element instanceof org.osate.ba.aadlba.IterativeVariable) {
+			} else if (element instanceof IterativeVariable) {
 				type = "IterativeVariableHolder";
 			} else if (element instanceof DataPort) {
 				type = "DataPortHolder";
@@ -1477,33 +1395,33 @@ public final class DeclarativeToStrictTranslator {
 				type = "SubprogramAccessHolder";
 			} else if (element instanceof SubprogramSubcomponent) {
 				type = grouped ? "SubprogramHolder" : "SubprogramSubcomponentHolder";
-			} else if (element instanceof org.osate.aadl2.SubprogramClassifier) {
+			} else if (element instanceof SubprogramClassifier) {
 				type = "SubprogramHolder";
-			} else if (element instanceof FeatureGroup || element instanceof org.osate.aadl2.SubprogramGroupSubcomponent
-					|| element instanceof org.osate.aadl2.SubprogramGroupAccess
-					|| element instanceof org.osate.aadl2.ThreadGroupSubcomponent) {
+			} else if (element instanceof FeatureGroup || element instanceof SubprogramGroupSubcomponent
+					|| element instanceof SubprogramGroupAccess
+					|| element instanceof ThreadGroupSubcomponent) {
 				type = "GroupHolder";
-			} else if (element instanceof org.osate.aadl2.SubprogramPrototype) {
+			} else if (element instanceof SubprogramPrototype) {
 				type = "SubprogramPrototypeHolder";
-			} else if (element instanceof org.osate.aadl2.FeatureGroupPrototype
-					|| element instanceof org.osate.aadl2.SubprogramGroupPrototype
-					|| element instanceof org.osate.aadl2.ThreadGroupPrototype) {
+			} else if (element instanceof FeatureGroupPrototype
+					|| element instanceof SubprogramGroupPrototype
+					|| element instanceof ThreadGroupPrototype) {
 				type = "GroupPrototypeHolder";
 			} else if (element instanceof FeaturePrototype prototype) {
 				type = featurePrototypeHolderType(prototype);
-			} else if (element instanceof org.osate.ba.aadlba.StructUnionElement) {
+			} else if (element instanceof StructUnionElement) {
 				type = "StructUnionElementHolder";
 			} else {
 				type = "DataSubcomponentHolder";
 			}
 			final var result = (ElementHolder) create(type, traceSource);
-			if (element instanceof org.osate.ba.aadlba.StructUnionElement structUnionElement) {
+			if (element instanceof StructUnionElement structUnionElement) {
 				trace(structUnionElement, traceSource);
 			}
 			if (result.eClass().getEStructuralFeature("element") != null) {
 				result.setElement(element);
 			}
-			if (result instanceof org.osate.ba.aadlba.PrototypeHolder prototypeHolder) {
+			if (result instanceof PrototypeHolder prototypeHolder) {
 				if (element instanceof PrototypeBinding binding) {
 					prototypeHolder.setPrototypeBinding(binding);
 					prototypeHolder.setPrototype(binding.getFormal());
@@ -1531,80 +1449,26 @@ public final class DeclarativeToStrictTranslator {
 			return "FeaturePrototypeHolder";
 		}
 
-		private NamedElement resolveQualified(final String qualifiedName, final boolean propertySet) {
-			final var separator = qualifiedName.lastIndexOf("::");
-			if (separator >= 0) {
-				final var namespace = qualifiedName.substring(0, separator);
-				final var name = qualifiedName.substring(separator + 2);
-				return propertySet
-						? Aadl2Visitors.findElementInPropertySet(name, namespace,
-								AadlUtil.getContainingPackageSection(owner))
-						: Aadl2Visitors.findElementInPackage(name, namespace, AadlUtil.getContainingPackageSection(owner));
-			}
-			final var local = owner.findNamedElement(qualifiedName);
-			if (local != null) {
-				return local;
-			}
-			return propertySet
-					? Aadl2Visitors.findElementInPropertySet(qualifiedName, null,
-							AadlUtil.getContainingPackageSection(owner))
-					: Aadl2Visitors.findElementInPackage(qualifiedName, null, AadlUtil.getContainingPackageSection(owner));
-		}
-
-		private Element resolvePropertyField(final Element parent, final String name) {
+		/** Selects a value only where translation has a default; declaration lookup belongs to the linked model. */
+		private Element selectPropertyFieldValue(final Element parent, final NamedPropertyField field) {
 			if (parent == null) {
 				return null;
 			}
+			PropertyExpression value = parent instanceof PropertyExpression expression ? expression
+					: parent instanceof Property property ? property.getDefaultValue() : null;
 			if (parent instanceof PropertyAssociation association) {
 				final var values = PropertyUtils.getPropertyExpression(association);
-				if (!values.isEmpty()) {
-					final var resolved = resolvePropertyValue(values.getLast(), name);
-					if (resolved != null) {
-						return resolved;
-					}
-				}
-				return resolvePropertyField(association.getProperty(), name);
+				value = values.isEmpty() ? null : values.getLast();
 			}
-			if (parent instanceof PropertyExpression expression) {
-				final var resolved = resolvePropertyValue(expression, name);
-				if (resolved != null) {
-					return resolved;
-				}
-				final var property = PropertyUtils.getContainingProperty(expression);
-				return property == null ? null : resolvePropertyField(property, name);
-			}
-			if (parent instanceof BasicProperty property) {
-				if (property instanceof Property declaration && declaration.getDefaultValue() != null) {
-					final var resolved = resolvePropertyValue(declaration.getDefaultValue(), name);
-					if (resolved != null) {
-						return resolved;
-					}
-				}
-				return resolvePropertyField(property.getPropertyType(), name);
-			}
-			return resolvePropertyField((EObject) parent, name);
-		}
-
-		private NamedElement resolvePropertyField(final EObject parent, final String name) {
-			if (parent == null) {
-				return null;
-			}
-			if (parent instanceof EnumerationType enumeration) {
-				return enumeration.findLiteral(name);
-			}
-			if (parent instanceof RecordType record) {
-				return record.getOwnedFields()
-						.stream()
-						.filter(field -> name.equalsIgnoreCase(field.getName()))
-						.findFirst()
-						.orElse(null);
-			}
-			for (final var child : parent.eContents()) {
-				if (child instanceof NamedElement namedChild && name.equalsIgnoreCase(namedChild.getName())) {
-					return namedChild;
+			if (value != null) {
+				final var selected = resolvePropertyValue(value, BehaviorAnnexReferences.writtenName(field));
+				if (selected != null) {
+					return selected;
 				}
 			}
-			return null;
+			final var declaration = BehaviorAnnexReferences.target(field);
+			return declaration instanceof EnumerationLiteral literal ? literal
+					: declaration instanceof BasicProperty basic && !(basic instanceof Property) ? basic : null;
 		}
 
 		private Element resolvePropertyValue(final PropertyExpression expression, final String name) {
@@ -1630,8 +1494,8 @@ public final class DeclarativeToStrictTranslator {
 		}
 
 		private EObject create(final String className, final EObject traceSource) {
-			final var classifier = org.osate.ba.aadlba.AadlBaPackage.eINSTANCE.getEClassifier(className);
-			return trace(FACTORY.create((org.eclipse.emf.ecore.EClass) classifier), traceSource);
+			final var classifier = AadlBaPackage.eINSTANCE.getEClassifier(className);
+			return trace(FACTORY.create((EClass) classifier), traceSource);
 		}
 
 		private <T extends EObject> T trace(final T strict, final EObject declarative) {
@@ -1729,7 +1593,7 @@ public final class DeclarativeToStrictTranslator {
 			};
 		}
 
-		private record Segment(String name, List<ArrayIndex> indexes, EObject source, String separator) {
+		private record Segment(EObject target, List<ArrayIndex> indexes, EObject source) {
 		}
 	}
 }

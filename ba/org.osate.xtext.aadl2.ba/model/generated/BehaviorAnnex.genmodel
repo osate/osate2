@@ -179,17 +179,18 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute BehaviorAnnex.ecore#//ReferenceExpression/updated"/>
     </genClasses>
     <genClasses ecoreClass="BehaviorAnnex.ecore#//HashPropertyReference">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute BehaviorAnnex.ecore#//HashPropertyReference/property"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference BehaviorAnnex.ecore#//HashPropertyReference/property"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference BehaviorAnnex.ecore#//HashPropertyReference/indexes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference BehaviorAnnex.ecore#//HashPropertyReference/fields"/>
     </genClasses>
     <genClasses ecoreClass="BehaviorAnnex.ecore#//PropertyReferenceTail">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute BehaviorAnnex.ecore#//PropertyReferenceTail/property"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference BehaviorAnnex.ecore#//PropertyReferenceTail/property"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference BehaviorAnnex.ecore#//PropertyReferenceTail/indexes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference BehaviorAnnex.ecore#//PropertyReferenceTail/fields"/>
     </genClasses>
     <genClasses ecoreClass="BehaviorAnnex.ecore#//NamedPropertyField">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute BehaviorAnnex.ecore#//NamedPropertyField/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference BehaviorAnnex.ecore#//NamedPropertyField/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute BehaviorAnnex.ecore#//NamedPropertyField/selector"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference BehaviorAnnex.ecore#//NamedPropertyField/indexes"/>
     </genClasses>
     <genClasses ecoreClass="BehaviorAnnex.ecore#//PropertyArrayIndex">
@@ -197,7 +198,7 @@
     </genClasses>
     <genClasses ecoreClass="BehaviorAnnex.ecore#//PropertyIndexValue"/>
     <genClasses ecoreClass="BehaviorAnnex.ecore#//PropertyIndexPropertyReference">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute BehaviorAnnex.ecore#//PropertyIndexPropertyReference/property"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference BehaviorAnnex.ecore#//PropertyIndexPropertyReference/property"/>
     </genClasses>
     <genClasses ecoreClass="BehaviorAnnex.ecore#//UnindexedReferenceExpression">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference BehaviorAnnex.ecore#//UnindexedReferenceExpression/reference"/>
@@ -215,7 +216,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference BehaviorAnnex.ecore#//UnindexedReferenceTail/segment"/>
     </genClasses>
     <genClasses ecoreClass="BehaviorAnnex.ecore#//UnindexedReferenceSegment">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute BehaviorAnnex.ecore#//UnindexedReferenceSegment/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference BehaviorAnnex.ecore#//UnindexedReferenceSegment/name"/>
     </genClasses>
     <genClasses ecoreClass="BehaviorAnnex.ecore#//Reference">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference BehaviorAnnex.ecore#//Reference/segments"/>
@@ -226,7 +227,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference BehaviorAnnex.ecore#//ReferenceTail/segment"/>
     </genClasses>
     <genClasses ecoreClass="BehaviorAnnex.ecore#//ReferenceSegment">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute BehaviorAnnex.ecore#//ReferenceSegment/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference BehaviorAnnex.ecore#//ReferenceSegment/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference BehaviorAnnex.ecore#//ReferenceSegment/indexes"/>
     </genClasses>
     <genClasses ecoreClass="BehaviorAnnex.ecore#//ArrayIndex">

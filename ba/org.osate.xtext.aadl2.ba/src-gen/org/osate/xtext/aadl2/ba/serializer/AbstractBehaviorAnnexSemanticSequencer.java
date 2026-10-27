@@ -1156,7 +1156,7 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
 	 *     HashPropertyReference returns HashPropertyReference
 	 *
 	 * Constraint:
-	 *     (property=QualifiedName indexes+=PropertyArrayIndex* fields+=NamedPropertyField*)
+	 *     (property=[NamedElement|QualifiedName] indexes+=PropertyArrayIndex* fields+=NamedPropertyField*)
 	 * </pre>
 	 */
 	protected void sequence_HashPropertyReference(ISerializationContext context, HashPropertyReference semanticObject) {
@@ -1244,7 +1244,7 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
 	 *     NamedPropertyField returns NamedPropertyField
 	 *
 	 * Constraint:
-	 *     (name=ID indexes+=PropertyArrayIndex*)
+	 *     ((name=[EObject|ID] | selector=RangeSelector) indexes+=PropertyArrayIndex*)
 	 * </pre>
 	 */
 	protected void sequence_NamedPropertyField(ISerializationContext context, NamedPropertyField semanticObject) {
@@ -1310,7 +1310,7 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
 	 *     PropertyIndexPropertyReference returns PropertyIndexPropertyReference
 	 *
 	 * Constraint:
-	 *     property=QualifiedName
+	 *     property=[NamedElement|QualifiedName]
 	 * </pre>
 	 */
 	protected void sequence_PropertyIndexPropertyReference(ISerializationContext context, PropertyIndexPropertyReference semanticObject) {
@@ -1319,7 +1319,7 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, BehaviorAnnexPackage.Literals.PROPERTY_INDEX_PROPERTY_REFERENCE__PROPERTY));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getPropertyIndexPropertyReferenceAccess().getPropertyQualifiedNameParserRuleCall_1_0(), semanticObject.getProperty());
+		feeder.accept(grammarAccess.getPropertyIndexPropertyReferenceAccess().getPropertyNamedElementQualifiedNameParserRuleCall_1_0_1(), semanticObject.eGet(BehaviorAnnexPackage.Literals.PROPERTY_INDEX_PROPERTY_REFERENCE__PROPERTY, false));
 		feeder.finish();
 	}
 	
@@ -1330,7 +1330,7 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
 	 *     PropertyReferenceTail returns PropertyReferenceTail
 	 *
 	 * Constraint:
-	 *     (property=QualifiedName indexes+=PropertyArrayIndex* fields+=NamedPropertyField*)
+	 *     (property=[Property|QualifiedName] indexes+=PropertyArrayIndex* fields+=NamedPropertyField*)
 	 * </pre>
 	 */
 	protected void sequence_PropertyReferenceTail(ISerializationContext context, PropertyReferenceTail semanticObject) {
@@ -1370,7 +1370,7 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
 	 *     ReferenceSegment returns ReferenceSegment
 	 *
 	 * Constraint:
-	 *     (name=ID indexes+=ArrayIndex*)
+	 *     (name=[EObject|QualifiedName] indexes+=ArrayIndex*)
 	 * </pre>
 	 */
 	protected void sequence_ReferenceSegment(ISerializationContext context, ReferenceSegment semanticObject) {
@@ -1454,7 +1454,7 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
 	 *     UnindexedReferenceSegment returns UnindexedReferenceSegment
 	 *
 	 * Constraint:
-	 *     name=ID
+	 *     name=[EObject|QualifiedName]
 	 * </pre>
 	 */
 	protected void sequence_UnindexedReferenceSegment(ISerializationContext context, UnindexedReferenceSegment semanticObject) {
@@ -1463,7 +1463,7 @@ public abstract class AbstractBehaviorAnnexSemanticSequencer extends PropertiesS
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, BehaviorAnnexPackage.Literals.UNINDEXED_REFERENCE_SEGMENT__NAME));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getUnindexedReferenceSegmentAccess().getNameIDTerminalRuleCall_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getUnindexedReferenceSegmentAccess().getNameEObjectQualifiedNameParserRuleCall_0_1(), semanticObject.eGet(BehaviorAnnexPackage.Literals.UNINDEXED_REFERENCE_SEGMENT__NAME, false));
 		feeder.finish();
 	}
 	

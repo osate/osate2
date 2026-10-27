@@ -48,17 +48,17 @@ public class CoveringSyntaxTest {
 
 	@Test
 	public void aadlBaTest001() throws Exception {
-		assertEquals(2, issueCount("aadlBaTest001.aadl"));
+		assertEquals(0, issueCount("aadlBaTest001.aadl"));
 	}
 
 	@Test
 	public void aadlBaTest002() throws Exception {
-		assertEquals(2, issueCount("aadlBaTest002.aadl"));
+		assertEquals(1, issueCount("aadlBaTest002.aadl"));
 	}
 
 	@Test
 	public void aadlBaTest003() throws Exception {
-		assertEquals(2, issueCount("aadlBaTest003.aadl"));
+		assertEquals(1, issueCount("aadlBaTest003.aadl"));
 	}
 
 	@Test
@@ -73,18 +73,17 @@ public class CoveringSyntaxTest {
 
 	@Test
 	public void aadlBaTest006() throws Exception {
-		// Recovery from the missing frozen-port separators also reports the closing parenthesis.
-		assertEquals(108, issueCount("aadlBaTest006.aadl"));
+		// Syntax recovery also exposes unresolved names to native cross-reference linking.
+		assertEquals(115, issueCount("aadlBaTest006.aadl"));
 	}
 
 	@Test
 	public void aadlBaTest007() throws Exception {
-		assertEquals(2, issueCount("aadlBaTest007.aadl"));
+		assertEquals(1, issueCount("aadlBaTest007.aadl"));
 	}
 
 	private int issueCount(String fileName) throws Exception {
-		return testHelper.testFile(PATH + fileName, PROPERTY_SET_PATH, SUBPROGRAM_PATH, TYPES_PATH)
-				.getIssues()
-				.size();
+		var result = testHelper.testFile(PATH + fileName, PROPERTY_SET_PATH, SUBPROGRAM_PATH, TYPES_PATH);
+		return result.getIssues().size();
 	}
 }

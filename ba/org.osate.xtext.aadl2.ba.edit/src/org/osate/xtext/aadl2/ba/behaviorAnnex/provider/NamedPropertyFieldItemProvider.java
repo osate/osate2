@@ -89,6 +89,7 @@ public class NamedPropertyFieldItemProvider
       super.getPropertyDescriptors(object);
 
       addNamePropertyDescriptor(object);
+      addSelectorPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -108,6 +109,29 @@ public class NamedPropertyFieldItemProvider
          getString("_UI_NamedPropertyField_name_feature"),
          getString("_UI_PropertyDescriptor_description", "_UI_NamedPropertyField_name_feature", "_UI_NamedPropertyField_type"),
          BehaviorAnnexPackage.Literals.NAMED_PROPERTY_FIELD__NAME,
+         true,
+         false,
+         true,
+         null,
+         null,
+         null));
+  }
+
+  /**
+   * This adds a property descriptor for the Selector feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addSelectorPropertyDescriptor(Object object)
+  {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_NamedPropertyField_selector_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_NamedPropertyField_selector_feature", "_UI_NamedPropertyField_type"),
+         BehaviorAnnexPackage.Literals.NAMED_PROPERTY_FIELD__SELECTOR,
          true,
          false,
          false,
@@ -170,7 +194,7 @@ public class NamedPropertyFieldItemProvider
   @Override
   public String getText(Object object)
   {
-    String label = ((NamedPropertyField)object).getName();
+    String label = ((NamedPropertyField)object).getSelector();
     return label == null || label.length() == 0 ?
       getString("_UI_NamedPropertyField_type") :
       getString("_UI_NamedPropertyField_type") + " " + label;
@@ -191,7 +215,7 @@ public class NamedPropertyFieldItemProvider
 
     switch (notification.getFeatureID(NamedPropertyField.class))
     {
-      case BehaviorAnnexPackage.NAMED_PROPERTY_FIELD__NAME:
+      case BehaviorAnnexPackage.NAMED_PROPERTY_FIELD__SELECTOR:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
       case BehaviorAnnexPackage.NAMED_PROPERTY_FIELD__INDEXES:
