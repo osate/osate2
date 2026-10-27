@@ -188,26 +188,48 @@ public class LatencyReportEntry {
 		return (lc.getContributor() instanceof ConnectionInstance);
 	}
 
+	/**
+	 * Whether all connections since the previous sampling contributor are synchronous.
+	 * A local connection after an asynchronous crossing does not restore synchronization.
+	 */
 	public boolean isPreviousConnectionSynchronous(LatencyContributor lc) {
+		boolean synchronous = false;
 		int idx = contributors.indexOf(lc);
 		for (int i = idx - 1; i >= 0; i--) {
 			LatencyContributor plc = contributors.get(i);
+			if (plc.isSamplingContributor()) {
+				break;
+			}
 			if (plc.getContributor() instanceof ConnectionInstance) {
-				return plc.isSynchronous();
+				if (!plc.isSynchronous()) {
+					return false;
+				}
+				synchronous = true;
 			}
 		}
-		return false;
+		return synchronous;
 	}
 
+	/**
+	 * Whether synchronization since the previous sampling contributor depends on the
+	 * analysis default: at least one connection is unknown and none is asynchronous.
+	 */
 	public boolean isPreviousConnectionSyncUnknown(LatencyContributor lc) {
+		boolean unknown = false;
 		int idx = contributors.indexOf(lc);
 		for (int i = idx - 1; i >= 0; i--) {
 			LatencyContributor plc = contributors.get(i);
+			if (plc.isSamplingContributor()) {
+				break;
+			}
 			if (plc.getContributor() instanceof ConnectionInstance) {
-				return plc.isSyncUnknown();
+				if (plc.isAsynchronous()) {
+					return false;
+				}
+				unknown |= plc.isSyncUnknown();
 			}
 		}
-		return false;
+		return unknown;
 	}
 
 	public double getLastPartitionOffset(LatencyContributor lc) {
