@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -157,10 +158,14 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 */
 	void checkRequiredConnections() {
 		for (var feature : featureInstances) {
-			var systemOperationModes = feature.getSystemInstance().getSystemOperationModes();
+			List<SystemOperationMode> systemOperationModes = feature.getSystemInstance().getSystemOperationModes();
+			if (systemOperationModes.isEmpty()) {
+				systemOperationModes = Collections.singletonList(null);
+			}
 			var missing = systemOperationModes.stream()
 					.filter(feature::isActive)
-					.filter(som -> CommunicationProperties.getRequiredConnection(feature, som).orElse(false))
+					.filter(som -> CommunicationProperties.getRequiredConnection(feature, Optional.ofNullable(som))
+							.orElse(false))
 					.filter(som -> featureConnectionsMap.getOrDefault(feature, Collections.emptySet())
 							.stream()
 							.noneMatch(reference -> reference.isActive(som)))

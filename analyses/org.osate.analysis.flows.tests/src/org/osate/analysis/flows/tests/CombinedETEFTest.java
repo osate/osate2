@@ -63,7 +63,7 @@ public class CombinedETEFTest extends XtextTest {
 		assertEquals("Test_Impl_Instance", instance.getName());
 
 		// check flow latency
-		var som = instance.getSystemOperationModes().getFirst();
+		var som = instance.getInitialSystemOperationMode();
 		var checker = new FlowLatencyAnalysisSwitch();
 		var latencyResult = checker.invoke(instance, som, true, true, true, true, false);
 

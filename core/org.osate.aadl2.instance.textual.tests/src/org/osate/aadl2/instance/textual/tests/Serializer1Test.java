@@ -55,7 +55,6 @@ public class Serializer1Test extends AbstractSerializerTest {
 				""");
 		assertSerialize(pkg1, "s.i", """
 				system s_i_Instance : pkg1::s.i {
-					som "No Modes"
 				}""");
 	}
 
@@ -102,14 +101,12 @@ public class Serializer1Test extends AbstractSerializerTest {
 		assertSerialize(pkg1, "s.i1", """
 				system s_i1_Instance : pkg1::s.i1 {
 					abstract aSub [ 0 ] : pkg1::s.i1:aSub
-					som "No Modes"
 				}""");
 		assertSerialize(pkg1, "s.i3", """
 				system s_i3_Instance : pkg1::s.i3 {
 					process pkg1::ps.i psSub [ 0 ] : pkg1::s.i2:psSub {
 						thread tSub [ 0 ] : pkg1::ps.i:tSub
 					}
-					som "No Modes"
 				}""");
 		assertSerialize(pkg1, "s.i4", """
 				system s_i4_Instance : pkg1::s.i4 {
@@ -121,7 +118,6 @@ public class Serializer1Test extends AbstractSerializerTest {
 					abstract aSub3 [ 1 ] [ 2 ] : pkg1::s.i4:aSub3
 					abstract aSub3 [ 2 ] [ 1 ] : pkg1::s.i4:aSub3
 					abstract aSub3 [ 2 ] [ 2 ] : pkg1::s.i4:aSub3
-					som "No Modes"
 				}""");
 	}
 
@@ -142,7 +138,6 @@ public class Serializer1Test extends AbstractSerializerTest {
 		assertSerialize(abcd, "s.i", """
 				system s_i_Instance : a::b::c::d::s.i {
 					abstract aSub [ 0 ] : a::b::c::d::s.i:aSub
-					som "No Modes"
 				}""");
 	}
 
@@ -251,7 +246,6 @@ public class Serializer1Test extends AbstractSerializerTest {
 					subprogram pkg1::subp subpsub [ 0 ] : pkg1::s1.i:subpsub {
 						in parameter p : pkg1::subp:p
 					}
-					som "No Modes"
 				}""");
 		assertSerialize(pkg1, "s2.i", """
 				system s2_i_Instance : pkg1::s2.i {
@@ -259,7 +253,6 @@ public class Serializer1Test extends AbstractSerializerTest {
 					in dataPort dp2 [ 1 ] : pkg1::s2:dp2
 					in dataPort dp2 [ 2 ] : pkg1::s2:dp2
 					in dataPort dp2 [ 3 ] : pkg1::s2:dp2
-					som "No Modes"
 				}""");
 	}
 
@@ -305,7 +298,6 @@ public class Serializer1Test extends AbstractSerializerTest {
 					complete portConnection "sub1.op -> sub2.ip" : sub1[0].op -> sub2[0].ip {
 						sub1[0].op -> sub2[0].ip : pkg1::s.i:conn2 in parent
 					}
-					som "No Modes"
 				}""");
 	}
 
@@ -343,7 +335,6 @@ public class Serializer1Test extends AbstractSerializerTest {
 					complete accessConnection "b -> psub.ba" : b[0] -> psub[0].ba {
 						b[0] -> psub[0].ba : reverse pkg1::s.i:conn1 in parent
 					}
-					som "No Modes"
 				}""");
 	}
 
@@ -418,7 +409,6 @@ public class Serializer1Test extends AbstractSerializerTest {
 						p1sub[0].op -> p2sub[0].ip : pkg1::s.i:conn in parent
 						p2sub[0].ip -> p2sub[0].t2sub[0].ip : pkg1::p2.i:p2conn in p2sub[0]
 					}
-					som "No Modes"
 				}""");
 		//@formatter:on
 	}
@@ -463,7 +453,6 @@ public class Serializer1Test extends AbstractSerializerTest {
 					portConnection "psub.op -> op" : psub[0].op -> op {
 						psub[0].op -> op : pkg1::s.i:conn2 in parent
 					}
-					som "No Modes"
 				}""");
 	}
 
@@ -515,7 +504,6 @@ public class Serializer1Test extends AbstractSerializerTest {
 							t1sub[0].op -> t2sub[0].ip : pkg1::p.i:conn1 in parent
 						}
 					}
-					som "No Modes"
 				}""");
 	}
 
@@ -581,7 +569,6 @@ public class Serializer1Test extends AbstractSerializerTest {
 					complete portConnection "a1sub.ep1 -> a2sub.ep2" : a1sub[0].ep1 -> a2sub[0].ep2 {
 						a1sub[0].ep1 -> a2sub[0].ep2 : pkg1::top.i:conn3 in parent
 					}
-					som "No Modes"
 				}""");
 	}
 
@@ -714,7 +701,6 @@ public class Serializer1Test extends AbstractSerializerTest {
 						p1sub[0].fg6 -> p2sub[0].fg12 : pkg1::s.i:conn9 in parent
 						p2sub[0].fg12 -> p2sub[0].t2sub[0].fg9 : pkg1::p2.i:conn6 in p2sub[0]
 					}
-					som "No Modes"
 				}""");
 		//@formatter:on
 	}
@@ -806,7 +792,6 @@ public class Serializer1Test extends AbstractSerializerTest {
 					flow f6 ( fg1.p5 -> ) : pkg1::s:f6
 					flow f7_1 ( fg2[1].p6 -> ) : pkg1::s:f7
 					flow f7_2 ( fg2[2].p6 -> ) : pkg1::s:f7
-					som "No Modes"
 				}""");
 	}
 }

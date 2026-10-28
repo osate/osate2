@@ -64,6 +64,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
+import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
 import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 import org.osate.aadl2.properties.PropertyAcc;
 import org.osate.analysis.flows.internal.utils.AnalysisUtils;
@@ -977,20 +978,10 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue,
 			boolean disableQueuingLatency) {
 		if (som == null) {
-			if (root.getSystemOperationModes().isEmpty()
-					|| root.getSystemOperationModes().get(0).getCurrentModes().isEmpty()) {
-				// no SOM
-				invokeOnSOM(root, root.getSystemOperationModes().get(0), asynchronousSystem, majorFrameDelay,
-						worstCaseDeadline,
+			for (var modes = new SOMIterator(root); modes.hasNext();) {
+				var eachsom = modes.next();
+				invokeOnSOM(root, eachsom, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
 						bestCaseEmptyQueue, disableQueuingLatency);
-			} else {
-				// we need to run it for every SOM
-				for (SystemOperationMode eachsom : root.getSystemOperationModes()) {
-					root.setCurrentSystemOperationMode(eachsom);
-					invokeOnSOM(root, eachsom, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
-							bestCaseEmptyQueue, disableQueuingLatency);
-					root.clearCurrentSystemOperationMode();
-				}
 			}
 		} else {
 			invokeOnSOM(root, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
@@ -1095,22 +1086,11 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			boolean disableQueuingLatency) {
 		SystemInstance root = ci.getSystemInstance();
 		if (som == null) {
-			if (root.getSystemOperationModes().isEmpty()
-					|| root.getSystemOperationModes().get(0).getCurrentModes().isEmpty()) {
-				// no SOM
-				final SystemOperationMode noModesSom = root.getSystemOperationModes().get(0);
-				invokeOnSOM(ci, noModesSom, asynchronousSystem, majorFrameDelay,
-						worstCaseDeadline, bestCaseEmptyQueue, disableQueuingLatency);
-				fillInQueuingTimes(root, noModesSom);
-			} else {
-				// we need to run it for every SOM
-				for (SystemOperationMode eachsom : root.getSystemOperationModes()) {
-					root.setCurrentSystemOperationMode(eachsom);
-					invokeOnSOM(ci, eachsom, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
-							bestCaseEmptyQueue, disableQueuingLatency);
-					fillInQueuingTimes(root, eachsom);
-					root.clearCurrentSystemOperationMode();
-				}
+			for (var modes = new SOMIterator(root); modes.hasNext();) {
+				var eachsom = modes.next();
+				invokeOnSOM(ci, eachsom, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
+						bestCaseEmptyQueue, disableQueuingLatency);
+				fillInQueuingTimes(root, eachsom);
 			}
 		} else {
 			invokeOnSOM(ci, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue,
@@ -1188,13 +1168,12 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			boolean disableQueuingLatency) {
 		SystemInstance root = etef.getSystemInstance();
 		if (som == null) {
-			// we need to run it for every SOM
-			for (SystemOperationMode eachsom : root.getSystemOperationModes()) {
-				root.setCurrentSystemOperationMode(eachsom);
+			// Run once for non-modal systems, otherwise once per SOM.
+			for (var modes = new SOMIterator(root); modes.hasNext();) {
+				var eachsom = modes.next();
 				invokeOnSOM(etef, eachsom, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue,
 						disableQueuingLatency);
 				fillInQueuingTimes(root, eachsom);
-				root.clearCurrentSystemOperationMode();
 			}
 		} else {
 			invokeOnSOM(etef, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue,

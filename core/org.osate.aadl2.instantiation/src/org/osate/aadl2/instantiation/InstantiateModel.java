@@ -135,7 +135,7 @@ public class InstantiateModel {
 	public static final String PREF_SOM_LIMIT = "org.osate.aadl2.instantiation.som_limit";
 	public static final String PREF_SOM_USE_WORKSPACE = "org.osate.aadl2.instantiation.som_use_workspace";
 
-	/* The name for the single mode of a non-modal system */
+	/* Legacy name retained for clients reading older non-modal instance models. */
 	public static final String NORMAL_SOM_NAME = "No Modes";
 
 	protected AnalysisErrorReporterManager errManager;
