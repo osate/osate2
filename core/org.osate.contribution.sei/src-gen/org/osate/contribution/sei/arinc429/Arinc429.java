@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -40,113 +40,113 @@ import org.osate.pluginsupport.properties.CodeGenUtil;
 
 public final class Arinc429 {
 	public static final String ARINC429__NAME = "ARINC429";
-	
+
 	private Arinc429() {}
-	
+
 	// Lookup methods for ARINC429::WordID
-	
+
 	public static final String WORDID__NAME = "WordID";
-	
+
 	public static boolean acceptsWordid(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getWordid_Property(lookupContext));
 	}
-	
+
 	public static OptionalLong getWordid(NamedElement lookupContext) {
 		return getWordid(lookupContext, Optional.empty());
 	}
-	
+
 	public static OptionalLong getWordid(NamedElement lookupContext, Mode mode) {
 		return getWordid(lookupContext, Optional.of(mode));
 	}
-	
+
 	public static OptionalLong getWordid(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getWordid_Property(lookupContext);
+		var property = getWordid_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return OptionalLong.of(((IntegerLiteral) resolved).getValue());
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return OptionalLong.empty();
 		}
 	}
-	
+
 	public static Property getWordid_Property(EObject lookupContext) {
-		String name = ARINC429__NAME + "::" + WORDID__NAME;
+		var name = ARINC429__NAME + "::" + WORDID__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
-	
+
 	public static PropertyExpression getWordid_EObject(NamedElement lookupContext) {
 		return lookupContext.getNonModalPropertyValue(getWordid_Property(lookupContext));
 	}
-	
+
 	// Lookup methods for ARINC429::FirstBit
-	
+
 	public static final String FIRSTBIT__NAME = "FirstBit";
-	
+
 	public static boolean acceptsFirstbit(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getFirstbit_Property(lookupContext));
 	}
-	
+
 	public static OptionalLong getFirstbit(NamedElement lookupContext) {
 		return getFirstbit(lookupContext, Optional.empty());
 	}
-	
+
 	public static OptionalLong getFirstbit(NamedElement lookupContext, Mode mode) {
 		return getFirstbit(lookupContext, Optional.of(mode));
 	}
-	
+
 	public static OptionalLong getFirstbit(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getFirstbit_Property(lookupContext);
+		var property = getFirstbit_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return OptionalLong.of(((IntegerLiteral) resolved).getValue());
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return OptionalLong.empty();
 		}
 	}
-	
+
 	public static Property getFirstbit_Property(EObject lookupContext) {
-		String name = ARINC429__NAME + "::" + FIRSTBIT__NAME;
+		var name = ARINC429__NAME + "::" + FIRSTBIT__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
-	
+
 	public static PropertyExpression getFirstbit_EObject(NamedElement lookupContext) {
 		return lookupContext.getNonModalPropertyValue(getFirstbit_Property(lookupContext));
 	}
-	
+
 	// Lookup methods for ARINC429::NumberBits
-	
+
 	public static final String NUMBERBITS__NAME = "NumberBits";
-	
+
 	public static boolean acceptsNumberbits(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getNumberbits_Property(lookupContext));
 	}
-	
+
 	public static OptionalLong getNumberbits(NamedElement lookupContext) {
 		return getNumberbits(lookupContext, Optional.empty());
 	}
-	
+
 	public static OptionalLong getNumberbits(NamedElement lookupContext, Mode mode) {
 		return getNumberbits(lookupContext, Optional.of(mode));
 	}
-	
+
 	public static OptionalLong getNumberbits(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getNumberbits_Property(lookupContext);
+		var property = getNumberbits_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return OptionalLong.of(((IntegerLiteral) resolved).getValue());
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return OptionalLong.empty();
 		}
 	}
-	
+
 	public static Property getNumberbits_Property(EObject lookupContext) {
-		String name = ARINC429__NAME + "::" + NUMBERBITS__NAME;
+		var name = ARINC429__NAME + "::" + NUMBERBITS__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
-	
+
 	public static PropertyExpression getNumberbits_EObject(NamedElement lookupContext) {
 		return lookupContext.getNonModalPropertyValue(getNumberbits_Property(lookupContext));
 	}

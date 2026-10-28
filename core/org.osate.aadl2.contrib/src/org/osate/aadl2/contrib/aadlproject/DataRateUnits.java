@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -24,7 +24,6 @@
 package org.osate.aadl2.contrib.aadlproject;
 
 import org.eclipse.emf.common.util.URI;
-import org.osate.aadl2.AbstractNamedValue;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.UnitLiteral;
@@ -33,22 +32,10 @@ import org.osate.pluginsupport.properties.GeneratedUnits;
 public enum DataRateUnits implements GeneratedUnits<DataRateUnits> {
 	BITSPS(1.0, "bitsps", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.17/@ownedLiteral.0"),
 	BYTESPS(8.0, "Bytesps", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.17/@ownedLiteral.4"),
-	/**
-	 * @since 2.1
-	 */
 	KBPS(1000.0, "kbps", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.17/@ownedLiteral.1"),
-	/**
-	 * @since 2.1
-	 */
 	KBYTESPS(8000.0, "KBytesps", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.17/@ownedLiteral.5"),
-	/**
-	 * @since 2.1
-	 */
 	MBPS(1000000.0, "Mbps", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.17/@ownedLiteral.2"),
 	MBYTESPS(8000000.0, "MBytesps", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.17/@ownedLiteral.6"),
-	/**
-	 * @since 2.1
-	 */
 	GBPS(1.0E9, "Gbps", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.17/@ownedLiteral.3"),
 	GBYTESPS(8.0E9, "GBytesps", "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.17/@ownedLiteral.7");
 
@@ -63,7 +50,7 @@ public enum DataRateUnits implements GeneratedUnits<DataRateUnits> {
 	}
 
 	public static DataRateUnits valueOf(PropertyExpression propertyExpression) {
-		AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+		var abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 		return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 	}
 

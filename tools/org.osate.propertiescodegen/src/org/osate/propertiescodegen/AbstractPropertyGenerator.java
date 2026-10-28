@@ -156,14 +156,15 @@ abstract class AbstractPropertyGenerator {
 		var context = constant ? "" : ", lookupContext, mode";
 		return switch (type) {
 		case ListType list -> {
-			imports.add("org.osate.aadl2.ListValue", "org.osate.pluginsupport.properties.CodeGenUtil");
+			imports.add("java.util.stream.Collectors", "org.osate.aadl2.ListValue",
+					"org.osate.pluginsupport.properties.CodeGenUtil");
 			var nextParameter = "element" + listDepth;
 			var resolved = "resolved" + listDepth;
 			yield """
 					((ListValue) %s).getOwnedListElements().stream().map(%s -> {
 					\tvar %s = CodeGenUtil.resolveNamedValue(%s%s);
 					\treturn %s;
-					}).toList()\
+					}).collect(Collectors.toList())\
 					""".formatted(parameterName, nextParameter, resolved, nextParameter, context,
 					indentContinuation(valueExtractor(list.getElementType(), resolved, listDepth + 1, constant), 1));
 		}

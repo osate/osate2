@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -74,10 +74,10 @@ public final class Sei {
 	}
 
 	public static OptionalLong getSecuritylevel(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getSecuritylevel_Property(lookupContext);
+		var property = getSecuritylevel_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return OptionalLong.of(((IntegerLiteral) resolved).getValue());
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return OptionalLong.empty();
@@ -85,7 +85,7 @@ public final class Sei {
 	}
 
 	public static Property getSecuritylevel_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + SECURITYLEVEL__NAME;
+		var name = SEI__NAME + "::" + SECURITYLEVEL__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -110,10 +110,10 @@ public final class Sei {
 	}
 
 	public static OptionalLong getSafetycriticality(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getSafetycriticality_Property(lookupContext);
+		var property = getSafetycriticality_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return OptionalLong.of(((IntegerLiteral) resolved).getValue());
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return OptionalLong.empty();
@@ -121,7 +121,7 @@ public final class Sei {
 	}
 
 	public static Property getSafetycriticality_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + SAFETYCRITICALITY__NAME;
+		var name = SEI__NAME + "::" + SAFETYCRITICALITY__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -146,10 +146,10 @@ public final class Sei {
 	}
 
 	public static OptionalDouble getStreammissrate(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getStreammissrate_Property(lookupContext);
+		var property = getStreammissrate_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return OptionalDouble.of(((RealLiteral) resolved).getValue());
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return OptionalDouble.empty();
@@ -157,7 +157,7 @@ public final class Sei {
 	}
 
 	public static Property getStreammissrate_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + STREAMMISSRATE__NAME;
+		var name = SEI__NAME + "::" + STREAMMISSRATE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -182,10 +182,10 @@ public final class Sei {
 	}
 
 	public static Optional<RealWithUnits<Weightunits>> getNetweight(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getNetweight_Property(lookupContext);
+		var property = getNetweight_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new RealWithUnits<>(resolved, Weightunits.class));
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
@@ -193,7 +193,7 @@ public final class Sei {
 	}
 
 	public static Property getNetweight_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + NETWEIGHT__NAME;
+		var name = SEI__NAME + "::" + NETWEIGHT__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -218,10 +218,10 @@ public final class Sei {
 	}
 
 	public static Optional<RealWithUnits<Weightunits>> getGrossweight(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getGrossweight_Property(lookupContext);
+		var property = getGrossweight_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new RealWithUnits<>(resolved, Weightunits.class));
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
@@ -229,7 +229,7 @@ public final class Sei {
 	}
 
 	public static Property getGrossweight_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + GROSSWEIGHT__NAME;
+		var name = SEI__NAME + "::" + GROSSWEIGHT__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -254,10 +254,10 @@ public final class Sei {
 	}
 
 	public static Optional<RealWithUnits<Weightunits>> getWeightlimit(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getWeightlimit_Property(lookupContext);
+		var property = getWeightlimit_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new RealWithUnits<>(resolved, Weightunits.class));
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
@@ -265,7 +265,7 @@ public final class Sei {
 	}
 
 	public static Property getWeightlimit_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + WEIGHTLIMIT__NAME;
+		var name = SEI__NAME + "::" + WEIGHTLIMIT__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -290,10 +290,10 @@ public final class Sei {
 	}
 
 	public static Optional<Staterepresentationtype> getStaterepresentation(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getStaterepresentation_Property(lookupContext);
+		var property = getStaterepresentation_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(Staterepresentationtype.valueOf(resolved));
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
@@ -301,7 +301,7 @@ public final class Sei {
 	}
 
 	public static Property getStaterepresentation_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + STATEREPRESENTATION__NAME;
+		var name = SEI__NAME + "::" + STATEREPRESENTATION__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -326,12 +326,12 @@ public final class Sei {
 	}
 
 	public static Optional<List<Protocolqostype>> getProtocolqos(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getProtocolqos_Property(lookupContext);
+		var property = getProtocolqos_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
-				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
+				var resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return Protocolqostype.valueOf(resolved1);
 			}).collect(Collectors.toList()));
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
@@ -340,7 +340,7 @@ public final class Sei {
 	}
 
 	public static Property getProtocolqos_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + PROTOCOLQOS__NAME;
+		var name = SEI__NAME + "::" + PROTOCOLQOS__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -365,10 +365,10 @@ public final class Sei {
 	}
 
 	public static Optional<IntegerWithUnits<TimeUnits>> getPartitionLatency(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getPartitionLatency_Property(lookupContext);
+		var property = getPartitionLatency_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerWithUnits<>(resolved, TimeUnits.class));
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
@@ -376,7 +376,7 @@ public final class Sei {
 	}
 
 	public static Property getPartitionLatency_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + PARTITION_LATENCY__NAME;
+		var name = SEI__NAME + "::" + PARTITION_LATENCY__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -401,10 +401,10 @@ public final class Sei {
 	}
 
 	public static Optional<Boolean> getIsPartition(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getIsPartition_Property(lookupContext);
+		var property = getIsPartition_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(((BooleanLiteral) resolved).getValue());
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
@@ -412,7 +412,7 @@ public final class Sei {
 	}
 
 	public static Property getIsPartition_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + IS_PARTITION__NAME;
+		var name = SEI__NAME + "::" + IS_PARTITION__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -437,10 +437,10 @@ public final class Sei {
 	}
 
 	public static Optional<RealRangeWithUnits<Instructionvolumeunits>> getInstructionsperdispatch(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getInstructionsperdispatch_Property(lookupContext);
+		var property = getInstructionsperdispatch_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new RealRangeWithUnits<>(resolved, Instructionvolumeunits.class, lookupContext, mode));
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
@@ -448,7 +448,7 @@ public final class Sei {
 	}
 
 	public static Property getInstructionsperdispatch_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + INSTRUCTIONSPERDISPATCH__NAME;
+		var name = SEI__NAME + "::" + INSTRUCTIONSPERDISPATCH__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -473,10 +473,10 @@ public final class Sei {
 	}
 
 	public static Optional<RealWithUnits<ProcessorSpeedUnits>> getMipscapacity(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getMipscapacity_Property(lookupContext);
+		var property = getMipscapacity_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new RealWithUnits<>(resolved, ProcessorSpeedUnits.class));
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
@@ -484,7 +484,7 @@ public final class Sei {
 	}
 
 	public static Property getMipscapacity_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + MIPSCAPACITY__NAME;
+		var name = SEI__NAME + "::" + MIPSCAPACITY__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -509,10 +509,10 @@ public final class Sei {
 	}
 
 	public static Optional<RealWithUnits<ProcessorSpeedUnits>> getMipsbudget(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getMipsbudget_Property(lookupContext);
+		var property = getMipsbudget_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new RealWithUnits<>(resolved, ProcessorSpeedUnits.class));
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
@@ -520,7 +520,7 @@ public final class Sei {
 	}
 
 	public static Property getMipsbudget_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + MIPSBUDGET__NAME;
+		var name = SEI__NAME + "::" + MIPSBUDGET__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -545,10 +545,10 @@ public final class Sei {
 	}
 
 	public static Optional<RealWithUnits<SizeUnits>> getRamcapacity(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getRamcapacity_Property(lookupContext);
+		var property = getRamcapacity_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new RealWithUnits<>(resolved, SizeUnits.class));
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
@@ -556,7 +556,7 @@ public final class Sei {
 	}
 
 	public static Property getRamcapacity_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + RAMCAPACITY__NAME;
+		var name = SEI__NAME + "::" + RAMCAPACITY__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -581,10 +581,10 @@ public final class Sei {
 	}
 
 	public static Optional<RealWithUnits<SizeUnits>> getRambudget(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getRambudget_Property(lookupContext);
+		var property = getRambudget_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new RealWithUnits<>(resolved, SizeUnits.class));
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
@@ -592,7 +592,7 @@ public final class Sei {
 	}
 
 	public static Property getRambudget_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + RAMBUDGET__NAME;
+		var name = SEI__NAME + "::" + RAMBUDGET__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -617,10 +617,10 @@ public final class Sei {
 	}
 
 	public static Optional<RealWithUnits<SizeUnits>> getRomcapacity(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getRomcapacity_Property(lookupContext);
+		var property = getRomcapacity_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new RealWithUnits<>(resolved, SizeUnits.class));
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
@@ -628,7 +628,7 @@ public final class Sei {
 	}
 
 	public static Property getRomcapacity_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + ROMCAPACITY__NAME;
+		var name = SEI__NAME + "::" + ROMCAPACITY__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -653,10 +653,10 @@ public final class Sei {
 	}
 
 	public static Optional<RealWithUnits<SizeUnits>> getRombudget(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getRombudget_Property(lookupContext);
+		var property = getRombudget_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new RealWithUnits<>(resolved, SizeUnits.class));
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
@@ -664,7 +664,7 @@ public final class Sei {
 	}
 
 	public static Property getRombudget_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + ROMBUDGET__NAME;
+		var name = SEI__NAME + "::" + ROMBUDGET__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -689,10 +689,10 @@ public final class Sei {
 	}
 
 	public static Optional<RealWithUnits<PowerUnits>> getPowercapacity(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getPowercapacity_Property(lookupContext);
+		var property = getPowercapacity_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new RealWithUnits<>(resolved, PowerUnits.class));
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
@@ -700,7 +700,7 @@ public final class Sei {
 	}
 
 	public static Property getPowercapacity_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + POWERCAPACITY__NAME;
+		var name = SEI__NAME + "::" + POWERCAPACITY__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -725,10 +725,10 @@ public final class Sei {
 	}
 
 	public static Optional<RealWithUnits<PowerUnits>> getPowerbudget(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getPowerbudget_Property(lookupContext);
+		var property = getPowerbudget_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new RealWithUnits<>(resolved, PowerUnits.class));
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
@@ -736,7 +736,7 @@ public final class Sei {
 	}
 
 	public static Property getPowerbudget_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + POWERBUDGET__NAME;
+		var name = SEI__NAME + "::" + POWERBUDGET__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -761,10 +761,10 @@ public final class Sei {
 	}
 
 	public static Optional<RealWithUnits<PowerUnits>> getPowersupply(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getPowersupply_Property(lookupContext);
+		var property = getPowersupply_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new RealWithUnits<>(resolved, PowerUnits.class));
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
@@ -772,7 +772,7 @@ public final class Sei {
 	}
 
 	public static Property getPowersupply_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + POWERSUPPLY__NAME;
+		var name = SEI__NAME + "::" + POWERSUPPLY__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -797,10 +797,10 @@ public final class Sei {
 	}
 
 	public static Optional<RealWithUnits<DataRateUnits>> getBandwidthcapacity(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getBandwidthcapacity_Property(lookupContext);
+		var property = getBandwidthcapacity_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new RealWithUnits<>(resolved, DataRateUnits.class));
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
@@ -808,7 +808,7 @@ public final class Sei {
 	}
 
 	public static Property getBandwidthcapacity_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + BANDWIDTHCAPACITY__NAME;
+		var name = SEI__NAME + "::" + BANDWIDTHCAPACITY__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -833,10 +833,10 @@ public final class Sei {
 	}
 
 	public static Optional<RealWithUnits<DataRateUnits>> getBandwidthbudget(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getBandwidthbudget_Property(lookupContext);
+		var property = getBandwidthbudget_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new RealWithUnits<>(resolved, DataRateUnits.class));
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
@@ -844,7 +844,7 @@ public final class Sei {
 	}
 
 	public static Property getBandwidthbudget_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + BANDWIDTHBUDGET__NAME;
+		var name = SEI__NAME + "::" + BANDWIDTHBUDGET__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -869,10 +869,10 @@ public final class Sei {
 	}
 
 	public static Optional<RealWithUnits<SizeUnits>> getRamactual(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getRamactual_Property(lookupContext);
+		var property = getRamactual_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new RealWithUnits<>(resolved, SizeUnits.class));
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
@@ -880,7 +880,7 @@ public final class Sei {
 	}
 
 	public static Property getRamactual_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + RAMACTUAL__NAME;
+		var name = SEI__NAME + "::" + RAMACTUAL__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -905,10 +905,10 @@ public final class Sei {
 	}
 
 	public static Optional<RealWithUnits<SizeUnits>> getRomactual(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getRomactual_Property(lookupContext);
+		var property = getRomactual_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new RealWithUnits<>(resolved, SizeUnits.class));
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
@@ -916,7 +916,7 @@ public final class Sei {
 	}
 
 	public static Property getRomactual_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + ROMACTUAL__NAME;
+		var name = SEI__NAME + "::" + ROMACTUAL__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -941,10 +941,10 @@ public final class Sei {
 	}
 
 	public static Optional<RealWithUnits<DataRate>> getDataRate(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getDataRate_Property(lookupContext);
+		var property = getDataRate_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new RealWithUnits<>(resolved, DataRate.class));
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
@@ -952,7 +952,7 @@ public final class Sei {
 	}
 
 	public static Property getDataRate_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + DATA_RATE__NAME;
+		var name = SEI__NAME + "::" + DATA_RATE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -977,10 +977,10 @@ public final class Sei {
 	}
 
 	public static Optional<RealWithUnits<MessageRate>> getMessageRate(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getMessageRate_Property(lookupContext);
+		var property = getMessageRate_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new RealWithUnits<>(resolved, MessageRate.class));
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
@@ -988,7 +988,7 @@ public final class Sei {
 	}
 
 	public static Property getMessageRate_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + MESSAGE_RATE__NAME;
+		var name = SEI__NAME + "::" + MESSAGE_RATE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -1013,10 +1013,10 @@ public final class Sei {
 	}
 
 	public static OptionalLong getNsloc(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getNsloc_Property(lookupContext);
+		var property = getNsloc_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return OptionalLong.of(((IntegerLiteral) resolved).getValue());
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return OptionalLong.empty();
@@ -1024,7 +1024,7 @@ public final class Sei {
 	}
 
 	public static Property getNsloc_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + NSLOC__NAME;
+		var name = SEI__NAME + "::" + NSLOC__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -1049,10 +1049,10 @@ public final class Sei {
 	}
 
 	public static Optional<Boolean> getVdidInspect(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getVdidInspect_Property(lookupContext);
+		var property = getVdidInspect_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(((BooleanLiteral) resolved).getValue());
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
@@ -1060,7 +1060,7 @@ public final class Sei {
 	}
 
 	public static Property getVdidInspect_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + VDID_INSPECT__NAME;
+		var name = SEI__NAME + "::" + VDID_INSPECT__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -1085,10 +1085,10 @@ public final class Sei {
 	}
 
 	public static Optional<Boolean> getBroadcastProtocol(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getBroadcastProtocol_Property(lookupContext);
+		var property = getBroadcastProtocol_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(((BooleanLiteral) resolved).getValue());
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
@@ -1096,7 +1096,7 @@ public final class Sei {
 	}
 
 	public static Property getBroadcastProtocol_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + BROADCAST_PROTOCOL__NAME;
+		var name = SEI__NAME + "::" + BROADCAST_PROTOCOL__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -1121,10 +1121,10 @@ public final class Sei {
 	}
 
 	public static Optional<String> getPlatform(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getPlatform_Property(lookupContext);
+		var property = getPlatform_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(((StringLiteral) resolved).getValue());
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
@@ -1132,7 +1132,7 @@ public final class Sei {
 	}
 
 	public static Property getPlatform_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + PLATFORM__NAME;
+		var name = SEI__NAME + "::" + PLATFORM__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -1157,10 +1157,10 @@ public final class Sei {
 	}
 
 	public static OptionalDouble getPrice(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getPrice_Property(lookupContext);
+		var property = getPrice_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return OptionalDouble.of(((RealLiteral) resolved).getValue());
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return OptionalDouble.empty();
@@ -1168,7 +1168,7 @@ public final class Sei {
 	}
 
 	public static Property getPrice_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + PRICE__NAME;
+		var name = SEI__NAME + "::" + PRICE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -1193,12 +1193,12 @@ public final class Sei {
 	}
 
 	public static Optional<List<ModelReference>> getModelReferences(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getModelReferences_Property(lookupContext);
+		var property = getModelReferences_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
-				PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
+				var resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 				return new ModelReference(resolved1, lookupContext, mode);
 			}).collect(Collectors.toList()));
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
@@ -1207,7 +1207,7 @@ public final class Sei {
 	}
 
 	public static Property getModelReferences_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + MODEL_REFERENCES__NAME;
+		var name = SEI__NAME + "::" + MODEL_REFERENCES__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -1232,10 +1232,10 @@ public final class Sei {
 	}
 
 	public static Optional<IntegerRangeWithUnits<TimeUnits>> getResponseTime(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getResponseTime_Property(lookupContext);
+		var property = getResponseTime_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(new IntegerRangeWithUnits<>(resolved, TimeUnits.class, lookupContext, mode));
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
@@ -1243,7 +1243,7 @@ public final class Sei {
 	}
 
 	public static Property getResponseTime_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + RESPONSE_TIME__NAME;
+		var name = SEI__NAME + "::" + RESPONSE_TIME__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
@@ -1253,57 +1253,36 @@ public final class Sei {
 
 	// Lookup methods for SEI::Mode_Domain
 
-	/**
-	 * @since 2.2
-	 */
 	public static final String MODE_DOMAIN__NAME = "Mode_Domain";
 
-	/**
-	 * @since 2.2
-	 */
 	public static boolean acceptsModeDomain(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getModeDomain_Property(lookupContext));
 	}
 
-	/**
-	 * @since 2.2
-	 */
 	public static Optional<Boolean> getModeDomain(NamedElement lookupContext) {
 		return getModeDomain(lookupContext, Optional.empty());
 	}
 
-	/**
-	 * @since 2.2
-	 */
 	public static Optional<Boolean> getModeDomain(NamedElement lookupContext, Mode mode) {
 		return getModeDomain(lookupContext, Optional.of(mode));
 	}
 
-	/**
-	 * @since 2.2
-	 */
 	public static Optional<Boolean> getModeDomain(NamedElement lookupContext, Optional<Mode> mode) {
-		Property property = getModeDomain_Property(lookupContext);
+		var property = getModeDomain_Property(lookupContext);
 		try {
-			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
-			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			var value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+			var resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 			return Optional.of(((BooleanLiteral) resolved).getValue());
 		} catch (PropertyNotPresentException | PropertyDoesNotApplyToHolderException e) {
 			return Optional.empty();
 		}
 	}
 
-	/**
-	 * @since 2.2
-	 */
 	public static Property getModeDomain_Property(EObject lookupContext) {
-		String name = SEI__NAME + "::" + MODE_DOMAIN__NAME;
+		var name = SEI__NAME + "::" + MODE_DOMAIN__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
 
-	/**
-	 * @since 2.2
-	 */
 	public static PropertyExpression getModeDomain_EObject(NamedElement lookupContext) {
 		return lookupContext.getNonModalPropertyValue(getModeDomain_Property(lookupContext));
 	}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2026 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -29,7 +29,6 @@ import java.util.Optional;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.osate.aadl2.Aadl2Factory;
-import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PropertyExpression;
@@ -44,10 +43,10 @@ public class AccessTime extends GeneratedRecord {
 	public static final String LAST__NAME = "Last";
 	public static final URI FIRST__URI = URI.createURI("platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#/0/@ownedProperty.1/@ownedPropertyType/@ownedField.0");
 	public static final URI LAST__URI = URI.createURI("platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#/0/@ownedProperty.1/@ownedPropertyType/@ownedField.1");
-	
+
 	private final Optional<IoTimeSpec> first;
 	private final Optional<IoTimeSpec> last;
-	
+
 	public AccessTime(
 			Optional<IoTimeSpec> first,
 			Optional<IoTimeSpec> last
@@ -55,25 +54,25 @@ public class AccessTime extends GeneratedRecord {
 		this.first = first;
 		this.last = last;
 	}
-	
+
 	public AccessTime(PropertyExpression propertyExpression, NamedElement lookupContext, Optional<Mode> mode) {
-		RecordValue recordValue = (RecordValue) propertyExpression;
-		
+		var recordValue = (RecordValue) propertyExpression;
+
 		Optional<IoTimeSpec> first_local;
 		try {
 			first_local = findFieldValue(recordValue, FIRST__NAME).map(field -> {
-				PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+				var resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 				return new IoTimeSpec(resolved, lookupContext, mode);
 			});
 		} catch (PropertyNotPresentException e) {
 			first_local = Optional.empty();
 		}
 		this.first = first_local;
-		
+
 		Optional<IoTimeSpec> last_local;
 		try {
 			last_local = findFieldValue(recordValue, LAST__NAME).map(field -> {
-				PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+				var resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 				return new IoTimeSpec(resolved, lookupContext, mode);
 			});
 		} catch (PropertyNotPresentException e) {
@@ -81,25 +80,25 @@ public class AccessTime extends GeneratedRecord {
 		}
 		this.last = last_local;
 	}
-	
+
 	public AccessTime(PropertyExpression propertyExpression) {
-		RecordValue recordValue = (RecordValue) propertyExpression;
-		
+		var recordValue = (RecordValue) propertyExpression;
+
 		Optional<IoTimeSpec> first_local;
 		try {
 			first_local = findFieldValue(recordValue, FIRST__NAME).map(field -> {
-				PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+				var resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
 				return new IoTimeSpec(resolved);
 			});
 		} catch (PropertyNotPresentException e) {
 			first_local = Optional.empty();
 		}
 		this.first = first_local;
-		
+
 		Optional<IoTimeSpec> last_local;
 		try {
 			last_local = findFieldValue(recordValue, LAST__NAME).map(field -> {
-				PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+				var resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
 				return new IoTimeSpec(resolved);
 			});
 		} catch (PropertyNotPresentException e) {
@@ -107,36 +106,36 @@ public class AccessTime extends GeneratedRecord {
 		}
 		this.last = last_local;
 	}
-	
+
 	public Optional<IoTimeSpec> getFirst() {
 		return first;
 	}
-	
+
 	public Optional<IoTimeSpec> getLast() {
 		return last;
 	}
-	
+
 	@Override
 	public RecordValue toPropertyExpression(ResourceSet resourceSet) {
-		if (!first.isPresent()
-				&& !last.isPresent()
+		if (first.isEmpty()
+				&& last.isEmpty()
 		) {
 			throw new IllegalStateException("Record must have at least one field set.");
 		}
-		RecordValue recordValue = Aadl2Factory.eINSTANCE.createRecordValue();
+		var recordValue = Aadl2Factory.eINSTANCE.createRecordValue();
 		first.ifPresent(field -> {
-			BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
+			var fieldAssociation = recordValue.createOwnedFieldValue();
 			fieldAssociation.setProperty(loadField(resourceSet, FIRST__URI, FIRST__NAME));
 			fieldAssociation.setOwnedValue(field.toPropertyExpression(resourceSet));
 		});
 		last.ifPresent(field -> {
-			BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
+			var fieldAssociation = recordValue.createOwnedFieldValue();
 			fieldAssociation.setProperty(loadField(resourceSet, LAST__URI, LAST__NAME));
 			fieldAssociation.setOwnedValue(field.toPropertyExpression(resourceSet));
 		});
 		return recordValue;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(
@@ -144,23 +143,22 @@ public class AccessTime extends GeneratedRecord {
 				last
 		);
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
 		}
-		if (!(obj instanceof AccessTime)) {
+		if (!(obj instanceof AccessTime other)) {
 			return false;
 		}
-		AccessTime other = (AccessTime) obj;
 		return Objects.equals(this.first, other.first)
 				&& Objects.equals(this.last, other.last);
 	}
-	
+
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
+		var builder = new StringBuilder();
 		builder.append('[');
 		this.first.ifPresent(field -> {
 			builder.append(FIRST__NAME);
