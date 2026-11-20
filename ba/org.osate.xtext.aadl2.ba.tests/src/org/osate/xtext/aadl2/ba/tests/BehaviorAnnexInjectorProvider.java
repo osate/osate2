@@ -23,14 +23,20 @@
  */
 package org.osate.xtext.aadl2.ba.tests;
 
-import org.eclipse.xtext.testing.IInjectorProvider;
+import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.xtext.aadl2.ba.BehaviorAnnexStandaloneSetup;
 
 import com.google.inject.Injector;
 
-public final class BehaviorAnnexInjectorProvider implements IInjectorProvider {
-    @Override
-    public Injector getInjector() {
-        return new BehaviorAnnexStandaloneSetup().createInjectorAndDoEMFRegistration();
-    }
+/**
+ * Initializes core AADL services before the standalone BA grammar and restores global registries between tests,
+ * so running formatter or grammar tests first does not affect later annex reference and rename tests.
+ */
+public final class BehaviorAnnexInjectorProvider extends Aadl2InjectorProvider {
+	@Override
+	protected Injector internalCreateInjector() {
+		// Initialize the imported core language before loading the BA grammar.
+		super.internalCreateInjector();
+		return new BehaviorAnnexStandaloneSetup().createInjectorAndDoEMFRegistration();
+	}
 }
